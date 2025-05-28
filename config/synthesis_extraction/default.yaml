@@ -1,0 +1,11 @@
+lm:
+  name: "gemini-2.0-flash"
+  temperature: 0.0
+
+architecture:
+  _target_: llm_synthesis.extraction.synthesis.StructuredSynthesisParser
+  signature: 
+    _target_: hydra.utils.get_class
+    path: llm_synthesis.extraction.synthesis.signatures.StructuredSynthesisSignature
+
+  # system_prompt: wip

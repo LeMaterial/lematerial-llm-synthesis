@@ -1,0 +1,38 @@
+from fsspec.implementations.local import LocalFileSystem
+
+from llm_synthesis.services.storage.base_file_storage import BaseFileStorage
+
+
+class LocalFileStorage(BaseFileStorage):
+    def __init__(
+        self,
+    ):
+        self.fs = LocalFileSystem()
+
+    def read_bytes(self, file_path: str) -> bytes:
+        """Read a file and return its content as bytes."""
+        with self.fs.open(file_path, "rb") as file:
+            return file.read()
+    
+    def read_text(self, file_path: str) -> str:
+        """Read a file and return its content as string."""
+        with self.fs.open(file_path, "r", encoding="utf-8") as file:
+            return file.read()
+
+    def write_text(self, file_path: str, data: str) -> None:
+        """Write bytes data to a file."""
+        with self.fs.open(file_path, "w+", encoding="utf-8") as file:
+            file.write(data)
+
+    def list_files(self, dir: str, extension: str = "pdf") -> list[str]:
+        """
+        List all files in the specified directory with the given file extension.
+
+        Args:
+            dir (str): The directory path where files should be listed.
+            extension (str, optional): The file extension to filter by. Defaults to "pdf".
+
+        Returns:
+            list[str]: A list of file names matching the specified extension in the given directory.
+        """
+        return self.fs.glob(f"{dir}/*.{extension}")

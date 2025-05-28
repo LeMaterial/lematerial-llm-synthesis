@@ -1,0 +1,12 @@
+# lm:
+#   name: "gemini-2.0-flash"
+#   temperature: 0.0
+# TODO: different LLM for paragraph extraction and synthesis extraction
+
+architecture:
+  _target_: llm_synthesis.extraction.text.paragraph_parser.ParagraphParser
+  signature: 
+    _target_: hydra.utils.get_class
+    path: llm_synthesis.extraction.text.signatures.TextToParagraphSignature
+
+  # system_prompt: wip

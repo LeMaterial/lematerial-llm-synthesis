@@ -1,0 +1,1 @@
+from llm_synthesis.ontologies.general import GeneralSynthesisOntology
