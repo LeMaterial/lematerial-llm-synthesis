@@ -3,6 +3,8 @@
 import argparse
 import os
 
+from dotenv import load_dotenv
+
 from llm_synthesis.services.pdf_extraction.pdf_extractor_factory import (
     PDFExtractorEnum,
     create_pdf_extractor,
@@ -31,6 +33,10 @@ if __name__ == "__main__":
 
     base_path = args.base_path
     extraction_process = args.process
+
+    load_dotenv()
+    os.makedirs(os.path.join(base_path, "pdf_files"), exist_ok=True)
+    os.makedirs(os.path.join(base_path, "txt_files", extraction_process.value), exist_ok=True)
 
     file_storage = create_file_storage(
         base_path,
