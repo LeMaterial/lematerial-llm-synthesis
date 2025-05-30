@@ -18,12 +18,21 @@ uv sync
 uv pip install -e .
 ```
 
+### Mac installation: 
 If using Mistral OCR, make sure to save your MISTRAL_API_KEY in the `.env` file:
 ```bash
 MISTRAL_API_KEY=your_api_key_here
 ```
 
-If using Gemini or OpenAI LLMs, make sure to add `GEMINI_API_KEY` and `OPENAI_API_KEY` to your `.env` file. To access Google Cloud storage, make sure to include the path to your service account under `GOOGLE_APPLICATION_CREDENTIALS=/path/to/service/account.json`
+### Windows installation:
+The `.env` file method does not work on a windows machine for the dspy module employed by this repo. Instead, add your API keys to the global environment variables on your windows machine: 
+
+Search bar --> Edit the system environment variables --> Advanced --> click "Environment Variables..." --> under "User variables for <your-username>" click "New" --> Variable Name: OPEN_API_KEY Variable value: your_api_key_here
+
+Then, for lines calling for your OPEN_API_KEY key, add the following line: 
+`api_key=os.environ.get("OPENAI_API_KEY")`
+
+If using Gemini or OpenAI LLMs, make sure to add `GEMINI_API_KEY` and `OPENAI_API_KEY` to your `.env` file/Environment variables. To access Google Cloud storage, make sure to include the path to your service account under `GOOGLE_APPLICATION_CREDENTIALS=/path/to/service/account.json`
 
 
 ## Using the command line interface
