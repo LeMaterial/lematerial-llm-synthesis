@@ -9,7 +9,7 @@ LeMaterial's LLM-based academic paper parsing module
 This project uses uv as a package and project manager, see [https://github.com/astral-sh/uv?tab=readme-ov-file#installation](here) for installation instructions.
 
 ```bash
-git clone https://github.com/LeMaterial/lematerial-synthesis-parser
+git clone https://github.com/LeMaterial/lematerial-llm-synthesis
 # 1️⃣ only the first time to start the venv
 uv venv -p 3.11 --seed
 # Install project dependencies using uv
