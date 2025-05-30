@@ -63,7 +63,8 @@ For example, this will extract text from `./data/pdf_papers` and write the resul
 uv run scripts/extract_text_from_pdfs.py --base-path data/pdf_papers --process docling
 ```
 
-### Accessing the dataset (no PDF extraction needed) Coming soon! 
+### Accessing the dataset (no PDF extraction needed) 
+### Caution - HuggingFace dataset is not released yet. Coming soon! 
 
 Install the `huggingface-cli` and create an [access token](https://huggingface.co/settings/tokens/new?tokenType=read) for Huggingface. 
 
