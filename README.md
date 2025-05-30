@@ -6,23 +6,30 @@ LeMaterial's LLM-based academic paper parsing module
 ## Usage
 
 ### Installation
-This project uses uv as a package and project manager, see [https://github.com/astral-sh/uv?tab=readme-ov-file#installation](here) for installation instructions.
+
+This project uses **uv** as a package & project manager. See [uv’s README](https://github.com/astral-sh/uv?tab=readme-ov-file#installation) for installation instructions.
 
 ```bash
-# 1. Clone & enter the repository
+# 1. Clone & enter the repo
 git clone https://github.com/LeMaterial/lematerial-llm-synthesis.git
 cd lematerial-llm-synthesis
 
 # 2. (First time only) create & seed venv
 uv venv -p 3.11 --seed
 
-# 3. Install deps & package
+# 3. Install dependencies & package
 uv sync && uv pip install -e .
 
 # 4. Configure secrets
 cp .env.example .env
-# → edit .env: add MISTRAL_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, GOOGLE_APPLICATION_CREDENTIALS
+# → edit .env to add:
+#    MISTRAL_API_KEY
+#    OPENAI_API_KEY
+#    GEMINI_API_KEY
+#    GOOGLE_APPLICATION_CREDENTIALS
 ```
+
+Test if the installation ran correctly with `uv run python -c "import llm_synthesis"` (no error message should appear). You're all set!
 
 ## Using the command line interface
 
