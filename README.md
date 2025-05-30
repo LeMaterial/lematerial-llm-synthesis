@@ -9,22 +9,20 @@ LeMaterial's LLM-based academic paper parsing module
 This project uses uv as a package and project manager, see [https://github.com/astral-sh/uv?tab=readme-ov-file#installation](here) for installation instructions.
 
 ```bash
-git clone https://github.com/LeMaterial/lematerial-synthesis-parser
-# 1️⃣ only the first time to start the venv
+# 1. Clone & enter the repository
+git clone https://github.com/LeMaterial/lematerial-synthesis-parser.git
+cd lematerial-synthesis-parser
+
+# 2. (First time only) create & seed venv
 uv venv -p 3.11 --seed
-# Install project dependencies using uv
-uv sync 
-# Install the package in editable mode
-uv pip install -e .
+
+# 3. Install deps & package
+uv sync && uv pip install -e .
+
+# 4. Configure secrets
+cp .env.example .env
+# → edit .env: add MISTRAL_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, GOOGLE_APPLICATION_CREDENTIALS
 ```
-
-If using Mistral OCR, make sure to save your MISTRAL_API_KEY in the `.env` file:
-```bash
-MISTRAL_API_KEY=your_api_key_here
-```
-
-If using Gemini or OpenAI LLMs, make sure to add `GEMINI_API_KEY` and `OPENAI_API_KEY` to your `.env` file. To access Google Cloud storage, make sure to include the path to your service account under `GOOGLE_APPLICATION_CREDENTIALS=/path/to/service/account.json`
-
 
 ## Using the command line interface
 
