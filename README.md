@@ -60,12 +60,14 @@ uv run scripts/extract_text_from_pdfs.py --base-path <local or gcs path to the w
 For example, this will extract text from `./data/pdf_papers` and write the result to `./data/txt_papers/docling` using Docling:
 
 ```sh
-uv run scripts/extract_text_from_pdfs.py --base-path data/ --process docling
+uv run scripts/extract_text_from_pdfs.py --base-path data/pdf_papers --process docling
 ```
 
-### Accessing the dataset (no PDF extraction needed)
+### Accessing the dataset (no PDF extraction needed) Coming soon! 
 
-Install the `huggingface-cli` and create an [access token](https://huggingface.co/settings/tokens/new?tokenType=read) for Huggingface. Insert this token when prompted when running:
+Install the `huggingface-cli` and create an [access token](https://huggingface.co/settings/tokens/new?tokenType=read) for Huggingface. 
+
+Insert this token when prompted when running:
 
 ```
 huggingface-cli login
