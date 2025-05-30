@@ -2,6 +2,12 @@ from abc import ABC, abstractmethod
 
 
 class BaseFileStorage(ABC):
+
+    @abstractmethod
+    def create_dir(self, dir: str) -> None:
+        """Create a directory."""
+        pass
+
     @abstractmethod
     def read_bytes(self, filepath: str) -> bytes:
         """Read a file and return its content as bytes."""

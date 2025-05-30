@@ -9,6 +9,10 @@ class LocalFileStorage(BaseFileStorage):
     ):
         self.fs = LocalFileSystem()
 
+    def create_dir(self, dir: str) -> None:
+        """Create a directory."""
+        self.fs.makedirs(dir, exist_ok=True)
+
     def read_bytes(self, file_path: str) -> bytes:
         """Read a file and return its content as bytes."""
         with self.fs.open(file_path, "rb") as file:
