@@ -65,7 +65,7 @@ uv run scripts/extract_text_from_pdfs.py --base-path data/ --process docling
 
 ### Accessing the dataset (no PDF extraction needed)
 
-Install the `huggingface-cli` and create an access token for Huggingface.
+Install the `huggingface-cli` and create an [access token](https://huggingface.co/settings/tokens/new?tokenType=read) for Huggingface. Insert this token when prompted when running:
 
 ```
 huggingface-cli login
