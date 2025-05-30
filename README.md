@@ -49,7 +49,7 @@ No errors? You're all set!
 
 ## Usage
 
-### Text Extraction
+### Text Extraction (for PDFs only)
 
 For usage in a notebook, cf. `notebooks/pdf_extraction.ipynb`
 
@@ -62,6 +62,16 @@ For example, this will extract text from `./data/pdf_papers` and write the resul
 ```sh
 uv run scripts/extract_text_from_pdfs.py --base-path data/ --process docling
 ```
+
+### Accessing the dataset (no PDF extraction needed)
+
+Install the `huggingface-cli` and create an access token for Huggingface.
+
+```
+huggingface-cli login
+```
+
+This is needed to access our development dataset consisting of arXiV papers.
 
 
 ### Extracting a synthesis procedure from the parsed text
