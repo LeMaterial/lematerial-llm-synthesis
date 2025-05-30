@@ -28,6 +28,13 @@ cp .env.example .env
 #   GEMINI_API_KEY=your_api_key # if using Gemini models
 ```
 
+#### Load your API keys
+
+Before running the scripts, you need to load your API keys. For this you need to source the .env file. Run:
+
+```bash
+source .env
+```
 
 ### Windows
 
@@ -54,13 +61,17 @@ No errors? You're all set!
 For usage in a notebook, cf. `notebooks/pdf_extraction.ipynb`
 
 ```sh
-uv run scripts/extract_text_from_pdfs.py --base-path <local or gcs path to the working folder> --process <"docling" or "mistral">
+uv run scripts/extract_text_from_pdfs.py --input-path <local or gcs path to the folder containing the pdfs> --output-path <local or gcs path to the folder where the extracted text will be saved> --process <"docling" or "mistral">
 ```
 
 For example, this will extract text from `./data/pdf_papers` and write the result to `./data/txt_papers/docling` using Docling:
 
 ```sh
+<<<<<<< HEAD
 uv run scripts/extract_text_from_pdfs.py --base-path data/pdf_papers --process docling
+=======
+uv run scripts/extract_text_from_pdfs.py --input-path data/pdf_papers --output-path data/txt_papers/docling --process docling
+>>>>>>> 7627557237c73b3a3051620ec935b42cdb0d3fda
 ```
 
 ### Accessing the dataset (no PDF extraction needed) 
