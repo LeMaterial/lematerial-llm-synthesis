@@ -13,7 +13,7 @@ class LocalFileStorage(BaseFileStorage):
         """Read a file and return its content as bytes."""
         with self.fs.open(file_path, "rb") as file:
             return file.read()
-    
+
     def read_text(self, file_path: str) -> str:
         """Read a file and return its content as string."""
         with self.fs.open(file_path, "r", encoding="utf-8") as file:

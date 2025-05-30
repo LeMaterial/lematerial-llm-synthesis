@@ -36,7 +36,9 @@ if __name__ == "__main__":
 
     load_dotenv()
     os.makedirs(os.path.join(base_path, "pdf_files"), exist_ok=True)
-    os.makedirs(os.path.join(base_path, "txt_files", extraction_process.value), exist_ok=True)
+    os.makedirs(
+        os.path.join(base_path, "txt_files", extraction_process.value), exist_ok=True
+    )
 
     file_storage = create_file_storage(
         base_path,

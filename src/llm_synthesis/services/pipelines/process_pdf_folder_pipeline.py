@@ -40,7 +40,11 @@ class ProcessPDFFolderPipeline(BasePipeline):
 
         for pdf_file in pdf_files:
             pdf_content = self.file_storage.read_bytes(pdf_file)
-            extracted_text = self.pdf_extractor.extract_to_markdown_with_figures_embedded(pdf_content)
+            extracted_text = (
+                self.pdf_extractor.extract_to_markdown_with_figures_embedded(
+                    pdf_content
+                )
+            )
             txt_file = pdf_file.split("/")[-1].replace(".pdf", ".txt")
             self.file_storage.write_text(
                 os.path.join(self.output_dir, txt_file), extracted_text
