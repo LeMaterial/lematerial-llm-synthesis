@@ -17,10 +17,16 @@ from llm_synthesis.services.storage.file_storage_factory import create_file_stor
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract text from PDFs.")
     parser.add_argument(
-        "--base-path",
+        "--input-path",
         type=str,
-        default="data",
-        help="Path to the working directory (default: 'data')",
+        default="data/pdf_papers",
+        help="Path to the directory containing the PDFs",
+    )
+    parser.add_argument(
+        "--output-path",
+        type=str,
+        default="data/txt_papers/docling",
+        help="Path to the directory to save the extracted texts",
     )
     parser.add_argument(
         "--process",
@@ -31,23 +37,21 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    base_path = args.base_path
+    input_path = args.input_path
+    output_path = args.output_path
     extraction_process = args.process
 
-    load_dotenv()
-    os.makedirs(os.path.join(base_path, "pdf_files"), exist_ok=True)
-    os.makedirs(os.path.join(base_path, "txt_files", extraction_process.value), exist_ok=True)
-
     file_storage = create_file_storage(
-        base_path,
+        input_path,
     )
+    file_storage.create_dir(output_path)
     pdf_extractor = create_pdf_extractor(extraction_process)
 
     pipeline = ProcessPDFFolderPipeline(
         file_storage=file_storage,
         pdf_extractor=pdf_extractor,
-        input_dir=os.path.join(base_path, "pdf_files"),
-        output_dir=os.path.join(base_path, "txt_files", extraction_process.value),
+        input_dir=input_path,
+        output_dir=output_path,
     )
 
     pipeline.run()
