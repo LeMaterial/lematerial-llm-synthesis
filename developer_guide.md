@@ -1,5 +1,5 @@
 # Developer Guide
-This file contains information for developers for this project
+This file contains information for developers for this project. Please make sure to install the project as described in the [README.md](README.md).
 
 TL;DR
 ```
@@ -38,9 +38,12 @@ Get in touch with us -- preferably via the designated slack channel, feel free t
 
 ## Structure of this repository
 
-This repository contains
 ```
 .
+├── config
+│   ├── paragraph_extraction
+│   ├── synthesis_extraction
+│   └── config.yaml
 ├── notebooks/                   # Jupyter notebooks for exploration and demos
 ├── scripts/                     # Utility scripts and one-off tools (cf. README.md)
 ├── src/                         # Python source code
@@ -49,11 +52,14 @@ This repository contains
 │       │   ├── synthesis/       # Synthesis extraction modules
 │       │   ├── figures/         # Image extraction modules
 │       │   └── text/            # Synthesis paragraph extraction modules
-│       ├── ontologies/          # Domain ontologies and schema definitions
+│       ├── metrics
+│       ├── ontologies           # Domain ontologies and schema definitions
+│       ├── services             # Modules for processing PDFs to markdown files
 │       └── utils/               # Helper functions and common utilities
 ├── developer_guide.md           # This developer guide
 ├── LICENSE                      # Project license (Apache 2.0)
 ├── pyproject.toml               # Project configuration (dependencies, metadata), managed by uv
+├── README_DATA.md               # Description of the data and how to acquire and preprocess it
 ├── README.md                    # High-level project overview and quickstart
 └── uv.lock                      # Lockfile for uv package manager
 ```
@@ -61,31 +67,7 @@ This repository contains
 
 ## Installation
 
-* Clone the repository
-```
-git clone https://github.com/LeMaterial/lematerial-synthesis-parser.git
-cd lematerial-synthesis-parser
-```
-* Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/)
-* Create a virtual environment (first time only):
-```
-uv venv -p 3.11 --seed
-```
-* Install dependencies with `uv`:
-```
-uv sync
-```
-* Install the LLM-Synthesis package:
-```
-uv pip install -e .
-```
-* Environment variables: Create a `.env` file in the project root with any required API keys:
-```
-MISTRAL_API_KEY=your_mistral_key
-GEMINI_API_KEY=your_gemini_key
-OPENAI_API_KEY=your_openai_key
-```
-* Install the pre-commit hook:
+See the [README.md](README.md) for installation instructions. Make sure that the import `uv run python -c "import llm_synthesis"` works without error messages. Afterwards, install the pre-commit hook:
 ```
 uvx pre-commit install
 ```
