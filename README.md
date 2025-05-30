@@ -3,9 +3,7 @@
 # LeMaterial-Synthesis-Parser (LeMat-SynthP)
 LeMaterial's LLM-based academic paper parsing module 
 
-## Usage
-
-### Installation
+## Installation
 
 This project uses **uv** as a package & project manager. See [uv’s README](https://github.com/astral-sh/uv?tab=readme-ov-file#installation) for installation instructions.
 
@@ -19,19 +17,39 @@ uv venv -p 3.11 --seed
 
 # 3. Install dependencies & package
 uv sync && uv pip install -e .
-
-# 4. Configure secrets
-cp .env.example .env
-# → edit .env to add:
-#    MISTRAL_API_KEY
-#    OPENAI_API_KEY
-#    GEMINI_API_KEY
-#    GOOGLE_APPLICATION_CREDENTIALS
 ```
 
-Test if the installation ran correctly with `uv run python -c "import llm_synthesis"` (no error message should appear). You're all set!
+### macOS/Linux
+```bash
+cp .env.example .env
+# Edit `.env` to add:
+#   MISTRAL_API_KEY=your_api_key # if using Mistral models and Mistral OCR
+#   OPENAI_API_KEY=your_api_key # if using OpenAI models
+#   GEMINI_API_KEY=your_api_key # if using Gemini models
+#   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json # (full path to your JSON file)
+```
 
-## Using the command line interface
+
+### Windows
+
+* Search bar --> Edit the system environment variables --> Advanced --> click "Environment Variables..."
+* Under "User variables for <your-username>" click "New" and add each:
+    * Variable name: MISTRAL_API_KEY; Value: your_api_key
+    * Variable name: OPENAI_API_KEY; Value: your_api_key
+    * Variable name: GEMINI_API_KEY; Value: your_api_key
+    * Variable name: GOOGLE_APPLICATION_CREDENTIALS; Value: C:\path\to\service-account.json
+
+For any platform you can always load .env-style keys in code via `os.environ.get(...)`.
+
+### Verify installation
+
+```
+uv run python -c "import llm_synthesis"
+```
+
+No errors? You're all set!
+
+## Usage
 
 ### Text Extraction
 
