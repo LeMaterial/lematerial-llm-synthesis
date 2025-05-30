@@ -26,7 +26,6 @@ cp .env.example .env
 #   MISTRAL_API_KEY=your_api_key # if using Mistral models and Mistral OCR
 #   OPENAI_API_KEY=your_api_key # if using OpenAI models
 #   GEMINI_API_KEY=your_api_key # if using Gemini models
-#   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json # (full path to your JSON file)
 ```
 
 
@@ -59,17 +58,12 @@ For usage in a notebook, cf. `notebooks/pdf_extraction.ipynb`
 uv run scripts/extract_text_from_pdfs.py --base-path <local or gcs path to the working folder> --process <"docling" or "mistral">
 ```
 
-For example, this will extract text from `gcs://entalpic-prod-llm-synthesis-papers/test/pdf_files` and write the result to `gcs://entalpic-prod-llm-synthesis-papers/test/txt_files/docling` using Docling:
+For example, this will extract text from `./data/pdf_papers` and write the result to `./data/txt_papers/docling` using Docling:
 
 ```sh
-uv run scripts/extract_text_from_pdfs.py --base-path gcs://entalpic-prod-llm-synthesis-papers/test --process docling
+uv run scripts/extract_text_from_pdfs.py --base-path data/ --process docling
 ```
 
-For local usage, this will extract text from `data/pdf_files` and write the result to `data/txt_files/docling` using Docling:
-
-```sh
-uv run scripts/extract_text_from_pdfs.py --base-path data --process docling
-```
 
 ### Extracting a synthesis procedure from the parsed text
 
