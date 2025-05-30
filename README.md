@@ -10,8 +10,8 @@ This project uses uv as a package and project manager, see [https://github.com/a
 
 ```bash
 # 1. Clone & enter the repository
-git clone https://github.com/LeMaterial/lematerial-synthesis-parser.git
-cd lematerial-synthesis-parser
+git clone https://github.com/LeMaterial/lematerial-llm-synthesis.git
+cd lematerial-llm-synthesis
 
 # 2. (First time only) create & seed venv
 uv venv -p 3.11 --seed
