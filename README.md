@@ -36,7 +36,6 @@ cp .env.example .env
     * Variable name: MISTRAL_API_KEY; Value: your_api_key
     * Variable name: OPENAI_API_KEY; Value: your_api_key
     * Variable name: GEMINI_API_KEY; Value: your_api_key
-    * Variable name: GOOGLE_APPLICATION_CREDENTIALS; Value: C:\path\to\service-account.json
 
 For any platform you can always load .env-style keys in code via `os.environ.get(...)`.
 
