@@ -3,30 +3,52 @@
 # LeMaterial-Synthesis-Parser (LeMat-SynthP)
 LeMaterial's LLM-based academic paper parsing module 
 
-## Usage
+## Installation
 
-### Installation
-This project uses uv as a package and project manager, see [https://github.com/astral-sh/uv?tab=readme-ov-file#installation](here) for installation instructions.
+This project uses **uv** as a package & project manager. See [uv’s README](https://github.com/astral-sh/uv?tab=readme-ov-file#installation) for installation instructions.
 
 ```bash
-git clone https://github.com/LeMaterial/lematerial-synthesis-parser
-# 1️⃣ only the first time to start the venv
+# 1. Clone & enter the repo
+git clone https://github.com/LeMaterial/lematerial-llm-synthesis.git
+cd lematerial-llm-synthesis
+
+# 2. (First time only) create & seed venv
 uv venv -p 3.11 --seed
-# Install project dependencies using uv
-uv sync 
-# Install the package in editable mode
-uv pip install -e .
+
+# 3. Install dependencies & package
+uv sync && uv pip install -e .
 ```
 
-If using Mistral OCR, make sure to save your MISTRAL_API_KEY in the `.env` file:
+### macOS/Linux
 ```bash
-MISTRAL_API_KEY=your_api_key_here
+cp .env.example .env
+# Edit `.env` to add:
+#   MISTRAL_API_KEY=your_api_key # if using Mistral models and Mistral OCR
+#   OPENAI_API_KEY=your_api_key # if using OpenAI models
+#   GEMINI_API_KEY=your_api_key # if using Gemini models
 ```
 
-If using Gemini or OpenAI LLMs, make sure to add `GEMINI_API_KEY` and `OPENAI_API_KEY` to your `.env` file. To access Google Cloud storage, make sure to include the path to your service account under `GOOGLE_APPLICATION_CREDENTIALS=/path/to/service/account.json`
 
+### Windows
 
-## Using the command line interface
+* Search bar --> Edit the system environment variables --> Advanced --> click "Environment Variables..."
+* Under "User variables for <your-username>" click "New" and add each:
+    * Variable name: MISTRAL_API_KEY; Value: your_api_key
+    * Variable name: OPENAI_API_KEY; Value: your_api_key
+    * Variable name: GEMINI_API_KEY; Value: your_api_key
+    * Variable name: GOOGLE_APPLICATION_CREDENTIALS; Value: C:\path\to\service-account.json
+
+For any platform you can always load .env-style keys in code via `os.environ.get(...)`.
+
+### Verify installation
+
+```
+uv run python -c "import llm_synthesis"
+```
+
+No errors? You're all set!
+
+## Usage
 
 ### Text Extraction
 
@@ -36,17 +58,12 @@ For usage in a notebook, cf. `notebooks/pdf_extraction.ipynb`
 uv run scripts/extract_text_from_pdfs.py --base-path <local or gcs path to the working folder> --process <"docling" or "mistral">
 ```
 
-For example, this will extract text from `gcs://entalpic-prod-llm-synthesis-papers/test/pdf_files` and write the result to `gcs://entalpic-prod-llm-synthesis-papers/test/txt_files/docling` using Docling:
+For example, this will extract text from `./data/pdf_papers` and write the result to `./data/txt_papers/docling` using Docling:
 
 ```sh
-uv run scripts/extract_text_from_pdfs.py --base-path gcs://entalpic-prod-llm-synthesis-papers/test --process docling
+uv run scripts/extract_text_from_pdfs.py --base-path data/ --process docling
 ```
 
-For local usage, this will extract text from `data/pdf_files` and write the result to `data/txt_files/docling` using Docling:
-
-```sh
-uv run scripts/extract_text_from_pdfs.py --base-path data --process docling
-```
 
 ### Extracting a synthesis procedure from the parsed text
 
