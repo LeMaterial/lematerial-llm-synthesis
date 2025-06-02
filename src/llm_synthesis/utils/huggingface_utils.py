@@ -13,7 +13,7 @@ def load_huggingface_data(cfg: DictConfig) -> Dict[str, Dict[str, str]]:
     Returns:
         Dict[str, Dict[str, str]]: Dictionary with id as key and markdown_text as value
     """
-    dataset = load_dataset(cfg.data.dataset_name, split=cfg.data.split)
+    dataset = load_dataset(cfg.data_fetching.dataset_name, split=cfg.data_fetching.split)
 
     # save the id, markdown_text as key-value pairs.
     data = {item["id"]: {"publication_text": item["markdown_text"]} for item in dataset}

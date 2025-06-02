@@ -14,10 +14,10 @@ def load_data(cfg: DictConfig) -> Dict[str, str]:
     """
     Loads data from either Hugging Face or local directory.
     """
-    if cfg.data.source == "huggingface":
+    if cfg.data_fetching.source == "huggingface":
         data = load_huggingface_data(cfg)
-    elif cfg.data.source == "local":
-        files = os.listdir(cfg.data.directory)
+    elif cfg.data_fetching.source == "local":
+        files = os.listdir(cfg.data_fetching.directory)
         data = {}
         for file in files:
             stem_name = file.split(".")[0]
@@ -25,15 +25,15 @@ def load_data(cfg: DictConfig) -> Dict[str, str]:
                 continue
             data[stem_name] = {
                 "publication_text": open(
-                    os.path.join(cfg.data.directory, file), "r"
+                    os.path.join(cfg.data_fetching.directory, file), "r"
                 ).read(),
                 "si_text": open(
-                    os.path.join(cfg.data.directory, file.replace(".txt", "_SI.txt")),
+                    os.path.join(cfg.data_fetching.directory, file.replace(".txt", "_SI.txt")),
                     "r",
                 ).read(),
             }
     else:
-        raise NotImplementedError(f"Data source {cfg.data.source} not implemented")
+        raise NotImplementedError(f"Data source {cfg.data_fetching.source} not implemented")
 
     return data
 
@@ -44,7 +44,7 @@ def load_models(cfg: DictConfig) -> Tuple[dspy.Module, dspy.Module]:
         model_kwargs={"temperature": cfg.synthesis_extraction.lm.temperature},
     )
     # TODO: load different LLMs for paragraph extraction and synthesis extraction
-    if cfg.data.pre_processing != "paragraph_extraction":
+    if cfg.data_fetching.pre_processing != "paragraph_extraction":
         raise NotImplementedError("Only paragraph extraction is implemented for now")
     paragraph_parser = instantiate(cfg.paragraph_extraction.architecture)
     synthesis_parser = instantiate(cfg.synthesis_extraction.architecture)
