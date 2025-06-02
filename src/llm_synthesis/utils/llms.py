@@ -38,6 +38,9 @@ LLM_REGISTRY = LLMRegistry(
         "gemini-2.5-pro": LLMConfig(model="gemini/gemini-2.5-pro-preview-05-06"),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),
+        "gpt-o4-mini": LLMConfig(model="openai/o4-mini-2025-04-16"),
+        "gpt-o3-mini": LLMConfig(model="openai/o3-mini-2025-01-31"),
+        "gpt-4.1": LLMConfig(model="openai/gpt-4.1-2025-04-14"),
         "mistral-small": LLMConfig(
             model="openai/mistral-small-latest",
             api_key=os.getenv("MISTRAL_API_KEY"),
