@@ -17,7 +17,7 @@ class GCSFileStorage(BaseFileStorage):
         """Read a PDF file from GCS and return its content as bytes."""
         with self.fs.open(file_path, "rb") as file:
             return file.read()
-        
+
     def read_text(self, file_path: str) -> str:
         """Read text data from a file in GCS and return it as a string."""
         with self.fs.open(file_path, "r", encoding="utf-8") as file:
