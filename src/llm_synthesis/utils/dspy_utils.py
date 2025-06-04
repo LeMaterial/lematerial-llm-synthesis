@@ -20,8 +20,9 @@ def get_llm_from_name(llm_name: str, model_kwargs: dict) -> dspy.LM:
     try:
         cfg: LLMConfig = LLM_REGISTRY.configs[llm_name]
     except KeyError:
+        available_models = list(LLM_REGISTRY.configs.keys())
         raise ValueError(
-            f"LLM name {llm_name!r} not supported. Available: {list(LLM_REGISTRY)}"
+            f"LLM name {llm_name!r} not supported. Available: {available_models}"
         )
 
     if cfg.api_key:
