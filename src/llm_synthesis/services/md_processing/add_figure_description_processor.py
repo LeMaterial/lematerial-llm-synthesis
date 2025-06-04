@@ -6,7 +6,7 @@ from llm_synthesis.services.md_processing.base_md_processor import (
     BaseMarkdownProcessor,
 )
 from llm_synthesis.utils.figure_utils import (
-    clean_text_from_images,  # Added for performance optimization
+    clean_text_from_images,
     find_figures_in_markdown,
     insert_figure_description,
     validate_base64_image,
@@ -18,11 +18,11 @@ class AddFigureDescriptionsProcessor(BaseMarkdownProcessor):
     A processor that adds descriptions to figures in markdown content.
 
     Attributes:
-        figure_description: A string containing the description to be added to figures.
+        delay_between_requests: Delay between API calls in seconds.
+        figure_parser: Parser for generating figure descriptions.
     """
 
-    def __init__(self, context_window: int = 500, delay_between_requests=10.0):
-        self.context_window = context_window
+    def __init__(self, delay_between_requests: float = 10.0):
         self.delay_between_requests = delay_between_requests
         self.figure_parser = EnhancedFigureParser()
 
@@ -58,7 +58,9 @@ class AddFigureDescriptionsProcessor(BaseMarkdownProcessor):
 
         # LOGIC FIX: Process figures in reverse order to avoid position offset issues
         for i, figure_info in enumerate(reversed(figures)):
-            time.sleep(self.delay_between_requests)
+            if self.delay_between_requests > 0:
+                time.sleep(self.delay_between_requests)
+
             figure_num = len(figures) - i
             print(
                 f"Processing figure {figure_num}/{len(figures)}: {figure_info.figure_reference}"
@@ -71,17 +73,19 @@ class AddFigureDescriptionsProcessor(BaseMarkdownProcessor):
                 )
                 continue
 
-            # Prepare context for description generation
-            caption_context = figure_info.context_before + figure_info.context_after
+            # Prepare context for description generation (also clean it)
+            caption_context = clean_text_from_images(
+                figure_info.context_before + figure_info.context_after
+            )
 
             try:
                 # Generate description using pre-cleaned text
                 description = self.figure_parser.describe_figure(
-                    publication_text=clean_main_text,  # Use pre-cleaned text
+                    publication_text=clean_main_text,
                     figure_base64=figure_info.base64_data,
                     caption_context=caption_context,
                     figure_position_info=figure_info.figure_reference,
-                    si_text=clean_extra_text,  # Use pre-cleaned text
+                    si_text=clean_extra_text,
                 )
 
                 print(f"  Generated description: {description[:100]}...")
