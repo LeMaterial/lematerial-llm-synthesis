@@ -1,12 +1,12 @@
 import time
 from typing import Optional
 
+from llm_synthesis.extraction.figures.figure_parser import EnhancedFigureParser
 from llm_synthesis.services.md_processing.base_md_processor import (
     BaseMarkdownProcessor,
 )
-from llm_synthesis.extraction.figures.figure_parser import EnhancedFigureParser
 from llm_synthesis.utils.figure_utils import (
-    FigureInfo,
+    clean_text_from_images,  # Added for performance optimization
     find_figures_in_markdown,
     insert_figure_description,
     validate_base64_image,
@@ -43,14 +43,25 @@ class AddFigureDescriptionsProcessor(BaseMarkdownProcessor):
         figures = find_figures_in_markdown(markdown_data)
         print(f"Found {len(figures)} figures")
 
+        if not figures:
+            print("No figures found, returning original markdown")
+            return markdown_data
+
+        # PERFORMANCE OPTIMIZATION: Pre-clean text once to avoid repeated cleaning
+        clean_main_text = clean_text_from_images(markdown_data)
+        clean_extra_text = (
+            clean_text_from_images(extra_markdown_data) if extra_markdown_data else ""
+        )
+
         # Generate descriptions for each figure
         enhanced_markdown = markdown_data
-        offset = 0  # Track text length changes as we insert descriptions
 
-        for i, figure_info in enumerate(figures):
+        # LOGIC FIX: Process figures in reverse order to avoid position offset issues
+        for i, figure_info in enumerate(reversed(figures)):
             time.sleep(self.delay_between_requests)
+            figure_num = len(figures) - i
             print(
-                f"Processing figure {i + 1}/{len(figures)}: {figure_info.figure_reference}"
+                f"Processing figure {figure_num}/{len(figures)}: {figure_info.figure_reference}"
             )
 
             # Validate the image data
@@ -64,34 +75,21 @@ class AddFigureDescriptionsProcessor(BaseMarkdownProcessor):
             caption_context = figure_info.context_before + figure_info.context_after
 
             try:
-                # Generate description
+                # Generate description using pre-cleaned text
                 description = self.figure_parser.describe_figure(
-                    publication_text=markdown_data,  # Use text without base64 for context
+                    publication_text=clean_main_text,  # Use pre-cleaned text
                     figure_base64=figure_info.base64_data,
                     caption_context=caption_context,
                     figure_position_info=figure_info.figure_reference,
-                    si_text=extra_markdown_data or "",
+                    si_text=clean_extra_text,  # Use pre-cleaned text
                 )
 
                 print(f"  Generated description: {description[:100]}...")
 
-                # Adjust figure position for the offset
-                adjusted_figure_info = FigureInfo(
-                    base64_data=figure_info.base64_data,
-                    alt_text=figure_info.alt_text,
-                    position=figure_info.position + offset,
-                    context_before=figure_info.context_before,
-                    context_after=figure_info.context_after,
-                    figure_reference=figure_info.figure_reference,
-                )
-
-                # Insert description into markdown
-                old_length = len(enhanced_markdown)
+                # Insert description into markdown (no offset adjustment needed in reverse order)
                 enhanced_markdown = insert_figure_description(
-                    enhanced_markdown, adjusted_figure_info, description
+                    enhanced_markdown, figure_info, description
                 )
-                new_length = len(enhanced_markdown)
-                offset += new_length - old_length
 
             except Exception as e:
                 print(f"  Error processing {figure_info.figure_reference}: {str(e)}")
