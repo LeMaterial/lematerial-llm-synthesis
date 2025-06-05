@@ -1,5 +1,3 @@
-from typing import Optional
-
 import dspy
 
 from llm_synthesis.extraction.figures.signatures import (
@@ -15,9 +13,16 @@ class FigureParser(dspy.Module):
     def __init__(self):
         self.predict = dspy.Predict(FigureExtractionSignature)
 
-    def __call__(self, publication_text: str, si_text: str, figure_bs64: str) -> str:
+    def __call__(
+        self,
+        publication_text: str,
+        si_text: str,
+        figure_bs64: str,
+    ) -> str:
         return self.predict(
-            publication_text=publication_text, si_text=si_text, figure_bs64=figure_bs64
+            publication_text=publication_text,
+            si_text=si_text,
+            figure_bs64=figure_bs64,
         )
 
 
@@ -38,7 +43,7 @@ class EnhancedFigureParser(dspy.Module):
         figure_base64: str,
         caption_context: str,
         figure_position_info: str,
-        si_text: Optional[str] = None,
+        si_text: str | None = None,
     ) -> str:
         """
         Generate a detailed description for a single figure.
@@ -47,11 +52,13 @@ class EnhancedFigureParser(dspy.Module):
             publication_text: Main text of the research paper
             figure_base64: Base64 encoded figure image
             caption_context: Text context around the figure position
-            figure_position_info: Figure identifier (e.g., "Figure 2", "Fig. 3a")
+            figure_position_info: Figure identifier (e.g., "Figure 2",
+                "Fig. 3a")
             si_text: Optional supporting information text
 
         Returns:
-            Detailed scientific description of the figure, or "NON_SCIENTIFIC_FIGURE" for non-scientific images
+            Detailed scientific description of the figure, or
+            "NON_SCIENTIFIC_FIGURE" for non-scientific images
         """
         si_text = si_text or ""
 
@@ -76,7 +83,7 @@ class EnhancedFigureParser(dspy.Module):
         figure_base64: str,
         caption_context: str,
         figure_position_info: str,
-        si_text: Optional[str] = None,
+        si_text: str | None = None,
     ) -> str:
         """Compatibility method for the existing signature interface."""
         return self.describe_figure(

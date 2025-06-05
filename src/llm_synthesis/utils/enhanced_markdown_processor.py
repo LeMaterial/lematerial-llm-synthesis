@@ -1,11 +1,10 @@
 import time
 from pathlib import Path
-from typing import List, Optional
 
 from llm_synthesis.extraction.figures.figure_parser import EnhancedFigureParser
 from llm_synthesis.utils.dspy_utils import configure_dspy
 from llm_synthesis.utils.figure_utils import (
-    FigureInfo,
+    clean_text_from_images,  # Added for performance optimization
     find_figures_in_markdown,
     insert_figure_description,
     validate_base64_image,
@@ -15,7 +14,8 @@ from llm_synthesis.utils.parse_utils import extract_markdown
 
 class EnhancedMarkdownProcessor:
     """
-    Enhanced markdown processor that extracts figures and generates descriptions.
+    Enhanced markdown processor that extracts figures and generates
+    descriptions.
 
     This class orchestrates the entire process of:
     1. Extracting markdown from PDF(s)
@@ -30,16 +30,16 @@ class EnhancedMarkdownProcessor:
     def process_paper_with_descriptions(
         self,
         pdf_path: str,
-        si_pdf_path: Optional[str] = None,
+        si_pdf_path: str | None = None,
         engine: str = "mistral",
-        root_dir: Optional[str] = None,
+        root_dir: str | None = None,
         save_output: bool = True,
-        context_window: int = 500,
-        delay_between_requests=10.0,
+        delay_between_requests: float = 10.0,
         **kwargs,
     ) -> str:
         """
-        Process a research paper PDF and generate enhanced markdown with figure descriptions.
+        Process a research paper PDF and generate enhanced markdown with
+        figure descriptions.
 
         Args:
             pdf_path: Path to the main paper PDF
@@ -47,7 +47,7 @@ class EnhancedMarkdownProcessor:
             engine: Extraction engine ("mistral" or "docling")
             root_dir: Root directory for outputs
             save_output: Whether to save the enhanced markdown
-            context_window: Context window size around figures
+            delay_between_requests: Delay between API calls in seconds
             **kwargs: Additional arguments for extract_markdown
 
         Returns:
@@ -84,66 +84,79 @@ class EnhancedMarkdownProcessor:
         figures = find_figures_in_markdown(main_markdown)
         print(f"Found {len(figures)} figures")
 
+        if not figures:
+            print("No figures found, returning original markdown")
+            return main_markdown
+
+        # PERFORMANCE OPTIMIZATION: Pre-clean text once to avoid repeated
+        # cleaning
+        clean_main_text = clean_text_from_images(main_markdown)
+        clean_si_text = (
+            clean_text_from_images(si_markdown) if si_markdown else ""
+        )
+
         # Generate descriptions for each figure
         enhanced_markdown = main_markdown
-        offset = 0  # Track text length changes as we insert descriptions
 
-        for i, figure_info in enumerate(figures):
-            time.sleep(delay_between_requests)
+        # LOGIC FIX: Process figures in reverse order to avoid position offset
+        # issues
+        for i, figure_info in enumerate(reversed(figures)):
+            if delay_between_requests > 0:
+                time.sleep(delay_between_requests)
+
+            figure_num = len(figures) - i
             print(
-                f"Processing figure {i + 1}/{len(figures)}: {figure_info.figure_reference}"
+                f"Processing figure {figure_num}/{len(figures)}: "
+                f"{figure_info.figure_reference}"
             )
 
             # Validate the image data
             if not validate_base64_image(figure_info.base64_data):
                 print(
-                    f"  Skipping invalid image data for {figure_info.figure_reference}"
+                    f"  Skipping invalid image data for "
+                    f"{figure_info.figure_reference}"
                 )
                 continue
 
-            # Prepare context for description generation
-            caption_context = figure_info.context_before + figure_info.context_after
+            # Prepare context for description generation (also clean it)
+            caption_context = clean_text_from_images(
+                figure_info.context_before + figure_info.context_after
+            )
 
             try:
-                # Generate description
+                # Generate description using pre-cleaned text
                 description = self.figure_parser.describe_figure(
-                    publication_text=main_markdown,  # Use text without base64 for context
+                    publication_text=clean_main_text,  # Use pre-cleaned text
                     figure_base64=figure_info.base64_data,
                     caption_context=caption_context,
                     figure_position_info=figure_info.figure_reference,
-                    si_text=si_markdown,
+                    si_text=clean_si_text,  # Use pre-cleaned text
                 )
 
                 print(f"  Generated description: {description[:100]}...")
 
-                # Adjust figure position for the offset
-                adjusted_figure_info = FigureInfo(
-                    base64_data=figure_info.base64_data,
-                    alt_text=figure_info.alt_text,
-                    position=figure_info.position + offset,
-                    context_before=figure_info.context_before,
-                    context_after=figure_info.context_after,
-                    figure_reference=figure_info.figure_reference,
-                )
-
-                # Insert description into markdown
-                old_length = len(enhanced_markdown)
+                # Insert description into markdown (no offset adjustment
+                # needed in reverse order)
                 enhanced_markdown = insert_figure_description(
-                    enhanced_markdown, adjusted_figure_info, description
+                    enhanced_markdown, figure_info, description
                 )
-                new_length = len(enhanced_markdown)
-                offset += new_length - old_length
 
             except Exception as e:
-                print(f"  Error processing {figure_info.figure_reference}: {str(e)}")
+                print(
+                    f"  Error processing {figure_info.figure_reference!s}: "
+                    f"{str(e)!s}"
+                )
                 continue
 
         # Save enhanced markdown if requested
         if save_output and root_dir:
-            output_path = self._save_enhanced_markdown(
-                enhanced_markdown, pdf_path, engine, root_dir
-            )
-            print(f"Saved enhanced markdown to: {output_path}")
+            try:
+                output_path = self._save_enhanced_markdown(
+                    enhanced_markdown, pdf_path, engine, root_dir
+                )
+                print(f"Saved enhanced markdown to: {output_path}")
+            except Exception as e:
+                print(f"Error saving enhanced markdown: {str(e)!s}")
 
         return enhanced_markdown
 
@@ -171,12 +184,12 @@ class EnhancedMarkdownProcessor:
 
     def process_multiple_papers(
         self,
-        pdf_paths: List[str],
-        si_pdf_paths: Optional[List[str]] = None,
+        pdf_paths: list[str],
+        si_pdf_paths: list[str] | None = None,
         engine: str = "mistral",
-        root_dir: Optional[str] = None,
+        root_dir: str | None = None,
         **kwargs,
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Process multiple papers and generate enhanced markdown for each.
 
@@ -193,6 +206,11 @@ class EnhancedMarkdownProcessor:
         if si_pdf_paths is None:
             si_pdf_paths = [None] * len(pdf_paths)
 
+        if len(si_pdf_paths) != len(pdf_paths):
+            raise ValueError(
+                "Length of si_pdf_paths must match pdf_paths if provided"
+            )
+
         results = []
         for i, (pdf_path, si_path) in enumerate(zip(pdf_paths, si_pdf_paths)):
             print(f"\n=== Processing paper {i + 1}/{len(pdf_paths)} ===")
@@ -206,7 +224,7 @@ class EnhancedMarkdownProcessor:
                 )
                 results.append(enhanced_md)
             except Exception as e:
-                print(f"Error processing {pdf_path}: {str(e)}")
+                print(f"Error processing {pdf_path!s}: {str(e)!s}")
                 results.append("")
 
         return results
@@ -215,11 +233,12 @@ class EnhancedMarkdownProcessor:
 # Convenience function for easy usage
 def process_paper_with_figure_descriptions(
     pdf_path: str,
-    si_pdf_path: Optional[str] = None,
+    si_pdf_path: str | None = None,
     engine: str = "mistral",
     llm_name: str = "gpt-4o",
-    model_kwargs: Optional[dict] = {"temperature": 0.1, "max_tokens": 2000},
-    root_dir: Optional[str] = None,
+    model_kwargs: dict | None = None,
+    root_dir: str | None = None,
+    save_output: bool = False,
     **kwargs,
 ) -> str:
     """
@@ -237,6 +256,8 @@ def process_paper_with_figure_descriptions(
     Returns:
         Enhanced markdown with figure descriptions
     """
+    if model_kwargs is None:
+        model_kwargs = {"temperature": 0.1, "max_tokens": 2000}
 
     # Configure DSPy with the specified LLM
     configure_dspy(llm_name, model_kwargs)
@@ -248,5 +269,6 @@ def process_paper_with_figure_descriptions(
         si_pdf_path=si_pdf_path,
         engine=engine,
         root_dir=root_dir,
+        save_output=save_output,
         **kwargs,
     )
