@@ -1,16 +1,16 @@
-# TODO: add public API here -- fucntions to be accessible to public
+# TODO: add public API here -- functions to be accessible to public
 
 # Public API exports
-from llm_synthesis.extraction.plots import (
-    ComprehensivePlotParser,
-    ExtractedPlotData,
-)
+from llm_synthesis.extraction.plots.plot_parser import ComprehensivePlotParser
+from llm_synthesis.extraction.plots.signatures import ExtractedPlotData
 from llm_synthesis.utils import (
     EnhancedMarkdownProcessor,
-    EnhancedPlotProcessor,
     configure_dspy,
     extract_markdown,
     process_paper_with_figure_descriptions,
+)
+from llm_synthesis.utils.enhanced_plot_processor import (
+    EnhancedPlotProcessor,
     process_paper_with_plot_extraction,
 )
 
