@@ -1,16 +1,18 @@
-"""Script that extracts text from a directory called pdf_papers and saves it to a directory called txt_papers."""
+"""Script that extracts text from a directory called pdf_papers
+and saves it to a directory called txt_papers."""
 
 import argparse
 
-
-from llm_synthesis.services.pdf_extraction.pdf_extractor_factory import (
-    PDFExtractorEnum,
-    create_pdf_extractor,
-)
 from llm_synthesis.services.pipelines.process_pdf_folder_pipeline import (
     ProcessPDFFolderPipeline,
 )
-from llm_synthesis.services.storage.file_storage_factory import create_file_storage
+from llm_synthesis.services.storage.file_storage_factory import (
+    create_file_storage,
+)
+from llm_synthesis.transformers.pdf_extraction.pdf_extractor_factory import (
+    PDFExtractorEnum,
+    create_pdf_extractor,
+)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract text from PDFs.")
