@@ -1,9 +1,7 @@
 """Script that extracts text from a directory called pdf_papers and saves it to a directory called txt_papers."""
 
 import argparse
-import os
 
-from dotenv import load_dotenv
 
 from llm_synthesis.services.pdf_extraction.pdf_extractor_factory import (
     PDFExtractorEnum,

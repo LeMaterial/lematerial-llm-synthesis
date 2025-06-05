@@ -9,3 +9,8 @@ repos:
             args: ["--fix"]
           # Run the formatter with auto-fixing enabled
           - id: ruff-format
+
+    - repo: https://github.com/kynan/nbstripout
+      rev: 0.8.1
+      hooks:
+        -   id: nbstripout

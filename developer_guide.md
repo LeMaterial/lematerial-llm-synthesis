@@ -1,7 +1,9 @@
 # Developer Guide
+
 This file contains information for developers for this project. Please make sure to install the project as described in the [README.md](README.md).
 
 TL;DR
+
 ```
 uv sync
 uv pip install -e .
@@ -64,10 +66,10 @@ Get in touch with us -- preferably via the designated slack channel, feel free t
 └── uv.lock                      # Lockfile for uv package manager
 ```
 
-
 ## Installation
 
 See the [README.md](README.md) for installation instructions. Make sure that the import `uv run python -c "import llm_synthesis"` works without error messages. Afterwards, install the pre-commit hook:
+
 ```
 uvx pre-commit install
 ```
@@ -75,7 +77,8 @@ uvx pre-commit install
 ## Git Best Practices
 
 ### Branches
-The main branch is reserved for the stable version of the code. When adding a new feature, we open a new *branch* and *merge* it with the main branch using a *pull request*:
+
+The main branch is reserved for the stable version of the code. When adding a new feature, we open a new _branch_ and _merge_ it with the main branch using a _pull request_:
 
 ```
 git checkout main
@@ -87,24 +90,51 @@ git checkout -b feat/new-feature-name
 
 Make a habit of committing and pushing your code regularly (`git add <file-to-add> | git commit -m "commit message" | git push`)! Use the Conventional Commits style:
 
-* feat: for new features
-* fix: for bug fixes
-* docs: for documentation changes
-* style: for formatting, missing semicolons, etc.
-* refactor: for refactoring code
-* test: for adding or updating tests
+- feat: for new features
+- fix: for bug fixes
+- docs: for documentation changes
+- style: for formatting, missing semicolons, etc.
+- refactor: for refactoring code
+- test: for adding or updating tests
 
 Example:
+
 ```
 ❌ add markdown script
 ✅ feat(extraction): support image embedding in markdown output
 ```
+
 ### Pre-commit Formatting & Linting
 
 Format and lint all Python files before committing:
+
 ```
 uvx ruff format
 uvx ruff check
+```
+
+To make sure that the linting configurations between your IDE and the pyproject.toml do not conflict, please create teh file `.vscode/settings.json` and set it to:
+
+```
+{
+    "ruff.configuration": "pyproject.toml",
+    "ruff.nativeServer": "on",
+    "ruff.organizeImports": true,
+    "ruff.fixAll": true,
+    "notebook.formatOnSave.enabled": true,
+    "notebook.codeActionsOnSave": {
+        "notebook.source.fixAll": "explicit",
+        "notebook.source.organizeImports": "explicit"
+    },
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        },
+        "editor.defaultFormatter": "charliermarsh.ruff",
+    },
+}
 ```
 
 ## Submitting a Pull Request (PR)
@@ -120,21 +150,24 @@ Any migration steps
 
 Screenshots or examples if applicable
 ```
+
 Respond to review comments promptly.
 Squash & merge when approved.
 
 ## Documentation
 
 After implementing any new feature, make sure to document it properly!
-* README.md (if applicable): High-level overview and quickstart.
-* Developer Guide (if applicable): (this file) for contributor onboarding.
-* Docstrings (**mandatory, including type hints!**): ensure public APIs are documented.
-* Notebooks (if applicable): examples and exploratory work under notebooks/.
+
+- README.md (if applicable): High-level overview and quickstart.
+- Developer Guide (if applicable): (this file) for contributor onboarding.
+- Docstrings (**mandatory, including type hints!**): ensure public APIs are documented.
+- Notebooks (if applicable): examples and exploratory work under notebooks/.
 
 ## Contributing & Support
 
 Feel free to open issues for bugs or feature requests.
 For questions, don't hesitate to reach out to the maintainers:
-* @mlederbauer (Magdalena Lederbauer via Slack)
+
+- @mlederbauer (Magdalena Lederbauer via Slack)
 
 Thank you for contributing to LeMaterial-Synthesis-Parser! 🎉

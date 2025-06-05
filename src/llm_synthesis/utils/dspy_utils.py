@@ -1,9 +1,6 @@
 import dspy
-from dotenv import load_dotenv
+
 from llm_synthesis.utils.llms import LLM_REGISTRY, LLMConfig
-
-
-load_dotenv(override=True)
 
 
 def get_llm_from_name(llm_name: str, model_kwargs: dict) -> dspy.LM:

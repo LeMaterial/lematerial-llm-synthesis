@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class BaseFileStorage(ABC):
-
     @abstractmethod
     def create_dir(self, dir: str) -> None:
         """Create a directory."""
