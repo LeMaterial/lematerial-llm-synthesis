@@ -4,6 +4,8 @@ from llm_synthesis.models.ontologies import GeneralSynthesisOntology
 
 
 class Paper(BaseModel):
+    name: str
+    id: str
     publication_text: str
     si_text: str = ""
 
@@ -12,5 +14,5 @@ class PaperWithSynthesisParagraph(Paper):
     synthesis_paragraph: str
 
 
-class PaperWithSynthesisOntology(Paper):
+class PaperWithSynthesisOntology(PaperWithSynthesisParagraph):
     synthesis_ontology: GeneralSynthesisOntology

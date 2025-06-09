@@ -1,47 +1,55 @@
 """General synthesis ontology."""
 
-from typing import List, Optional, Literal
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
 class Material(BaseModel):
-    vendor: Optional[str] = Field(
+    vendor: str | None = Field(
         ...,
-        description="Vendor of the material. E.g. 'Sinopharm Chemical Reagent Co. Ltd.'.",
+        description="Vendor of the material."
+        " E.g. 'Sinopharm Chemical Reagent Co. Ltd.'.",
     )
     name: str = Field(
         ...,
-        description="Name of the material. E.g. 'Nickel Nitrate', 'Cobalt Nitrate', 'Deionized Water', 'Ammonia Solution'.",
+        description="Name of the material."
+        " E.g. 'Nickel Nitrate', 'Cobalt Nitrate',"
+        " 'Deionized Water', 'Ammonia Solution'.",
     )
     amount: float = Field(
         ...,
-        description="Amount of material used in the synthesis. Just the number, no unit.",
+        description="Amount of material used in the synthesis."
+        " Just the number, no unit.",
     )
-    unit: str = Field(..., description="Unit of the amount. E.g. 'g', 'mol', 'wt%'.")
+    unit: str = Field(
+        ..., description="Unit of the amount. E.g. 'g', 'mol', 'wt%'."
+    )
     role: Literal["precursor", "support", "solvent", "additive", "reagent"]
-    stoichiometry: Optional[str] = Field(
+    stoichiometry: str | None = Field(
         ...,
-        description="Stoichiometry of the material in the synthesis. E.g. '1:1', '1:2', '2:1'.",
+        description="Stoichiometry of the material in the synthesis."
+        " E.g. '1:1', '1:2', '2:1'.",
     )
 
 
 class Conditions(BaseModel):
-    temperature: Optional[float] = Field(
+    temperature: float | None = Field(
         ..., description="Temperature of the synthesis. E.g. 100, 200, 300."
     )
-    temp_unit: Optional[str] = Field(
+    temp_unit: str | None = Field(
         ..., description="Unit of the temperature. E.g. 'C', 'K'."
     )
-    duration: Optional[float] = Field(
+    duration: float | None = Field(
         ..., description="Duration of the synthesis. E.g. 1, 2, 3."
     )
-    time_unit: Optional[str] = Field(
+    time_unit: str | None = Field(
         ..., description="Unit of the duration. E.g. 'h', 'min', 's'."
     )
-    atmosphere: Optional[str] = Field(
+    atmosphere: str | None = Field(
         ..., description="Atmosphere of the synthesis. E.g. 'air', 'N2', 'H2'."
     )
-    stirring: Optional[bool] = Field(
+    stirring: bool | None = Field(
         ..., description="Whether the synthesis is stirred."
     )
 
@@ -65,8 +73,10 @@ class ProcessStep(BaseModel):
     # materials: Optional[List[Material]] = Field(
     #     ..., description="Materials used in the process step."
     # )
-    materials: List[str] = Field(..., description="Materials used in the process step.")
-    conditions: Optional[Conditions] = Field(
+    materials: list[str] = Field(
+        ..., description="Materials used in the process step."
+    )
+    conditions: Conditions | None = Field(
         ..., description="Conditions of the process step."
     )
     # conditions: Optional[Conditions] = Field(
@@ -76,7 +86,9 @@ class ProcessStep(BaseModel):
 
 class Support(BaseModel):
     name: str = Field(
-        ..., description="Name of the support material. E.g. 'Al2O3', 'SiO2', 'CZY'."
+        ...,
+        description="Name of the support material."
+        " E.g. 'Al2O3', 'SiO2', 'CZY'.",
     )
     purchased: bool = Field(
         ..., description="Whether the support material is purchased."
@@ -86,29 +98,41 @@ class Support(BaseModel):
 class TargetCompound(BaseModel):
     active_species: str = Field(
         ...,
-        description="Active species of the material, if a catalyst. The nanoparticle composition, e.g. Ni1Co9. No support.",
+        description="Active species of the material, if a catalyst."
+        " The nanoparticle composition, e.g. Ni1Co9. No support.",
     )
-    metals: List[str] = Field(
+    metals: list[str] = Field(
         ..., description="Metals in the compound. E.g. ['Co', 'Ni']."
     )
     metal_loading: float = Field(
         ..., description="Metal loading of the compound. E.g. 10, 20, 30."
     )
     loading_unit: str = Field(
-        ..., description="Unit of the metal loading. E.g. 'wt%', 'mol%', 'atom%'."
+        ...,
+        description="Unit of the metal loading. E.g. 'wt%', 'mol%', 'atom%'.",
     )
     support: Support = Field(
-        ..., description="Support of the compound. The support material, e.g. Al2O3."
+        ...,
+        description="Support of the compound."
+        " The support material, e.g. Al2O3.",
     )
     synthesis_method: str = Field(
         ...,
-        description="Method of the synthesis. E.g. 'deposition-precipitation', 'sol-gel', 'hydrothermal', 'pyrolysis'.",
+        description="Method of the synthesis."
+        " E.g. 'deposition-precipitation', 'sol-gel',"
+        " 'hydrothermal', 'pyrolysis'.",
     )
 
 
 class GeneralSynthesisOntology(BaseModel):
     id: str
-    target_compound: str = Field(..., description="Target compound composition.")
-    materials: List[str] = Field(..., description="Materials used in the synthesis.")
-    steps: List[ProcessStep] = Field(..., description="Process steps of the synthesis.")
-    notes: Optional[str] = Field(..., description="Notes about the synthesis.")
+    target_compound: str = Field(
+        ..., description="Target compound composition."
+    )
+    materials: list[str] = Field(
+        ..., description="Materials used in the synthesis."
+    )
+    steps: list[ProcessStep] = Field(
+        ..., description="Process steps of the synthesis."
+    )
+    notes: str | None = Field(..., description="Notes about the synthesis.")
