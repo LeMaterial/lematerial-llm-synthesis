@@ -1,19 +1,23 @@
 import dspy
 
-from llm_synthesis.transformers.text_extraction.base import TextExtractorInterface
+from llm_synthesis.transformers.text_extraction.base import (
+    TextExtractorInterface,
+)
 
 
 class DspyTextExtractor(TextExtractorInterface):
     """
-    A text extractor that uses dspy to extract any arbitrary text from the publication text.
+    A text extractor that uses dspy to extract any arbitrary text
+    from the publication text.
     """
 
-    def __init__(self, signature: dspy.Signature, lm: dspy.LM):
+    def __init__(self, signature: type[dspy.Signature], lm: dspy.LM):
         """
         Initialize the extractor with a dspy signature and language model.
 
         Args:
-            signature (dspy.Signature): The dspy signature specifying input/output fields.
+            signature (dspy.Signature): The dspy signature specifying
+                                        input/output fields.
             lm (dspy.LM): The language model to use for prediction.
         """
         self._validate_signature(signature)
@@ -33,12 +37,13 @@ class DspyTextExtractor(TextExtractorInterface):
         predict_kwargs = {"publication_text": input}
         with dspy.settings.context(lm=self.lm):
             return dspy.Predict(self.signature)(**predict_kwargs).__getattr__(
-                list(self.signature.output_fields.keys())[0]
+                next(iter(self.signature.output_fields.keys()))
             )
 
-    def _validate_signature(self, signature: dspy.Signature):
+    def _validate_signature(self, signature: type[dspy.Signature]):
         """
-        Validate that the signature contains the required input and output fields with correct types.
+        Validate that the signature contains the required input
+        and output fields with correct types.
 
         Args:
             signature (dspy.Signature): The signature to validate.
@@ -52,17 +57,19 @@ class DspyTextExtractor(TextExtractorInterface):
             raise ValueError("Publication text must be a string")
         if len(signature.output_fields) != 1:
             raise ValueError("Only one output field is allowed")
-        if list(signature.output_fields.values())[0].annotation is not str:
+        if next(iter(signature.output_fields.values())).annotation is not str:
             raise ValueError("Output field must be a string")
 
 
 def make_dspy_text_extractor_signature(
     signature_name: str = "DspyTextExtractorSignature",
-    instructions: str = "Extract the synthesis paragraph from the publication text.",
-    input_description: str = "The publication text to extract the synthesis paragraph from.",
+    instructions: str = "Extract the synthesis paragraph from the publication"
+    " text.",
+    input_description: str = "The publication text to extract the synthesis"
+    " paragraph from.",
     output_name: str = "synthesis_paragraph",
     output_description: str = "The extracted synthesis paragraph.",
-) -> dspy.Signature:
+) -> type[dspy.Signature]:
     """
     Create a dspy signature for extracting text from publication text.
 
@@ -77,7 +84,10 @@ def make_dspy_text_extractor_signature(
         dspy.Signature: The constructed dspy signature for text extraction.
     """
     signature = {
-        "publication_text": (str, dspy.InputField(description=input_description)),
+        "publication_text": (
+            str,
+            dspy.InputField(description=input_description),
+        ),
         output_name: (str, dspy.OutputField(description=output_description)),
     }
     return dspy.make_signature(
