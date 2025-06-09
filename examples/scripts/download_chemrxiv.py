@@ -1,7 +1,11 @@
 import os
 
+# suppress all warnings
+import warnings
+
+# from chemrxiv import Client
 import chemrxiv
-from datasets import load_dataset
+from datasets import Dataset, DatasetDict, load_dataset
 from dotenv import load_dotenv
 from tqdm import tqdm
 
@@ -10,16 +14,16 @@ from llm_synthesis.transformers.pdf_extraction import (
     MistralPDFExtractor,
 )
 
+warnings.filterwarnings("ignore")
+
 load_dotenv()
 
 # Configuration
 DATA_DIR = "/Users/mlederbau/lematerial-llm-synthesis/data"
 PDFS_DIR = os.path.join(DATA_DIR, "pdfs_chemrxiv")
 HUGGINGFACE_DATASET = "magdaroni/chemrxiv-dev"
-SPLIT = "train"
-NUM_PAPERS = (
-    5  # Change or remove this if you want to process more than the first two
-)
+SPLIT = "filtered_matsci"
+NUM_PAPERS = None
 
 
 def ensure_directory(path: str):
@@ -69,8 +73,39 @@ def main():
     dataset = load_dataset(HUGGINGFACE_DATASET, split=SPLIT)
     df = dataset.to_pandas()
 
+    # filter for dfs where df['categories'] contains any string here
+
+    categories = [
+        "Solid State Chemistry",
+        "Solution Chemistry",
+        "Solvates",
+        "Spectroscopy (Inorg.)",
+        "Structure",
+        "Supramolecular Chemistry (Inorg.)",
+        "Supramolecular Chemistry (Org.)",
+        "Surface",
+        "Surfactants",
+        "Thermal Conductors and Insulators",
+        "Thin Films",
+        "Wastes",
+        "Water Purification",
+    ]
+
+    df = df[
+        df["categories"].apply(lambda x: any(cat in x for cat in categories))
+    ]
+
     # 2) Prepare ChemRxiv client and Docling extractor
     client = chemrxiv.Client()
+    # pdf_extractor = DoclingPDFExtractor(
+    #     pipeline="standard",
+    #     table_mode="accurate",
+    #     add_page_images=False,
+    #     use_gpu=True,
+    #     scale=2.0,
+    #     format="markdown",
+    # )
+
     pdf_extractor = MistralPDFExtractor(structured=False)
 
     # 3) Ensure output directory exists
@@ -85,6 +120,10 @@ def main():
         paper_id = row["id"]
         filename = f"{paper_id}.pdf"
         filename_si = f"{paper_id}_si.pdf"
+
+        # if df.loc[i, "text_paper"] is not None, skip
+        if df.loc[i, "text_paper"] is not None:
+            continue
 
         # Download PDF
         pdf_path = download_pdf_by_doi(client, doi, PDFS_DIR, filename)
@@ -103,6 +142,12 @@ def main():
         df.loc[i, "text_si"] = markdown_text_si
 
     df.to_csv(f"{DATA_DIR}/chemrxiv_papers.csv", index=False)
+
+    new_ds = Dataset.from_pandas(df.reset_index(drop=True))
+
+    # wrap and push
+    to_push = DatasetDict({"filtered_matsci": new_ds})
+    to_push.push_to_hub("magdaroni/chemrxiv-dev")
 
 
 if __name__ == "__main__":
