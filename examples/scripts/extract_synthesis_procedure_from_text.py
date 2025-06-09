@@ -36,7 +36,9 @@ def main(cfg: DictConfig) -> None:
     for paper in papers:
         logging.info(f"Processing {paper.name}")
         synthesis_paragraph = paragraph_extractor.extract(
-            input=remove_figs(paper.publication_text),
+            input=remove_figs(
+                paper.publication_text
+            ),  # Removing figures avoid token overload
         )
 
         os.makedirs(paper.id, exist_ok=True)
