@@ -1,8 +1,3 @@
-# lm:
-#   name: "gemini-2.0-flash"
-#   temperature: 0.0
-# TODO: different LLM for paragraph extraction and synthesis extraction
-
 architecture:
   _target_: llm_synthesis.transformers.text_extraction.dspy_extraction.DspyTextExtractor
   signature:
@@ -17,5 +12,3 @@ architecture:
     llm_name: "gemini-2.0-flash"
     model_kwargs:
       temperature: 0.0
-
-  # system_prompt: wip
