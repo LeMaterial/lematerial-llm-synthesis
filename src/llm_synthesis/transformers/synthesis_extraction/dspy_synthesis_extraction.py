@@ -25,7 +25,7 @@ class DspyStructuredSynthesisExtractor(StructuredSynthesisExtractorInterface):
         self.signature = signature
         self.lm = lm
 
-    def extract(self, input: str) -> GeneralSynthesisOntology:
+    def forward(self, input: str) -> GeneralSynthesisOntology:
         """
         Extract a structured synthesis ontology from the given synthesis
         paragraph using the language model and signature.

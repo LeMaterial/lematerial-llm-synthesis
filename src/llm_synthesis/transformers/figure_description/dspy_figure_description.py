@@ -25,7 +25,7 @@ class DspyFigureDescriptionExtractor(FigureDescriptionExtractorInterface):
         self.signature = signature
         self.lm = lm
 
-    def extract(self, input: FigureInfoWithPaper) -> str:
+    def forward(self, input: FigureInfoWithPaper) -> str:
         """
         Extract a figure description using the language model and signature.
 

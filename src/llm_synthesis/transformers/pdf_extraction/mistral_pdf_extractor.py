@@ -6,7 +6,9 @@ import os
 
 from mistralai import Mistral
 
-from llm_synthesis.transformers.pdf_extraction.base import PdfExtractorInterface
+from llm_synthesis.transformers.pdf_extraction.base import (
+    PdfExtractorInterface,
+)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -39,7 +41,9 @@ class MistralPDFExtractor(PdfExtractorInterface):
         mistral_api_key: str = None,
     ):
         self.structured = structured
-        self.mistral_api_key = mistral_api_key or os.environ.get("MISTRAL_API_KEY")
+        self.mistral_api_key = mistral_api_key or os.environ.get(
+            "MISTRAL_API_KEY"
+        )
         if self.mistral_api_key is None:
             LOGGER.error(
                 "MISTRAL_API_KEY is not set. Please provide it as an argument or set it in the environment."
@@ -50,7 +54,7 @@ class MistralPDFExtractor(PdfExtractorInterface):
         print(self.mistral_api_key)
         self.mistral_api_client = Mistral(api_key=self.mistral_api_key)
 
-    def extract(self, input: bytes) -> str:
+    def forward(self, input: bytes) -> str:
         """
         Extracts text and figures from a PDF and returns them as markdown with embedded figures.
 
@@ -60,7 +64,9 @@ class MistralPDFExtractor(PdfExtractorInterface):
         Returns:
             The extracted text as markdown with embedded figures.
         """
-        data_uri = "data:application/pdf;base64," + base64.b64encode(input).decode()
+        data_uri = (
+            "data:application/pdf;base64," + base64.b64encode(input).decode()
+        )
 
         resp = self.mistral_api_client.ocr.process(
             document={"type": "document_url", "document_url": data_uri},
@@ -79,7 +85,9 @@ class MistralPDFExtractor(PdfExtractorInterface):
             uri_for: dict[str, str] = {}
             for img in page.images:
                 key = getattr(img, "file_name", None) or getattr(img, "id", "")
-                raw = getattr(img, "data_uri", None) or getattr(img, "image_base64", "")
+                raw = getattr(img, "data_uri", None) or getattr(
+                    img, "image_base64", ""
+                )
                 if not raw:
                     continue
                 if not raw.startswith("data:"):  # add header if needed
