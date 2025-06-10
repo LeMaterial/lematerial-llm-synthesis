@@ -5,7 +5,9 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling_core.types.io import DocumentStream
 
-from llm_synthesis.transformers.pdf_extraction.base import PdfExtractorInterface
+from llm_synthesis.transformers.pdf_extraction.base import (
+    PdfExtractorInterface,
+)
 
 
 class DoclingPDFExtractor(PdfExtractorInterface):
@@ -49,7 +51,7 @@ class DoclingPDFExtractor(PdfExtractorInterface):
         self.scale = scale
         self.format = format
 
-    def extract(self, input: bytes) -> str:
+    def forward(self, input: bytes) -> str:
         """
         Extracts text and figures from a PDF and returns them as markdown with embedded figures.
 
@@ -69,9 +71,13 @@ class DoclingPDFExtractor(PdfExtractorInterface):
             batch_size=4 if self.use_gpu else 1,
         )
         conv = DocumentConverter(
-            format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)}
+            format_options={
+                InputFormat.PDF: PdfFormatOption(pipeline_options=opts)
+            }
         )
-        result = conv.convert(DocumentStream(name="pdf", stream=io.BytesIO(input)))
+        result = conv.convert(
+            DocumentStream(name="pdf", stream=io.BytesIO(input))
+        )
         doc = result.document
 
         return doc.export_to_markdown(image_mode="embedded")

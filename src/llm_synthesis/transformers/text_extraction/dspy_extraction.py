@@ -24,7 +24,7 @@ class DspyTextExtractor(TextExtractorInterface):
         self.signature = signature
         self.lm = lm
 
-    def extract(self, input: str) -> str:
+    def forward(self, input: str) -> str:
         """
         Extract text from the given str using the language model and signature.
 
