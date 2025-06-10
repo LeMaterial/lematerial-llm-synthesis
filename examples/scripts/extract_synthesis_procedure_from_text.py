@@ -35,7 +35,7 @@ def main(cfg: DictConfig) -> None:
 
     for paper in papers:
         logging.info(f"Processing {paper.name}")
-        synthesis_paragraph = paragraph_extractor.extract(
+        synthesis_paragraph = paragraph_extractor.forward(
             input=remove_figs(
                 paper.publication_text
             ),  # Removing figures avoid token overload
@@ -43,7 +43,7 @@ def main(cfg: DictConfig) -> None:
 
         os.makedirs(paper.id, exist_ok=True)
 
-        structured_synthesis_procedure = synthesis_extractor.extract(
+        structured_synthesis_procedure = synthesis_extractor.forward(
             input=synthesis_paragraph,
         )
         logging.info(structured_synthesis_procedure)
