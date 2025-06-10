@@ -17,7 +17,7 @@ DATA_DIR = "/Users/mlederbau/lematerial-llm-synthesis/data"
 PDFS_DIR = os.path.join(DATA_DIR, "pdfs_chemrxiv")
 HUGGINGFACE_DATASET = "magdaroni/chemrxiv-dev"
 SPLIT = "filtered_matsci"
-BATCH_SIZE = 2
+BATCH_SIZE = 10
 
 
 def ensure_directory(path: str):
@@ -86,10 +86,7 @@ def main():
     processed = 0
     for i, row in tqdm(df.iterrows(), total=len(df)):
         # skip if already extracted
-        if (
-            df.loc[i, "text_paper"] is not None
-            and df.loc[i, "text_si"] is not None
-        ):
+        if row["text_paper"] is not None:
             continue
 
         doi, pid = row["doi"], row["id"]
