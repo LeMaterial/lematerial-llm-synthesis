@@ -30,12 +30,9 @@ def get_llm_from_name(
         model_kwargs["api_key"] = cfg.api_key
         model_kwargs["api_base"] = cfg.api_base
 
-    base = dspy.LM(cfg.model, **model_kwargs)
-
     if system_prompt:
-        return SystemPrefixedLM(system_prompt, base)
-    else:
-        return base
+        return SystemPrefixedLM(system_prompt, cfg.model, **model_kwargs)
+    return dspy.LM(cfg.model, **model_kwargs)
 
 
 def configure_dspy(
