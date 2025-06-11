@@ -1,7 +1,6 @@
 import os
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any
 
 import dspy
 
@@ -73,54 +72,32 @@ LLM_REGISTRY = LLMRegistry(
 )
 
 
-class SystemPrefixedLM:
+class SystemPrefixedLM(dspy.LM):
     """
     Wrap any dspy.LM and automatically inject a system prompt
     at start of every call.
     """
 
-    def __init__(self, system_prompt: str, llm: dspy.LM):
-        """
-        Wrap any dspy.LM and automatically inject a system prompt
-        at start of every call.
-
-        Args:
-            system_prompt: prompt to inject at start of every call.
-            llm: The dspy.LM to wrap.
-        """
+    def __init__(self, system_prompt: str, model: str, **kwargs):
+        super().__init__(model, **kwargs)
         self._system_prompt = system_prompt
-        self._llm = llm
 
     def __call__(
         self,
         prompt: str | None = None,
-        messages: list[dict[str, Any]] | None = None,
-        **kwargs,
+        messages: list[dict] | None = None,
+        **override_kwargs,
     ):
-        """
-        Call wrapped dspy.LM with system prompt injected
-        at start of every call.
-
-        Args:
-            prompt: The prompt to inject at the start of every call.
-            messages: The messages to inject at start of every call.
-        """
+        # build chat messages if necessary
         if messages is None:
-            # user passed raw prompt, turn into a 2-message chat
             messages = [
                 {"role": "system", "content": self._system_prompt},
                 {"role": "user", "content": prompt or ""},
             ]
         else:
-            # chat-style already, just prepend
             messages = [
                 {"role": "system", "content": self._system_prompt},
                 *messages,
             ]
 
-        # delegate to the real LM
-        return self._llm(messages=messages, **kwargs)
-
-    def __getattr__(self, attr):
-        # proxy everything else back to the underlying LM
-        return getattr(self._llm, attr)
+        return super().__call__(messages=messages, **override_kwargs)
