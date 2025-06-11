@@ -2,15 +2,20 @@ from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 
 import dspy
+from dspy.primitives.program import ProgramMeta
 
 T = TypeVar("T")
 R = TypeVar("R")
 
 
-class ExtractorInterface(dspy.Module, Generic[T, R], metaclass=ABCMeta):
+class ExtractorMeta(ProgramMeta, ABCMeta):
+    pass
+
+
+class ExtractorInterface(dspy.Module, Generic[T, R], metaclass=ExtractorMeta):
     """
-    Generic interface for an extractor that takes an input of type T and returns
-    an output of type R.
+    Generic interface for an extractor that takes an input of type T
+    and returns an output of type R.
     """
 
     @abstractmethod

@@ -62,13 +62,13 @@ No errors? You're all set!
 For usage in a notebook, cf. `notebooks/pdf_extraction.ipynb`
 
 ```sh
-uv run scripts/extract_text_from_pdfs.py --input-path <local or gcs path to the folder containing the pdfs> --output-path <local or gcs path to the folder where the extracted text will be saved> --process <"docling" or "mistral">
+uv run examples/scripts/extract_text_from_pdfs.py --input-path <local folder containing the pdfs> --output-path <local folder where the extracted text will be saved> --process <"docling" or "mistral">
 ```
 
 For example, this will extract text from `./data/pdf_papers` and write the result to `./data/txt_papers/docling` using Docling:
 
 ```sh
-uv run scripts/extract_text_from_pdfs.py --input-path data/pdf_papers --output-path data/txt_papers/docling --process docling
+uv run examples/scripts/extract_text_from_pdfs.py --input-path data/pdf_papers --output-path data/txt_papers/docling --process docling
 ```
 
 
@@ -80,14 +80,14 @@ For usage in a notebook, cf. `notebooks/synthesis_procedure_extraction.ipynb`
 In order to keep track of every *moving part* of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
 
 ```
-uv run scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.lm.name=gpt-4o-mini
+uv run examples/scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.lm.name=gpt-4o-mini
 ```
 
 To sweep over several configurations, use the flag `--multirun`:
 
 ```
-uv run scripts/extract_ontology_from_text.py --multirun \
-    synthesis_extraction.lm.name=gemini-2.0-flash,gemini-2.5-flash,gpt-4o
+uv run examples/scripts/extract_synthesis_procedure_from_text.py --multirun \
+    synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash,gemini-2.5-flash,gpt-4o
 ```
 
 The results of the runs are saved in `results/single_run` and `results/multi_run`, respectively. The synthesis paragraphs and structured synthesis procedures are saved and can be inspected there.
