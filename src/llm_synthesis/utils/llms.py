@@ -1,12 +1,21 @@
 import os
+from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Mapping, Optional
+from typing import Any
+
+import dspy
 
 
 @dataclass(frozen=True)
 class LLMConfig:
     """
-    A configuration for an LLM to instantiate with dspy. Includes the model name, and optional API key name in the environment (e.g. "OPENAI_API_KEY") and base URL. The latter is needed to call external providers with the OpenAI API. In DSPy, you can use any of the dozens of LLM providers supported by LiteLLM. Simply follow their instructions for which {PROVIDER}_API_KEY to set and how to write pass the {provider_name}/{model_name} to the constructor.
+    A configuration for an LLM to instantiate with dspy.
+    Includes the model name, and optional API key name in the
+    environment (e.g. "OPENAI_API_KEY") and base URL.
+    The latter is needed to call external providers with the OpenAI API.
+    In DSPy, you can use dozens of LLM providers supported by LiteLLM.
+    Simply follow their instructions for which {PROVIDER}_API_KEY to set and
+    how to write pass the {provider_name}/{model_name} to the constructor.
 
     Args:
         model: The name of the model to instantiate.
@@ -15,8 +24,8 @@ class LLMConfig:
     """
 
     model: str
-    api_key: Optional[str] = None
-    api_base: Optional[str] = None
+    api_key: str | None = None
+    api_base: str | None = None
 
 
 @dataclass(frozen=True)
@@ -34,8 +43,12 @@ class LLMRegistry:
 LLM_REGISTRY = LLMRegistry(
     configs={
         "gemini-2.0-flash": LLMConfig(model="gemini/gemini-2.0-flash"),
-        "gemini-2.5-flash": LLMConfig(model="gemini/gemini-2.5-flash-preview-05-20"),
-        "gemini-2.5-pro": LLMConfig(model="gemini/gemini-2.5-pro-preview-05-06"),
+        "gemini-2.5-flash": LLMConfig(
+            model="gemini/gemini-2.5-flash-preview-05-20"
+        ),
+        "gemini-2.5-pro": LLMConfig(
+            model="gemini/gemini-2.5-pro-preview-05-06"
+        ),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),
         "gpt-o4-mini": LLMConfig(model="openai/o4-mini-2025-04-16"),
@@ -58,3 +71,56 @@ LLM_REGISTRY = LLMRegistry(
         ),
     }
 )
+
+
+class SystemPrefixedLM:
+    """
+    Wrap any dspy.LM and automatically inject a system prompt
+    at start of every call.
+    """
+
+    def __init__(self, system_prompt: str, llm: dspy.LM):
+        """
+        Wrap any dspy.LM and automatically inject a system prompt
+        at start of every call.
+
+        Args:
+            system_prompt: prompt to inject at start of every call.
+            llm: The dspy.LM to wrap.
+        """
+        self._system_prompt = system_prompt
+        self._llm = llm
+
+    def __call__(
+        self,
+        prompt: str | None = None,
+        messages: list[dict[str, Any]] | None = None,
+        **kwargs,
+    ):
+        """
+        Call wrapped dspy.LM with system prompt injected
+        at start of every call.
+
+        Args:
+            prompt: The prompt to inject at the start of every call.
+            messages: The messages to inject at start of every call.
+        """
+        if messages is None:
+            # user passed raw prompt, turn into a 2-message chat
+            messages = [
+                {"role": "system", "content": self._system_prompt},
+                {"role": "user", "content": prompt or ""},
+            ]
+        else:
+            # chat-style already, just prepend
+            messages = [
+                {"role": "system", "content": self._system_prompt},
+                *messages,
+            ]
+
+        # delegate to the real LM
+        return self._llm(messages=messages, **kwargs)
+
+    def __getattr__(self, attr):
+        # proxy everything else back to the underlying LM
+        return getattr(self._llm, attr)
