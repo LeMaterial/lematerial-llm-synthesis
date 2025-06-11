@@ -21,7 +21,7 @@ DATA_DIR = "/Users/mlederbau/lematerial-llm-synthesis/data/"
 PDFS_DIR = os.path.join(DATA_DIR, "pdfs_omg24")
 HUGGINGFACE_DATASET = "magdaroni/chemrxiv-dev"
 SPLIT = "filtered_omg24"
-BATCH_SIZE = 2
+BATCH_SIZE = 20
 
 
 def ensure_directory(path: str):
@@ -47,8 +47,17 @@ def process_paper(
     pdf_extractor: MistralPDFExtractor,
     pdfs_dir: str,
 ) -> tuple[str, str]:
-    pdf_path = download_file(row["pdf_url"], pdfs_dir, f"{row['id']}.pdf")
-    text_paper = extract_text_from_pdf(pdf_extractor, pdf_path)
+    try:
+        pdf_path = download_file(row["pdf_url"], pdfs_dir, f"{row['id']}.pdf")
+    except HTTPError as e:
+        print(f"Error downloading file: {e}")
+        return None, None
+
+    try:
+        text_paper = extract_text_from_pdf(pdf_extractor, pdf_path)
+    except Exception as e:
+        print(f"Error extracting text from PDF: {e}")
+        return None, None
 
     text_si = ""
 
@@ -61,10 +70,19 @@ async def process_paper_async(
     pdf_extractor: MistralPDFExtractor,
     pdfs_dir: str,
 ) -> tuple[str, str]:
-    pdf_path = await asyncio.to_thread(
-        download_file, row["pdf_url"], pdfs_dir, f"{row['id']}.pdf"
-    )
-    text_paper = await extract_text_from_pdf_async(pdf_extractor, pdf_path)
+    try:
+        pdf_path = await asyncio.to_thread(
+            download_file, row["pdf_url"], pdfs_dir, f"{row['id']}.pdf"
+        )
+    except HTTPError as e:
+        print(f"Error downloading file: {e}")
+        return i, None, None
+
+    try:
+        text_paper = await extract_text_from_pdf_async(pdf_extractor, pdf_path)
+    except Exception as e:
+        print(f"Error extracting text from PDF: {e}")
+        return i, None, None
 
     text_si = ""
 
@@ -159,11 +177,7 @@ def main():
         if row["text_paper"] is not None:
             continue
 
-        try:
-            text_paper, text_si = process_paper(row, pdf_extractor, PDFS_DIR)
-        except HTTPError as e:
-            print(f"Error downloading file: {e}")
-            continue
+        text_paper, text_si = process_paper(row, pdf_extractor, PDFS_DIR)
 
         df_new.at[i, "text_paper"] = text_paper
         df_new.at[i, "text_si"] = text_si
@@ -181,43 +195,93 @@ def main():
 
 
 async def main_async():
+    # 1) load source data & existing hub splits
     df = load_dataset("iknow-lab/open-materials-guide-2024")[
         "train"
     ].to_pandas()
+    orig = load_dataset(HUGGINGFACE_DATASET)
+    matsci_feats = orig["filtered_matsci"].features
+
+    # 2) initialize df_new with identical columns & defaults
+    df_new = pd.DataFrame(
+        columns=[
+            "id",
+            "title",
+            "authors",
+            "abstract",
+            "doi",
+            "published_date",
+            "updated_date",
+            "categories",
+            "license",
+            "pdf_url",
+            "views_count",
+            "read_count",
+            "citation_count",
+            "keywords",
+            "text_paper",
+            "text_si",
+        ]
+    )
+    df_new["id"] = df["id"]
+    df_new["title"] = df["title"]
+    df_new["authors"] = df["authors"].apply(str)
+    df_new["abstract"] = df["abstract"]
+    df_new[
+        [
+            "doi",
+            "published_date",
+            "updated_date",
+            "categories",
+            "license",
+            "views_count",
+            "read_count",
+            "citation_count",
+            "keywords",
+        ]
+    ] = None
+    df_new["pdf_url"] = df["pdf_url"]
+    df_new["text_paper"] = None
+    df_new["text_si"] = None
 
     pdf_extractor = MistralPDFExtractor()
     ensure_directory(PDFS_DIR)
 
+    processed = 0
     tasks = []
-    for i, row in tqdm(df.iterrows(), total=len(df)):
-        # skip if already extracted
+
+    # 3) schedule all extractions as tasks
+    for i, row in tqdm(df_new.iterrows(), total=len(df_new)):
         if row["text_paper"] is not None:
             continue
-
         tasks.append(process_paper_async(i, row, pdf_extractor, PDFS_DIR))
+
+        # 4) once we hit a batch, await and push
         if len(tasks) >= BATCH_SIZE:
             results = await tqdm_asyncio.gather(
                 *tasks, desc="Processing Batch"
             )
             for j, text_paper, text_si in results:
-                df.at[j, "text_paper"] = text_paper
-                df.at[j, "text_si"] = text_si
-            push_current_df(df)
-
+                df_new.at[j, "text_paper"] = text_paper
+                df_new.at[j, "text_si"] = text_si
+            push_current_df(df_new, orig, matsci_feats)
+            processed += len(tasks)
             tasks = []
 
-    if len(tasks) > 0:
+    # 5) remaining tasks
+    if tasks:
         results = await tqdm_asyncio.gather(
             *tasks, desc="Processing Last Batch"
         )
         for j, text_paper, text_si in results:
-            df.at[j, "text_paper"] = text_paper
-            df.at[j, "text_si"] = text_si
-        push_current_df(df)
-    # also save locally
-    df.to_csv(f"{DATA_DIR}/omg24_papers.csv", index=False)
+            df_new.at[j, "text_paper"] = text_paper
+            df_new.at[j, "text_si"] = text_si
+        push_current_df(df_new, orig, matsci_feats)
+        processed += len(tasks)
+
+    # 6) write out the full CSV locally
+    df_new.to_csv(f"{DATA_DIR}/omg24_papers.csv", index=False)
 
 
 if __name__ == "__main__":
-    # asyncio.run(main_async())
-    main()
+    asyncio.run(main_async())
