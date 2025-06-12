@@ -20,7 +20,7 @@ DATA_DIR = "/home/gregoire/entalpic/lematerial-llm-synthesis/data"
 PDFS_DIR = os.path.join(DATA_DIR, "pdfs_chemrxiv")
 HUGGINGFACE_DATASET = "magdaroni/chemrxiv-dev"
 SPLIT = "filtered_matsci"
-BATCH_SIZE = 20
+BATCH_SIZE = 100
 
 
 def ensure_directory(path: str):
@@ -81,22 +81,24 @@ async def process_paper_async(
     client: chemrxiv.Client,
     pdf_extractor: MistralPDFExtractor,
     pdfs_dir: str,
+    semaphore: asyncio.Semaphore,
 ) -> tuple[str, str]:
     doi, pid = row["doi"], row["id"]
     # Download PDF in a thread (if not async)
-    pdf_path = await asyncio.to_thread(
-        download_pdf_by_doi, client, doi, pdfs_dir, f"{pid}.pdf"
-    )
-    text_paper = await extract_text_from_pdf_async(pdf_extractor, pdf_path)
-
-    # Download SI in a thread (if not async)
-    try:
-        si_path = await asyncio.to_thread(
-            download_si_by_doi, client, doi, pdfs_dir, f"{pid}_si.pdf"
+    async with semaphore:
+        pdf_path = await asyncio.to_thread(
+            download_pdf_by_doi, client, doi, pdfs_dir, f"{pid}.pdf"
         )
-        text_si = await extract_text_from_pdf_async(pdf_extractor, si_path)
-    except Exception:
-        text_si = ""
+        text_paper = await extract_text_from_pdf_async(pdf_extractor, pdf_path)
+
+        # Download SI in a thread (if not async)
+        try:
+            si_path = await asyncio.to_thread(
+                download_si_by_doi, client, doi, pdfs_dir, f"{pid}_si.pdf"
+            )
+            text_si = await extract_text_from_pdf_async(pdf_extractor, si_path)
+        except Exception:
+            text_si = ""
 
     return i, text_paper, text_si
 
@@ -163,6 +165,8 @@ def main():
 
 
 async def main_async():
+    semaphore = asyncio.Semaphore(BATCH_SIZE)
+
     orig = load_dataset(HUGGINGFACE_DATASET, split=SPLIT)
     df = orig.to_pandas()
 
@@ -197,18 +201,10 @@ async def main_async():
             continue
 
         tasks.append(
-            process_paper_async(i, row, client, pdf_extractor, PDFS_DIR)
-        )
-        if len(tasks) >= BATCH_SIZE:
-            results = await tqdm_asyncio.gather(
-                *tasks, desc="Processing Batch"
+            process_paper_async(
+                i, row, client, pdf_extractor, PDFS_DIR, semaphore
             )
-            for j, text_paper, text_si in results:
-                df.at[j, "text_paper"] = text_paper
-                df.at[j, "text_si"] = text_si
-            push_current_df(df)
-
-            tasks = []
+        )
 
     if len(tasks) > 0:
         results = await tqdm_asyncio.gather(
