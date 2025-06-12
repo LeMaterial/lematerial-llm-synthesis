@@ -75,9 +75,7 @@ class MistralPDFExtractor(PdfExtractorInterface):
         Returns:
             The extracted text as markdown with embedded figures.
         """
-        data_uri = (
-            "data:application/pdf;base64," + base64.b64encode(input).decode()
-        )
+        data_uri = self._get_data_uri_from_bytes(input)
 
         resp = self.mistral_api_client.ocr.process(
             document={"type": "document_url", "document_url": data_uri},
@@ -88,36 +86,10 @@ class MistralPDFExtractor(PdfExtractorInterface):
         if self.structured:  # <-- optional JSON dump
             return json.dumps(resp.to_dict(), indent=2)
 
-        pages_out = []
-        for page in resp.pages:
-            md = page.markdown
-
-            # build *id*  -> full data-URI
-            uri_for: dict[str, str] = {}
-            for img in page.images:
-                key = getattr(img, "file_name", None) or getattr(img, "id", "")
-                raw = getattr(img, "data_uri", None) or getattr(
-                    img, "image_base64", ""
-                )
-                if not raw:
-                    continue
-                if not raw.startswith("data:"):  # add header if needed
-                    mime = mimetypes.guess_type(key)[0] or "image/jpeg"
-                    raw = f"data:{mime};base64,{raw}"
-                uri_for[key] = raw
-
-            # replace every ![key](key) with the inline image
-            for key, uri in uri_for.items():
-                md = md.replace(f"![{key}]({key})", f"![fig]({uri})")
-
-            pages_out.append(md)
-
-        return "\n\n".join(pages_out)
+        return self._process_pages(resp)
 
     async def aforward(self, input: bytes) -> str:
-        data_uri = (
-            "data:application/pdf;base64," + base64.b64encode(input).decode()
-        )
+        data_uri = self._get_data_uri_from_bytes(input)
 
         resp = await self.mistral_api_client.ocr.process_async(
             document={"type": "document_url", "document_url": data_uri},
@@ -128,6 +100,14 @@ class MistralPDFExtractor(PdfExtractorInterface):
         if self.structured:  # <-- optional JSON dump
             return json.dumps(resp.to_dict(), indent=2)
 
+        return self._process_pages(resp)
+
+    def _get_data_uri_from_bytes(self, input):
+        return (
+            "data:application/pdf;base64," + base64.b64encode(input).decode()
+        )
+
+    def _process_pages(self, resp) -> str:
         pages_out = []
         for page in resp.pages:
             md = page.markdown
@@ -151,5 +131,4 @@ class MistralPDFExtractor(PdfExtractorInterface):
                 md = md.replace(f"![{key}]({key})", f"![fig]({uri})")
 
             pages_out.append(md)
-
         return "\n\n".join(pages_out)
