@@ -1,5 +1,5 @@
 import re
-from typing import Pattern
+from re import Pattern
 
 
 def remove_figs(text: str) -> str:
@@ -13,9 +13,11 @@ def remove_figs(text: str) -> str:
         str: The paper with figures removed.
     """
 
-    FIG_PATTERN: Pattern = re.compile(r"!\[(?:fig|image)\]\([^\)]*\)", re.IGNORECASE)
+    fig_pattern: Pattern = re.compile(
+        r"!\[(?:fig|image)\]\([^\)]*\)", re.IGNORECASE
+    )
 
     # Remove all inline FIG_PATTERN matches
-    cleaned = FIG_PATTERN.sub("", text)
+    cleaned = fig_pattern.sub("", text)
 
     return cleaned

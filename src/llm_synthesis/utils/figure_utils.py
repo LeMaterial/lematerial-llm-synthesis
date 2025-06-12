@@ -1,7 +1,6 @@
 import base64
 import re
 from dataclasses import dataclass
-from typing import List, Tuple
 
 
 @dataclass
@@ -18,7 +17,7 @@ class FigureInfo:
 
 def extract_figure_context(
     text: str, figure_position: int, context_window: int = 500
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     """
     Extract context before and after a figure position.
 
@@ -89,7 +88,7 @@ def extract_base64_from_data_uri(data_uri: str) -> str:
     return data_uri
 
 
-def find_figures_in_markdown(markdown_text: str) -> List[FigureInfo]:
+def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
     """
     Find all embedded base64 figures in markdown text.
 
@@ -162,7 +161,9 @@ def insert_figure_description(
     insert_position = figure_info.position + match.end()
 
     # Create the description block
-    description_block = f"\n\n**AI-Generated Figure Description:** {description}\n"
+    description_block = (
+        f"\n\n**AI-Generated Figure Description:** {description}\n"
+    )
 
     # Insert the description
     modified_text = (
@@ -207,7 +208,8 @@ def validate_base64_image(base64_data: str) -> bool:
 
 def clean_text_from_images(text: str) -> str:
     """
-    Remove base64 image data from text to reduce token count while preserving structure.
+    Remove base64 image data from text to reduce token count while
+    preserving structure.
 
     Args:
         text: Markdown text containing embedded base64 images
