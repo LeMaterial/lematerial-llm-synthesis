@@ -20,56 +20,63 @@ def main(cfg: DictConfig) -> None:
     log.info(f"Instantiated judge: {type(judge).__name__}")
 
     # --- Example Data ---
-    target_material = "La1.93Sr0.07CuO4"
+    target_material = "Bi1.5Sb0.5Te1.7Se1.3 (BSTS)23-27 ultrathin films"
 
-    synthesis_procedure = """ The synthesis procedure for the La1.93Sr0.07CuO<sup>4</sup> single crystal is described in the publication. The crystal was grown from 4N materials of La2O<sup>3</sup>, SrCO<sup>3</sup>, and CuO using the Traveling Solvent Floating Zone (TSFZ) technique. This technique allows for the growth of large crystals of several centimeters in length under accurately controllable stable conditions, including flux composition, temperature, and oxygen partial pressure, which are prerequisites for obtaining homogeneous crystals. 
-    After the growth procedure, the sample for NMR measurements was cut from a single crystalline rod along the crystallographic a, b, and c-axis using the Laue x-ray method. The outer dimensions of the sample measured 1.7 mm, 2.5 mm, and 0.8 mm in the a, b, and c-directions, respectively."""
-    
+    synthesis_procedure = """BSTS thin films with 10 nm film in thickness are prepared on mica by van der Waals epitaxy physical vapor deposition. We employed the Bi1.5Sb0.5Te1.7Se1.3 composition as the source material for the thin film crystal growth, where the surface state is tuned to n-type under the insulating bulk state. F4-TCNQ was deposited on the half of a BSTS thin film by thermal evaporation under the pressure of 10^-6 Pa to form the p-n junction on the top surface of BSTS thin films. """
     extracted_recipe = """
    {
-    "id": "La1.93Sr0.07CuO4_synthesis",
-    "target_compound": "La1.93Sr0.07CuO4",
+    "id": "BSTS_thin_films_synthesis",
+    "target_compound": "BSTS thin films",
     "materials": [
-        "La2O3",
-        "SrCO3",
-        "CuO"
+        "Bi1.5Sb0.5Te1.7Se1.3",
+        "F4-TCNQ",
+        "mica"
     ],
     "steps": [
         {
-            "action": "mix",
+            "action": "add",
             "materials": [
-                "La2O3",
-                "SrCO3",
-                "CuO"
+                "Bi1.5Sb0.5Te1.7Se1.3"
             ],
             "conditions": {
                 "temperature": null,
                 "temp_unit": null,
                 "duration": null,
                 "time_unit": null,
-                "atmosphere": null,
+                "atmosphere": "vacuum",
                 "stirring": null
             }
         },
         {
             "action": "heat",
             "materials": [
-                "La2O3",
-                "SrCO3",
-                "CuO"
+                "BSTS thin films"
             ],
             "conditions": {
                 "temperature": null,
                 "temp_unit": null,
                 "duration": null,
                 "time_unit": null,
-                "atmosphere": "oxygen",
+                "atmosphere": "10^-6 Pa",
+                "stirring": null
+            }
+        },
+        {
+            "action": "add",
+            "materials": [
+                "F4-TCNQ"
+            ],
+            "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "atmosphere": "10^-6 Pa",
                 "stirring": null
             }
         }
     ],
-    "notes": "The synthesis was performed using the Traveling Solvent Floating Zone (TSFZ) technique to grow large single crystals under stable conditions. The sample for NMR measurements was cut from a single crystalline rod using the Laue x-ray method."
-}
+    "notes": "BSTS thin films are prepared on mica by van der Waals epitaxy physical vapor deposition to form a p-n junction."
     """
 
     log.info("--- Evaluating Recipe ---")
