@@ -1,9 +1,11 @@
 import random
 
-from llm_synthesis.metrics.extraction_metric.base import ExtractionMetric
+from llm_synthesis.metrics.extraction_metric.base import (
+    TextToTextExtractionMetric,
+)
 
 
-class DummyExtractionMetric(ExtractionMetric):
+class DummyExtractionMetric(TextToTextExtractionMetric):
     """
     Dummy extraction metric that returns a random float.
     """
