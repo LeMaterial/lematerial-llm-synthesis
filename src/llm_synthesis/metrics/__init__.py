@@ -1,1 +1,1 @@
-from llm_synthesis.metrics.dummy import DummyMetric
+from llm_synthesis.metrics.extraction_metric.dummy import DummyExtractionMetric
