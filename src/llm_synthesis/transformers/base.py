@@ -1,5 +1,5 @@
 import asyncio
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 
 import dspy
