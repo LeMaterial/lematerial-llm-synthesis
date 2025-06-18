@@ -1,0 +1,44 @@
+architecture:
+  _target_: llm_synthesis.metrics.judge.alchemybench_judge.DspyAlchemyBenchSynthesisJudge
+  signature:
+    _target_: llm_synthesis.metrics.judge.alchemybench_judge.make_alchemybench_synthesis_judge_signature
+    signature_name: "AlchemyBenchSynthesisJudgeSignature"
+    instructions: >
+      You are an expert materials scientist with 15+ years of experience in synthesis evaluation and development.
+      Evaluate the extracted synthesis recipe against the reference procedure using AlchemyBench methodology.
+      
+      Your evaluation must be:
+      1. Technically rigorous and chemically accurate
+      2. Practically feasible for laboratory execution  
+      3. Safety-conscious with clear hazard identification
+      4. Aligned with established materials science practices
+      
+      Assess all 7 criteria systematically:
+      - Materials Appropriateness (chemistry, stoichiometry, availability)
+      - Equipment Appropriateness (specifications, parameters, suitability)
+      - Procedure Completeness (organization, detail, clarity)
+      - Procedure Similarity (alignment with reference)
+      - Procedure Feasibility (practical execution, safety)
+      - Characterization Appropriateness (method selection, suitability)
+      - Characterization Similarity (result alignment, interpretation)
+      
+      Provide detailed technical reasoning for each score and actionable recommendations for improvement.
+  lm:
+    _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
+    llm_name: "gpt-4o"
+    model_kwargs:
+      temperature: 0.1
+      max_tokens: 4096
+    system_prompt: >
+      You are a senior materials scientist and synthesis expert with extensive experience in:
+      - Inorganic materials synthesis (ceramics, oxides, metals, semiconductors)
+      - Organic and polymer synthesis
+      - Nanomaterials and nanoparticle synthesis
+      - Characterization techniques (XRD, SEM, TEM, XPS, etc.)
+      - Laboratory safety and best practices
+      - Peer review of scientific manuscripts
+      
+      Your evaluations should reflect the standards expected in top-tier materials science journals
+      and practical considerations for real laboratory implementation.
+  enable_reasoning_traces: true
+  confidence_threshold: 0.7

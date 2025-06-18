@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Generic, Tuple, TypeVar
+from typing import Generic, TypeVar
 
 import dspy
 from dspy.primitives.program import ProgramMeta
@@ -27,5 +27,5 @@ class JudgeInterface(dspy.Module, Generic[T, R], metaclass=JudgeMeta):
 
 # Input is a tuple of (target_material, extracted_recipe, synthesis_procedure)
 SynthesisJudgeInterface = JudgeInterface[
-    Tuple[str, str, str], SynthesisEvaluation
-] 
+    tuple[str, str, str], SynthesisEvaluation
+]

@@ -22,7 +22,17 @@ def main(cfg: DictConfig) -> None:
     # --- Example Data ---
     target_material = "Bi1.5Sb0.5Te1.7Se1.3 (BSTS)23-27 ultrathin films"
 
-    synthesis_procedure = """BSTS thin films with 10 nm film in thickness are prepared on mica by van der Waals epitaxy physical vapor deposition. We employed the Bi1.5Sb0.5Te1.7Se1.3 composition as the source material for the thin film crystal growth, where the surface state is tuned to n-type under the insulating bulk state. F4-TCNQ was deposited on the half of a BSTS thin film by thermal evaporation under the pressure of 10^-6 Pa to form the p-n junction on the top surface of BSTS thin films. """
+    synthesis_procedure = (
+        "BSTS thin films with 10 nm film in thickness are prepared on mica by "
+        "van der Waals epitaxy physical vapor deposition. We employed the "
+        "Bi1.5Sb0.5Te1.7Se1.3 composition as the source material for the thin "
+        "film crystal growth, where the surface state is tuned to n-type "
+        "under the insulating bulk state. F4-TCNQ was deposited on the half "
+        "of a BSTS thin film by thermal evaporation under the pressure of "
+        "10^-6 Pa to form the p-n junction on the top surface of BSTS thin "
+        "films."
+    )
+
     extracted_recipe = """
    {
     "id": "BSTS_thin_films_synthesis",
@@ -76,8 +86,17 @@ def main(cfg: DictConfig) -> None:
             }
         }
     ],
-    "notes": "BSTS thin films are prepared on mica by van der Waals epitaxy physical vapor deposition to form a p-n junction."
+    "notes": (
+        "BSTS thin films are prepared on mica by van der Waals epitaxy "
+        "physical vapor deposition to form a p-n junction."
+    )
     """
+
+    # Optional synthesis context for enhanced judges
+    synthesis_context = (
+        "Material class: Semiconductor; Application domain: Electronics; "
+        "Synthesis method: Physical vapor deposition"
+    )
 
     log.info("--- Evaluating Recipe ---")
     log.info(f"Target: {target_material}")
@@ -85,24 +104,59 @@ def main(cfg: DictConfig) -> None:
     log.info(f"Extracted: {extracted_recipe}")
     log.info("------------------------")
 
-    # Run the evaluation
-    evaluation_input = (
-        target_material,
-        extracted_recipe,
-        synthesis_procedure,
-    )
-    result = judge.forward(evaluation_input)
+    # Check if judge supports 4-tuple input (enhanced) or only 3-tuple (basic)
+    try:
+        # Try enhanced input with context
+        evaluation_input = (
+            target_material,
+            extracted_recipe,
+            synthesis_procedure,
+            synthesis_context,
+        )
+        result = judge.forward(evaluation_input)
+        log.info("Using enhanced judge with synthesis context")
+    except (TypeError, ValueError) as e:
+        # Fall back to basic 3-tuple input
+        log.info(f"Falling back to basic judge (3-tuple input): {e}")
+        evaluation_input = (
+            target_material,
+            extracted_recipe,
+            synthesis_procedure,
+        )
+        result = judge.forward(evaluation_input)
 
     # Print the results
     log.info("\n--- JUDGE'S EVALUATION ---")
     log.info("\n[Reasoning]:")
     print(result.reasoning)
 
-    log.info("\n[Scores]:")
-    print(json.dumps(result.scores.model_dump(), indent=2))
+    # Check if this is an enhanced evaluation with structured scores
+    if hasattr(result, "scores") and hasattr(
+        result.scores, "materials_appropriateness_score"
+    ):
+        log.info("\n[Enhanced AlchemyBench Scores]:")
+        print(json.dumps(result.scores.model_dump(), indent=2))
+
+        # Print additional enhanced features
+        if hasattr(result, "confidence_level"):
+            log.info(f"\n[Confidence Level]: {result.confidence_level}")
+
+        if hasattr(result, "critical_issues") and result.critical_issues:
+            log.info("\n[Critical Issues]:")
+            for issue in result.critical_issues:
+                print(f"- {issue}")
+
+        if hasattr(result, "recommendations") and result.recommendations:
+            log.info("\n[Recommendations]:")
+            for rec in result.recommendations:
+                print(f"- {rec}")
+    else:
+        # Basic evaluation format
+        log.info("\n[Basic Scores]:")
+        print(json.dumps(result.scores.model_dump(), indent=2))
 
     log.info("\n--- Evaluation Complete ---")
 
 
 if __name__ == "__main__":
-    main() 
+    main()
