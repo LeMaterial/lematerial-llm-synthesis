@@ -22,8 +22,8 @@ class HFLoader(PaperLoaderInterface):
         for paper in dataset:
             papers.append(
                 Paper(
-                    publication_text=paper["markdown_text"],
-                    si_text="",
+                    publication_text=paper["text_paper"],
+                    si_text=paper["text_si"],
                     name=paper["title"],
                     id=paper["id"],
                 )
