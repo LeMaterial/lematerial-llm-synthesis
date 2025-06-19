@@ -57,6 +57,11 @@ uv run python -c "import llm_synthesis"
 
 No errors? You're all set!
 
+## Fetching Huggingface Dataset LeMat-Synth
+
+The data is hosted as a LeMaterial Dataset on HuggingFace ([see here](https://huggingface.co/datasets/LeMaterial/LeMat-Synth/settings)).
+In order to download and use it, apply for access once (the request will be instantly approved). Install the huggingafce-cli (use [this guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli), recommended: `pip install -U "huggingface_hub[cli]"` or `brew install huggingface-cli` (macOS)) and log in with an access token (`huggingface-cli login`).
+
 ## Usage
 
 ### Text Extraction
