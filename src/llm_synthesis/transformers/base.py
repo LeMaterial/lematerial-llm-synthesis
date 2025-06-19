@@ -1,3 +1,4 @@
+import asyncio
 from abc import ABCMeta, abstractmethod
 from typing import Generic, TypeVar
 
@@ -21,3 +22,6 @@ class ExtractorInterface(dspy.Module, Generic[T, R], metaclass=ExtractorMeta):
     @abstractmethod
     def forward(self, input: T) -> R:
         pass
+
+    async def aforward(self, input: T) -> R:
+        return await asyncio.to_thread(self.forward, input)
