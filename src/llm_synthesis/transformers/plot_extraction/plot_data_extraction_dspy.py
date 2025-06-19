@@ -36,8 +36,8 @@ class PlotDataExtractor(PlotDataExtractorInterface):
         Extract plot data using the language model and signature.
 
         Args:
-            input (tuple[FigureInfoWithPaper, str]): The figure and paper context,
-                along with subplot focus information.
+            input (tuple[FigureInfoWithPaper, str]): The figure and paper
+            context, along with subplot focus information.
 
         Returns:
             list[ExtractedPlotData]: The extracted plot data.
@@ -109,11 +109,12 @@ class DataExtractionSignature(dspy.Signature):
         description="Base64 encoded image of the extractable scientific plot"
     )
     publication_context: str = dspy.InputField(
-        description="Relevant publication text providing context about the figure"
+        description="Relevant publication text providing context about the"
+        " figure"
     )
     subplot_focus: str = dspy.InputField(
-        description="Which subplot to focus on if multiple (e.g., 'subplot a', "
-        "'all subplots', 'main plot')"
+        description="Which subplot to focus on if multiple (e.g.,"
+        " 'subplot a', 'all subplots', 'main plot')"
     )
 
     extracted_data: list[ExtractedPlotData] = dspy.OutputField(
@@ -161,13 +162,17 @@ def make_dspy_plot_data_extractor_signature(
     Args:
         signature_name (str): Name of the signature.
         instructions (str): Instructions for the signature.
-        figure_base64_description (str): Description for the base64 image input.
-        publication_context_description (str): Description for the publication context input.
-        subplot_focus_description (str): Description for the subplot focus input.
-        extracted_data_description (str): Description for the extracted data output.
+        figure_base64_description (str): Description for the base64
+            image input.
+        publication_context_description (str): Description for the publication
+            context input.
+        subplot_focus_description (str): Description for the subplot focus
+            input.
+        extracted_data_description (str): Description for the extracted data
+            output.
 
     Returns:
-        dspy.Signature: The constructed dspy signature for plot data extraction.
+        dspy.Signature: The constructed dspy signature for plot data extraction
     """
     signature = DataExtractionSignature
     if instructions is not None:

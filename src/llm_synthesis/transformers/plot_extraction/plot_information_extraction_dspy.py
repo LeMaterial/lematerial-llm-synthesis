@@ -159,14 +159,19 @@ def make_dspy_plot_information_extractor_signature(
     Args:
         signature_name (str): Name of the signature.
         instructions (str): Instructions for the signature.
-        figure_base64_description (str): Description for the base64 image input.
-        publication_context_description (str): Description for the publication context input.
+        figure_base64_description (str): Description for the base64
+            image input.
+        publication_context_description (str): Description for the publication
+            context input.
         plot_type_description (str): Description for the plot type output.
-        subplot_count_description (str): Description for the subplot count output.
-        is_extractable_description (str): Description for the is_extractable output.
+        subplot_count_description (str): Description for the subplot count
+            output.
+        is_extractable_description (str): Description for the is_extractable
+            output.
 
     Returns:
-        dspy.Signature: The constructed dspy signature for plot information extraction.
+        dspy.Signature: The constructed dspy signature for plot information
+            extraction.
     """
     signature = PlotIdentificationSignature
     if instructions is None:
