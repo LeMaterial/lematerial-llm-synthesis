@@ -1,18 +1,7 @@
 import base64
 import re
-from dataclasses import dataclass
 
-
-@dataclass
-class FigureInfo:
-    """Information about a figure found in markdown text."""
-
-    base64_data: str
-    alt_text: str
-    position: int  # Character position in the text
-    context_before: str
-    context_after: str
-    figure_reference: str  # e.g., "Figure 2", "Fig. 3a", etc.
+from llm_synthesis.models.figure import FigureInfo
 
 
 def extract_figure_context(

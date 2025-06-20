@@ -1,7 +1,8 @@
 ![](assets/lematerial-logo.png)
 
 # LeMaterial-Synthesis-Parser (LeMat-SynthP)
-LeMaterial's LLM-based academic paper parsing module 
+
+LeMaterial's LLM-based academic paper parsing module
 
 ## Installation
 
@@ -20,6 +21,7 @@ uv sync && uv pip install -e .
 ```
 
 ### macOS/Linux
+
 ```bash
 cp .env.example .env
 # Edit `.env` to add:
@@ -38,12 +40,12 @@ source .env
 
 ### Windows
 
-* Search bar --> Edit the system environment variables --> Advanced --> click "Environment Variables..."
-* Under "User variables for <your-username>" click "New" and add each:
-    * Variable name: MISTRAL_API_KEY; Value: your_api_key
-    * Variable name: OPENAI_API_KEY; Value: your_api_key
-    * Variable name: GEMINI_API_KEY; Value: your_api_key
-    * Variable name: GOOGLE_APPLICATION_CREDENTIALS; Value: C:\path\to\service-account.json
+- Search bar --> Edit the system environment variables --> Advanced --> click "Environment Variables..."
+- Under "User variables for <your-username>" click "New" and add each:
+  - Variable name: MISTRAL_API_KEY; Value: your_api_key
+  - Variable name: OPENAI_API_KEY; Value: your_api_key
+  - Variable name: GEMINI_API_KEY; Value: your_api_key
+  - Variable name: GOOGLE_APPLICATION_CREDENTIALS; Value: C:\path\to\service-account.json
 
 For any platform you can always load .env-style keys in code via `os.environ.get(...)`.
 
@@ -71,16 +73,15 @@ For example, this will extract text from `./data/pdf_papers` and write the resul
 uv run examples/scripts/extract_text_from_pdfs.py --input-path data/pdf_papers --output-path data/txt_papers/docling --process docling
 ```
 
-
 ### Extracting a synthesis procedure from the parsed text
 
 For usage in a notebook, cf. `notebooks/synthesis_procedure_extraction.ipynb`
 
 **Benchmark – Sweeping over different configurations**. DSPy designs LLM pipelines in a very modular way: The quality of the output is influenced by the LLM, prompting strategy, pre-processing steps etc.
-In order to keep track of every *moving part* of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
+In order to keep track of every _moving part_ of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
 
 ```
-uv run examples/scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.lm.name=gpt-4o-mini
+uv run examples/scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.architecture.lm.llm_name=gpt-4o-mini
 ```
 
 To sweep over several configurations, use the flag `--multirun`:
