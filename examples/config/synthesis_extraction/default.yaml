@@ -14,4 +14,4 @@ architecture:
       temperature: 0.0
     system_prompt:
       _target_: llm_synthesis.utils.read_prompt_str_from_txt
-      prompt_path: "path/to/examples/system_prompts/synthesis_extraction/default.txt"
+      prompt_path: "examples/system_prompts/synthesis_extraction/default.txt" # Add the path who was mentioned
