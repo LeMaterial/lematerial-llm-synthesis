@@ -7,7 +7,6 @@ from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
-from llm_synthesis.models.paper import PaperWithSynthesisOntology
 from llm_synthesis.transformers.synthesis_extraction.base import (
     StructuredSynthesisExtractorInterface,
 )
@@ -59,16 +58,24 @@ def main(cfg: DictConfig) -> None:
             input=synthesis_paragraph,
         )
         logging.info(structured_synthesis_procedure)
-        paper_enriched = PaperWithSynthesisOntology(
-            **paper.model_dump(),
-            synthesis_paragraph=synthesis_paragraph,
-            synthesis_ontology=structured_synthesis_procedure,
-        )
 
         os.makedirs(paper.id, exist_ok=True)
 
         with open(os.path.join(paper.id, "result.json"), "w") as f:
-            f.write(json.dumps(paper_enriched.model_dump(), indent=2))
+            f.write(
+                json.dumps(
+                    structured_synthesis_procedure.model_dump(), indent=2
+                )
+            )
+
+        with open(os.path.join(paper.id, "synthesis_paragraph.txt"), "w") as f:
+            f.write(synthesis_paragraph)
+
+        with open(os.path.join(paper.id, "publication_text.txt"), "w") as f:
+            f.write(paper.publication_text)
+
+        with open(os.path.join(paper.id, "si_text.txt"), "w") as f:
+            f.write(paper.si_text)
 
     logging.info("Success")
 
