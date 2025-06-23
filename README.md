@@ -75,6 +75,12 @@ uv run examples/scripts/extract_text_from_pdfs.py --input-path data/pdf_papers -
 
 ### Extracting a synthesis procedure from the parsed text
 
+Export your HuggingFace token before running the following command
+
+```sh
+huggingface-cli login
+```
+
 For usage in a notebook, cf. `notebooks/synthesis_procedure_extraction.ipynb`
 
 **Benchmark – Sweeping over different configurations**. DSPy designs LLM pipelines in a very modular way: The quality of the output is influenced by the LLM, prompting strategy, pre-processing steps etc.
