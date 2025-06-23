@@ -1,8 +1,9 @@
+import json
 import logging
 import os
 
 import hydra
-from hydra.utils import instantiate
+from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
@@ -20,11 +21,22 @@ from llm_synthesis.utils import remove_figs
     config_path="../config", config_name="config.yaml", version_base=None
 )
 def main(cfg: DictConfig) -> None:
-    # Load dataset for evaluation (pubs, sis, ground truth paragraphs)
     data_loader: PaperLoaderInterface = instantiate(
         cfg.data_loader.architecture
     )
     papers = data_loader.load()
+
+    if hasattr(
+        cfg.synthesis_extraction.architecture.lm.system_prompt, "prompt_path"
+    ):
+        original_cwd = get_original_cwd()
+        prompt_path = os.path.join(
+            original_cwd,
+            cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path,
+        )
+        cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path = (
+            prompt_path
+        )
 
     paragraph_extractor: TextExtractorInterface = instantiate(
         cfg.paragraph_extraction.architecture
@@ -56,7 +68,7 @@ def main(cfg: DictConfig) -> None:
         os.makedirs(paper.id, exist_ok=True)
 
         with open(os.path.join(paper.id, "result.json"), "w") as f:
-            f.write(paper_enriched.model_dump_json())
+            f.write(json.dumps(paper_enriched.model_dump(), indent=2))
 
     logging.info("Success")
 
