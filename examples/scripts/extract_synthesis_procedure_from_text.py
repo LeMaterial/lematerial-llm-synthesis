@@ -21,9 +21,7 @@ from llm_synthesis.utils import remove_figs
     config_path="../config", config_name="config.yaml", version_base=None
 )
 def main(cfg: DictConfig) -> None:
-    data_loader: PaperLoaderInterface = instantiate(
-        cfg.data_loader.architecture
-    )
+    data_loader: PaperLoaderInterface = instantiate(cfg.data_loader)
     papers = data_loader.load()
 
     if hasattr(
