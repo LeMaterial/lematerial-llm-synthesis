@@ -1,2 +1,4 @@
-_target_: llm_synthesis.data_loader.paper_loader.fs_paper_loader.FSPaperLoader
-data_dir: "examples/data/txt_papers/mistral/"
+architecture:
+  _target_: llm_synthesis.data_loader.paper_loader.fs_paper_loader.FSPaperLoader
+  # Folder for .txt files of parsed papers
+  data_dir: "examples/data/txt_papers/mistral/"

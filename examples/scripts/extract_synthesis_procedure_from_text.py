@@ -1,9 +1,9 @@
+import json
 import logging
 import os
-import json
 
 import hydra
-from hydra.utils import instantiate, get_original_cwd
+from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
@@ -21,29 +21,19 @@ from llm_synthesis.utils import remove_figs
     config_path="../config", config_name="config.yaml", version_base=None
 )
 def main(cfg: DictConfig) -> None:
-    # Conditional instantiation to support both nested (default) and flat (local) configs
-    if hasattr(cfg.data_loader, 'architecture'):
-        data_loader_config = cfg.data_loader.architecture
-    else:
-        data_loader_config = cfg.data_loader
-
-    # Apply absolute path resolution only if data_dir exists in the selected configuration
-    # This is necessary because chdir: true changes the current working directory
-    if hasattr(data_loader_config, 'data_dir'):
-        original_cwd = get_original_cwd()
-        data_loader_config.data_dir = os.path.join(original_cwd, data_loader_config.data_dir)
-
-    data_loader: PaperLoaderInterface = instantiate(
-        data_loader_config
-    )
+    data_loader: PaperLoaderInterface = instantiate(cfg.data_loader)
     papers = data_loader.load()
 
-    # Resolve prompt_path for synthesis_extraction to be an absolute path
-    # This is necessary because chdir: true changes the current working directory
-    if hasattr(cfg.synthesis_extraction.architecture.lm.system_prompt, "prompt_path"):
+    if hasattr(
+        cfg.synthesis_extraction.architecture.lm.system_prompt, "prompt_path"
+    ):
         original_cwd = get_original_cwd()
-        cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path = os.path.join(
-            original_cwd, cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path
+        prompt_path = os.path.join(
+            original_cwd,
+            cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path,
+        )
+        cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path = (
+            prompt_path
         )
 
     paragraph_extractor: TextExtractorInterface = instantiate(
