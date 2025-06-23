@@ -21,13 +21,22 @@ from llm_synthesis.utils import remove_figs
     config_path="../config", config_name="config.yaml", version_base=None
 )
 def main(cfg: DictConfig) -> None:
-    data_loader: PaperLoaderInterface = instantiate(cfg.data_loader)
+    original_cwd = get_original_cwd()
+
+    # Ensure data directory is correctly set if it's defined in the config
+    if hasattr(cfg.data_loader.architecture, "data_dir"):
+        cfg.data_loader.architecture.data_dir = os.path.join(
+            original_cwd, cfg.data_loader.architecture.data_dir
+        )
+
+    # Load data
+    data_loader: PaperLoaderInterface = instantiate(cfg.data_loader.architecture)
     papers = data_loader.load()
 
+    # Handle system prompt path if defined
     if hasattr(
         cfg.synthesis_extraction.architecture.lm.system_prompt, "prompt_path"
     ):
-        original_cwd = get_original_cwd()
         prompt_path = os.path.join(
             original_cwd,
             cfg.synthesis_extraction.architecture.lm.system_prompt.prompt_path,
@@ -36,6 +45,7 @@ def main(cfg: DictConfig) -> None:
             prompt_path
         )
 
+    # Initialize text and synthesis extractors
     paragraph_extractor: TextExtractorInterface = instantiate(
         cfg.paragraph_extraction.architecture
     )
@@ -43,6 +53,7 @@ def main(cfg: DictConfig) -> None:
         cfg.synthesis_extraction.architecture
     )
 
+    # Process each paper
     for paper in papers:
         logging.info(f"Processing {paper.name}")
         synthesis_paragraph = paragraph_extractor.forward(
