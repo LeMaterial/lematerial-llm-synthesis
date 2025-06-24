@@ -118,6 +118,8 @@ def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
             context_before=context_before,
             context_after=context_after,
             figure_reference=figure_reference,
+            figure_class="Unknown",
+            quantitative=False,  # Default to False, will be updated later
         )
 
         figures.append(figure_info)
