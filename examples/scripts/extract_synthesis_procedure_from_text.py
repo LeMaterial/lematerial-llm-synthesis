@@ -25,9 +25,14 @@ def main(cfg: DictConfig) -> None:
 
     # Ensure data directory is correctly set if it's defined in the config
     if hasattr(cfg.data_loader.architecture, "data_dir"):
-        cfg.data_loader.architecture.data_dir = os.path.join(
-            original_cwd, cfg.data_loader.architecture.data_dir
-        )
+        if not (
+            cfg.data_loader.architecture.data_dir.startswith("s3://")
+            or cfg.data_loader.architecture.data_dir.startswith("gs://")
+            or cfg.data_loader.architecture.data_dir.startswith("/")
+        ):
+            cfg.data_loader.architecture.data_dir = os.path.join(
+                original_cwd, cfg.data_loader.architecture.data_dir
+            )
 
     # Load data
     data_loader: PaperLoaderInterface = instantiate(
