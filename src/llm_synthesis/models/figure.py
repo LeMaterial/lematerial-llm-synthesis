@@ -10,10 +10,12 @@ class FigureInfo(BaseModel):
     context_before: str
     context_after: str
     figure_reference: str  # e.g., "Figure 2", "Fig. 3a", etc.
+    figure_class: str  # e.g., "Bar plots", "Tables", "Graph plots", etc.
+    quantitative: bool = False  # Is figure quantitative (e.g., plots, tables)
 
 
 class FigureInfoWithPaper(FigureInfo):
-    """Information about a figure found in markdown text with the paper text."""
+    """Information about figure found in markdown text with the paper text."""
 
     paper_text: str
     si_text: str

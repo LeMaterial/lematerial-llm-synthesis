@@ -85,8 +85,7 @@ class SynthesisEvaluationScore(BaseModel):
     characterization_appropriateness_score: float = Field(
         ...,
         description=(
-            "Score (1-5) for the appropriateness of characterization "
-            "metrics."
+            "Score (1-5) for the appropriateness of characterization metrics."
         ),
         ge=1.0,
         le=5.0,
