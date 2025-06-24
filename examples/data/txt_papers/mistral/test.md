@@ -1,0 +1,1 @@
+A solution of **0.5 g of copper(II) nitrate trihydrate** was dissolved in **10 mL of distilled water**, then heated to **80 °C** for **2 hours** under a **nitrogen atmosphere**. The resulting **blue precipitate** was filtered and dried at **60 °C overnight**.
