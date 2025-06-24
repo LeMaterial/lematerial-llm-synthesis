@@ -10,7 +10,8 @@ class FigureInfo(BaseModel):
     context_before: str
     context_after: str
     figure_reference: str  # e.g., "Figure 2", "Fig. 3a", etc.
-    # figure_class: str | None = None # TODO: add fig class
+    figure_class: str  # e.g., "Bar plots", "Tables", "Graph plots", etc.
+    quantitative: bool = False  # Is figure quantitative (e.g., plots, tables)
 
 
 class FigureInfoWithPaper(FigureInfo):
