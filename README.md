@@ -57,6 +57,11 @@ uv run python -c "import llm_synthesis"
 
 No errors? You're all set!
 
+## Fetching Huggingface Dataset LeMat-Synth
+
+The data is hosted as a LeMaterial Dataset on HuggingFace ([see here](https://huggingface.co/datasets/LeMaterial/LeMat-Synth/settings)).
+In order to download and use it, apply for access once (the request will be instantly approved). Install the huggingafce-cli (use [this guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli), recommended: `pip install -U "huggingface_hub[cli]"` or `brew install huggingface-cli` (macOS)) and log in with an access token (`huggingface-cli login`).
+
 ## Usage
 
 ### Text Extraction
@@ -81,7 +86,7 @@ For usage in a notebook, cf. `notebooks/synthesis_procedure_extraction.ipynb`
 In order to keep track of every _moving part_ of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
 
 ```
-uv run examples/scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.architecture.lm.llm_name=gpt-4o-mini
+uv run examples/scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash
 ```
 
 To sweep over several configurations, use the flag `--multirun`:
