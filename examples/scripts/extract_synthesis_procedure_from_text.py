@@ -30,10 +30,23 @@ def main(cfg: DictConfig) -> None:
         )
 
     # Load data
-    data_loader: PaperLoaderInterface = instantiate(cfg.data_loader.architecture)
+    data_loader: PaperLoaderInterface = instantiate(
+        cfg.data_loader.architecture
+    )
     papers = data_loader.load()
 
     # Handle system prompt path if defined
+    if hasattr(
+        cfg.paragraph_extraction.architecture.lm.system_prompt, "prompt_path"
+    ):
+        prompt_path = os.path.join(
+            original_cwd,
+            cfg.paragraph_extraction.architecture.lm.system_prompt.prompt_path,
+        )
+        cfg.paragraph_extraction.architecture.lm.system_prompt.prompt_path = (
+            prompt_path
+        )
+
     if hasattr(
         cfg.synthesis_extraction.architecture.lm.system_prompt, "prompt_path"
     ):
