@@ -52,17 +52,18 @@ class PlotMetadata(BaseModel):
     left_y_axis_unit: str = Field(
         description="Unit of the left y-axis", default=""
     )
-    right_y_axis_label: str = Field(
+    right_y_axis_label: str | None = Field(
         description="Label of the right y-axis if dual-axis", default=""
     )
-    right_y_axis_unit: str = Field(
+    right_y_axis_unit: str | None = Field(
         description="Unit of the right y-axis if dual-axis", default=""
     )
     plot_title: str = Field(description="Title of the plot", default="")
     is_dual_axis: bool = Field(description="Whether this is a dual-axis plot")
-    subplot_label: str = Field(
-        description="Subplot label (e.g., 'a', 'b', 'c')", default=""
-    )
+    # We will probably chunk plots into subplots and parse them separately?
+    # subplot_label: str = Field(
+    #     description="Subplot label (e.g., 'a', 'b', 'c')", default=""
+    # )
 
 
 class ExtractedPlotData(BaseModel):
@@ -77,3 +78,12 @@ class ExtractedPlotData(BaseModel):
     technical_takeaways: list[str] = Field(
         description="Key technical/scientific insights from the plot"
     )
+
+
+class ClaudeExtractedPlotData(BaseModel):
+    name_to_coordinates: dict[str, list[list[float]]]
+    title: str | None
+    x_axis_label: str | None
+    x_axis_unit: str | None
+    y_left_axis_label: str | None
+    y_left_axis_unit: str | None
