@@ -1,6 +1,4 @@
-import json
 import logging
-import os
 
 import hydra
 from hydra.utils import get_original_cwd, instantiate
@@ -8,6 +6,7 @@ from omegaconf import DictConfig
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.models.paper import PaperWithSynthesisOntology
+from llm_synthesis.result_gather.base import ResultGatherInterface
 from llm_synthesis.transformers.synthesis_extraction.base import (
     StructuredSynthesisExtractorInterface,
 )
@@ -70,6 +69,9 @@ def main(cfg: DictConfig) -> None:
     synthesis_extractor: StructuredSynthesisExtractorInterface = instantiate(
         cfg.synthesis_extraction.architecture
     )
+    result_gather: ResultGatherInterface[PaperWithSynthesisOntology] = (
+        instantiate(cfg.result_save.architecture)
+    )
 
     # Process each paper
     for paper in papers:
@@ -80,22 +82,18 @@ def main(cfg: DictConfig) -> None:
             ),  # Removing figures avoid token overload
         )
 
-        os.makedirs(paper.id, exist_ok=True)
-
         structured_synthesis_procedure = synthesis_extractor.forward(
             input=synthesis_paragraph,
         )
         logging.info(structured_synthesis_procedure)
-        paper_enriched = PaperWithSynthesisOntology(
-            **paper.model_dump(),
-            synthesis_paragraph=synthesis_paragraph,
-            synthesis_ontology=structured_synthesis_procedure,
+
+        result_gather.gather(
+            paper=PaperWithSynthesisOntology(
+                **paper.model_dump(),
+                synthesis_paragraph=synthesis_paragraph,
+                synthesis_ontology=structured_synthesis_procedure,
+            )
         )
-
-        os.makedirs(paper.id, exist_ok=True)
-
-        with open(os.path.join(paper.id, "result.json"), "w") as f:
-            f.write(json.dumps(paper_enriched.model_dump(), indent=2))
 
     logging.info("Success")
 
