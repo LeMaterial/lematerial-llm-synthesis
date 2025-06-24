@@ -1,4 +1,9 @@
+import torch
+
 from llm_synthesis.models.figure import FigureInfo
+from llm_synthesis.models.resnet import (
+    FigureClassifier,
+)
 from llm_synthesis.transformers.figure_extraction.base import (
     FigureExtractorInterface,
 )
@@ -14,9 +19,10 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
     """
 
     def __init__(self):
-        self.image_classifier = (
-            "foo"  # TODO: add image classifier, loading function or similar
+        self.device = torch.device(
+            "cuda" if torch.cuda.is_available() else "cpu"
         )
+        self.classifier = FigureClassifier()
 
     def forward(self, input: str) -> list[FigureInfo]:
         """
@@ -28,11 +34,23 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
         Returns:
             list[FigureInfo]: A list of extracted figure information objects.
         """
-        base64_images = find_figures_in_markdown(input)
+        figures = find_figures_in_markdown(input)
 
-        pil_images = [
-            base64_to_image(base64_data) for base64_data in base64_images
-        ]
+        for figure in figures:
+            pil_image = base64_to_image(figure.base64_data)
+            predicted_label = self.classifier.predict(pil_image)
+            figure.figure_class = predicted_label
 
-        for image in pil_images:
-            pass
+            # Check if the predicted label is a quantitative figure
+            if predicted_label in [
+                "Bar plots",
+                "Contour plot",
+                "Graph plots",
+                "Scatter plot",
+                "Tables",
+            ]:
+                figure.quantitative = True
+            else:
+                figure.quantitative = False
+
+        return figures
