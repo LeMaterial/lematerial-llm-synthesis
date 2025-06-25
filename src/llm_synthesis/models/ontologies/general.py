@@ -89,3 +89,9 @@ class GeneralSynthesisOntology(BaseModel):
         ..., description="Process steps of the synthesis."
     )
     notes: str | None = Field(..., description="Notes about the synthesis.")
+
+    def keys(self):
+        return self.model_dump().keys()
+
+    def __getitem__(self, key: str):
+        return self.model_dump()[key]
