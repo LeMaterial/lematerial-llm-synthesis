@@ -26,11 +26,6 @@ class Material(BaseModel):
         ..., description="Unit of the amount. E.g. 'g', 'mol', 'wt%'."
     )
     role: Literal["precursor", "support", "solvent", "additive", "reagent"]
-    stoichiometry: str | None = Field(
-        ...,
-        description="Stoichiometry of the material in the synthesis."
-        " E.g. '1:1', '1:2', '2:1'.",
-    )
 
 
 class Conditions(BaseModel):
