@@ -23,11 +23,6 @@ class SynthesisFSResultGather(
             f.write(
                 json.dumps(paper.synthesis_ontology.model_dump(), indent=2)
             )
-        with self.fs.open(
-            os.path.join(self.result_dir, paper.id, "synthesis_paragraph.txt"),
-            "w",
-        ) as f:
-            f.write(paper.synthesis_paragraph)
 
         with self.fs.open(
             os.path.join(self.result_dir, paper.id, "publication_text.txt"),

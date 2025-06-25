@@ -11,10 +11,6 @@ from llm_synthesis.result_gather.base import ResultGatherInterface
 from llm_synthesis.transformers.synthesis_extraction.base import (
     StructuredSynthesisExtractorInterface,
 )
-from llm_synthesis.transformers.text_extraction.base import (
-    TextExtractorInterface,
-)
-from llm_synthesis.utils import remove_figs
 
 
 @hydra.main(
@@ -42,17 +38,6 @@ def main(cfg: DictConfig) -> None:
 
     # Handle system prompt path if defined
     if hasattr(
-        cfg.paragraph_extraction.architecture.lm.system_prompt, "prompt_path"
-    ):
-        prompt_path = os.path.join(
-            original_cwd,
-            cfg.paragraph_extraction.architecture.lm.system_prompt.prompt_path,
-        )
-        cfg.paragraph_extraction.architecture.lm.system_prompt.prompt_path = (
-            prompt_path
-        )
-
-    if hasattr(
         cfg.synthesis_extraction.architecture.lm.system_prompt, "prompt_path"
     ):
         prompt_path = os.path.join(
@@ -63,10 +48,7 @@ def main(cfg: DictConfig) -> None:
             prompt_path
         )
 
-    # Initialize text and synthesis extractors
-    paragraph_extractor: TextExtractorInterface = instantiate(
-        cfg.paragraph_extraction.architecture
-    )
+    # Initialize synthesis extractors
     synthesis_extractor: StructuredSynthesisExtractorInterface = instantiate(
         cfg.synthesis_extraction.architecture
     )
@@ -77,21 +59,15 @@ def main(cfg: DictConfig) -> None:
     # Process each paper
     for paper in papers:
         logging.info(f"Processing {paper.name}")
-        synthesis_paragraph = paragraph_extractor.forward(
-            input=remove_figs(
-                paper.publication_text
-            ),  # Removing figures avoid token overload
-        )
 
         structured_synthesis_procedure = synthesis_extractor.forward(
-            input=synthesis_paragraph,
+            input=paper.publication_text + paper.si_text,
         )
         logging.info(structured_synthesis_procedure)
 
         result_gather.gather(
             paper=PaperWithSynthesisOntology(
                 **paper.model_dump(),
-                synthesis_paragraph=synthesis_paragraph,
                 synthesis_ontology=structured_synthesis_procedure,
             )
         )

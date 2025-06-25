@@ -9,7 +9,7 @@ from llm_synthesis.transformers.synthesis_extraction.base import (
 class DspyStructuredSynthesisExtractor(StructuredSynthesisExtractorInterface):
     """
     Extractor that uses dspy to extract a structured synthesis ontology
-    from a synthesis paragraph.
+    from a publication.
     """
 
     def __init__(self, signature: type[dspy.Signature], lm: dspy.LM):
@@ -27,17 +27,17 @@ class DspyStructuredSynthesisExtractor(StructuredSynthesisExtractorInterface):
 
     def forward(self, input: str) -> GeneralSynthesisOntology:
         """
-        Extract a structured synthesis ontology from the given synthesis
-        paragraph using the language model and signature.
+            Extract a structured synthesis ontology from the given synthesis
+            paragraph using the language model and signature.
 
         Args:
-            input (str): The synthesis paragraph to process.
+            input (str): The publication text to process.
 
         Returns:
             GeneralSynthesisOntology: The structured synthesis ontology
-                                      extracted from the paragraph.
+                                      extracted from the publication text.
         """
-        predict_kwargs = {"synthesis_paragraph": input}
+        predict_kwargs = {"publication_text": input}
         with dspy.settings.context(lm=self.lm):
             return dspy.Predict(self.signature, lm=self.lm)(
                 **predict_kwargs

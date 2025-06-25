@@ -3,8 +3,8 @@ architecture:
   signature:
     _target_: llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction.make_dspy_structured_synthesis_extractor_signature
     signature_name: "StructuredSynthesisSignature"
-    instructions: "Extract the structured synthesis from the synthesis paragraph."
-    input_description: "The synthesis paragraph to extract the structured synthesis from."
+    instructions: "Extract the structured synthesis from the publication text."
+    input_description: "The publication text to extract the structured synthesis from."
     output_name: "structured_synthesis"
     output_description: "The extracted structured synthesis."
   lm:

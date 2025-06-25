@@ -43,7 +43,6 @@ Get in touch with us -- preferably via the designated slack channel, feel free t
 ```
 .
 ├── config
-│   ├── paragraph_extraction
 │   ├── synthesis_extraction
 │   └── config.yaml
 ├── notebooks/                   # Jupyter notebooks for exploration and demos
@@ -52,8 +51,7 @@ Get in touch with us -- preferably via the designated slack channel, feel free t
 │   └── llm_synthesis/           # Main package installed with uv pip install -e .
 │       ├── extraction/          # Code for extracting content
 │       │   ├── synthesis/       # Synthesis extraction modules
-│       │   ├── figures/         # Image extraction modules
-│       │   └── text/            # Synthesis paragraph extraction modules
+│       │   └── figures/         # Image extraction modules
 │       ├── metrics
 │       ├── ontologies           # Domain ontologies and schema definitions
 │       ├── services             # Modules for processing PDFs to markdown files

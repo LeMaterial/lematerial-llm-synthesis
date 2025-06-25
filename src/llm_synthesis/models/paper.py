@@ -10,9 +10,5 @@ class Paper(BaseModel):
     si_text: str = ""
 
 
-class PaperWithSynthesisParagraph(Paper):
-    synthesis_paragraph: str
-
-
-class PaperWithSynthesisOntology(PaperWithSynthesisParagraph):
+class PaperWithSynthesisOntology(Paper):
     synthesis_ontology: GeneralSynthesisOntology

@@ -96,5 +96,5 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py --multirun \
     synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash,gemini-2.5-flash,gpt-4o
 ```
 
-The results of the runs are saved in `results/single_run` and `results/multi_run`, respectively. The synthesis paragraphs and structured synthesis procedures are saved and can be inspected there.
+The results of the runs are saved in `results/single_run` and `results/multi_run`, respectively. The structured synthesis procedures are saved and can be inspected there.
 **Metrics**: Note that the metrics are an arbitrary, random number at this stage.
