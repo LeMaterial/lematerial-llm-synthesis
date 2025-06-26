@@ -1,11 +1,18 @@
 # ruff: noqa: E501
 # disable long line check for this file to respect the instructions
 import dspy
+import logging
+# ADDED: JSON repair utility for handling malformed LLM outputs
+# This import enables graceful parsing of JSON responses that may be incomplete or malformed
+from llm_synthesis.utils.json_utils import parse_json
 
 from llm_synthesis.models.figure import FigureInfoWithPaper
 from llm_synthesis.transformers.figure_description.base import (
     FigureDescriptionExtractorInterface,
 )
+# ADDED: Logger for debugging JSON parsing issues
+# Helps track when and why JSON repair is triggered
+logger = logging.getLogger(__name__)
 
 
 class DspyFigureDescriptionExtractor(FigureDescriptionExtractorInterface):
@@ -27,7 +34,7 @@ class DspyFigureDescriptionExtractor(FigureDescriptionExtractorInterface):
 
     def forward(self, input: FigureInfoWithPaper) -> str:
         """
-        Extract a figure description using the language model and signature.
+        Extract a figure description using the language model and signature with JSON repair.
 
         Args:
             input (FigureInfoWithPaper): The figure and paper context.
@@ -35,17 +42,34 @@ class DspyFigureDescriptionExtractor(FigureDescriptionExtractorInterface):
         Returns:
             str: The generated figure description.
         """
-        predict_kwargs = {
-            "publication_text": input.paper_text,
-            "si_text": input.si_text,
-            "figure_base64": input.base64_data,
-            "caption_context": input.context_before + input.context_after,
-            "figure_position_info": input.figure_reference,
-        }
-        with dspy.settings.context(lm=self.lm):
-            return dspy.Predict(self.signature)(**predict_kwargs).__getattr__(
-                next(iter(self.signature.output_fields.keys()))
-            )
+        try:
+            predict_kwargs = {
+                "publication_text": input.paper_text,
+                "si_text": input.si_text,
+                "figure_base64": input.base64_data,
+                "caption_context": input.context_before + input.context_after,
+                "figure_position_info": input.figure_reference,
+            }
+            
+            with dspy.settings.context(lm=self.lm):
+                raw_output = dspy.Predict(self.signature)(**predict_kwargs)
+                description = raw_output.__getattr__(
+                    next(iter(self.signature.output_fields.keys()))
+                )
+            
+            # Handle potential JSON output with centralized repair
+            if description.strip().startswith('{'):
+                json_obj = parse_json(description, fallback_value=None)
+                if json_obj and isinstance(json_obj, dict):
+                    # Extract description field if JSON contains structured data
+                    description = json_obj.get('figure_description', 
+                                             json_obj.get('description', description))
+            
+            return description
+            
+        except Exception as e:
+            logger.error(f"Error in figure description extraction: {e}")
+            return f"Error generating figure description: {str(e)}"
 
     def _validate_signature(self, signature: type[dspy.Signature]):
         """

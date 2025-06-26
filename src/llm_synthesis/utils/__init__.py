@@ -6,6 +6,12 @@ from llm_synthesis.utils.figure_utils import (
     insert_figure_description,
     validate_base64_image,
 )
+from llm_synthesis.utils.json_utils import (
+    safe_json_loads,
+    parse_json,
+    extract_json_from_text,
+    validate_required_fields,
+)
 from llm_synthesis.utils.markdown_utils import remove_figs
 from llm_synthesis.utils.prompt_utils import read_prompt_str_from_txt
 from llm_synthesis.utils.style_utils import get_cmap, get_palette, set_style
