@@ -8,5 +8,5 @@ def read_prompt_str_from_txt(prompt_path: str) -> str:
     Returns:
         The prompt string.
     """
-    with open(prompt_path, "r") as f:
+    with open(prompt_path) as f:
         return f.read()

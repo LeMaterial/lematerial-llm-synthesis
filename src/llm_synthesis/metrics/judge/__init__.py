@@ -16,8 +16,8 @@ __all__ = [
     "AlchemyBenchSynthesisJudgeSignature",
     "DspyAlchemyBenchSynthesisJudge",
     "DspySynthesisJudge",
-    "make_alchemybench_synthesis_judge_signature",
-    "make_dspy_synthesis_judge_signature",
     "SynthesisEvaluation",
     "SynthesisEvaluationScore",
+    "make_alchemybench_synthesis_judge_signature",
+    "make_dspy_synthesis_judge_signature",
 ]

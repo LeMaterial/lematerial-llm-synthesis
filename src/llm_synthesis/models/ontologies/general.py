@@ -67,70 +67,23 @@ class ProcessStep(BaseModel):
         "reduce",
         "calcine",
     ]
-    # description: Optional[str] = Field(
-    #     ..., description="Description of the process step."
-    # )
-    # materials: Optional[List[Material]] = Field(
-    #     ..., description="Materials used in the process step."
-    # )
-    materials: list[str] = Field(
+    description: str | None = Field(
+        ..., description="Description of the process step."
+    )
+    materials: list[Material] = Field(
         ..., description="Materials used in the process step."
     )
     conditions: Conditions | None = Field(
         ..., description="Conditions of the process step."
     )
-    # conditions: Optional[Conditions] = Field(
-    #     ..., description="Conditions of the process step."
-    # )
-
-
-class Support(BaseModel):
-    name: str = Field(
-        ...,
-        description="Name of the support material."
-        " E.g. 'Al2O3', 'SiO2', 'CZY'.",
-    )
-    purchased: bool = Field(
-        ..., description="Whether the support material is purchased."
-    )
-
-
-class TargetCompound(BaseModel):
-    active_species: str = Field(
-        ...,
-        description="Active species of the material, if a catalyst."
-        " The nanoparticle composition, e.g. Ni1Co9. No support.",
-    )
-    metals: list[str] = Field(
-        ..., description="Metals in the compound. E.g. ['Co', 'Ni']."
-    )
-    metal_loading: float = Field(
-        ..., description="Metal loading of the compound. E.g. 10, 20, 30."
-    )
-    loading_unit: str = Field(
-        ...,
-        description="Unit of the metal loading. E.g. 'wt%', 'mol%', 'atom%'.",
-    )
-    support: Support = Field(
-        ...,
-        description="Support of the compound."
-        " The support material, e.g. Al2O3.",
-    )
-    synthesis_method: str = Field(
-        ...,
-        description="Method of the synthesis."
-        " E.g. 'deposition-precipitation', 'sol-gel',"
-        " 'hydrothermal', 'pyrolysis'.",
-    )
 
 
 class GeneralSynthesisOntology(BaseModel):
-    id: str
     target_compound: str = Field(
         ..., description="Target compound composition."
     )
-    materials: list[str] = Field(
-        ..., description="Materials used in the synthesis."
+    starting_materials: list[str] = Field(
+        ..., description="Starting materials used in the synthesis."
     )
     steps: list[ProcessStep] = Field(
         ..., description="Process steps of the synthesis."

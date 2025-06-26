@@ -1,5 +1,8 @@
 import base64
 import re
+from io import BytesIO
+
+from PIL import Image
 
 from llm_synthesis.models.figure import FigureInfo
 
@@ -115,6 +118,8 @@ def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
             context_before=context_before,
             context_after=context_after,
             figure_reference=figure_reference,
+            figure_class="Unknown",
+            quantitative=False,  # Default to False, will be updated later
         )
 
         figures.append(figure_info)
@@ -216,3 +221,16 @@ def clean_text_from_images(text: str) -> str:
 
     cleaned_text = re.sub(pattern, replacement, text)
     return cleaned_text
+
+
+def base64_to_image(base64_data: str) -> Image.Image:
+    """
+    Convert base64 data to an image.
+
+    Args:
+        base64_data: Base64 encoded image data
+
+    Returns:
+        PIL Image object
+    """
+    return Image.open(BytesIO(base64.b64decode(base64_data)))
