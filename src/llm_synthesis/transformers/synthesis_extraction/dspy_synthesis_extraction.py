@@ -54,10 +54,10 @@ class DspyStructuredSynthesisExtractor(StructuredSynthesisExtractorInterface):
         Raises:
             ValueError: If any required field is missing or has the wrong type.
         """
-        if "synthesis_paragraph" not in signature.input_fields:
-            raise ValueError("Synthesis paragraph must be in signature")
-        if signature.input_fields["synthesis_paragraph"].annotation is not str:
-            raise ValueError("Synthesis paragraph must be a string")
+        if "publication_text" not in signature.input_fields:
+            raise ValueError("Publication text must be in signature")
+        if signature.input_fields["publication_text"].annotation is not str:
+            raise ValueError("Publication text must be a string")
         if len(signature.output_fields) != 1:
             raise ValueError("Only one output field is allowed")
         if (
@@ -92,7 +92,7 @@ def make_dspy_structured_synthesis_extractor_signature(
                         extraction.
     """
     signature = {
-        "synthesis_paragraph": (
+        "publication_text": (
             str,
             dspy.InputField(description=input_description),
         ),
