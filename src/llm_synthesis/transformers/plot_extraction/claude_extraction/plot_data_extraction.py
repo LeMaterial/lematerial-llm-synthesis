@@ -1,35 +1,43 @@
 import re
 
 from llm_synthesis.models.figure import FigureInfoWithPaper
-from llm_synthesis.models.plot import ClaudeExtractedPlotData
+from llm_synthesis.models.plot import ExtractedLinePlotData
+from llm_synthesis.services.llm_api.claude import (
+    ClaudeAPIClient,
+)
+from llm_synthesis.transformers.plot_extraction.base import (
+    LinePlotDataExtractorInterface,
+)
 from llm_synthesis.transformers.plot_extraction.claude_extraction import (
     resources,
 )
-from llm_synthesis.transformers.plot_extraction.claude_extraction.claude import (
-    ClaudeAPIClient,
-)
 
 
-class ClaudePlotDataExtractor:
-    def __init__(self, model_name: str):
-        self.claude_client = ClaudeAPIClient(model_name)
-
-    def extract(
+class ClaudePlotDataExtractor(LinePlotDataExtractorInterface):
+    def __init__(
         self,
-        input: FigureInfoWithPaper,
+        model_name: str,
         max_tokens: int = 1024,
         temperature: float = 0.0,
-    ) -> ClaudeExtractedPlotData:
+    ):
+        self.claude_client = ClaudeAPIClient(model_name)
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+
+    def forward(
+        self,
+        input: FigureInfoWithPaper,
+    ) -> ExtractedLinePlotData:
         figure_base64 = input.base64_data
         claude_response = self.claude_client.vision_model_api_call(
             figure_base64=figure_base64,
             prompt=resources.LINE_CHART_PROMPT,
-            max_tokens=max_tokens,
-            temperature=temperature,
+            max_tokens=self.max_tokens,
+            temperature=self.temperature,
         )
         return self._parse_into_pydantic(claude_response)
 
-    def _parse_into_pydantic(self, response: str) -> ClaudeExtractedPlotData:
+    def _parse_into_pydantic(self, response: str) -> ExtractedLinePlotData:
         """
         Parse text into Pydantic object with regex pattern matching
         """
@@ -71,4 +79,4 @@ class ClaudePlotDataExtractor:
                     data[key] = match.group(1).strip()
                     break
 
-        return ClaudeExtractedPlotData(**data)
+        return ExtractedLinePlotData(**data)

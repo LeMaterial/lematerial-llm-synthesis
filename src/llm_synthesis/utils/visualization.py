@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 
-from llm_synthesis.models.plot import ClaudeExtractedPlotData
+from llm_synthesis.models.plot import ExtractedLinePlotData
 
 
-def visulize_line_chart(data: ClaudeExtractedPlotData):
+def visulize_line_chart(data: ExtractedLinePlotData):
     names = list(data.name_to_coordinates.keys())
     for name in names:
         coords = data.name_to_coordinates[name]

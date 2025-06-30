@@ -79,7 +79,7 @@ class ExtractedPlotData(BaseModel):
     )
 
 
-class ClaudeExtractedPlotData(BaseModel):
+class ExtractedLinePlotData(BaseModel):
     name_to_coordinates: dict[str, list[list[float]]]
     title: str | None
     x_axis_label: str | None
