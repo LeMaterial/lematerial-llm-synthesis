@@ -13,14 +13,16 @@ from llm_synthesis.transformers.plot_extraction.claude_extraction import (
 )
 
 
-class ClaudePlotDataExtractor(LinePlotDataExtractorInterface):
+class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
     def __init__(
         self,
         model_name: str,
+        prompt: str = resources.LINE_CHART_PROMPT,
         max_tokens: int = 1024,
         temperature: float = 0.0,
     ):
         self.claude_client = ClaudeAPIClient(model_name)
+        self.prompt = prompt
         self.max_tokens = max_tokens
         self.temperature = temperature
 
@@ -31,7 +33,7 @@ class ClaudePlotDataExtractor(LinePlotDataExtractorInterface):
         figure_base64 = input.base64_data
         claude_response = self.claude_client.vision_model_api_call(
             figure_base64=figure_base64,
-            prompt=resources.LINE_CHART_PROMPT,
+            prompt=self.prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
         )
