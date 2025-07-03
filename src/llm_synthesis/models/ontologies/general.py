@@ -23,19 +23,33 @@ class Material(BaseModel):
     amount: float | None = Field(
         default=None,
         description=(
-            "Amount of material used in the synthesis. Just the number, "
-            "no unit."
+            "Amount of material used in the synthesis. Just the number, no "
+            "unit. Optional for cases where materials are used in excess or "
+            "'until completion'."
         ),
     )
     unit: str | None = Field(
         default=None,
-        description="Unit of the amount. E.g. 'g', 'mol', 'wt%', 'mL'.",
+        description=(
+            "Unit of the amount. Examples by category: "
+            "Mass: 'g', 'mg', 'μg', 'kg'; "
+            "Volume: 'mL', 'μL', 'L', 'drops'; "
+            "Molar: 'mol', 'mmol', 'μmol'; "
+            "Concentration: 'M', 'mM', 'μM', 'm' (molality), 'N' (normality); "
+            "Percentage: 'wt%', 'mol%', 'at%', 'vol%', 'w/w', 'w/v', 'v/v'; "
+            "Parts: 'ppm', 'ppb'; "
+            "Pressure: 'atm', 'bar', 'Pa', 'kPa', 'MPa', 'torr', 'psi'; "
+            "Electrochemical: 'C', 'mAh', 'V', 'mV', 'A', 'mA'; "
+            "Equivalents: 'equiv', 'meq'; "
+            "Descriptive: 'excess', 'stoichiometric', 'catalytic amount', "
+            "'trace'."
+        ),
     )
     purity: str | None = Field(
         default=None,
         description=(
-            "Purity of the material. E.g. '99%', 'ACS grade', "
-            "'analytical grade'."
+            "Purity of the material. E.g. '99%', '99.9%', 'ACS grade', "
+            "'analytical grade', 'technical grade', 'reagent grade'."
         ),
     )
     role: Literal[
@@ -51,8 +65,9 @@ class Material(BaseModel):
     stoichiometry: str | None = Field(
         default=None,
         description=(
-            "Stoichiometry of the material in the synthesis. E.g. '1:1', "
-            "'1:2', '2:1'."
+            "Stoichiometric ratio relative to other precursors. E.g. '1:1', "
+            "'2:1', '1:2:1'. Useful for multi-component syntheses where molar "
+            "ratios are critical."
         ),
     )
 
@@ -101,12 +116,15 @@ class Conditions(BaseModel):
     )
     pressure_unit: str | None = Field(
         default=None,
-        description="Unit of pressure. E.g. 'atm', 'bar', 'Pa', 'torr'.",
+        description=(
+            "Unit of pressure. E.g. 'atm', 'bar', 'Pa', 'torr', 'psi'."
+        ),
     )
     atmosphere: str | None = Field(
         default=None,
         description=(
-            "Atmosphere of the synthesis. E.g. 'air', 'N2', 'H2', 'vacuum'."
+            "Atmosphere of the synthesis. E.g. 'air', 'N2', 'H2', 'Ar', "
+            "'O2', 'vacuum'."
         ),
     )
     stirring: bool | None = Field(
@@ -155,7 +173,11 @@ class ProcessStep(BaseModel):
         default=None, description="Conditions of the process step."
     )
     safety_notes: str | None = Field(
-        default=None, description="Safety considerations for this step."
+        default=None,
+        description=(
+            "Safety considerations for this step, if explicitly mentioned in "
+            "procedure."
+        ),
     )
 
 
@@ -163,36 +185,25 @@ class CharacterizationMethod(BaseModel):
     technique: str = Field(
         ...,
         description=(
-            "Characterization technique. E.g. 'XRD', 'SEM', 'TEM', 'XPS', "
-            "'BET', 'IR'."
+            "Characterization technique. Use standard acronyms where possible "
+            "E.g. 'XRD', 'SEM', 'TEM', 'XPS', 'BET', 'FTIR', 'UV-Vis', 'NMR', "
+            "'X-ray diffraction', 'scanning electron microscopy'."
         ),
     )
     purpose: str | None = Field(
         default=None,
         description=(
             "Purpose of the characterization. E.g. 'crystal structure', "
-            "'morphology', 'composition'."
+            "'morphology', 'composition', 'surface area', "
+            "'phase identification' "
         ),
     )
     conditions: str | None = Field(
         default=None,
         description=(
             "Characterization conditions. E.g. 'Cu K-alpha radiation', "
-            "'20 kV acceleration voltage'."
+            "'20 kV acceleration voltage', '2θ range 10-80°'."
         ),
-    )
-
-
-class YieldInformation(BaseModel):
-    amount: float | None = Field(
-        default=None, description="Amount of product obtained."
-    )
-    unit: str | None = Field(
-        default=None, description="Unit of the yield amount. E.g. 'g', 'mg'."
-    )
-    percentage: float | None = Field(
-        default=None,
-        description="Percentage yield based on theoretical yield.",
     )
 
 
@@ -201,10 +212,13 @@ class GeneralSynthesisOntology(BaseModel):
     Comprehensive synthesis ontology for structured synthesis procedures.
     """
 
-    # Basic Information
     synthesis_id: str | None = Field(
         default=None,
-        description="Unique identifier for the synthesis procedure.",
+        description=(
+            "Unique identifier for the synthesis procedure within a paper. "
+            "E.g. 'synthesis_1', 'method_A', 'sample_LFP'. Useful for papers "
+            "with multiple synthesis protocols."
+        ),
     )
     target_compound: str = Field(
         ..., description="Target compound composition and description."
@@ -213,46 +227,32 @@ class GeneralSynthesisOntology(BaseModel):
         default=None,
         description=(
             "Overall synthesis method. E.g. 'hydrothermal', 'sol-gel', "
-            "'solid-state'."
+            "'solid-state', 'chemical vapor deposition', 'electrodeposition'."
         ),
     )
-
     # Materials
     starting_materials: list[Material] = Field(
         default_factory=list,
         description="All starting materials used in the synthesis.",
     )
-
     # Procedure
     steps: list[ProcessStep] = Field(
         default_factory=list,
         description="Sequential process steps of the synthesis.",
     )
-
     # Equipment and Safety
     major_equipment: list[Equipment] = Field(
         default_factory=list,
         description="Major equipment used throughout the synthesis.",
     )
-    safety_considerations: str | None = Field(
-        default=None,
-        description="Overall safety considerations and precautions.",
-    )
-
-    # Characterization and Results
     characterization_methods: list[CharacterizationMethod] = Field(
         default_factory=list,
         description="Methods used to characterize the final product.",
     )
-    yield_information: YieldInformation | None = Field(
-        default=None, description="Information about product yield."
-    )
-
-    # Additional Information
     notes: str | None = Field(
-        default=None, description="Additional notes about the synthesis."
-    )
-    references: str | None = Field(
         default=None,
-        description="Literature references or source information.",
+        description=(
+            "Additional notes about the synthesis procedure, important "
+            "observations, or variations mentioned in the text."
+        ),
     )
