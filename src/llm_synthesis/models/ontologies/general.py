@@ -212,27 +212,24 @@ class GeneralSynthesisOntology(BaseModel):
             "'solid-state', 'chemical vapor deposition', 'electrodeposition'."
         ),
     )
-    # Materials
+
     starting_materials: list[Material] = Field(
         default_factory=list,
         description=(
             "All starting materials and precursors used in the synthesis."
         ),
     )
-    # Procedure
+
     steps: list[ProcessStep] = Field(
         default_factory=list,
         description="Sequential process steps of the synthesis.",
     )
-    # Equipment and Safety
-    major_equipment: list[Equipment] = Field(
+
+    equipment: list[Equipment] = Field(
         default_factory=list,
         description="Major equipment used throughout the synthesis.",
     )
-    characterization_methods: list[CharacterizationMethod] = Field(
-        default_factory=list,
-        description="Methods used to characterize the final product.",
-    )
+
     notes: str | None = Field(
         default=None,
         description=(
@@ -240,3 +237,9 @@ class GeneralSynthesisOntology(BaseModel):
             "observations, or variations mentioned in the text."
         ),
     )
+
+    def keys(self):
+        return self.model_dump().keys()
+
+    def __getitem__(self, key: str):
+        return self.model_dump()[key]
