@@ -52,24 +52,6 @@ class Material(BaseModel):
             "'analytical grade', 'technical grade', 'reagent grade'."
         ),
     )
-    role: Literal[
-        "precursor",
-        "support",
-        "solvent",
-        "additive",
-        "reagent",
-        "catalyst",
-        "reductant",
-        "oxidant",
-    ] = Field(..., description="Role of the material in the synthesis.")
-    stoichiometry: str | None = Field(
-        default=None,
-        description=(
-            "Stoichiometric ratio relative to other precursors. E.g. '1:1', "
-            "'2:1', '1:2:1'. Useful for multi-component syntheses where molar "
-            "ratios are critical."
-        ),
-    )
 
 
 class Equipment(BaseModel):
@@ -80,11 +62,11 @@ class Equipment(BaseModel):
             "'magnetic stirrer'."
         ),
     )
-    specifications: str | None = Field(
+    instrument_vendor: str | None = Field(
         default=None,
         description=(
-            "Specifications of the equipment. E.g. '100 mL Teflon-lined', "
-            "'max 1200°C'."
+            "Vendor of the instrument. E.g. 'Thermo Fisher Scientific', "
+            "'Agilent Technologies', 'Bruker', 'PerkinElmer', 'Shimadzu'."
         ),
     )
     settings: str | None = Field(
@@ -233,7 +215,9 @@ class GeneralSynthesisOntology(BaseModel):
     # Materials
     starting_materials: list[Material] = Field(
         default_factory=list,
-        description="All starting materials used in the synthesis.",
+        description=(
+            "All starting materials and precursors used in the synthesis."
+        ),
     )
     # Procedure
     steps: list[ProcessStep] = Field(
