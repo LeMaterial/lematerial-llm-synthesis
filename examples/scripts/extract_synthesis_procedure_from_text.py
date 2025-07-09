@@ -14,7 +14,7 @@ from llm_synthesis.transformers.synthesis_extraction.base import (
 from llm_synthesis.transformers.text_extraction.base import (
     TextExtractorInterface,
 )
-from llm_synthesis.utils import remove_figs
+from llm_synthesis.utils import clean_text
 
 
 @hydra.main(
@@ -78,7 +78,7 @@ def main(cfg: DictConfig) -> None:
     for paper in papers:
         logging.info(f"Processing {paper.name}")
         synthesis_paragraph = paragraph_extractor.forward(
-            input=remove_figs(
+            input=clean_text(
                 paper.publication_text
             ),  # Removing figures avoid token overload
         )
