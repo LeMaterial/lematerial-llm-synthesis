@@ -36,9 +36,9 @@ class DspyTextExtractor(TextExtractorInterface):
         """
         predict_kwargs = {"publication_text": input}
         with dspy.settings.context(lm=self.lm):
-            return dspy.Predict(self.signature)(**predict_kwargs).__getattr__(
-                next(iter(self.signature.output_fields.keys()))
-            )
+            return dspy.ChainOfThought(self.signature)(
+                **predict_kwargs
+            ).__getattr__(next(iter(self.signature.output_fields.keys())))
 
     def _validate_signature(self, signature: type[dspy.Signature]):
         """

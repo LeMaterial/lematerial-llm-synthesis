@@ -39,7 +39,7 @@ class DspyStructuredSynthesisExtractor(StructuredSynthesisExtractorInterface):
         """
         predict_kwargs = {"synthesis_paragraph": input}
         with dspy.settings.context(lm=self.lm):
-            return dspy.Predict(self.signature, lm=self.lm)(
+            return dspy.ChainOfThought(self.signature, lm=self.lm)(
                 **predict_kwargs
             ).__getattr__(next(iter(self.signature.output_fields.keys())))
 

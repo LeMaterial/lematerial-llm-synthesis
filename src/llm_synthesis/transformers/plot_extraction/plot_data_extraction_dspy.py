@@ -51,7 +51,7 @@ class PlotDataExtractor(PlotDataExtractorInterface):
             "subplot_focus": subplot_focus,
         }
         with dspy.settings.context(lm=self.lm):
-            result = dspy.Predict(self.signature)(**predict_kwargs)
+            result = dspy.ChainOfThought(self.signature)(**predict_kwargs)
 
             # The signature now returns a list of ExtractedPlotData
             # For now, we'll take the first one or create a default
