@@ -141,6 +141,7 @@ class ProcessStep(BaseModel):
         "centrifuge",
         "sonicate",
         "anneal",
+        "ion exchange",
     ] = Field(..., description="Primary action performed in this step.")
     description: str | None = Field(
         default=None, description="Detailed description of the process step."
@@ -153,13 +154,6 @@ class ProcessStep(BaseModel):
     )
     conditions: Conditions | None = Field(
         default=None, description="Conditions of the process step."
-    )
-    safety_notes: str | None = Field(
-        default=None,
-        description=(
-            "Safety considerations for this step, if explicitly mentioned in "
-            "procedure."
-        ),
     )
 
 
