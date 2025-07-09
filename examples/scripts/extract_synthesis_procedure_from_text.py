@@ -11,7 +11,7 @@ from llm_synthesis.result_gather.base import ResultGatherInterface
 from llm_synthesis.transformers.synthesis_extraction.base import (
     StructuredSynthesisExtractorInterface,
 )
-from llm_synthesis.utils.markdown_utils import remove_figs
+from llm_synthesis.utils.markdown_utils import clean_text
 
 
 @hydra.main(
@@ -62,8 +62,8 @@ def main(cfg: DictConfig) -> None:
         logging.info(f"Processing {paper.name}")
 
         structured_synthesis_procedure = synthesis_extractor.forward(
-            input=remove_figs(paper.publication_text)
-            + remove_figs(paper.si_text),
+            input=clean_text(paper.publication_text)
+            + clean_text(paper.si_text),
         )
         logging.info(structured_synthesis_procedure)
 
