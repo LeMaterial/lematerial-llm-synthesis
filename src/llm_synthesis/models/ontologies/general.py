@@ -155,13 +155,6 @@ class ProcessStep(BaseModel):
     conditions: Conditions | None = Field(
         default=None, description="Conditions of the process step."
     )
-    safety_notes: str | None = Field(
-        default=None,
-        description=(
-            "Safety considerations for this step, if explicitly mentioned in "
-            "procedure."
-        ),
-    )
 
 
 class CharacterizationMethod(BaseModel):
