@@ -12,7 +12,8 @@ from llm_synthesis.utils.figure_utils import clean_text_from_images
 
 class PlotAnalysisExtractor(PlotAnalysisSignature):
     """
-    Extractor that uses dspy to analyze extracted plot data and provide insights.
+    Extractor that uses dspy to analyze extracted plot data and provide
+    insights.
     """
 
     def __init__(self, signature: type[dspy.Signature], lm: dspy.LM):
@@ -84,10 +85,7 @@ class PlotAnalysisExtractor(PlotAnalysisSignature):
 
         if "scientific_analysis" not in signature.output_fields:
             raise ValueError("scientific_analysis must be in signature")
-        if (
-            signature.output_fields["scientific_analysis"].annotation
-            is not str
-        ):
+        if signature.output_fields["scientific_analysis"].annotation is not str:
             raise ValueError("scientific_analysis must be a string")
 
 
@@ -151,10 +149,14 @@ def make_dspy_plot_analysis_extractor_signature(
     Args:
         signature_name (str): Name of the signature.
         instructions (str): Instructions for the signature.
-        extracted_plot_data_description (str): Description for the extracted plot data input.
-        publication_context_description (str): Description for the publication context input.
-        figure_caption_description (str): Description for the figure caption input.
-        scientific_analysis_description (str): Description for the scientific analysis output.
+        extracted_plot_data_description (str): Description for the extracted
+        plot data input.
+        publication_context_description (str): Description for the publication
+        context input.
+        figure_caption_description (str): Description for the figure caption
+        input.
+        scientific_analysis_description (str): Description for the scientific
+        analysis output.
 
     Returns:
         dspy.Signature: The constructed dspy signature for plot analysis.
