@@ -1,21 +1,22 @@
+import base64
 import json
 import os
 
 import fsspec
 
-from llm_synthesis.models.paper import PaperWithSynthesisOntology
+from llm_synthesis.models.paper import PaperWithSynthesisOntologyAndFigures
 from llm_synthesis.result_gather.base import ResultGatherInterface
 
 
 class SynthesisFSResultGather(
-    ResultGatherInterface[PaperWithSynthesisOntology]
+    ResultGatherInterface[PaperWithSynthesisOntologyAndFigures]
 ):
     def __init__(self, result_dir: str = ""):
         self.result_dir = result_dir
         self.fs, _, _ = fsspec.get_fs_token_paths(self.result_dir)
         self._ensure_dir(self.result_dir)
 
-    def gather(self, paper: PaperWithSynthesisOntology):
+    def gather(self, paper: PaperWithSynthesisOntologyAndFigures):
         self._ensure_dir(os.path.join(self.result_dir, paper.id))
         with self.fs.open(
             os.path.join(self.result_dir, paper.id, "result.json"), "w"
@@ -40,6 +41,14 @@ class SynthesisFSResultGather(
             "w",
         ) as f:
             f.write(paper.si_text)
+
+        # save the figures as png
+        for id, figure in enumerate(paper.figures):
+            with self.fs.open(
+                os.path.join(self.result_dir, paper.id, f"{id}.png"),
+                "wb",
+            ) as f:
+                f.write(base64.b64decode(figure.base64_data))
 
     def _ensure_dir(self, dir: str):
         if not self.fs.exists(dir):

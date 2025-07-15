@@ -6,8 +6,11 @@ from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
-from llm_synthesis.models.paper import PaperWithSynthesisOntology
+from llm_synthesis.models.paper import PaperWithSynthesisOntologyAndFigures
 from llm_synthesis.result_gather.base import ResultGatherInterface
+from llm_synthesis.transformers.figure_extraction.base import (
+    FigureExtractorInterface,
+)
 from llm_synthesis.transformers.synthesis_extraction.base import (
     StructuredSynthesisExtractorInterface,
 )
@@ -70,9 +73,12 @@ def main(cfg: DictConfig) -> None:
     synthesis_extractor: StructuredSynthesisExtractorInterface = instantiate(
         cfg.synthesis_extraction.architecture
     )
-    result_gather: ResultGatherInterface[PaperWithSynthesisOntology] = (
-        instantiate(cfg.result_save.architecture)
+    figure_extractor: FigureExtractorInterface = instantiate(
+        cfg.figure_extraction.architecture
     )
+    result_gather: ResultGatherInterface[
+        PaperWithSynthesisOntologyAndFigures
+    ] = instantiate(cfg.result_save.architecture)
 
     # Process each paper
     for paper in papers:
@@ -83,16 +89,19 @@ def main(cfg: DictConfig) -> None:
             ),  # Removing figures avoid token overload
         )
 
+        figures = figure_extractor.forward(input=paper.publication_text)
+
         structured_synthesis_procedure = synthesis_extractor.forward(
             input=synthesis_paragraph,
         )
         logging.info(structured_synthesis_procedure)
 
         result_gather.gather(
-            paper=PaperWithSynthesisOntology(
+            paper=PaperWithSynthesisOntologyAndFigures(
                 **paper.model_dump(),
                 synthesis_paragraph=synthesis_paragraph,
                 synthesis_ontology=structured_synthesis_procedure,
+                figures=figures,
             )
         )
 

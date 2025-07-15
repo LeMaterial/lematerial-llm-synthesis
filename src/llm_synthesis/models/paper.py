@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+from llm_synthesis.models.figure import FigureInfo
 from llm_synthesis.models.ontologies import GeneralSynthesisOntology
 
 
@@ -16,3 +17,7 @@ class PaperWithSynthesisParagraph(Paper):
 
 class PaperWithSynthesisOntology(PaperWithSynthesisParagraph):
     synthesis_ontology: GeneralSynthesisOntology
+
+
+class PaperWithSynthesisOntologyAndFigures(PaperWithSynthesisOntology):
+    figures: list[FigureInfo]
