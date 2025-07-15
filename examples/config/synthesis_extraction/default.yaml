@@ -12,4 +12,6 @@ architecture:
     llm_name: "gemini-2.0-flash"
     model_kwargs:
       temperature: 0.0
-    system_prompt: "You are a helpful assistant that extracts the structured synthesis from the synthesis paragraph."
+    system_prompt:
+      _target_: llm_synthesis.utils.read_prompt_str_from_txt
+      prompt_path: "examples/system_prompts/synthesis_extraction/default.txt"
