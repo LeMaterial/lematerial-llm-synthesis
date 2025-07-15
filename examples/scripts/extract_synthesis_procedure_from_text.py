@@ -79,8 +79,8 @@ def main(cfg: DictConfig) -> None:
     material_extractor: MaterialExtractorInterface = instantiate(
         cfg.material_extraction.architecture
     )
-    material_specific_synthesis_extractor: SynthesisExtractorInterface = (
-        instantiate(cfg.synthesis_extraction.architecture)
+    synthesis_extractor: SynthesisExtractorInterface = instantiate(
+        cfg.synthesis_extraction.architecture
     )
     result_gather: ResultGatherInterface[PaperWithSynthesisOntologies] = (
         instantiate(cfg.result_save.architecture)
@@ -119,7 +119,7 @@ def main(cfg: DictConfig) -> None:
                     # Extract synthesis procedure for specific material
                     # Pass the entire paper text + material name
                     structured_synthesis_procedure = (
-                        material_specific_synthesis_extractor.forward(
+                        synthesis_extractor.forward(
                             input=(
                                 clean_text(paper.publication_text),
                                 material,
