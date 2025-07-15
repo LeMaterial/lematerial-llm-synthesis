@@ -1,11 +1,11 @@
 import dspy
 
-from llm_synthesis.transformers.text_extraction.base import (
-    TextExtractorInterface,
+from llm_synthesis.transformers.material_extraction.base import (
+    MaterialExtractorInterface,
 )
 
 
-class DspyTextExtractor(TextExtractorInterface):
+class DspyTextExtractor(MaterialExtractorInterface):
     """
     A text extractor that uses dspy to extract any arbitrary text
     from the publication text.

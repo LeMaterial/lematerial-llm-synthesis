@@ -3,6 +3,11 @@ from pydantic import BaseModel
 from llm_synthesis.models.ontologies import GeneralSynthesisOntology
 
 
+class SynthesisEntry(BaseModel):
+    material: str
+    synthesis: GeneralSynthesisOntology | None = None
+
+
 class Paper(BaseModel):
     name: str
     id: str
@@ -10,9 +15,5 @@ class Paper(BaseModel):
     si_text: str = ""
 
 
-class PaperWithSynthesisParagraph(Paper):
-    synthesis_paragraph: str
-
-
-class PaperWithSynthesisOntology(PaperWithSynthesisParagraph):
-    synthesis_ontology: GeneralSynthesisOntology
+class PaperWithSynthesisOntologies(Paper):
+    all_syntheses: list[SynthesisEntry]

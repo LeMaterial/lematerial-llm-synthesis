@@ -142,6 +142,7 @@ class ProcessStep(BaseModel):
         "sonicate",
         "anneal",
         "ion exchange",
+        "impregnate",
     ] = Field(..., description="Primary action performed in this step.")
     description: str | None = Field(
         default=None, description="Detailed description of the process step."

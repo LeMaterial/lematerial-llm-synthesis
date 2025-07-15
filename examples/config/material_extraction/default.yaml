@@ -1,0 +1,17 @@
+architecture:
+  _target_: llm_synthesis.transformers.material_extraction.dspy_extraction.DspyTextExtractor
+  signature:
+    _target_: llm_synthesis.transformers.material_extraction.dspy_extraction.make_dspy_text_extractor_signature
+    signature_name: "TextToMaterials"
+    instructions: "Extract ONLY the final synthesized materials from the publication text."
+    input_description: "The publication text to extract the final synthesized materials from."
+    output_name: "materials"
+    output_description: "The final synthesized materials as a comma-separated list."
+  lm:
+    _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
+    llm_name: "gemini-2.0-flash"
+    model_kwargs:
+      temperature: 0.0
+    system_prompt:
+      _target_: llm_synthesis.utils.read_prompt_str_from_txt
+      prompt_path: "examples/system_prompts/material_extraction/materials_list.txt"
