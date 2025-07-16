@@ -7,7 +7,7 @@ from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction i
 )
 
 __all__ = [
-    "SynthesisExtractorInterface",
     "DspySynthesisExtractor",
+    "SynthesisExtractorInterface",
     "make_dspy_synthesis_extractor_signature",
 ]

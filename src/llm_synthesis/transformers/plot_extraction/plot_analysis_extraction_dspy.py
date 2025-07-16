@@ -84,10 +84,7 @@ class PlotAnalysisExtractor(PlotAnalysisSignature):
 
         if "scientific_analysis" not in signature.output_fields:
             raise ValueError("scientific_analysis must be in signature")
-        if (
-            signature.output_fields["scientific_analysis"].annotation
-            is not str
-        ):
+        if signature.output_fields["scientific_analysis"].annotation is not str:
             raise ValueError("scientific_analysis must be a string")
 
 
