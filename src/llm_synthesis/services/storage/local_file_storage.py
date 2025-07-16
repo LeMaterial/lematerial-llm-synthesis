@@ -34,9 +34,11 @@ class LocalFileStorage(BaseFileStorage):
 
         Args:
             dir (str): The directory path where files should be listed.
-            extension (str, optional): The file extension to filter by. Defaults to "pdf".
+            extension (str, optional): The file extension to filter by.
+            Defaults to "pdf".
 
         Returns:
-            list[str]: A list of file names matching the specified extension in the given directory.
+            list[str]: A list of file names matching the specified extension in
+            the given directory.
         """
         return self.fs.glob(f"{dir}/*.{extension}")
