@@ -3,31 +3,37 @@ import os
 
 import fsspec
 
-from llm_synthesis.models.paper import PaperWithSynthesisOntology
+from llm_synthesis.models.paper import PaperWithSynthesisOntologies
 from llm_synthesis.result_gather.base import ResultGatherInterface
 
 
 class SynthesisFSResultGather(
-    ResultGatherInterface[PaperWithSynthesisOntology]
+    ResultGatherInterface[PaperWithSynthesisOntologies]
 ):
     def __init__(self, result_dir: str = ""):
         self.result_dir = result_dir
         self.fs, _, _ = fsspec.get_fs_token_paths(self.result_dir)
         self._ensure_dir(self.result_dir)
 
-    def gather(self, paper: PaperWithSynthesisOntology):
+    def gather(self, paper: PaperWithSynthesisOntologies):
         self._ensure_dir(os.path.join(self.result_dir, paper.id))
+
+        # Save the main synthesis (first material's synthesis)
         with self.fs.open(
             os.path.join(self.result_dir, paper.id, "result.json"), "w"
         ) as f:
-            f.write(
-                json.dumps(paper.synthesis_ontology.model_dump(), indent=2)
-            )
-        with self.fs.open(
-            os.path.join(self.result_dir, paper.id, "synthesis_paragraph.txt"),
-            "w",
-        ) as f:
-            f.write(paper.synthesis_paragraph)
+            if paper.all_syntheses:
+                f.write(
+                    json.dumps(
+                        [
+                            synthesis.model_dump()
+                            for synthesis in paper.all_syntheses
+                        ],
+                        indent=2,
+                    )
+                )
+            else:
+                f.write(json.dumps({"error": "No synthesis found"}, indent=2))
 
         with self.fs.open(
             os.path.join(self.result_dir, paper.id, "publication_text.txt"),

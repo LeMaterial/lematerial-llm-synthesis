@@ -5,7 +5,6 @@ from llm_synthesis.transformers.base import ExtractorInterface
 
 R = TypeVar("R")
 
-
-StructuredSynthesisExtractorInterface = ExtractorInterface[
-    str, GeneralSynthesisOntology
+SynthesisExtractorInterface = ExtractorInterface[
+    tuple[str, str], GeneralSynthesisOntology
 ]
