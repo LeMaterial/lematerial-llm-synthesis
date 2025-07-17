@@ -45,9 +45,7 @@ def main(cfg: DictConfig) -> None:
                 test_case["target_material"],
             )
 
-            result: GeneralSynthesisEvaluation = judge.forward(
-                evaluation_input
-            )
+            result: GeneralSynthesisEvaluation = judge.forward(evaluation_input)
 
             # Store results
             result_data = {
@@ -123,7 +121,6 @@ def get_test_cases() -> list[dict[str, str]]:
             """,
             "extracted_ontology_json": json.dumps(
                 {
-                    "synthesis_id": "lifepo4_hydrothermal",
                     "target_compound": "LiFePO4/C composite",
                     "synthesis_method": "hydrothermal",
                     "starting_materials": [
@@ -453,9 +450,7 @@ def generate_summary_report(results: list[dict[str, Any]]):
     print("\nScore distribution by confidence level:")
     for conf, count in confidence_counts.items():
         conf_scores = [
-            r["overall_score"]
-            for r in results
-            if r["confidence_level"] == conf
+            r["overall_score"] for r in results if r["confidence_level"] == conf
         ]
         conf_avg = sum(conf_scores) / len(conf_scores) if conf_scores else 0
         print(f"  {conf}: {conf_avg:.2f} (n={count})")

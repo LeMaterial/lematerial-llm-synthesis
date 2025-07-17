@@ -189,14 +189,6 @@ class GeneralSynthesisOntology(BaseModel):
     Comprehensive synthesis ontology for structured synthesis procedures.
     """
 
-    synthesis_id: str | None = Field(
-        default=None,
-        description=(
-            "Unique identifier for the synthesis procedure within a paper. "
-            "E.g. 'synthesis_1', 'method_A', 'sample_LFP'. Useful for papers "
-            "with multiple synthesis protocols."
-        ),
-    )
     target_compound: str = Field(
         ..., description="Target compound composition and description."
     )

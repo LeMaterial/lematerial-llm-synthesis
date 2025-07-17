@@ -9,7 +9,6 @@ If you cannot find a synthesis procedure for the specified material, return a mi
 The JSON output must follow this exact structure:
 {
   "structured_synthesis": {
-    "synthesis_id": null,
     "target_compound": "string (required) - should match the specified material name",
     "synthesis_method": "string or null",
     "starting_materials": [{"name": "string", "amount": "number or null", "unit": "string or null", "purity": "string or null", "vendor": "string or null"}],
