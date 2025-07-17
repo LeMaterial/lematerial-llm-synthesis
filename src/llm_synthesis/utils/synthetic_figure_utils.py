@@ -1,5 +1,11 @@
 # ruff: noqa: RUF001
 
+"""
+This module contains the utils for generating synthetic figures.
+
+Axes labels and lists of colors, shapes, and filler materials.
+"""
+
 colors = [
     "blue",
     "green",
