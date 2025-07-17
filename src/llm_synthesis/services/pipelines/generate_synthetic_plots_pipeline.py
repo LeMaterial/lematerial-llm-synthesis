@@ -52,7 +52,7 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
             image_name = f"figure_{i}.png"
             image_path = os.path.join(self.images_path, image_name)
             groundtruth_path = os.path.join(
-                self.groundtruths_path, image_name.replace("png", "csv")
+                self.groundtruths_path, image_name.replace("png", "json")
             )
             self._plot_multiple_subplots(image_path, groundtruth_path)
 
@@ -242,11 +242,14 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
 
     def _plot_random_scatter_on_ax(
         self, ax: plt.Axes
-    ) -> dict[str, list[list[float]]]:
+    ) -> tuple[dict[str, list[list[float]]], str, str]:
         """
         Plot a random scatter plot on the given Axes object.
         Returns:
-            A dictionary mapping legend labels to their 2D coordinates.
+            A tuple containing:
+            - A dictionary mapping legend labels to their 2D coordinates
+            - The x-axis label
+            - The y-axis label
         """
         num_groups = random.randint(1, 4)
         num_points = max(
@@ -350,7 +353,7 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
                 ax, legend_handles, legend_labels
             )
 
-        return label_to_coordinates
+        return label_to_coordinates, x_label, y_label
 
     def _plot_multiple_subplots(
         self, image_path: str, groundtruth_path: str
@@ -361,17 +364,26 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
         _, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4 * rows))
         axes_list = axes.flatten() if isinstance(axes, np.ndarray) else [axes]
 
-        all_labels = {}
+        subplots_data = []
 
-        for ax in axes_list:
-            subplot_labels = self._plot_random_scatter_on_ax(ax)
-            all_labels.update(subplot_labels)
+        for i, ax in enumerate(axes_list):
+            subplot_labels, x_label, y_label = self._plot_random_scatter_on_ax(
+                ax
+            )
+            subplot_data = {
+                "subplot_index": i,
+                "coordinates": subplot_labels,
+                "x_label": x_label,
+                "y_label": y_label,
+            }
+            subplots_data.append(subplot_data)
 
         # Save the figure
         plt.tight_layout()
         plt.savefig(image_path, bbox_inches="tight")
         plt.close()
 
-        # Save the ground truth coordinates
+        # Save the ground truth coordinates and axis labels
+        output_data = {"subplots": subplots_data}
         with open(groundtruth_path, "w") as f:
-            json.dump(all_labels, f, indent=2)
+            json.dump(output_data, f, indent=2)
