@@ -1,3 +1,5 @@
+# ruff: noqa: RUF001
+
 colors = [
     "blue",
     "green",
