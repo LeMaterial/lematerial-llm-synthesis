@@ -38,34 +38,6 @@ The lock file (`uv.lock`) pins exact versions of all dependencies. This ensures 
 Get in touch with us -- preferably via the designated slack channel, feel free to also contact @mlederbauer on GitHub / Magdalena Lederbauer on slack.
 </details>
 
-## Structure of this repository
-
-```
-.
-├── config
-│   ├── paragraph_extraction
-│   ├── synthesis_extraction
-│   └── config.yaml
-├── notebooks/                   # Jupyter notebooks for exploration and demos
-├── scripts/                     # Utility scripts and one-off tools (cf. README.md)
-├── src/                         # Python source code
-│   └── llm_synthesis/           # Main package installed with uv pip install -e .
-│       ├── extraction/          # Code for extracting content
-│       │   ├── synthesis/       # Synthesis extraction modules
-│       │   ├── figures/         # Image extraction modules
-│       │   └── text/            # Synthesis paragraph extraction modules
-│       ├── metrics
-│       ├── ontologies           # Domain ontologies and schema definitions
-│       ├── services             # Modules for processing PDFs to markdown files
-│       └── utils/               # Helper functions and common utilities
-├── developer_guide.md           # This developer guide
-├── LICENSE                      # Project license (Apache 2.0)
-├── pyproject.toml               # Project configuration (dependencies, metadata), managed by uv
-├── README_DATA.md               # Description of the data and how to acquire and preprocess it
-├── README.md                    # High-level project overview and quickstart
-└── uv.lock                      # Lockfile for uv package manager
-```
-
 ## Installation
 
 See the [README.md](README.md) for installation instructions. Make sure that the import `uv run python -c "import llm_synthesis"` works without error messages. Afterwards, install the pre-commit hook:
