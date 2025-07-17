@@ -2,10 +2,10 @@
 defaults:
   - _self_
   - data_loader: null
-  - synthesis_extraction: null
-  - paragraph_extraction: null
+  - synthesis_extraction: default
+  - material_extraction: default
   - judge: null
-  - result_save: null
+  - result_save: default
 
 # Dir handling
 hydra:
