@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "anthropic>=0.54.0",
     "docling>=2.31.2",
     "dspy>=2.6.24",
     "fsspec>=2025.3.0",
@@ -49,7 +50,7 @@ dev = [
 target-version = "py311"
 
 # Line length (black formatter convention)
-line-length = 79
+line-length = 80
 
 [tool.ruff.lint]
 # Ruff-specific rules (`RUF`), isort (`I`), pycodestyle (`E`), and more common rulesets

@@ -12,7 +12,7 @@ from llm_synthesis.utils.figure_utils import clean_text_from_images
 
 class PlotAnalysisExtractor(PlotAnalysisSignature):
     """
-    Extractor that uses dspy to analyze extracted plot data and provide insights.
+    Extractor to analyze extracted plot data and provide insights.
     """
 
     def __init__(self, signature: type[dspy.Signature], lm: dspy.LM):
@@ -56,7 +56,7 @@ class PlotAnalysisExtractor(PlotAnalysisSignature):
             ),
         }
         with dspy.settings.context(lm=self.lm):
-            result = dspy.Predict(self.signature)(**predict_kwargs)
+            result = dspy.ChainOfThought(self.signature)(**predict_kwargs)
             return result.scientific_analysis
 
     def _validate_signature(self, signature: type[dspy.Signature]):
@@ -68,7 +68,7 @@ class PlotAnalysisExtractor(PlotAnalysisSignature):
             signature (dspy.Signature): The signature to validate.
 
         Raises:
-            ValueError: If any required field is missing or has the wrong type.
+            ValueError: If required field is missing or has the wrong type.
         """
         required_input_fields = [
             "extracted_plot_data",
@@ -84,16 +84,13 @@ class PlotAnalysisExtractor(PlotAnalysisSignature):
 
         if "scientific_analysis" not in signature.output_fields:
             raise ValueError("scientific_analysis must be in signature")
-        if (
-            signature.output_fields["scientific_analysis"].annotation
-            is not str
-        ):
+        if signature.output_fields["scientific_analysis"].annotation is not str:
             raise ValueError("scientific_analysis must be a string")
 
 
 class PlotAnalysisSignature(dspy.Signature):
     """
-    Signature for providing detailed scientific analysis of extracted plot data
+    Signature for detailed scientific analysis of extracted plot data
     """
 
     extracted_plot_data: str = dspy.InputField(
@@ -151,10 +148,10 @@ def make_dspy_plot_analysis_extractor_signature(
     Args:
         signature_name (str): Name of the signature.
         instructions (str): Instructions for the signature.
-        extracted_plot_data_description (str): Description for the extracted plot data input.
-        publication_context_description (str): Description for the publication context input.
-        figure_caption_description (str): Description for the figure caption input.
-        scientific_analysis_description (str): Description for the scientific analysis output.
+        extracted_plot_data_description (str): Desc. extracted plot data input.
+        publication_context_description (str): Desc. publication context input.
+        figure_caption_description (str): Description of figure caption input.
+        scientific_analysis_description (str): Desc. sc. analysis output.
 
     Returns:
         dspy.Signature: The constructed dspy signature for plot analysis.

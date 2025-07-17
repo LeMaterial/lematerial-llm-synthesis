@@ -1,5 +1,6 @@
 import torch
 
+from llm_synthesis.models.dino import FigureSegmenter
 from llm_synthesis.models.figure import FigureInfo
 from llm_synthesis.models.resnet import (
     FigureClassifier,
@@ -23,6 +24,7 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
             "cuda" if torch.cuda.is_available() else "cpu"
         )
         self.classifier = FigureClassifier()
+        self.segmenter = FigureSegmenter()
 
     def forward(self, input: str) -> list[FigureInfo]:
         """
@@ -36,21 +38,44 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
         """
         figures = find_figures_in_markdown(input)
 
+        all_segmented_images: list[FigureInfo] = []
+
+        print(f"Found {len(figures)} figures in the paper.")
+
         for figure in figures:
             pil_image = base64_to_image(figure.base64_data)
-            predicted_label = self.classifier.predict(pil_image)
-            figure.figure_class = predicted_label
 
-            # Check if the predicted label is a quantitative figure
-            if predicted_label in [
-                "Bar plots",
-                "Contour plot",
-                "Graph plots",
-                "Scatter plot",
-                "Tables",
-            ]:
-                figure.quantitative = True
-            else:
-                figure.quantitative = False
+            segmented_images = self.segmenter.segment(pil_image)
 
-        return figures
+            print(f"Segmented {len(segmented_images)} subfigures.")
+
+            for subfigure in segmented_images:
+                figure_info = FigureInfo(
+                    base64_data=self.segmenter._image_to_base64(subfigure),
+                    alt_text=figure.alt_text,
+                    position=figure.position,
+                    context_before=figure.context_before,
+                    context_after=figure.context_after,
+                    figure_reference=figure.figure_reference,
+                    figure_class=figure.figure_class,
+                    quantitative=figure.quantitative,
+                )
+
+                predicted_label = self.classifier.predict(subfigure)
+                figure_info.figure_class = predicted_label
+
+                # Check if the predicted label is a quantitative figure
+                if predicted_label in [
+                    "Bar plots",
+                    "Contour plot",
+                    "Graph plots",
+                    "Scatter plot",
+                    "Tables",
+                ]:
+                    figure_info.quantitative = True
+                else:
+                    figure_info.quantitative = False
+
+                all_segmented_images.append(figure_info)
+
+        return all_segmented_images

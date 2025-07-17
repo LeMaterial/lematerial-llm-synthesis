@@ -82,7 +82,7 @@ class DspyAlchemyBenchSynthesisJudge(SynthesisJudgeInterface):
 
         # Perform evaluation with enhanced context
         with dspy.settings.context(lm=self.lm):
-            prediction = dspy.Predict(self.signature)(
+            prediction = dspy.ChainOfThought(self.signature)(
                 target_material=target_material,
                 extracted_recipe=extracted_recipe,
                 reference_procedure=reference_procedure,
