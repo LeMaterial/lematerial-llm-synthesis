@@ -18,7 +18,7 @@ class DspySynthesisJudge(SynthesisJudgeInterface):
     def forward(self, input: tuple[str, str, str]) -> SynthesisEvaluation:
         target_material, extracted_recipe, synthesis_procedure = input
         with dspy.settings.context(lm=self.lm):
-            prediction = dspy.Predict(self.signature)(
+            prediction = dspy.ChainOfThought(self.signature)(
                 target_material=target_material,
                 extracted_recipe=extracted_recipe,
                 synthesis_procedure=synthesis_procedure,

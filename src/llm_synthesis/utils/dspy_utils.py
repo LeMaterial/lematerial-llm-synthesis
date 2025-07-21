@@ -49,6 +49,7 @@ def configure_dspy(
     dspy.settings.configure(
         track_usage=True,
         lm=get_llm_from_name(lm, model_kwargs, system_prompt),
+        adapter=dspy.adapters.JSONAdapter(),
     )
-    # TODO: add system prompt here
+
     print(f"Configured dspy with {lm!r} and model_kwargs={model_kwargs}")

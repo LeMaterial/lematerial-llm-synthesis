@@ -12,7 +12,7 @@ from llm_synthesis.transformers.pdf_extraction.base import (
 
 class DoclingPDFExtractor(PdfExtractorInterface):
     """
-    An extractor for extracting content from PDF files using the Docling library.
+    An extractor for extracting content from PDF files using the Docling library
 
     This class provides functionality to convert PDF files into various formats
     such as Markdown, doctags, JSON, or tokens. It supports different modes for
@@ -21,18 +21,21 @@ class DoclingPDFExtractor(PdfExtractorInterface):
     pipeline type, table extraction mode, GPU usage, and scaling.
 
     Attributes:
-        pipeline (str): The pipeline to use for PDF processing (default: "standard").
+        pipeline (str): The pipeline to use for PDF processing
+        (default: "standard").
         table_mode (str): The mode for table extraction (default: "accurate").
-        add_page_images (bool): Whether to include page images in the output (default: False).
+        add_page_images (bool): Whether to include page images in the output
+        (default: False).
         use_gpu (bool): Whether to use GPU for processing (default: True).
         scale (float): The scaling factor for images (default: 2.0).
-        format (str): The output format. Options are "markdown", "doctags", "json", or "tokens" (default: "markdown").
+        format (str): The output format. Options are "markdown", "doctags",
+        "json", or "tokens" (default: "markdown").
 
     Methods:
 
         extract_to_markdown(pdf_data: bytes) -> str:
-            Converts a PDF file to Markdown format. Supports different image modes
-            and raises a ValueError if an invalid image mode is provided.
+            Converts a PDF file to Markdown format. Supports different image
+            modes and raises a ValueError if an invalid image mode is provided.
     """
 
     def __init__(
@@ -53,7 +56,8 @@ class DoclingPDFExtractor(PdfExtractorInterface):
 
     def forward(self, input: bytes) -> str:
         """
-        Extracts text and figures from a PDF and returns them as markdown with embedded figures.
+        Extracts text and figures from a PDF and returns them as markdown with
+        embedded figures.
 
         Args:
             pdf_data: The PDF data as bytes.

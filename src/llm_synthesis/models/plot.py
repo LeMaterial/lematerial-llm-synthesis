@@ -77,3 +77,12 @@ class ExtractedPlotData(BaseModel):
     technical_takeaways: list[str] = Field(
         description="Key technical/scientific insights from the plot"
     )
+
+
+class ExtractedLinePlotData(BaseModel):
+    name_to_coordinates: dict[str, list[list[float]]]
+    title: str | None
+    x_axis_label: str | None
+    x_axis_unit: str | None
+    y_left_axis_label: str | None
+    y_left_axis_unit: str | None

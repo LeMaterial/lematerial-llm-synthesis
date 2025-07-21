@@ -1,13 +1,10 @@
 # Defaults
 defaults:
   - _self_
-  - data_loader: default
+  - data_loader: null
   - synthesis_extraction: default
-  - paragraph_extraction: default
-  - judge: default
-  # Added `result_save` to the defaults list. This was missing and caused a
-  # `ConfigAttributeError` because the script needs this configuration to know
-  # how to save the results.
+  - material_extraction: default
+  - judge: null
   - result_save: default
 
 # Dir handling
