@@ -19,8 +19,8 @@ load_dotenv()
 
 DATA_DIR = "/Users/mlederbau/lematerial-llm-synthesis/data/"
 PDFS_DIR = os.path.join(DATA_DIR, "pdfs_omg24")
-HUGGINGFACE_DATASET = "magdaroni/chemrxiv-dev"
-SPLIT = "filtered_omg24"
+HUGGINGFACE_DATASET = "LeMaterial/LeMat-Synth"
+SPLIT = "omg24"
 BATCH_SIZE = 20
 
 
@@ -97,7 +97,7 @@ def push_current_df(df_clean, orig, matsci_feats):
     merged = DatasetDict(
         {
             **orig,  # keeps filtered_matsci + old split
-            SPLIT: ds_new,  # overrides filtered_omg24 with your new one
+            SPLIT: ds_new,  # overrides omg24 with your new one
         }
     )
     merged.push_to_hub(HUGGINGFACE_DATASET)
