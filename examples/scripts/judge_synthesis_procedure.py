@@ -134,7 +134,7 @@ def main(cfg: DictConfig) -> None:
     if hasattr(result, "scores") and hasattr(
         result.scores, "materials_appropriateness_score"
     ):
-        log.info("\n[Enhanced AlchemyBench Scores]:")
+        log.info("\n[Synthesis Evaluation Scores]:")
         print(json.dumps(result.scores.model_dump(), indent=2))
 
         # Print additional enhanced features
