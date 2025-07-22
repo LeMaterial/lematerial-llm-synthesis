@@ -35,9 +35,7 @@ async def extract_text_from_pdf_async(
         return await extractor.aforward(f.read())
 
 
-def extract_text_from_pdf(
-    extractor: MistralPDFExtractor, pdf_path: str
-) -> str:
+def extract_text_from_pdf(extractor: MistralPDFExtractor, pdf_path: str) -> str:
     with open(pdf_path, "rb") as f:
         return extractor.forward(f.read())
 
@@ -258,9 +256,7 @@ async def main_async():
 
         # 4) once we hit a batch, await and push
         if len(tasks) >= BATCH_SIZE:
-            results = await tqdm_asyncio.gather(
-                *tasks, desc="Processing Batch"
-            )
+            results = await tqdm_asyncio.gather(*tasks, desc="Processing Batch")
             for j, text_paper, text_si in results:
                 df_new.at[j, "text_paper"] = text_paper
                 df_new.at[j, "text_si"] = text_si

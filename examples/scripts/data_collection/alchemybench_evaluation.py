@@ -322,9 +322,7 @@ def generate_summary_report(results: list[dict[str, Any]]):
     print("\nScore distribution by confidence level:")
     for conf, count in confidence_counts.items():
         conf_scores = [
-            r["overall_score"]
-            for r in results
-            if r["confidence_level"] == conf
+            r["overall_score"] for r in results if r["confidence_level"] == conf
         ]
         conf_avg = sum(conf_scores) / len(conf_scores) if conf_scores else 0
         print(f"  {conf}: {conf_avg:.2f} (n={count})")
