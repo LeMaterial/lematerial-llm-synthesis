@@ -15,9 +15,7 @@ class TextToTextExtractionMetric(MetricInterface[str]):
         pass
 
 
-class TextToOntologyExtractionMetric(
-    MetricInterface[GeneralSynthesisOntology]
-):
+class TextToOntologyExtractionMetric(MetricInterface[GeneralSynthesisOntology]):
     """
     Generic interface for an extraction metric that takes
     two inputs of type GeneralSynthesisOntology and returns a float.
