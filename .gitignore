@@ -1,3 +1,13 @@
+# Include everything in annotations/
+annotations/*
+
+# But exclude these patterns
+!annotations/lemat-synth*
+!annotations/annotation_instructions.md
+
+annotations/wip/*
+!annotations/wip/.gitkeep
+
 # Python cache and bytecode
 __pycache__/
 *.py[cod]
@@ -6,6 +16,7 @@ __pycache__/
 .coverage
 coverage.xml
 htmlcov/
+
 
 # Virtual environments and IDE settings
 .env
