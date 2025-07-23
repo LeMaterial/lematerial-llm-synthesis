@@ -70,13 +70,19 @@ In order to download and use it, apply for access once (the request will be inst
 For usage in a notebook, cf. `notebooks/pdf_extraction.ipynb`
 
 ```sh
-uv run examples/scripts/extract_text_from_pdfs.py --input-path <local folder containing the pdfs> --output-path <local folder where the extracted text will be saved> --process <"docling" or "mistral">
+uv run examples/scripts/extract_text_from_pdfs.py \
+  --input-path <local folder containing the pdfs> \
+  --output-path <local folder where the extracted text will be saved> \
+  --process <"docling" or "mistral">
 ```
 
 For example, this will extract text from `./data/pdf_papers` and write the result to `./data/txt_papers/docling` using Docling:
 
 ```sh
-uv run examples/scripts/extract_text_from_pdfs.py --input-path data/pdf_papers --output-path data/txt_papers/docling --process docling
+uv run examples/scripts/extract_text_from_pdfs.py \
+  --input-path data/pdf_papers \
+  --output-path data/txt_papers/docling \
+  --process docling
 ```
 
 ### Synthesis extraction
@@ -106,14 +112,16 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 In order to keep track of every _moving part_ of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
 
 ```
-uv run examples/scripts/extract_synthesis_procedure_from_text.py synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash
+uv run examples/scripts/extract_synthesis_procedure_from_text.py \
+  synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash
 ```
 
 To sweep over several configurations, use the flag `--multirun`:
 
 ```
-uv run examples/scripts/extract_synthesis_procedure_from_text.py --multirun \
-    synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash,gemini-2.5-flash,gpt-4o
+uv run examples/scripts/extract_synthesis_procedure_from_text.py \
+  --multirun \
+  synthesis_extraction.architecture.lm.llm_name=gemini-2.0-flash,gemini-2.5-flash,gpt-4o
 ```
 
 The results of the runs are saved in `results/single_run` and `results/multi_run`, respectively. The synthesis paragraphs and structured synthesis procedures are saved and can be inspected there.
