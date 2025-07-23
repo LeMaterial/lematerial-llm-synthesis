@@ -1,5 +1,6 @@
 import sys
 import os
+import gc
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from datasets import load_dataset
@@ -10,16 +11,44 @@ import time
 import pandas as pd
 from pathlib import Path
 from schema import schema
+from collections import defaultdict
+
+def compute_method_stats(data):
+    method_counts = defaultdict(int)
+    fail_counts = defaultdict(int)
+
+    for entry in data.values():
+        method = entry["method"]
+        failed = entry["failed"]
+
+        method_counts[method] += 1
+        if failed:
+            fail_counts[method] += 1
+
+    total = sum(method_counts.values())
+    stats = {}
+
+    for method in method_counts:
+        count = method_counts[method]
+        fails = fail_counts[method]
+        stats[method] = {
+            "percentage": round((count / total) * 100, 2),
+            "fail_rate": round((fails / count) * 100, 2),
+            "count": count,
+            "fails": fails
+        }
+
+    return stats
 
 def extract_text_and_files(destination="/fsx/georgia_channing/lemat_parquet/data/arxiv/arxiv_with_images.parquet"):
     
     dataset = load_dataset("LeMaterial/LeMat-Synth", data_files="data/arxiv/*.parquet", streaming=True)['train']
-    batch_size = 10
+    batch_size = 5
     batch = []
     writer = None
     arxiv_scraper = ArxivScraper()
     i = 0
-    total = 500
+    total = 10
     
     metrics_dict = {}
 
@@ -68,7 +97,10 @@ def extract_text_and_files(destination="/fsx/georgia_channing/lemat_parquet/data
     if writer:
         writer.close()
 
+    print(compute_method_stats(metrics_dict))
+
     return
 
 if __name__=="__main__":
     extract_text_and_files()
+    gc.collect()

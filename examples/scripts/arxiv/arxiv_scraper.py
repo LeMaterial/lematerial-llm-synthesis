@@ -30,8 +30,8 @@ class ArxivScraper():
         for root, dirs, files in os.walk(extract_dir):
             for file in files:
                 if file.lower().endswith(('.png', '.jpg', '.jpeg', '.pdf', '.eps')):
-                    base = os.path.splitext(file)[0]
-                    image_files[base] = os.path.abspath(os.path.join(root, file))
+                    # base = os.path.splitext(file)[0]
+                    image_files[file] = os.path.abspath(os.path.join(root, file))
                 if file.endswith(".tex"):
                     main_tex = os.path.join(root, file)
 
