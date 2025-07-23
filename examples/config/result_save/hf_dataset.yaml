@@ -1,0 +1,8 @@
+architecture:
+  _target_: llm_synthesis.result_gather.synthesis_results.hf_dataset_updater.HFSynthesisUpdater
+  update_column: structured_synthesis
+
+push_to_hub: true
+repo_id: "${data_loader.architecture.dataset_uri}"
+skip_already_processed: true
+batch_size: 3
