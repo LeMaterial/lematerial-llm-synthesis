@@ -7,6 +7,7 @@ import feedparser
 import json
 from bs4 import BeautifulSoup
 import time
+from schema import schema
 
 def create_new_branch():
     from huggingface_hub import HfApi
@@ -50,7 +51,6 @@ def to_parquet():
             if len(batch) >= batch_size:
                 table = pa.Table.from_pylist(batch)
                 if writer is None:
-                    schema = table.schema
                     writer = pq.ParquetWriter(parquet_file, schema)
                 writer.write_table(table)
                 print(f"Writing batch at i={i} (processed {i+1} rows)")
@@ -59,7 +59,6 @@ def to_parquet():
         if batch:
             table = pa.Table.from_pylist(batch)
             if writer is None:
-                schema = table.schema
                 writer = pq.ParquetWriter(parquet_file, schema)
             writer.write_table(table)
 
@@ -91,26 +90,6 @@ def add_arxiv_urls():
     parquet_file = f"/fsx/georgia_channing/lemat_parquet/data/{split}/{split}.parquet"
     batch_size = 100
     writer = None
-    schema = pa.schema([
-        ("id", pa.string()),
-        ("title", pa.string()),
-        ("authors", pa.list_(pa.string())),
-        ("abstract", pa.string()),
-        ("doi", pa.string()),
-        ("published_date", pa.string()),
-        ("updated_date", pa.string()),
-        ("categories", pa.string()),
-        ("license", pa.string()),  # force string
-        ("pdf_url", pa.string()),  # column we update
-        ("views_count", pa.null()),
-        ("read_count", pa.null()),
-        ("citation_count", pa.null()),
-        ("keywords", pa.null()),
-        ("text_paper", pa.string()),
-        ("text_si", pa.string()),
-        ("source", pa.string()),
-        ("pdf_extractor", pa.string())
-    ])
 
     ids = []
     batch = []
@@ -136,7 +115,6 @@ def add_arxiv_urls():
             table = table.cast(schema)
 
             if writer is None:
-                schema = table.schema
                 writer = pq.ParquetWriter(parquet_file, schema)
             writer.write_table(table)
             print(f"Writing batch at i={i} (processed {i+1} rows)")
@@ -160,12 +138,9 @@ def add_arxiv_urls():
         table = table.set_column(col_index, "pdf_url", url_array)
         table = table.cast(schema)
         if writer is None:
-            schema = table.schema
             writer = pq.ParquetWriter(parquet_file, schema)
         writer.write_table(table)
 
     if writer:
         writer.close()
     return
-
-create_new_branch()
