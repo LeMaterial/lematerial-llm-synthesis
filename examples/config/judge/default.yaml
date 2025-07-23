@@ -1,9 +1,0 @@
-architecture:
-  _target_: llm_synthesis.metrics.judge.dspy_judge.DspySynthesisJudge
-  signature:
-    _target_: llm_synthesis.metrics.judge.dspy_judge.make_dspy_synthesis_judge_signature
-  lm:
-    _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gpt-4o"
-    model_kwargs:
-      temperature: 0.0 
