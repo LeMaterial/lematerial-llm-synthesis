@@ -1,5 +1,5 @@
 # PDF processing configuration
 # Set these to enable PDF text extraction before synthesis processing
-pdf_dir: "../test"  # Path to directory containing PDF files (e.g., "data/pdf_papers")
-txt_dir: "../test"  # Path to save extracted text files (e.g., "data/txt_papers/docling")
+pdf_dir: "/Users/mlederbau/lematerial-llm-synthesis/annotations/wip/lemat-synth-arxiv"  # Path to directory containing PDF files (e.g., "data/pdf_papers")
+txt_dir: "${data_loader.architecture.data_dir}"  # Path to save extracted text files (e.g., "data/txt_papers/docling")
 extraction_process: "mistral"  # PDF extraction method: "docling" or "mistral"
