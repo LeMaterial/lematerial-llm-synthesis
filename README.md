@@ -28,6 +28,7 @@ cp .env.example .env
 #   MISTRAL_API_KEY=your_api_key # if using Mistral models and Mistral OCR
 #   OPENAI_API_KEY=your_api_key # if using OpenAI models
 #   GEMINI_API_KEY=your_api_key # if using Gemini models
+#   ANTHROPIC_API_KEY=your_api_key # if using Anthropic models (Claude, image extraction)
 ```
 
 #### Load your API keys
@@ -78,9 +79,28 @@ For example, this will extract text from `./data/pdf_papers` and write the resul
 uv run examples/scripts/extract_text_from_pdfs.py --input-path data/pdf_papers --output-path data/txt_papers/docling --process docling
 ```
 
-### Extracting a synthesis procedure from the parsed text
+### Synthesis extraction
 
-For usage in a notebook, cf. `notebooks/synthesis_procedure_extraction.ipynb`
+**From HuggingFace**:
+```sh
+uv run examples/scripts/extract_synthesis_procedure_from_text.py \
+  data_loader=default \
+  synthesis_extraction=default \
+  material_extraction=default \
+  judge=default \
+  result_save=default
+```
+
+**Locally**:
+```sh
+uv run examples/scripts/extract_synthesis_procedure_from_text.py \
+  data_loader=local \
+  data_loader.architecture.data_dir="/path/to/markdown"
+  synthesis_extraction=default \
+  material_extraction=default \
+  judge=default \
+  result_save=default
+```
 
 **Benchmark – Sweeping over different configurations**. DSPy designs LLM pipelines in a very modular way: The quality of the output is influenced by the LLM, prompting strategy, pre-processing steps etc.
 In order to keep track of every _moving part_ of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
