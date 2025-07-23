@@ -8,7 +8,7 @@ import os
 import pypandoc
 import shutil
 
-class ArxivAPI():
+class ArxivScraper():
     def __init__(self):
         self.base_url = 'http://export.arxiv.org/api/query'
         self.html_url = 'https://arxiv.org/html/'
@@ -70,18 +70,16 @@ class ArxivAPI():
         text = None
         images = None
         if "No HTML for" in soup.text:
-            print("No HTML, trying src.")
             response = requests.get(self.src_url+id)
             content_type = response.headers.get("Content-Type", "")
             if 'gzip' in content_type:
-                print("Parsing from Latex")
                 try:
                     text, images = self.parse_latex(response)
                 except:
+                    print("failed for id: ", id)
                     pass
                 method = 'latex'
             elif 'pdf' in content_type:
-                print("Parsing PDF")
                 text, images = self.parse_pdf(response)
                 method = 'pdf'
             else:
