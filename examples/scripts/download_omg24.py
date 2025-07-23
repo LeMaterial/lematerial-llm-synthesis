@@ -102,7 +102,7 @@ def push_current_df(df_clean, orig, matsci_feats):
             SPLIT: ds_new,  # overrides filtered_omg24 with your new one
         }
     )
-    merged.push_to_hub(HUGGINGFACE_DATASET)
+    merged.push_to_hub(HUGGINGFACE_DATASET, create_pr=True)
     print(f"→ Pushed {len(df_clean)} records to HF under split “{SPLIT}”")
 
 
