@@ -115,7 +115,7 @@ class FigureSegmenter:
         self,
         box,
         image_size,
-        expand_left_right=0.3,
+        expand_left_right=0.4,
         expand_bottom=0.3,
         expand_top=0.1,
     ):

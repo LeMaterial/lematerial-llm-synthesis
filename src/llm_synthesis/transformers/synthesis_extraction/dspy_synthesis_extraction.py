@@ -59,7 +59,6 @@ class DspySynthesisExtractor(SynthesisExtractorInterface):
                 f"Failed to extract synthesis for {material_name}: {e}"
             )
             return GeneralSynthesisOntology(
-                synthesis_id=None,
                 target_compound=material_name,
                 synthesis_method=None,
                 starting_materials=[],
