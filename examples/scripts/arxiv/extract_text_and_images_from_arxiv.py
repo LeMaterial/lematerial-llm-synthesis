@@ -43,18 +43,15 @@ def compute_method_stats(data):
 def extract_text_and_files(destination="/fsx/georgia_channing/lemat_parquet/data/arxiv/arxiv_with_images.parquet"):
     
     dataset = load_dataset("LeMaterial/LeMat-Synth", data_files="data/arxiv/*.parquet", streaming=True)['train']
-    batch_size = 5
+    batch_size = 100
     batch = []
     writer = None
-    arxiv_scraper = ArxivScraper()
-    i = 0
-    total = 10
+    arxiv_scraper = ArxivScraper(temp_dir='/fsx/georgia_channing/temp')
     
     metrics_dict = {}
 
     for example in dataset:
-        i += 1
-        time.sleep(3)
+        time.sleep(1)
         text, images, method = arxiv_scraper.parse_from_id(example['id'])
         row = dict(example) 
         if text is None:
@@ -83,9 +80,6 @@ def extract_text_and_files(destination="/fsx/georgia_channing/lemat_parquet/data
                 writer = pq.ParquetWriter(destination, schema)
             writer.write_table(table)
             batch = []
-        
-        if i > total:
-            break
     
     if batch:
         table = pa.Table.from_pylist(batch)
