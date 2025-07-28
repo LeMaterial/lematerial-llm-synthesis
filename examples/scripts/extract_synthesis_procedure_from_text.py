@@ -11,6 +11,7 @@ from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.metrics.judge.general_synthesis_judge import (
     DspyGeneralSynthesisJudge,
 )
+from llm_synthesis.models.ontologies.general import GeneralSynthesisOntology
 from llm_synthesis.models.paper import (
     PaperWithSynthesisOntologies,
     SynthesisEntry,
@@ -86,9 +87,7 @@ def main(cfg: DictConfig) -> None:
     synthesis_extractor: SynthesisExtractorInterface = instantiate(
         cfg.synthesis_extraction.architecture
     )
-    judge: DspyGeneralSynthesisJudge = instantiate(
-        cfg.judge.architecture
-    )
+    judge: DspyGeneralSynthesisJudge = instantiate(cfg.judge.architecture)
     result_gather: ResultGatherInterface[PaperWithSynthesisOntologies] = (
         instantiate(cfg.result_save.architecture)
     )
@@ -107,15 +106,18 @@ def main(cfg: DictConfig) -> None:
             if materials_text:
                 materials = [
                     material.strip()
-                    for material in materials_text.replace("\n", ",").split(
-                        ","
-                    )
+                    for material in materials_text.replace("\n", ",").split(",")
                     if material.strip()
                 ]
             else:
                 materials = []
 
             logging.info(f"Found materials: {materials}")
+
+            # Skip processing if no materials found
+            if not materials:
+                logging.warning(f"No materials found for paper {paper.name}")
+                continue
 
             # Process each material and collect all syntheses
             all_syntheses = []
@@ -134,24 +136,26 @@ def main(cfg: DictConfig) -> None:
                         )
                     )
 
-                    logging.info(
-                        f"Extracted synthesis ontology for {material}"
-                    )
+                    logging.info(f"Extracted synthesis ontology for {material}")
                     logging.info(structured_synthesis_procedure)
 
                     # Evaluate the extracted synthesis procedure
                     try:
                         evaluation_input = (
                             clean_text(paper.publication_text),
-                            json.dumps(structured_synthesis_procedure.model_dump()),
+                            json.dumps(
+                                structured_synthesis_procedure.model_dump()
+                            ),
                             material,
                         )
                         evaluation = judge.forward(evaluation_input)
                         logging.info(
-                            f"  Evaluation score: {evaluation.scores.overall_score}/5.0"
+                            f"  Eval sc: {evaluation.scores.overall_score}/5.0"
                         )
                     except Exception as e:
-                        logging.error(f"Failed to evaluate synthesis for {material}: {e}")
+                        logging.error(
+                            f"Failed to evaluate synthesis for {material}: {e}"
+                        )
                         evaluation = None
 
                     # Store material and its synthesis
@@ -163,11 +167,24 @@ def main(cfg: DictConfig) -> None:
                         )
                     )
                 except Exception as e:
-                    logging.error(
-                        f"Failed to process material {material}: {e}"
+                    logging.error(f"Failed to process material {material}: {e}")
+                    # Create a minimal synthesis entry with error information
+                    failed_synthesis = GeneralSynthesisOntology(
+                        target_compound=material,
+                        target_compound_type="other",
+                        synthesis_method="other",
+                        starting_materials=[],
+                        steps=[],
+                        equipment=[],
+                        notes=f"Processing failed: {e!s}",
                     )
-                    # Add a failed synthesis entry
-                    all_syntheses.append(SynthesisEntry(material=material, synthesis=None, evaluation=None))
+                    all_syntheses.append(
+                        SynthesisEntry(
+                            material=material,
+                            synthesis=failed_synthesis,
+                            evaluation=None,
+                        )
+                    )
 
             # Create paper object with all syntheses
             paper_with_syntheses = PaperWithSynthesisOntologies(
