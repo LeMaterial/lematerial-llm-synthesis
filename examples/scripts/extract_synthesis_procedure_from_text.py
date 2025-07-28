@@ -3,6 +3,7 @@ import logging
 import os
 import warnings
 
+import dspy
 import hydra
 from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
@@ -23,6 +24,7 @@ from llm_synthesis.transformers.synthesis_extraction.base import (
     SynthesisExtractorInterface,
 )
 from llm_synthesis.utils import clean_text
+from llm_synthesis.utils.dspy_utils import get_lm_cost
 
 # Disable Pydantic warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
@@ -92,6 +94,35 @@ def main(cfg: DictConfig) -> None:
     result_gather: ResultGatherInterface[PaperWithSynthesisOntologies] = (
         instantiate(cfg.result_save.architecture)
     )
+
+    # Initialize cost tracking
+    print("=" * 50)
+    print("STARTING LLM COST TRACKING")
+    print("=" * 50)
+    
+    # Get LMs from all components to track costs
+    synthesis_lm = getattr(synthesis_extractor, 'lm', None)
+    material_lm = getattr(material_extractor, 'lm', None)
+    judge_lm = getattr(judge, 'lm', None)
+    
+    # Also check DSPy global settings
+    dspy_settings_lm = getattr(dspy.settings, 'lm', None)
+    
+    print(f"Synthesis LM: {synthesis_lm}")
+    print(f"Material LM: {material_lm}")
+    print(f"Judge LM: {judge_lm}")
+    print(f"DSPy settings LM: {dspy_settings_lm}")
+    
+    # Track initial costs - try multiple approaches
+    initial_synthesis_cost = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+    initial_material_cost = get_lm_cost(material_lm) if material_lm else 0.0
+    initial_judge_cost = get_lm_cost(judge_lm) if judge_lm else 0.0
+    initial_dspy_cost = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+    
+    print(f"Initial synthesis LM cost: ${initial_synthesis_cost or 0.0:.6f}")
+    print(f"Initial material LM cost: ${initial_material_cost or 0.0:.6f}")
+    print(f"Initial judge LM cost: ${initial_judge_cost or 0.0:.6f}")
+    print(f"Initial DSPy settings LM cost: ${initial_dspy_cost or 0.0:.6f}")
 
     # Process each paper
     for paper in papers:
@@ -169,6 +200,44 @@ def main(cfg: DictConfig) -> None:
                     # Add a failed synthesis entry
                     all_syntheses.append(SynthesisEntry(material=material, synthesis=None, evaluation=None))
 
+            # Calculate costs for this paper
+            final_synthesis_cost_paper = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+            final_material_cost_paper = get_lm_cost(material_lm) if material_lm else 0.0
+            final_judge_cost_paper = get_lm_cost(judge_lm) if judge_lm else 0.0
+            final_dspy_cost_paper = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+
+            paper_synthesis_cost = (final_synthesis_cost_paper or 0.0) - (initial_synthesis_cost or 0.0)
+            paper_material_cost = (final_material_cost_paper or 0.0) - (initial_material_cost or 0.0)
+            paper_judge_cost = (final_judge_cost_paper or 0.0) - (initial_judge_cost or 0.0)
+            paper_dspy_cost = (final_dspy_cost_paper or 0.0) - (initial_dspy_cost or 0.0)
+            paper_total_cost = paper_synthesis_cost + paper_material_cost + paper_judge_cost + paper_dspy_cost
+
+            # Count LLM calls for this paper
+            synthesis_calls = len([s for s in all_syntheses if s.synthesis is not None])
+            judge_calls = len([s for s in all_syntheses if s.evaluation is not None])
+
+            # Prepare cost data for this paper
+            cost_data = {
+                "total_cost": paper_total_cost,
+                "breakdown": {
+                    "synthesis_extraction": paper_synthesis_cost,
+                    "material_extraction": paper_material_cost,
+                    "judge_evaluation": paper_judge_cost,
+                    "dspy_settings": paper_dspy_cost
+                },
+                "summary": f"Total cost: ${paper_total_cost:.6f} for processing {len(materials)} materials",
+                "models": {
+                    "synthesis_extractor": getattr(synthesis_lm, 'model', 'Unknown') if synthesis_lm else 'None',
+                    "material_extractor": getattr(material_lm, 'model', 'Unknown') if material_lm else 'None',
+                    "judge": getattr(judge_lm, 'model', 'Unknown') if judge_lm else 'None'
+                },
+                "total_calls": synthesis_calls + judge_calls + 1,  # +1 for material extraction
+                "materials_count": len(materials),
+                "synthesis_calls": synthesis_calls,
+                "material_calls": 1,
+                "judge_calls": judge_calls
+            }
+
             # Create paper object with all syntheses
             paper_with_syntheses = PaperWithSynthesisOntologies(
                 name=paper.name,
@@ -178,7 +247,8 @@ def main(cfg: DictConfig) -> None:
                 all_syntheses=all_syntheses,
             )
 
-            result_gather.gather(paper_with_syntheses)
+            # Save results with cost data
+            result_gather.gather(paper_with_syntheses, cost_data)
 
             logging.info(
                 f"Processed {len(all_syntheses)} materials: "
@@ -188,6 +258,45 @@ def main(cfg: DictConfig) -> None:
         except Exception as e:
             logging.error(f"Failed to process paper {paper.name}: {e}")
             continue
+
+    # Report final costs
+    print("=" * 50)
+    print("FINAL LLM COST REPORT")
+    print("=" * 50)
+    
+    # Calculate final costs for each component
+    final_synthesis_cost = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+    final_material_cost = get_lm_cost(material_lm) if material_lm else 0.0
+    final_judge_cost = get_lm_cost(judge_lm) if judge_lm else 0.0
+    final_dspy_cost = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+    
+    # Calculate session costs
+    synthesis_session_cost = (final_synthesis_cost or 0.0) - (initial_synthesis_cost or 0.0)
+    material_session_cost = (final_material_cost or 0.0) - (initial_material_cost or 0.0)
+    judge_session_cost = (final_judge_cost or 0.0) - (initial_judge_cost or 0.0)
+    dspy_session_cost = (final_dspy_cost or 0.0) - (initial_dspy_cost or 0.0)
+    total_session_cost = synthesis_session_cost + material_session_cost + judge_session_cost + dspy_session_cost
+    
+    print(f"Synthesis extractor session cost: ${synthesis_session_cost:.6f}")
+    print(f"Material extractor session cost: ${material_session_cost:.6f}")
+    print(f"Judge session cost: ${judge_session_cost:.6f}")
+    print(f"DSPy settings session cost: ${dspy_session_cost:.6f}")
+    print(f"Total session cost: ${total_session_cost:.6f}")
+    
+    if total_session_cost > 0:
+        print(f"\n💰 Total cost for this run: ${total_session_cost:.6f}")
+        print(f"   - Synthesis extraction: ${synthesis_session_cost:.6f}")
+        print(f"   - Material extraction: ${material_session_cost:.6f}")
+        print(f"   - Quality judging: ${judge_session_cost:.6f}")
+        print(f"   - DSPy settings: ${dspy_session_cost:.6f}")
+    else:
+        print(f"\n💰 No cost data available or no LLM calls made")
+        print("   This might be because:")
+        print("   1. The LLM provider doesn't return cost information")
+        print("   2. Cost tracking is not properly configured")
+        print("   3. Calls were made but cost extraction failed")
+    
+    print("=" * 50)
 
     logging.info("Success")
 

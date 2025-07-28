@@ -75,12 +75,23 @@ LLM_REGISTRY = LLMRegistry(
 class SystemPrefixedLM(dspy.LM):
     """
     Wrap any dspy.LM and automatically inject a system prompt
-    at start of every call.
+    at start of every call. Includes cost tracking capabilities.
     """
 
     def __init__(self, system_prompt: str, model: str, **kwargs):
         super().__init__(model, **kwargs)
         self._system_prompt = system_prompt
+        self._cumulative_cost_usd = 0.0
+
+    def get_cost(self) -> float:
+        """Get the current cumulative cost in USD."""
+        return self._cumulative_cost_usd
+
+    def reset_cost(self) -> float:
+        """Reset the cumulative cost counter and return the previous value."""
+        old_cost = self._cumulative_cost_usd
+        self._cumulative_cost_usd = 0.0
+        return old_cost
 
     def __call__(
         self,
@@ -100,4 +111,98 @@ class SystemPrefixedLM(dspy.LM):
                 *messages,
             ]
 
-        return super().__call__(messages=messages, **override_kwargs)
+        # Call the parent class method
+        response = super().__call__(messages=messages, **override_kwargs)
+        
+        # Extract cost information from the response if available
+        self._extract_and_accumulate_cost(response)
+        
+        return response
+
+    def _extract_and_accumulate_cost(self, response) -> None:
+        """Extract cost from DSPy response and accumulate it."""
+        try:
+            # Import here to avoid circular imports
+            from llm_synthesis.utils.cost_tracking import (
+                extract_cost_from_dspy_response,
+            )
+            
+            cost = extract_cost_from_dspy_response(response)
+            if cost is not None:
+                self._cumulative_cost_usd += cost
+                
+        except (AttributeError, TypeError, ValueError):
+            # If cost extraction fails, continue silently
+            pass
+
+
+class CostAwareLM(dspy.LM):
+    """
+    A cost-aware wrapper for dspy.LM that tracks cumulative costs.
+    """
+
+    def __init__(self, model: str, **kwargs):
+        super().__init__(model, **kwargs)
+        self._cumulative_cost_usd = 0.0
+
+    def get_cost(self) -> float:
+        """Get the current cumulative cost in USD."""
+        # Check if we have history with cost data
+        if hasattr(self, 'history') and self.history:
+            total_cost = 0.0
+            for entry in self.history:
+                if isinstance(entry, dict) and 'cost' in entry:
+                    cost = entry.get('cost')
+                    if cost is not None:
+                        try:
+                            total_cost += float(cost)
+                        except (TypeError, ValueError):
+                            pass
+            return total_cost
+        
+        # Fallback to accumulated cost
+        return self._cumulative_cost_usd
+
+    def reset_cost(self) -> float:
+        """Reset the cumulative cost counter and return the previous value."""
+        old_cost = self.get_cost()  # Get the current cost (including from history)
+        
+        # Clear the history to reset costs
+        if hasattr(self, 'history'):
+            self.history.clear()
+        
+        # Reset the accumulated cost
+        self._cumulative_cost_usd = 0.0
+        return old_cost
+
+    def __call__(
+        self,
+        prompt: str | None = None,
+        messages: list[dict] | None = None,
+        **override_kwargs,
+    ):
+        # Call the parent class method
+        response = super().__call__(
+            prompt=prompt, messages=messages, **override_kwargs
+        )
+        
+        # Extract cost information from the response if available
+        self._extract_and_accumulate_cost(response)
+        
+        return response
+
+    def _extract_and_accumulate_cost(self, response) -> None:
+        """Extract cost from DSPy response and accumulate it."""
+        try:
+            # Import here to avoid circular imports
+            from llm_synthesis.utils.cost_tracking import (
+                extract_cost_from_dspy_response,
+            )
+            
+            cost = extract_cost_from_dspy_response(response)
+            if cost is not None:
+                self._cumulative_cost_usd += cost
+                
+        except (AttributeError, TypeError, ValueError):
+            # If cost extraction fails, continue silently
+            pass
