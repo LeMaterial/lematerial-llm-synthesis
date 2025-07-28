@@ -11,9 +11,10 @@ from llm_synthesis.transformers.plot_extraction.base import (
 from llm_synthesis.transformers.plot_extraction.claude_extraction import (
     resources,
 )
+from llm_synthesis.utils.cost_tracking import CostTrackingMixin
 
 
-class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
+class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface, CostTrackingMixin):
     def __init__(
         self,
         model_name: str,
@@ -21,6 +22,7 @@ class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
         max_tokens: int = 1024,
         temperature: float = 0.0,
     ):
+        super().__init__()  # Initialize CostTrackingMixin
         self.claude_client = ClaudeAPIClient(model_name)
         self.prompt = prompt
         self.max_tokens = max_tokens
@@ -31,13 +33,32 @@ class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
         input: FigureInfoWithPaper,
     ) -> ExtractedLinePlotData:
         figure_base64 = input.base64_data
-        claude_response = self.claude_client.vision_model_api_call(
+        
+        # Use the cost-aware method
+        claude_response_obj = self.claude_client.vision_model_api_call_with_cost(
             figure_base64=figure_base64,
             prompt=self.prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
         )
-        return self._parse_into_pydantic(claude_response)
+        
+        # Track the cost if available
+        if claude_response_obj.cost_usd is not None:
+            self._accumulate_cost(claude_response_obj.cost_usd)
+        
+        return self._parse_into_pydantic(claude_response_obj.content)
+
+    def get_cost(self) -> float:
+        """Get cumulative cost from both Claude client and session tracking."""
+        claude_cost = self.claude_client.get_cost()
+        session_cost = self._session_cost_usd
+        return max(claude_cost, session_cost)  # Return the higher value
+
+    def reset_cost(self) -> float:
+        """Reset costs in both Claude client and session tracker."""
+        claude_cost = self.claude_client.reset_cost()
+        session_cost = self._reset_session_cost()
+        return max(claude_cost, session_cost)  # Return the higher previous value
 
     def _parse_into_pydantic(self, response: str) -> ExtractedLinePlotData:
         """
