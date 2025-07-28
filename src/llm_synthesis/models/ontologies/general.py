@@ -192,11 +192,39 @@ class GeneralSynthesisOntology(BaseModel):
     target_compound: str = Field(
         ..., description="Target compound composition and description."
     )
+
+    target_compound_type: str | None = Field(
+        default=None,
+        description=(
+            "Choose from: 'metals & alloys', 'ceramics & glasses', "
+            "'polymers & soft matter', 'composites',"
+            "'semiconductors & electronic', "
+            "'nanomaterials', 'two-dimensional materials', "
+            "'framework & porous materials', "
+            "'biomaterials & biological', 'liquid materials', "
+            "'hybrid & organic-inorganic', "
+            "'functional materials', 'energy & sustainability', "
+            "'smart & responsive materials', "
+            "'emerging & quantum materials', 'other'."
+        ),
+    )
+
     synthesis_method: str | None = Field(
         default=None,
         description=(
-            "Overall synthesis method. E.g. 'hydrothermal', 'sol-gel', "
-            "'solid-state', 'chemical vapor deposition', 'electrodeposition'."
+            "Choose from: 'PVD', 'CVD', 'arc discharge',"
+            " 'ball milling', 'spray pyrolysis', 'electrospinning', "
+            "'sol-gel processing', 'hydrothermal', 'solvothermal',"
+            "'precipitation', "
+            "'combustion', 'microwave-assisted', 'sonochemical', "
+            "'template-directed', "
+            "'solid-state', 'flux growth', 'float zone & Bridgman', "
+            "'arc melting & induction melting', 'spark plasma sintering', "
+            "'wet chemical synthesis', 'electrochemical deposition', "
+            "'chemical bath deposition', 'liquid-phase epitaxy', "
+            "'self-assembly', 'atomic layer deposition', "
+            "'molecular beam epitaxy', 'pulsed laser deposition', "
+            "'ion implantation', 'lithographic patterning', 'other'."
         ),
     )
 
