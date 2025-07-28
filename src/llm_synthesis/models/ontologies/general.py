@@ -1,7 +1,5 @@
 """General synthesis ontology."""
 
-from typing import Literal
-
 from pydantic import BaseModel, Field
 
 
@@ -124,26 +122,15 @@ class ProcessStep(BaseModel):
     step_number: int = Field(
         ..., description="Sequential step number in the synthesis procedure."
     )
-    action: Literal[
-        "add",
-        "mix",
-        "heat",
-        "cool",
-        "reflux",
-        "age",
-        "filter",
-        "wash",
-        "dry",
-        "reduce",
-        "calcine",
-        "dissolve",
-        "precipitate",
-        "centrifuge",
-        "sonicate",
-        "anneal",
-        "ion exchange",
-        "impregnate",
-    ] = Field(..., description="Primary action performed in this step.")
+    action: str = Field(
+        ...,
+        description=(
+            "Primary action performed in this step, choose from: "
+            "'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', "
+            "'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', "
+            "'centrifuge', 'sonicate', 'anneal', 'ion exchange', 'impregnate'."
+        ),
+    )
     description: str | None = Field(
         default=None, description="Detailed description of the process step."
     )
@@ -193,8 +180,7 @@ class GeneralSynthesisOntology(BaseModel):
         ..., description="Target compound composition and description."
     )
 
-    target_compound_type: str | None = Field(
-        default=None,
+    target_compound_type: str = Field(
         description=(
             "Choose from: 'metals & alloys', 'ceramics & glasses', "
             "'polymers & soft matter', 'composites',"
@@ -209,8 +195,7 @@ class GeneralSynthesisOntology(BaseModel):
         ),
     )
 
-    synthesis_method: str | None = Field(
-        default=None,
+    synthesis_method: str = Field(
         description=(
             "Choose from: 'PVD', 'CVD', 'arc discharge',"
             " 'ball milling', 'spray pyrolysis', 'electrospinning', "
