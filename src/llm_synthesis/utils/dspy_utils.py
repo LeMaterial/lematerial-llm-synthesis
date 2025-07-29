@@ -66,18 +66,3 @@ def get_lm_cost(lm: dspy.LM) -> float | None:
     if hasattr(lm, "get_cost"):
         return lm.get_cost()
     return None
-
-
-def reset_lm_cost(lm: dspy.LM) -> float | None:
-    """
-    Reset the cumulative cost in a DSPy LM if it supports cost tracking.
-
-    Args:
-        lm: DSPy language model instance
-
-    Returns:
-        Previous cumulative cost in USD, or None if not available
-    """
-    if hasattr(lm, "reset_cost"):
-        return lm.reset_cost()
-    return None
