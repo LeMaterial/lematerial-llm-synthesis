@@ -1,5 +1,4 @@
 from llm_synthesis.utils.cost_tracking import (
-    CostTrackingMixin,
     extract_cost_from_dspy_response,
 )
 from llm_synthesis.utils.dspy_utils import (

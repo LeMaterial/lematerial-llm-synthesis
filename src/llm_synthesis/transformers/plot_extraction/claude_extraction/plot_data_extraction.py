@@ -11,12 +11,9 @@ from llm_synthesis.transformers.plot_extraction.base import (
 from llm_synthesis.transformers.plot_extraction.claude_extraction import (
     resources,
 )
-from llm_synthesis.utils.cost_tracking import CostTrackingMixin
 
 
-class ClaudeLinePlotDataExtractor(
-    LinePlotDataExtractorInterface, CostTrackingMixin
-):
+class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
     def __init__(
         self,
         model_name: str,
@@ -25,7 +22,6 @@ class ClaudeLinePlotDataExtractor(
         temperature: float = 0.0,
     ):
         super().__init__()
-        CostTrackingMixin.__init__(self)
         self.claude_client = ClaudeAPIClient(model_name)
         self.prompt = prompt
         self.max_tokens = max_tokens
@@ -37,6 +33,8 @@ class ClaudeLinePlotDataExtractor(
     ) -> ExtractedLinePlotData:
         figure_base64 = input.base64_data
 
+        self.claude_client.reset_cost()
+
         # Use the cost-aware method
         claude_response_obj = (
             self.claude_client.vision_model_api_call_with_cost(
@@ -47,23 +45,15 @@ class ClaudeLinePlotDataExtractor(
             )
         )
 
-        # Track the cost if available
-        if claude_response_obj.cost_usd is not None:
-            self._session_cost_usd += claude_response_obj.cost_usd
-
         return self._parse_into_pydantic(claude_response_obj.content)
 
     def get_cost(self) -> float:
-        """Get cumulative cost from both Claude client and session tracking."""
-        claude_cost = self.claude_client.get_cost()
-        session_cost = self._session_cost_usd
-        return max(claude_cost, session_cost)  # Return the higher value
+        """Get cumulative cost from Claude client."""
+        return self.claude_client.get_cost()
 
     def reset_cost(self) -> float:
-        """Reset costs in both Claude client and session tracker."""
-        claude_cost = self.claude_client.reset_cost()
-        session_cost = self.reset_session_cost()
-        return max(claude_cost, session_cost)
+        """Reset costs in Claude client."""
+        return self.claude_client.reset_cost()
 
     def _parse_into_pydantic(self, response: str) -> ExtractedLinePlotData:
         """
