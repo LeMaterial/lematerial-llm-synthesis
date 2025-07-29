@@ -7,9 +7,9 @@ from typing import Any
 import dspy
 
 
-def extract_cost_from_dspy_response() -> float | None:
+def extract_cost_from_dspy_response(response: Any) -> float | None:
     """
-    Extract cost information from DSPy response.
+    Extract cost information from DSPy response using multiple fallback methods.
 
     Args:
         response: The DSPy response object to extract cost from
@@ -17,15 +17,28 @@ def extract_cost_from_dspy_response() -> float | None:
     Returns:
         Cost in USD as a float, or None if not available
     """
-    if hasattr(dspy.settings, "lm") and hasattr(dspy.settings.lm, "history"):
-        history = dspy.settings.lm.history
-        if history:
-            # Get the most recent entry
-            last_entry = history[-1]
-            if isinstance(last_entry, dict) and "cost" in last_entry:
-                cost = last_entry["cost"]
-                if cost is not None:
-                    return float(cost)
+    try:
+        # Method 3: Check current DSPy LM history for the most recent entry
+        try:
+            import dspy
+
+            if hasattr(dspy.settings, "lm") and hasattr(
+                dspy.settings.lm, "history"
+            ):
+                history = dspy.settings.lm.history
+                if history:
+                    # Get the most recent entry
+                    last_entry = history[-1]
+                    if isinstance(last_entry, dict) and "cost" in last_entry:
+                        cost = last_entry["cost"]
+                        if cost is not None:
+                            return float(cost)
+        except (ImportError, AttributeError):
+            pass
+
+    except (AttributeError, TypeError, ValueError):
+        # If cost extraction fails, return None
+        pass
 
     return None
 
@@ -79,24 +92,3 @@ class CostTrackingMixin:
                 return call_cost
 
         return None
-
-
-# Export cost tracking utilities in dspy_utils
-def add_cost_tracking_to_dspy_utils():
-    """Add cost tracking utilities to the main dspy_utils module."""
-    try:
-        from llm_synthesis.utils import dspy_utils
-
-        # Add these functions to dspy_utils module
-        dspy_utils.extract_cost_from_dspy_response = (
-            extract_cost_from_dspy_response
-        )
-        dspy_utils.CostTrackingMixin = CostTrackingMixin
-
-    except ImportError:
-        # If dspy_utils can't be imported, just continue
-        pass
-
-
-# Automatically add to dspy_utils when this module is imported
-add_cost_tracking_to_dspy_utils()
