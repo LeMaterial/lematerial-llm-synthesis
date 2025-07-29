@@ -1,4 +1,4 @@
-from datasets import load_dataset, DatasetDict, get_dataset_config_names, get_dataset_split_names
+from datasets import load_dataset, DatasetDict, get_dataset_config_names, get_dataset_split_names, Features
 from paper_schema import paper_schema
 from synthesis_schema import synthesis_schema
 import argparse
@@ -21,7 +21,7 @@ def cast_schema(args):
         for split in splits:
             loaded_dataset = load_dataset(args.dataset, name=config, split=split)
 
-            casted_dataset = loaded_dataset.cast(schema)
+            casted_dataset = loaded_dataset.cast(Features.from_arrow_schema(schema))
             dataset_splits[split] = casted_dataset
 
         if args.write_to_hub:

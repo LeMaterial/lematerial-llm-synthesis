@@ -51,6 +51,10 @@ class ImageTextExtractor(object):
         return raw_bytes
 
     def process_row(self, row):
+        if self.args.skip_if_processed:
+            if row['images'] is not None:
+                print(row['images'][0]['path'])
+                return row
 
         url = row['pdf_url']
 
@@ -108,7 +112,7 @@ class ImageTextExtractor(object):
     
     def extract_all(self):
         enhanced_dataset = self.dataset.map(self.process_row)
-        enhanced_dataset = enhanced_dataset.cast(schema)
+        enhanced_dataset = enhanced_dataset.cast(Features.from_arrow_schema(schema))
         if self.args.write_to_hub:
             dataset_dict = DatasetDict({
                 self.args.split: enhanced_dataset
@@ -120,7 +124,7 @@ class ImageTextExtractor(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--write_to_hub", action="store_true", default=False, help="do we write to the remote dataset?")
+    parser.add_argument("--write_to_hub", action="store_true", default=True, help="do we write to the remote dataset?")
     parser.add_argument("--skip_if_processed", default=False, help='If the row already had images, skip processing it again.')
     parser.add_argument("--dataset", type=str, default='LeMaterial/LeMat-Synth-Papers')
     parser.add_argument("--pdf_dir", type=str, default='pdfs', help='where to write PDFs we download')
