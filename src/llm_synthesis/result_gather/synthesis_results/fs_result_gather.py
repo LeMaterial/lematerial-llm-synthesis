@@ -1,7 +1,6 @@
 import json
 import os
 from datetime import datetime
-from typing import Any
 
 import fsspec
 
@@ -20,7 +19,6 @@ class SynthesisFSResultGather(
     def gather(
         self,
         paper: PaperWithSynthesisOntologies,
-        cost_data: dict[str, Any] | None = None,
     ):
         self._ensure_dir(os.path.join(self.result_dir, paper.id))
 
@@ -41,9 +39,8 @@ class SynthesisFSResultGather(
             else:
                 f.write(json.dumps({"error": "No synthesis found"}, indent=2))
 
-        # Save cost information if provided
-        if cost_data:
-            self._save_cost_report(paper.id, cost_data)
+        if paper.cost_data:
+            self._save_cost_report(paper)
 
         with self.fs.open(
             os.path.join(self.result_dir, paper.id, "publication_text.txt"),
@@ -57,27 +54,33 @@ class SynthesisFSResultGather(
         ) as f:
             f.write(paper.si_text)
 
-    def _save_cost_report(self, paper_id: str, cost_data: dict[str, Any]):
+    def _save_cost_report(self, paper: PaperWithSynthesisOntologies):
         """Save cost information to JSON format."""
 
         # Save detailed cost report as JSON
         cost_report = {
             "timestamp": datetime.now().isoformat(),
-            "paper_id": paper_id,
-            "cost_breakdown_usd": cost_data.get("breakdown", {}),
-            "total_cost_usd": cost_data.get("total_cost", 0.0),
-            "model_info": cost_data.get("models", {}),
+            "paper_id": paper.id,
+            "cost_breakdown_usd": paper.cost_data.get("breakdown", {}),
+            "total_cost_usd": paper.cost_data.get("total_cost", 0.0),
+            "model_info": paper.cost_data.get("models", {}),
             "statistics": {
-                "total_llm_calls": cost_data.get("total_calls", 0),
-                "materials_processed": cost_data.get("materials_count", 0),
-                "synthesis_extractions": cost_data.get("synthesis_calls", 0),
-                "material_extractions": cost_data.get("material_calls", 0),
-                "judge_evaluations": cost_data.get("judge_calls", 0),
+                "total_llm_calls": paper.cost_data.get("total_calls", 0),
+                "materials_processed": paper.cost_data.get(
+                    "materials_count", 0
+                ),
+                "synthesis_extractions": paper.cost_data.get(
+                    "synthesis_calls", 0
+                ),
+                "material_extractions": paper.cost_data.get(
+                    "material_calls", 0
+                ),
+                "judge_evaluations": paper.cost_data.get("judge_calls", 0),
             },
         }
 
         with self.fs.open(
-            os.path.join(self.result_dir, paper_id, "cost_report.json"), "w"
+            os.path.join(self.result_dir, paper.id, "cost_report.json"), "w"
         ) as f:
             f.write(json.dumps(cost_report, indent=2))
 
