@@ -111,6 +111,7 @@ def main(cfg: DictConfig) -> None:
     )
 
     # Process each paper
+    total_cost = 0.0
     for paper in papers:
         logging.info(f"Processing {paper.name}")
 
@@ -289,15 +290,21 @@ def main(cfg: DictConfig) -> None:
             # Save results with cost data
             result_gather.gather(paper_with_syntheses)
 
+            # Add this paper's cost to total
+            total_cost += paper_total_cost
+
             logging.info(
                 f"Processed {len(all_syntheses)} materials: "
                 f"{[s.material for s in all_syntheses]}"
             )
+            logging.info(f"Paper cost: ${paper_total_cost:.6f}")
 
         except Exception as e:
             logging.error(f"Failed to process paper {paper.name}: {e}")
             continue
 
+    # Print final total cost
+    logging.info(f"Total cost across all papers: ${total_cost:.6f}")
     logging.info("Success")
 
 
