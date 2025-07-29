@@ -1,11 +1,17 @@
+from typing import Any
+
 import anthropic
-from typing import Optional, Dict, Any
 
 
 class ClaudeAPIResponse:
     """Response wrapper that includes cost information for Claude API calls."""
-    
-    def __init__(self, content: str, cost_usd: Optional[float] = None, raw_response: Any = None):
+
+    def __init__(
+        self,
+        content: str,
+        cost_usd: float | None = None,
+        raw_response: Any = None,
+    ):
         self.content = content
         self.cost_usd = cost_usd
         self.raw_response = raw_response
@@ -27,26 +33,34 @@ class ClaudeAPIClient:
         self._cumulative_cost_usd = 0.0
         return old_cost
 
-    def _extract_cost_from_response(self, response) -> Optional[float]:
-        """Extract cost from Claude API response if available."""
+    def _calculate_cost_from_usage(self, response) -> float | None:
+        """Calculate cost from Claude API response usage information."""
         try:
-            # Claude may provide usage information in the response
-            if hasattr(response, 'usage') and response.usage:
-                # Check for various cost fields
-                for cost_field in ['cost', 'total_cost', 'prompt_cost', 'completion_cost']:
-                    if hasattr(response.usage, cost_field):
-                        cost_value = getattr(response.usage, cost_field)
-                        if cost_value is not None:
-                            return float(cost_value)
-            
-            # Some responses may have billing information in metadata
-            if hasattr(response, 'billing') and response.billing:
-                if hasattr(response.billing, 'cost_usd'):
-                    return float(response.billing.cost_usd)
-                    
+            if hasattr(response, "usage") and response.usage:
+                # Get token counts
+                input_tokens = getattr(response.usage, "input_tokens", 0)
+                output_tokens = getattr(response.usage, "output_tokens", 0)
+
+                # Claude 3.5 Sonnet pricing (as of 2024)
+                # Input: $3.00 per 1M tokens
+                # Output: $15.00 per 1M tokens
+                input_cost_per_1m_tokens = 3.00
+                output_cost_per_1m_tokens = 15.00
+
+                # Calculate costs
+                input_cost = (
+                    input_tokens / 1_000_000
+                ) * input_cost_per_1m_tokens
+                output_cost = (
+                    output_tokens / 1_000_000
+                ) * output_cost_per_1m_tokens
+
+                total_cost = input_cost + output_cost
+                return total_cost
+
         except (AttributeError, TypeError, ValueError):
             pass
-        
+
         return None
 
     def vision_model_api_call(
@@ -60,7 +74,7 @@ class ClaudeAPIClient:
         Note: Claude API call can very quickly reach the token limit.
         If we want to batch process images, we should think carefully
         how to handle retry to not receive excessive bills.
-        
+
         Returns the text content only. Use vision_model_api_call_with_cost
         for cost information.
         """
@@ -78,7 +92,7 @@ class ClaudeAPIClient:
     ) -> ClaudeAPIResponse:
         """
         Make a vision API call and return both content and cost information.
-        
+
         Returns:
             ClaudeAPIResponse with content and cost_usd fields
         """
@@ -104,14 +118,16 @@ class ClaudeAPIClient:
                 }
             ],
         )
-        
-        # Extract cost information
-        cost_usd = self._extract_cost_from_response(message)
-        
+
+        # Calculate cost from usage information
+        cost_usd = self._calculate_cost_from_usage(message)
+
         # Accumulate cost if available
         if cost_usd is not None:
             self._cumulative_cost_usd += cost_usd
-            
+
         content = message.content[0].text
-        
-        return ClaudeAPIResponse(content=content, cost_usd=cost_usd, raw_response=message)
+
+        return ClaudeAPIResponse(
+            content=content, cost_usd=cost_usd, raw_response=message
+        )
