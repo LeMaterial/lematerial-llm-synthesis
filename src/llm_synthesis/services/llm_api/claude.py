@@ -23,6 +23,21 @@ class ClaudeAPIClient:
         self.model_name = model_name
         self._cumulative_cost_usd = 0.0
 
+        if "sonnet" in model_name:
+            self.input_cost_per_1m_tokens = 3.00
+            self.output_cost_per_1m_tokens = 15.00
+        elif "haiku-3" in model_name:
+            self.input_cost_per_1m_tokens = 0.25
+            self.output_cost_per_1m_tokens = 1.25
+        elif "haiku-35" in model_name:
+            self.input_cost_per_1m_tokens = 0.80
+            self.output_cost_per_1m_tokens = 4.00
+        elif "opus" in model_name:
+            self.input_cost_per_1m_tokens = 15.00
+            self.output_cost_per_1m_tokens = 75.00
+        else:
+            raise ValueError(f"Unsupported model: {model_name}")
+
     def get_cost(self) -> float:
         """Get the current cumulative cost in USD."""
         return self._cumulative_cost_usd
@@ -41,19 +56,13 @@ class ClaudeAPIClient:
                 input_tokens = getattr(response.usage, "input_tokens", 0)
                 output_tokens = getattr(response.usage, "output_tokens", 0)
 
-                # Claude 3.5 Sonnet pricing (as of 2024)
-                # Input: $3.00 per 1M tokens
-                # Output: $15.00 per 1M tokens
-                input_cost_per_1m_tokens = 3.00
-                output_cost_per_1m_tokens = 15.00
-
                 # Calculate costs
                 input_cost = (
                     input_tokens / 1_000_000
-                ) * input_cost_per_1m_tokens
+                ) * self.input_cost_per_1m_tokens
                 output_cost = (
                     output_tokens / 1_000_000
-                ) * output_cost_per_1m_tokens
+                ) * self.output_cost_per_1m_tokens
 
                 total_cost = input_cost + output_cost
                 return total_cost
