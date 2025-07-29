@@ -1,4 +1,4 @@
 architecture:
   _target_: llm_synthesis.data_loader.paper_loader.hf_paper_loader.HFLoader
-  dataset_uri: "LeMaterial/LeMat-Synth"
-  split: "chemrxiv[:1%]"
+  dataset_uri: "LeMaterial/LeMat-Synth-Papers"
+  split: "sample_for_evaluation[:1%]"
