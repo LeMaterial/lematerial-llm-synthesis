@@ -1,11 +1,11 @@
 import dspy
 
-from llm_synthesis.transformers.text_extraction.base import (
-    TextExtractorInterface,
+from llm_synthesis.transformers.material_extraction.base import (
+    MaterialExtractorInterface,
 )
 
 
-class DspyTextExtractor(TextExtractorInterface):
+class DspyTextExtractor(MaterialExtractorInterface):
     """
     A text extractor that uses dspy to extract any arbitrary text
     from the publication text.
@@ -35,10 +35,13 @@ class DspyTextExtractor(TextExtractorInterface):
             str: The extracted text from the str.
         """
         predict_kwargs = {"publication_text": input}
-        with dspy.settings.context(lm=self.lm):
-            return dspy.Predict(self.signature)(**predict_kwargs).__getattr__(
-                next(iter(self.signature.output_fields.keys()))
-            )
+        with dspy.settings.context(
+            lm=self.lm,
+            adapter=dspy.adapters.JSONAdapter(),
+        ):
+            return dspy.ChainOfThought(self.signature)(
+                **predict_kwargs
+            ).__getattr__(next(iter(self.signature.output_fields.keys())))
 
     def _validate_signature(self, signature: type[dspy.Signature]):
         """

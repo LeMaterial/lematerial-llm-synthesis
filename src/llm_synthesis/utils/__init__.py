@@ -1,4 +1,10 @@
-from llm_synthesis.utils.dspy_utils import configure_dspy
+from llm_synthesis.utils.cost_tracking import (
+    extract_cost_from_dspy_response,
+)
+from llm_synthesis.utils.dspy_utils import (
+    configure_dspy,
+    get_lm_cost,
+)
 from llm_synthesis.utils.figure_utils import (
     FigureInfo,
     clean_text_from_images,

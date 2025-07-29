@@ -224,13 +224,13 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
 
     def __init__(
         self,
-        signature: type[dspy.Signature],
         lm: dspy.LM,
         enable_reasoning_traces: bool = False,
         confidence_threshold: float = 0.7,
+        signature: type[dspy.Signature] | None = None,
     ):
         """
-        Initialize the GeneralSynthesisOntology judge.
+        Initialize the unified synthesis judge.
 
         Args:
             signature: DSPy signature for evaluation
@@ -272,7 +272,9 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
         self._validate_inputs(source_text, extracted_ontology_json)
 
         # Perform evaluation
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
+        ):
             prediction = dspy.Predict(self.signature)(
                 source_text=source_text,
                 extracted_ontology_json=extracted_ontology_json,
