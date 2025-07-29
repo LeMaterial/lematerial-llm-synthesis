@@ -8,7 +8,7 @@ from synthesis_schema import schema
 
 class SynthesisWriter(object):
     def __init__(self, args):
-        self.paper_df = load_dataset(args.paper_dataset, config=args.config, split=args.split, columns=['id', 'title', 'abstract', 'doi', 'pdf_url', 'images', 'published_date']).to_pandas()
+        self.paper_df = load_dataset(args.paper_dataset, name=args.config, split=args.split, columns=['id', 'title', 'abstract', 'doi', 'pdf_url', 'images', 'published_date']).to_pandas()
         self.args = args
 
     def merge_information(self, row):
@@ -56,7 +56,7 @@ class SynthesisWriter(object):
                 args.split: hf_dataset
             })
 
-            dataset_dict.push_to_hub(self.args.synthesis_dataset, config=self.args.config)
+            dataset_dict.push_to_hub(self.args.synthesis_dataset, config_name=self.args.config, create_pr=True)
 
         return 
 
