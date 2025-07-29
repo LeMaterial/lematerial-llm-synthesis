@@ -36,12 +36,12 @@ journal_abbrs = {
 
 class ImageTextExtractor(object):
     def __init__(self, args):
-        self.dataset = load_dataset(args.dataset, name=args.config, split=args.split+'[:10]')
+        self.dataset = load_dataset(args.dataset, name=args.config, split=args.split)
         self.converter = PdfConverter(artifact_dict=create_model_dict())
         self.args = args
 
-        output_dir = Path(args.pdf_dir)
-        output_dir.mkdir(exist_ok=True)
+        self.output_dir = Path(args.pdf_dir)
+        self.output_dir.mkdir(exist_ok=True)
 
     def pil_to_bytes(self, pil_img):
         buf = BytesIO()
@@ -128,4 +128,4 @@ if __name__ == "__main__":
     parser.add_argument("--split", type=str, required=True, default='sample_for_evaluation')
     args = parser.parse_args()
 
-    ImageTextExtractor(args=args).extract_synthesis_recipes()
+    ImageTextExtractor(args=args).extract_all()
