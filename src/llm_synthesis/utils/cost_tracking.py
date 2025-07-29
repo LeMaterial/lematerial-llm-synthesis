@@ -7,9 +7,9 @@ from typing import Any
 import dspy
 
 
-def extract_cost_from_dspy_response(response: Any) -> float | None:
+def extract_cost_from_dspy_response() -> float | None:
     """
-    Extract cost information from DSPy response using multiple fallback methods.
+    Extract cost information from DSPy response.
 
     Args:
         response: The DSPy response object to extract cost from
@@ -17,87 +17,15 @@ def extract_cost_from_dspy_response(response: Any) -> float | None:
     Returns:
         Cost in USD as a float, or None if not available
     """
-    try:
-        # Method 1: Check DSPy prediction's LM usage
-        if hasattr(response, "get_lm_usage"):
-            lm_usage = response.get_lm_usage()
-            if lm_usage and isinstance(lm_usage, dict):
-                # Check for cost in usage data
-                for cost_key in ["cost", "response_cost", "total_cost"]:
-                    if cost_key in lm_usage and lm_usage[cost_key] is not None:
-                        return float(lm_usage[cost_key])
-
-        # Method 2: Check LM usage attribute directly
-        if hasattr(response, "_lm_usage"):
-            lm_usage = response._lm_usage
-            if lm_usage and isinstance(lm_usage, dict):
-                for cost_key in ["cost", "response_cost", "total_cost"]:
-                    if cost_key in lm_usage and lm_usage[cost_key] is not None:
-                        return float(lm_usage[cost_key])
-
-        # Method 3: Check current DSPy LM history for the most recent entry
-        try:
-            import dspy
-
-            if hasattr(dspy.settings, "lm") and hasattr(
-                dspy.settings.lm, "history"
-            ):
-                history = dspy.settings.lm.history
-                if history:
-                    # Get the most recent entry
-                    last_entry = history[-1]
-                    if isinstance(last_entry, dict) and "cost" in last_entry:
-                        cost = last_entry["cost"]
-                        if cost is not None:
-                            return float(cost)
-        except (ImportError, AttributeError):
-            pass
-
-        # Method 4: Check for raw response data (LiteLLM)
-        if hasattr(response, "_raw"):
-            raw_response = response._raw
-
-            # Check for LiteLLM response_cost in raw response
-            if (
-                hasattr(raw_response, "response_cost")
-                and raw_response.response_cost is not None
-            ):
-                return float(raw_response.response_cost)
-
-            # Check usage dictionary
-            usage = raw_response.get("usage", {})
-            if isinstance(usage, dict):
-                for cost_key in ["cost", "total_cost", "response_cost"]:
-                    cost = usage.get(cost_key)
-                    if cost is not None:
-                        return float(cost)
-
-            # Check top-level cost fields in raw response
-            if isinstance(raw_response, dict):
-                for cost_key in ["cost", "response_cost", "total_cost"]:
-                    cost = raw_response.get(cost_key)
-                    if cost is not None:
-                        return float(cost)
-
-        # Method 5: Check if response has usage tracking built-in
-        if hasattr(response, "get_usage_and_cost"):
-            usage_data = response.get_usage_and_cost()
-            if isinstance(usage_data, dict):
-                for cost_key in ["cost", "response_cost", "total_cost"]:
-                    cost = usage_data.get(cost_key)
-                    if cost is not None:
-                        return float(cost)
-
-        # Method 6: Check direct cost attributes on response
-        for cost_attr in ["cost_usd", "cost", "total_cost"]:
-            if hasattr(response, cost_attr):
-                cost = getattr(response, cost_attr)
+    if hasattr(dspy.settings, "lm") and hasattr(dspy.settings.lm, "history"):
+        history = dspy.settings.lm.history
+        if history:
+            # Get the most recent entry
+            last_entry = history[-1]
+            if isinstance(last_entry, dict) and "cost" in last_entry:
+                cost = last_entry["cost"]
                 if cost is not None:
                     return float(cost)
-
-    except (AttributeError, TypeError, ValueError):
-        # If cost extraction fails, return None
-        pass
 
     return None
 
