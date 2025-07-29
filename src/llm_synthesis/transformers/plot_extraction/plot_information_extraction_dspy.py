@@ -40,7 +40,9 @@ class PlotInformationExtractor(PlotInformationExtractorInterface):
             "figure_base64": input.base64_data,
             "publication_context": clean_text_from_images(input.paper_text),
         }
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
+        ):
             result = dspy.ChainOfThought(self.signature)(**predict_kwargs)
             return PlotInfo(
                 plot_type=result.plot_type,

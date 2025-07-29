@@ -17,7 +17,9 @@ class DspySynthesisJudge(SynthesisJudgeInterface):
 
     def forward(self, input: tuple[str, str, str]) -> SynthesisEvaluation:
         target_material, extracted_recipe, synthesis_procedure = input
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
+        ):
             prediction = dspy.ChainOfThought(self.signature)(
                 target_material=target_material,
                 extracted_recipe=extracted_recipe,
@@ -65,9 +67,7 @@ class SynthesisJudgeSignature(dspy.Signature):
         description="The synthesis recipe extracted by an LLM"
     )
     synthesis_procedure: str = dspy.InputField(
-        description=(
-            "Reference synthesis procedure from scientific literature"
-        )
+        description=("Reference synthesis procedure from scientific literature")
     )
     evaluation: SynthesisEvaluation = dspy.OutputField(
         description="Structured evaluation with reasoning and scores"

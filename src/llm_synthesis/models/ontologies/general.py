@@ -1,7 +1,5 @@
 """General synthesis ontology."""
 
-from typing import Literal
-
 from pydantic import BaseModel, Field
 
 
@@ -124,26 +122,15 @@ class ProcessStep(BaseModel):
     step_number: int = Field(
         ..., description="Sequential step number in the synthesis procedure."
     )
-    action: Literal[
-        "add",
-        "mix",
-        "heat",
-        "cool",
-        "reflux",
-        "age",
-        "filter",
-        "wash",
-        "dry",
-        "reduce",
-        "calcine",
-        "dissolve",
-        "precipitate",
-        "centrifuge",
-        "sonicate",
-        "anneal",
-        "ion exchange",
-        "impregnate",
-    ] = Field(..., description="Primary action performed in this step.")
+    action: str = Field(
+        ...,
+        description=(
+            "Primary action performed in this step, choose from: "
+            "'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', "
+            "'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', "
+            "'centrifuge', 'sonicate', 'anneal', 'ion exchange', 'impregnate'."
+        ),
+    )
     description: str | None = Field(
         default=None, description="Detailed description of the process step."
     )
@@ -192,11 +179,37 @@ class GeneralSynthesisOntology(BaseModel):
     target_compound: str = Field(
         ..., description="Target compound composition and description."
     )
-    synthesis_method: str | None = Field(
-        default=None,
+
+    target_compound_type: str = Field(
         description=(
-            "Overall synthesis method. E.g. 'hydrothermal', 'sol-gel', "
-            "'solid-state', 'chemical vapor deposition', 'electrodeposition'."
+            "Choose from: 'metals & alloys', 'ceramics & glasses', "
+            "'polymers & soft matter', 'composites',"
+            "'semiconductors & electronic', "
+            "'nanomaterials', 'two-dimensional materials', "
+            "'framework & porous materials', "
+            "'biomaterials & biological', 'liquid materials', "
+            "'hybrid & organic-inorganic', "
+            "'functional materials', 'energy & sustainability', "
+            "'smart & responsive materials', "
+            "'emerging & quantum materials', 'other'."
+        ),
+    )
+
+    synthesis_method: str = Field(
+        description=(
+            "Choose from: 'PVD', 'CVD', 'arc discharge',"
+            " 'ball milling', 'spray pyrolysis', 'electrospinning', "
+            "'sol-gel processing', 'hydrothermal', 'solvothermal',"
+            "'precipitation', "
+            "'combustion', 'microwave-assisted', 'sonochemical', "
+            "'template-directed', "
+            "'solid-state', 'flux growth', 'float zone & Bridgman', "
+            "'arc melting & induction melting', 'spark plasma sintering', "
+            "'wet chemical synthesis', 'electrochemical deposition', "
+            "'chemical bath deposition', 'liquid-phase epitaxy', "
+            "'self-assembly', 'atomic layer deposition', "
+            "'molecular beam epitaxy', 'pulsed laser deposition', "
+            "'ion implantation', 'lithographic patterning', 'other'."
         ),
     )
 
