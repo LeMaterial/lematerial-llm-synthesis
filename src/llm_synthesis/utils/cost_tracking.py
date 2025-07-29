@@ -18,23 +18,17 @@ def extract_cost_from_dspy_response(response: Any) -> float | None:
         Cost in USD as a float, or None if not available
     """
     try:
-        # Method 3: Check current DSPy LM history for the most recent entry
-        try:
-            import dspy
-
-            if hasattr(dspy.settings, "lm") and hasattr(
-                dspy.settings.lm, "history"
-            ):
-                history = dspy.settings.lm.history
-                if history:
-                    # Get the most recent entry
-                    last_entry = history[-1]
-                    if isinstance(last_entry, dict) and "cost" in last_entry:
-                        cost = last_entry["cost"]
-                        if cost is not None:
-                            return float(cost)
-        except (ImportError, AttributeError):
-            pass
+        if hasattr(dspy.settings, "lm") and hasattr(
+            dspy.settings.lm, "history"
+        ):
+            history = dspy.settings.lm.history
+            if history:
+                # Get the most recent entry
+                last_entry = history[-1]
+                if isinstance(last_entry, dict) and "cost" in last_entry:
+                    cost = last_entry["cost"]
+                    if cost is not None:
+                        return float(cost)
 
     except (AttributeError, TypeError, ValueError):
         # If cost extraction fails, return None
