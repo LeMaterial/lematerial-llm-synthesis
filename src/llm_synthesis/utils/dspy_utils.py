@@ -1,7 +1,6 @@
 import dspy
-from typing import Optional
 
-from llm_synthesis.utils.llms import LLM_REGISTRY, LLMConfig, SystemPrefixedLM, CostAwareLM
+from llm_synthesis.utils.llms import LLM_REGISTRY, LLMConfig, SystemPrefixedLM
 
 
 def get_llm_from_name(
@@ -23,17 +22,15 @@ def get_llm_from_name(
     except KeyError:
         available_models = list(LLM_REGISTRY.configs.keys())
         raise ValueError(
-            f"LLM name {llm_name!r} not supported."
-            f"Available: {available_models}"
+            f"LLM name {llm_name!r} not supported.Available: {available_models}"
         )
 
     if cfg.api_key:
         model_kwargs["api_key"] = cfg.api_key
         model_kwargs["api_base"] = cfg.api_base
 
-    if system_prompt:
-        return SystemPrefixedLM(system_prompt, cfg.model, **model_kwargs)
-    return CostAwareLM(cfg.model, **model_kwargs)
+    system_prompt = system_prompt or ""
+    return SystemPrefixedLM(system_prompt, cfg.model, **model_kwargs)
 
 
 def configure_dspy(
@@ -56,31 +53,31 @@ def configure_dspy(
     print(f"Configured dspy with {lm!r} and model_kwargs={model_kwargs}")
 
 
-def get_lm_cost(lm: dspy.LM) -> Optional[float]:
+def get_lm_cost(lm: dspy.LM) -> float | None:
     """
     Get the cumulative cost from a DSPy LM if it supports cost tracking.
-    
+
     Args:
         lm: DSPy language model instance
-        
+
     Returns:
         Cumulative cost in USD, or None if not available
     """
-    if hasattr(lm, 'get_cost'):
+    if hasattr(lm, "get_cost"):
         return lm.get_cost()
     return None
 
 
-def reset_lm_cost(lm: dspy.LM) -> Optional[float]:
+def reset_lm_cost(lm: dspy.LM) -> float | None:
     """
     Reset the cumulative cost in a DSPy LM if it supports cost tracking.
-    
+
     Args:
         lm: DSPy language model instance
-        
+
     Returns:
         Previous cumulative cost in USD, or None if not available
     """
-    if hasattr(lm, 'reset_cost'):
+    if hasattr(lm, "reset_cost"):
         return lm.reset_cost()
     return None
