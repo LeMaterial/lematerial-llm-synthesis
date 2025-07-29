@@ -75,26 +75,7 @@ class ClaudeAPIClient:
         If we want to batch process images, we should think carefully
         how to handle retry to not receive excessive bills.
 
-        Returns the text content only. Use vision_model_api_call_with_cost
-        for cost information.
-        """
-        result = self.vision_model_api_call_with_cost(
-            figure_base64, prompt, max_tokens, temperature
-        )
-        return result.content
-
-    def vision_model_api_call_with_cost(
-        self,
-        figure_base64: str,
-        prompt: str,
-        max_tokens: int = 1024,
-        temperature: float = 0.0,
-    ) -> ClaudeAPIResponse:
-        """
-        Make a vision API call and return both content and cost information.
-
-        Returns:
-            ClaudeAPIResponse with content and cost_usd fields
+        Returns the text content only.
         """
         image_type = "jpeg" if figure_base64.startswith("/9j/") else "png"
         message = self.client.messages.create(
@@ -128,6 +109,4 @@ class ClaudeAPIClient:
 
         content = message.content[0].text
 
-        return ClaudeAPIResponse(
-            content=content, cost_usd=cost_usd, raw_response=message
-        )
+        return content

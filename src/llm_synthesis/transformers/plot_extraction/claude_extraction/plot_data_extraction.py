@@ -36,16 +36,14 @@ class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
         self.claude_client.reset_cost()
 
         # Use the cost-aware method
-        claude_response_obj = (
-            self.claude_client.vision_model_api_call_with_cost(
-                figure_base64=figure_base64,
-                prompt=self.prompt,
-                max_tokens=self.max_tokens,
-                temperature=self.temperature,
-            )
+        claude_response_obj = self.claude_client.vision_model_api_call(
+            figure_base64=figure_base64,
+            prompt=self.prompt,
+            max_tokens=self.max_tokens,
+            temperature=self.temperature,
         )
 
-        return self._parse_into_pydantic(claude_response_obj.content)
+        return self._parse_into_pydantic(claude_response_obj)
 
     def get_cost(self) -> float:
         """Get cumulative cost from Claude client."""
