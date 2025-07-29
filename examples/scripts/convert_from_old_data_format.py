@@ -15,9 +15,9 @@ def convert_splits(splits=['arxiv', 'chemrxiv', 'omg24']):
 
 def to_parquet(split=None, datafiles=None, destination=None, batch_size=None):
     if datafiles:
-        streamed_dataset = load_dataset(lemat, data_files=datafiles, streaming=True)['train']
+        streamed_dataset = load_dataset('parquet', data_files=datafiles, streaming=True)['train']
     elif split:
-        streamed_dataset = load_dataset(lemat, data_files=datafiles, streaming=True)
+        streamed_dataset = load_dataset(lemat, split=split, download_mode="force_redownload", streaming=True)
     else:
         raise ValueError("Need either split or datafiles.")
     
@@ -58,7 +58,7 @@ def to_parquet(split=None, datafiles=None, destination=None, batch_size=None):
 
     return
 
-to_parquet(datafiles='data/chemrxiv-*.parquet', split='chemrxiv', destination=f"/fsx/georgia_channing/lemat_parquet/data/chemrxiv_filtered/chemrxiv.parquet")
+to_parquet(datafiles='/fsx/georgia_channing/LeMat-Synth/data/sample_for_evaluation-00000-of-00001.parquet', split='sample_for_evalulation', destination=f"/fsx/georgia_channing/lemat_parquet/data/sample_for_evaluation/sample_for_evaluation.parquet")
 
 def create_new_branch():
     from huggingface_hub import HfApi
