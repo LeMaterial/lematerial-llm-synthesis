@@ -1,3 +1,5 @@
+from typing import Any
+
 from pydantic import BaseModel
 
 from llm_synthesis.metrics.judge import GeneralSynthesisEvaluation
@@ -19,3 +21,4 @@ class Paper(BaseModel):
 
 class PaperWithSynthesisOntologies(Paper):
     all_syntheses: list[SynthesisEntry]
+    cost_data: dict[str, Any] | None = None

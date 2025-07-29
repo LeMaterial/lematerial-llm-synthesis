@@ -1,3 +1,4 @@
+import json
 import logging
 
 import dspy
@@ -6,6 +7,34 @@ from llm_synthesis.models.ontologies import GeneralSynthesisOntology
 from llm_synthesis.transformers.synthesis_extraction.base import (
     SynthesisExtractorInterface,
 )
+
+
+class SynthesisJSONAdapter(dspy.adapters.JSONAdapter):
+    """Custom adapter for handling synthesis extraction with JSON wrapper."""
+
+    def __init__(self):
+        super().__init__()
+
+    def extract(self, response: str, signature: type[dspy.Signature]) -> dict:
+        """Extract structured data from response."""
+        try:
+            # First try the standard JSON adapter
+            return super().extract(response, signature)
+        except Exception as e:
+            # Try to parse the JSON and extract structured_synthesis
+            try:
+                parsed = json.loads(response)
+                if "structured_synthesis" in parsed:
+                    # Return the structured_synthesis content directly
+                    return {
+                        "structured_synthesis": parsed["structured_synthesis"]
+                    }
+                else:
+                    # If no wrapper, assume the response is the direct content
+                    return {"structured_synthesis": parsed}
+            except Exception as json_error:
+                logging.debug(f"Failed to parse JSON response: {json_error}")
+                raise e
 
 
 class DspySynthesisExtractor(SynthesisExtractorInterface):
@@ -46,25 +75,67 @@ class DspySynthesisExtractor(SynthesisExtractorInterface):
         }
 
         try:
-            with dspy.settings.context(lm=self.lm):
+            with dspy.settings.context(
+                lm=self.lm, adapter=SynthesisJSONAdapter()
+            ):
                 result = dspy.Predict(self.signature, lm=self.lm)(
                     **predict_kwargs
                 )
-                return result.__getattr__(
+                synthesis_data = result.__getattr__(
                     next(iter(self.signature.output_fields.keys()))
                 )
+
+                # Ensure required fields are present
+                if (
+                    not hasattr(synthesis_data, "target_compound_type")
+                    or synthesis_data.target_compound_type is None
+                ):
+                    synthesis_data.target_compound_type = "other"
+                if (
+                    not hasattr(synthesis_data, "synthesis_method")
+                    or synthesis_data.synthesis_method is None
+                ):
+                    synthesis_data.synthesis_method = "other"
+
+                return synthesis_data
+
         except Exception as e:
+            # Try to parse raw response as JSON and extract structured_synthesis
+            try:
+                # Get the raw response from the LM
+                raw_response = (
+                    self.lm.history[-1]["response"]
+                    if hasattr(self.lm, "history") and self.lm.history
+                    else None
+                )
+                if raw_response:
+                    # Try to parse as JSON
+                    parsed = json.loads(raw_response)
+                    if "structured_synthesis" in parsed:
+                        synthesis_data = parsed["structured_synthesis"]
+                        # Ensure required fields are present
+                        if "target_compound_type" not in synthesis_data:
+                            synthesis_data["target_compound_type"] = "other"
+                        if (
+                            "synthesis_method" not in synthesis_data
+                            or synthesis_data["synthesis_method"] is None
+                        ):
+                            synthesis_data["synthesis_method"] = "other"
+                        return GeneralSynthesisOntology(**synthesis_data)
+            except Exception as json_error:
+                logging.debug(f"Failed to parse JSON response: {json_error}")
+
             # Fallback: create a minimal synthesis ontology if extraction fails
             logging.warning(
                 f"Failed to extract synthesis for {material_name}: {e}"
             )
             return GeneralSynthesisOntology(
                 target_compound=material_name,
-                synthesis_method=None,
+                target_compound_type="other",
+                synthesis_method="other",
                 starting_materials=[],
                 steps=[],
-                major_equipment=[],
-                characterization_methods=[],
+                equipment=[],
                 notes=f"Extraction failed: {e!s}",
             )
 
