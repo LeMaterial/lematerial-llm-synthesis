@@ -1,0 +1,6 @@
+architecture:
+  _target_: "llm_synthesis.transformers.figure_extraction.filtered_image_figure_extractor.FilteredImageFigureExtractor"
+  image_figure_extractor:
+    _target_: "llm_synthesis.transformers.figure_extraction.image_figure_extractor.ImageFigureExtractor"
+  figure_filter:
+    _target_: "llm_synthesis.transformers.figure_extraction.figure_filter.QuantitativeFigureFilter"

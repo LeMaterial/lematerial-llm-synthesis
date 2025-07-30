@@ -26,6 +26,7 @@ class HFLoader(PaperLoaderInterface):
                     si_text=paper["text_si"],
                     name=paper["title"],
                     id=paper["id"],
+                    images=paper["images"],
                 )
             )
         return papers

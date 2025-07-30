@@ -12,6 +12,7 @@ from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.metrics.judge.general_synthesis_judge import (
     DspyGeneralSynthesisJudge,
 )
+from llm_synthesis.models.figure import FigureInfoWithPaper
 from llm_synthesis.models.ontologies.general import GeneralSynthesisOntology
 from llm_synthesis.models.paper import (
     PaperWithSynthesisOntologiesAndFigures,
@@ -23,6 +24,9 @@ from llm_synthesis.transformers.figure_extraction.base import (
 )
 from llm_synthesis.transformers.material_extraction.base import (
     MaterialExtractorInterface,
+)
+from llm_synthesis.transformers.plot_extraction.base import (
+    LinePlotDataExtractorInterface,
 )
 from llm_synthesis.transformers.synthesis_extraction.base import (
     SynthesisExtractorInterface,
@@ -97,8 +101,12 @@ def main(cfg: DictConfig) -> None:
         PaperWithSynthesisOntologiesAndFigures
     ] = instantiate(cfg.result_save.architecture)
 
-    figure_extractor: FigureExtractorInterface = instantiate(
+    figure_candidate_extractor: FigureExtractorInterface = instantiate(
         cfg.figure_extraction.architecture
+    )
+
+    plot_data_extractor: LinePlotDataExtractorInterface = instantiate(
+        cfg.plot_data_extraction.architecture
     )
 
     # Get LMs from all components to track costs
@@ -143,8 +151,56 @@ def main(cfg: DictConfig) -> None:
 
             logging.info(f"Found materials: {materials}")
 
-            figures = figure_extractor.forward(input=paper.publication_text)
+            logging.info("Extracting figures")
+            # Handle both markdown text and image bytes
+            if paper.images and len(paper.images) > 0:
+                # Use image-based extraction for HuggingFace datasets
+                logging.info(
+                    f"Paper has {len(paper.images)} images->image-based extr"
+                )
+                figures = figure_candidate_extractor.forward(input=paper.images)
+                logging.info(f"Found {len(figures)} figures from image data")
+            else:
+                # Use markdown-based extraction for text-based datasets
+                logging.info("No images found, using markdown-based extraction")
+                figures = figure_candidate_extractor.forward(
+                    input=paper.publication_text
+                )
+                logging.info(f"Found {len(figures)} figures from markdown text")
 
+            # Debug: Print figure details
+            for i, figure in enumerate(figures):
+                logging.info(
+                    f"Figure {i + 1}: {figure.figure_class},",
+                    "quantitative: {figure.quantitative}",
+                )
+
+            paper_figure_cost = 0.0
+            extracted_data_from_figures = []
+            for i, figure in enumerate(figures):
+                figure_info_with_paper = FigureInfoWithPaper(
+                    **figure.model_dump(),
+                    paper_text=clean_text(paper.publication_text),
+                    si_text=clean_text(paper.si_text),
+                )
+
+                logging.info(f"Extracting data from figure {i + 1}")
+                try:
+                    extracted_data_from_figure = plot_data_extractor.forward(
+                        input=figure_info_with_paper
+                    )
+                    logging.info(
+                        f"Successfully extracted data from figure {i + 1}"
+                    )
+                    paper_figure_cost += plot_data_extractor.get_cost()
+                    extracted_data_from_figures.append(
+                        extracted_data_from_figure
+                    )
+                except Exception as e:
+                    logging.error(
+                        f"Failed to extract data from figure {i + 1}: {e}"
+                    )
+                    extracted_data_from_figures.append(None)
             # Skip processing if no materials found
             if not materials:
                 logging.warning(f"No materials found for paper {paper.name}")
@@ -241,6 +297,7 @@ def main(cfg: DictConfig) -> None:
             paper_dspy_cost = (final_dspy_cost_paper or 0.0) - (
                 initial_dspy_cost or 0.0
             )
+
             paper_total_cost = (
                 paper_synthesis_cost
                 + paper_material_cost
@@ -263,6 +320,7 @@ def main(cfg: DictConfig) -> None:
                     "synthesis_extraction": paper_synthesis_cost,
                     "material_extraction": paper_material_cost,
                     "judge_evaluation": paper_judge_cost,
+                    "figure_extraction": paper_figure_cost,
                     "dspy_settings": paper_dspy_cost,
                 },
                 "models": {
@@ -298,6 +356,7 @@ def main(cfg: DictConfig) -> None:
                 all_syntheses=all_syntheses,
                 cost_data=cost_data,
                 figures=figures,
+                extracted_data_from_figures=extracted_data_from_figures,
             )
 
             # Save results with cost data
@@ -306,11 +365,20 @@ def main(cfg: DictConfig) -> None:
             # Add this paper's cost to total
             total_cost += paper_total_cost
 
+            # Print summary
+            successful_extractions = len(
+                [d for d in extracted_data_from_figures if d is not None]
+            )
+            logging.info(
+                f"Figure extraction: {successful_extractions}/{len(figures)}",
+                "figures successfully extracted",
+            )
             logging.info(
                 f"Processed {len(all_syntheses)} materials: "
                 f"{[s.material for s in all_syntheses]}"
             )
             logging.info(f"Paper cost: ${paper_total_cost:.6f}")
+            logging.info(f"Figure extraction cost: ${paper_figure_cost:.6f}")
 
         except Exception as e:
             logging.error(f"Failed to process paper {paper.name}: {e}")
