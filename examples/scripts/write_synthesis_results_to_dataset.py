@@ -24,6 +24,7 @@ class SynthesisWriter(object):
         new_row['synthesis_method'] = row['synthesis']['synthesis_method']
         new_row['images'], new_row['plot_data'] = self.filter_images(self.paper_df[self.paper_df['id'] == row['id']].iloc[0]['images'])
         new_row['structured_synthesis'] = row['synthesis']
+        new_row['evaluation'] = row['evaluation']
         for col in ['synthesis_extraction_performance_llm', 'figure_extraction_performance_llm', 'synthesis_extraction_performance_human', 'figure_extraction_performance_human']:
             new_row[col] = None
         new_row['paper_title'] = self.paper_df[self.paper_df['id'] == row['id']].iloc[0]['title']
@@ -65,12 +66,12 @@ class SynthesisWriter(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--write_to_hub", action="store_true", default=False, help="do we write to the remote dataset?")
+    parser.add_argument("--write_to_hub", action="store_true", default=True, help="do we write to the remote dataset?")
     parser.add_argument("--results_dir", type=str, default="../../results")
     parser.add_argument("--paper_dataset", type=str, default='LeMaterial/LeMat-Synth-Papers')
     parser.add_argument("--synthesis_dataset", type=str, default='LeMaterial/LeMat-Synth')
-    parser.add_argument("--config", type=str, optional=True, default=None, help='If None, this will run through all subsets.')
-    parser.add_argument("--split", type=str, optional=True, default=None, help='If None, this will run through all splits in the specified subset.')
+    parser.add_argument("--config", type=str, required=True, default='default')
+    parser.add_argument("--split", type=str, required=True, default='sample_for_evaluation')
     args = parser.parse_args()
 
     SynthesisWriter(args=args).extract_synthesis_recipes()

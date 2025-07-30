@@ -114,6 +114,10 @@ def main(cfg: DictConfig) -> None:
     total_cost = 0.0
     for paper in papers:
         logging.info(f"Processing {paper.name}")
+        
+        if paper.id in os.listdir('/fsx/georgia_channing/sample_results'):
+            logging.info(f"Skipping {paper.id} because already processed.")
+            continue
 
         try:
             # Extract list of synthesized materials

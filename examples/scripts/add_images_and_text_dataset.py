@@ -1,6 +1,6 @@
 from datasets import load_dataset, Dataset, DatasetDict, Features
 import argparse
-import pandas as pd
+import torch
 from pathlib import Path
 from paper_schema import schema
 import requests
@@ -9,9 +9,8 @@ from marker.output import text_from_rendered
 from marker.models import create_model_dict
 from io import BytesIO
 import re
+from multiprocess import set_start_method
 from scidownl import scihub_download
-import os
-import sys
 
 converter = PdfConverter(artifact_dict=create_model_dict())
 
@@ -113,26 +112,32 @@ class ImageTextExtractor(object):
         return row
     
     def extract_all(self):
-        enhanced_dataset = self.dataset.map(self.process_row, num_proc=args.num_proc)
-        enhanced_dataset = enhanced_dataset.cast(Features.from_arrow_schema(schema))
+        if args.multiprocess:
+            set_start_method("spawn")
+            print("num_proc: ", torch.cuda.device_count())
+            enhanced_dataset = self.dataset.map(self.process_row, num_proc=torch.cuda.device_count())
+        else:
+            enhanced_dataset = enhanced_dataset.cast(Features.from_arrow_schema(schema))
+
+
+        if self.args.write_to_disk:
+            enhanced_dataset.save_to_disk(args.disk_location)
+
         if self.args.write_to_hub:
-            dataset_dict = DatasetDict({
-                self.args.split: enhanced_dataset
-            })
-            dataset_dict.push_to_hub(self.args.dataset, config_name=self.args.config, create_pr=True)
+            enhanced_dataset.push_to_hub(self.args.dataset, config_name=self.args.config, split=self.args.split, create_pr=True)
            
-
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--write_to_hub", action="store_true", default=True, help="do we write to the remote dataset?")
+    parser.add_argument("--write_to_disk", action="store_true", default=True)
+    parser.add_argument("--disk_location", type=str, default='/fsx/georgia_channing/temp')
     parser.add_argument("--skip_if_processed", default=False, help='If the row already had images, skip processing it again.')
     parser.add_argument("--dataset", type=str, default='LeMaterial/LeMat-Synth-Papers')
     parser.add_argument("--pdf_dir", type=str, default='pdfs', help='where to write PDFs we download')
     parser.add_argument("--config", type=str, default='default')
     parser.add_argument("--split", type=str, required=True, default='sample_for_evaluation')
-    parser.add_argument("--num_proc", type=int, default=10)
+    parser.add_argument("--multiprocess", type=bool, default=True)
     args = parser.parse_args()
 
     ImageTextExtractor(args=args).extract_all()
