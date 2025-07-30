@@ -1,0 +1,190 @@
+[
+  {
+    "material": "MoSe2",
+    "synthesis": {
+      "target_compound": "MoSe2",
+      "target_compound_type": "two-dimensional materials",
+      "synthesis_method": "MBE",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "sapphire substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Selenium",
+          "amount": null,
+          "unit": null,
+          "purity": "99.9999%"
+        },
+        {
+          "vendor": null,
+          "name": "molybdenum",
+          "amount": null,
+          "unit": null,
+          "purity": "99.995%"
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Heating a (0001) sapphire substrate with a 2-degree off-cut in an ultra-high vacuum",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "sapphire substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 700.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "ultra-high vacuum",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "growth",
+          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "MoSe2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 300.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "anneal",
+          "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700\u25e6C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "MoSe2",
+              "amount": null,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 700.0,
+            "temp_unit": "C",
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "polish",
+          "description": "after the growth, the samples are manually polished using silk in the environment of ethylene glycol for improving the surface quality.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "ethylene glycol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "MBE chamber",
+          "instrument_vendor": "SVT Associates",
+          "settings": null
+        },
+        {
+          "name": "ebeam",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The total thickness of MoSe2 layer is 42 nm. Surface roughness is controlled by Reflection High Energy Electron Diffraction (RHEED). Selenium is deposited from a standard low-temperature effusion cell and molybdenum is deposited using an ebeam with a rod (1/4\" diameter, 35 mm length)."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the MBE synthesis of MoSe2, including heating the sapphire substrate, MoSe2 growth, annealing, and polishing. The materials, equipment, and conditions are generally well-extracted. However, there are some areas for improvement, particularly in specifying the deposition details and standardizing the units.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the synthesis steps, materials, equipment, and conditions. However, more details could be included about the deposition process and the specific parameters used in each step.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The materials are extracted with reasonable accuracy, including the sapphire substrate, selenium, and molybdenum. The purities are also noted. However, the amounts and units for the starting materials are missing, which reduces the score.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified. The descriptions are clear and concise, providing a good overview of the synthesis procedure.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment is identified, including the MBE chamber and ebeam. The vendor for the MBE chamber is also provided. However, specific settings for the equipment are missing, which would improve the score.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions, such as temperature, duration, and atmosphere, are extracted with good accuracy. The units are generally consistent. However, specifying the pressure during the heating step would improve the extraction.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The semantic accuracy is high, with the scientific meaning well-preserved in the structured format. The relationships between materials, steps, equipment, and conditions are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
+        "overall_score": 4.3,
+        "overall_reasoning": "The ontology extraction is of good quality, capturing most of the essential synthesis information. The structural completeness, material extraction, process steps, equipment extraction, and conditions extraction are all reasonably accurate. The semantic accuracy and format compliance are high. However, improvements could be made by including more specific details about the deposition process, specifying the amounts and units for the starting materials, and providing the equipment settings."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Amounts and units for the starting materials",
+        "Equipment settings",
+        "Pressure during the heating step"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include more specific details about the deposition process, such as the deposition rate and the source temperatures.",
+        "Specify the amounts and units for the starting materials.",
+        "Provide the equipment settings, such as the ebeam voltage and current.",
+        "Specify the pressure during the heating step."
+      ]
+    }
+  }
+]

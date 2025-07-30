@@ -1,0 +1,377 @@
+[
+  {
+    "material": "NbN",
+    "synthesis": {
+      "target_compound": "NbN",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Nb",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Ar",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "N2",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "deposit",
+          "description": "A 200-nm-thick NbN layer was deposited (instead of Nb)",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NbN",
+              "amount": 200.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Endura PVD cluster tool",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar/N2 flow",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "pattern",
+          "description": "NbN layer M6 was patterned using high-density plasma etching",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NbN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Cl2-based chemistry",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "planarize",
+          "description": "The patterned layer was planarized using SiO2 deposition and chemical mechanical polishing, forming interlayer dielectric, I6.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SiO2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Endura PVD cluster tool",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the NbN synthesis process described in the text, including the deposition method, starting materials, and process steps. The level of detail is appropriate, and the information is generally accurate. However, there are some areas where the extraction could be improved, particularly in capturing more specific details about the deposition conditions and equipment settings. The structure of the JSON is well-organized and follows the schema.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main elements of the synthesis, including materials, steps, equipment, and conditions. However, it could benefit from more detailed information about the equipment and specific settings used during the deposition and etching processes.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The material extraction is generally accurate, including the identification of Nb, Ar, N2, and SiO2. The amount and unit for NbN are correctly extracted in the deposition step. However, the purity of the starting materials is not specified, which could be a valuable addition.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and accurately reflect the sequence of actions described in the text. The descriptions are clear and concise. However, more specific details about the etching process (e.g., etch rate, gas flow rates) could enhance the completeness of this section.",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "The extraction identifies the 'Endura PVD cluster tool,' which is good. However, it lacks specific settings or configurations used during the deposition process. Including details like power, gas flow rates, or chamber pressure would improve the score.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The temperature for the deposition step is accurately extracted. The atmosphere (Ar/N2 flow and Cl2-based chemistry) is also captured. However, the absence of pressure values and specific gas flow rates limits the completeness of the conditions extraction.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extracted ontology maintains the scientific meaning of the synthesis process. The relationships between materials, steps, and conditions are accurately represented. There are no significant distortions or misinterpretations of the original text.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON is well-formed and can be easily parsed. All required fields are present and correctly formatted.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The ontology extraction is of good quality, accurately capturing the main aspects of the NbN synthesis process. The structure is well-organized, and the information is generally accurate. Improvements could be made by including more specific details about the equipment settings, deposition conditions, and etching parameters."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Purity of starting materials.",
+        "Specific equipment settings for deposition and etching.",
+        "Pressure values during deposition and etching.",
+        "Gas flow rates during deposition and etching."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include specific equipment settings (e.g., power, gas flow rates, chamber pressure) for the deposition and etching steps.",
+        "Specify the purity of the starting materials (Nb, Ar, N2).",
+        "Add more details about the etching process (e.g., etch rate, gas flow rates).",
+        "Consider including information about the deposition rate of the NbN layer."
+      ]
+    }
+  },
+  {
+    "material": "NbN/Nb",
+    "synthesis": {
+      "target_compound": "NbN/Nb",
+      "target_compound_type": "metals & alloys",
+      "synthesis_method": "PVD",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "deposit",
+          "description": "After reaching deposition step of the layer M6, it was deposited in-situ as NbN/Nb bilayer with total thickness of 200 nm. Thicknesses of the individual layers and were varied to investigate various combination, e.g., =150 nm, = 100 nm, and = =100 nm.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NbN",
+              "amount": null,
+              "unit": "nm",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Nb",
+              "amount": null,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Endura PVD cluster tool",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "pattern",
+          "description": "The first photolithography step uses a dark field mask M6a and a positive tone photoresist (PR). This step does not exist in the standard SFQ5ee process. It creates unmasked etch windows for etching the top Nb of the bilayer in the regions where NbN inductors are going to be placed.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "photoresist",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "etch",
+          "description": "Selective etching of the top Nb in the unmasked areas is done using an optical emission end-point detector and a 2- to 3-nm-thick etch-stop (ES) layer deposited on the surface of NbN. That is the bilayer was actually deposited as a trilayer, e.g., NbN(150)/ES(3)/Nb(100). There are several metals which can be used as a hard ES layer, e.g., Ti, Al, Pt, Cu, Au, etc., depending on the etch chemistry used.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Nb",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "optical emission end-point detector",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "pattern",
+          "description": "Then, the second photolithography is done using a clear field M6 mask and the same positive PR; see Fig.1d.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "photoresist",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "etch",
+          "description": "Finally, the bilayer is etched off from the entire unmasked area in one etching step, stopping on the underlaying SiO2; see Fig. 1e.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NbN/Nb",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Endura PVD cluster tool",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the main steps involved in the fabrication of NbN/Nb bilayer inductors. The deposition, photolithography, and etching steps are well-represented. However, there are some omissions and areas for improvement. The conditions for each step are not fully specified, and some equipment details are missing. The description of the materials is generally accurate, but could benefit from more specific details where available. The overall structure is logical, but the completeness could be improved.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology covers the main steps (deposition, patterning, etching) but lacks detail on specific conditions and equipment used in each step. The relationship between steps is clear, but some information is missing, reducing the overall completeness.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names (NbN, Nb, photoresist, SiO2) are correctly identified. However, vendor information and purity are not specified, and the amounts are only partially specified (thicknesses). Units are generally correct where provided.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and the actions (deposit, pattern, etch) are correctly classified. The descriptions are generally accurate, but could benefit from more detail on the specific procedures and parameters used in each step.",
+        "equipment_extraction_score": 3.0,
+        "equipment_extraction_reasoning": "The Endura PVD cluster tool and optical emission end-point detector are identified, but specific settings and configurations are not provided. The extraction is incomplete as it misses some equipment implied in the text (e.g., etching equipment).",
+        "conditions_extraction_score": 2.5,
+        "conditions_extraction_reasoning": "Temperature is mentioned for the NbN deposition (200 oC), but other conditions such as pressure, atmosphere composition (Ar/N2 flow), and etching chemistry are not extracted. The extraction of conditions is incomplete and lacks numerical precision.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extracted ontology generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and equipment are accurately represented. However, the lack of detail in some areas reduces the overall semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted and populated with appropriate values.",
+        "overall_score": 3.7,
+        "overall_reasoning": "The ontology extraction is reasonably good, capturing the main steps and materials involved in the NbN/Nb bilayer inductor fabrication. However, the extraction could be improved by including more specific details on the conditions, equipment settings, and material properties. The structural completeness and conditions extraction are the weakest areas."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Etching chemistry details",
+        "Deposition pressure and gas flow rates",
+        "Vendor and purity of starting materials",
+        "Settings for the Endura PVD cluster tool",
+        "Etch-stop material",
+        "Photoresist details"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include specific details on the etching chemistry used in each etching step.",
+        "Specify the pressure and gas flow rates during the NbN deposition process.",
+        "Add vendor information and purity for the starting materials where available.",
+        "Include the settings used for the Endura PVD cluster tool during deposition.",
+        "Extract the etch-stop material (e.g., Ti, Al, Pt, Cu, Au) used in step 3.",
+        "Add more details about the photoresist used in the photolithography steps (e.g., type, vendor)."
+      ]
+    }
+  }
+]
