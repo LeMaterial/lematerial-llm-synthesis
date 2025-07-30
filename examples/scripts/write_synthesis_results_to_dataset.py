@@ -11,6 +11,9 @@ class SynthesisWriter(object):
         self.paper_df = load_dataset(args.paper_dataset, name=args.config, split=args.split, columns=['id', 'title', 'abstract', 'doi', 'pdf_url', 'images', 'published_date']).to_pandas()
         self.args = args
 
+    def filter_images(self, images):
+        return images, None
+
     def merge_information(self, row):
         new_row = {}
         # make sure the paper id is in the paper dataframe
@@ -19,7 +22,7 @@ class SynthesisWriter(object):
         new_row['synthesized_material'] = row['synthesis']['target_compound']
         new_row['material_category'] = row['synthesis']['target_compound_type']
         new_row['synthesis_method'] = row['synthesis']['synthesis_method']
-        new_row['images'] = self.paper_df[self.paper_df['id'] == row['id']].iloc[0]['images']
+        new_row['images'], new_row['plot_data'] = self.filter_images(self.paper_df[self.paper_df['id'] == row['id']].iloc[0]['images'])
         new_row['structured_synthesis'] = row['synthesis']
         for col in ['synthesis_extraction_performance_llm', 'figure_extraction_performance_llm', 'synthesis_extraction_performance_human', 'figure_extraction_performance_human']:
             new_row[col] = None
