@@ -1,24 +1,21 @@
-import torch
-from PIL import Image
 from io import BytesIO
 
+import torch
+from PIL import Image
+
 from llm_synthesis.models.dino import FigureSegmenter
-from llm_synthesis.models.figure import FigureInfo
 from llm_synthesis.models.resnet import (
     FigureClassifier,
 )
 from llm_synthesis.transformers.figure_extraction.base import (
     FigureExtractorInterface,
 )
-from llm_synthesis.utils.figure_utils import (
-    base64_to_image,
-    find_figures_in_markdown,
-)
 
 
 class HFFigureExtractor(FigureExtractorInterface):
     """
-    Filter images and extract plot data from image bytes (as provided from HF dataset).
+    Filter images and extract plot data from image bytes
+    (as provided from HF dataset).
     """
 
     def __init__(self):
@@ -28,15 +25,19 @@ class HFFigureExtractor(FigureExtractorInterface):
         self.classifier = FigureClassifier()
         self.segmenter = FigureSegmenter()
 
-    def forward(self, input: list[dict[str, bytes | str]]) -> list[dict[str, bytes | str]]:
+    def forward(
+        self, input: list[dict[str, bytes | str]]
+    ) -> list[dict[str, bytes | str]]:
         """
         Extract figures from the given markdown text using markdown parsing.
 
         Args:
-            input list[dict[str, bytes | str]]: A list of dictionaries with keys 'path' and 'bytes'.
+            input: list[dict[str, bytes | str]]: A list of dictionaries with
+            keys 'path' and 'bytes'.
 
         Returns:
-            List[Dict[str, bytes | str]]: A list of dictionaries with keys 'path' and 'bytes'.
+            List[Dict[str, bytes | str]]: A list of dictionaries with keys
+            'path' and 'bytes'.
         """
 
         all_segmented_images: list[dict[str, bytes | str]] = []
@@ -50,37 +51,38 @@ class HFFigureExtractor(FigureExtractorInterface):
 
             print(f"Segmented {len(segmented_images)} subfigures.")
 
-            for subfigure in segmented_images:
-                # not sure how to fix this because we won't have context easily anymore
-                # down here what we need is to make the classification and extract plot info, 
-                # but then write back to the same format we read in from, which is a list of dictionaries that each have two keys
-                # figure_path and bytes. the figure_paths must be unique
-                figure_info = FigureInfo(
-                    base64_data=self.segmenter._image_to_base64(subfigure),
-                    alt_text=figure.alt_text,
-                    position=figure.position,
-                    context_before=figure.context_before,
-                    context_after=figure.context_after,
-                    figure_reference=figure.figure_reference,
-                    figure_class=figure.figure_class,
-                    quantitative=figure.quantitative,
-                )
+            # for subfigure in segmented_images:
+            #     # not sure how to fix this because we won't have context
+            #     # easily anymore
+            #     # down here what we need is to make the classification and
+            #     #  extract plot info,
+            #     # but then write back to the same format we read in from,
+            #     # which is a list of dictionaries that each have two keys
+            #     # figure_path and bytes. the figure_paths must be unique
+            #     figure_info = FigureInfo(
+            #         base64_data=self.segmenter._image_to_base64(subfigure),
+            #         alt_text=figure.alt_text,
+            #         position=figure.position,
+            #         context_before=figure.context_before,
+            #         context_after=figure.context_after,
+            #         figure_reference=figure.figure_reference,
+            #         figure_class=figure.figure_class,
+            #         quantitative=figure.quantitative,
+            #     )
 
-                predicted_label = self.classifier.predict(subfigure)
-                figure_info.figure_class = predicted_label
+            # predicted_label = self.classifier.predict(subfigure)
+            # figure_info.figure_class = predicted_label
 
-                # Check if the predicted label is a quantitative figure
-                if predicted_label in [
-                    "Bar plots",
-                    "Contour plot",
-                    "Graph plots",
-                    "Scatter plot",
-                    "Tables",
-                ]:
-                    figure_info.quantitative = True
-                else:
-                    figure_info.quantitative = False
+            # # Check if the predicted label is a quantitative figure
+            # if predicted_label in [
+            #     "Bar plots",
+            #     "Line plots",
+            #     "Scatter plot",
+            # ]:
+            #     figure_info.quantitative = True
+            # else:
+            #     figure_info.quantitative = False
 
-                all_segmented_images.append(figure_info)
+            # all_segmented_images.append(figure_info)
 
         return all_segmented_images
