@@ -5,8 +5,6 @@ from llm_synthesis.metrics.extraction_metric.base import (
 )
 from llm_synthesis.models.plot import ExtractedLinePlotData
 
-logger = logging.getLogger(__name__)
-
 
 class FigureExtractionMetric(LinePlotExtractionMetric):
     def __call__(
@@ -43,6 +41,11 @@ class FigureExtractionMetric(LinePlotExtractionMetric):
             )
             for k in common_keys
         ]
+        if not rmse_list:
+            logging.warning(
+                "Please make sure the name of series in the ground truth and LLM output match."
+            )
+            return None
 
         return sum(rmse_list) / len(rmse_list)
 

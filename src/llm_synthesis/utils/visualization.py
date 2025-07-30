@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 
 from llm_synthesis.models.plot import ExtractedLinePlotData
 
 
-def visulize_line_chart(data: ExtractedLinePlotData):
+def visualize_line_chart(data: ExtractedLinePlotData):
     names = list(data.name_to_coordinates.keys())
     for name in names:
         coords = data.name_to_coordinates[name]
