@@ -8,7 +8,7 @@
       "starting_materials": [
         {
           "vendor": null,
-          "name": "graphene samples",
+          "name": "graphene sheets",
           "amount": null,
           "unit": null,
           "purity": null
@@ -24,7 +24,81 @@
       "steps": [
         {
           "step_number": 1,
-          "action": "place",
+          "action": "deposit",
+          "description": "Pristine graphene sheets were deposited by mechanical cleavage on silicon wafer covered by 300 nm thick SiO2.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "graphene sheets",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "silicon wafer",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "SiO2",
+              "amount": 300.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "confirm",
+          "description": "The number of graphene layers (1 layer (1L) to 4 layers (4L)) was confirmed by Raman spectroscopy and their contrast spectra.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "graphene",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "WITEC CRM200 system",
+              "instrument_vendor": "WITEC",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "add",
           "description": "The graphene samples and anhydrous FeCl3 powder were separated by ~6 cm inside a glass tube.",
           "materials": [
             {
@@ -57,7 +131,7 @@
           }
         },
         {
-          "step_number": 2,
+          "step_number": 4,
           "action": "pump",
           "description": "The tube was pumped to 10-2 torr and sealed.",
           "materials": [],
@@ -69,45 +143,7 @@
             "time_unit": null,
             "pressure": 0.01,
             "pressure_unit": "torr",
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "heat",
-          "description": "The reaction vessel was placed inside the proper position of furnace to achieve our desired two-zone temperatures (360\u2103 for graphene samples and 310\u2103 for anhydrous FeCl3 powder).",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": 360.0,
-            "temp_unit": "\u2103",
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 4,
-          "action": "heat",
-          "description": "The heating rate was set as 10\u2103/min, and the vessel was kept for 10 hours at the setting temperatures.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": 360.0,
-            "temp_unit": "\u2103",
-            "duration": 10.0,
-            "time_unit": "hours",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
+            "atmosphere": "vacuum",
             "stirring": null,
             "stirring_speed": null,
             "ph": null
@@ -115,18 +151,89 @@
         },
         {
           "step_number": 5,
-          "action": "cool",
-          "description": "Finally the furnace was cooled with a rate of 10\u2103/min to room temperature.",
-          "materials": [],
-          "equipment": [],
+          "action": "heat",
+          "description": "The reaction vessel was placed inside the proper position of furnace to achieve our desired two-zone temperatures (360\u2103 for graphene samples and 310\u2103 for anhydrous FeCl3 powder).",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "graphene samples",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "anhydrous FeCl3 powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
           "conditions": {
-            "temperature": null,
-            "temp_unit": null,
+            "temperature": 360.0,
+            "temp_unit": "\u2103",
             "duration": null,
             "time_unit": null,
             "pressure": null,
             "pressure_unit": null,
-            "atmosphere": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "heat",
+          "description": "The heating rate was set as 10\u2103/min, and the vessel was kept for 10 hours at the setting temperatures.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 310.0,
+            "temp_unit": "\u2103",
+            "duration": 10.0,
+            "time_unit": "hours",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "cool",
+          "description": "Finally the furnace was cooled with a rate of 10\u2103/min to room temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": "\u2103",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
             "stirring": null,
             "stirring_speed": null,
             "ph": null
@@ -135,8 +242,8 @@
       ],
       "equipment": [
         {
-          "name": "glass tube",
-          "instrument_vendor": null,
+          "name": "WITEC CRM200 system",
+          "instrument_vendor": "WITEC",
           "settings": null
         },
         {
@@ -148,33 +255,41 @@
       "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction captures the core elements of the FeCl3-FLGIC synthesis using the two-zone vapor transport method. Material extraction is generally accurate, though purity information is missing. The process steps are logically sequenced and the key actions are identified. Equipment is adequately extracted. Conditions extraction is mostly accurate, but the two-zone temperature aspect could be represented more explicitly. Semantic accuracy is maintained, and the format generally complies with the schema. Overall, the extraction is good but could benefit from more detailed condition specification and inclusion of material purities.",
+      "reasoning": "The extraction captures the core synthesis steps and materials but misses some details regarding the two-zone temperature control and specific settings of the Raman spectroscopy. The overall structure is good, but some improvements are needed for completeness and accuracy of conditions and equipment.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction covers the main components of the synthesis, including materials, steps, equipment, and conditions. However, more granularity in the temperature conditions (specifying two distinct temperatures) would improve completeness.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material names and amounts are correctly extracted. However, the purity of the starting materials is not specified, which slightly reduces the score.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are accurately classified, and the descriptions are clear and concise.",
-        "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The main equipment items (glass tube, furnace) are identified. More specific details about the furnace (e.g., model, vendor) would improve the score, if available in the text.",
+        "structural_completeness_reasoning": "The ontology covers most of the synthesis steps, materials, and equipment. However, it could be improved by including more details about the temperature gradient in the two-zone method and the specific Raman spectroscopy settings.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material extraction is generally accurate, including the graphene sheets and FeCl3 powder. The amounts and units are correctly identified. However, the vendor information is missing, and the purity of the materials is not specified.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and generally accurate. The actions are correctly classified. However, the description of the temperature control in the two-zone method could be more detailed.",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "The equipment extraction identifies the furnace and Raman system. However, specific settings for the furnace (e.g., temperature ramp rate) and Raman system (e.g., laser wavelength, objective lens) are not fully captured.",
         "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Temperature, pressure, and duration are extracted. The two-zone temperature aspect is captured, but could be represented more explicitly as two separate temperature conditions associated with different materials.",
+        "conditions_extraction_reasoning": "The conditions extraction is mostly accurate, including temperatures, pressure, and duration. However, the atmosphere during heating is not explicitly mentioned, and the temperature gradient in the two-zone method is not fully represented.",
         "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The scientific meaning is well-preserved in the structured format. The relationships between materials, steps, and conditions are accurately represented.",
-        "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. Minor improvements could be made in representing the two-zone temperature condition.",
+        "semantic_accuracy_reasoning": "The semantic accuracy is high, with the scientific meaning generally preserved. The relationships between materials, steps, and conditions are correctly represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
         "overall_score": 4.2,
-        "overall_reasoning": "The extraction is generally well-done, capturing the key aspects of the synthesis. Areas for improvement include more detailed condition specification (two-zone temperatures) and inclusion of material purities."
+        "overall_reasoning": "The ontology extraction is generally good, with accurate material and condition extraction. The structure is logical, and the semantic meaning is preserved. Improvements are needed in equipment specification and completeness of the two-zone temperature control description."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Purity of starting materials (graphene samples, anhydrous FeCl3 powder)."
+        "Purity of starting materials.",
+        "Atmosphere during heating steps.",
+        "Detailed temperature gradient in the two-zone method."
       ],
-      "extraction_errors": [],
+      "extraction_errors": [
+        "Missing vendor information for starting materials.",
+        "Incomplete specification of furnace settings (temperature ramp rate).",
+        "Incomplete specification of Raman system settings (laser wavelength, objective lens)."
+      ],
       "improvement_suggestions": [
-        "Represent the two-zone temperature condition more explicitly, possibly as two separate temperature conditions associated with the graphene samples and anhydrous FeCl3 powder, respectively.",
-        "Include purity information for the starting materials if available in the source text."
+        "Include vendor information for starting materials.",
+        "Add specific settings for the furnace and Raman system.",
+        "Provide a more detailed description of the temperature gradient in the two-zone method.",
+        "Specify the atmosphere during heating steps."
       ]
     }
   }
