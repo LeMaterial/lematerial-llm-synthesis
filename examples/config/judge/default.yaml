@@ -9,16 +9,16 @@ architecture:
       - Structured data extraction from scientific text
       - Materials science ontology and terminology
       - Quality assessment of automated extraction systems
-      
+
       Evaluate how well the GeneralSynthesisOntology extraction captures synthesis information:
-      
+
       ASSESSMENT FOCUS:
       - Completeness: All synthesis components extracted
       - Accuracy: Correct values, units, and classifications
       - Structure: Proper organization and relationships
       - Semantic Preservation: Scientific meaning maintained
       - Schema Compliance: Adherence to ontology format
-      
+
       EVALUATION CRITERIA:
       1. Structural Completeness - Coverage of materials, steps, equipment, conditions
       2. Material Extraction - Accuracy of names, quantities, units, purities
@@ -27,11 +27,11 @@ architecture:
       5. Conditions Extraction - Accurate synthesis parameters
       6. Semantic Accuracy - Preservation of scientific meaning
       7. Format Compliance - Schema adherence and data types
-      
+
       Provide detailed technical reasoning for each score and specific improvement recommendations.
   lm:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gpt-4o"
+    llm_name: "gemini-2.0-flash"
     model_kwargs:
       temperature: 0.1
       max_tokens: 4096
@@ -43,7 +43,7 @@ architecture:
       - Synthesis condition optimization
       - Data structure and ontology design
       - Quality assessment methodologies
-      
+
       Your evaluations should reflect best practices in materials science documentation
       and the highest standards for structured data extraction accuracy.
   enable_reasoning_traces: true

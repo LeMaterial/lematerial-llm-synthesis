@@ -3,6 +3,7 @@ import logging
 import os
 import warnings
 
+import dspy
 import hydra
 from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
@@ -24,6 +25,7 @@ from llm_synthesis.transformers.synthesis_extraction.base import (
     SynthesisExtractorInterface,
 )
 from llm_synthesis.utils import clean_text
+from llm_synthesis.utils.dspy_utils import get_lm_cost
 
 # Disable Pydantic warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
@@ -92,7 +94,24 @@ def main(cfg: DictConfig) -> None:
         instantiate(cfg.result_save.architecture)
     )
 
+    # Get LMs from all components to track costs
+    synthesis_lm = getattr(synthesis_extractor, "lm", None)
+    material_lm = getattr(material_extractor, "lm", None)
+    judge_lm = getattr(judge, "lm", None)
+
+    # Also check DSPy global settings
+    dspy_settings_lm = getattr(dspy.settings, "lm", None)
+
+    # Track initial costs - try multiple approaches
+    initial_synthesis_cost = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+    initial_material_cost = get_lm_cost(material_lm) if material_lm else 0.0
+    initial_judge_cost = get_lm_cost(judge_lm) if judge_lm else 0.0
+    initial_dspy_cost = (
+        get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+    )
+
     # Process each paper
+    total_cost = 0.0
     for paper in papers:
         logging.info(f"Processing {paper.name}")
 
@@ -186,6 +205,78 @@ def main(cfg: DictConfig) -> None:
                         )
                     )
 
+            # Calculate costs for this paper
+            final_synthesis_cost_paper = (
+                get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+            )
+            final_material_cost_paper = (
+                get_lm_cost(material_lm) if material_lm else 0.0
+            )
+            final_judge_cost_paper = get_lm_cost(judge_lm) if judge_lm else 0.0
+            final_dspy_cost_paper = (
+                get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+            )
+
+            paper_synthesis_cost = (final_synthesis_cost_paper or 0.0) - (
+                initial_synthesis_cost or 0.0
+            )
+            paper_material_cost = (final_material_cost_paper or 0.0) - (
+                initial_material_cost or 0.0
+            )
+            paper_judge_cost = (final_judge_cost_paper or 0.0) - (
+                initial_judge_cost or 0.0
+            )
+            paper_dspy_cost = (final_dspy_cost_paper or 0.0) - (
+                initial_dspy_cost or 0.0
+            )
+            paper_total_cost = (
+                paper_synthesis_cost
+                + paper_material_cost
+                + paper_judge_cost
+                + paper_dspy_cost
+            )
+
+            # Count LLM calls for this paper
+            synthesis_calls = len(
+                [s for s in all_syntheses if s.synthesis is not None]
+            )
+            judge_calls = len(
+                [s for s in all_syntheses if s.evaluation is not None]
+            )
+
+            # Prepare cost data for this paper
+            cost_data = {
+                "total_cost": paper_total_cost,
+                "breakdown": {
+                    "synthesis_extraction": paper_synthesis_cost,
+                    "material_extraction": paper_material_cost,
+                    "judge_evaluation": paper_judge_cost,
+                    "dspy_settings": paper_dspy_cost,
+                },
+                "models": {
+                    "synthesis_extractor": getattr(
+                        synthesis_lm, "model", "Unknown"
+                    )
+                    if synthesis_lm
+                    else "None",
+                    "material_extractor": getattr(
+                        material_lm, "model", "Unknown"
+                    )
+                    if material_lm
+                    else "None",
+                    "judge": getattr(judge_lm, "model", "Unknown")
+                    if judge_lm
+                    else "None",
+                },
+                "total_calls": synthesis_calls
+                + judge_calls
+                + 1,  # +1 for material extraction
+                "materials_count": len(materials),
+                "synthesis_calls": synthesis_calls,
+                "material_calls": 1,
+                "judge_calls": judge_calls,
+            }
+
             # Create paper object with all syntheses
             paper_with_syntheses = PaperWithSynthesisOntologies(
                 name=paper.name,
@@ -193,19 +284,27 @@ def main(cfg: DictConfig) -> None:
                 publication_text=paper.publication_text,
                 si_text=paper.si_text,
                 all_syntheses=all_syntheses,
+                cost_data=cost_data,
             )
 
+            # Save results with cost data
             result_gather.gather(paper_with_syntheses)
+
+            # Add this paper's cost to total
+            total_cost += paper_total_cost
 
             logging.info(
                 f"Processed {len(all_syntheses)} materials: "
                 f"{[s.material for s in all_syntheses]}"
             )
+            logging.info(f"Paper cost: ${paper_total_cost:.6f}")
 
         except Exception as e:
             logging.error(f"Failed to process paper {paper.name}: {e}")
             continue
 
+    # Print final total cost
+    logging.info(f"Total cost across all papers: ${total_cost:.6f}")
     logging.info("Success")
 
 
