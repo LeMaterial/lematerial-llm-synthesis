@@ -37,6 +37,8 @@ journal_abbrs = {
 class ImageTextExtractor(object):
     def __init__(self, args):
         self.dataset = load_dataset(args.dataset, name=args.config, split=args.split)
+        # should remove line after this unless youre sure
+        self.dataset = self.dataset.cast(Features.from_arrow_schema(schema))
         self.converter = PdfConverter(artifact_dict=create_model_dict())
         self.args = args
 
@@ -111,7 +113,7 @@ class ImageTextExtractor(object):
         return row
     
     def extract_all(self):
-        enhanced_dataset = self.dataset.map(self.process_row)
+        enhanced_dataset = self.dataset.map(self.process_row, num_proc=args.num_proc)
         enhanced_dataset = enhanced_dataset.cast(Features.from_arrow_schema(schema))
         if self.args.write_to_hub:
             dataset_dict = DatasetDict({
@@ -130,6 +132,7 @@ if __name__ == "__main__":
     parser.add_argument("--pdf_dir", type=str, default='pdfs', help='where to write PDFs we download')
     parser.add_argument("--config", type=str, default='default')
     parser.add_argument("--split", type=str, required=True, default='sample_for_evaluation')
+    parser.add_argument("--num_proc", type=int, default=10)
     args = parser.parse_args()
 
     ImageTextExtractor(args=args).extract_all()
