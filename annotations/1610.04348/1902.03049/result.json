@@ -1,0 +1,127 @@
+[
+  {
+    "material": "5-AGNR",
+    "synthesis": {
+      "synthesis_id": null,
+      "target_compound": "5-AGNR",
+      "synthesis_method": null,
+      "starting_materials": [],
+      "steps": [],
+      "equipment": [],
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 4 validation errors for GeneralSynthesisOntology\nsteps.0.action\n  Input should be 'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', 'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', 'centrifuge', 'sonicate', 'anneal', 'ion exchange' or 'impregnate' [type=literal_error, input_value='grow', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error\nsteps.2.action\n  Input should be 'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', 'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', 'centrifuge', 'sonicate', 'anneal', 'ion exchange' or 'impregnate' [type=literal_error, input_value='etch', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error\nsteps.3.action\n  Input should be 'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', 'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', 'centrifuge', 'sonicate', 'anneal', 'ion exchange' or 'impregnate' [type=literal_error, input_value='etch', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error\nsteps.4.action\n  Input should be 'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', 'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', 'centrifuge', 'sonicate', 'anneal', 'ion exchange' or 'impregnate' [type=literal_error, input_value='transfer', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+    }
+  },
+  {
+    "material": "9-AGNR",
+    "synthesis": {
+      "synthesis_id": null,
+      "target_compound": "9-AGNR",
+      "synthesis_method": null,
+      "starting_materials": [],
+      "steps": [],
+      "equipment": [],
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 2 validation errors for GeneralSynthesisOntology\nsteps.1.action\n  Input should be 'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', 'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', 'centrifuge', 'sonicate', 'anneal', 'ion exchange' or 'impregnate' [type=literal_error, input_value='clean', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error\nsteps.8.action\n  Input should be 'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', 'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', 'centrifuge', 'sonicate', 'anneal', 'ion exchange' or 'impregnate' [type=literal_error, input_value='transfer', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+    }
+  },
+  {
+    "material": "5n-AGNR",
+    "synthesis": {
+      "synthesis_id": null,
+      "target_compound": "5n-AGNR",
+      "synthesis_method": "On-surface Chemical Vapor Deposition (CVD) and Annealing",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3,9 (10)-dibromoperylene (DBP)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Argon",
+          "amount": 500.0,
+          "unit": "sccm",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Hydrogen",
+          "amount": 100.0,
+          "unit": "sccm",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Polymerization and graphitization of 3,9 (10)-dibromoperylene (DBP) on a metal surface to form 5-AGNR.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "3,9 (10)-dibromoperylene (DBP)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 350.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar and H2 gas flow",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "anneal",
+          "description": "Lateral fusion of the synthesized 5-AGNR into wider GNRs.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "5-AGNR",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The resulting 5n-AGNR is a mixture containing mainly 10-AGNR and also non-negligible amounts of 5-AGNR, 15-AGNR, and 20-AGNR."
+    }
+  }
+]

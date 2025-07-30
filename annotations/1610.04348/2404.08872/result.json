@@ -1,0 +1,178 @@
+[
+  {
+    "material": "MOS2",
+    "synthesis": {
+      "synthesis_id": null,
+      "target_compound": "MOS2",
+      "synthesis_method": "hydrothermal method",
+      "starting_materials": [
+        {
+          "vendor": "reputable supplier",
+          "name": "sodium molybdate dihydrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "reputable supplier",
+          "name": "thiourea",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "distilled water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "add",
+          "description": "The molybdenum precursor was dispersed in distilled water in a specific ratio, and thiourea was added.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "molybdenum precursor",
+              "amount": 1.0,
+              "unit": "ratio",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "thiourea",
+              "amount": 4.0,
+              "unit": "ratio",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "distilled water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "The mixture was agitated to ensure homogeneity.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "minutes",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "The homogenized mixture was placed in a Teflon-coated stainless-steel autoclave and heated.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Teflon-coated stainless-steel autoclave",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": 22.0,
+            "time_unit": "hours",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "cool",
+          "description": "After heating, the autoclave was cooled to room temperature.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "The synthesized powders were removed from the autoclave and dried in an oven.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 80.0,
+            "temp_unit": "C",
+            "duration": 8.0,
+            "time_unit": "hours",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The ratio of molybdenum precursor to thiourea was 1:4. The temperature and time of the heating process were determined based on previous experiments and found to be optimal. The cooling process allows the synthesized material to solidify and form crystals. The drying process removes residual water or other impurities."
+    }
+  },
+  {
+    "material": "MOS2-rGO",
+    "synthesis": {
+      "synthesis_id": null,
+      "target_compound": "MOS2-rGO",
+      "synthesis_method": null,
+      "starting_materials": [],
+      "steps": [],
+      "equipment": [],
+      "notes": "The paper mentions the synthesis and characterization of MOS2-rGO but does not provide a detailed synthesis procedure for the composite material itself, only for MOS2. It implies that graphene oxide (GO) is incorporated or added to MOS2 to form the composite, but no specific steps, amounts, or conditions for this composite formation are described."
+    }
+  }
+]
