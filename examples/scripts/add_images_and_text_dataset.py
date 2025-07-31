@@ -1,6 +1,6 @@
-from datasets import load_dataset, Dataset, DatasetDict, Features
+from datasets import load_dataset, Features, concatenate_datasets
 import argparse
-import pandas as pd
+import torch
 from pathlib import Path
 from paper_schema import schema
 import requests
@@ -9,9 +9,8 @@ from marker.output import text_from_rendered
 from marker.models import create_model_dict
 from io import BytesIO
 import re
+from multiprocess import set_start_method
 from scidownl import scihub_download
-import os
-import sys
 
 converter = PdfConverter(artifact_dict=create_model_dict())
 
@@ -37,11 +36,16 @@ journal_abbrs = {
 class ImageTextExtractor(object):
     def __init__(self, args):
         self.dataset = load_dataset(args.dataset, name=args.config, split=args.split)
+        # should remove line after this unless youre sure
+        self.dataset = self.dataset.cast(Features.from_arrow_schema(schema))
         self.converter = PdfConverter(artifact_dict=create_model_dict())
         self.args = args
 
-        self.output_dir = Path(args.pdf_dir)
-        self.output_dir.mkdir(exist_ok=True)
+        self.pdf_dir = Path(args.pdf_dir)
+        self.pdf_dir.mkdir(exist_ok=True)
+
+        self.disk_location = Path(args.disk_location)
+        self.disk_location.mkdir(exist_ok=True)
 
     def pil_to_bytes(self, pil_img):
         buf = BytesIO()
@@ -63,42 +67,48 @@ class ImageTextExtractor(object):
         if not filename.endswith(".pdf"):
             filename += ".pdf"
 
-        file_path = self.output_dir / filename
-
-        headers={"User-Agent": "Mozilla/5.0"}
-        try:
-            # try getting it from pdf link
-            response = requests.get(url, headers=headers, timeout=30)
-            response.raise_for_status()
-            with open(file_path, "wb") as f:
-                f.write(response.content)
+        file_path = self.pdf_dir / filename
+        # if we already downloaded this file
+        if file_path.exists():
             rendered = converter(str(file_path))
-        except:
-            # if blocked, try getting it from scihub
-            try:
-                if 'mdpi' in url:
-                    pattern = r'mdpi\.com/([\d\-]+)/(\d+)/(\d+)/(\d+)/'
-                    match = re.search(pattern, url)
-                    if match:
-                        journal_id, volume, issue, article = match.groups()
 
-                        # map journal_id to abbreviation
-                        journal_abbr = journal_abbrs.get(journal_id, 'unknown')
-                        # if unknown, it will fail for row, but not crash
-                        doi = f'10.3390/{journal_abbr}{volume}{issue}{article}'
-                elif 'rsc' in url:
-                    match = re.search(r'/([^/]+)$', url)
-                    if match:
-                        manuscript_id = match.group(1)
-                    doi = f'10.1039/{manuscript_id}'
-               
-                scihub_download(doi, paper_type='doi', out=str(file_path))
+        # if not, we need to retrieve it
+        else:
+            headers={"User-Agent": "Mozilla/5.0"}
+            try:
+                # try getting it from pdf link
+                response = requests.get(url, headers=headers, timeout=30)
+                response.raise_for_status()
+                with open(file_path, "wb") as f:
+                    f.write(response.content)
+                print(f"Downloaded: {file_path}")
                 rendered = converter(str(file_path))
             except:
-                print("failed on: ", url)
-                return row
+                # if blocked, try getting it from scihub
+                try:
+                    if 'mdpi' in url:
+                        pattern = r'mdpi\.com/([\d\-]+)/(\d+)/(\d+)/(\d+)/'
+                        match = re.search(pattern, url)
+                        if match:
+                            journal_id, volume, issue, article = match.groups()
 
-        print(f"Downloaded: {file_path}")
+                            # map journal_id to abbreviation
+                            journal_abbr = journal_abbrs.get(journal_id, 'unknown')
+                            # if unknown, it will fail for row, but not crash
+                            doi = f'10.3390/{journal_abbr}{volume}{issue}{article}'
+                    elif 'rsc' in url:
+                        match = re.search(r'/([^/]+)$', url)
+                        if match:
+                            manuscript_id = match.group(1)
+                        doi = f'10.1039/{manuscript_id}'
+                
+                    scihub_download(doi, paper_type='doi', out=str(file_path))
+                    print(f"Downloaded: {file_path}")
+                    rendered = converter(str(file_path))
+                except:
+                    print("failed on: ", url)
+                    return row
+
         text, _, images = text_from_rendered(rendered)
         
 
@@ -111,25 +121,66 @@ class ImageTextExtractor(object):
         return row
     
     def extract_all(self):
-        enhanced_dataset = self.dataset.map(self.process_row)
-        enhanced_dataset = enhanced_dataset.cast(Features.from_arrow_schema(schema))
+        spawned = False
+        if args.shard:
+            sharded_dataset = []
+            for idx in range(args.num_shards):
+                try:
+                    print(f"processing shard {idx} of {args.num_shards}")
+                    dataset_shard = self.dataset.shard(num_shards=args.num_shards, index=idx)
+                    if args.multiprocess:
+                        if not spawned:
+                            set_start_method("spawn")
+                            print("num_proc: ", torch.cuda.device_count())
+                            spawned = True
+                        dataset_shard = dataset_shard.map(self.process_row, num_proc=torch.cuda.device_count())
+                    else:
+                        dataset_shard = dataset_shard.map(self.process_row)
+
+                    dataset_shard = dataset_shard.cast(Features.from_arrow_schema(schema))
+                    sharded_dataset.append(dataset_shard)
+
+                    if self.args.write_to_disk:
+                        shard_location = self.disk_location / str(idx)
+                        shard_location.mkdir(exist_ok=True)
+                        dataset_shard.save_to_disk(shard_location)
+                except:
+                    print(f"failed on shard {idx}")
+                    pass
+
+            # after all sharding, concat
+            enhanced_dataset = concatenate_datasets(sharded_dataset, axis=0)
+
+        else:
+            if args.multiprocess:
+                set_start_method("spawn")
+                print("num_proc: ", torch.cuda.device_count())
+                enhanced_dataset = self.dataset.map(self.process_row, num_proc=torch.cuda.device_count())
+            else:
+                enhanced_dataset = self.dataset.map(self.process_row)
+            
+            enhanced_dataset = enhanced_dataset.cast(Features.from_arrow_schema(schema))
+
+        if self.args.write_to_disk:
+            enhanced_dataset.save_to_disk(self.disk_location)
+
         if self.args.write_to_hub:
-            dataset_dict = DatasetDict({
-                self.args.split: enhanced_dataset
-            })
-            dataset_dict.push_to_hub(self.args.dataset, config_name=self.args.config, create_pr=True)
-           
-
-
+            enhanced_dataset.push_to_hub(self.args.dataset, config_name=self.args.config, split=self.args.split, create_pr=True)
+        
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--write_to_hub", action="store_true", default=True, help="do we write to the remote dataset?")
+    parser.add_argument("--write_to_disk", action="store_true", default=True)
+    parser.add_argument("--disk_location", type=str, default='/fsx/georgia_channing/temp')
     parser.add_argument("--skip_if_processed", default=False, help='If the row already had images, skip processing it again.')
     parser.add_argument("--dataset", type=str, default='LeMaterial/LeMat-Synth-Papers')
     parser.add_argument("--pdf_dir", type=str, default='pdfs', help='where to write PDFs we download')
     parser.add_argument("--config", type=str, default='default')
     parser.add_argument("--split", type=str, required=True, default='sample_for_evaluation')
+    parser.add_argument("--multiprocess", type=bool, default=True)
+    parser.add_argument("--shard", type=bool, default=True)
+    parser.add_argument("--num_shards", type=bool, default=60)
     args = parser.parse_args()
 
     ImageTextExtractor(args=args).extract_all()
