@@ -38,6 +38,7 @@ class SynthesisWriter(object):
         results_dir = Path(self.args.results_dir)
         all_records = []
 
+        
         for json_path in results_dir.rglob("result.json"):
             with open(json_path) as f:
                 records = json.load(f)
@@ -49,22 +50,20 @@ class SynthesisWriter(object):
                 else:
                     print(f"Skipping non-list JSON in {json_path}")
 
+        if not all_records:
+            raise ValueError("It appears the results directory you have passed is empty or contains no files called result.json in subdirectories.")
+
         results_df = pd.DataFrame(all_records)
         merged_records = results_df.apply(self.merge_information, axis=1).dropna().to_list()
-        final_df = pd.DataFrame(merged_records)
+        final_df = pd.DataFrame(merged_records).drop_duplicates(subset=['paper_url', 'synthesized_material'])
 
         if args.write_to_hub:
             hf_dataset = Dataset.from_pandas(final_df, preserve_index=False, features=Features.from_arrow_schema(schema))
-
-            dataset_dict = DatasetDict({
-                args.split: hf_dataset
-            })
-
-            dataset_dict.push_to_hub(self.args.synthesis_dataset, config_name=self.args.config, create_pr=True)
+            hf_dataset.push_to_hub(self.args.synthesis_dataset, config_name=self.args.config, split=self.args.split, create_pr=True)
 
         return 
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     parser = argparse.ArgumentParser()
     parser.add_argument("--write_to_hub", action="store_true", default=True, help="do we write to the remote dataset?")
     parser.add_argument("--results_dir", type=str, default="../../results")
