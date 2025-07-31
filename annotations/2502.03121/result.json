@@ -32,7 +32,7 @@
         {
           "step_number": 1,
           "action": "heat",
-          "description": "Heating a (0001) sapphire substrate with a 2-degree off-cut in an ultra-high vacuum",
+          "description": null,
           "materials": [
             {
               "vendor": null,
@@ -58,12 +58,19 @@
         },
         {
           "step_number": 2,
-          "action": "growth",
-          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour",
+          "action": "deposition",
+          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
           "materials": [
             {
               "vendor": null,
-              "name": "MoSe2",
+              "name": "Selenium",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "molybdenum",
               "amount": null,
               "unit": null,
               "purity": null
@@ -74,7 +81,7 @@
             "temperature": 300.0,
             "temp_unit": "C",
             "duration": null,
-            "time_unit": null,
+            "time_unit": "h",
             "pressure": null,
             "pressure_unit": null,
             "atmosphere": null,
@@ -91,7 +98,7 @@
             {
               "vendor": null,
               "name": "MoSe2",
-              "amount": null,
+              "amount": 14.0,
               "unit": "nm",
               "purity": null
             }
@@ -145,45 +152,44 @@
           "settings": null
         },
         {
-          "name": "ebeam",
+          "name": "Reflection High Energy Electron Diffraction (RHEED)",
           "instrument_vendor": null,
           "settings": null
         }
       ],
-      "notes": "The total thickness of MoSe2 layer is 42 nm. Surface roughness is controlled by Reflection High Energy Electron Diffraction (RHEED). Selenium is deposited from a standard low-temperature effusion cell and molybdenum is deposited using an ebeam with a rod (1/4\" diameter, 35 mm length)."
+      "notes": "The total thickness of MoSe2 layer is 42 nm."
     },
     "evaluation": {
-      "reasoning": "The extraction captures the MBE synthesis of MoSe2, including heating the sapphire substrate, MoSe2 growth, annealing, and polishing. The materials, equipment, and conditions are generally well-extracted. However, there are some areas for improvement, particularly in specifying the deposition details and standardizing the units.",
+      "reasoning": "The extracted ontology captures the MBE synthesis of MoSe2. The structural completeness is good, covering materials, steps, equipment, and conditions. Material extraction is generally accurate, though some quantities are missing. Process steps are well-organized and logically sequenced. Equipment extraction is adequate, identifying key instruments. Conditions extraction is mostly accurate, but some parameters are missing. Semantic accuracy is maintained, preserving the scientific meaning. Format compliance is satisfactory, adhering to the schema. Overall, the extraction is of good quality, with some areas for improvement.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology covers most of the synthesis steps, materials, equipment, and conditions. However, more details could be included about the deposition process and the specific parameters used in each step.",
+        "structural_completeness_reasoning": "The ontology includes materials, steps, equipment, and conditions, providing a comprehensive overview of the synthesis process. However, some details are missing, such as specific flow rates or chamber pressures.",
         "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "The materials are extracted with reasonable accuracy, including the sapphire substrate, selenium, and molybdenum. The purities are also noted. However, the amounts and units for the starting materials are missing, which reduces the score.",
+        "material_extraction_reasoning": "Material names are accurately extracted, and purities are noted where available. However, specific amounts and units for the starting materials (Selenium and Molybdenum) are missing, which reduces the score.",
         "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified. The descriptions are clear and concise, providing a good overview of the synthesis procedure.",
+        "process_steps_reasoning": "The process steps are logically sequenced and clearly described, including heating, deposition, annealing, and polishing. The descriptions are adequate, and the actions are correctly classified.",
         "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The equipment is identified, including the MBE chamber and ebeam. The vendor for the MBE chamber is also provided. However, specific settings for the equipment are missing, which would improve the score.",
+        "equipment_extraction_reasoning": "The key equipment, such as the MBE chamber and RHEED, are identified, along with the vendor for the MBE chamber. However, specific settings or configurations for the equipment are not extracted, limiting the score.",
         "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The conditions, such as temperature, duration, and atmosphere, are extracted with good accuracy. The units are generally consistent. However, specifying the pressure during the heating step would improve the extraction.",
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted for the heating and annealing steps. The atmosphere is noted for the initial heating step. However, pressure values and stirring details are missing, which affects the completeness.",
         "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The semantic accuracy is high, with the scientific meaning well-preserved in the structured format. The relationships between materials, steps, equipment, and conditions are accurately represented.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
-        "overall_score": 4.3,
-        "overall_reasoning": "The ontology extraction is of good quality, capturing most of the essential synthesis information. The structural completeness, material extraction, process steps, equipment extraction, and conditions extraction are all reasonably accurate. The semantic accuracy and format compliance are high. However, improvements could be made by including more specific details about the deposition process, specifying the amounts and units for the starting materials, and providing the equipment settings."
+        "semantic_accuracy_reasoning": "The extracted ontology accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented, ensuring that the information is scientifically valid.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted ontology generally adheres to the GeneralSynthesisOntology schema and data type requirements. The structure is well-organized, and the data types are appropriate. Minor adjustments may be needed for full compliance.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is of good quality, accurately capturing the key aspects of the MoSe2 synthesis via MBE. The structural completeness, material extraction, process steps, equipment, and conditions are generally well-represented. Semantic accuracy is maintained, and format compliance is satisfactory. Areas for improvement include adding specific quantities for starting materials and including additional equipment settings."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Amounts and units for the starting materials",
-        "Equipment settings",
-        "Pressure during the heating step"
+        "Specific quantities and units for Selenium and Molybdenum starting materials.",
+        "Pressure values for the heating, deposition, and annealing steps.",
+        "Stirring details for any of the steps."
       ],
       "extraction_errors": [],
       "improvement_suggestions": [
-        "Include more specific details about the deposition process, such as the deposition rate and the source temperatures.",
-        "Specify the amounts and units for the starting materials.",
-        "Provide the equipment settings, such as the ebeam voltage and current.",
-        "Specify the pressure during the heating step."
+        "Include specific quantities and units for all starting materials.",
+        "Extract additional equipment settings and configurations where available.",
+        "Add pressure values and stirring details to the conditions, if specified in the text."
       ]
     }
   }

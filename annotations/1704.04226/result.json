@@ -174,36 +174,37 @@
       "notes": "sub-cm size rectangular crystals are obtained and oriented with single crystal diffraction"
     },
     "evaluation": {
-      "reasoning": "The extraction captures the synthesis of CeSb single crystals using a Sn-flux method. The key steps, materials, and conditions are identified. However, the description of the process steps could be more detailed, and the lack of specific durations for heating and cooling is a limitation. The overall structure is good, but some details are missing, impacting the completeness score.",
+      "reasoning": "The extraction captures the synthesis of CeSb single crystals using a Sn-flux method. The key aspects of the synthesis, including starting materials, their ratios, heating and cooling temperatures, and the final separation step, are represented in the extracted ontology. The extraction is generally accurate, but there are some areas for improvement, particularly in specifying the atmosphere during heating and cooling steps and including the equipment used.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction includes materials, steps, and some conditions, but lacks specific durations for heating/cooling. The equipment used is not explicitly mentioned, only implicitly (alumina crucible, quartz tube).",
+        "structural_completeness_reasoning": "The ontology covers most of the synthesis steps, materials, and conditions. However, it could benefit from explicitly mentioning the alumina crucible and quartz tube as equipment. The atmosphere during heating and cooling is not fully specified.",
         "material_extraction_score": 4.5,
-        "material_extraction_reasoning": "Material names, vendors, and purities are generally accurate. The atomic ratios are correctly extracted. However, the amounts of starting materials are not specified with units other than atomic ratio.",
-        "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are logically sequenced and the actions are correctly classified. However, the descriptions could be more detailed, especially regarding the heating and cooling rates.",
+        "material_extraction_reasoning": "Material extraction is accurate, including vendors and purities. The atomic ratios are correctly extracted. However, the amounts and units for starting materials in the overall synthesis are missing (only present in step 1).",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-defined and logically sequenced. The actions are correctly classified. The description for step 2 could be more detailed.",
         "equipment_extraction_score": 3.0,
-        "equipment_extraction_reasoning": "The equipment is only partially extracted. Alumina crucible and quartz tube are mentioned in the description but not explicitly listed as equipment. The cryostat and SQUID magnetometer used for characterization are not part of the synthesis itself and should not be included.",
+        "equipment_extraction_reasoning": "Equipment extraction is weak. The alumina crucible, quartz tube, centrifuge, cryostat and SQUID magnetometer are not extracted, although they are mentioned in the text.",
         "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The extraction captures the heating and cooling temperatures and the Ar atmosphere. The pressure of Ar is also mentioned. However, the durations of heating and cooling are missing, which are crucial for reproducibility.",
+        "conditions_extraction_reasoning": "Temperature values are accurately extracted with correct units. The Ar atmosphere and pressure are also extracted. However, the heating and cooling rates are missing, and the atmosphere during heating and cooling steps is not fully specified.",
         "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented.",
+        "semantic_accuracy_reasoning": "The extracted ontology preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
         "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated with appropriate data types.",
-        "overall_score": 4.1,
-        "overall_reasoning": "The extraction is reasonably complete and accurate, with good structural organization and semantic preservation. The main weaknesses are the lack of specific durations for heating and cooling, and incomplete equipment extraction. The format compliance is excellent."
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is of good quality, accurately capturing the key elements of the CeSb synthesis. Improvements can be made by including more details about the equipment used, fully specifying the atmosphere during heating and cooling, and adding heating/cooling rates."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Heating and cooling durations.",
-        "Specific details about the centrifuge separation process.",
-        "Explicit listing of alumina crucible and quartz tube as equipment."
+        "Heating and cooling rates.",
+        "Alumina crucible and quartz tube as equipment.",
+        "Cryostat and SQUID magnetometer as equipment."
       ],
       "extraction_errors": [],
       "improvement_suggestions": [
-        "Include specific heating and cooling rates if mentioned in the text.",
-        "Explicitly list all equipment used in each step.",
-        "Provide more detailed descriptions of each process step."
+        "Explicitly include the alumina crucible and quartz tube as equipment.",
+        "Specify the atmosphere during the heating and cooling steps.",
+        "Add the heating and cooling rates if available in the text.",
+        "Extract the cryostat and SQUID magnetometer as equipment."
       ]
     }
   },
@@ -233,7 +234,7 @@
         {
           "step_number": 1,
           "action": "mix",
-          "description": "Mix Gd and Bi with atomic ratio Gd:Bi = 18.5:81.5",
+          "description": "Mix the raw materials",
           "materials": [
             {
               "vendor": "Alfa Aesar",
@@ -267,7 +268,7 @@
         {
           "step_number": 2,
           "action": "add",
-          "description": "Put the mixture in alumina crucible and sealed in quartz tube.",
+          "description": "Put the mixture in alumina crucible and sealed in quartz tube",
           "materials": [
             {
               "vendor": null,
@@ -305,7 +306,7 @@
         {
           "step_number": 3,
           "action": "heat",
-          "description": "Heat the raw materials to 1100\u00b0C.",
+          "description": "Heat the raw materials",
           "materials": [],
           "equipment": [],
           "conditions": {
@@ -324,7 +325,26 @@
         {
           "step_number": 4,
           "action": "cool",
-          "description": "Slowly cool to 950 \u00b0C followed by 4 days of annealing.",
+          "description": "Slowly cooled to 950 \u25e6C",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 950.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "anneal",
+          "description": "Annealing",
           "materials": [],
           "equipment": [],
           "conditions": {
@@ -341,20 +361,13 @@
           }
         },
         {
-          "step_number": 5,
+          "step_number": 6,
           "action": "centrifuge",
-          "description": "Centrifuge separation of GdBi crystals from the Bi flux is performed.",
+          "description": "Centrifuge separation of GdBi crystals from the Bi flux",
           "materials": [
             {
               "vendor": null,
               "name": "GdBi crystals",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "Bi flux",
               "amount": null,
               "unit": null,
               "purity": null
@@ -391,40 +404,47 @@
           "name": "quartz tube",
           "instrument_vendor": null,
           "settings": null
+        },
+        {
+          "name": "centrifuge",
+          "instrument_vendor": null,
+          "settings": null
         }
       ],
-      "notes": "Sub-cm size rectangular crystals are obtained and oriented with single crystal diffraction."
+      "notes": "Single crystals of GdBi are gown using a Bi self flux method"
     },
     "evaluation": {
-      "reasoning": "The extraction for GdBi synthesis is generally good, capturing the key steps and materials. However, there are areas for improvement, particularly in specifying the flux material and providing more detail on the centrifuge separation process. The format compliance is high, but completeness could be improved with additional details.",
+      "reasoning": "The extraction for GdBi synthesis is generally well-structured and captures the key steps and materials. The format compliance is good, and the semantic accuracy is maintained. However, there are areas for improvement, particularly in specifying the atmosphere during heating and cooling, and in providing more details about the centrifuge separation process. The quantities of starting materials are accurately extracted with units. The equipment used is also correctly identified.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology captures the main steps, materials, and equipment. However, it could benefit from specifying that Bi acts as a flux and including more details about the centrifuge separation, such as speed or duration.",
+        "structural_completeness_reasoning": "The ontology covers the main steps, materials, and equipment, but lacks details on the atmosphere during heating/cooling and specific centrifuge settings.",
         "material_extraction_score": 4.5,
-        "material_extraction_reasoning": "The materials (Gd and Bi) are accurately extracted with vendors and purities. The atomic ratios are also correctly identified. However, the role of Bi as a flux is not explicitly stated in the materials list.",
+        "material_extraction_reasoning": "Material names, vendors, purities, and ratios are accurately extracted. The units for the ratios are correctly identified as 'atomic ratio'.",
         "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are logically sequenced and generally well-described. The heating, cooling, and centrifuge separation steps are present. More details on the centrifuge separation (e.g., speed, duration) would improve the score.",
+        "process_steps_reasoning": "The process steps are logically sequenced and the actions are correctly classified. However, the description of each step could be more detailed, especially regarding the ramp rates for heating and cooling.",
         "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The alumina crucible and quartz tube are correctly identified as equipment. The centrifuge is also mentioned, but without any specific details or settings.",
-        "conditions_extraction_score": 4.5,
-        "conditions_extraction_reasoning": "The temperatures and durations for heating and cooling are accurately extracted. The atmosphere (sealed in quartz tube) is mentioned in the description, but not explicitly in the conditions. Pressure is not specified, which is acceptable given the context.",
+        "equipment_extraction_reasoning": "The equipment used is correctly identified (alumina crucible, quartz tube, centrifuge). However, specific models or settings for the centrifuge are missing.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperatures and durations are accurately extracted with correct units. The atmosphere is not specified during the heating, cooling, and annealing steps.",
         "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented.",
+        "semantic_accuracy_reasoning": "The scientific meaning is well-preserved in the structured format. The overall context of the synthesis is accurately represented.",
         "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated and formatted.",
-        "overall_score": 4.4,
-        "overall_reasoning": "The extraction is of good quality, accurately capturing the key aspects of the GdBi synthesis. Areas for improvement include specifying the flux material, adding details to the centrifuge separation step, and including the atmosphere in the conditions."
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.3,
+        "overall_reasoning": "The extraction is of good quality, accurately capturing most of the synthesis information. Improvements can be made by adding details about the atmosphere, ramp rates, and centrifuge settings."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Centrifuge separation speed and duration.",
-        "The role of Bi as a flux material is not explicitly stated."
+        "Atmosphere during heating, cooling, and annealing.",
+        "Ramp rates for heating and cooling.",
+        "Centrifuge settings (speed, duration)."
       ],
       "extraction_errors": [],
       "improvement_suggestions": [
-        "Explicitly state that Bi acts as a flux in the materials list.",
-        "Add more details about the centrifuge separation step, such as speed and duration.",
-        "Include the atmosphere (Ar gas) in the conditions for the mixing step."
+        "Specify the atmosphere during the heating, cooling, and annealing steps.",
+        "Include ramp rates for heating and cooling.",
+        "Provide more details about the centrifuge settings (e.g., speed, duration).",
+        "Add more details about the annealing step."
       ]
     }
   }

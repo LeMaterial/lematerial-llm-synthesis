@@ -145,32 +145,6 @@ class ProcessStep(BaseModel):
     )
 
 
-class CharacterizationMethod(BaseModel):
-    technique: str = Field(
-        ...,
-        description=(
-            "Characterization technique. Use standard acronyms where possible "
-            "E.g. 'XRD', 'SEM', 'TEM', 'XPS', 'BET', 'FTIR', 'UV-Vis', 'NMR', "
-            "'X-ray diffraction', 'scanning electron microscopy'."
-        ),
-    )
-    purpose: str | None = Field(
-        default=None,
-        description=(
-            "Purpose of the characterization. E.g. 'crystal structure', "
-            "'morphology', 'composition', 'surface area', "
-            "'phase identification' "
-        ),
-    )
-    conditions: str | None = Field(
-        default=None,
-        description=(
-            "Characterization conditions. E.g. 'Cu K-alpha radiation', "
-            "'20 kV acceleration voltage', '2θ range 10-80°'."
-        ),
-    )
-
-
 class GeneralSynthesisOntology(BaseModel):
     """
     Comprehensive synthesis ontology for structured synthesis procedures.
