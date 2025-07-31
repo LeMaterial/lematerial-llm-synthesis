@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pypalettes import load_cmap
 
-cmap = load_cmap("Monet", cmap_type="continuous")
+cmap = load_cmap("Alkalay1", cmap_type="continuous")
 palette = cmap.colors
 palette.append("#D3D3D3")
 palette.append("#A9A9A9")
