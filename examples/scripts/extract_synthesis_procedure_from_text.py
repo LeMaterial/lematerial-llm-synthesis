@@ -115,7 +115,7 @@ def main(cfg: DictConfig) -> None:
     for paper in papers:
         logging.info(f"Processing {paper.name}")
         
-        if paper.id in os.listdir('/fsx/georgia_channing/sample_results'):
+        if paper.id in os.listdir(cfg.result_save.architecture.result_dir):
             logging.info(f"Skipping {paper.id} because already processed.")
             continue
 
