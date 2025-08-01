@@ -68,7 +68,11 @@ LLM_REGISTRY = LLMRegistry(
             api_key=os.getenv("MISTRAL_API_KEY"),
             api_base="https://api.mistral.ai/v1/",
         ),
-    }
+        "local-NuExtract-v1.5": LLMConfig(
+            model="openai//scratch16/mshiel10/mzaki4/cache/models--numind--NuExtract-v1.5/snapshots/a7a4e41090a1c5aa95fdebab4c859d7111d628c0",
+            api_key='',
+            api_base="http://localhost:8000/v1",
+        ),
 )
 
 
