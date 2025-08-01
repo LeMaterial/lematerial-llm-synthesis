@@ -1,0 +1,3022 @@
+[
+  {
+    "material": "[Cu(**1**",
+    "synthesis": {
+      "target_compound": "[Cu(**1**,**4**)2] +",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components **1**, **2**, **3** and **4** in a 2:2:2:2 ratio in the presence of 1 eq. of Fe(BF4)2 and 1 eq. of Cu(BF4) in CD3CN.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Further heating of the reaction at 60 \u00b0C.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "concentrate",
+          "description": "Concentrating the reaction mixture to 20 mM (up from 3.6 mM).",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "Heating at 60\u00b0C for 20 days.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials but has some notable omissions and inaccuracies. The structural completeness is moderate, as it identifies the main components and conditions but misses details on the intermediate steps and characterization. Material extraction is generally accurate in identifying reactants, but the lack of specific quantities for some components is a concern. The process steps are logically sequenced but lack granularity. Equipment extraction is minimal. Conditions extraction is mostly accurate, but missing atmosphere. Semantic accuracy is reasonable, but the overall interpretation could be improved with more context. Format compliance is good overall, but some fields are left null when more specific information could be inferred. The overall score reflects these mixed results, indicating a need for improvement in completeness and detail.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main materials, steps, and conditions, but misses some details regarding intermediate steps and characterization techniques used to confirm the product. The overall structure is present, but lacks depth.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is mostly accurate, correctly identifying the reactants and their roles. However, the amounts and units for all materials are not consistently extracted, and the purity of the starting materials is not mentioned, which affects the completeness.",
+        "process_steps_score": 3.5,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally accurate, but lack granularity. For example, the 'mix' step could benefit from specifying the mixing method or rate, if available. The description of each step is somewhat high-level.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "Equipment extraction is minimal; no specific equipment is mentioned, which is a significant omission. At least the reaction vessel and any specialized equipment for heating or stirring should be identified.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Conditions extraction is mostly accurate, capturing temperature and duration. However, the atmosphere is not specified, and stirring is not mentioned, which are important parameters for this type of reaction. The concentration is mentioned in the text but not consistently extracted into the conditions for each step.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is reasonable, as the extracted information generally preserves the scientific meaning of the original text. However, some nuances and relationships between steps could be better captured to improve the overall interpretation.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema and data type requirements. Most fields are correctly populated, but there are instances where fields are left null when more specific information could be inferred or extracted.",
+        "overall_score": 3.5,
+        "overall_reasoning": "The overall score reflects a need for improvement in completeness and detail. While the core synthesis steps and materials are captured, the extraction could benefit from more granular process steps, complete equipment identification, and consistent material quantification. The semantic accuracy is good, but the overall interpretation could be improved with more context."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Specific quantities for all starting materials.",
+        "Equipment used in each step.",
+        "Atmosphere during the reaction.",
+        "Stirring conditions.",
+        "Details on intermediate steps and characterization techniques."
+      ],
+      "extraction_errors": [
+        "Missing specific quantities for some starting materials.",
+        "No equipment identified.",
+        "Atmosphere not specified in conditions.",
+        "Inconsistent extraction of concentration information."
+      ],
+      "improvement_suggestions": [
+        "Include specific quantities and units for all starting materials.",
+        "Identify and extract the equipment used in each step.",
+        "Specify the atmosphere and stirring conditions.",
+        "Provide more granular descriptions of each process step.",
+        "Ensure consistent extraction of concentration information into the conditions for relevant steps."
+      ]
+    }
+  },
+  {
+    "material": "**4**)2] +",
+    "synthesis": {
+      "target_compound": "[Cu(**1**,**4**)2] +",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components **1**, **2**, **3** and **4** in a 2:2:2:2 ratio in the presence of 1 eq. of Fe(BF4)2 and 1 eq. of Cu(BF4) in CD3CN",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Further heating of the reaction at 60 \u00b0C",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "concentrate",
+          "description": "Concentrating the reaction mixture to 20 mM (up from 3.6 mM)",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "Heating at 60\u00b0C for 20 days",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials but has some inaccuracies and omissions. The overall flow is represented, but details on intermediate steps and characterization are missing. The extraction needs improvement in accurately representing the experimental conditions and material roles.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main materials, steps, and conditions, but misses details on the intermediate complex formation and some characterization steps. The overall structure is present, but lacks fine-grained details.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names are mostly correct, but the roles of some materials (e.g., CD3CN as solvent) are not explicitly stated. The amounts and units are extracted, but could be more precise in some cases. The purity information is missing.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized and sequenced, but the descriptions could be more detailed. The actions are correctly classified, but the intermediate complex formation steps could be more explicitly mentioned.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment was extracted. This is a major omission as the synthesis likely involved standard lab equipment (e.g., Schlenk line, round bottom flasks, NMR).",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted with correct units. The atmosphere is mentioned, but pressure is missing. Stirring is not mentioned, although it is likely used.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between materials and steps are correctly represented, but some nuances are lost due to lack of detail.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted and populated.",
+        "overall_score": 3.6,
+        "overall_reasoning": "The extraction is reasonably good but needs improvement in completeness and accuracy. The process steps and conditions are well-represented, but the lack of equipment and some material details bring down the overall score."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Equipment used in the synthesis",
+        "Purity of starting materials",
+        "Stirring condition",
+        "Role of CD3CN as solvent"
+      ],
+      "extraction_errors": [
+        "Missing equipment information",
+        "Incomplete material roles (e.g., solvent)",
+        "Lack of purity information for materials",
+        "Omission of stirring condition"
+      ],
+      "improvement_suggestions": [
+        "Include equipment information (e.g., Schlenk line, round bottom flasks, NMR).",
+        "Specify the role of each material (e.g., solvent, reactant).",
+        "Add purity information for starting materials if available.",
+        "Include stirring condition if used.",
+        "Add more details to process step descriptions."
+      ]
+    }
+  },
+  {
+    "material": "[Fe(**2**",
+    "synthesis": {
+      "target_compound": "[Fe(**2**,**3**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components **2**, **3**, and Fe(BF4)2 in CD3CN.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the synthesis of [Fe(**2**,**3**)2] 2+ through self-assembly. The extraction includes the starting materials, synthesis steps, and conditions. However, there are some inaccuracies and omissions that affect the overall quality. Specifically, the amounts of starting materials **2** and **3** are not explicitly mentioned in the text for this specific synthesis, and the atmosphere is assumed to be air without explicit mention. The equipment list is empty, which is acceptable if no specific equipment is mentioned, but should be verified. The target compound type is also a broad classification and could be more specific.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis including materials, steps, and conditions, but lacks some specific details regarding material amounts and atmosphere.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names are correctly identified, and the amount of Fe(BF4)2 is accurate. However, the amounts of components **2** and **3** are not explicitly stated in the text for this specific synthesis, leading to a slight deduction. Purity information is missing, which is common but impacts completeness.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process step is well-defined, including the mixing action and a brief description. The materials involved are also listed correctly. The step is logically sound and follows the text.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the provided text snippet, and the extraction accurately reflects this by leaving the equipment list empty. This is appropriate.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted with correct units. The atmosphere is inferred as 'air' which is a reasonable default but not explicitly stated. Pressure is correctly identified as absent.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The overall meaning of the synthesis procedure is preserved. The relationships between materials, steps, and conditions are accurately represented. The inference of 'air' as the atmosphere is a potential source of minor inaccuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema. Data types are correctly used, and the structure is well-formed.",
+        "overall_score": 4.5,
+        "overall_reasoning": "The extraction is generally accurate and complete, with minor issues related to the explicit mention of material amounts and atmosphere. The format compliance is excellent, and the semantic accuracy is high. The structural completeness is good, but could be improved with more specific details."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Explicitly state the amounts of components **2** and **3** if available in the broader context.",
+        "Verify and explicitly state the atmosphere if it is mentioned elsewhere in the document.",
+        "Consider refining the target compound type to be more specific than 'framework & porous materials'."
+      ]
+    }
+  },
+  {
+    "material": "**3**)2] 2+",
+    "synthesis": {
+      "target_compound": "[Fe(**2**,**3**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components in CD3CN",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Heating the reaction mixture",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Further heating of the reaction",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The reaction was performed at 3.6 mM concentration initially, then concentrated to 20 mM to achieve complete self-sorting."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials, but several aspects require improvement. The structural completeness is moderate, as some details are missed. Material extraction is generally accurate but lacks specific vendor information and purity. The process steps are logically sequenced, but the descriptions could be more detailed. Equipment extraction is minimal. Conditions extraction is mostly accurate, but stirring is not mentioned. Semantic accuracy is good overall, but some scientific context is lost. Format compliance is satisfactory. The overall score reflects these mixed results.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main materials, steps, and conditions, but misses details such as the initial concentration and stirring. The note about concentration change is helpful but should be integrated into the steps.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names, amounts, and units are generally accurate. However, vendor information and purity are missing for all materials. The use of 'eq' for amounts is correctly interpreted.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and include mixing and heating. However, the descriptions could be more detailed, e.g., specifying when the concentration was increased.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted, which is a significant omission. At least a reaction vessel and heating apparatus should be included.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted. The initial concentration (3.6 mM) is missing from the conditions. Stirring is not mentioned, although it is likely used.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extracted ontology generally preserves the scientific meaning of the synthesis procedure. However, the lack of detail in some areas (e.g., equipment) slightly detracts from the overall accuracy.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted ontology adheres to the schema and data type requirements. The structure is generally well-organized.",
+        "overall_score": 3.6,
+        "overall_reasoning": "The extraction is reasonably good but could be improved by adding more detail about equipment, initial concentration, and stirring. The material extraction is accurate, but vendor information and purity are missing. The process steps are logically sequenced but lack detail."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Vendor information for starting materials",
+        "Purity of starting materials",
+        "Specific equipment used (e.g., reaction vessel, heating mantle)",
+        "Initial concentration of the reaction mixture (3.6 mM)",
+        "Information about stirring"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include vendor information and purity for all materials.",
+        "Add specific equipment used in each step (e.g., reaction vessel, heating mantle).",
+        "Incorporate the initial concentration (3.6 mM) into the conditions of the first step.",
+        "Explicitly mention stirring in the process steps.",
+        "Provide more detailed descriptions of each process step."
+      ]
+    }
+  },
+  {
+    "material": "[Cu(**4**",
+    "synthesis": {
+      "target_compound": "[Cu(**4**,**5**)2] +",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**5**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**5**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 3.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "CD3CN",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The self-sorting of the system was clearly apparent in the 1H NMR spectrum of the crude mixture. After 3 days at 60 \u00b0C, only the diagnostic signals of the two homoleptic complexes [Fe(**2**,**3**)2] 2+ and [Cu(**4**,**5**)2] + were observed in the spectrum."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the essence of the self-assembly process for the target compound. The starting materials, conditions, and steps are generally well-represented. However, there are inaccuracies in material assignments and missing details regarding the reaction environment. The extracted information needs refinement to fully align with the source text's intent and experimental setup.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes most key components: materials, steps, conditions. However, the relationships between components and the overall flow could be more clearly defined. The absence of specific equipment details also impacts completeness.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names and amounts are generally correct, but the association of materials to the correct complexes is flawed. For example, the target compound is [Cu(**4**,**5**)2] +, but the starting materials include **1**, **3**, and **4** which are not directly involved in the formation of this complex in this specific reaction. Purity information is consistently missing, which is a common issue.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process step is simple (mixing), and it's accurately represented. However, the description could be more detailed, specifying the order of addition or any specific mixing techniques used.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "No equipment is extracted, which is a significant omission. At least the reaction vessel and NMR spectrometer should be mentioned.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted with correct units. The atmosphere (CD3CN) is also correctly identified. However, stirring details and other environmental factors are missing.",
+        "semantic_accuracy_score": 3.5,
+        "semantic_accuracy_reasoning": "The extraction captures the general idea of self-assembly, but the inaccuracies in material assignments and missing equipment details detract from the overall semantic accuracy. The scientific context is partially preserved but needs improvement.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated with appropriate data types.",
+        "overall_score": 3.8,
+        "overall_reasoning": "The extraction is reasonably good but suffers from inaccuracies in material assignments and omissions of equipment details. While the conditions are well-captured, the overall semantic accuracy is impacted by the material-related errors. The format compliance is excellent."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Purity of starting materials.",
+        "Type of reaction vessel used.",
+        "Details about stirring or mixing method.",
+        "Specifics about the NMR spectrometer used for analysis."
+      ],
+      "extraction_errors": [
+        "Incorrect assignment of starting materials to the target compound.",
+        "Omission of equipment details (reaction vessel, NMR spectrometer)."
+      ],
+      "improvement_suggestions": [
+        "Carefully verify the starting materials and their relationship to the target compound.",
+        "Include details about the reaction vessel and any other relevant equipment.",
+        "Add purity information for the starting materials if available in the text.",
+        "Provide more detailed descriptions of the process steps, including the order of addition and mixing techniques."
+      ]
+    }
+  },
+  {
+    "material": "**5**)2] +",
+    "synthesis": {
+      "target_compound": "[Cu(**4**,**5**)2] +",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**5**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**5**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": null,
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 3.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The self-sorting of the system was clearly apparent in the 1H NMR spectrum of the crude mixture. After 3 days at 60 \u00b0C, only the diagnostic signals of the two homoleptic complexes [Fe(**2**,**3**)2] 2+ and [Cu(**4**,**5**)2] + were observed in the spectrum."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis procedure, including materials, conditions, and steps. However, there are inaccuracies in material assignments and missing details regarding the solvent used. The extracted ontology also misses the concentration of the reaction mixture, which is a crucial parameter for this self-sorting process. The description of the steps is basic and lacks specific actions performed during the heating stage. The target compound is correctly identified, but the overall completeness and accuracy could be improved.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology covers the main components but misses solvent information and concentration. The steps are simplified, lacking detailed actions.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names are mostly correct, but there are errors in assigning the correct components to the target compound. The units are correctly extracted, but purity is missing.",
+        "process_steps_score": 3.0,
+        "process_steps_reasoning": "The process steps are basic, with only 'mix' and 'heat' identified. The description of the heating step is missing, and the actions are not well-defined.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is mentioned in the text, so the score is 1.0.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted with correct units. Pressure and atmosphere are not mentioned, which is acceptable.",
+        "semantic_accuracy_score": 3.5,
+        "semantic_accuracy_reasoning": "The overall meaning is preserved, but inaccuracies in material assignments affect the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 3.4,
+        "overall_reasoning": "The extraction is reasonably good but suffers from inaccuracies in material assignments and a lack of detail in process steps. The conditions are well-extracted, and the format is compliant. Overall, improvements are needed in material and process step extraction."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Solvent used in the reaction.",
+        "Concentration of the reaction mixture.",
+        "Detailed actions during the heating step."
+      ],
+      "extraction_errors": [
+        "Incorrect assignment of materials to the target compound.",
+        "Missing solvent information.",
+        "Simplified process steps."
+      ],
+      "improvement_suggestions": [
+        "Improve material assignment accuracy by cross-referencing with the original text.",
+        "Include solvent information in the material list.",
+        "Provide more detailed descriptions of each process step, including specific actions.",
+        "Incorporate concentration of the reaction mixture."
+      ]
+    }
+  },
+  {
+    "material": "[Cu(**1**",
+    "synthesis": {
+      "target_compound": "[Cu(**1**,**4**)2] +",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components **1**, **2**, **3** and **4** in a 2:2:2:2 ratio in the presence of 1 eq. of Fe(BF4)2 and 1 eq. of Cu(BF4) in CD3CN.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Further heating of the reaction at 60 \u00b0C.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "concentrate",
+          "description": "Concentrating the reaction mixture to 20 mM (up from 3.6 mM).",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "Heating at 60\u00b0C for 20 days.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials but has some notable omissions and inaccuracies. The structural completeness is moderate, as it identifies the main components and conditions but misses details on the intermediate steps and characterization. Material extraction is generally accurate in identifying reactants, but the lack of specific quantities for some components is a concern. The process steps are logically sequenced but lack granularity. Equipment extraction is minimal. Conditions extraction is mostly accurate, but missing atmosphere. Semantic accuracy is reasonable, but the overall interpretation could be improved with more context. Format compliance is good overall, but some fields are left null when more specific information could be inferred. The overall score reflects these mixed results, indicating a need for improvement in completeness and detail.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main materials, steps, and conditions, but misses some details regarding intermediate steps and characterization techniques used to confirm the product. The overall structure is present, but lacks depth.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is mostly accurate, correctly identifying the reactants and their roles. However, the amounts and units for all materials are not consistently extracted, and the purity of the starting materials is not mentioned, which affects the completeness.",
+        "process_steps_score": 3.5,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally accurate, but lack granularity. For example, the 'mix' step could benefit from specifying the mixing method or rate, if available. The description of each step is somewhat high-level.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "Equipment extraction is minimal; no specific equipment is mentioned, which is a significant omission. At least the reaction vessel and any specialized equipment for heating or stirring should be identified.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Conditions extraction is mostly accurate, capturing temperature and duration. However, the atmosphere is not specified, and stirring is not mentioned, which are important parameters for this type of reaction. The concentration is mentioned in the text but not consistently extracted into the conditions for each step.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is reasonable, as the extracted information generally preserves the scientific meaning of the original text. However, some nuances and relationships between steps could be better captured to improve the overall interpretation.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema and data type requirements. Most fields are correctly populated, but there are instances where fields are left null when more specific information could be inferred or extracted.",
+        "overall_score": 3.5,
+        "overall_reasoning": "The overall score reflects a need for improvement in completeness and detail. While the core synthesis steps and materials are captured, the extraction could benefit from more granular process steps, complete equipment identification, and consistent material quantification. The semantic accuracy is good, but the overall interpretation could be improved with more context."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Specific quantities for all starting materials.",
+        "Equipment used in each step.",
+        "Atmosphere during the reaction.",
+        "Stirring conditions.",
+        "Details on intermediate steps and characterization techniques."
+      ],
+      "extraction_errors": [
+        "Missing specific quantities for some starting materials.",
+        "No equipment identified.",
+        "Atmosphere not specified in conditions.",
+        "Inconsistent extraction of concentration information."
+      ],
+      "improvement_suggestions": [
+        "Include specific quantities and units for all starting materials.",
+        "Identify and extract the equipment used in each step.",
+        "Specify the atmosphere and stirring conditions.",
+        "Provide more granular descriptions of each process step.",
+        "Ensure consistent extraction of concentration information into the conditions for relevant steps."
+      ]
+    }
+  },
+  {
+    "material": "**6**) <sup>+</sup>",
+    "synthesis": {
+      "target_compound": "[Cu(**1**,**6**) <sup>2</sup>] <sup>+</sup>",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**6**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq.",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**6**",
+              "amount": 2.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq.",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "CD3CN",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": null,
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the synthesis of [Cu(**1**,**6**) <sup>2</sup>] <sup>+</sup> through a self-assembly process. The extraction includes the starting materials, their ratios, and the reaction conditions. The process steps are well-defined, including mixing and heating. However, there are some inaccuracies and omissions that affect the overall quality of the extraction. Specifically, the target compound is not fully represented, and the role of CD3CN as a solvent is not explicitly mentioned in the conditions. The equipment list is empty, which is acceptable if no specific equipment beyond standard labware was used. The structural completeness is good, but semantic accuracy and format compliance could be improved.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the key aspects of the synthesis, including materials, steps, and conditions. However, the target compound representation is incomplete, and the solvent's role could be more explicit.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is generally accurate, with correct names and ratios. However, the purity of the starting materials is not specified, and the representation of the target compound is incomplete.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the description provides a clear understanding of the synthesis procedure.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, and the extraction correctly reflects this by leaving the equipment list empty. This is appropriate if standard labware was used.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction of conditions is mostly accurate, including temperature and duration. However, the role of CD3CN as a solvent should be explicitly stated in the conditions rather than just the atmosphere.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, but the incomplete representation of the target compound and the ambiguous description of CD3CN's role slightly detract from the overall accuracy.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements. However, minor adjustments could improve compliance, such as fully representing the target compound and explicitly stating the solvent.",
+        "overall_score": 4.3,
+        "overall_reasoning": "The overall extraction quality is good, with accurate material and process step extraction. However, improvements are needed in target compound representation and explicit solvent description to enhance semantic accuracy and structural completeness."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Purity of starting materials.",
+        "Role of CD3CN as a solvent."
+      ],
+      "extraction_errors": [
+        "Incomplete representation of the target compound [Cu(**1**,**6**) <sup>2</sup>] <sup>+</sup>.",
+        "CD3CN is listed as atmosphere instead of solvent."
+      ],
+      "improvement_suggestions": [
+        "Ensure the target compound is fully represented with correct formatting.",
+        "Explicitly state CD3CN as a solvent in the conditions section.",
+        "Include purity information for starting materials if available in the source text."
+      ]
+    }
+  },
+  {
+    "material": "[Cu(**7**",
+    "synthesis": {
+      "target_compound": "[Cu(**7**,**8**)2]+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**7**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**8**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of the components",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**7**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": null,
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "When a 2:2:2:2 mixture of **2**, **3**, **7** and **8** in CD3CN was treated with 1 eq. of Cu(BF4) and 1 eq. of Fe(BF4)2, [Cu(**7**,**8**)2]+ and [Fe(**2**,**3**)2]2+ were the only two complexes observable in the 1H NMR of the reaction mixture after 18 h at 60 \u00b0C"
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis procedure, including the self-assembly method, starting materials, and reaction conditions. The process steps are logically sequenced, and the key equipment is identified. However, there are some inaccuracies in material names and missing details regarding the solvent and stirring. The extracted ontology generally preserves the scientific meaning of the synthesis, but there's room for improvement in capturing the nuances of the procedure and ensuring complete schema compliance.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the key aspects of the synthesis, including materials, steps, and conditions. However, it misses some details like the solvent (CD3CN) and stirring, which reduces the completeness score.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is mostly accurate, with correct amounts and units. However, the chemical names are represented as bolded numbers which is not ideal. Also, the vendor information is missing for all materials.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are adequate. However, the description for step 2 could be more descriptive.",
+        "equipment_extraction_score": 3.0,
+        "equipment_extraction_reasoning": "No equipment was explicitly mentioned in the text, so the extraction correctly identifies the equipment list as empty. However, a more sophisticated extraction might infer the use of NMR spectrometer for analysis.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The extraction of temperature and duration is accurate, including the units. Pressure and atmosphere are correctly identified as not specified. The absence of stirring information slightly lowers the score.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extracted ontology generally preserves the scientific meaning of the synthesis. However, the representation of chemical names as bolded numbers detracts from the semantic clarity.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. The only minor issue is the chemical names represented as bolded numbers.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally good, capturing the main aspects of the synthesis. However, there are some areas for improvement, such as more accurate chemical names, inclusion of solvent and stirring information, and more descriptive step descriptions."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Solvent (CD3CN)",
+        "Stirring information"
+      ],
+      "extraction_errors": [
+        "Chemical names represented as bolded numbers instead of proper chemical nomenclature.",
+        "Missing solvent information (CD3CN)."
+      ],
+      "improvement_suggestions": [
+        "Use proper chemical nomenclature for material names.",
+        "Include solvent information in the materials section.",
+        "Add stirring information to the conditions section.",
+        "Provide more descriptive step descriptions."
+      ]
+    }
+  },
+  {
+    "material": "**8**)2] <sup>+</sup>",
+    "synthesis": {
+      "target_compound": "[Cu(**7**,**8**)2] <sup>+</sup>",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**7**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**8**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of the starting materials",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**7**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "CD3CN",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the self-assembly process described in the text, including the starting materials, reaction conditions, and the target compound. The use of equivalents for the amounts of materials is appropriate given the context of self-assembly. The extraction accurately reflects the experimental procedure and the intended outcome. However, there are some areas for improvement, particularly in capturing the nuances of the self-sorting process and the role of kinetic intermediates.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main components of the synthesis, including materials, steps, and conditions. However, it could benefit from explicitly mentioning the self-sorting aspect as a key feature of the synthesis. The role of kinetic intermediates is also not captured.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The material extraction is generally accurate, with correct names, amounts, and units. However, the chemical structures of the starting materials (represented as **2**, **3**, **7**, **8**) are not explicitly included, which could improve the completeness of the extraction. The purity of the starting materials is also not specified, which is a common omission.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are adequately represented, with a clear 'mix' action. However, the description could be more detailed, for example, by mentioning the order of addition or any specific mixing techniques used. The self-sorting aspect could also be incorporated into the process description.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment was mentioned in the text, so the score is 1.0. However, it is likely that standard laboratory glassware was used, which could be added to the ontology for completeness.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The conditions extraction is accurate and complete, with correct temperature, duration, and atmosphere. The units are also correctly specified. There is no mention of pressure, which is appropriate as the reaction is likely carried out at ambient pressure.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, with the overall meaning of the synthesis preserved. However, the nuances of the self-sorting process and the role of kinetic intermediates are not fully captured, which slightly reduces the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the specified schema and data type requirements. The JSON is valid and parseable.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The ontology extraction is generally good, with accurate material and condition extraction. The main areas for improvement are in capturing the nuances of the self-sorting process, the role of kinetic intermediates, and including more details about the chemical structures of the starting materials."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Equipment specifications or settings"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include chemical structures or representations of the starting materials (**2**, **3**, **7**, **8**).",
+        "Add more details to the process description, such as the order of addition or any specific mixing techniques used.",
+        "Explicitly mention the self-sorting aspect as a key feature of the synthesis in the process description.",
+        "Incorporate the role of kinetic intermediates into the ontology, perhaps as a note or comment.",
+        "Consider adding standard laboratory glassware to the equipment list for completeness."
+      ]
+    }
+  },
+  {
+    "material": "[Fe(**3**",
+    "synthesis": {
+      "target_compound": "[Fe(**3**,**9**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**9**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "An equimolar mixture of components **3**, **4**, **8** and **9** (2:2:2:2) was found to self-sort into the two homoleptic complexes [Cu(**4**,**8**)2] <sup>+</sup> and [Fe(**3**,**9**)2] 2+after being treated with 1 eq. of Cu(BF4) and 1 eq. of Fe(BF4)<sup>2</sup> (Figure 5) in CD3CN and left to react at 60 \u00b0C overnight.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**9**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": "overnight",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the key aspects of the self-assembly process for the target material. The starting materials, their ratios, and the reaction conditions are generally well-represented. However, there are some inaccuracies and omissions that affect the overall quality. Specifically, the target material is not accurately represented, and the description of the process step could be more precise. The equipment list is empty, which is acceptable if the process genuinely requires no specific equipment beyond standard labware. The format compliance is good, but improvements are needed in semantic accuracy and completeness.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main components: materials, steps, and conditions. However, the lack of specific equipment and some ambiguity in the process description slightly reduce the completeness.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names and amounts are mostly correct, but the representation of the target compound as '[Fe(**3**,**9**)2] 2+' is not ideal; it should ideally resolve to the actual chemical name if possible. The use of 'equiv' as a unit is appropriate given the context.",
+        "process_steps_score": 3.5,
+        "process_steps_reasoning": "The process step is identified, but the description is directly copied from the text and lacks specific details about the actions performed beyond 'mix'. A more granular breakdown of the process would improve the score.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, and the extraction correctly reflects this. If standard labware is assumed, this is acceptable.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The temperature and duration ('overnight') are accurately extracted. The lack of pressure and atmosphere information is consistent with the source text.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The overall meaning is preserved, but the imprecise description of the process step and the unresolved target compound name slightly detract from the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally good, capturing the essential information. However, improvements in process step description and target compound identification would enhance the overall quality. The format compliance is excellent."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Refine the process step description to include more specific actions (e.g., stirring, heating).",
+        "Attempt to resolve the target compound name to a standard chemical nomenclature if possible.",
+        "Consider adding standard labware to the equipment list if it is implicitly used."
+      ]
+    }
+  },
+  {
+    "material": "**9**)2] 2+",
+    "synthesis": {
+      "target_compound": "[Fe(**3**,**9**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**9**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "An equimolar mixture of components **3**, **4**, **8** and **9** (2:2:2:2) was found to self-sort into the two homoleptic complexes [Cu(**4**,**8**)2] + and [Fe(**3**,**9**)2] 2+after being treated with 1 eq. of Cu(BF4) and 1 eq. of Fe(BF4)2",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**9**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "in CD3CN and left to react at 60 \u00b0C overnight.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "C",
+            "duration": 12.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the essence of the self-assembly process for the target material. The starting materials, steps, and conditions are generally well-represented, although there are some inaccuracies and omissions. The overall flow of the synthesis is captured, but the details could be more precise.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis, including materials, steps, and conditions. However, it misses some details, such as the solvent volume and specific stirring conditions, which would improve completeness.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is mostly accurate, including the metal salts and organic components. However, the amounts of starting materials in the initial library are not specified with units, and the exact chemical structures represented by \"**3**\", \"**4**\", \"**8**\", and \"**9**\" are not explicitly defined, reducing the score.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally accurate. The 'mix' and 'heat' actions are correctly identified. However, the description of step 1 could be more precise regarding the initial mixing procedure.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "Equipment extraction is weak. No specific equipment is mentioned, although NMR is used for analysis, and glassware is implicitly used. The lack of equipment details significantly lowers the score.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Conditions extraction is reasonably accurate, capturing the temperature and duration of the reaction. The temperature and duration are correctly extracted with units. However, the atmosphere and stirring conditions are not specified, which affects the score.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, preserving the scientific meaning of the synthesis. The self-assembly process and the roles of different components are correctly interpreted. However, the lack of specific chemical structures for the components slightly reduces the score.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated, and the JSON format is valid.",
+        "overall_score": 3.9,
+        "overall_reasoning": "Overall, the ontology extraction is good, capturing the main aspects of the synthesis. The material extraction, process steps, and conditions are reasonably accurate. However, the lack of equipment details and some missing information in the material descriptions reduce the overall score. Improving the equipment extraction and providing more specific details about the chemical components would significantly enhance the quality of the extraction."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Specific equipment used in the synthesis.",
+        "Exact chemical structures of components labeled as \"**3**\", \"**4**\", \"**8**\", and \"**9**\".",
+        "Reaction atmosphere.",
+        "Solvent volume.",
+        "Stirring speed."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include specific equipment used in the synthesis, such as reaction vessels, heating mantles, and stirring apparatus.",
+        "Specify the exact chemical structures and names corresponding to the component labels (e.g., \"**3**\", \"**4**\", \"**8**\", \"**9**\").",
+        "Provide more precise details about the initial mixing procedure in step 1, including stirring speed and duration.",
+        "Include information about the reaction atmosphere (e.g., nitrogen, argon, air).",
+        "Specify the volume of CD3CN used as a solvent."
+      ]
+    }
+  },
+  {
+    "material": "[Ag(**7**",
+    "synthesis": {
+      "target_compound": "[Ag(**7**,**8**)2]+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**7**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**8**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Ag(BF4)",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of the starting materials",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**7**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Ag(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Heating the reaction mixture",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The addition of 1 eq. Ag(I) and 1 eq. Fe(II) to a 2:2:2:2 mixture of **2**, **3**, **7** and **8** in CD3CN resulted almost exclusively in the formation of the two expected homoleptic complexes [Ag(**7**,**8**)2] + and [Fe(**2**,**3**)2] 2+ after 18 h at 60\u00b0C."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the key aspects of the self-assembly synthesis of the target compound. The starting materials, their ratios, and the reaction conditions (temperature and duration) are accurately extracted. The process steps are logically organized. However, the extraction could be improved by including the solvent (CD3CN) as a material and specifying the 'mix' action more precisely (e.g., stirring). Also, the target compound type is not very precise, it is a metal complex, not a framework or porous material. The notes section is well-integrated, providing additional context from the original text.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the essential synthesis information, including materials, steps, and conditions. The absence of solvent as a material slightly reduces the completeness score.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material extraction is generally accurate, with correct names, amounts, and units. The omission of the solvent (CD3CN) is a minor issue.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and the actions are correctly classified. However, the description of the 'mix' action could be more detailed.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, and the extraction correctly reflects this.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The temperature and duration of the reaction are accurately extracted, including the correct units.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the synthesis procedure. The relationships between materials and steps are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.6,
+        "overall_reasoning": "Overall, the extraction is of high quality, accurately capturing the key details of the synthesis procedure. Minor improvements could be made by including the solvent as a material and providing more detail in the process step descriptions."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Solvent (CD3CN) as a material."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include the solvent (CD3CN) as a material with its amount or concentration.",
+        "Specify the 'mix' action more precisely (e.g., stirring, sonication).",
+        "Correct the target compound type to metal complex."
+      ]
+    }
+  },
+  {
+    "material": "**8**)2] <sup>+</sup>",
+    "synthesis": {
+      "target_compound": "[Cu(**7**,**8**)2] <sup>+</sup>",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**7**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**8**",
+          "amount": 2.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "equiv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of the starting materials",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**7**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "CD3CN",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the self-assembly process described in the text, including the starting materials, reaction conditions, and the target compound. The use of equivalents for the amounts of materials is appropriate given the context of self-assembly. The extraction accurately reflects the experimental procedure and the intended outcome. However, there are some areas for improvement, particularly in capturing the nuances of the self-sorting process and the role of kinetic intermediates.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main components of the synthesis, including materials, steps, and conditions. However, it could benefit from explicitly mentioning the self-sorting aspect as a key feature of the synthesis. The role of kinetic intermediates is also not captured.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The material extraction is generally accurate, with correct names, amounts, and units. However, the chemical structures of the starting materials (represented as **2**, **3**, **7**, **8**) are not explicitly included, which could improve the completeness of the extraction. The purity of the starting materials is also not specified, which is a common omission.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are adequately represented, with a clear 'mix' action. However, the description could be more detailed, for example, by mentioning the order of addition or any specific mixing techniques used. The self-sorting aspect could also be incorporated into the process description.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment was mentioned in the text, so the score is 1.0. However, it is likely that standard laboratory glassware was used, which could be added to the ontology for completeness.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The conditions extraction is accurate and complete, with correct temperature, duration, and atmosphere. The units are also correctly specified. There is no mention of pressure, which is appropriate as the reaction is likely carried out at ambient pressure.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, with the overall meaning of the synthesis preserved. However, the nuances of the self-sorting process and the role of kinetic intermediates are not fully captured, which slightly reduces the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the specified schema and data type requirements. The JSON is valid and parseable.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The ontology extraction is generally good, with accurate material and condition extraction. The main areas for improvement are in capturing the nuances of the self-sorting process, the role of kinetic intermediates, and including more details about the chemical structures of the starting materials."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Equipment specifications or settings"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include chemical structures or representations of the starting materials (**2**, **3**, **7**, **8**).",
+        "Add more details to the process description, such as the order of addition or any specific mixing techniques used.",
+        "Explicitly mention the self-sorting aspect as a key feature of the synthesis in the process description.",
+        "Incorporate the role of kinetic intermediates into the ontology, perhaps as a note or comment.",
+        "Consider adding standard laboratory glassware to the equipment list for completeness."
+      ]
+    }
+  },
+  {
+    "material": "[Zn(**3**",
+    "synthesis": {
+      "target_compound": "[Zn(**3**,**9**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**9**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Zn(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of the starting materials",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**9**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Zn(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The diagnostic signals of complexes [Cu(**7**,**8**)2] + and [Zn(**3**,**9**)2] 2+ dominated the 1H NMR spectrum of the crude reaction mixture after 18 h at 60 \u00b0C."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the synthesis, including the self-assembly method, starting materials, and reaction conditions. The process steps are simplified but capture the essence of the procedure. The equipment list is empty, which is acceptable if no specific equipment beyond standard labware is required. The notes section provides additional context from the original text. Overall, the extraction is reasonably complete and accurate, but there are areas for improvement, particularly in material name resolution and condition specification.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main components: materials, steps, and conditions. Equipment is missing, but this may be due to the simplicity of the synthesis. The relationships between components are adequately represented.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names are mostly correct, although the complex names are not standard chemical nomenclature. Quantities and units are generally accurate. Purity is not specified, which is consistent with the source text.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are simplified to a single 'mix' action, which is a high-level abstraction. The description provides some context. More detailed steps could be inferred, but the current representation is adequate.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted. While the synthesis might not require specialized equipment, standard labware (e.g., reaction vessel, stirrer) could be included for completeness.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted with correct units. The atmosphere is also correctly identified. Pressure and stirring are not mentioned in the text, so their absence is appropriate.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is mostly preserved. The self-assembly process and the roles of the metal ions and ligands are implicitly captured. The notes section helps to maintain the context.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema. Data types are correctly used, and the structure is valid.",
+        "overall_score": 3.8,
+        "overall_reasoning": "The extraction is generally good, with accurate representation of materials, conditions, and the overall process. The main weaknesses are the lack of equipment information and the simplified process steps. The semantic accuracy and format compliance are strong points."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Equipment specifications or settings"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Consider adding standard labware to the equipment list (e.g., reaction vessel, stirrer).",
+        "If possible, expand the process steps to include more detail (e.g., dissolution, stirring duration).",
+        "Attempt to resolve the complex names into more standard chemical nomenclature if possible."
+      ]
+    }
+  },
+  {
+    "material": "**9**)2] 2+",
+    "synthesis": {
+      "target_compound": "[Fe(**3**,**9**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**9**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "An equimolar mixture of components **3**, **4**, **8** and **9** (2:2:2:2) was found to self-sort into the two homoleptic complexes [Cu(**4**,**8**)2] + and [Fe(**3**,**9**)2] 2+after being treated with 1 eq. of Cu(BF4) and 1 eq. of Fe(BF4)2",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**9**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "in CD3CN and left to react at 60 \u00b0C overnight.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "C",
+            "duration": 12.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the essence of the self-assembly process for the target material. The starting materials, steps, and conditions are generally well-represented, although there are some inaccuracies and omissions. The overall flow of the synthesis is captured, but the details could be more precise.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis, including materials, steps, and conditions. However, it misses some details, such as the solvent volume and specific stirring conditions, which would improve completeness.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is mostly accurate, including the metal salts and organic components. However, the amounts of starting materials in the initial library are not specified with units, and the exact chemical structures represented by \"**3**\", \"**4**\", \"**8**\", and \"**9**\" are not explicitly defined, reducing the score.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally accurate. The 'mix' and 'heat' actions are correctly identified. However, the description of step 1 could be more precise regarding the initial mixing procedure.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "Equipment extraction is weak. No specific equipment is mentioned, although NMR is used for analysis, and glassware is implicitly used. The lack of equipment details significantly lowers the score.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Conditions extraction is reasonably accurate, capturing the temperature and duration of the reaction. The temperature and duration are correctly extracted with units. However, the atmosphere and stirring conditions are not specified, which affects the score.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, preserving the scientific meaning of the synthesis. The self-assembly process and the roles of different components are correctly interpreted. However, the lack of specific chemical structures for the components slightly reduces the score.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated, and the JSON format is valid.",
+        "overall_score": 3.9,
+        "overall_reasoning": "Overall, the ontology extraction is good, capturing the main aspects of the synthesis. The material extraction, process steps, and conditions are reasonably accurate. However, the lack of equipment details and some missing information in the material descriptions reduce the overall score. Improving the equipment extraction and providing more specific details about the chemical components would significantly enhance the quality of the extraction."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Specific equipment used in the synthesis.",
+        "Exact chemical structures of components labeled as \"**3**\", \"**4**\", \"**8**\", and \"**9**\".",
+        "Reaction atmosphere.",
+        "Solvent volume.",
+        "Stirring speed."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include specific equipment used in the synthesis, such as reaction vessels, heating mantles, and stirring apparatus.",
+        "Specify the exact chemical structures and names corresponding to the component labels (e.g., \"**3**\", \"**4**\", \"**8**\", \"**9**\").",
+        "Provide more precise details about the initial mixing procedure in step 1, including stirring speed and duration.",
+        "Include information about the reaction atmosphere (e.g., nitrogen, argon, air).",
+        "Specify the volume of CD3CN used as a solvent."
+      ]
+    }
+  },
+  {
+    "material": "[Zn(**2**",
+    "synthesis": {
+      "target_compound": "[Zn(**2**,**3**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Zn(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing Zn(BF4)2 with an equimolar mixture of **2**, **3**, **7** and **8** (2:2:2:2) in CD3CN",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**7**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**8**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Zn(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Further heating of the reaction mixture at 60\u00b0C for up to 5 days",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 5.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the essence of the synthesis, focusing on the self-assembly of a zinc complex. The structural completeness is good, covering materials, steps, and conditions. Material extraction is generally accurate, though some quantities are missing. Process steps are logically sequenced. Equipment extraction is minimal, as expected for this synthesis type. Conditions extraction is accurate. Semantic accuracy is maintained. Format compliance is satisfactory. However, there are areas for improvement, particularly in specifying all material quantities and vendors, and in detailing the characterization techniques used to confirm the product.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis, including materials, steps, equipment (implicitly), and conditions. However, it could benefit from more detail on the characterization of the product.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names are accurately extracted, but quantities and units are not consistently specified for all materials (e.g., **2** and **3** in the initial mixing step). Vendor information is also missing.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and the actions are correctly classified. The description of each step is clear and concise.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "Equipment is not explicitly mentioned, which is a weakness. While the synthesis is relatively simple, mentioning the reaction vessel would improve completeness.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted with correct units. The atmosphere is implicitly 'air'.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The scientific meaning is well-preserved in the structured format. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema. Data types are generally correct, but some fields could be more specific (e.g., specifying the solvent volume).",
+        "overall_score": 3.9,
+        "overall_reasoning": "The extraction is generally good, capturing the key aspects of the synthesis. However, improvements are needed in specifying material quantities, vendor information, and equipment details. The inclusion of characterization techniques would also enhance the completeness of the ontology."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Quantities and units for all materials.",
+        "Vendor information for starting materials.",
+        "Specific type of reaction vessel.",
+        "Characterization techniques used to confirm the product."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Specify quantities and units for all materials in each step.",
+        "Include vendor information for starting materials.",
+        "Explicitly mention the reaction vessel used.",
+        "Add details about the characterization techniques used to confirm the product (e.g., NMR spectroscopy).",
+        "Refine the solvent volume in step 1."
+      ]
+    }
+  },
+  {
+    "material": "**3**)2] 2+",
+    "synthesis": {
+      "target_compound": "[Fe(**2**,**3**)2] 2+",
+      "target_compound_type": "framework & porous materials",
+      "synthesis_method": "self-assembly",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "**1**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**2**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**3**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "**4**",
+          "amount": 2.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fe(BF4)2",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Cu(BF4)",
+          "amount": 1.0,
+          "unit": "eq",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing of components in CD3CN",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "**1**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**2**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**3**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "**4**",
+              "amount": 2.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fe(BF4)2",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Cu(BF4)",
+              "amount": 1.0,
+              "unit": "eq",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "CD3CN",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Heating the reaction mixture",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 18.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Further heating of the reaction",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "\u00b0C",
+            "duration": 20.0,
+            "time_unit": "days",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The reaction was performed at 3.6 mM concentration initially, then concentrated to 20 mM to achieve complete self-sorting."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials, but several aspects require improvement. The structural completeness is moderate, as some details are missed. Material extraction is generally accurate but lacks specific vendor information and purity. The process steps are logically sequenced, but the descriptions could be more detailed. Equipment extraction is minimal. Conditions extraction is mostly accurate, but stirring is not mentioned. Semantic accuracy is good overall, but some scientific context is lost. Format compliance is satisfactory. The overall score reflects these mixed results.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main materials, steps, and conditions, but misses details such as the initial concentration and stirring. The note about concentration change is helpful but should be integrated into the steps.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names, amounts, and units are generally accurate. However, vendor information and purity are missing for all materials. The use of 'eq' for amounts is correctly interpreted.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and include mixing and heating. However, the descriptions could be more detailed, e.g., specifying when the concentration was increased.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted, which is a significant omission. At least a reaction vessel and heating apparatus should be included.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted. The initial concentration (3.6 mM) is missing from the conditions. Stirring is not mentioned, although it is likely used.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extracted ontology generally preserves the scientific meaning of the synthesis procedure. However, the lack of detail in some areas (e.g., equipment) slightly detracts from the overall accuracy.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted ontology adheres to the schema and data type requirements. The structure is generally well-organized.",
+        "overall_score": 3.6,
+        "overall_reasoning": "The extraction is reasonably good but could be improved by adding more detail about equipment, initial concentration, and stirring. The material extraction is accurate, but vendor information and purity are missing. The process steps are logically sequenced but lack detail."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Vendor information for starting materials",
+        "Purity of starting materials",
+        "Specific equipment used (e.g., reaction vessel, heating mantle)",
+        "Initial concentration of the reaction mixture (3.6 mM)",
+        "Information about stirring"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include vendor information and purity for all materials.",
+        "Add specific equipment used in each step (e.g., reaction vessel, heating mantle).",
+        "Incorporate the initial concentration (3.6 mM) into the conditions of the first step.",
+        "Explicitly mention stirring in the process steps.",
+        "Provide more detailed descriptions of each process step."
+      ]
+    }
+  }
+]
