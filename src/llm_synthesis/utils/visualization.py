@@ -80,10 +80,18 @@ def visualize_line_chart_specialized(
             # Convert normalized RMSE back to y-axis units
             y_scale = 10000 - 0
             rmse_y_units = rmse * y_scale
+            y_standard_error = rmse_y_units / np.sqrt(len(x))
+            y_ci_95 = 1.96 * y_standard_error
+
+            # x_scale = 500 - 200
+            # rmse_x_units = rmse * x_scale
+            # x_standard_error = rmse_x_units / np.sqrt(len(x))
+            # x_ci_95 = 1.96 * x_standard_error  # NOT USED FOR NOW
 
             # 95% confidence interval in y axis units
-            ci_95 = 1.96 * rmse_y_units
-            plt.fill_between(x, y - ci_95, y + ci_95, alpha=0.1, color=color)
+            plt.fill_between(
+                x, y - y_ci_95, y + y_ci_95, alpha=0.1, color=color
+            )
 
     xlabel = f"{data.x_axis_label}_({data.x_axis_unit})"
     ylabel = f"{data.y_left_axis_label}_({data.y_left_axis_unit})"
