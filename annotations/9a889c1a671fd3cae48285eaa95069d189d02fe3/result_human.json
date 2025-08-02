@@ -1,0 +1,605 @@
+[
+  {
+    "material": "Pt\u2013OLC",
+    "synthesis": {
+      "target_compound": "Pt\u2013OLC",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "nanodiamond (ND) powder",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "chloroplatinic acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "mixed acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "nanodiamond (ND) powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "mixed acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1500.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Pt\u2013OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "OLC",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "chloroplatinic acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "OLC acted as both reductant and surfactant in the synthesis."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the Pt-OLC synthesis, including the starting materials, synthesis method (hydrothermal), and crucial steps. The conditions, particularly the temperatures, are accurately extracted. However, there is missing information regarding the oxidation step with mixed acid and the lack of specific equipment used in each step. The role of OLC as both reductant and surfactant is noted, which is a significant detail. Overall, the extraction is reasonably good but could benefit from more detail and completeness.",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Mixed acid missing, (implicit) water missing, steps wrongly labeled",
+        "material_extraction_score": 2.0,
+        "material_extraction_reasoning": "Water and mixed acid missing.",
+        "process_steps_score": 2.0,
+        "process_steps_reasoning": "Steps wrongly labeled, certain materials missing.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No equipment given, none extracted.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Only temperatures are given in the paper, only those extracted.",
+        "semantic_accuracy_score": 2.0,
+        "semantic_accuracy_reasoning": "Key chemicals missing, process steps mislabeled; semantic meaning differs quite a lot",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "Hydrothermal not defiend in ontology",
+        "overall_score": 3.2,
+        "overall_reasoning": "The extraction misses a lot of chemicals and misclassifies process steps."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Water and mixed acid as materials",
+        "Materials in synthesis process"
+      ],
+      "extraction_errors": [
+        "Process steps mislabeled"
+      ],
+      "improvement_suggestions": [
+        "Identify all chemicals",
+        "Stick to defined ontology"
+      ]
+    }
+  },
+  {
+    "material": "Pd\u2013OLC",
+    "synthesis": {
+      "target_compound": "Pd\u2013OLC",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "nanodiamond (ND) powder",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "palladium precursor",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "mixed acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "nanodiamond (ND) powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "mixed acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1500.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Pd\u2013OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "OLC",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "palladium precursor",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Pd, Au, Ag nanoparticles decorated OLC samples were also synthesized by the same method."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the Pt-OLC synthesis, including the starting materials, synthesis method (hydrothermal), and crucial steps. The conditions, particularly the temperatures, are accurately extracted. However, there is missing information regarding the oxidation step with mixed acid and the lack of specific equipment used in each step. The role of OLC as both reductant and surfactant is noted, which is a significant detail. Overall, the extraction is reasonably good but could benefit from more detail and completeness.",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Mixed acid missing, (implicit) water missing, steps wrongly labeled",
+        "material_extraction_score": 2.0,
+        "material_extraction_reasoning": "Water and mixed acid missing.",
+        "process_steps_score": 2.0,
+        "process_steps_reasoning": "Steps wrongly labeled, certain materials missing.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No equipment given, none extracted.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperatures extracted correctly, atmosphere wrongly inferred as air.",
+        "semantic_accuracy_score": 2.0,
+        "semantic_accuracy_reasoning": "Key chemicals missing, process steps mislabeled; semantic meaning differs quite a lot",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "Hydrothermal not defiend in ontology",
+        "overall_score": 3.1,
+        "overall_reasoning": "The extraction misses a lot of chemicals and misclassifies process steps."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Water and mixed acid as materials",
+        "Materials in synthesis process"
+      ],
+      "extraction_errors": [
+        "Process steps mislabeled",
+        "Atmosphere wrongly inferred"
+      ],
+      "improvement_suggestions": [
+        "Identify all chemicals",
+        "Stick to defined ontology"
+      ]
+    }
+  },
+  {
+    "material": "Au\u2013OLC",
+    "synthesis": {
+      "target_compound": "Au\u2013OLC",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "nanodiamond (ND) powder",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "gold precursor",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "mixed acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "nanodiamond (ND) powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "mixed acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1500.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Au\u2013OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "OLC",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "gold precursor",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "OLC acted as both reductant and surfactant in the synthesis."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the Pt-OLC synthesis, including the starting materials, synthesis method (hydrothermal), and crucial steps. The conditions, particularly the temperatures, are accurately extracted. However, there is missing information regarding the oxidation step with mixed acid and the lack of specific equipment used in each step. The role of OLC as both reductant and surfactant is noted, which is a significant detail. Overall, the extraction is reasonably good but could benefit from more detail and completeness.",
+      "scores": {
+        "structural_completeness_score": 2.0,
+        "structural_completeness_reasoning": "Mixed acid missing, (implicit) water missing, precursor wrongly labeled, steps wrongly labeled",
+        "material_extraction_score": 2.0,
+        "material_extraction_reasoning": "Water and mixed acid missing, precursor wrongly labeled as platinum.",
+        "process_steps_score": 2.0,
+        "process_steps_reasoning": "Steps wrongly labeled, certain materials missing.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No equipment given, none extracted.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Only temperatures are given in the paper, only those extracted.",
+        "semantic_accuracy_score": 2.0,
+        "semantic_accuracy_reasoning": "Key chemicals missing, process steps mislabeled; semantic meaning differs quite a lot",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "Hydrothermal not defiend in ontology",
+        "overall_score": 3.1,
+        "overall_reasoning": "The extraction misses a lot of chemicals and misclassifies process steps."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Water and mixed acid as materials",
+        "Materials in synthesis process"
+      ],
+      "extraction_errors": [
+        "Process steps mislabeled",
+        "gold precursor wrongly labeled as chloroplatinic acid"
+      ],
+      "improvement_suggestions": [
+        "Identify all chemicals",
+        "Stick to defined ontology"
+      ]
+    }
+  },
+  {
+    "material": "Ag\u2013OLC",
+    "synthesis": {
+      "target_compound": "Ag\u2013OLC",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "nanodiamond (ND) powder",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "silver precursor",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "mixed acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "nanodiamond (ND) powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "mixed acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1500.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Ag\u2013OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "OLC",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "silver precursor",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "OLC acted as both reductant and surfactant in the synthesis."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the key aspects of the Pt-OLC synthesis, including the starting materials, synthesis method (hydrothermal), and crucial steps. The conditions, particularly the temperatures, are accurately extracted. However, there is missing information regarding the oxidation step with mixed acid and the lack of specific equipment used in each step. The role of OLC as both reductant and surfactant is noted, which is a significant detail. Overall, the extraction is reasonably good but could benefit from more detail and completeness.",
+      "scores": {
+        "structural_completeness_score": 2.0,
+        "structural_completeness_reasoning": "Mixed acid missing, (implicit) water missing, precursor wrongly labeled, steps wrongly labeled",
+        "material_extraction_score": 2.0,
+        "material_extraction_reasoning": "Water and mixed acid missing, precursor wrongly labeled as platinum.",
+        "process_steps_score": 2.0,
+        "process_steps_reasoning": "Steps wrongly labeled, certain materials missing.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No equipment given, none extracted.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Only temperatures are given in the paper, only those extracted. But atmosphere wrongly inferred as air.",
+        "semantic_accuracy_score": 2.0,
+        "semantic_accuracy_reasoning": "Key chemicals missing, process steps mislabeled; semantic meaning differs quite a lot",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "Hydrothermal not defiend in ontology",
+        "overall_score": 3.1,
+        "overall_reasoning": "The extraction misses a lot of chemicals and misclassifies process steps."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Water and mixed acid as materials",
+        "Materials in synthesis process"
+      ],
+      "extraction_errors": [
+        "Process steps mislabeled",
+        "gold precursor wrongly labeled as chloroplatinic acid"
+      ],
+      "improvement_suggestions": [
+        "Identify all chemicals",
+        "Stick to defined ontology"
+      ]
+    }
+  }
+]
