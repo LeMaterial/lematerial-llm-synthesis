@@ -1,0 +1,274 @@
+[
+    {
+      "material":,
+      "synthesis": {
+        "target_compound":
+        "target_compound_type":
+        "synthesis_method":
+        "starting_materials": [
+          {
+            "vendor":
+            "name": 
+            "amount":
+            "unit": 
+            "purity":
+          },
+          {
+            "vendor":
+            "name": 
+            "amount":
+            "unit": 
+            "purity":
+          },
+          {
+            "vendor":
+            "name": 
+            "amount":
+            "unit": 
+            "purity":
+          },
+          {
+            "vendor": 
+            "name":
+            "amount":
+            "unit":
+            "purity":
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action":
+            "description": 
+            "materials": [
+              {
+                "vendor":
+                "name":
+                "amount":
+                "unit":
+                "purity":
+              },
+              {
+                "vendor":
+                "name":
+                "amount":
+                "unit": 
+                "purity":
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 
+              "temp_unit": 
+              "duration": 
+              "time_unit":
+              "pressure": 
+              "pressure_unit":
+              "atmosphere": 
+              "stirring":
+              "stirring_speed":
+              "ph":
+            }
+          },
+          {
+            "step_number": 2,
+            "action":
+            "description":
+            "materials": [
+              {
+                "vendor":
+                "name": 
+                "amount":
+                "unit": 
+                "purity":
+              },
+              {
+                "vendor": 
+                "name": 
+                "amount":
+                "unit": 
+                "purity":
+              }
+            ],
+            "equipment": [
+              {
+                "name":
+                "instrument_vendor":
+                "settings":
+              }
+            ],
+            "conditions": {
+              "temperature":
+              "temp_unit": 
+              "duration": 
+              "time_unit":
+              "pressure": 
+              "pressure_unit":
+              "atmosphere":
+              "stirring": 
+              "stirring_speed":
+              "ph":
+            }
+          },
+          {
+            "step_number": 3,
+            "action":
+            "description":
+            "materials": [
+              {
+                "vendor":
+                "name": 
+                "amount":
+                "unit": 
+                "purity":
+              }
+            ],
+            "equipment": [
+              {
+                "name":
+                "instrument_vendor":
+                "settings":
+              }
+            ],
+            "conditions": {
+              "temperature":
+              "temp_unit": 
+              "duration": 
+              "time_unit":
+              "pressure":
+              "pressure_unit":
+              "atmosphere":
+              "stirring": 
+              "stirring_speed":
+              "ph":
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name":
+            "instrument_vendor":
+            "settings":
+          },
+          {
+            "name":
+            "instrument_vendor":
+            "settings": 
+          }
+        ],
+        "notes":
+      },
+      "evaluation": {
+        "reasoning":
+        "scores": {
+          "structural_completeness_score":
+          "structural_completeness_reasoning": 
+          "material_extraction_score":
+          "material_extraction_reasoning":
+          "process_steps_score":
+          "process_steps_reasoning":
+          "equipment_extraction_score":
+          "equipment_extraction_reasoning":
+          "conditions_extraction_score":
+          "conditions_extraction_reasoning": 
+          "semantic_accuracy_score": 
+          "semantic_accuracy_reasoning":
+          "format_compliance_score": 
+          "format_compliance_reasoning": 
+          "overall_score": 
+          "overall_reasoning": 
+        },
+        "confidence_level":
+        "missing_information": [
+          "Specific quantities and purities for starting materials.",
+          "Complete synthesis conditions for each step.",
+          "Vendor and setting details for equipment."
+        ],
+        "extraction_errors": [
+          "Missing specific quantities and purities for starting materials.",
+          "Incomplete extraction of synthesis conditions, such as temperature and pressure.",
+          "Lack of vendor and setting details for equipment."
+        ],
+        "improvement_suggestions": [
+          "Include specific quantities, units, and purities for all starting materials.",
+          "Ensure all synthesis conditions, such as temperature and pressure, are extracted for each step.",
+          "Provide vendor and setting details for all equipment used in the synthesis."
+        ]
+      }
+    },
+    {
+      "material": 
+      "synthesis": {
+        "target_compound":
+        "target_compound_type":
+        "synthesis_method":
+        "starting_materials": [],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": 
+            "description":
+            "materials": [],
+            "equipment": [
+              {
+                "name": 
+                "instrument_vendor": 
+                "settings": 
+              }
+            ],
+            "conditions": {
+              "temperature": 
+              "temp_unit": 
+              "duration": 
+              "time_unit":
+              "pressure": 
+              "pressure_unit": 
+              "atmosphere":
+              "stirring": 
+              "stirring_speed":
+              "ph":
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": 
+            "instrument_vendor":
+            "settings":
+          }
+        ],
+        "notes": 
+      },
+      "evaluation": {
+        "reasoning": 
+        "scores": {
+          "structural_completeness_score":
+          "structural_completeness_reasoning": 
+          "material_extraction_score":
+          "material_extraction_reasoning": 
+          "process_steps_score": 
+          "process_steps_reasoning": 
+          "equipment_extraction_score":
+          "equipment_extraction_reasoning": 
+          "conditions_extraction_score": 
+          "conditions_extraction_reasoning":
+          "semantic_accuracy_score": 
+          "semantic_accuracy_reasoning": 
+          "format_compliance_score": 
+          "format_compliance_reasoning":
+          "overall_score":
+          "overall_reasoning":
+        },
+        "confidence_level":
+        "missing_information": [
+         
+        ],
+        "extraction_errors": [
+         
+        ],
+        "improvement_suggestions": [
+         
+        ]
+      }
+    }
+  ]
