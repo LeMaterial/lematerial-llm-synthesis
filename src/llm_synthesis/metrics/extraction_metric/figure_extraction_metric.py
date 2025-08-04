@@ -16,6 +16,9 @@ class FigureExtractionMetric(LinePlotExtractionMetric):
     ) -> float:
         """
         Compute average RMSE or MAE across all matching series.
+        For each series, it uses normalized-to-axis-sclae nearest-neighbor matching to find the closest points
+        in the ground truth data to the extracted points from the LLM output.
+        And then computes the error metric (RMSE or MAE) based on these matches.
         """
         extracted = preds.name_to_coordinates
         ground_truth = refs.name_to_coordinates
@@ -53,9 +56,9 @@ class FigureExtractionMetric(LinePlotExtractionMetric):
         """Compute normalization scales for x and y."""
         all_x = [x for coords in ground_truth.values() for x, _ in coords]
         all_y = [y for coords in ground_truth.values() for _, y in coords]
-        x_range = max(all_x) - min(all_x) or 1e-8
-        y_range = max(all_y) - min(all_y) or 1e-8
-        return x_range, y_range
+        x_scale = max(all_x) - min(all_x) or 1e-8
+        y_scale = max(all_y) - min(all_y) or 1e-8
+        return x_scale, y_scale
 
     @staticmethod
     def pointwise_rmse(
