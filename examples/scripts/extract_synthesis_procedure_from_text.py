@@ -7,6 +7,8 @@ import dspy
 import hydra
 from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.metrics.judge.general_synthesis_judge import (
@@ -102,18 +104,25 @@ def main(cfg: DictConfig) -> None:
     # Also check DSPy global settings
     dspy_settings_lm = getattr(dspy.settings, "lm", None)
 
-    # Track initial costs - try multiple approaches
-    initial_synthesis_cost = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
-    initial_material_cost = get_lm_cost(material_lm) if material_lm else 0.0
-    initial_judge_cost = get_lm_cost(judge_lm) if judge_lm else 0.0
-    initial_dspy_cost = (
-        get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
-    )
-
     # Process each paper
     total_cost = 0.0
-    for paper in papers:
+
+    to_process = [
+        p for p in papers
+        if p.id not in os.listdir(cfg.result_save.architecture.result_dir)
+    ]
+
+    def process_paper(paper) -> tuple:
+
         logging.info(f"Processing {paper.name}")
+
+        # Track initial costs - try multiple approaches
+        initial_synthesis_cost = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+        initial_material_cost = get_lm_cost(material_lm) if material_lm else 0.0
+        initial_judge_cost = get_lm_cost(judge_lm) if judge_lm else 0.0
+        initial_dspy_cost = (
+            get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+        )
 
         try:
             # Extract list of synthesized materials
@@ -136,7 +145,7 @@ def main(cfg: DictConfig) -> None:
             # Skip processing if no materials found
             if not materials:
                 logging.warning(f"No materials found for paper {paper.name}")
-                continue
+                return None, 0.0
 
             # Process each material and collect all syntheses
             all_syntheses = []
@@ -287,12 +296,6 @@ def main(cfg: DictConfig) -> None:
                 cost_data=cost_data,
             )
 
-            # Save results with cost data
-            result_gather.gather(paper_with_syntheses)
-
-            # Add this paper's cost to total
-            total_cost += paper_total_cost
-
             logging.info(
                 f"Processed {len(all_syntheses)} materials: "
                 f"{[s.material for s in all_syntheses]}"
@@ -301,7 +304,31 @@ def main(cfg: DictConfig) -> None:
 
         except Exception as e:
             logging.error(f"Failed to process paper {paper.name}: {e}")
-            continue
+            return None, 0.0
+
+        return paper_with_syntheses, paper_total_cost
+
+
+    max_workers = 4 #TODO: this should be a config
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(
+                process_paper,
+                paper
+            ): paper
+            for paper in to_process
+        }
+        for future in as_completed(futures):
+            paper = futures[future]
+            try:
+                result, cost = future.result()
+                if result is not None:
+                    result_gather.gather(result)
+                    total_cost += cost
+                    logging.info(f"Finished {paper.name}: cost=${cost:.6f}")
+            except Exception as e:
+                logging.error(f"Error processing {paper.name}: {e}")
+    
 
     # Print final total cost
     logging.info(f"Total cost across all papers: ${total_cost:.6f}")

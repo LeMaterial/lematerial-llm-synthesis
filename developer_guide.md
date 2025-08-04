@@ -9,6 +9,7 @@ uv sync
 uv pip install -e .
 uv pip install <package-name> # install package without adding to pyproject.toml
 uv add <package-name> # install and add package to project dependencies
+playwright install # when downloading PDFs from browsers
 ```
 
 ## FAQs

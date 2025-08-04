@@ -35,35 +35,6 @@ async def extract_text_from_pdf_async(
         return await extractor.aforward(f.read())
 
 
-def extract_text_from_pdf(
-    extractor: MistralPDFExtractor, pdf_path: str
-) -> str:
-    with open(pdf_path, "rb") as f:
-        return extractor.forward(f.read())
-
-
-def process_paper(
-    row: pd.Series,
-    pdf_extractor: MistralPDFExtractor,
-    pdfs_dir: str,
-) -> tuple[str, str]:
-    try:
-        pdf_path = download_file(row["pdf_url"], pdfs_dir, f"{row['id']}.pdf")
-    except HTTPError as e:
-        print(f"Error downloading file: {e}")
-        return None, None
-
-    try:
-        text_paper = extract_text_from_pdf(pdf_extractor, pdf_path)
-    except Exception as e:
-        print(f"Error extracting text from PDF: {e}")
-        return None, None
-
-    text_si = ""
-
-    return text_paper, text_si
-
-
 async def process_paper_async(
     i: int,
     row: pd.Series,
@@ -120,78 +91,6 @@ def download_file(
         f.write(response.read())
 
     return out_path
-
-
-def main():
-    # Login using e.g. `huggingface-cli login` to access this dataset
-    df = load_dataset("iknow-lab/open-materials-guide-2024")[
-        "train"
-    ].to_pandas()
-    orig = load_dataset(HUGGINGFACE_DATASET)
-    matsci_feats = orig["filtered_matsci"].features
-
-    df_new = pd.DataFrame(
-        columns=[
-            "id",
-            "title",
-            "authors",
-            "abstract",
-            "doi",
-            "published_date",
-            "updated_date",
-            "categories",
-            "license",
-            "pdf_url",
-            "views_count",
-            "read_count",
-            "citation_count",
-            "keywords",
-            "text_paper",
-            "text_si",
-        ]
-    )
-    df_new["id"] = df["id"]
-    df_new["title"] = df["title"]
-    df_new["authors"] = df["authors"].apply(lambda x: str(x))
-    df_new["abstract"] = df["abstract"]
-    df_new["doi"] = None
-    df_new["published_date"] = None
-    df_new["updated_date"] = None
-    df_new["categories"] = None
-    df_new["license"] = None
-    df_new["pdf_url"] = df["pdf_url"]
-    df_new["views_count"] = None
-    df_new["read_count"] = None
-    df_new["citation_count"] = None
-    df_new["keywords"] = None
-    df_new["text_paper"] = None
-    df_new["text_si"] = None
-
-    pdf_extractor = MistralPDFExtractor()
-    ensure_directory(PDFS_DIR)
-
-    processed = 0
-
-    for i, row in tqdm(df_new.iterrows(), total=len(df_new)):
-        # skip if already extracted
-        if row["text_paper"] is not None:
-            continue
-
-        text_paper, text_si = process_paper(row, pdf_extractor, PDFS_DIR)
-
-        df_new.at[i, "text_paper"] = text_paper
-        df_new.at[i, "text_si"] = text_si
-
-        processed += 1
-        # every BATCH_SIZE papers, push
-        if processed % BATCH_SIZE == 0:
-            push_current_df(df_new, orig, matsci_feats)
-
-    # final push for the tail
-    if processed % BATCH_SIZE != 0:
-        push_current_df(df_new, orig)
-
-    df_new.to_csv(f"{DATA_DIR}/omg24_papers.csv", index=False)
 
 
 async def main_async():
@@ -258,9 +157,7 @@ async def main_async():
 
         # 4) once we hit a batch, await and push
         if len(tasks) >= BATCH_SIZE:
-            results = await tqdm_asyncio.gather(
-                *tasks, desc="Processing Batch"
-            )
+            results = await tqdm_asyncio.gather(*tasks, desc="Processing Batch")
             for j, text_paper, text_si in results:
                 df_new.at[j, "text_paper"] = text_paper
                 df_new.at[j, "text_si"] = text_si

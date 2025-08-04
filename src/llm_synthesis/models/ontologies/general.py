@@ -1,5 +1,7 @@
 """General synthesis ontology."""
 
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -145,32 +147,6 @@ class ProcessStep(BaseModel):
     )
 
 
-class CharacterizationMethod(BaseModel):
-    technique: str = Field(
-        ...,
-        description=(
-            "Characterization technique. Use standard acronyms where possible "
-            "E.g. 'XRD', 'SEM', 'TEM', 'XPS', 'BET', 'FTIR', 'UV-Vis', 'NMR', "
-            "'X-ray diffraction', 'scanning electron microscopy'."
-        ),
-    )
-    purpose: str | None = Field(
-        default=None,
-        description=(
-            "Purpose of the characterization. E.g. 'crystal structure', "
-            "'morphology', 'composition', 'surface area', "
-            "'phase identification' "
-        ),
-    )
-    conditions: str | None = Field(
-        default=None,
-        description=(
-            "Characterization conditions. E.g. 'Cu K-alpha radiation', "
-            "'20 kV acceleration voltage', '2θ range 10-80°'."
-        ),
-    )
-
-
 class GeneralSynthesisOntology(BaseModel):
     """
     Comprehensive synthesis ontology for structured synthesis procedures.
@@ -180,38 +156,59 @@ class GeneralSynthesisOntology(BaseModel):
         ..., description="Target compound composition and description."
     )
 
-    target_compound_type: str = Field(
-        description=(
-            "Choose from: 'metals & alloys', 'ceramics & glasses', "
-            "'polymers & soft matter', 'composites',"
-            "'semiconductors & electronic', "
-            "'nanomaterials', 'two-dimensional materials', "
-            "'framework & porous materials', "
-            "'biomaterials & biological', 'liquid materials', "
-            "'hybrid & organic-inorganic', "
-            "'functional materials', 'energy & sustainability', "
-            "'smart & responsive materials', "
-            "'emerging & quantum materials', 'other'."
-        ),
-    )
-
-    synthesis_method: str = Field(
-        description=(
-            "Choose from: 'PVD', 'CVD', 'arc discharge',"
-            " 'ball milling', 'spray pyrolysis', 'electrospinning', "
-            "'sol-gel processing', 'hydrothermal', 'solvothermal',"
-            "'precipitation', "
-            "'combustion', 'microwave-assisted', 'sonochemical', "
-            "'template-directed', "
-            "'solid-state', 'flux growth', 'float zone & Bridgman', "
-            "'arc melting & induction melting', 'spark plasma sintering', "
-            "'wet chemical synthesis', 'electrochemical deposition', "
-            "'chemical bath deposition', 'liquid-phase epitaxy', "
-            "'self-assembly', 'atomic layer deposition', "
-            "'molecular beam epitaxy', 'pulsed laser deposition', "
-            "'ion implantation', 'lithographic patterning', 'other'."
-        ),
-    )
+    target_compound_type: Literal[
+        "metals & alloys",
+        "ceramics & glasses",
+        "polymers & soft matter",
+        "composites",
+        "semiconductors & electronic",
+        "nanomaterials",
+        "two-dimensional materials",
+        "framework & porous materials",
+        "biomaterials & biological",
+        "liquid materials",
+        "hybrid & organic-inorganic",
+        "functional materials & cataysts",
+        "energy & sustainability",
+        "smart & responsive materials",
+        "emerging & quantum materials",
+        "other",
+    ] = Field(description="Choose target compound type from predefined list.")
+    synthesis_method: Literal[
+        "PVD",
+        "CVD",
+        "arc discharge",
+        "ball milling",
+        "spray pyrolysis",
+        "electrospinning",
+        "sol-gel",
+        "hydrothermal",
+        "solvothermal",
+        "precipitation",
+        "coprecipitation",
+        "combustion",
+        "microwave-assisted",
+        "sonochemical",
+        "template-directed",
+        "solid-state",
+        "flux growth",
+        "float zone & Bridgman",
+        "arc melting & induction melting",
+        "spark plasma sintering",
+        "electrochemical deposition",
+        "chemical bath deposition",
+        "liquid-phase epitaxy",
+        "self-assembly",
+        "atomic layer deposition",
+        "molecular beam epitaxy",
+        "pulsed laser deposition",
+        "ion implantation",
+        "lithographic patterning",
+        "wet impregnation",
+        "incipient wetness impregnation",
+        "mechanical mixing",
+        "other",
+    ] = Field(description="Choose synthesis method.")
 
     starting_materials: list[Material] = Field(
         default_factory=list,
