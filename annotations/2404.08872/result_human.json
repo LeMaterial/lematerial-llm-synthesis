@@ -1,0 +1,404 @@
+[
+  {
+    "material": "MOS2",
+    "synthesis": {
+      "target_compound": "MOS2",
+      "target_compound_type": "two-dimensional materials",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "sodium molybdate dihydrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "thiourea",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "distilled water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "The molybdenum precursor was added to the water in a specific ratio, which was determined through a series of experiments. The ratio of molybdenum precursor to thiourea used in this study was 1:4.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "sodium molybdate dihydrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "distilled water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "thiourea",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "The mixture was then agitated for 15 minutes to ensure homogeneity.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Once the mixture was homogenized, it was placed in a Teflon-coated stainless-steel autoclave. The autoclave was heated to a temperature of 200\u00b0C and maintained at this temperature for 22 hours.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "autoclave",
+              "instrument_vendor": null,
+              "settings": "Teflon-coated stainless-steel"
+            }
+          ],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": 22.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "cool",
+          "description": "After the heating process was completed, the autoclave was cooled to room temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "autoclave",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Once the autoclave had reached room temperature, the powders were removed and dried for 8 hours at a temperature of 80\u00b0C in an oven.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 80.0,
+            "temp_unit": "C",
+            "duration": 8.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "autoclave",
+          "instrument_vendor": null,
+          "settings": "Teflon-coated stainless-steel"
+        },
+        {
+          "name": "oven",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The synthesis is correctly extrcated from the paper. HOWEVER, note that it should be MoS2 (lowercase 'o') in the text, where it is incorrectly capitalised. The LLM has unsurprisingly perhaps not spotted the error.",
+      "scores": {
+        "structural_completeness_score": 5,
+        "structural_completeness_reasoning": "All good.",
+        "material_extraction_score": 5,
+        "material_extraction_reasoning": "All good.",
+        "process_steps_score": 5,
+        "process_steps_reasoning": "All good.",
+        "equipment_extraction_score": 5,
+        "equipment_extraction_reasoning": "All good.",
+        "conditions_extraction_score": 5,
+        "conditions_extraction_reasoning": "All good.",
+        "semantic_accuracy_score": 5,
+        "semantic_accuracy_reasoning": "All good.",
+        "format_compliance_score": 5,
+        "format_compliance_reasoning": "All good.",
+        "overall_score": 5,
+        "overall_reasoning": "All good."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  },
+  {
+    "material": "MOS2-rGO",
+    "synthesis": {
+      "target_compound": "MOS2-rGO",
+      "target_compound_type": "composites",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "sodium molybdate dihydrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "thiourea",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "The molybdenum precursor was added to the water in a specific ratio, which was determined through a series of experiments. The ratio of molybdenum precursor to thiourea used in this study was 1:4. The mixture was then agitated for 15 minutes to ensure homogeneity.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "molybdenum precursor",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "distilled water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "thiourea",
+              "amount": 4.0,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Once the mixture was homogenized, it was placed in a Teflon-coated stainless-steel autoclave. The autoclave was heated to a temperature of 200\u00b0C and maintained at this temperature for 22 hours.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Teflon-coated stainless-steel autoclave",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "\u00b0C",
+            "duration": 22.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cool",
+          "description": "After the heating process was completed, the autoclave was cooled to room temperature. The cooling process is an essential step as it allows the synthesized material to solidify and form crystals.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "autoclave",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "dry",
+          "description": "Once the autoclave had reached room temperature, the powders were removed and dried for 8 hours at a temperature of 80\u00b0C in an oven. The drying process is necessary as it removes any residual water or other impurities from the synthesized material, ensuring that the final product is of high quality.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 80.0,
+            "temp_unit": "\u00b0C",
+            "duration": 8.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Teflon-coated stainless-steel autoclave",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "oven",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "MOS2-rGO hasn't been prepared in the paper, only MoS2. This recipe is 'extracted' by combining the MoS2 procedure and some ofthe references on rGO given in the introduction section.",
+      "scores": {
+        "structural_completeness_score": 0,
+        "structural_completeness_reasoning": "",
+        "material_extraction_score": 0,
+        "material_extraction_reasoning": "",
+        "process_steps_score": 0,
+        "process_steps_reasoning": "",
+        "equipment_extraction_score": 0,
+        "equipment_extraction_reasoning": "",
+        "conditions_extraction_score": 0,
+        "conditions_extraction_reasoning": "",
+        "semantic_accuracy_score": 0,
+        "semantic_accuracy_reasoning":"",
+        "format_compliance_score": 0,
+        "format_compliance_reasoning": "",
+        "overall_score": 0,
+        "overall_reasoning": ""
+      },
+      "confidence_level": "low",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  }
+]
