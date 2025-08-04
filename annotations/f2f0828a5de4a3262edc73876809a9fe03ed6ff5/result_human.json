@@ -1,0 +1,1412 @@
+[
+  {
+    "material": "IG-C6",
+    "synthesis": {
+      "target_compound": "IG-C6",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": "0.5",
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Merck",
+          "name": "[C6C1im][NTf2]",
+          "amount": "2.0",
+          "unit": "g",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of [C6C1im][NTf2] to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "[C6C1im][NTf2]",
+              "amount": 2.0,
+              "unit": "g",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+          ],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+          ],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+          ],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "Instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "Instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The ionic liquid consists entirely of [C6C1im][NTf2] to achieve an average carbon number of 6."
+    }
+  },
+  {
+    "material": "IG-C8*",
+    "synthesis": {
+      "target_compound": "IG-C8*",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": 0.5,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Merck",
+          "name": "[C6C1im][NTf2]",
+          "amount": 5,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "[C18C1im][NTf2]",
+          "amount": 1,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "[C6C1im][NTf2]",
+              "amount": 5,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "[C18C1im][NTf2]",
+              "amount": 1,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+            "solution"],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+            "solvent"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+            "sample"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "Instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "Instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 1:5."
+    }
+  },
+  {
+    "material": "IG-C10*",
+    "synthesis": {
+      "target_compound": "IG-C10*",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": 0.5,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Merck",
+          "name": "[C6C1im][NTf2]",
+          "amount": 2,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "[C18C1im][NTf2]",
+          "amount": 1,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "[C6C1im][NTf2]",
+              "amount": 2,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "[C18C1im][NTf2]",
+              "amount": 1,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+            "solution"],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+            "solvent"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+            "sample"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 1:2."
+    }
+  },
+  {
+    "material": "IG-C12*",
+    "synthesis": {
+      "target_compound": "IG-C12*",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": 0.5,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Merck",
+          "name": "[C6C1im][NTf2]",
+          "amount": 1,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "[C18C1im][NTf2]",
+          "amount": 1,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "[C6C1im][NTf2]",
+              "amount": 1,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "[C18C1im][NTf2]",
+              "amount": 1,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+            "solution"],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+            "solvent"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+            "sample"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 1:1."
+    }
+  },
+  {
+    "material": "IG-C14*",
+    "synthesis": {
+      "target_compound": "IG-C14*",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": 0.5,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Merck",
+          "name": "[C6C1im][NTf2]",
+          "amount": 1,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "[C18C1im][NTf2]",
+          "amount": 2,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "[C6C1im][NTf2]",
+              "amount": 1,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "[C18C1im][NTf2]",
+              "amount": 2,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+            "solution"],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+            "solvent"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+            "sample"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 2:1."
+    }
+  },
+  {
+    "material": "IG-C16*",
+    "synthesis": {
+      "target_compound": "IG-C16*",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": 0.5,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Merck",
+          "name": "[C6C1im][NTf2]",
+          "amount": 1,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "[C18C1im][NTf2]",
+          "amount": 5,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "[C6C1im][NTf2]",
+              "amount": 1,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "[C18C1im][NTf2]",
+              "amount": 5,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+            "solution"],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+            "solvent"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+            "sample"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "Instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "Instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 5:1."
+    }
+  },
+  {
+    "material": "IG-C18",
+    "synthesis": {
+      "target_compound": "IG-C18",
+      "target_compound_type": "ionogel",
+      "synthesis_method": "polymer solution casting",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "PVDF-HFP",
+          "amount": "0.5",
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "[C18C1im][NTf2]",
+          "amount": "2.0",
+          "unit": "g",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "PVDF-HFP",
+              "amount": 0.5,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": "40",
+            "temp_unit": "°C",
+            "duration": "4",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add 2.0 g of [C18C1im][NTf2] to the polymer solution with stirring.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "[C18C1im][NTf2]",
+              "amount": 2.0,
+              "unit": "g",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": "yes",
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cast",
+          "description": "Cast the solution into a petri dish.",
+          "materials": [
+            "solution"],
+          "equipment": [
+            {
+              "name": "petri dish",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "evaporate",
+          "description": "Evaporate solvent at room temperature for 24 h.",
+          "materials": [
+            "solvent"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "room temperature",
+            "temp_unit": null,
+            "duration": "24",
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Dry the sample at 60°C under vacuum for 12 h.",
+          "materials": [
+            "sample"],
+          "equipment": [
+          ],
+          "conditions": {
+            "temperature": "60",
+            "temp_unit": "°C",
+            "duration": "12",
+            "time_unit": "h",
+            "pressure": "vacuum",
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "Instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "petri dish",
+          "Instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The ionic liquid consists entirely of [C(18)C1im][NTf(2)] to achieve an average carbon number of 18."
+    },
+    "evaluation": {
+      "reasoning": "The extraction gets both the material and its synthesis wrong",
+      "scores": {
+        "structural_completeness_score": 1.0 ,
+        "structural_completeness_reasoning": "All the materials and steps missed",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No materials were extracted",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No synthesis is extracted",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No conditions were extracted",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+        "format_compliance_score": 3.5,
+        "format_compliance_reasoning": "The format compliance is good but empty. No materials, synthesis, conditions or equipments were extracted.",
+        "overall_score": 1.4,
+        "overall_reasoning": "Nothing was extracted"
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Starting materials, synthesis, equipment, conditions"
+      ],
+      "extraction_errors": [
+        "Extraction failed"
+      ],
+      "improvement_suggestions": [
+        "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+      ]
+    }
+  }
+]
