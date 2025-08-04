@@ -159,7 +159,7 @@ lm = dspy.LM(
     api_base='http://localhost:8000/v1',
     api_key='EMPTY',   # or your key if needed
     temperature=0.7,
-    max_tokens=2048,
+    max_tokens=20_000,
 )
 dspy.settings.configure(lm=lm, adapter=TwoStepAdapter(lm))
 

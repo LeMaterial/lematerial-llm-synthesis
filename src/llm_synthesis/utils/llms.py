@@ -1,27 +1,14 @@
 import os
 from collections.abc import Mapping
 from dataclasses import dataclass
+from typing import Optional
 
 import dspy
+import litellm
 
 
 @dataclass(frozen=True)
 class LLMConfig:
-    """
-    A configuration for an LLM to instantiate with dspy.
-    Includes the model name, and optional API key name in the
-    environment (e.g. "OPENAI_API_KEY") and base URL.
-    The latter is needed to call external providers with the OpenAI API.
-    In DSPy, you can use dozens of LLM providers supported by LiteLLM.
-    Simply follow their instructions for which {PROVIDER}_API_KEY to set and
-    how to write pass the {provider_name}/{model_name} to the constructor.
-
-    Args:
-        model: The name of the model to instantiate.
-        api_key: The name of the environment variable containing the API key.
-        api_base: The base URL of the API.
-    """
-
     model: str
     api_key: str | None = None
     api_base: str | None = None
@@ -29,25 +16,14 @@ class LLMConfig:
 
 @dataclass(frozen=True)
 class LLMRegistry:
-    """
-    A registry of LLMs to instantiate with dspy.
-
-    Args:
-        configs: A mapping of model names to LLM configurations.
-    """
-
     configs: Mapping[str, LLMConfig]
 
 
 LLM_REGISTRY = LLMRegistry(
     configs={
         "gemini-2.0-flash": LLMConfig(model="gemini/gemini-2.0-flash"),
-        "gemini-2.5-flash": LLMConfig(
-            model="gemini/gemini-2.5-flash-preview-05-20"
-        ),
-        "gemini-2.5-pro": LLMConfig(
-            model="gemini/gemini-2.5-pro-preview-05-06"
-        ),
+        "gemini-2.5-flash": LLMConfig(model="gemini/gemini-2.5-flash-preview-05-20"),
+        "gemini-2.5-pro": LLMConfig(model="gemini/gemini-2.5-pro-preview-05-06"),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),
         "gpt-o4-mini": LLMConfig(model="openai/o4-mini-2025-04-16"),
@@ -70,38 +46,42 @@ LLM_REGISTRY = LLMRegistry(
         ),
         "local-NuExtract-v1.5": LLMConfig(
             model="openai//scratch16/mshiel10/mzaki4/cache/models--numind--NuExtract-v1.5/snapshots/a7a4e41090a1c5aa95fdebab4c859d7111d628c0",
-            api_key='',
+            api_key="",
             api_base="http://localhost:8000/v1",
         ),
+    }
 )
 
 
-class SystemPrefixedLM(dspy.LM):
+class SystemPrefixedLM:
     """
-    Wrap any dspy.LM and automatically inject a system prompt
-    at start of every call.
+    Wraps a callable LiteLLM-compatible model with an injected system prompt.
     """
+    def __init__(self, base_model_callable, system_prompt: str):
+        self.base_model_callable = base_model_callable
+        self.system_prompt = system_prompt
 
-    def __init__(self, system_prompt: str, model: str, **kwargs):
-        super().__init__(model, **kwargs)
-        self._system_prompt = system_prompt
-
-    def __call__(
-        self,
-        prompt: str | None = None,
-        messages: list[dict] | None = None,
-        **override_kwargs,
-    ):
-        # build chat messages if necessary
+    def __call__(self, prompt=None, messages=None, **kwargs):
         if messages is None:
             messages = [
-                {"role": "system", "content": self._system_prompt},
-                {"role": "user", "content": prompt or ""},
+                {"role": "system", "content": self.system_prompt},
+                {"role": "user", "content": prompt or ""}
             ]
         else:
-            messages = [
-                {"role": "system", "content": self._system_prompt},
-                *messages,
-            ]
+            messages = [{"role": "system", "content": self.system_prompt}, *messages]
+        return self.base_model_callable(messages=messages, **kwargs)
 
-        return super().__call__(messages=messages, **override_kwargs)
+
+# Optional auto-injection via env var
+if os.getenv("USE_SYSTEM_PREFIXED_LM", "false").lower() == "true":
+    config = LLM_REGISTRY.configs["local-NuExtract-v1.5"]
+    base_model = dspy.LM(
+        model=config.model,
+        api_base=config.api_base,
+        api_key=config.api_key
+    )
+    wrapped_model = SystemPrefixedLM(
+        base_model_callable=base_model,
+        system_prompt="You are a materials synthesis expert. Extract structured synthesis from the input paragraph."
+    )
+    dspy.settings.lm = wrapped_model

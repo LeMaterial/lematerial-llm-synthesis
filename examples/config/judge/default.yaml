@@ -4,6 +4,6 @@ architecture:
     _target_: llm_synthesis.metrics.judge.dspy_judge.make_dspy_synthesis_judge_signature
   lm:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gpt-4o"
+    llm_name: "local-NuExtract-v1.5"
     model_kwargs:
       temperature: 0.0 
