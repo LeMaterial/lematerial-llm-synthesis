@@ -1,0 +1,108 @@
+[
+  {
+    "material": "Bi1.74Pb0.38Sr1.88CuO6+\u03b4",
+    "synthesis": {
+      "target_compound": "Bi1.74Pb0.38Sr1.88CuO6+\u03b4",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "floating-zone",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "grow",
+          "description": "High quality superstructure-free Bi1.74Pb0.38Sr1.88CuO6+\u03b4 (Pb-Bi2201) single crystal was grown by floating-zone technique.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Bi1.74Pb0.38Sr1.88CuO6+\u03b4",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "anneal",
+          "description": "Through Oxygen or Argon annealing, we have prepared overdoped samples with superconducting phase transition temperature Tc's (dopings) of 0K (0.27), 5K (0.26), 7K (0.258), 10K (0.252), 16K (0.24) and 22K (0.225), where the hole concentration x's are estimated based on the empirical formula T<sup>c</sup> = Tc,opt[1 \u2212 82.6(x \u2212 0.16)<sup>2</sup> ],[20](#page-4-20) and Tc,opt = 34K for Bi2201.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Bi1.74Pb0.38Sr1.88CuO6+\u03b4",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Oxygen",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Argon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction is good, given the low quality of the recipe in the original text. There seems to be no information about the starting materials. There was one small hallucination regarding the synthesis_method.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "The ontology looks ok, again, given the minimal information extracted.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The target material is accurately identified, and the relevant gases (oxygen, argon) used in annealing are also extracted.",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "Correctly identified.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is in the text.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Only conditions were the oxygen OR argon (also quite vague).",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "Synthesis_method should be 'floating-zone' ",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid, and the data is organized according to the ontology structure.",
+        "overall_score": 4.9,
+        "overall_reasoning": "The extraction provides a reasonable overview of the synthesis procedure, but lacks specific details regarding equipment and conditions. The material extraction is accurate, and the process steps are logically organized. The overall score reflects the balance between the completeness and accuracy of the extraction."
+      },
+      "confidence_level": "medium",
+      "missing_information": [],
+      "extraction_errors": ["Bridgman not in text"],
+      "improvement_suggestions": []
+    }
+  }
+]

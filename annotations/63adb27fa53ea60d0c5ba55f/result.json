@@ -1,0 +1,478 @@
+[
+  {
+    "material": "organogels",
+    "synthesis": {
+      "target_compound": "organogels",
+      "target_compound_type": "polymers & soft matter",
+      "synthesis_method": "wet chemical synthesis",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "2,4,6 pyridinetricarboxaldehyde",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "\u03b1,\u03c9-dinitroalkanes",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing 2,4,6 pyridinetricarboxaldehyde (1) and \u03b1,\u03c9-dinitroalkanes 2a-h in a molar ratio of 2:3 in DMSO.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "2,4,6 pyridinetricarboxaldehyde",
+              "amount": 2.0,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "\u03b1,\u03c9-dinitroalkanes",
+              "amount": 3.0,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "DMSO",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Add triethylamine as the catalyst to trigger the reaction.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "triethylamine",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The gelation process could be fine-tuned by changing the starting nitroalkanes, solvents, feed concentration, catalyst loading, or reaction temperature. DMSO was selected as the solvent for all subsequent experiments because of the short gelation time and high gel stability."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the core synthesis procedure for the organogels, including the key materials, reaction steps, and conditions. However, there are several areas for improvement, particularly in the completeness and accuracy of the extracted information. The structural completeness is moderate, as some details regarding specific dinitroalkanes and catalyst amounts are missing. The material extraction is generally accurate but lacks specific quantities and purities. The process steps are well-defined, but the conditions extraction is incomplete. Semantic accuracy is mostly preserved, but some nuances of the original text are lost. Format compliance is good overall, but some fields could be more precisely populated. Overall, the extraction provides a reasonable representation of the synthesis but could benefit from more detailed information and greater precision.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main components of the synthesis (materials, steps, conditions), but lacks specific details such as the exact dinitroalkanes used (2a-h) and precise catalyst loading. The solvent screening and its impact on gelation are not fully represented.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The key materials (2,4,6-pyridinetricarboxaldehyde and \u03b1,\u03c9-dinitroalkanes) are identified, but the amounts are only specified as a molar ratio in one step, and purities are missing. The specific dinitroalkanes (2a-h) should ideally be listed individually if possible.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally well-described. The 'mix' and 'add' actions are appropriate. However, the description could be more detailed, including the order of addition and mixing method.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text besides standard labware. The extraction accurately reflects this, but it would be beneficial to include generic lab equipment like 'reaction vessel' or 'stirrer' to improve completeness.",
+        "conditions_extraction_score": 2.5,
+        "conditions_extraction_reasoning": "The conditions extraction is weak. While the solvent (DMSO) is identified, crucial parameters like temperature, reaction duration, and catalyst concentration are not consistently extracted. The text mentions varying these parameters to fine-tune gelation, but these variations are not captured.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extracted ontology generally preserves the scientific meaning of the synthesis procedure. The key reactions and their purpose are accurately represented. However, the lack of specific details in the conditions and material amounts slightly diminishes the semantic accuracy.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted ontology largely adheres to the schema and data type requirements. The structure is well-organized, and the data types are generally correct. Minor improvements could be made by ensuring all fields are populated where possible.",
+        "overall_score": 3.4,
+        "overall_reasoning": "The extraction provides a reasonable representation of the synthesis procedure, but it could be significantly improved by including more specific details about the materials, conditions, and equipment. The structural completeness and conditions extraction are the weakest areas, while the process steps and format compliance are relatively strong. Overall, a more comprehensive and precise extraction would be desirable."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Specific types of dinitroalkanes used (2a-h)",
+        "Reaction temperature and duration",
+        "Catalyst concentration",
+        "Purity of starting materials",
+        "Specific equipment used (e.g., reaction vessel, stirrer)"
+      ],
+      "extraction_errors": [
+        "Missing specific dinitroalkanes (2a-h)",
+        "Incomplete conditions extraction (temperature, duration, catalyst concentration)",
+        "Lack of purity information for materials",
+        "Missing generic lab equipment"
+      ],
+      "improvement_suggestions": [
+        "Include specific dinitroalkanes (2a-h) as separate material entries if possible.",
+        "Extract temperature, reaction duration, and catalyst concentration from the text and populate the conditions fields.",
+        "Add purity information for the starting materials if available in the source text.",
+        "Include generic lab equipment such as 'reaction vessel' and 'stirrer' to improve completeness.",
+        "Refine the descriptions of process steps to include more details about the order of addition and mixing methods."
+      ]
+    }
+  },
+  {
+    "material": "crosslinked dynamers",
+    "synthesis": {
+      "target_compound": "crosslinked dynamers",
+      "target_compound_type": "polymers & soft matter",
+      "synthesis_method": "wet chemical synthesis",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "2,4,6 pyridinetricarboxaldehyde",
+          "amount": 2.0,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "\u03b1,\u03c9-dinitroalkanes",
+          "amount": 3.0,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "The interconnections between tritopic compound 1 and ditopic compounds 2a-h in a molar ratio of 2:3 would be able to generate dynamic polymers displaying an intricate three-dimensional network topology",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "2,4,6 pyridinetricarboxaldehyde",
+              "amount": 2.0,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "\u03b1,\u03c9-dinitroalkanes",
+              "amount": 3.0,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "The reaction started immediately upon addition of triethylamine. Compound 1, displaying aldehyde signals at 10.25 ppm and 10.15 ppm, was consumed within minutes, while new aldehyde peaks corresponding to di- and monoaldehydes appeared in a more upfield region (9.90\u201310.12 ppm). All aldehyde peaks disappeared within 30 minutes showing the high reaction conversion. The dinitroalkane \u03b1-proton resonance at 4.53 ppm showed similar changes, gradually decreasing until almost complete disappearance over the experiment time period. Meanwhile, new signals grew in, bearing distinct resemblance, albeit broadened, to the peaks corresponding to those of the reference nitroalcohol 5 (Figure S4), indicating the formation of nitroalcohol polymers.1,5 It should be noted that all signals were significantly broadened after ~20 min due to the sol\u2013gel transition in the NMR tube, further indicating an efficient polymerization and gelation process in the reaction.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "triethylamine",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "wash",
+          "description": "The obtained nitroaldol network polymers were found to be insoluble in water, enabling removal of DMSO and triethylamine without significantly affecting the gel structure. When the gels were repeatedly immersed in deionized water and cleared from excess solvent, the gel remained largely intact, albeit becoming more opaque and more brittle. This also resulted in termination of the reversible nitroaldol reaction, thereby preserving the crosslinked polymer networks.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "dry",
+          "description": "In addition, xerogels could be obtained and analyzed without interference from other gel contents upon drying.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Dynamic covalent gels have been synthesized from an aromatic trialdehyde and \u03b1,\u03c9-dinitroalkanes via the nitroaldol reaction in organic solvents. The gelation process could be finetuned by changing the starting nitroalkanes, solvents, feed concentration, catalyst loading, or reaction temperature."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials but misses crucial details about the reaction conditions and equipment used. The structural completeness is moderate, with some key aspects of the procedure not fully represented. The material extraction is reasonably accurate, but the quantities are not specific to a single experiment. The process steps are generally well-organized, but lack specific parameters. The equipment extraction is minimal. The conditions extraction is incomplete, missing temperature, duration, and atmosphere details. Semantic accuracy is maintained, but the lack of detail reduces the overall usefulness. Format compliance is good. Overall, the extraction provides a basic outline of the synthesis but needs more specific information to be truly useful.",
+      "scores": {
+        "structural_completeness_score": 3.0,
+        "structural_completeness_reasoning": "The extraction covers the main materials and steps, but lacks detail on specific equipment and conditions used in each step. The overall flow is captured, but the specifics are missing.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The materials are correctly identified, including the main reactants and solvents. However, the amounts are given as a ratio rather than specific quantities used in a particular experiment. Purity information is missing.",
+        "process_steps_score": 3.5,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally accurate. However, the descriptions are sometimes vague and lack specific parameters or observations that would make them more informative.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "The equipment extraction is very weak. No specific equipment is mentioned, which is a significant omission.",
+        "conditions_extraction_score": 2.5,
+        "conditions_extraction_reasoning": "The conditions extraction is incomplete. While some general conditions are mentioned, specific temperatures, durations, and atmospheres are missing for most steps. Catalyst loading is mentioned in the text but not extracted.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, as the extracted information preserves the scientific meaning of the original text. However, the lack of detail reduces the overall usefulness of the extraction.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres perfectly to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted and populated.",
+        "overall_score": 3.4,
+        "overall_reasoning": "The extraction provides a basic outline of the synthesis but needs more specific information to be truly useful. The main areas for improvement are in equipment and conditions extraction, as well as providing more specific details in the process step descriptions."
+      },
+      "confidence_level": "medium",
+      "missing_information": [
+        "Specific equipment used in each step.",
+        "Temperature, duration, and atmosphere conditions for each step.",
+        "Solvent (DMSO).",
+        "Catalyst loading in step 2.",
+        "Temperature for the self-healing step.",
+        "Details of the degradation process."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include specific equipment used in each step, such as reaction vessels, stirring apparatus, and any specialized tools.",
+        "Extract specific temperature, duration, and atmosphere conditions for each step.",
+        "Provide more precise descriptions of each process step, including any visual observations or intermediate results.",
+        "Include the catalyst loading as a condition in step 2.",
+        "Extract the solvent (DMSO) as a material used in the reaction.",
+        "Specify the temperature for the self-healing step (room temperature).",
+        "Add a step for the degradation process with nitromethane and Et3N."
+      ]
+    }
+  },
+  {
+    "material": "polymer 3d",
+    "synthesis": {
+      "target_compound": "polymer 3d",
+      "target_compound_type": "polymers & soft matter",
+      "synthesis_method": "wet chemical synthesis",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "2,4,6 pyridinetricarboxaldehyde",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "1,6-dinitrohexane",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "The reaction of trialdehyde 1 with 1,6-dinitrohexane (2d) in DMSO was triggered by adding triethylamine as the catalyst.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "2,4,6 pyridinetricarboxaldehyde",
+              "amount": null,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "1,6-dinitrohexane",
+              "amount": null,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "DMSO",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "triethylamine",
+              "amount": null,
+              "unit": "mol%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "wash",
+          "description": "The obtained nitroaldol network polymers were found to be insoluble in water, enabling removal of DMSO and triethylamine without significantly affecting the gel structure. When the gels were repeatedly immersed in deionized water and cleared from excess solvent, the gel remained largely intact, albeit becoming more opaque and more brittle.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "dry",
+          "description": "In addition, xerogels could be obtained and analyzed without interference from other gel contents upon drying.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials but misses crucial details regarding quantities, reaction conditions, and equipment. The structural completeness is moderate, with some key aspects of the procedure not fully represented. Semantic accuracy is generally maintained, but the lack of specific values impacts the overall utility of the extracted data. Format compliance is good, but improvements are needed to fully adhere to the schema requirements, particularly in providing numerical values and units where available.",
+      "scores": {
+        "structural_completeness_score": 3.0,
+        "structural_completeness_reasoning": "The ontology captures the main materials and steps, but lacks specifics regarding the ratios of reactants, catalyst loading, and detailed conditions for each step. Equipment is not mentioned, leading to a lower score.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names are correctly identified, but the absence of quantities and purities significantly impacts the score. The units are missing for the amounts of materials used.",
+        "process_steps_score": 3.5,
+        "process_steps_reasoning": "The process steps are generally well-defined, but lack specific parameters such as mixing times or drying temperatures. The sequence of steps is logical and follows the text.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted, which is a significant omission. The synthesis likely involves standard lab equipment that should be identified.",
+        "conditions_extraction_score": 2.0,
+        "conditions_extraction_reasoning": "The extraction of conditions is poor. While the solvent is mentioned, specific temperatures, durations, and catalyst loading are not extracted, even though they are mentioned in the text. The catalyst loading is mentioned as mol% but the amount is not extracted.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic meaning is mostly preserved, but the lack of quantitative data reduces the overall accuracy. The relationships between materials and steps are correctly represented.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The extracted data generally adheres to the schema, but the absence of numerical values and units in several fields reduces the score. Data types are mostly correct.",
+        "overall_score": 3.0,
+        "overall_reasoning": "The extraction provides a basic overview of the synthesis but lacks the detail required for reproducibility. Key areas for improvement include the extraction of quantities, units, reaction conditions, and equipment."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Quantities and units of 2,4,6 pyridinetricarboxaldehyde and 1,6-dinitrohexane.",
+        "Reaction temperature and duration for the mixing step.",
+        "Specific drying conditions (temperature, time) for xerogel formation.",
+        "Equipment used for mixing, drying, and other steps.",
+        "Catalyst loading (amount of triethylamine)."
+      ],
+      "extraction_errors": [
+        "Missing quantities and units for starting materials.",
+        "Lack of specific reaction conditions (temperature, duration) for each step.",
+        "Failure to identify and extract equipment used in the synthesis.",
+        "Incomplete extraction of catalyst loading."
+      ],
+      "improvement_suggestions": [
+        "Implement more robust extraction of numerical values and units.",
+        "Improve the identification and classification of laboratory equipment.",
+        "Enhance the extraction of reaction conditions, including temperature, duration, and atmosphere.",
+        "Incorporate techniques to resolve coreferences and implicit information within the text."
+      ]
+    }
+  }
+]
