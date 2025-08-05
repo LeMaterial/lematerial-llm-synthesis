@@ -4,6 +4,17 @@ import numpy as np
 from llm_synthesis.models.plot import ExtractedLinePlotData
 
 
+def visualize_chart(data: ExtractedLinePlotData, figure_class: str):
+    if figure_class == "Line plot":
+        visualize_line_chart(data)
+    elif figure_class == "Bar plot":
+        visualize_bar_chart(data)
+    elif figure_class == "Scatter plot":
+        visualize_scatter_plot(data)
+    else:
+        raise ValueError(f"Unsupported figure class: {figure_class}")
+
+
 def visualize_line_chart(data: ExtractedLinePlotData):
     names = list(data.name_to_coordinates.keys())
 
@@ -107,4 +118,136 @@ def visualize_line_chart_specialized(
 
     plt.title(data.title, fontsize=12)
     plt.legend(fontsize=12, frameon=False)
+    plt.show()
+
+
+def visualize_bar_chart(data: ExtractedLinePlotData):
+    names = list(data.name_to_coordinates.keys())
+
+    colors = [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+        "#bcbd22",
+        "#17becf",
+    ]
+
+    # Extract all unique x-values to use as categories
+    all_x_values = set()
+    for coords in data.name_to_coordinates.values():
+        for x, y in coords:
+            all_x_values.add(x)
+
+    x_categories = sorted(list(all_x_values))
+
+    # Set up bar positions
+    bar_width = 0.8 / len(names) if len(names) > 1 else 0.6
+    x_positions = np.arange(len(x_categories))
+
+    for i, name in enumerate(names):
+        coords = data.name_to_coordinates[name]
+
+        # Create a mapping of x-values to y-values for this series
+        coord_dict = {x: y for x, y in coords}
+
+        # Get y-values for each x-category (0 if missing)
+        y_values = [coord_dict.get(x, 0) for x in x_categories]
+
+        # Calculate bar positions for this series
+        if len(names) > 1:
+            bar_positions = x_positions + (i - (len(names) - 1) / 2) * bar_width
+        else:
+            bar_positions = x_positions
+
+        color = colors[i % len(colors)]
+        plt.bar(
+            bar_positions,
+            y_values,
+            bar_width,
+            label=name,
+            color=color,
+            alpha=0.8,
+        )
+
+    # Set labels and formatting
+    xlabel = f"{data.x_axis_label}_({data.x_axis_unit})"
+    ylabel = f"{data.y_left_axis_label}_({data.y_left_axis_unit})"
+
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(data.title)
+    plt.xticks(x_positions, [str(x) for x in x_categories])
+    plt.legend()
+    plt.grid(axis="y", alpha=0.3)
+    plt.tight_layout()
+    plt.show()
+
+
+def visualize_scatter_plot(data: ExtractedLinePlotData):
+    names = list(data.name_to_coordinates.keys())
+
+    colors = [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+        "#bcbd22",
+        "#17becf",
+    ]
+
+    markers = [
+        "o",
+        "^",
+        "s",
+        "D",
+        "v",
+        "<",
+        ">",
+        "p",
+        "*",
+        "h",
+        "H",
+        "+",
+        "x",
+        "|",
+        "_",
+    ]
+
+    for i, name in enumerate(names):
+        coords = data.name_to_coordinates[name]
+        if coords:  # Check if coordinates exist
+            x, y = zip(*coords)
+            color = colors[i % len(colors)]
+            marker = markers[i % len(markers)]
+            plt.scatter(
+                x,
+                y,
+                label=name,
+                color=color,
+                marker=marker,
+                s=50,
+                alpha=0.7,
+                edgecolors="black",
+                linewidth=0.5,
+            )
+
+    # Set labels and formatting
+    xlabel = f"{data.x_axis_label}_({data.x_axis_unit})"
+    ylabel = f"{data.y_left_axis_label}_({data.y_left_axis_unit})"
+
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(data.title)
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
     plt.show()

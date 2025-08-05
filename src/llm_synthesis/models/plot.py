@@ -86,3 +86,7 @@ class ExtractedLinePlotData(BaseModel):
     x_axis_unit: str | None
     y_left_axis_label: str | None
     y_left_axis_unit: str | None
+    figure_class: str = Field(
+        description="Type of fig (Line plots, Bar plots, Scatter plot, etc.)",
+        default="Line plots",
+    )
