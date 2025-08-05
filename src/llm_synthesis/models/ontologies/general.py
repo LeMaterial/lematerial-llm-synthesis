@@ -124,26 +124,15 @@ class ProcessStep(BaseModel):
     step_number: int = Field(
         ..., description="Sequential step number in the synthesis procedure."
     )
-    action: Literal[
-        "add",
-        "mix",
-        "heat",
-        "cool",
-        "reflux",
-        "age",
-        "filter",
-        "wash",
-        "dry",
-        "reduce",
-        "calcine",
-        "dissolve",
-        "precipitate",
-        "centrifuge",
-        "sonicate",
-        "anneal",
-        "ion exchange",
-        "impregnate",
-    ] = Field(..., description="Primary action performed in this step.")
+    action: str = Field(
+        ...,
+        description=(
+            "Primary action performed in this step, choose from: "
+            "'add', 'mix', 'heat', 'cool', 'reflux', 'age', 'filter', "
+            "'wash', 'dry', 'reduce', 'calcine', 'dissolve', 'precipitate', "
+            "'centrifuge', 'sonicate', 'anneal', 'ion exchange', 'impregnate'."
+        ),
+    )
     description: str | None = Field(
         default=None, description="Detailed description of the process step."
     )
@@ -158,32 +147,6 @@ class ProcessStep(BaseModel):
     )
 
 
-class CharacterizationMethod(BaseModel):
-    technique: str = Field(
-        ...,
-        description=(
-            "Characterization technique. Use standard acronyms where possible "
-            "E.g. 'XRD', 'SEM', 'TEM', 'XPS', 'BET', 'FTIR', 'UV-Vis', 'NMR', "
-            "'X-ray diffraction', 'scanning electron microscopy'."
-        ),
-    )
-    purpose: str | None = Field(
-        default=None,
-        description=(
-            "Purpose of the characterization. E.g. 'crystal structure', "
-            "'morphology', 'composition', 'surface area', "
-            "'phase identification' "
-        ),
-    )
-    conditions: str | None = Field(
-        default=None,
-        description=(
-            "Characterization conditions. E.g. 'Cu K-alpha radiation', "
-            "'20 kV acceleration voltage', '2θ range 10-80°'."
-        ),
-    )
-
-
 class GeneralSynthesisOntology(BaseModel):
     """
     Comprehensive synthesis ontology for structured synthesis procedures.
@@ -192,13 +155,60 @@ class GeneralSynthesisOntology(BaseModel):
     target_compound: str = Field(
         ..., description="Target compound composition and description."
     )
-    synthesis_method: str | None = Field(
-        default=None,
-        description=(
-            "Overall synthesis method. E.g. 'hydrothermal', 'sol-gel', "
-            "'solid-state', 'chemical vapor deposition', 'electrodeposition'."
-        ),
-    )
+
+    target_compound_type: Literal[
+        "metals & alloys",
+        "ceramics & glasses",
+        "polymers & soft matter",
+        "composites",
+        "semiconductors & electronic",
+        "nanomaterials",
+        "two-dimensional materials",
+        "framework & porous materials",
+        "biomaterials & biological",
+        "liquid materials",
+        "hybrid & organic-inorganic",
+        "functional materials & cataysts",
+        "energy & sustainability",
+        "smart & responsive materials",
+        "emerging & quantum materials",
+        "other",
+    ] = Field(description="Choose target compound type from predefined list.")
+    synthesis_method: Literal[
+        "PVD",
+        "CVD",
+        "arc discharge",
+        "ball milling",
+        "spray pyrolysis",
+        "electrospinning",
+        "sol-gel",
+        "hydrothermal",
+        "solvothermal",
+        "precipitation",
+        "coprecipitation",
+        "combustion",
+        "microwave-assisted",
+        "sonochemical",
+        "template-directed",
+        "solid-state",
+        "flux growth",
+        "float zone & Bridgman",
+        "arc melting & induction melting",
+        "spark plasma sintering",
+        "electrochemical deposition",
+        "chemical bath deposition",
+        "liquid-phase epitaxy",
+        "self-assembly",
+        "atomic layer deposition",
+        "molecular beam epitaxy",
+        "pulsed laser deposition",
+        "ion implantation",
+        "lithographic patterning",
+        "wet impregnation",
+        "incipient wetness impregnation",
+        "mechanical mixing",
+        "other",
+    ] = Field(description="Choose synthesis method.")
 
     starting_materials: list[Material] = Field(
         default_factory=list,

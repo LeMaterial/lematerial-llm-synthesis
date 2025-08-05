@@ -1,0 +1,259 @@
+[
+  {
+    "material": "\u03b1-In2Te3",
+    "synthesis": {
+      "target_compound": "\u03b1-In2Te3",
+      "target_compound_type": "semiconductors & electronic",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "In2O3",
+          "amount": 0.2,
+          "unit": "g",
+          "purity": "pure"
+        },
+        {
+          "vendor": null,
+          "name": "SiO2/Si wafer",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Te",
+          "amount": 0.26,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "H2",
+          "amount": 15.0,
+          "unit": "sccm",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Ar",
+          "amount": 45.0,
+          "unit": "sccm",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "clean",
+          "description": "The SiO2 substrates were cleaned with alcohol in ultrasonic bath for 10 min three times then with acetone one time for 10 min to remove both inorganic and organic contaminations, respectively.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SiO2 substrates",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "alcohol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonic bath",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 10.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "deposit",
+          "description": "In2O3 powder was put in tungsten boat and then heated under a pressure of 6.0 * 10\u22123 Pa to deposit onto substrates by thermal evaporation.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "In2O3",
+              "amount": null,
+              "unit": null,
+              "purity": "pure"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "resistance heating vacuum coating system",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "tungsten boat",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": 0.006,
+            "pressure_unit": "Pa",
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Te as-deposited In2O3were placed in another thermal zone at downstream of the carrier gas with a mixture of H2 and Ar (15 and 45 sccm, respectively). Te evaporation temperature in frst thermal zone is set over the melting temperature of Te and the reaction temperature at the substrate is limited by 440 \u00b0C at the second zone.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "In2O3",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Te",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "H2",
+              "amount": 15.0,
+              "unit": "sccm",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Ar",
+              "amount": 45.0,
+              "unit": "sccm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "oven",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "quartz tube",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 440.0,
+            "temp_unit": "\u00b0C",
+            "duration": 80.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "H2/Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "cool",
+          "description": "Te samples are cooled down to room temperature under reaction atmosphere.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "reaction",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "CVD",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "Before deposition of thin flm, the SiO2 substrates were cleaned with alcohol in ultrasonic bath for 10 min three times then with acetone one time for 10 min to remove both inorganic and organic contaminations, respectively. To eliminate contamination of O2, we evacuate quartz tube and refll it with N2 three times. Both evaporation and reaction area persist in overheating from room temperature to 500\u00b0C and 440\u00b0C within 20min respectively and dwell for 80min."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main elements of the synthesis, including materials, steps, equipment, and conditions. However, there are inaccuracies in the quantities and units of materials, and some conditions are not fully specified. The process steps are generally well-organized, but some details are missing. The semantic accuracy is good overall, but there are some areas where the meaning could be more precisely captured. The format compliance is generally good, but there are some minor issues with data types and schema adherence.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology captures most of the key elements of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the ramp rate for heating and cooling.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The material extraction is mostly accurate, but there are some inaccuracies in the quantities and units. For example, the amount of In2O3 is given as a range (0.2~0.25 g), but only the lower bound is extracted. The purity of some materials is not specified.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized and easy to follow. The actions are correctly classified. However, some details are missing, such as the specific heating rate.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment extraction is generally accurate and complete. The names and vendors of the equipment are correctly identified. However, some settings are not specified.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "The conditions extraction is mostly accurate, but some conditions are not fully specified. For example, the temperature of the first thermal zone is only specified as being 'over the melting temperature of Te'. The ramp rate for heating is also missing.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is good overall. The scientific meaning is generally preserved in the structured format. However, there are some areas where the meaning could be more precisely captured.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The format compliance is generally good. The ontology adheres to the schema and data type requirements. However, there are some minor issues with data types and schema adherence.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The ontology extraction is generally good, but there are some areas for improvement. The material extraction and conditions extraction could be more accurate and complete. The process steps could include more details. The format compliance is generally good, but there are some minor issues with data types and schema adherence."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Ramp rate for heating and cooling",
+        "Specific temperature for Te evaporation",
+        "Purity of some materials"
+      ],
+      "extraction_errors": [
+        "Inaccurate material quantities",
+        "Missing temperature for Te evaporation",
+        "Missing ramp rate for heating and cooling"
+      ],
+      "improvement_suggestions": [
+        "Improve accuracy of material quantities and units.",
+        "Specify the temperature of the first thermal zone more precisely.",
+        "Include the ramp rate for heating and cooling.",
+        "Add more details to the process steps.",
+        "Ensure full compliance with the schema and data type requirements."
+      ]
+    }
+  }
+]

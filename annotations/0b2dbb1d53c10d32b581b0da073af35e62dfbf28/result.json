@@ -1,0 +1,353 @@
+[
+  {
+    "material": "BCTH:0.005Sm3+ ceramics",
+    "synthesis": {
+      "target_compound": "BCTH:0.005Sm3+ ceramics",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "BaCl2\u00b72H2O",
+          "amount": null,
+          "unit": null,
+          "purity": "High purity"
+        },
+        {
+          "vendor": null,
+          "name": "CaCl2",
+          "amount": null,
+          "unit": null,
+          "purity": "High purity"
+        },
+        {
+          "vendor": null,
+          "name": "HfO2",
+          "amount": null,
+          "unit": null,
+          "purity": "High purity"
+        },
+        {
+          "vendor": null,
+          "name": "TiCl4",
+          "amount": null,
+          "unit": null,
+          "purity": "High purity"
+        },
+        {
+          "vendor": null,
+          "name": "Sm2O3",
+          "amount": null,
+          "unit": null,
+          "purity": "High purity"
+        },
+        {
+          "vendor": null,
+          "name": "NaOH",
+          "amount": 14.0,
+          "unit": "mol\u00b7L-1",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "distilled water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "paraffin wax",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "oleic acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Al2O3 powder",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "High purity raw materials BaCl2\u00b72H2O, CaCl2, HfO2, TiCl4 and Sm2O3 were weighted according to the designed stoichiometric chemical ratio. After evenly mixing, the weighted raw materials were poured into the polytetrafluoroethylene lining of the hydrothermal reactor.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "BaCl2\u00b72H2O",
+              "amount": null,
+              "unit": null,
+              "purity": "High purity"
+            },
+            {
+              "vendor": null,
+              "name": "CaCl2",
+              "amount": null,
+              "unit": null,
+              "purity": "High purity"
+            },
+            {
+              "vendor": null,
+              "name": "HfO2",
+              "amount": null,
+              "unit": null,
+              "purity": "High purity"
+            },
+            {
+              "vendor": null,
+              "name": "TiCl4",
+              "amount": null,
+              "unit": null,
+              "purity": "High purity"
+            },
+            {
+              "vendor": null,
+              "name": "Sm2O3",
+              "amount": null,
+              "unit": null,
+              "purity": "High purity"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "hydrothermal reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "The alkali concentration NaOH was tailored to 14 mol\u00b7L-1 and the lining filling rate was 75% using distilled water.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NaOH",
+              "amount": 14.0,
+              "unit": "mol\u00b7L-1",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "distilled water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "The hydrothermal reaction was carried out at 180\u00b0C for 24 h, and then naturally cooled to room temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "hydrothermal reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 180.0,
+            "temp_unit": "C",
+            "duration": 24.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "wash",
+          "description": "The resulting suspension was washed several times to neutrality by centrifugation and separation",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "dried at 80\u00b0C for 10 h to obtain BCTH:0.005Sm3+ powder.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "BCTH:0.005Sm3+ powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 80.0,
+            "temp_unit": "C",
+            "duration": 10.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "mix",
+          "description": "Powders obtained by hydrothermal method were used to prepare ceramics by powder injection molding using paraffin wax and oleic acid as injection binder. The well mixed powder was injected into round pellets with 16 mm in diameter and 1-2 mm in thickness under uniaxial pressure of 400 MPa and 65\u00b0C for 10 min.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "BCTH:0.005Sm3+ powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "paraffin wax",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "oleic acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 65.0,
+            "temp_unit": "C",
+            "duration": 10.0,
+            "time_unit": "min",
+            "pressure": 400.0,
+            "pressure_unit": "MPa",
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "calcine",
+          "description": "After a very slow degrease process using 1250\u00b0C calcined Al2O3 powder as adsorbent",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Al2O3 powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 8,
+          "action": "calcine",
+          "description": "the binder-removed pellets were sintered at 1280-1320\u00b0C for 4-8 h, respectively.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1280.0,
+            "temp_unit": "C",
+            "duration": 4.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "X-ray diffractometer",
+          "instrument_vendor": "Rigaku Corp.",
+          "settings": null
+        },
+        {
+          "name": "scanning electron microscope",
+          "instrument_vendor": "JEOL Ltd.",
+          "settings": null
+        },
+        {
+          "name": "spectrophotometer",
+          "instrument_vendor": "Edinburgh Instruments",
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the synthesis of BCTH:0.005Sm3+ ceramics using a hydrothermal method followed by powder injection molding. The extraction includes details about the starting materials, equipment, and conditions used in each step. However, there are some inconsistencies and missing details, particularly regarding the quantities of starting materials and specific settings for the equipment used. The structural completeness is good, covering most aspects of the synthesis, but the accuracy of some details and the level of detail provided for certain steps could be improved.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the synthesis information, including materials, steps, equipment, and conditions. However, some details are missing, such as specific quantities for all starting materials and detailed equipment settings.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material extraction is generally accurate, but the quantities and units for several starting materials are missing. The chemical names are correctly identified, but the lack of quantitative information reduces the score.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and accurately classified. The sequence of actions is clear, but more detail could be provided for some steps, such as the 'degrease process'.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Equipment extraction is reasonably complete, identifying the main instruments used. However, specific settings for instruments like the X-ray diffractometer and scanning electron microscope are not included.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction of synthesis conditions is mostly accurate, including temperature, duration, and pressure where applicable. However, the temperature range for the sintering step is not well-represented, and the atmosphere is not specified.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, preserving the scientific context and meaning of the synthesis procedure. However, the lack of quantitative information for some materials slightly impacts the overall semantic accuracy.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction largely adheres to the GeneralSynthesisOntology schema and data type requirements. There are a few instances where data types could be more specific, but overall, the format compliance is strong.",
+        "overall_score": 4.0,
+        "overall_reasoning": "The ontology extraction is generally well-executed, capturing most of the key synthesis information. The main areas for improvement are providing more quantitative details for materials, specifying equipment settings, and clarifying the sintering conditions."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Quantities and units for all starting materials.",
+        "Specific settings for XRD, SEM, and spectrophotometer.",
+        "Atmosphere during sintering.",
+        "Details of the 'degrease process'."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include specific quantities and units for all starting materials.",
+        "Provide more detailed settings for the equipment used, such as voltage, current, scan rate for XRD and SEM.",
+        "Specify the atmosphere during the sintering process.",
+        "Clarify the temperature range for the sintering step by representing it as two separate steps with distinct temperatures or by using a range object.",
+        "Add more details about the 'degrease process', such as the duration and specific steps involved."
+      ]
+    }
+  }
+]

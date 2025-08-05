@@ -80,8 +80,8 @@ For example, this will extract text from `./data/pdf_papers` and write the resul
 
 ```sh
 uv run examples/scripts/extract_text_from_pdfs.py \
-  --input-path data/pdf_papers \
-  --output-path data/txt_papers/docling \
+  --input-path examples/data/pdf_papers \
+  --output-path examples/data/txt_papers/docling \
   --process docling
 ```
 
