@@ -252,6 +252,8 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
             - The y-axis label
         """
         num_groups = random.randint(1, 4)
+        with_lines = random.random() < 0.5
+
         num_points = max(
             3,
             min(
@@ -289,13 +291,13 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
                 ["linear_steep", "linear_shallow"],
             ]
         )
-        line_type = random.choice(["best_fit", "connecting_lines"])
+        line_type = (random.choice(["best_fit", "connecting_lines"]) if with_lines else None)
 
         used_colors = set()
         used_shapes = set()
         legend_handles = []
         legend_labels = []
-        label_to_coordinates = {}
+        label_to_coordinates = {}        
 
         for _ in range(num_groups):
             group_x = (
@@ -328,6 +330,12 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
             )
             legend_handles.append(scatter)
 
+            if line_type == "best_fit":
+                m, b = np.polyfit(group_x, group_y, 1)
+                ax.plot(group_x, m * group_x + b, c=color)
+            elif line_type == "connecting":
+                ax.plot(group_x, group_y, c=color)
+
             label = GenerateSyntheticPlotsPipeline._generate_legend_label(
                 legend_type, default_fill, default_mat
             )
@@ -337,12 +345,6 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
             label_to_coordinates[label] = [
                 [float(xi), float(yi)] for xi, yi in zip(group_x, group_y)
             ]
-
-            if line_type == "best_fit":
-                m, b = np.polyfit(group_x, group_y, 1)
-                ax.plot(group_x, m * group_x + b, c=color)
-            elif line_type == "connecting_lines":
-                ax.plot(group_x, group_y, c=color)
 
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
@@ -355,11 +357,52 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
 
         return label_to_coordinates, x_label, y_label
 
+    def _plot_random_boxplot_on_ax(
+            self, ax: plt.Axes
+        ) -> tuple[dict[str, list[list[float]]], str, str]:
+            """Plot a random box plot on the provided Axes."""
+            num_groups = random.randint(1, 4)
+            label_to_coordinates: dict[str, list[list[float]]] = {}
+            data = []
+            labels = []
+            used_colors: set[str] = set()
+
+            for group_idx in range(num_groups):
+                group_size = GenerateSyntheticPlotsPipeline._skewed_normal_distribution(
+                    num_groups
+                )
+                group_data = np.random.normal(
+                    loc=random.uniform(-5, 5),
+                    scale=random.uniform(0.5, 3.0),
+                    size=group_size,
+                )
+                label = GenerateSyntheticPlotsPipeline._random_filler()
+                labels.append(label)
+                data.append(group_data)
+                label_to_coordinates[label] = [
+                    [float(group_idx + 1), float(val)] for val in group_data
+                ]
+
+            box = ax.boxplot(data, patch_artist=True)
+            for patch in box["boxes"]:
+                color = GenerateSyntheticPlotsPipeline._pick_color(used_colors)
+                used_colors.add(color)
+                patch.set_facecolor(color)
+
+            x_label = GenerateSyntheticPlotsPipeline._random_x_axis(0.5)
+            y_label = random.choice(y_axis_labels)
+            ax.set_xlabel(x_label)
+            ax.set_ylabel(y_label)
+            ax.set_xticklabels(labels)
+            GenerateSyntheticPlotsPipeline._adjust_y_axis(ax)
+            return label_to_coordinates, x_label, y_label
+    
     def _plot_multiple_subplots(
         self, image_path: str, groundtruth_path: str
     ) -> None:
         # randomize the number of rows and columns for subplots
         rows, cols = random.choice([(1, 1), (1, 2), (1, 3), (2, 2)])
+
 
         _, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4 * rows))
         axes_list = axes.flatten() if isinstance(axes, np.ndarray) else [axes]
@@ -367,9 +410,10 @@ class GenerateSyntheticPlotsPipeline(BasePipeline):
         subplots_data = []
 
         for i, ax in enumerate(axes_list):
-            subplot_labels, x_label, y_label = self._plot_random_scatter_on_ax(
-                ax
+            plot_func = random.choice(
+                [self._plot_random_scatter_on_ax, self._plot_random_boxplot_on_ax]
             )
+            subplot_labels, x_label, y_label = plot_func(ax)
             subplot_data = {
                 "subplot_index": i,
                 "coordinates": subplot_labels,
