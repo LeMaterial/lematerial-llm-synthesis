@@ -306,7 +306,7 @@ def read_score_data_complete(
                     f"{paper_id}_{idx} (None evaluation)"
                 )
                 continue
-                
+
             # Check for extraction failures in either file
             human_notes = human_eval.get("synthesis", {}).get("notes", "")
             llm_notes = llm_eval.get("synthesis", {}).get("notes", "")
@@ -348,8 +348,11 @@ def read_score_data_complete(
                 human_data.append(row)
 
             # Process LLM evaluation
-            if (llm_eval is not None and "evaluation" in llm_eval and 
-                "scores" in llm_eval["evaluation"]):
+            if (
+                llm_eval is not None
+                and "evaluation" in llm_eval
+                and "scores" in llm_eval["evaluation"]
+            ):
                 scores = llm_eval["evaluation"]["scores"]
 
                 # Create a row for this evaluation
@@ -415,7 +418,7 @@ if __name__ == "__main__":
         "914dfcfe8762e189e9d7873090587458e7c86695",
         "c47e0cbc8b6feb8d28c3d9c1c29f98772ede6c27",
         ### Remove deliberately bad ones
-        '1602.02498',
+        "1602.02498",
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
         "2212.12506",
         "673b3fdd7be152b1d07c21f1",
@@ -427,7 +430,7 @@ if __name__ == "__main__":
         "9a889c1a671fd3cae48285eaa95069d189d02fe3",
         "1902.03049",
         "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
-        "1409.1070"
+        "1409.1070",
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
