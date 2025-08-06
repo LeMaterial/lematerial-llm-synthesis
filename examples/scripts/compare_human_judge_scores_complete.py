@@ -405,7 +405,6 @@ if __name__ == "__main__":
     skip_folders = [
         "1d6ca39fff40accf64733808c749d26c30a0e4f9",
         "1df04f9e3f942b30d5e1c2bd1ab9cc3a79c23f13",
-        "1df04f9e3f942b30d5e1c2bd1ab9cc3a79c23f13",
         "22fb9453271c06cc332106a3e0fda74364267b86",
         "2e268ad55e4e356b5fdf88506f15139a236282e2",
         "4fae971d628aef67a3401e06522cf59bad7fcd44",
@@ -415,16 +414,20 @@ if __name__ == "__main__":
         "8c37fd10addf6d79f84ec2d5f4a8e5c6d6ef676f",
         "914dfcfe8762e189e9d7873090587458e7c86695",
         "c47e0cbc8b6feb8d28c3d9c1c29f98772ede6c27",
-        "2404.08872",
+        ### Remove deliberately bad ones
+        '1602.02498',
+        "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
         "2212.12506",
-        "1409.1070",
+        "673b3fdd7be152b1d07c21f1",
+        ### LLM messed up
+        "60c74548469df43eacf434a6",
         "cond-mat.0602418",
+        "2404.08872",
         "2306.14755",
-        '9a889c1a671fd3cae48285eaa95069d189d02fe3',
-        '1902.03049',
-        '0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b',
-        'f2f0828a5de4a3262edc73876809a9fe03ed6ff5'
-        
+        "9a889c1a671fd3cae48285eaa95069d189d02fe3",
+        "1902.03049",
+        "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
+        "1409.1070"
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
