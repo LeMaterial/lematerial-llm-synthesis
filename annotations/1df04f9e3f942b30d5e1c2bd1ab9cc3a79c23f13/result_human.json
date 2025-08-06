@@ -1,12 +1,130 @@
 [
   {
-    "material": "zirconia/ceria ceramics doped with gadolinia",
+    "material": "ceria-doped zirconia ceramics",
     "synthesis": {
-      "target_compound": "zirconia/ceria ceramics doped with gadolinia",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
+      "target_compound": "ceria-doped zirconia ceramics",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "precipitation",
+      "starting_materials": [
+        {
+          "vendor": "Fluka Chemicals, UK",
+          "name": "zirconium oxychloride",
+          "amount": 90.0,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": "Rare Earth Corporation",
+          "name": "cerium nitrate",
+          "amount": 10.0,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": null,
+          "name": "ammonia solution",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "precipitate",
+          "description": "Co-precipitated powders containing 5 and 10 mol % ­ CeO2 were prepared from 0.2 M mixed salt solutions containing the corresponding concentrations of zirconium oxychloride (Fluka Chemicals, UK, purity 99%) and cerium nitrate (Rare Earth Corporation, purity 99%). The coprecipitation was done at pH = 9, using ammonia solution for control, while stirring.",
+          "materials": [
+            {
+              "vendor": "Fluka Chemicals, UK",
+              "name": "zirconium oxychloride",
+              "amount": 90.0,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": "Rare Earth Corporation",
+              "name": "cerium nitrate",
+              "amount": 10.0,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": null,
+              "name": "ammonia solution",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": 9.0
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dry",
+          "description": "The precipitate gels were dried",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "precipitate gels",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "calcined at 600 °C, ground, wet ball-milled followed by sieving to produce ceria-doped zirconia powders.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "dried gels",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
       "equipment": [],
       "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
@@ -56,10 +174,114 @@
     "material": "5CeGd",
     "synthesis": {
       "target_compound": "5CeGd",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "co-precipitation",
+      "starting_materials": [
+        {
+          "vendor": "Rare Earth Corporation",
+          "name": "ethanolic solution of gadolinium nitrate",
+          "amount": 0.85,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": null,
+          "name": "ceria-doped zirconia ceramics with 5% CeO2",
+          "amount": 99.15,
+          "unit": "mol%",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Ethanolic solutions of gadolinium nitrate (Rare Earth Corporation, purity 99%) with different concentrations, were added and mixed with each of the above powders to produce zirconia powders containing 0.85 mol % gadolinia/5 mol % ceria and 0.5 mol % gadolinia/10 mol % ceria (designated as 5CeGd and 10CeGd), respectively.",
+          "materials": [
+            {
+              "vendor": "Rare Earth Corporation",
+              "name": "ethanolic solution of gadolinium nitrate",
+              "amount": 0.85,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": null,
+              "name": "ceria-doped zirconia ceramics with 5% CeO2",
+              "amount": 99.15,
+              "unit": "mol%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dry",
+          "description": "The mixed powders were then dried",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "calcined, ground and finally wet ball-milled once again.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "dried mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
       "equipment": [],
       "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
@@ -106,10 +328,114 @@
     "material": "10CeGd",
     "synthesis": {
       "target_compound": "10CeGd",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "co-precipitation",
+      "starting_materials": [
+        {
+          "vendor": "Rare Earth Corporation",
+          "name": "ethanolic solution of gadolinium nitrate",
+          "amount": 0.5,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": null,
+          "name": "ceria-doped zirconia ceramics with 10% CeO2",
+          "amount": 99.5,
+          "unit": "mol%",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Ethanolic solutions of gadolinium nitrate (Rare Earth Corporation, purity 99%) with different concentrations, were added and mixed with each of the above powders to produce zirconia powders containing 0.85 mol % gadolinia/5 mol % ceria and 0.5 mol % gadolinia/10 mol % ceria (designated as 5CeGd and 10CeGd), respectively.",
+          "materials": [
+            {
+              "vendor": "Rare Earth Corporation",
+              "name": "ethanolic solution of gadolinium nitrate",
+              "amount": 0.5,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": null,
+              "name": "ceria-doped zirconia ceramics with 10% CeO2",
+              "amount": 99.5,
+              "unit": "mol%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dry",
+          "description": "The mixed powders were then dried",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "calcined, ground and finally wet ball-milled once again.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "dried mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
       "equipment": [],
       "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },

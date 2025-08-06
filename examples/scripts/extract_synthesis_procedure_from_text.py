@@ -2,13 +2,12 @@ import json
 import logging
 import os
 import warnings
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import dspy
 import hydra
 from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.metrics.judge.general_synthesis_judge import (
@@ -108,16 +107,18 @@ def main(cfg: DictConfig) -> None:
     total_cost = 0.0
 
     to_process = [
-        p for p in papers
+        p
+        for p in papers
         if p.id not in os.listdir(cfg.result_save.architecture.result_dir)
     ]
 
     def process_paper(paper) -> tuple:
-
         logging.info(f"Processing {paper.name}")
 
         # Track initial costs - try multiple approaches
-        initial_synthesis_cost = get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+        initial_synthesis_cost = (
+            get_lm_cost(synthesis_lm) if synthesis_lm else 0.0
+        )
         initial_material_cost = get_lm_cost(material_lm) if material_lm else 0.0
         initial_judge_cost = get_lm_cost(judge_lm) if judge_lm else 0.0
         initial_dspy_cost = (
@@ -308,15 +309,10 @@ def main(cfg: DictConfig) -> None:
 
         return paper_with_syntheses, paper_total_cost
 
-
-    max_workers = 4 #TODO: this should be a config
+    max_workers = 4  # TODO: this should be a config
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {
-            executor.submit(
-                process_paper,
-                paper
-            ): paper
-            for paper in to_process
+            executor.submit(process_paper, paper): paper for paper in to_process
         }
         for future in as_completed(futures):
             paper = futures[future]
@@ -328,7 +324,6 @@ def main(cfg: DictConfig) -> None:
                     logging.info(f"Finished {paper.name}: cost=${cost:.6f}")
             except Exception as e:
                 logging.error(f"Error processing {paper.name}: {e}")
-    
 
     # Print final total cost
     logging.info(f"Total cost across all papers: ${total_cost:.6f}")
