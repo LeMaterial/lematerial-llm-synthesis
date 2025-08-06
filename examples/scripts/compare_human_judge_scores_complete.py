@@ -28,7 +28,9 @@ def calculate_icc_absolute_agreement(scores1, scores2):
 
 
 def calculate_icc_consistency(scores1, scores2):
-    """ICC(3,1): two-way mixed, consistency, single measure (Shrout & Fleiss)."""
+    """
+    ICC(3,1): two-way mixed, consistency, single measure (Shrout & Fleiss).
+    """
     df = pd.DataFrame(
         {
             "subject": np.arange(len(scores1)),
@@ -291,9 +293,20 @@ def read_score_data_complete(
             continue
 
         # Process evaluations, skipping those with extraction failures
+        print(
+            f"Processing {paper_id}: {len(human_evaluations)} human evals, "
+            f"{len(llm_evaluations)} LLM evals"
+        )
         for idx, (human_eval, llm_eval) in enumerate(
             zip(human_evaluations, llm_evaluations)
         ):
+            # Skip if either evaluation is None
+            if human_eval is None or llm_eval is None:
+                skipped_extractions.append(
+                    f"{paper_id}_{idx} (None evaluation)"
+                )
+                continue
+                
             # Check for extraction failures in either file
             human_notes = human_eval.get("synthesis", {}).get("notes", "")
             llm_notes = llm_eval.get("synthesis", {}).get("notes", "")
@@ -312,7 +325,8 @@ def read_score_data_complete(
 
             # Process human evaluation
             if (
-                "evaluation" in human_eval
+                human_eval is not None
+                and "evaluation" in human_eval
                 and "scores" in human_eval["evaluation"]
             ):
                 scores = human_eval["evaluation"]["scores"]
@@ -334,7 +348,8 @@ def read_score_data_complete(
                 human_data.append(row)
 
             # Process LLM evaluation
-            if "evaluation" in llm_eval and "scores" in llm_eval["evaluation"]:
+            if (llm_eval is not None and "evaluation" in llm_eval and 
+                "scores" in llm_eval["evaluation"]):
                 scores = llm_eval["evaluation"]["scores"]
 
                 # Create a row for this evaluation
@@ -408,6 +423,7 @@ if __name__ == "__main__":
         '9a889c1a671fd3cae48285eaa95069d189d02fe3',
         '1902.03049',
         '0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b',
+        'f2f0828a5de4a3262edc73876809a9fe03ed6ff5'
         
     ]
 
