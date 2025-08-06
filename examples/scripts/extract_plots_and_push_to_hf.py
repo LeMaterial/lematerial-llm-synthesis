@@ -14,7 +14,7 @@ from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extr
 logging.basicConfig(level=logging.INFO)
 
 
-def main(batch_size: int = 10):
+def main(batch_size: int = 10, config="default", split="sample_for_evaluation"):
     hf_figure_extractor = HFFigureExtractor()
 
     # Initialize the extractor
@@ -23,7 +23,7 @@ def main(batch_size: int = 10):
     )
 
     dataset = load_dataset(
-        "LeMaterial/LeMat-Synth", split="sample_for_evaluation"
+        "LeMaterial/LeMat-Synth", name=config, split=split
     )
     df = dataset.to_pandas()
     for idx, row in tqdm.tqdm(df.iterrows(), total=len(df)):
@@ -65,11 +65,11 @@ def main(batch_size: int = 10):
         if idx % batch_size == 0:
             logging.info(f"Pushing batch {idx // batch_size} to hub")
             ds = Dataset.from_pandas(df)
-            ds.push_to_hub("LeMaterial/LeMat-Synth", create_pr=True)
+            ds.push_to_hub("LeMaterial/LeMat-Synth", config_name=config, split=split, create_pr=True)
             df = dataset.to_pandas()
 
     ds = Dataset.from_pandas(df)
-    ds.push_to_hub("LeMaterial/LeMat-Synth", create_pr=True)
+    ds.push_to_hub("LeMaterial/LeMat-Synth", config_name=config, split=split, create_pr=True)
 
 
 if __name__ == "__main__":
