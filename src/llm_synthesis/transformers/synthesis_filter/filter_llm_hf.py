@@ -1,57 +1,59 @@
-import os
-import re
-import time
-from pathlib import Path
-from typing import List, Dict
-
 import json
+import re
+from pathlib import Path
+
 # import tiktoken
 import transformers
-from datasets import load_dataset, Dataset
-from tqdm import tqdm
-
+from datasets import load_dataset
 from llm import LLM  # your local wrapper
+from tqdm import tqdm
 
 ################################################################################
 # ---------------------------  Helper utilities  ----------------------------- #
 ################################################################################
 
-def split_text_into_chunks(text: str, max_tokens: int, tokenizer: transformers.AutoTokenizer) -> List[str]:
+
+def split_text_into_chunks(
+    text: str, max_tokens: int, tokenizer: transformers.AutoTokenizer
+) -> list[str]:
     """Split text into chunks based on token count, trying to break at sentence boundaries."""
-    sentences = text.split('. ')
+    sentences = text.split(". ")
     chunks = []
     current_chunk = []
     current_token_count = 0
 
-    
     for sentence in sentences:
         sentence = sentence.strip()
         if not sentence:
             continue
-            
+
         sentence_token_count = len(tokenizer.encode(sentence))
-        
-        if current_token_count + sentence_token_count > max_tokens and current_chunk:
+
+        if (
+            current_token_count + sentence_token_count > max_tokens
+            and current_chunk
+        ):
             # Current chunk is full, save it and start a new one
-            chunks.append('. '.join(current_chunk) + '.')
+            chunks.append(". ".join(current_chunk) + ".")
             current_chunk = [sentence]
             current_token_count = sentence_token_count
         else:
             current_chunk.append(sentence)
             current_token_count += sentence_token_count
-    
+
     # Add the last chunk if it's not empty
     if current_chunk:
-        chunks.append('. '.join(current_chunk) + '.')
-
+        chunks.append(". ".join(current_chunk) + ".")
 
     return chunks
+
 
 ################################################################################
 # ----------------------------  Core analysis  ------------------------------- #
 ################################################################################
 
-def _call_llm(chunk: str, client: LLM) -> Dict:
+
+def _call_llm(chunk: str, client: LLM) -> dict:
     """Send *chunk* to the LLM and parse its JSON answer."""
     prompt = f"""Analyze the following text and answer the questions in JSON format:
 
@@ -73,10 +75,14 @@ Format your response as a JSON object with the following structure:
 }}
 """
 
-    response = client.generate_text(prompt, response_format={"type": "json_object"})
+    response = client.generate_text(
+        prompt, response_format={"type": "json_object"}
+    )
 
     try:
-        response_cleaned = response.strip().strip('```json').strip('```').strip()
+        response_cleaned = (
+            response.strip().strip("```json").strip("```").strip()
+        )
         return json.loads(response_cleaned)
     except Exception:
         return {
@@ -86,14 +92,23 @@ Format your response as a JSON object with the following structure:
         }
 
 
-def analyze_article(text: str, client: LLM, max_tokens: int, tokenizer: transformers.AutoTokenizer) -> Dict:
+def analyze_article(
+    text: str,
+    client: LLM,
+    max_tokens: int,
+    tokenizer: transformers.AutoTokenizer,
+) -> dict:
     """Analyze a full article (can be long) and merge chunk-level answers."""
     # strip MD images which confuse the model
-    text = re.sub(r'!\[(Image|fig)\]\([^)]*\)', ' ![\g<1>] ', text)
+    text = re.sub(r"!\[(Image|fig)\]\([^)]*\)", " ![\g<1>] ", text)
 
     chunks = split_text_into_chunks(text, max_tokens, tokenizer)
     # print("lenght of chunks", [len(tokenizer.encode(ch)) for ch in chunks])
-    iterator = tqdm(chunks, desc="Analyzing text chunks", leave=False) if len(chunks) > 1 else chunks
+    iterator = (
+        tqdm(chunks, desc="Analyzing text chunks", leave=False)
+        if len(chunks) > 1
+        else chunks
+    )
 
     answers = []
     for chunk in iterator:
@@ -112,7 +127,7 @@ def analyze_article(text: str, client: LLM, max_tokens: int, tokenizer: transfor
             result["contains_recipe"] = True
             if ans.get("material_name") != "N/A":
                 if isinstance(ans["material_name"], list):
-                    result["material_name"] = ','.join(ans["material_name"])
+                    result["material_name"] = ",".join(ans["material_name"])
                 else:
                     result["material_name"] = ans["material_name"]
 
@@ -123,36 +138,49 @@ def analyze_article(text: str, client: LLM, max_tokens: int, tokenizer: transfor
             break
     return result
 
+
 ################################################################################
 # -----------------------  HF dataset processing entry  ---------------------- #
 ################################################################################
 
-def process_hf_dataset(dataset_id: str,
-                        output_dir: str,
-                        client: LLM,
-                        split: str = "train",
-                        text_column: str = "text_paper",
-                        batch_size: int = 1,
-                        max_tokens: int = 120000,
-                        model: str = "mistralai/Mistral-Small-3.1-24B-Instruct-2503") -> Path:
+
+def process_hf_dataset(
+    dataset_id: str,
+    output_dir: str,
+    client: LLM,
+    split: str = "train",
+    text_column: str = "text_paper",
+    batch_size: int = 1,
+    max_tokens: int = 120000,
+    model: str = "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
+) -> Path:
     """Load a 🤗 dataset, append three new columns, and save with `save_to_disk()`."""
     print(f"Loading dataset '{dataset_id}' ({split} split)…")
-    ds = (load_dataset("json", data_files=str(Path(dataset_id).expanduser()), split=split)
-          if Path(dataset_id).expanduser().exists()
-          else load_dataset(dataset_id, split=split))
-    
+    ds = (
+        load_dataset(
+            "json", data_files=str(Path(dataset_id).expanduser()), split=split
+        )
+        if Path(dataset_id).expanduser().exists()
+        else load_dataset(dataset_id, split=split)
+    )
 
     if text_column not in ds.column_names:
-        raise ValueError(f"Column '{text_column}' not found. Available: {ds.column_names}")
+        raise ValueError(
+            f"Column '{text_column}' not found. Available: {ds.column_names}"
+        )
 
     print(f"→ {len(ds):,} rows. Starting analysis…")
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(model)
+
     def _annotate(batch):
-        analytics = [analyze_article(txt, client, max_tokens, tokenizer) for txt in batch[text_column]]
+        analytics = [
+            analyze_article(txt, client, max_tokens, tokenizer)
+            for txt in batch[text_column]
+        ]
         return {
             "contains_recipe": [a["contains_recipe"] for a in analytics],
-            "material_name":   [a["material_name"]    for a in analytics],
+            "material_name": [a["material_name"] for a in analytics],
             "material_category": [a["material_category"] for a in analytics],
         }
 
@@ -169,6 +197,7 @@ def process_hf_dataset(dataset_id: str,
     print("✅ Done. Reload anytime with `load_from_disk`. 🌟")
     return out_path
 
+
 ################################################################################
 # ---------------------------------  CLI  ------------------------------------ #
 ################################################################################
@@ -181,13 +210,19 @@ if __name__ == "__main__":
             "Add recipe-detection columns to a 🤗 dataset with a live progress bar."
         )
     )
-    parser.add_argument("dataset", help="HF dataset ID or local `load_from_disk` path")
-    parser.add_argument("output_dir", help="Where to save the processed dataset")
+    parser.add_argument(
+        "dataset", help="HF dataset ID or local `load_from_disk` path"
+    )
+    parser.add_argument(
+        "output_dir", help="Where to save the processed dataset"
+    )
     parser.add_argument("--split", default="train")
     parser.add_argument("--text_column", default="text_paper")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--batch_size", type=int, default=1)
-    parser.add_argument("--model", default="mistralai/Mistral-Small-3.1-24B-Instruct-2503")
+    parser.add_argument(
+        "--model", default="mistralai/Mistral-Small-3.1-24B-Instruct-2503"
+    )
     parser.add_argument("--provider", default="vllm")
     parser.add_argument("--max_tokens", type=int, default=120000)
 
