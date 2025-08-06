@@ -13,10 +13,12 @@ cmap = get_cmap() # Get the cmap for the current style
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pypalettes import load_cmap
+from cmcrameri import cm
 
-cmap = load_cmap("Monet", cmap_type="continuous")
+cmap = cm.batlow
 palette = cmap.colors
+# convert to list
+palette = list(palette)
 palette.append("#D3D3D3")
 palette.append("#A9A9A9")
 palette.append("#808080")
