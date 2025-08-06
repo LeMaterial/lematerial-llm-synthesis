@@ -1,0 +1,278 @@
+[
+  {
+    "material": "Carbon nanotubes",
+    "synthesis": {
+      "target_compound": "Carbon nanotubes",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Fe catalyst",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Si/SiO2 wafer",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "grow",
+          "description": "Carbon nanotubes were grown from patterned Fe catalyst islands on a Si/SiO2 wafer by CVD.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Fe catalyst",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si/SiO2 wafer",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "identify",
+          "description": "Single-walled tubes with diameters less than 4nm were identified using atomic force microscopy",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Single-walled carbon nanotubes",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "atomic force microscopy",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "contact",
+          "description": "Identified carbon nanotubes were selectively contacted by electron beam lithography",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "selected carbon nanotubes",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "electron beam lithography",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "contact",
+          "description": "Contact is made from 15 nm of Pd.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Pd",
+              "amount": 15.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "connect",
+          "description": "The Pd contacts on the nanotubes are connected to metal pads by optical lithography.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "metallic pads",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "optical lithography",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "coat",
+          "description": "The entire device was then coated with 35nm Al2O3 using low-temperature atomic layer deposition (ALD).",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Al2O3",
+              "amount": 35.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "atomic layer deposition",
+              "instrument_vendor": null,
+              "settings": "low-temperature"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "atomic force microscopy",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "electron beam lithography",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "optical lithography",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "atomic layer deposition",
+          "instrument_vendor": null,
+          "settings": "low-temperature"
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The data extraction is relatively well done. Some steps are not extracted correctly. A process step was not understood, resulting in incorrect extraction of the material and equipment.",
+      "scores": {
+        "structural_completeness_score": 3.0,
+        "structural_completeness_reasoning": "The extraction process is well structured overall, with the materials, synthesis steps, equipment and conditions clearly outlined. One step should have been split into two steps.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "For certain synthesis steps, the materials are not clearly identified or are missing.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "The extraction of the different steps is not correct. Two steps have been combined into one. The descriptions correspond to the steps, but some special characters in the article have been transcribed incorrectly.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment and its settings are clearly identified.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The conditions are not present in the article, so the extraction could not be performed.",
+        "semantic_accuracy_score": 3.0,
+        "semantic_accuracy_reasoning": "The meaning of the article is preserved in the various synthesis steps, but one step is incorrectly extracted, rendering the associated “material” and “equipment” false.",
+        "format_compliance_score": 3.0,
+        "format_compliance_reasoning": "The format is compliant. However, the special character "~" in the article is not read and is displayed as ‘<sup>\u223c</sup>’ in the description.",
+        "overall_score": 3.2,
+        "overall_reasoning": "The extraction of the equipment is correct. The general meaning is preserved. However, the materials and synthesis steps are not clearly identified. A special character is not transcribed."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Amount and purity of materials",
+        "Conditions for each step",
+      ],
+      "extraction_errors": [
+        "Special characters",
+        "Name of some materials",
+      ],
+      "improvement_suggestions": [
+        "Rewrite the descriptions.",
+        "Specify each synthesis step.",
+      ]
+    }
+  }
+]
