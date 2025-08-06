@@ -400,6 +400,15 @@ if __name__ == "__main__":
         "8c37fd10addf6d79f84ec2d5f4a8e5c6d6ef676f",
         "914dfcfe8762e189e9d7873090587458e7c86695",
         "c47e0cbc8b6feb8d28c3d9c1c29f98772ede6c27",
+        "2404.08872",
+        "2212.12506",
+        "1409.1070",
+        "cond-mat.0602418",
+        "2306.14755",
+        '9a889c1a671fd3cae48285eaa95069d189d02fe3',
+        '1902.03049',
+        '0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b',
+        
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
