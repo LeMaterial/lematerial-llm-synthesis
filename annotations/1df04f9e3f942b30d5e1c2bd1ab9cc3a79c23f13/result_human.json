@@ -1,0 +1,475 @@
+[
+  {
+    "material": "ceria-doped zirconia ceramics",
+    "synthesis": {
+      "target_compound": "ceria-doped zirconia ceramics",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "precipitation",
+      "starting_materials": [
+        {
+          "vendor": "Fluka Chemicals, UK",
+          "name": "zirconium oxychloride",
+          "amount": 90.0,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": "Rare Earth Corporation",
+          "name": "cerium nitrate",
+          "amount": 10.0,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": null,
+          "name": "ammonia solution",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "precipitate",
+          "description": "Co-precipitated powders containing 5 and 10 mol % ­ CeO2 were prepared from 0.2 M mixed salt solutions containing the corresponding concentrations of zirconium oxychloride (Fluka Chemicals, UK, purity 99%) and cerium nitrate (Rare Earth Corporation, purity 99%). The coprecipitation was done at pH = 9, using ammonia solution for control, while stirring.",
+          "materials": [
+            {
+              "vendor": "Fluka Chemicals, UK",
+              "name": "zirconium oxychloride",
+              "amount": 90.0,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": "Rare Earth Corporation",
+              "name": "cerium nitrate",
+              "amount": 10.0,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": null,
+              "name": "ammonia solution",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": 9.0
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dry",
+          "description": "The precipitate gels were dried",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "precipitate gels",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "calcined at 600 °C, ground, wet ball-milled followed by sieving to produce ceria-doped zirconia powders.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "dried gels",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+    },
+    "evaluation": {
+      "reasoning": "The extraction failed to identify the synthesis method correctly, misclassifying 'co-precipitation' which is a valid synthesis method. Consequently, the extraction process did not proceed to identify starting materials, steps, or equipment. This significantly impacts the structural completeness and semantic accuracy of the extraction.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "Due to the failure to identify the synthesis method, the extraction process did not proceed to identify starting materials, steps, or equipment, resulting in a very incomplete representation of the synthesis.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No materials were extracted due to the initial failure in identifying the synthesis method. Therefore, the material extraction score is very low.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No process steps were extracted, as the synthesis method was not correctly identified, leading to a failure in parsing the subsequent steps.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment was extracted, as the synthesis method was not correctly identified, leading to a failure in parsing the equipment used.",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No conditions were extracted, as the synthesis method was not correctly identified, leading to a failure in parsing the conditions used.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is very low because the fundamental synthesis method was misidentified, leading to a complete misrepresentation of the synthesis process.",
+        "format_compliance_score": 1.0,
+        "format_compliance_reasoning": "The format compliance is low because the extraction process failed to correctly identify the synthesis method, leading to a failure in parsing the subsequent steps and materials.",
+        "overall_score": 1.0,
+        "overall_reasoning": "The overall score is very low due to the initial failure in identifying the synthesis method, which cascaded into a complete failure to extract materials, steps, equipment, and conditions. This results in a very incomplete and inaccurate representation of the synthesis process."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Synthesis method",
+        "Starting materials",
+        "Process steps",
+        "Equipment",
+        "Conditions"
+      ],
+      "extraction_errors": [
+        "Misidentification of synthesis method",
+        "Failure to extract materials",
+        "Failure to extract process steps",
+        "Failure to extract equipment",
+        "Failure to extract conditions"
+      ],
+      "improvement_suggestions": [
+        "Improve the accuracy of synthesis method identification.",
+        "Implement a more robust error handling mechanism to prevent cascading failures.",
+        "Enhance the ability to extract materials, steps, equipment, and conditions even when the synthesis method is not perfectly identified."
+      ]
+    }
+  },
+  {
+    "material": "5CeGd",
+    "synthesis": {
+      "target_compound": "5CeGd",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "co-precipitation",
+      "starting_materials": [
+        {
+          "vendor": "Rare Earth Corporation",
+          "name": "ethanolic solution of gadolinium nitrate",
+          "amount": 0.85,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": null,
+          "name": "ceria-doped zirconia ceramics with 5% CeO2",
+          "amount": 99.15,
+          "unit": "mol%",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Ethanolic solutions of gadolinium nitrate (Rare Earth Corporation, purity 99%) with different concentrations, were added and mixed with each of the above powders to produce zirconia powders containing 0.85 mol % gadolinia/5 mol % ceria and 0.5 mol % gadolinia/10 mol % ceria (designated as 5CeGd and 10CeGd), respectively.",
+          "materials": [
+            {
+              "vendor": "Rare Earth Corporation",
+              "name": "ethanolic solution of gadolinium nitrate",
+              "amount": 0.85,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": null,
+              "name": "ceria-doped zirconia ceramics with 5% CeO2",
+              "amount": 99.15,
+              "unit": "mol%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dry",
+          "description": "The mixed powders were then dried",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "calcined, ground and finally wet ball-milled once again.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "dried mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+    },
+    "evaluation": {
+      "reasoning": "The extraction failed completely, indicating a fundamental issue with the extraction process or the model's ability to interpret the text and map it to the ontology. The error message suggests that the 'synthesis_method' field did not accept 'co-precipitation', even though it should have been mapped to 'precipitation' or 'coprecipitation' as an 'other' option. This failure impacts all aspects of the evaluation, as no information was correctly extracted.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "Due to the complete extraction failure, the structural completeness is extremely poor. No materials, steps, equipment, or conditions were extracted.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No material information was extracted. The extraction failed to identify and represent the starting materials or the target compound.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No process steps were extracted. The synthesis procedure was not parsed or represented in the structured format.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment was extracted. The extraction failed to identify any of the equipment used in the synthesis.",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No synthesis conditions were extracted. The extraction failed to identify temperature, pressure, duration, or atmosphere.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is non-existent as no information was correctly extracted and represented.",
+        "format_compliance_score": 1.0,
+        "format_compliance_reasoning": "The format compliance is poor due to the extraction failure. The output does not adhere to the GeneralSynthesisOntology schema.",
+        "overall_score": 1.0,
+        "overall_reasoning": "The overall extraction quality is extremely poor due to the complete failure to extract any meaningful information from the source text. The error message indicates a fundamental issue with the extraction process."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Material quantities, units, or purities",
+        "Process step details or sequencing",
+        "Equipment specifications or settings",
+        "Synthesis conditions (temperature, pressure, duration)"
+      ],
+      "extraction_errors": [
+        "Semantic meaning not preserved in structured format",
+        "Schema compliance issues or data type errors"
+      ],
+      "improvement_suggestions": [
+        "Improve coverage of all synthesis components",
+        "Enhance material parsing for quantities and units",
+        "Better organize and sequence process steps",
+        "Ensure strict adherence to ontology schema"
+      ]
+    }
+  },
+  {
+    "material": "10CeGd",
+    "synthesis": {
+      "target_compound": "10CeGd",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "co-precipitation",
+      "starting_materials": [
+        {
+          "vendor": "Rare Earth Corporation",
+          "name": "ethanolic solution of gadolinium nitrate",
+          "amount": 0.5,
+          "unit": "mol%",
+          "purity": "99%"
+        },
+        {
+          "vendor": null,
+          "name": "ceria-doped zirconia ceramics with 10% CeO2",
+          "amount": 99.5,
+          "unit": "mol%",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Ethanolic solutions of gadolinium nitrate (Rare Earth Corporation, purity 99%) with different concentrations, were added and mixed with each of the above powders to produce zirconia powders containing 0.85 mol % gadolinia/5 mol % ceria and 0.5 mol % gadolinia/10 mol % ceria (designated as 5CeGd and 10CeGd), respectively.",
+          "materials": [
+            {
+              "vendor": "Rare Earth Corporation",
+              "name": "ethanolic solution of gadolinium nitrate",
+              "amount": 0.5,
+              "unit": "mol%",
+              "purity": "99%"
+            },
+            {
+              "vendor": null,
+              "name": "ceria-doped zirconia ceramics with 10% CeO2",
+              "amount": 99.5,
+              "unit": "mol%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dry",
+          "description": "The mixed powders were then dried",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "calcined, ground and finally wet ball-milled once again.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "dried mixed powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+    },
+    "evaluation": {
+      "reasoning": "The extraction failed completely due to a validation error related to the synthesis method. The provided 'co-precipitation' is not a valid option according to the schema. This single error prevents any further evaluation of the extraction's completeness or accuracy.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "Due to the failure of the extraction, no structural elements (materials, steps, equipment, conditions) were extracted, resulting in minimal completeness.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No materials were extracted, so the accuracy is non-existent.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No process steps were extracted.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment information was extracted.",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No conditions were extracted.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "Since no information was extracted, semantic accuracy cannot be assessed.",
+        "format_compliance_score": 1.0,
+        "format_compliance_reasoning": "The JSON is valid, but the content is empty due to the extraction failure.",
+        "overall_score": 1.0,
+        "overall_reasoning": "The extraction failed due to a validation error, resulting in an empty ontology. The overall score reflects this complete failure."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "All synthesis details are missing due to extraction failure."
+      ],
+      "extraction_errors": [
+        "Synthesis method 'co-precipitation' is not a valid option according to the schema."
+      ],
+      "improvement_suggestions": [
+        "Correct the synthesis method to a valid option from the schema's enumerated list.",
+        "Ensure that the extraction process can handle the complexity of the synthesis text and accurately identify all relevant components (materials, steps, equipment, conditions)."
+      ]
+    }
+  }
+]

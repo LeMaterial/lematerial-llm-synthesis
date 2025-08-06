@@ -1,0 +1,249 @@
+[
+  {
+    "material": "Boron nitride nanotubes",
+    "synthesis": {
+      "target_compound": "Boron nitride nanotubes",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": "China New Metal Materials Technology Company Limited",
+          "name": "Boron",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Sinopharm Chemical Reagent Company Limited",
+          "name": "MgO",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "MgB2",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Linde Gas (China) Company Limited",
+          "name": "Ar",
+          "amount": null,
+          "unit": null,
+          "purity": "99.999%"
+        },
+        {
+          "vendor": "Linde Gas (China) Company Limited",
+          "name": "NH3",
+          "amount": null,
+          "unit": null,
+          "purity": "99.999%"
+        },
+        {
+          "vendor": null,
+          "name": "Si/SiO2 substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Weigh and grind B and MgO.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Boron",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "MgO",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Weigh and mix MgB2 with the previously obtained B/MgO powder to form the precursor.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "MgB2",
+              "amount": 1.5,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "B/MgO powder",
+              "amount": 1.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Place the alumina boat containing the precursor and a piece of clean Si/SiO2 substrate in the center of the tube.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "B/MgO/MgB2",
+              "amount": 140.0,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si/SiO2 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "NH3",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "alumina boat",
+              "instrument_vendor": null,
+              "settings": "120 cm length; 60 mm in diameter"
+            },
+            {
+              "name": "horizontal tube furnace",
+              "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+              "settings": "GSL-1700X"
+            }
+          ],
+          "conditions": {
+            "temperature": 1400.0,
+            "temp_unit": "C",
+            "duration": 2.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "NH3",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "cool",
+          "description": "Cool the system naturally to room temperature in Ar.",
+          "materials": [
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "Ar",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 298.15,
+            "temp_unit": "K",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal tube furnace",
+          "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+          "settings": "GSL-1700X"
+        },
+        {
+          "name": "alumina boat",
+          "instrument_vendor": null,
+          "settings": "120 cm length; 60 mm in diameter"
+        }
+      ],
+      "notes": "The molar ratio of B : MgO : MgB2 is 2 : 1 : 1.5."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main elements of the BNNT synthesis, including materials, steps, equipment, and conditions. The structure is generally well-organized, and the semantic meaning is mostly preserved. However, there are some inaccuracies and omissions, particularly in the amounts and units of the starting materials and some process details. The format compliance is good overall, but there are a few areas where the schema could be better adhered to.",
+      "scores": {
+        "structural_completeness_score": 4.5,
+        "structural_completeness_reasoning": "Basically everything is covered, few details missing here and there (mostly not repeated), but overall decently complete.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Si/SiO2 substrate missed as materials, throughout process some details missed, but crucially the amount.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "Overall good; heating written as two steps, even though it was one step; details missing here and there (vendors), and quantities also missing.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "Alumina boat not recognized in equipment, but recognized in process.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "conditions extracted well, just RT not inferred.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "Semantic accuracy prevailed, just few details missing.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "Ontology was followed and comprised the synthesis.",
+        "overall_score": 4.6,
+        "overall_reasoning": "Extraction very well. Major flaw is having two steps for heating and a few details missing, but overall very well extrated."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Amounts and units for Boron, MgO, MgB2, initial mixing steps.",
+        "Material information in process (but extracted in materials section).",
+        "Alumina boat in equipment section (but present in process equipment section)"
+      ],
+      "extraction_errors": [
+        "Two steps of heating rather than one."
+      ],
+      "improvement_suggestions": [
+        "Include all information you have both in the respective materials/equipment sections, as well as in the process parts from there."
+      ]
+    }
+  }
+]
