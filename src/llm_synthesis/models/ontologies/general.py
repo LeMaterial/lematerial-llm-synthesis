@@ -168,7 +168,7 @@ class GeneralSynthesisOntology(BaseModel):
         "biomaterials & biological",
         "liquid materials",
         "hybrid & organic-inorganic",
-        "functional materials & cataysts",
+        "functional materials & catalysts",
         "energy & sustainability",
         "smart & responsive materials",
         "emerging & quantum materials",
@@ -207,6 +207,8 @@ class GeneralSynthesisOntology(BaseModel):
         "wet impregnation",
         "incipient wetness impregnation",
         "mechanical mixing",
+        "solution-based",
+        "mechanochemical",
         "other",
     ] = Field(description="Choose synthesis method.")
 
