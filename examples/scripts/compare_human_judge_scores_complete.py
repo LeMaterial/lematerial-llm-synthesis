@@ -407,12 +407,12 @@ if __name__ == "__main__":
     # skip_folders = ["problematic_folder_1", "problematic_folder_2"]
     skip_folders = [
         # ### Remove deliberately bad ones
-        "1602.02498",
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
         "673b3fdd7be152b1d07c21f1",
-        "cond-mat.0602418",
         "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
-        "2306.14755"
+        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
+        "1902.03049",
+        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586"
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
