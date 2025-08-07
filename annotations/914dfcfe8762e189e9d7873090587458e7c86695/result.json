@@ -67,7 +67,7 @@
         {
           "step_number": 1,
           "action": "grind",
-          "description": "Zn powders were grinded and placed at the end of a ceramic boat.",
+          "description": "1 g Zn powders (purity 99.99%) used as the source was grinded and placed at the end of a ceramic boat.",
           "materials": [
             {
               "vendor": null,
@@ -93,39 +93,12 @@
         },
         {
           "step_number": 2,
-          "action": "place",
-          "description": "A piece of silicon substrate was placed at the other end for growing ZnO nanomaterials.",
+          "action": "etch",
+          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min",
           "materials": [
             {
               "vendor": null,
               "name": "silicon substrate",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "etch",
-          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "silicon",
               "amount": null,
               "unit": null,
               "purity": null
@@ -153,17 +126,10 @@
           }
         },
         {
-          "step_number": 4,
+          "step_number": 3,
           "action": "clean",
-          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "description": "then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step",
           "materials": [
-            {
-              "vendor": null,
-              "name": "silicon",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
             {
               "vendor": null,
               "name": "acetone",
@@ -207,22 +173,15 @@
           }
         },
         {
-          "step_number": 5,
+          "step_number": 4,
           "action": "deposit",
-          "description": "The silicon was deposited with a 10 nm Au film on the surface by sputtering.",
+          "description": "finally was deposited with a 10 nm Au film on the surface by sputtering.",
           "materials": [
             {
               "vendor": null,
               "name": "Au film",
               "amount": 10.0,
               "unit": "nm",
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "silicon",
-              "amount": null,
-              "unit": null,
               "purity": null
             }
           ],
@@ -247,86 +206,9 @@
           }
         },
         {
-          "step_number": 6,
-          "action": "place",
-          "description": "The boat was then placed in a quartz vial inside a horizontal-tube furnace.",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "horizontal-tube furnace",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 7,
-          "action": "place",
-          "description": "Another boat with 4 mL water was placed at the gas direction of the port of the horizontal-tube furnace.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "water",
-              "amount": 4.0,
-              "unit": "mL",
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 8,
-          "action": "vacuum",
-          "description": "The system was vacuumed by a mechanical pump to KPa level.",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "mechanical pump",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 9,
+          "step_number": 5,
           "action": "heat",
-          "description": "The furnace was heated to reaction temperature $730^{\\circ}C$ at a rate of $20^{\\circ}C/min$, and kept for 40 min under argon (Ar) flow of 50 sccm.",
+          "description": "The system was vacuumed by a mechanical pump to KPa level, and then the furnace was heated to reaction temperature 730\u00b0C at a rate of 20\u00b0C/min, and kept for 40 min under argon (Ar) flow of 50 sccm .",
           "materials": [
             {
               "vendor": null,
@@ -341,6 +223,11 @@
               "name": "horizontal-tube furnace",
               "instrument_vendor": null,
               "settings": null
+            },
+            {
+              "name": "mechanical pump",
+              "instrument_vendor": null,
+              "settings": null
             }
           ],
           "conditions": {
@@ -350,32 +237,7 @@
             "time_unit": "min",
             "pressure": null,
             "pressure_unit": null,
-            "atmosphere": "argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 10,
-          "action": "cool",
-          "description": "After the furnace cooled down, a bluish-white layer was observed on the substrate surface.",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "furnace",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
+            "atmosphere": "Ar",
             "stirring": null,
             "stirring_speed": null,
             "ph": null
@@ -392,39 +254,39 @@
       "notes": "ZnO nanostructures were synthesized on the silicon substrate via a vapor-liquid-solid (VLS) growth mechanism. The colloidal Au nanoparticles on the Si surface served as catalysts in the VLS synthesis mechanism."
     },
     "evaluation": {
-      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanowire synthesis using water-assisted physical vapor deposition. The materials, equipment, and conditions are generally well-extracted, but there are some areas for improvement in terms of completeness and accuracy. The structural completeness is good, covering most aspects of the synthesis. Material extraction is mostly accurate, although some quantities are missing. Process steps are well-defined and logically sequenced. Equipment extraction is basic but correct. Conditions extraction is generally accurate, but pressure information is lacking. Semantic accuracy is maintained, and the format compliance is satisfactory. Overall, the extraction is reasonably good but could benefit from more detailed information and improved accuracy in certain areas.",
+      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanowire synthesis using water-assisted physical vapor deposition. Material extraction is generally accurate, though some quantities are missing. Process steps are logically sequenced. Equipment identification is adequate. Conditions are mostly well-extracted, but pressure details are lacking. Semantic accuracy is maintained. Format compliance is good overall. Completeness could be improved by including more specific details about the equipment and pressure during the process.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction includes most of the necessary components, but lacks some finer details such as the cooling rate of the furnace and specific pressure achieved during vacuuming.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material names, amounts, and units are generally accurate, but the purity of some materials is not specified, reducing completeness.",
+        "structural_completeness_reasoning": "The ontology covers most aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the specific pressure achieved by the mechanical pump and more detailed equipment specifications.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material extraction is accurate, including names, amounts, and units. Purity is also noted where available. However, the vendor information is consistently missing, and the amounts of some materials (e.g., hydrofluoric acid, acetone) are not specified.",
         "process_steps_score": 4.5,
-        "process_steps_reasoning": "The sequence of steps is logical and well-described, but could benefit from more granular actions within each step to fully capture the procedure.",
+        "process_steps_reasoning": "Process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are generally clear. However, more details could be added to each step to enhance completeness.",
         "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "Key equipment is identified, but lacks vendor information and specific settings used during the synthesis, limiting the practical utility of this information.",
+        "equipment_extraction_reasoning": "Equipment extraction identifies the main equipment used, such as the horizontal-tube furnace and mechanical pump. However, vendor information and specific settings for each piece of equipment are missing, which reduces the score.",
         "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Temperature, duration, and atmosphere are accurately extracted, but the absence of pressure values and cooling rate impacts the reproducibility assessment.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extracted information preserves the scientific context and meaning of the original text, ensuring that the synthesis can be understood and potentially replicated.",
+        "conditions_extraction_reasoning": "Conditions extraction is mostly accurate, including temperature, duration, and atmosphere. The temperature and duration values are correctly extracted with appropriate units. However, the pressure achieved by the mechanical pump is only qualitatively mentioned ('KPa level') without a specific value, and the heating rate is not captured as a condition.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent. The scientific context and meaning are well-preserved in the structured format. The relationships between materials, steps, equipment, and conditions are accurately represented.",
         "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "The extracted data adheres to the required schema and data types, facilitating integration with other datasets and analysis tools.",
-        "overall_score": 4.2,
-        "overall_reasoning": "The extraction is reasonably good, capturing the main aspects of the ZnO nanowire synthesis. However, there are some areas for improvement in terms of completeness and accuracy, particularly in the extraction of specific equipment details and pressure information."
+        "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema and data type requirements. All required fields are present, and the data types are generally correct. Minor improvements could be made to ensure complete adherence to the schema.",
+        "overall_score": 4.4,
+        "overall_reasoning": "Overall, the ontology extraction is of high quality, accurately capturing the key aspects of the ZnO nanowire synthesis. The main strengths are the semantic accuracy and the logical organization of process steps. Areas for improvement include providing more specific details about equipment, pressure, and material quantities."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Pressure during vacuuming step",
-        "Cooling rate of the furnace",
-        "Vendor and model number of equipment",
-        "Purity of all materials"
+        "Vendor information for starting materials.",
+        "Specific pressure value achieved by the mechanical pump.",
+        "Detailed equipment specifications (model numbers, etc.).",
+        "Heating rate during the temperature ramp."
       ],
       "extraction_errors": [],
       "improvement_suggestions": [
-        "Include specific pressure values achieved during the vacuuming step.",
-        "Specify the cooling rate of the furnace.",
-        "Provide more details about the equipment used, such as vendor and model number.",
-        "Include the purity of all materials used in the synthesis.",
-        "Add more granular actions within each step to fully capture the procedure."
+        "Include vendor information for all starting materials where available.",
+        "Specify the exact pressure achieved by the mechanical pump instead of just 'KPa level'.",
+        "Add specific settings for each piece of equipment, such as the model number of the furnace and pump.",
+        "Include the heating rate as a condition in the relevant step.",
+        "Quantify the amounts of hydrofluoric acid, acetone, ethanol and deionized water used in the etching and cleaning steps."
       ]
     }
   },
@@ -444,7 +306,7 @@
         },
         {
           "vendor": null,
-          "name": "n-type silicon substrate",
+          "name": "silicon substrate",
           "amount": null,
           "unit": null,
           "purity": null
@@ -489,438 +351,6 @@
           "name": "water",
           "amount": 4.0,
           "unit": "mL",
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "argon",
-          "amount": 50.0,
-          "unit": "sccm",
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "grind",
-          "description": "Zn powders were grinded and placed at the end of a ceramic boat.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "Zn powders",
-              "amount": 1.0,
-              "unit": "g",
-              "purity": "99.99%"
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 2,
-          "action": "place",
-          "description": "A piece of silicon substrate was placed at the other end for growing ZnO nanomaterials.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "n-type silicon substrate",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "etch",
-          "description": "The silicon was firstly etched using hydrofluoric acid.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "hydrofluoric acid",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": 10.0,
-            "time_unit": "min",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 4,
-          "action": "clean",
-          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "acetone",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "ethanol",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "deionized water",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [
-            {
-              "name": "ultrasonicator",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": 15.0,
-            "time_unit": "min",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 5,
-          "action": "deposit",
-          "description": "The silicon was deposited with a 10 nm Au film on the surface by sputtering.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "Au film",
-              "amount": 10.0,
-              "unit": "nm",
-              "purity": null
-            }
-          ],
-          "equipment": [
-            {
-              "name": "sputtering",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 6,
-          "action": "place",
-          "description": "The boat was then placed in a quartz vial inside a horizontal-tube furnace.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 7,
-          "action": "place",
-          "description": "Another boat with 4 mL water was placed at the gas direction of the port of the horizontal-tube furnace.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "water",
-              "amount": 4.0,
-              "unit": "mL",
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 8,
-          "action": "vacuum",
-          "description": "The system was vacuumed by a mechanical pump to KPa level.",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "mechanical pump",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 9,
-          "action": "heat",
-          "description": "The furnace was heated to reaction temperature.",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "horizontal-tube furnace",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": 730.0,
-            "temp_unit": "C",
-            "duration": 40.0,
-            "time_unit": "min",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "horizontal quartz tube",
-          "instrument_vendor": null,
-          "settings": null
-        },
-        {
-          "name": "furnace",
-          "instrument_vendor": null,
-          "settings": null
-        }
-      ],
-      "notes": "ZnO nanostructures were synthesized on the silicon substrate via a vapor-liquid-solid (VLS) growth mechanism. The colloidal Au nanoparticles on the Si surface served as catalysts in the VLS synthesis mechanism."
-    },
-    "evaluation": {
-      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanorod synthesis using water-assisted physical vapor deposition. Material extraction is generally good, although some quantities are missing. Process steps are well-organized and follow the text. Equipment is identified, but vendor information is absent. Conditions are mostly extracted, but pressure during the vacuuming step is not specified. Semantic accuracy is maintained, and the format generally complies with the schema. Overall, the extraction is reasonably complete and accurate but could benefit from more precise quantification of certain parameters.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction covers most aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the specific pressure achieved during vacuuming and the dimensions of the quartz vial.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material extraction is mostly accurate, with correct names, amounts, and units. However, the purity of some materials (e.g., hydrofluoric acid, acetone, ethanol, deionized water, Au film) is not specified, and the amount of silicon substrate is not provided.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "Process steps are well-organized and logically sequenced, with clear action classifications. The descriptions accurately reflect the source text.",
-        "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "Equipment is identified, including the furnace, quartz tube, mechanical pump, and sputtering system. However, vendor information and specific settings for each piece of equipment are not provided.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Conditions are mostly extracted accurately, including temperature, duration, and atmosphere. However, the pressure during the vacuuming step is not quantified, and stirring information is absent.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning and context of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
-        "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "The extraction generally adheres to the GeneralSynthesisOntology schema and data type requirements. All values are correctly formatted, and the structure is consistent with the schema.",
-        "overall_score": 4.2,
-        "overall_reasoning": "The extraction is reasonably complete and accurate, capturing the main aspects of the ZnO nanorod synthesis. However, some details are missing, such as specific pressure values and vendor information for equipment. The extraction maintains semantic accuracy and generally complies with the schema."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Pressure during vacuuming step.",
-        "Vendor information for equipment.",
-        "Purity of some starting materials.",
-        "Amount of silicon substrate."
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Specify the pressure achieved during the vacuuming step.",
-        "Include vendor information for the equipment used.",
-        "Provide purity information for all starting materials.",
-        "Quantify the amount of silicon substrate used."
-      ]
-    }
-  },
-  {
-    "material": "ZnO nanoneedles",
-    "synthesis": {
-      "target_compound": "ZnO nanoneedles",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Adapter JSONAdapter failed to parse the LM response. \n\nLM Response: {\n    \"target_compound\": \"ZnO nanoneedles\",\n    \"target_compound_type\": \"nanomaterials\",\n    \"synthesis_method\": \"PVD\",\n    \"starting_materials\": [\n      {\n        \"name\": \"Zn powders\",\n        \"amount\": 1,\n        \"unit\": \"g\",\n        \"purity\": \"99.99%\",\n        \"vendor\": null\n      },\n      {\n        \"name\": \"silicon substrate\",\n        \"amount\": null,\n        \"unit\": null,\n        \"purity\": null,\n        \"vendor\": null\n      },\n      {\n        \"name\": \"hydrofluoric acid\",\n        \"amount\": null,\n        \"unit\": null,\n        \"purity\": null,\n        \"vendor\": null\n      },\n      {\n        \"name\": \"acetone\",\n        \"amount\": null,\n        \"unit\": null,\n        \"purity\": null,\n        \"vendor\": null\n      },\n      {\n        \"name\": \"ethanol\",\n        \"amount\": null,\n        \"unit\": null,\n        \"purity\": null,\n        \"vendor\": null\n      },\n      {\n        \"name\": \"deionized water\",\n        \"amount\": null,\n        \"unit\": null,\n        \"purity\": null,\n        \"vendor\": null\n      },\n      {\n        \"name\": \"Au film\",\n        \"amount\": 10,\n        \"unit\": \"nm\",\n        \"purity\": null,\n        \"vendor\": null\n      },\n      {\n        \"name\": \"water\",\n        \"amount\": 4,\n        \"unit\": \"mL\",\n        \"purity\": null,\n        \"vendor\": null\n      }\n    ],\n    \"steps\": [\n      {\n        \"step_number\": 1,\n        \"action\": \"grind\",\n        \"description\": null,\n        \"materials\": [\n          {\n            \"name\": \"Zn powders\",\n            \"amount\": 1,\n            \"unit\": \"g\",\n            \"purity\": \"99.99%\",\n            \"vendor\": null\n          }\n        ],\n        \"equipment\": [],\n        \"conditions\": {}\n      },\n      {\n        \"step_number\": 2,\n        \"action\": \"etch\",\n        \"description\": \"silicon was firstly etched using hydrofluoric acid\",\n        \"materials\": [\n          {\n            \"name\": \"silicon substrate\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"hydrofluoric acid\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          }\n        ],\n        \"equipment\": [],\n        \"conditions\": {\n          \"duration\": 10,\n          \"time_unit\": \"min\"\n        }\n      },\n      {\n        \"step_number\": 3,\n        \"action\": \"sonicate\",\n        \"description\": \"ultrasonically cleaned successively in acetone, ethanol, and deionized water\",\n        \"materials\": [\n          {\n            \"name\": \"silicon substrate\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"acetone\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"ethanol\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"deionized water\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          }\n        ],\n        \"equipment\": [],\n        \"conditions\": {\n          \"duration\": 15,\n          \"time_unit\": \"min\"\n        }\n      },\n      {\n        \"step_number\": 4,\n        \"action\": \"deposition\",\n        \"description\": \"deposited with a 10 nm Au film on the surface by sputtering\",\n        \"materials\": [\n          {\n            \"name\": \"silicon substrate\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"Au film\",\n            \"amount\": 10,\n            \"unit\": \"nm\",\n            \"purity\": null,\n            \"vendor\": null\n          }\n        ],\n        \"equipment\": [\n          {\n            \"name\": \"sputtering\",\n            \"instrument_vendor\": null,\n            \"settings\": null\n          }\n        ],\n        \"conditions\": {}\n      },\n      {\n        \"step_number\": 5,\n        \"action\": \"heat\",\n        \"description\": \"The furnace was heated to reaction temperature $730^{\\circ} \\mathrm{C}$ at a rate of $20^{\\circ} \\mathrm{C} / \\mathrm{min$, and kept for 40 min under argon (Ar) flow of 50 sccm\",\n        \"materials\": [\n          {\n            \"name\": \"Zn powders\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"silicon substrate\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"water\",\n            \"amount\": null,\n            \"unit\": null,\n            \"purity\": null,\n            \"vendor\": null\n          },\n          {\n            \"name\": \"Ar\",\n            \"amount\": 50,\n            \"unit\": \"sccm\",\n            \"purity\": null,\n            \"vendor\": null\n          }\n        ],\n        \"equipment\": [\n          {\n            \"name\": \"horizontal-tube furnace\",\n            \"instrument_vendor\": null,\n            \"settings\": null\n          }\n        ],\n        \"conditions\": {\n          \"temperature\": 730,\n          \"temp_unit\": \"C\",\n          \"duration\": 40,\n          \"time_unit\": \"min\",\n          \"atmosphere\": \"argon\"\n        }\n      },\n      {\n        \"step_number\": 6,\n        \"action\": \"cool\",\n        \"description\": \"After the furnace cooled down, a bluish-white layer was observed on the substrate surface.\",\n        \"materials\": [],\n        \"equipment\": [\n          {\n            \"name\": \"furnace\",\n            \"instrument_vendor\": null,\n            \"settings\": null\n          }\n        ],\n        \"conditions\": {}\n      }\n    ],\n    \"equipment\": [\n      {\n        \"name\": \"horizontal quartz tube\",\n        \"instrument_vendor\": null,\n        \"settings\": null\n      },\n      {\n        \"name\": \"furnace\",\n        \"instrument_vendor\": null,\n        \"settings\": null\n      },\n      {\n        \"name\": \"mechanical pump\",\n        \"instrument_vendor\": null,\n        \"settings\": null\n      }\n    ],\n    \"notes\": \"ZnO nanostructures were synthesized on the silicon substrate via a vapor-liquid-solid (VLS) growth mechanism. The colloidal Au nanoparticles on the Si surface served as catalysts in the VLS synthesis mechanism. The variation of crystal growth should be attributed to the spatial change of Zn and O2 concentration distribution inside the quartz vial. The ZnO crystals would grow into thicker needle-like structures when the concentration of oxygen is higher.\"\n  }\n} \n\nExpected to find output fields in the LM response: [structured_synthesis] \n\nActual output fields parsed from the LM response: [] \n\n"
-    },
-    "evaluation": {
-      "reasoning": "The extraction failed to produce a structured synthesis due to a parsing error. Therefore, the evaluation is based on the incomplete information available. The target compound is correctly identified, and some starting materials and steps are extracted. However, the overall structure is missing, and the extraction is incomplete.",
-      "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the parsing error, the overall structure is missing, leading to a very low score. The extraction is far from complete.",
-        "material_extraction_score": 3.0,
-        "material_extraction_reasoning": "Some starting materials are extracted with reasonable accuracy, including quantities and purities where specified. However, the completeness is lacking, and some materials might be missed.",
-        "process_steps_score": 2.0,
-        "process_steps_reasoning": "Some process steps are identified, but the descriptions are not always complete, and the logical flow is not fully captured due to the parsing error.",
-        "equipment_extraction_score": 2.0,
-        "equipment_extraction_reasoning": "Some equipment is identified, but details like vendor and specific settings are missing. The extraction is basic but incomplete.",
-        "conditions_extraction_score": 2.5,
-        "conditions_extraction_reasoning": "Some conditions like temperature and duration are extracted, but the context and completeness are lacking. The units are generally correct.",
-        "semantic_accuracy_score": 2.5,
-        "semantic_accuracy_reasoning": "The semantic accuracy is partially preserved, but the lack of a complete structure hinders the overall understanding of the synthesis process.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "Due to the parsing error, the format compliance is very low. The structured data is incomplete and does not adhere to the schema.",
-        "overall_score": 2.0,
-        "overall_reasoning": "The overall score is low due to the parsing error and incomplete extraction. The system struggles to create a complete and accurate representation of the synthesis process."
-      },
-      "confidence_level": "low",
-      "missing_information": [
-        "Complete synthesis procedure",
-        "Equipment vendors and settings",
-        "Detailed process step descriptions",
-        "Logical flow of the synthesis"
-      ],
-      "extraction_errors": [
-        "Parsing error prevented complete extraction",
-        "Incomplete process step descriptions",
-        "Missing equipment details",
-        "Lack of structural completeness"
-      ],
-      "improvement_suggestions": [
-        "Improve parsing robustness to handle complex text",
-        "Enhance extraction of equipment details",
-        "Ensure complete process step descriptions",
-        "Focus on structural completeness"
-      ]
-    }
-  },
-  {
-    "material": "ZnO nanocombs",
-    "synthesis": {
-      "target_compound": "ZnO nanocombs",
-      "target_compound_type": "nanomaterials",
-      "synthesis_method": "PVD",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "Zn powders",
-          "amount": 1.0,
-          "unit": "g",
-          "purity": "99.99%"
-        },
-        {
-          "vendor": null,
-          "name": "water",
-          "amount": 4.0,
-          "unit": "mL",
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "n-type silicon substrate",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "hydrofluoric acid",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "acetone",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "ethanol",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "deionized water",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Au film",
-          "amount": 10.0,
-          "unit": "nm",
           "purity": null
         }
       ],
@@ -955,11 +385,11 @@
         {
           "step_number": 2,
           "action": "etch",
-          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min, then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step, and finally was deposited with a 10 nm Au film on the surface by sputtering.",
+          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min",
           "materials": [
             {
               "vendor": null,
-              "name": "n-type silicon substrate",
+              "name": "silicon substrate",
               "amount": null,
               "unit": null,
               "purity": null
@@ -967,27 +397,6 @@
             {
               "vendor": null,
               "name": "hydrofluoric acid",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "acetone",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "ethanol",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "deionized water",
               "amount": null,
               "unit": null,
               "purity": null
@@ -1009,8 +418,8 @@
         },
         {
           "step_number": 3,
-          "action": "sonicate",
-          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min, then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step, and finally was deposited with a 10 nm Au film on the surface by sputtering.",
+          "action": "clean",
+          "description": "then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step",
           "materials": [
             {
               "vendor": null,
@@ -1034,7 +443,13 @@
               "purity": null
             }
           ],
-          "equipment": [],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
           "conditions": {
             "temperature": null,
             "temp_unit": null,
@@ -1050,8 +465,8 @@
         },
         {
           "step_number": 4,
-          "action": "add",
-          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min, then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step, and finally was deposited with a 10 nm Au film on the surface by sputtering.",
+          "action": "deposit",
+          "description": "finally was deposited with a 10 nm Au film on the surface by sputtering.",
           "materials": [
             {
               "vendor": null,
@@ -1063,7 +478,7 @@
           ],
           "equipment": [
             {
-              "name": "Sputtering",
+              "name": "sputtering",
               "instrument_vendor": null,
               "settings": null
             }
@@ -1084,7 +499,309 @@
         {
           "step_number": 5,
           "action": "heat",
-          "description": "The boat was then placed in a quartz vial inside a horizontal-tube furnace (see Figure 1). Another boat with 4 mL water was placed at the gas direction of the port of the horizontal-tube furnace. The system was vacuumed by a mechanical pump to KPa level, and then the furnace was heated to reaction temperature 730\u00b0C at a rate of 20\u00b0C/min, and kept for 40 min under argon (Ar) flow of 50 sccm.",
+          "description": "The system was vacuumed by a mechanical pump to KPa level, and then the furnace was heated to reaction temperature 730\u00b0C at a rate of 20\u00b0C/min, and kept for 40 min under argon (Ar) flow of 50 sccm .",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ar",
+              "amount": 50.0,
+              "unit": "sccm",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": 4.0,
+              "unit": "mL",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "horizontal-tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "mechanical pump",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 730.0,
+            "temp_unit": "C",
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal quartz tube",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "ZnO nanostructures were synthesized on the silicon substrate via a vapor-liquid-solid (VLS) growth mechanism. The colloidal Au nanoparticles on the Si surface served as catalysts in the VLS synthesis mechanism."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanorod synthesis using water-assisted physical vapor deposition. Material extraction is generally accurate, though some quantities are missing. Process steps are logically sequenced. Equipment identification is adequate. Conditions are mostly well-extracted, but pressure control details are lacking. Semantic accuracy is good, preserving the scientific context. Format compliance is high. Overall, the extraction is reasonably complete and accurate, but could benefit from more precise quantification of certain parameters.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the specific pressure achieved by the mechanical pump and the dimensions of the ceramic boat.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is generally accurate, with correct names, amounts, and units. However, the purity of some materials (e.g., hydrofluoric acid, acetone, ethanol, deionized water) is not specified, and the dimensions of the silicon substrate are only partially captured.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "Process steps are logically sequenced and actions are correctly classified. The description of each step is clear and concise.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Equipment identification is adequate, but lacks specific vendor information and detailed settings for instruments like the sputtering system and ultrasonicator.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature, duration, and atmosphere are accurately extracted. However, the pressure achieved by the mechanical pump is only qualitatively described as 'KPa level,' and the heating rate is correctly captured. More precise pressure values would improve the extraction.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction preserves the scientific context and meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated and formatted.",
+        "overall_score": 4.3,
+        "overall_reasoning": "The extraction is reasonably complete and accurate, with a good representation of the synthesis procedure. Improvements could be made by including more precise quantification of parameters and additional details about equipment and material properties."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Specific pressure value achieved by the mechanical pump.",
+        "Vendor and settings for sputtering system and ultrasonicator.",
+        "Purity of hydrofluoric acid, acetone, ethanol, and deionized water.",
+        "Dimensions of the ceramic boat."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Specify the pressure achieved by the mechanical pump with a numerical value and unit.",
+        "Include vendor information and detailed settings for equipment like the sputtering system and ultrasonicator.",
+        "Add purity information for materials like hydrofluoric acid, acetone, ethanol, and deionized water.",
+        "Quantify the dimensions of the ceramic boat."
+      ]
+    }
+  },
+  {
+    "material": "ZnO nanoneedles",
+    "synthesis": {
+      "target_compound": "ZnO nanoneedles",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Zn powders",
+          "amount": 1.0,
+          "unit": "g",
+          "purity": "99.99%"
+        },
+        {
+          "vendor": null,
+          "name": "silicon substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "hydrofluoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ethanol",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Au film",
+          "amount": 10.0,
+          "unit": "nm",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": 4.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "grind",
+          "description": "1 g Zn powders (purity 99.99%) used as the source was grinded and placed at the end of a ceramic boat.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Zn powders",
+              "amount": 1.0,
+              "unit": "g",
+              "purity": "99.99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "etch",
+          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "hydrofluoric acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 10.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "clean",
+          "description": "then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "deposit",
+          "description": "and finally was deposited with a 10 nm Au film on the surface by sputtering.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Au film",
+              "amount": 10.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "sputtering",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "The system was vacuumed by a mechanical pump to KPa level, and then the furnace was heated to reaction temperature 730\u00b0C at a rate of 20\u00b0C/min, and kept for 40 min under argon (Ar) flow of 50 sccm .",
           "materials": [
             {
               "vendor": null,
@@ -1099,6 +816,11 @@
               "name": "horizontal-tube furnace",
               "instrument_vendor": null,
               "settings": null
+            },
+            {
+              "name": "mechanical pump",
+              "instrument_vendor": null,
+              "settings": null
             }
           ],
           "conditions": {
@@ -1108,20 +830,253 @@
             "time_unit": "min",
             "pressure": null,
             "pressure_unit": null,
-            "atmosphere": "argon",
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal quartz tube",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "ZnO nanostructures were synthesized on the silicon substrate via a vapor-liquid-solid (VLS) growth mechanism. The colloidal Au nanoparticles on the Si surface served as catalysts in the VLS synthesis mechanism."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main steps and conditions for the synthesis of ZnO nanostructures using a water-assisted physical vapor deposition method. The materials, equipment, and conditions are generally well-extracted, but there are some areas for improvement, particularly in specifying the type of PVD and adding more details about the equipment used.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, more detail could be included about the specific type of PVD used (e.g., thermal evaporation, sputtering) and the specific model of the furnace.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including the quantities and purities where specified. The units are correctly identified. However, the role of each material in the synthesis could be clarified further (e.g., Ar as a carrier gas).",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and generally accurate. The actions are well-classified. However, the description of the heating step could be more precise, including the ramp rate and the final pressure.",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "The equipment is identified, but more specific details could be provided. For example, the type of sputtering system or the model of the furnace would improve the extraction. The settings used for the sputtering process are missing.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The key conditions such as temperature, duration, and atmosphere are extracted. The units are correctly identified. However, the pressure during the heating step is only vaguely specified as 'KPa level'. A more precise value would be desirable.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-done, capturing the key aspects of the synthesis procedure. The main areas for improvement are providing more specific details about the equipment and conditions, and clarifying the role of each material in the synthesis."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Specific type of PVD method used.",
+        "Model of the furnace.",
+        "Sputtering settings.",
+        "Precise pressure during the heating step."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Specify the type of PVD method used.",
+        "Include the model of the furnace.",
+        "Add the sputtering settings.",
+        "Provide a more precise pressure value during the heating step.",
+        "Clarify the role of each material in the synthesis description."
+      ]
+    }
+  },
+  {
+    "material": "ZnO nanocombs",
+    "synthesis": {
+      "target_compound": "ZnO nanocombs",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Zn powders",
+          "amount": 1.0,
+          "unit": "g",
+          "purity": "99.99%"
+        },
+        {
+          "vendor": null,
+          "name": "silicon substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "hydrofluoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ethanol",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Au film",
+          "amount": 10.0,
+          "unit": "nm",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": 4.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "grind",
+          "description": "1 g Zn powders (purity 99.99%) used as the source was grinded and placed at the end of a ceramic boat.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Zn powders",
+              "amount": 1.0,
+              "unit": "g",
+              "purity": "99.99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
             "stirring": null,
             "stirring_speed": null,
             "ph": null
           }
         },
         {
-          "step_number": 6,
-          "action": "cool",
-          "description": "After the furnace cooled down, a bluish-white layer was observed on the substrate surface.",
-          "materials": [],
+          "step_number": 2,
+          "action": "etch",
+          "description": "The silicon was firstly etched using hydrofluoric acid for about 10 min",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "hydrofluoric acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 10.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "clean",
+          "description": "then ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
           "equipment": [
             {
-              "name": "furnace",
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "deposition",
+          "description": "and finally was deposited with a 10 nm Au film on the surface by sputtering.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Au film",
+              "amount": 10.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "sputtering",
               "instrument_vendor": null,
               "settings": null
             }
@@ -1134,6 +1089,36 @@
             "pressure": null,
             "pressure_unit": null,
             "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "The system was vacuumed by a mechanical pump to KPa level, and then the furnace was heated to reaction temperature 730\u00b0C at a rate of 20\u00b0C/min, and kept for 40 min under argon (Ar) flow of 50 sccm .",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "mechanical pump",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "horizontal-tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 730.0,
+            "temp_unit": "C",
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "argon",
             "stirring": null,
             "stirring_speed": null,
             "ph": null
@@ -1157,43 +1142,41 @@
           "settings": null
         }
       ],
-      "notes": null
+      "notes": "ZnO nanostructures were synthesized on the silicon substrate via a vapor-liquid-solid (VLS) growth mechanism. The colloidal Au nanoparticles on the Si surface served as catalysts in the VLS synthesis mechanism."
     },
     "evaluation": {
-      "reasoning": "The extraction captures the main elements of the ZnO nanomaterial synthesis using water-assisted physical vapor deposition. Material extraction is generally good, although some quantities are missing. The process steps are logically sequenced and mostly accurate. Equipment and conditions are reasonably well-extracted. There are some areas for improvement in terms of completeness and accuracy of quantities and units.",
+      "reasoning": "The extraction captures the main elements of the ZnO nanomaterial synthesis using water-assisted physical vapor deposition. Material extraction is generally accurate, including quantities and purities where specified. The process steps are logically sequenced and the equipment is adequately identified. However, there are areas for improvement, particularly in specifying the vacuum level achieved by the mechanical pump and providing more details on the sputtering process. The target material is not fully represented in the extracted ontology, which focuses more on the general synthesis rather than specific conditions for ZnO nanocombs. The conditions extraction is mostly accurate, but lacks details on the ramp rate and the specific pressure achieved by the pump.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the dimensions of the silicon substrate and the vacuum level achieved by the mechanical pump.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material extraction is mostly accurate, with correct identification of the main reactants and their roles. However, the amount of silicon substrate is not specified, and the purity of hydrofluoric acid, acetone, ethanol, and deionized water are not provided. The amount of Au film is correctly extracted with its unit.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified. The description of each step is generally accurate, although some details could be more precise.",
+        "structural_completeness_reasoning": "The ontology covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the specific vacuum level and more precise sputtering parameters.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material extraction is accurate, with correct names, amounts, units, and purities. The extraction includes all the starting materials and their respective roles in the synthesis. However, the role of Au as a catalyst could be explicitly mentioned in the material list.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are generally clear. However, more detail could be added to each step, such as the purpose of each cleaning step.",
         "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The equipment extraction is reasonably complete, identifying the key pieces of equipment used in the synthesis. However, more specific details about the furnace and sputtering system could be included, such as model numbers or manufacturers.",
+        "equipment_extraction_reasoning": "The equipment extraction is mostly complete, with the identification of key instruments like the furnace, mechanical pump, and sputtering system. However, specific models or vendors are not provided, and settings for the sputtering process are missing.",
         "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The extraction of synthesis conditions is mostly accurate, with correct values for temperature, duration, and argon flow rate. However, the pressure during the heating step is not specified, only that the system was vacuumed to 'KPa level'.",
+        "conditions_extraction_reasoning": "The extraction of synthesis conditions is generally accurate, including temperature, duration, and atmosphere. However, the vacuum level achieved by the mechanical pump is not specified numerically, and the ramp rate of the furnace is only mentioned in the description, not as a structured condition.",
         "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The semantic accuracy is generally high, with the scientific meaning of the synthesis steps and conditions preserved in the structured format. The relationships between materials, equipment, and conditions are correctly represented.",
+        "semantic_accuracy_reasoning": "The semantic accuracy is high, with the preservation of scientific context and meaning in the structured format. The relationships between materials, steps, and conditions are well-maintained.",
         "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated and formatted.",
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated, and the structure is valid.",
         "overall_score": 4.3,
-        "overall_reasoning": "Overall, the ontology extraction is of good quality, capturing the essential details of the ZnO nanomaterial synthesis. There are some areas for improvement in terms of completeness and accuracy of quantities and units, but the overall structure and semantic accuracy are strong."
+        "overall_reasoning": "The ontology extraction is of good quality, capturing most of the essential synthesis information accurately. Areas for improvement include providing more specific details on equipment settings, vacuum levels, and ramp rates. The semantic accuracy and format compliance are excellent."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Dimensions of the silicon substrate.",
-        "Vacuum level achieved by the mechanical pump.",
-        "Purities of hydrofluoric acid, acetone, ethanol, and deionized water.",
-        "Model numbers or manufacturers of the furnace and sputtering system.",
-        "Pressure during the heating step."
+        "Specific vacuum level achieved by the mechanical pump.",
+        "Detailed sputtering parameters.",
+        "Ramp rate as a structured condition."
       ],
       "extraction_errors": [],
       "improvement_suggestions": [
-        "Include the dimensions of the silicon substrate.",
         "Specify the vacuum level achieved by the mechanical pump in kPa.",
-        "Provide the purities of hydrofluoric acid, acetone, ethanol, and deionized water.",
-        "Add more specific details about the furnace and sputtering system, such as model numbers or manufacturers.",
-        "Specify the pressure during the heating step."
+        "Include details on the sputtering process, such as voltage, current, and gas flow rates.",
+        "Add the ramp rate (20\u00b0C/min) as a structured condition.",
+        "Explicitly mention the catalytic role of Au nanoparticles in the material list.",
+        "Provide more details on the purpose of each cleaning step (acetone, ethanol, deionized water)."
       ]
     }
   }

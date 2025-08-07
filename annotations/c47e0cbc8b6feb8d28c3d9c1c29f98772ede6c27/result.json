@@ -61,46 +61,47 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The value 'mechanochemical' is not a recognized term in the ontology's enumerated list of synthesis methods. This indicates a failure in format compliance and semantic accuracy, as the correct synthesis method was not mapped to a valid ontology term. The extraction also failed to identify any starting materials, steps, or equipment, leading to a low structural completeness score.",
+      "reasoning": "The extraction failed because the synthesis method 'mechanochemistry' was not a valid option in the schema. The model should have classified it as 'other'. Due to this error, the rest of the extraction was not performed, leading to empty lists for starting materials, steps, and equipment.",
       "scores": {
         "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "No starting materials, steps, or equipment were extracted. The ontology is structurally incomplete, missing key synthesis components.",
+        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, the extraction process halted, resulting in a complete lack of information regarding materials, steps, equipment, and conditions. This indicates a severe lack of structural completeness.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No starting materials were extracted, indicating a complete failure in material extraction.",
+        "material_extraction_reasoning": "No materials were extracted due to the initial error. The extraction process did not proceed to identify and extract any material information, resulting in a score of 1.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, indicating a complete failure in process step extraction.",
+        "process_steps_reasoning": "No process steps were extracted. The failure to recognize the synthesis method prevented the extraction of any subsequent steps, leading to a score of 1.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted, indicating a complete failure in equipment extraction.",
+        "equipment_extraction_reasoning": "No equipment was extracted. The initial error prevented the identification and extraction of any equipment used in the synthesis, resulting in a score of 1.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions were extracted, indicating a complete failure in conditions extraction.",
+        "conditions_extraction_reasoning": "No conditions were extracted. The failure to correctly identify the synthesis method prevented the extraction of any synthesis conditions, leading to a score of 1.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The synthesis method 'mechanochemical' was not correctly mapped to a valid ontology term, indicating a failure in semantic accuracy.",
+        "semantic_accuracy_reasoning": "The semantic accuracy is extremely low because no meaningful information was extracted from the text. The initial error cascaded through the entire extraction process, resulting in a complete failure to preserve any scientific meaning.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed validation due to the synthesis method not being a valid term, indicating a failure in format compliance.",
+        "format_compliance_reasoning": "The format compliance is low because the extraction process failed to populate the required fields accurately. While the JSON structure is valid, the content is essentially empty due to the initial error.",
         "overall_score": 1.0,
-        "overall_reasoning": "The extraction failed due to a validation error and a lack of extracted information. The ontology is structurally incomplete, semantically inaccurate, and non-compliant with the required format."
+        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process. The inability to correctly identify the synthesis method led to a cascade of errors, preventing the extraction of any meaningful information. This indicates a critical flaw in the extraction system's ability to handle variations in synthesis descriptions."
       },
       "confidence_level": "low",
       "missing_information": [
         "Starting materials",
         "Synthesis steps",
-        "Equipment",
-        "Synthesis conditions"
+        "Equipment used",
+        "Reaction conditions (temperature, pressure, duration)",
+        "Material quantities and units"
       ],
       "extraction_errors": [
-        "Invalid synthesis method term",
-        "Missing starting materials",
-        "Missing synthesis steps",
-        "Missing equipment",
-        "Missing synthesis conditions"
+        "Incorrect synthesis method classification",
+        "Failure to extract materials",
+        "Failure to extract process steps",
+        "Failure to extract equipment",
+        "Failure to extract conditions"
       ],
       "improvement_suggestions": [
-        "Map 'mechanochemical' to a valid synthesis method or add it to the ontology.",
-        "Improve extraction of starting materials, steps, equipment, and conditions.",
-        "Ensure all extracted values conform to the ontology's data types and enumerated lists."
+        "Expand the list of recognized synthesis methods to include 'mechanochemistry' or map it to 'other'.",
+        "Implement error handling to allow the extraction process to continue even if the synthesis method is not immediately recognized.",
+        "Improve the model's ability to identify and extract information even with variations in terminology and phrasing."
       ]
     }
   },
@@ -113,42 +114,43 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to the synthesis method 'mechanochemical' not being a valid option in the schema. This resulted in a complete failure to extract any other information. The format compliance score is therefore very low, as is the overall score.",
+      "reasoning": "The extraction failed because the synthesis method 'mechanochemistry' was not recognized as a valid option in the ontology. This resulted in a format compliance error, preventing further extraction of materials, steps, equipment, and conditions. The overall score is low due to this critical failure.",
       "scores": {
         "structural_completeness_score": 1.0,
         "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, no other components of the synthesis (materials, steps, equipment, conditions) could be extracted, resulting in minimal structural completeness.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error with the synthesis method. The material extraction is therefore completely absent.",
+        "material_extraction_reasoning": "No materials were extracted due to the initial error in synthesis method identification. The material extraction is therefore incomplete and inaccurate.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted as the extraction process failed early on. The process steps are entirely missing.",
+        "process_steps_reasoning": "No process steps were extracted as the synthesis method was not recognized, preventing any further analysis of the procedure.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted due to the initial error. The equipment extraction is completely absent.",
+        "equipment_extraction_reasoning": "No equipment was extracted due to the failure in identifying the synthesis method. The equipment extraction is therefore non-existent.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted due to the initial error. The conditions extraction is completely absent.",
+        "conditions_extraction_reasoning": "No conditions were extracted due to the initial error. The conditions extraction is completely missing.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Since no information was accurately extracted, the semantic accuracy is non-existent. The extracted data does not reflect the scientific meaning of the text.",
+        "semantic_accuracy_reasoning": "The semantic accuracy is extremely low as the fundamental synthesis method was misinterpreted, leading to a complete breakdown in understanding the scientific context.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed to comply with the schema due to an invalid synthesis method. This initial error prevented any further compliance.",
+        "format_compliance_reasoning": "The format compliance is poor because the synthesis method was not a valid option, causing a schema validation error and preventing the creation of a compliant JSON structure.",
         "overall_score": 1.0,
-        "overall_reasoning": "The overall score is extremely low due to the complete failure of the extraction process. The initial error with the synthesis method cascaded into a complete lack of information extracted."
+        "overall_reasoning": "The overall score is 1.0 due to the critical failure in identifying the synthesis method, which cascaded into a complete failure to extract any other relevant information. The extraction is fundamentally flawed."
       },
-      "confidence_level": "high",
+      "confidence_level": "low",
       "missing_information": [
         "All materials used in the synthesis.",
-        "Detailed steps of the synthesis procedure.",
-        "Equipment used in the synthesis.",
-        "Conditions such as temperature, pressure, and duration."
+        "Detailed process steps.",
+        "Specific equipment used.",
+        "Synthesis conditions (temperature, pressure, duration, atmosphere)."
       ],
       "extraction_errors": [
-        "Invalid synthesis method: 'mechanochemical' is not a valid option in the schema.",
-        "Failure to extract any materials, steps, equipment, or conditions."
+        "Synthesis method 'mechanochemistry' not recognized as a valid option.",
+        "Failure to extract materials, steps, equipment, and conditions due to initial error."
       ],
       "improvement_suggestions": [
-        "Add 'mechanochemical' as a valid synthesis method in the schema.",
-        "Implement error handling to allow partial extraction even if some fields are invalid."
+        "Expand the list of valid synthesis methods in the ontology to include 'mechanochemistry'.",
+        "Implement more robust error handling to allow partial extraction even if the synthesis method is not immediately recognized.",
+        "Improve the model's ability to handle variations in synthesis method nomenclature."
       ]
     }
   },
@@ -250,43 +252,231 @@
     "material": "SSNi-0.5",
     "synthesis": {
       "target_compound": "SSNi-0.5",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanical mixing",
+      "starting_materials": [
+        {
+          "vendor": "Degussa, Germany",
+          "name": "Sipernat 50",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.5,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application.",
+          "materials": [
+            {
+              "vendor": "Degussa, Germany",
+              "name": "Sipernat 50",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Superior, Poland",
+              "name": "potato starch",
+              "amount": 0.3,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": 0.5,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 3,
+          "action": "grind",
+          "description": "pre-grinding",
+          "materials": [
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "grind",
+          "description": "grinding",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "heating of the system, resulting starch gelation and better homogenization of the sample",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 6,
+          "action": "calcine",
+          "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5."
     },
     "evaluation": {
-      "reasoning": "The extraction failed completely due to a validation error in the `synthesis_method` field. The provided method, 'mechanochemical', was not a recognized option in the schema's enumerated list. This single error prevented any further extraction or evaluation of the synthesis process.",
+      "reasoning": "The extraction captures the main steps and materials used in the synthesis of Ni-doped carbosils. The mechanochemical process and subsequent pyrolysis are well-represented. However, there are inaccuracies in the material amounts and units, and some conditions are missing or incomplete. The structural completeness is good, but the accuracy of specific details needs improvement.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the extraction failure, no structural information was extracted. The ontology is entirely incomplete.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No material information was extracted due to the initial error. The material extraction is non-existent.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted. The process steps section is empty.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment information was extracted. The equipment section is empty.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted. The conditions section is empty.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Since no information was extracted, semantic accuracy is irrelevant. The extracted data has no semantic content.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The JSON is technically valid, but the content is empty due to the extraction failure. The primary error is the incorrect synthesis method, which violates the schema's constraints.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The extraction failed at the first hurdle due to an invalid synthesis method. This resulted in a completely empty ontology, leading to the lowest possible score."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology captures most of the key synthesis steps, materials, and equipment. The overall flow of the synthesis is represented, but some finer details are missing.",
+        "material_extraction_score": 3.0,
+        "material_extraction_reasoning": "Material names are generally correct, but the units for the starting materials are inconsistent and potentially incorrect (molar ratio interpreted as moles). The vendor information is useful. Purity is not specified in the text, so its absence is acceptable.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-defined and in the correct sequence. The actions are appropriately classified. However, more detail could be added to some steps.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The main equipment items (Planetary Mill, rotary quartz reactor) are identified with their vendors. Settings are not fully specified in the text, so their absence is not a major issue.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "Temperature and duration are extracted for the pyrolysis step, but some conditions for the mechanochemical treatment are missing (e.g., atmosphere). The heating rate during pyrolysis is also not extracted. Stirring speed is extracted, but it's unclear if this is actually stirring or rotation speed of the mill.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The overall scientific meaning is preserved, but the inaccuracies in material amounts and missing conditions slightly detract from the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The extraction is generally good, capturing the main aspects of the synthesis. However, inaccuracies in material amounts and missing conditions need to be addressed to improve the overall quality."
       },
       "confidence_level": "high",
       "missing_information": [
-        "All synthesis details are missing due to the initial extraction failure."
+        "Atmosphere during mechanochemical treatment.",
+        "Heating rate during pyrolysis."
       ],
       "extraction_errors": [
-        "Invalid synthesis method: 'mechanochemical' is not a recognized option."
+        "Inaccurate material amounts and units (molar ratio interpreted as moles).",
+        "Missing atmosphere for mechanochemical treatment.",
+        "Heating rate during pyrolysis not extracted."
       ],
       "improvement_suggestions": [
-        "Add 'mechanochemical' to the list of valid synthesis methods in the schema.",
-        "Implement more robust error handling to allow partial extraction even when some fields fail validation."
+        "Verify and correct the units for material amounts.",
+        "Extract the atmosphere for the mechanochemical treatment.",
+        "Include the heating rate during pyrolysis.",
+        "Clarify whether 'stirring speed' refers to actual stirring or the rotation speed of the mill."
       ]
     }
   },
@@ -299,44 +489,48 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed completely due to a validation error in the `synthesis_method` field. The provided value 'mechanochemical' was not a recognized option in the schema's enumerated list. This single error prevented any further extraction or evaluation of other fields.",
+      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemistry' is not a recognized term in the ontology's enumerated list of synthesis methods. This indicates a failure in format compliance and semantic accuracy, as the system could not map the provided synthesis method to a valid ontology term. The extraction also failed to identify any starting materials, steps, or equipment, indicating a significant lack of structural completeness.",
       "scores": {
         "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in extracting the synthesis method, no other components (materials, steps, equipment, conditions) could be extracted, resulting in minimal structural completeness.",
+        "structural_completeness_reasoning": "The extraction completely failed to identify any starting materials, process steps, or equipment used in the synthesis. This indicates a severe lack of completeness in capturing the synthesis information.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted because the initial synthesis method extraction failed, preventing further processing.",
+        "material_extraction_reasoning": "No materials were extracted. The extraction process failed to identify and represent the chemical compounds and their quantities used in the synthesis.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted due to the initial error in identifying the synthesis method.",
+        "process_steps_reasoning": "No process steps were extracted. The extraction process failed to identify and represent the sequence of actions performed during the synthesis.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted because the synthesis method extraction failed, halting the extraction process.",
+        "equipment_extraction_reasoning": "No equipment was extracted. The extraction process failed to identify and represent the tools and instruments used in the synthesis.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted because the synthesis method extraction failed, preventing any further data extraction.",
+        "conditions_extraction_reasoning": "No conditions were extracted. The extraction process failed to identify and represent the temperature, pressure, duration, and atmosphere used in the synthesis.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Semantic accuracy is non-existent as no meaningful information was extracted beyond the target compound name.",
+        "semantic_accuracy_reasoning": "Due to the failure to extract any meaningful information, the semantic accuracy is extremely low. The extracted data does not preserve the scientific meaning of the synthesis procedure.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is extremely low due to the initial validation error. The extracted data does not conform to the expected schema.",
+        "format_compliance_reasoning": "The extraction failed to comply with the required format due to the invalid `synthesis_method` value. This indicates a failure to adhere to the GeneralSynthesisOntology schema and data type requirements.",
         "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 because the extraction process failed at the first step due to an invalid synthesis method. This prevented the extraction of any other relevant information."
+        "overall_reasoning": "The overall extraction quality is extremely poor due to the complete failure to extract any meaningful information and the violation of the ontology schema. The extraction process needs significant improvement to accurately capture and represent synthesis information."
       },
       "confidence_level": "low",
       "missing_information": [
-        "Material quantities, units, or purities",
-        "Process step details or sequencing",
-        "Equipment specifications or settings",
-        "Synthesis conditions (temperature, pressure, duration)"
+        "Starting materials",
+        "Process steps",
+        "Equipment",
+        "Synthesis conditions (temperature, pressure, duration)",
+        "Quantities and units of materials"
       ],
       "extraction_errors": [
-        "Semantic meaning not preserved in structured format",
-        "Schema compliance issues or data type errors"
+        "Invalid synthesis_method value ('mechanochemistry')",
+        "Failure to extract any materials",
+        "Failure to extract any process steps",
+        "Failure to extract any equipment",
+        "Failure to extract any synthesis conditions"
       ],
       "improvement_suggestions": [
-        "Improve coverage of all synthesis components",
-        "Enhance material parsing for quantities and units",
-        "Better organize and sequence process steps",
-        "Ensure strict adherence to ontology schema"
+        "Improve the recognition of synthesis methods and map them to valid ontology terms.",
+        "Enhance the extraction process to identify and extract starting materials, process steps, equipment, and synthesis conditions.",
+        "Implement unit conversion and validation to ensure consistency and accuracy of extracted values.",
+        "Improve error handling and provide more informative error messages to guide users in correcting extraction errors."
       ]
     }
   },
@@ -403,49 +597,42 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemical' is not a valid option according to the schema's enumerated list. This indicates a failure in correctly classifying the synthesis method based on the source text.",
+      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemistry' is not among the allowed literal values in the schema. This indicates a failure in correctly classifying the synthesis method according to the defined ontology. The extraction process did not proceed beyond this initial validation check, resulting in empty lists for starting materials, steps, and equipment.",
       "scores": {
         "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in extracting the synthesis method, the structural completeness is severely lacking. No materials, steps, equipment, or conditions were extracted.",
+        "structural_completeness_reasoning": "Due to the failure in the initial validation, no structural information was extracted. The ontology is entirely incomplete, missing all key components.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted, indicating a complete failure in identifying and extracting material information from the text.",
+        "material_extraction_reasoning": "No material information was extracted due to the initial validation failure. The starting_materials list is empty.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, indicating a complete failure in identifying and structuring the synthesis procedure.",
+        "process_steps_reasoning": "No process steps were extracted due to the initial validation failure. The steps list is empty.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted, indicating a complete failure in identifying and extracting equipment information from the text.",
+        "equipment_extraction_reasoning": "No equipment information was extracted due to the initial validation failure. The equipment list is empty.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted, indicating a complete failure in identifying and extracting synthesis conditions from the text.",
+        "conditions_extraction_reasoning": "No conditions were extracted due to the initial validation failure. The extraction process halted before reaching this stage.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Due to the lack of extracted information, the semantic accuracy is non-existent. The extracted data does not represent the scientific meaning of the synthesis text.",
+        "semantic_accuracy_reasoning": "Since no information was extracted beyond the target compound, semantic accuracy cannot be assessed. The initial validation failure prevented any meaningful extraction.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed validation due to an incorrect synthesis method, indicating a failure to comply with the schema's requirements.",
+        "format_compliance_reasoning": "The format compliance is extremely poor due to the validation error in the `synthesis_method` field. The extraction process failed to adhere to the schema's literal value constraints.",
         "overall_score": 1.0,
-        "overall_reasoning": "The extraction process completely failed to extract and structure the synthesis information due to a validation error. The extracted ontology is non-compliant and does not accurately represent the source text."
+        "overall_reasoning": "The overall extraction quality is extremely poor due to a fundamental validation error that prevented any meaningful information from being extracted. The ontology is essentially empty and non-compliant."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "All materials used in the synthesis",
-        "Detailed synthesis steps",
-        "Equipment used in the synthesis",
-        "Synthesis conditions (temperature, pressure, duration)",
-        "Target compound properties"
+        "Starting materials",
+        "Process steps",
+        "Equipment",
+        "Synthesis conditions"
       ],
       "extraction_errors": [
-        "Incorrect synthesis method classification",
-        "No material extraction",
-        "No process steps extraction",
-        "No equipment extraction",
-        "No conditions extraction"
+        "Validation error: Invalid synthesis_method value ('mechanochemistry')."
       ],
       "improvement_suggestions": [
-        "Improve the synthesis method classification to correctly identify 'mechanochemical' or map it to an appropriate category.",
-        "Enhance material extraction to identify and extract all materials, quantities, and units.",
-        "Implement process step extraction to accurately capture the sequence of actions in the synthesis.",
-        "Improve equipment extraction to identify and extract all equipment used in the synthesis.",
-        "Enhance conditions extraction to accurately capture all synthesis parameters (temperature, pressure, duration)."
+        "Correctly classify 'mechanochemistry' within the synthesis_method ontology, either by adding it as a valid literal or mapping it to an existing category.",
+        "Implement error handling to allow partial extraction even if some fields fail validation.",
+        "Ensure the extraction model is capable of handling the `response_format` argument."
       ]
     }
   },
@@ -502,46 +689,39 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The value 'mechanochemical' is not a recognized term in the allowed list of synthesis methods. This indicates a failure in either recognizing the synthesis method or mapping it to the correct ontology term. The rest of the fields are empty due to the initial failure.",
+      "reasoning": "The extraction failed completely due to a validation error in the synthesis method. The model incorrectly identified 'mechanochemistry' as the synthesis method, which is not a valid option in the schema's enumerated list. This resulted in a failure to extract any meaningful information about the synthesis process, materials, equipment, or conditions.",
       "scores": {
         "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, the structural completeness is minimal. No materials, steps, equipment, or conditions were extracted.",
+        "structural_completeness_reasoning": "Due to the complete extraction failure, no aspects of the synthesis (materials, steps, equipment, conditions) were captured. The structural completeness is therefore extremely poor.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted, likely due to the initial failure in identifying the synthesis method. Therefore, the material extraction score is very low.",
+        "material_extraction_reasoning": "No materials were extracted due to the initial error in identifying the synthesis method. The material extraction is completely absent.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, indicating a complete failure in this aspect of the extraction.",
+        "process_steps_reasoning": "No process steps were extracted. The extraction process failed before reaching this stage.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted. This is a significant omission, as equipment is crucial for defining the synthesis.",
+        "equipment_extraction_reasoning": "No equipment was extracted. The extraction process failed before reaching this stage.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted. This is a critical failure, as synthesis conditions are essential for reproducibility.",
+        "conditions_extraction_reasoning": "No conditions were extracted. The extraction process failed before reaching this stage.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Since no information was accurately extracted, the semantic accuracy is extremely low. The extracted data does not reflect the scientific meaning of the synthesis text.",
+        "semantic_accuracy_reasoning": "No information was extracted, so semantic accuracy is non-existent.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is low because the extraction process failed to map the synthesis method to a valid term in the ontology. While the JSON itself might be valid, the content is not compliant with the expected ontology.",
+        "format_compliance_reasoning": "The extraction failed to comply with the schema due to the invalid synthesis method. The entire structure is therefore non-compliant.",
         "overall_score": 1.0,
-        "overall_reasoning": "The overall score is very low due to the complete failure in extracting relevant synthesis information. The inability to identify the synthesis method cascades into failures across all other extraction aspects."
+        "overall_reasoning": "The extraction process failed at the initial stage due to an invalid synthesis method. This resulted in a complete lack of information extraction and a failure to comply with the GeneralSynthesisOntology schema. The overall extraction quality is extremely poor."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Starting materials",
-        "Process steps",
-        "Equipment",
-        "Synthesis conditions"
+        "All synthesis details (materials, steps, equipment, conditions)."
       ],
       "extraction_errors": [
-        "Incorrect synthesis method classification",
-        "No materials extracted",
-        "No process steps extracted",
-        "No equipment extracted",
-        "No conditions extracted"
+        "Incorrect identification of synthesis method ('mechanochemistry' not a valid option)."
       ],
       "improvement_suggestions": [
-        "Expand the list of accepted synthesis methods to include 'mechanochemical' or map it to a more general category like 'mechanical mixing'.",
-        "Improve the error handling to allow partial extraction even if the synthesis method is not recognized.",
-        "Implement more robust material and condition extraction routines that are less dependent on the initial synthesis method identification."
+        "Expand the enumerated list of valid synthesis methods in the schema to include 'mechanochemistry' or similar terms.",
+        "Improve the model's ability to handle cases where the synthesis method is described using terms not directly present in the schema.",
+        "Implement error handling to allow partial extraction even if the synthesis method is not immediately recognized."
       ]
     }
   },
@@ -554,38 +734,43 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed because the synthesis method 'mechanochemical' was not recognized as a valid option in the ontology schema. This resulted in a format compliance error, preventing further extraction of materials, steps, equipment, and conditions. The overall score is low due to this critical failure.",
+      "reasoning": "The extraction failed completely due to a validation error related to the synthesis method. The model incorrectly identified 'mechanochemistry' as a valid synthesis method according to the schema, leading to a failure in generating a complete and accurate ontology. All other fields are empty as a result of this initial error.",
       "scores": {
         "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, no other components of the synthesis (materials, steps, equipment, conditions) could be extracted, resulting in minimal structural completeness.",
+        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, the ontology is structurally incomplete, missing all key components such as materials, steps, equipment, and conditions.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "Material extraction was not possible due to the initial error in synthesis method identification. No materials were extracted.",
+        "material_extraction_reasoning": "No materials were extracted due to the initial error, resulting in a score of 1.0.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "Process steps could not be extracted as the synthesis method was not recognized, halting the extraction process early.",
+        "process_steps_reasoning": "No process steps were extracted due to the initial error, resulting in a score of 1.0.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "Equipment extraction was not performed because the synthesis method was not identified, leading to a premature termination of the extraction.",
+        "equipment_extraction_reasoning": "No equipment was extracted due to the initial error, resulting in a score of 1.0.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "Conditions extraction was not attempted due to the failure in identifying the synthesis method. No conditions were extracted.",
+        "conditions_extraction_reasoning": "No conditions were extracted due to the initial error, resulting in a score of 1.0.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Semantic accuracy cannot be assessed as no meaningful information was extracted beyond the target compound. The initial error prevented any further analysis.",
+        "semantic_accuracy_reasoning": "The semantic accuracy is non-existent as no meaningful information was extracted, resulting in a score of 1.0.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed due to a format compliance error; the synthesis method 'mechanochemical' is not a valid literal according to the schema. This caused the entire extraction to fail.",
+        "format_compliance_reasoning": "The format compliance is poor due to the initial validation error, resulting in a score of 1.0.",
         "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the critical failure in format compliance. The inability to recognize the synthesis method prevented the extraction of any other relevant information, resulting in a complete failure of the extraction process."
+        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process, stemming from the incorrect identification of the synthesis method."
       },
-      "confidence_level": "high",
+      "confidence_level": "low",
       "missing_information": [
-        "All synthesis details including materials, steps, equipment, and conditions are missing due to the initial error."
+        "All materials used in the synthesis.",
+        "Detailed process steps of the synthesis.",
+        "Equipment used in the synthesis.",
+        "Synthesis conditions (temperature, pressure, duration, atmosphere)."
       ],
       "extraction_errors": [
-        "Invalid synthesis method: 'mechanochemical' is not a recognized option in the ontology schema."
+        "Incorrect identification of 'mechanochemistry' as a valid synthesis method according to the schema.",
+        "Failure to extract any materials, process steps, equipment, or conditions."
       ],
       "improvement_suggestions": [
-        "Add 'mechanochemical' as a valid synthesis method in the ontology schema.",
-        "Implement more robust error handling to allow partial extraction even when some fields are invalid."
+        "Correct the validation schema to include 'mechanochemistry' as a valid synthesis method or map it to a more general category like 'ball milling'.",
+        "Improve the model's ability to handle cases where the synthesis method is not explicitly listed in the schema.",
+        "Implement better error handling to allow for partial extraction even when some fields fail validation."
       ]
     }
   }

@@ -112,6 +112,23 @@ def main(cfg: DictConfig) -> None:
         if p.id not in os.listdir(cfg.result_save.architecture.result_dir)
     ]
 
+    ids_to_rerun = [
+        "1df04f9e3f942b30d5e1c2bd1ab9cc3a79c23f13",
+        "73c6aeebd5877d2eb17d4961577d98216d503e6f",
+        "8c37fd10addf6d79f84ec2d5f4a8e5c6d6ef676f",
+        "1d6ca39fff40accf64733808c749d26c30a0e4f9",
+        "1df04f9e3f942b30d5e1c2bd1ab9cc3a79c23f13",
+        "22fb9453271c06cc332106a3e0fda74364267b86",
+        "2e268ad55e4e356b5fdf88506f15139a236282e2",
+        "4fae971d628aef67a3401e06522cf59bad7fcd44",
+        "5d473d45140751cd7f55c0ac5cc74284c1940d57",
+        "65d95ab344eeb3fd7cf074352e8ac8a9aa57bd5c",
+        "c47e0cbc8b6feb8d28c3d9c1c29f98772ede6c27",
+        "914dfcfe8762e189e9d7873090587458e7c86695",
+    ]
+
+    to_process = [p for p in to_process if p.id in ids_to_rerun]
+
     def process_paper(paper) -> tuple:
         logging.info(f"Processing {paper.name}")
 

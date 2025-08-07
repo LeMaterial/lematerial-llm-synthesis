@@ -3,53 +3,219 @@
     "material": "Pf-AgNPs",
     "synthesis": {
       "target_compound": "Pf-AgNPs",
-      "target_compound_type": "other",
+      "target_compound_type": "nanomaterials",
       "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='wet chemical synthesis', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "AgNO3",
+          "amount": null,
+          "unit": "mM",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "P. frutescens extract aqueous solution",
+          "amount": null,
+          "unit": "%",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "AgNO3 in three concentrations of 0.5, 1, and 2 mM was dissolved in *P. frutescens* extract aqueous solution (1, 2.5, 5, and 10%, v/v)",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "AgNO3",
+              "amount": 0.5,
+              "unit": "mM",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "AgNO3",
+              "amount": 1.0,
+              "unit": "mM",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "AgNO3",
+              "amount": 2.0,
+              "unit": "mM",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "P. frutescens extract aqueous solution",
+              "amount": 1.0,
+              "unit": "%",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "P. frutescens extract aqueous solution",
+              "amount": 2.5,
+              "unit": "%",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "P. frutescens extract aqueous solution",
+              "amount": 5.0,
+              "unit": "%",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "P. frutescens extract aqueous solution",
+              "amount": 10.0,
+              "unit": "%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "sonicate",
+          "description": "the mixture was sonicated for 90 min",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "sonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 60.0,
+            "temp_unit": "C",
+            "duration": 90.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "dark",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "centrifuge",
+          "description": "the solution was centrifuged at 9000 rpm for 30 min",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": "9000 rpm"
+            }
+          ],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "wash",
+          "description": "the sediment obtained was washed three times",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "stored for determining characterization and biological studies",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        }
+      ],
+      "equipment": [
+        {
+          "name": "UV\u2013Visible spectrophotometer",
+          "instrument_vendor": "Unico",
+          "settings": null
+        },
+        {
+          "name": "X-ray difractometer",
+          "instrument_vendor": "Rigaku",
+          "settings": "Cu-K\u03b1 radiation wavelength of \u03bb=0.154178 nm at room temperature in a 2*\u03b8* range 7 to 80*\u03b8* at a scan rate of 0.2\u00b0/min. with a time constant of 2 s in 2 h"
+        },
+        {
+          "name": "FESEM-EDX",
+          "instrument_vendor": "ZEISS",
+          "settings": "Sigma 300, Germany"
+        },
+        {
+          "name": "dynamic light scattering",
+          "instrument_vendor": "VASCO Cordouan Technology",
+          "settings": "France"
+        },
+        {
+          "name": "Fourier transform infrared",
+          "instrument_vendor": "Perkin Elmer",
+          "settings": "USA"
+        },
+        {
+          "name": "Surface-enhanced Raman spectroscopy",
+          "instrument_vendor": "TakRam",
+          "settings": "N1-541 spectrometer (Iran) equipped with a Hamamatsu detector equipped with a maximum power of 100 mW"
+        }
+      ],
+      "notes": "The whole reaction was carried out in the dark to prevent photo-activation. The concentration of 2 mM AgNO3 and 2.5% plant extract were obtained as the optimum conditions."
     },
     "evaluation": {
-      "reasoning": "The extracted JSON indicates a failure in extracting the synthesis ontology from the provided text. The error message suggests that the 'synthesis_method' field does not match any of the allowed literal values in the schema. This indicates a fundamental problem with the extraction process, likely due to the model's inability to correctly interpret the synthesis method described in the text or a mismatch between the text's description and the ontology's defined categories. Because of this, the structural completeness, material extraction, process steps, equipment extraction, conditions extraction, semantic accuracy, and format compliance are all negatively impacted.",
+      "reasoning": "The extraction captures the core synthesis steps and conditions for Pf-AgNPs. Material extraction is mostly accurate, although some quantities are missing. The process steps are logically sequenced. Equipment is well-identified. Conditions are generally well-extracted, but some specifics are lacking. Semantic accuracy is good, and the overall format compliance is high. However, there are opportunities to improve completeness by including more specific details about material amounts and equipment settings.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method and other components, the structural completeness is very poor. The extraction did not capture the materials, steps, equipment, or conditions effectively.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "Material extraction is minimal, with only the target compound identified. The starting materials are missing, and the accuracy of the target compound identification is questionable given the overall extraction failure.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, indicating a complete failure to understand and represent the synthesis procedure.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted, suggesting the model could not identify any of the tools or instruments used in the synthesis.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions were extracted, indicating a failure to capture crucial parameters like temperature, pressure, or duration.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is extremely low because the extracted data does not represent the scientific meaning of the synthesis procedure. The failure to identify key components and their relationships results in a loss of context.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is poor because the 'synthesis_method' field does not adhere to the allowed literal values, causing a validation error. This indicates a lack of adherence to the GeneralSynthesisOntology schema.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall extraction quality is extremely poor due to the fundamental failure in identifying the synthesis method and other key components. This results in low scores across all criteria, indicating a complete breakdown in the extraction process."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis, including materials, steps, equipment, and conditions. However, it could benefit from more detailed information on specific quantities and equipment settings.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names are accurately extracted. However, the amounts and units are not consistently captured for all materials. Purity information is missing.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are correctly sequenced and the actions are appropriately classified. The description of each step is clear and concise.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment used in the synthesis is well-identified, including names and vendors. However, specific settings for each piece of equipment are not always included.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The main synthesis conditions, such as temperature, duration, and atmosphere, are extracted. However, more specific details, such as stirring speed or pH, are missing.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extracted ontology accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, equipment, and conditions are correctly represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted and populated.",
+        "overall_score": 4.4,
+        "overall_reasoning": "The ontology extraction is of good quality, capturing the essential details of the Pf-AgNPs synthesis. The main strengths are the accurate identification of materials, the logical sequencing of process steps, and the good semantic accuracy. The main weaknesses are the missing quantities and equipment settings, and the lack of purity information."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Detailed synthesis procedure",
-        "Specific equipment used",
-        "Reaction conditions (temperature, pressure, duration)",
-        "Quantities and units of materials"
+        "Quantities for all starting materials",
+        "Purity information for starting materials",
+        "Specific settings for all equipment",
+        "Solvent used in the washing step",
+        "Stirring speed or pH"
       ],
-      "extraction_errors": [
-        "Incorrect synthesis method identification",
-        "Missing starting materials",
-        "Missing process steps",
-        "Missing equipment",
-        "Missing synthesis conditions",
-        "Schema validation error"
-      ],
+      "extraction_errors": [],
       "improvement_suggestions": [
-        "Improve the model's ability to recognize and classify different synthesis methods.",
-        "Expand the allowed literal values for 'synthesis_method' to include more common synthesis techniques or use a more flexible classification approach.",
-        "Enhance the model's ability to identify and extract information about starting materials, process steps, equipment, and synthesis conditions.",
-        "Implement better error handling and fallback mechanisms to ensure that at least some information is extracted even if the synthesis method cannot be determined."
+        "Include specific quantities and units for all starting materials.",
+        "Add purity information for the starting materials.",
+        "Include specific settings for each piece of equipment, such as voltage, current, or flow rate.",
+        "Add more details about the washing step, such as the solvent used.",
+        "Include stirring speed or pH if available."
       ]
     }
   }

@@ -3,50 +3,315 @@
     "material": "60SiO2-34CaO-4MgO-2P2O5 bioactive glass",
     "synthesis": {
       "target_compound": "60SiO2-34CaO-4MgO-2P2O5 bioactive glass",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "sol-gel",
+      "starting_materials": [
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "tetraethylorthosilicate",
+          "amount": null,
+          "unit": null,
+          "purity": "\u226598%"
+        },
+        {
+          "vendor": "MERCK-Schuchardt",
+          "name": "trietylphosphate",
+          "amount": null,
+          "unit": null,
+          "purity": "\u226598%"
+        },
+        {
+          "vendor": "Scharlau",
+          "name": "magnesium nitrate hexahydrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Panreac",
+          "name": "calcium nitrate tetrahydrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Labkem",
+          "name": "Nitric acid",
+          "amount": null,
+          "unit": null,
+          "purity": "\u226565%"
+        },
+        {
+          "vendor": null,
+          "name": "Deionized water",
+          "amount": null,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Two separate aqueous solutions were initially prepared. The solution of the network modifiers was prepared by adding the required amounts of Ca(NO3)2\u00b74H2O and Mg(NO3)2\u00b76H2O to 20 mL of deionized water under magnetic stirring for 1 h.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "calcium nitrate tetrahydrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "magnesium nitrate hexahydrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Deionized water",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dissolve",
+          "description": "The network precursors were also dissolved in 20 mL of deionized water acidified with two drops of concentrated nitric acid under magnetic stirring for 1 h.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "tetraethylorthosilicate",
+              "amount": null,
+              "unit": null,
+              "purity": "\u226598%"
+            },
+            {
+              "vendor": "MERCK-Schuchardt",
+              "name": "trietylphosphate",
+              "amount": null,
+              "unit": null,
+              "purity": "\u226598%"
+            },
+            {
+              "vendor": "Labkem",
+              "name": "Nitric acid",
+              "amount": null,
+              "unit": "drops",
+              "purity": "\u226565%"
+            },
+            {
+              "vendor": null,
+              "name": "Deionized water",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "mix",
+          "description": "Then, both solutions were mixed and magnetically stirred for further 1 h before pouring into Petri dishes",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "Petri dishes",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "age",
+          "description": "stored in an oven for 24 h at 100\u00b0C to promote a relatively rapid sol-gel transition.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 100.0,
+            "temp_unit": "C",
+            "duration": 24.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "As obtained, the transparent gel was quickly crushed in small granulates with a spatula and then put again in the same oven for drying.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "grind",
+          "description": "The xerogel was first ground into a fine powder using an agate pestle and mortar",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "agate pestle and mortar",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "calcine",
+          "description": "then calcined at 600\u00b0C.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='sol-gel processing', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed to identify any synthesis steps, equipment, or conditions. The target material was identified, but the synthesis method was not correctly extracted from the text, leading to a format compliance error. The overall extraction is very poor due to the lack of information extracted.",
+      "reasoning": "The extraction captures the sol-gel synthesis of the bioactive glass. The materials, steps, and conditions are generally well-represented, but there are areas for improvement in completeness and accuracy. The format compliance is good, but semantic accuracy could be enhanced by including more specific details where available. Overall, the extraction provides a solid foundation but needs refinement to fully capture the synthesis procedure.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "The ontology is structurally incomplete, missing key elements such as synthesis steps, equipment, and conditions. Only the target material was identified.",
-        "material_extraction_score": 3.0,
-        "material_extraction_reasoning": "The target material was identified, but no quantities, units, or purities were extracted. The material extraction is partially correct but lacks detail.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted from the text. The ontology fails to capture the synthesis procedure.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted from the text. The ontology does not identify the tools used in the synthesis.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions (temperature, pressure, duration, atmosphere) were extracted. The ontology lacks crucial parameters for replicating the synthesis.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is very low due to the lack of extracted information. The ontology fails to represent the scientific meaning of the synthesis.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is poor. The synthesis_method was incorrectly extracted, leading to a validation error. The ontology does not adhere to the schema requirements.",
-        "overall_score": 1.3,
-        "overall_reasoning": "The overall extraction quality is very poor. The ontology is structurally incomplete, lacks semantic accuracy, and fails to comply with the schema requirements. The extraction needs significant improvement."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes most of the key components: materials, process steps, and some conditions. However, it could benefit from more detailed information on equipment and specific settings used in each step.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is generally accurate, including names, vendors and purities. However, the amounts and units for the starting materials are missing, which reduces the score. The target compound is correctly identified.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified. The descriptions are clear and follow the procedure in the text.",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "Equipment extraction is present but lacks detail. While some equipment is mentioned (e.g., magnetic stirrer, oven, agate pestle and mortar), specific models, vendors (when not in the materials list), or settings are not consistently extracted.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Conditions extraction is reasonably accurate, including temperature and duration for some steps. However, stirring speed and atmosphere are not specified, and pH is not relevant in this context. Numerical accuracy is good where values are provided.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction maintains the scientific context and meaning of the synthesis procedure. However, the lack of specific details in some areas (e.g., material amounts, equipment settings) slightly reduces the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally good, with strengths in process step organization and format compliance. Weaknesses include missing material amounts and lack of detailed equipment specifications. Overall, the extraction captures the essence of the synthesis but needs more detail to be fully comprehensive."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "Detailed synthesis procedure",
-        "Equipment used in the synthesis",
-        "Temperature, pressure, and duration of each step",
-        "Quantities and units of starting materials"
+        "Amounts of starting materials.",
+        "Specific models or settings for equipment used."
       ],
       "extraction_errors": [
-        "Incorrect synthesis method extraction",
-        "Missing synthesis steps",
-        "Missing equipment",
-        "Missing conditions"
+        "Missing amounts and units for starting materials.",
+        "Lack of specific equipment models and settings."
       ],
       "improvement_suggestions": [
-        "Improve the extraction of synthesis steps, equipment, and conditions.",
-        "Ensure correct extraction of the synthesis method from the text.",
-        "Enhance format compliance to adhere to the GeneralSynthesisOntology schema."
+        "Include amounts and units for all starting materials.",
+        "Extract specific equipment models and settings where available.",
+        "Add more details to the descriptions of each step to capture nuances of the procedure."
       ]
     }
   }
