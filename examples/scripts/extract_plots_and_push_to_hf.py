@@ -22,9 +22,7 @@ def main(batch_size: int = 10, config="default", split="sample_for_evaluation"):
         model_name="claude-sonnet-4-20250514"
     )
 
-    dataset = load_dataset(
-        "LeMaterial/LeMat-Synth", name=config, split=split
-    )
+    dataset = load_dataset("LeMaterial/LeMat-Synth", name=config, split=split)
     df = dataset.to_pandas()
     for idx, row in tqdm.tqdm(df.iterrows(), total=len(df)):
         logging.info(row.paper_doi)
@@ -39,17 +37,15 @@ def main(batch_size: int = 10, config="default", split="sample_for_evaluation"):
         line_charts = [
             img for img in quantative_images if img.figure_class == "Line plot"
         ]
-        bar_charts = [
-            img for img in quantative_images if img.figure_class == "Bar plot"
-        ]
-        scatter_plots = [
-            img
-            for img in quantative_images
-            if img.figure_class == "Scatter plot"
-        ]
-        logging.info(f"Found {len(line_charts)} line charts in the paper.")
-        logging.info(f"Found {len(bar_charts)} bar charts in the paper.")
-        logging.info(f"Found {len(scatter_plots)} scatter plots in the paper.")
+        # bar_charts = [
+        #     img for img in quantative_images if img.figure_class == "Bar plot"
+        # ]
+        # scatter_plots = [
+        #     img
+        #     for img in quantative_images
+        #     if img.figure_class == "Scatter plot"
+        # ]
+        logging.info(f"Found {len(line_charts)} line charts in paper.")
 
         plot_data = []
 
@@ -65,11 +61,21 @@ def main(batch_size: int = 10, config="default", split="sample_for_evaluation"):
         if idx % batch_size == 0:
             logging.info(f"Pushing batch {idx // batch_size} to hub")
             ds = Dataset.from_pandas(df)
-            ds.push_to_hub("LeMaterial/LeMat-Synth", config_name=config, split=split, create_pr=True)
+            ds.push_to_hub(
+                "LeMaterial/LeMat-Synth",
+                config_name=config,
+                split=split,
+                create_pr=True,
+            )
             df = dataset.to_pandas()
 
     ds = Dataset.from_pandas(df)
-    ds.push_to_hub("LeMaterial/LeMat-Synth", config_name=config, split=split, create_pr=True)
+    ds.push_to_hub(
+        "LeMaterial/LeMat-Synth",
+        config_name=config,
+        split=split,
+        create_pr=True,
+    )
 
 
 if __name__ == "__main__":
