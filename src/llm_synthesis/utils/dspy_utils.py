@@ -29,6 +29,10 @@ def get_llm_from_name(
         model_kwargs["api_key"] = cfg.api_key
         model_kwargs["api_base"] = cfg.api_base
 
+    # Merge extra_kwargs from config
+    if cfg.extra_kwargs:
+        model_kwargs.update(cfg.extra_kwargs)
+
     system_prompt = system_prompt or ""
     return SystemPrefixedLM(system_prompt, cfg.model, **model_kwargs)
 
