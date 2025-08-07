@@ -406,35 +406,13 @@ if __name__ == "__main__":
     # Optional: List of folders to skip entirely
     # skip_folders = ["problematic_folder_1", "problematic_folder_2"]
     skip_folders = [
-        "1df04f9e3f942b30d5e1c2bd1ab9cc3a79c23f13",
-        "73c6aeebd5877d2eb17d4961577d98216d503e6f",
-        "8c37fd10addf6d79f84ec2d5f4a8e5c6d6ef676f",
-        "c47e0cbc8b6feb8d28c3d9c1c29f98772ede6c27",
         # ### Remove deliberately bad ones
-        "1602.02498",
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
         "673b3fdd7be152b1d07c21f1",
-        # "2212.12506",
-        # "673b3fdd7be152b1d07c21f1",
-        # ### LLM messed up
-        # "60c74548469df43eacf434a6",
-        # "cond-mat.0602418",
-        # "2404.08872",
-        # "2306.14755",
-        # "9a889c1a671fd3cae48285eaa95069d189d02fe3",
-        # "1902.03049",
-        # "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
-        # "1409.1070",
-        # Re-run following to remove self-critical behavior
-        # "2212.12506",
-        # "1409.1070",
-        # "60c74548469df43eacf434a6",
-        # "cond-mat.0602418",
-        #"2404.08872",
-        #"2306.14755",
-        #"9a889c1a671fd3cae48285eaa95069d189d02fe3",
-        #"1902.03049",
-        #"0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
+        "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
+        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
+        "1902.03049",
+        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction

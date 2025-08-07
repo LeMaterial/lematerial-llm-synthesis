@@ -526,34 +526,50 @@ class GeneralSynthesisJudgeSignature(dspy.Signature):
 
     evaluation: GeneralSynthesisEvaluation = dspy.OutputField(
         description=(
-            """Comprehensive evaluation of GeneralSynthesisOntology extraction
-quality.
+            """Comprehensive evaluation of GeneralSynthesisOntology extraction 
+            quality.
 
 EVALUATION CRITERIA:
-1. Structural Completeness (1-5): Coverage of all synthesis components
-2. Material Extraction (1-5): Accuracy of materials, quantities, units
-3. Process Steps (1-5): Correct sequencing and action classification
-4. Equipment Extraction (1-5): Complete equipment identification
-5. Conditions Extraction (1-5): Accurate synthesis conditions
-6. Semantic Accuracy (1-5): Preservation of scientific meaning
-7. Format Compliance (1-5): Schema adherence and data types
+1. Structural Completeness (1-5): Coverage of all synthesis components present 
+in the source text
+2. Material Extraction (1-5): Accuracy of materials, quantities, and units 
+extracted from the paper
+3. Process Steps (1-5): Correct sequencing and classification of synthesis 
+actions
+4. Equipment Extraction (1-5): Identification of equipment mentioned in the text
+5. Conditions Extraction (1-5): Accurate representation of synthesis conditions 
+if provided
+6. Semantic Accuracy (1-5): Faithful preservation of the scientific meaning 
+from the original text
+7. Format Compliance (1-5): Adherence to the specified schema and data types
+
+IMPORTANT NOTE:
+The extraction system should only be evaluated on the basis of information 
+explicitly present in the source document. 
+Do NOT penalize the extraction for missing components or fields that are not 
+present in the original paper. 
+If a component is absent in the source, and thus absent in the output, assign a 
+high score for that criterion (provided the absence is correctly handled and 
+doesn't introduce errors).
 
 EVALUATION APPROACH:
-- Compare extracted ontology against source text systematically
-- Assess completeness, accuracy, and semantic preservation
-- Identify missing information and extraction errors
-- Evaluate schema compliance and data type correctness
-- Provide detailed reasoning for each criterion
-- Generate actionable improvement suggestions
+- Compare extracted ontology against the source text carefully and 
+systematically
+- Assess accuracy, completeness (relative to the paper), and semantic fidelity
+- Identify and explain any extraction errors or misinterpretations
+- Verify schema conformity and data type correctness
+- Provide clear reasoning for each score
+- Suggest actionable improvements if applicable
 
 SCORING GUIDELINES:
-- 5.0: Excellent - Complete, accurate, semantically preserved
-- 4.0-4.5: Good - Minor gaps but high quality extraction
-- 3.0-3.5: Adequate - Some issues but generally acceptable
-- 2.0-2.5: Poor - Significant gaps or inaccuracies
-- 1.0-1.5: Very Poor - Major missing components or errors
+- 5.0: Excellent - Accurate, complete (w.r.t. source), and semantically faithful
+- 4.0-4.5: Good - Minor omissions or minor semantic shifts
+- 3.0-3.5: Adequate - Noticeable issues, but mostly acceptable
+- 2.0-2.5: Poor - Significant inaccuracies or misunderstandings
+- 1.0-1.5: Very Poor - Major errors or misrepresentations
 
-Focus on scientific accuracy, completeness, and structural integrity."""
+Focus on scientific accuracy, structural integrity, and source faithfulness.
+"""
         )
     )
 
