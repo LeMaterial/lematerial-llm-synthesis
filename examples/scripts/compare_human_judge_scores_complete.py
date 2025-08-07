@@ -410,20 +410,31 @@ if __name__ == "__main__":
         "73c6aeebd5877d2eb17d4961577d98216d503e6f",
         "8c37fd10addf6d79f84ec2d5f4a8e5c6d6ef676f",
         "c47e0cbc8b6feb8d28c3d9c1c29f98772ede6c27",
-        ### Remove deliberately bad ones
+        # ### Remove deliberately bad ones
         "1602.02498",
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
-        "2212.12506",
         "673b3fdd7be152b1d07c21f1",
-        ### LLM messed up
-        "60c74548469df43eacf434a6",
-        "cond-mat.0602418",
-        "2404.08872",
-        "2306.14755",
-        "9a889c1a671fd3cae48285eaa95069d189d02fe3",
-        "1902.03049",
-        "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
-        "1409.1070",
+        # "2212.12506",
+        # "673b3fdd7be152b1d07c21f1",
+        # ### LLM messed up
+        # "60c74548469df43eacf434a6",
+        # "cond-mat.0602418",
+        # "2404.08872",
+        # "2306.14755",
+        # "9a889c1a671fd3cae48285eaa95069d189d02fe3",
+        # "1902.03049",
+        # "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
+        # "1409.1070",
+        # Re-run following to remove self-critical behavior
+        # "2212.12506",
+        # "1409.1070",
+        # "60c74548469df43eacf434a6",
+        # "cond-mat.0602418",
+        #"2404.08872",
+        #"2306.14755",
+        #"9a889c1a671fd3cae48285eaa95069d189d02fe3",
+        #"1902.03049",
+        #"0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
