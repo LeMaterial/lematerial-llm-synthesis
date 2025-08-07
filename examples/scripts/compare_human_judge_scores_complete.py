@@ -412,7 +412,7 @@ if __name__ == "__main__":
         "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
         "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
         "1902.03049",
-        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586"
+        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
