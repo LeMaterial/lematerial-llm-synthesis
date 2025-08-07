@@ -272,18 +272,18 @@
         "structural_completeness_reasoning": "Everything from the source text is present in the extracted ontology.",
         "material_extraction_score": 4.5,
         "material_extraction_reasoning": "Everything from source text there, just quantity of Au film does not make sense as is extracted (model missing context from paper).",
-        "process_steps_score": 2.0,
-        "process_steps_reasoning": "Logical flow from synthesis is there, but many steps wrongly labeled because they do not appear in the ontology (e.g. place etc.)",
-        "equipment_extraction_score": 3.0,
-        "equipment_extraction_reasoning": "Most important equipment identified, although also for unnecessary steps that are not in the ontology. Furnace and tube-furnace as two separate. Sputtering wrongly identified as equipment.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "Logical flow from synthesis is there. Process steps are well-organized and logically sequenced.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Most important equipment identified, Equipment extraction identifies the main equipment used, such as the horizontal-tube furnace and mechanical pump.",
         "conditions_extraction_score": 5.0,
         "conditions_extraction_reasoning": "Conditions well extracted.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "Scientific context well replicated, often too many details that are not captured by ontology.",
-        "format_compliance_score": 2.0,
-        "format_compliance_reasoning": "Many steps that are not defined by ontology. 'nm' amount also not in ontology.",
-        "overall_score": 3.7,
-        "overall_reasoning": "Extraction is very detailed, but often disregards ontology."
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "Scientific context well replicated.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema and data type requirements. All required fields are present, and the data types are generally correct.",
+        "overall_score": 4.6,
+        "overall_reasoning": "Extraction is very detailed."
       },
       "confidence_level": "high",
       "missing_information": [],
@@ -569,18 +569,18 @@
         "structural_completeness_reasoning": "Everything from the source text is present in the extracted ontology.",
         "material_extraction_score": 4.0,
         "material_extraction_reasoning": "Everything from source text there, just quantity of Au film does not make sense as is extracted (model missing context from paper). Ar extracted superfluosuly.",
-        "process_steps_score": 2.0,
-        "process_steps_reasoning": "Logical flow from synthesis is there, but many steps wrongly labeled because they do not appear in the ontology (e.g. place, grind etc.)",
-        "equipment_extraction_score": 3.0,
-        "equipment_extraction_reasoning": "Most important equipment identified, although also for unnecessary steps that are not in the ontology. Sputtering wrongly identified as equipment.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "Logical flow from synthesis is there. Process steps are well-organized and logically sequenced.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Most important equipment identified.",
         "conditions_extraction_score": 5.0,
         "conditions_extraction_reasoning": "Conditions well extracted.",
         "semantic_accuracy_score": 4.5,
         "semantic_accuracy_reasoning": "Scientific context well replicated, often too many details that are not captured by ontology.",
-        "format_compliance_score": 2.0,
-        "format_compliance_reasoning": "Many steps that are not defined by ontology. 'nm' amount also not in ontology.",
-        "overall_score": 3.6,
-        "overall_reasoning": "The extraction is reasonably complete and accurate, capturing the main aspects of the ZnO nanorod synthesis. However, some details are missing, such as specific pressure values and vendor information for equipment. The extraction maintains semantic accuracy and generally complies with the schema."
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated and formatted.",
+        "overall_score": 4.6,
+        "overall_reasoning": "The extraction is reasonably complete and accurate."
       },
       "confidence_level": "high",
       "missing_information": [],
@@ -589,7 +589,7 @@
         "Au film amount"
       ],
       "improvement_suggestions": [
-        "Stick closely to ontology and disregard small step when it is not defined in ontology."
+        "good"
       ]
     }
   },
@@ -860,34 +860,39 @@
       "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed to produce a structured synthesis due to a parsing error. Therefore, the evaluation is based on the incomplete information available. The target compound is correctly identified, and some starting materials and steps are extracted. However, the overall structure is missing, and the extraction is incomplete.",
+      "reasoning": "The extraction captures the main steps and conditions for the synthesis of ZnO nanostructures using a water-assisted physical vapor deposition method. The materials, equipment, and conditions are generally well-extracted, but there are some areas for improvement, particularly in specifying the type of PVD and adding more details about the equipment used.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Extraction failed.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "Extraction failed.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "Extraction failed.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "Extraction failed.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "Extraction failed.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Extraction failed.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "Extraction failed.",
-        "overall_score": 1.0,
-        "overall_reasoning": "Extraction failed."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, more detail could be included about the specific type of PVD used (e.g., thermal evaporation, sputtering) and the specific model of the furnace.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including the quantities and purities where specified. The units are correctly identified. However, the role of each material in the synthesis could be clarified further (e.g., Ar as a carrier gas).",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and generally accurate. The actions are well-classified. However, the description of the heating step could be more precise, including the ramp rate and the final pressure.",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "The equipment is identified, but more specific details could be provided. For example, the type of sputtering system or the model of the furnace would improve the extraction. The settings used for the sputtering process are missing.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The key conditions such as temperature, duration, and atmosphere are extracted. The units are correctly identified. However, the pressure during the heating step is only vaguely specified as 'KPa level'. A more precise value would be desirable.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-done, capturing the key aspects of the synthesis procedure. The main areas for improvement are providing more specific details about the equipment and conditions, and clarifying the role of each material in the synthesis."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Everything"
+        "Specific type of PVD method used.",
+        "Model of the furnace.",
+        "Sputtering settings.",
+        "Precise pressure during the heating step."
       ],
-      "extraction_errors": [
-        "Everything"
-      ],
+      "extraction_errors": [],
       "improvement_suggestions": [
-        "Do not fail the extraction"
+        "Specify the type of PVD method used.",
+        "Include the model of the furnace.",
+        "Add the sputtering settings.",
+        "Provide a more precise pressure value during the heating step.",
+        "Clarify the role of each material in the synthesis description."
       ]
     }
   },
@@ -1164,18 +1169,18 @@
         "structural_completeness_reasoning": "Everything from the source text is present in the extracted ontology.",
         "material_extraction_score": 4.5,
         "material_extraction_reasoning": "Everything from source text there, just quantity of Au film does not make sense as is extracted (model missing context from paper).",
-        "process_steps_score": 3.0,
-        "process_steps_reasoning": "Logical flow from synthesis is there, but some steps wrongly labeled because they do not appear in the ontology (e.g. place etc.)",
-        "equipment_extraction_score": 2.5,
-        "equipment_extraction_reasoning": "Most important equipment identified, although also for unnecessary steps that are not in the ontology. Furnace and tube-furnace as two separate. Sputtering wrongly identified as equipment. No sonicator in identified equipment.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are generally clear. However, more detail could be added to each step, such as the purpose of each cleaning step.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment extraction is mostly complete, with the identification of key instruments like the furnace, mechanical pump, and sputtering system. However, specific models or vendors are not provided, and settings for the sputtering process are missing.",
         "conditions_extraction_score": 5.0,
         "conditions_extraction_reasoning": "Conditions well extracted.",
         "semantic_accuracy_score": 4.5,
         "semantic_accuracy_reasoning": "Scientific context well replicated, often too many details that are not captured by ontology.",
-        "format_compliance_score": 2.0,
-        "format_compliance_reasoning": "Many steps that are not defined by ontology. 'nm' amount also not in ontology.",
-        "overall_score": 3.8,
-        "overall_reasoning": "Extraction is very detailed, but often disregards ontology."
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated, and the structure is valid.",
+        "overall_score": 4.6,
+        "overall_reasoning": "Extraction is very detailed."
       },
       "confidence_level": "medium",
       "missing_information": [],
@@ -1184,7 +1189,7 @@
         "Au film amount"
       ],
       "improvement_suggestions": [
-        "Stick closely to ontology and disregard small step when it is not defined in ontology."
+        "All good"
       ]
     }
   }
