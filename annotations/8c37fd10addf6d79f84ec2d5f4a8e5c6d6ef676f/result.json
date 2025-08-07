@@ -8,43 +8,50 @@
       "starting_materials": [],
       "steps": [],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='wet chemical synthesis', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='solution-based', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
     },
     "evaluation": {
-      "reasoning": "The extraction failed to produce a structured ontology due to an error in identifying the synthesis method. The model incorrectly classified 'wet chemical synthesis' which is not in the enum list. This resulted in a failure to extract any meaningful information about the synthesis process, materials, equipment, or conditions.",
+      "reasoning": "The extraction failed to produce a structured ontology due to a validation error related to the synthesis method. The provided method, 'solution-based', was not recognized as a valid option within the defined schema. This indicates a failure in accurately classifying the synthesis approach and populating the ontology accordingly. The lack of extracted materials, steps, and equipment further underscores the incomplete nature of the extraction.",
       "scores": {
         "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the extraction failure, no information about materials, steps, equipment, or conditions was captured, resulting in minimal structural completeness.",
+        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method and extracting other key components, the structural completeness is extremely low. The ontology lacks essential information regarding materials, steps, equipment, and conditions.",
         "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error, leading to a score of 1.0.",
+        "material_extraction_reasoning": "Material extraction is non-existent as the extraction process failed to identify and represent any starting materials or their quantities. The target material is present in the `target_compound` field, but no other materials are extracted.",
         "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, indicating a complete lack of information on the synthesis procedure.",
+        "process_steps_reasoning": "No process steps were extracted, indicating a complete failure to capture the procedural aspects of the synthesis. The ontology provides no information on the sequence of actions or their classifications.",
         "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was identified, reflecting the failure to extract any relevant details about the synthesis setup.",
+        "equipment_extraction_reasoning": "Equipment extraction is absent, reflecting a failure to identify and document the tools and instruments used in the synthesis. The ontology lacks any information on equipment names, vendors, or settings.",
         "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions were extracted, indicating a complete absence of information on temperature, pressure, duration, etc.",
+        "conditions_extraction_reasoning": "Conditions extraction is also non-existent, indicating a failure to capture the synthesis parameters such as temperature, pressure, and duration. The ontology lacks any information on the environmental factors influencing the synthesis.",
         "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Since no information was extracted, there is no semantic content to evaluate for accuracy.",
+        "semantic_accuracy_reasoning": "Semantic accuracy is severely compromised due to the lack of extracted information. The ontology fails to preserve the scientific context and meaning of the synthesis procedure.",
         "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed to produce a valid JSON object due to the initial error in identifying the synthesis method.",
+        "format_compliance_reasoning": "Format compliance is poor due to the validation error and the incomplete nature of the extracted data. The ontology fails to adhere to the schema requirements and data type specifications.",
         "overall_score": 1.0,
-        "overall_reasoning": "The extraction process failed to capture any relevant information from the source text, resulting in an extremely low overall score. The primary cause was the incorrect classification of the synthesis method."
+        "overall_reasoning": "The overall extraction quality is extremely poor due to the validation error and the lack of extracted information. The ontology fails to capture the essential aspects of the synthesis procedure, resulting in a non-compliant and semantically inaccurate representation."
       },
       "confidence_level": "high",
       "missing_information": [
-        "All synthesis materials",
-        "All synthesis steps",
-        "All equipment used",
-        "All synthesis conditions"
+        "Synthesis method",
+        "Starting materials and quantities",
+        "Process steps and sequence",
+        "Equipment used",
+        "Synthesis conditions (temperature, pressure, duration)",
+        "Units for quantities and conditions"
       ],
       "extraction_errors": [
-        "Incorrect classification of synthesis method ('wet chemical synthesis' not in enum list)",
-        "Failure to extract any synthesis information"
+        "Failed to identify synthesis method",
+        "No materials extracted",
+        "No process steps extracted",
+        "No equipment extracted",
+        "No conditions extracted",
+        "Validation error due to incorrect synthesis method classification"
       ],
       "improvement_suggestions": [
-        "Improve the model's ability to accurately classify synthesis methods, including variations of common techniques.",
-        "Implement more robust error handling to prevent complete extraction failures when encountering an unlisted synthesis method.",
-        "Expand the list of acceptable synthesis methods to include 'wet chemical synthesis' or similar terms."
+        "Expand the list of accepted synthesis methods to include 'solution-based' or similar terms.",
+        "Improve the extraction logic to accurately identify and classify synthesis methods.",
+        "Enhance the extraction process to capture materials, steps, equipment, and conditions.",
+        "Ensure adherence to the schema requirements and data type specifications."
       ]
     }
   },
@@ -59,14 +66,14 @@
           "vendor": null,
           "name": "Cs3Bi2I9",
           "amount": null,
-          "unit": null,
+          "unit": "g",
           "purity": null
         },
         {
           "vendor": null,
           "name": "HA",
           "amount": null,
-          "unit": null,
+          "unit": "g",
           "purity": null
         }
       ],
@@ -74,20 +81,20 @@
         {
           "step_number": 1,
           "action": "mix",
-          "description": "Mixing equal masses of Cs3Bi2I9 with HA in a mortar and pestle",
+          "description": "Cs3Bi2I9 with HA were mixed in a mortar and pestle.",
           "materials": [
             {
               "vendor": null,
               "name": "Cs3Bi2I9",
               "amount": null,
-              "unit": "mass",
+              "unit": null,
               "purity": null
             },
             {
               "vendor": null,
               "name": "HA",
               "amount": null,
-              "unit": "mass",
+              "unit": null,
               "purity": null
             }
           ],
@@ -109,14 +116,14 @@
               "vendor": null,
               "name": "Cs3Bi2I9",
               "amount": null,
-              "unit": null,
+              "unit": "wt%",
               "purity": null
             },
             {
               "vendor": null,
               "name": "HA",
               "amount": null,
-              "unit": null,
+              "unit": "wt%",
               "purity": null
             }
           ],
@@ -129,7 +136,7 @@
           ],
           "conditions": {
             "temperature": 500.0,
-            "temp_unit": "C",
+            "temp_unit": "\u2103",
             "duration": 5.0,
             "time_unit": "min",
             "pressure": 400.0,
@@ -143,7 +150,7 @@
         {
           "step_number": 3,
           "action": "cool",
-          "description": "Air cool in Ar atmosphere",
+          "description": "The sample was air cooled in Ar atmosphere.",
           "materials": [],
           "equipment": [],
           "conditions": {
@@ -161,8 +168,8 @@
         },
         {
           "step_number": 4,
-          "action": "polish",
-          "description": "Mechanically polished in anhydrous ethanol with a 1200 grit sandpaper",
+          "action": "wash",
+          "description": "The sintered pellets were mechanically polished in anhydrous ethanol with a 1200 grit sandpaper, and then stored in a vacuum desiccator before characterization and chemical durability measurements.",
           "materials": [
             {
               "vendor": null,
@@ -173,20 +180,6 @@
             }
           ],
           "equipment": [],
-          "conditions": null
-        },
-        {
-          "step_number": 5,
-          "action": "dry",
-          "description": "Stored in a vacuum desiccator",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "vacuum desiccator",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
           "conditions": null
         }
       ],
@@ -207,47 +200,41 @@
           "settings": null
         }
       ],
-      "notes": "Sample temperatures were measured with a K-type thermocouple inserted into the bottom punch at a depth roughly 2 mm below the sample. The graphite between the thermocouple and the bottom of the sample resulted in a difference in the temperature measured by the thermocouple and actual temperature within the sample."
+      "notes": "Starting powders (~1 g) were loaded into a graphite die with an inner diameter of 6 mm and the inner surface wrapped by a graphite foil (0.20 mm thick) to facilitate the sample removal after sintering. Sintering was carried out in an Ar environment at a current pattern of 25 ms on and 3 ms off. Sample temperatures were measured with a K-type thermocouple inserted into the bottom punch at a depth roughly 2 mm below the sample. The graphite between the thermocouple and the bottom of the sample resulted in a difference in the temperature measured by the thermocouple and actual temperature within the sample."
     },
     "evaluation": {
-      "reasoning": "The extracted ontology captures the key aspects of the Cs3Bi2I9 + HA composite synthesis via spark plasma sintering (SPS). The materials, steps, equipment, and conditions are generally well-represented, but there are areas for improvement in terms of completeness and accuracy. The structural completeness is good, covering most of the synthesis information. Material extraction is mostly accurate, although some quantities are missing. The process steps are logically organized and the equipment is adequately identified. The conditions extraction is generally accurate, but could benefit from more specific details where available. Semantic accuracy is maintained, and the format compliance is satisfactory. Overall, the extraction provides a solid foundation but needs refinement to achieve a higher level of detail and precision.",
+      "reasoning": "The extraction captures the key aspects of the Cs3Bi2I9 + HA composite synthesis via spark plasma sintering (SPS). The materials, steps, equipment, and conditions are generally well-represented. However, there are areas for improvement, particularly in specifying material amounts and vendors, and in detailing the polishing step. The structural completeness is good, but could be enhanced with more precise details. The semantic accuracy is generally maintained, and the format compliance is satisfactory.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology includes materials, steps, equipment, and conditions, but lacks specific quantities for starting materials and some detailed equipment settings. The overall structure is sound, but some information is missing.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "The materials are correctly identified, but the amounts of starting materials are not specified. The purity of the materials is also not included, which is important for synthesis reproducibility. The units are missing for the 'equal masses' in the first step.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are clear. However, more details could be added to each step to enhance clarity.",
+        "structural_completeness_reasoning": "The ontology covers the main components of the synthesis, including materials, steps, equipment, and conditions. However, the amounts of starting materials are not specified, and more details could be provided for the polishing step.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The materials are correctly identified, but the amounts are missing. The vendors are not specified for the starting materials, which would improve the extraction quality. The purity is also not mentioned.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and generally accurate. The mixing and SPS consolidation steps are well-described. The cooling and washing steps are also included, but could benefit from more detail.",
         "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The equipment is generally well-identified, including the SPS system and dies. However, specific settings for the SPS system (other than the current pattern) and the type of mortar and pestle could be added for completeness.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The temperature, pressure, duration, and atmosphere are accurately extracted. However, the heating rate (100 \u2103\u00b7min\u22121) could be included as a condition for the heating step. The cooling rate is not specified.",
+        "equipment_extraction_reasoning": "The equipment used in the synthesis is mostly well-identified, including the SPS system, graphite die, and tungsten carbide die. The vendor for the SPS system is provided. More specific settings for the dies could be included.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The synthesis conditions, including temperature, pressure, duration, and atmosphere, are accurately extracted for the SPS consolidation step. The units are correctly specified. The heating rate could be added for completeness.",
         "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The semantic accuracy is well-maintained, with the scientific meaning preserved in the structured format. The relationships between materials, steps, and conditions are accurately represented.",
+        "semantic_accuracy_reasoning": "The semantic meaning of the synthesis procedure is well-preserved in the extracted ontology. The relationships between materials, steps, equipment, and conditions are accurately represented.",
         "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "The ontology generally adheres to the schema and data type requirements. The structure is well-formed, and the data types are appropriate. Minor adjustments may be needed to fully comply with all schema constraints.",
-        "overall_score": 4.2,
-        "overall_reasoning": "The ontology extraction is of good quality, capturing the essential aspects of the synthesis. However, improvements can be made in terms of completeness, particularly in material quantities, equipment settings, and specific conditions. The semantic accuracy and format compliance are strong points, but the overall score can be increased with more detailed information."
+        "format_compliance_reasoning": "The extracted ontology generally adheres to the GeneralSynthesisOntology schema and data type requirements. The structure is well-organized and the data types are appropriate.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The ontology extraction is of good quality, capturing the key aspects of the synthesis procedure. The structural completeness, material extraction, process steps, equipment extraction, conditions extraction, semantic accuracy, and format compliance are all reasonably well-addressed. However, there are areas for improvement, particularly in specifying material amounts and vendors, and in detailing the polishing step."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Quantities of Cs3Bi2I9 and HA",
-        "Purity of Cs3Bi2I9 and HA",
-        "Heating rate during SPS consolidation",
-        "Cooling rate after SPS consolidation"
+        "Amounts of starting materials",
+        "Vendors for starting materials",
+        "Details of the polishing step",
+        "Heating rate for SPS consolidation"
       ],
-      "extraction_errors": [
-        "Missing quantities for starting materials",
-        "Missing purity information for starting materials",
-        "Lack of specific equipment settings",
-        "Omission of heating rate as a condition"
-      ],
+      "extraction_errors": [],
       "improvement_suggestions": [
-        "Include specific quantities and units for all starting materials.",
-        "Add purity information for the starting materials.",
-        "Provide more detailed settings for the SPS system and other equipment.",
-        "Incorporate the heating rate as a condition for the heating step.",
-        "Specify the cooling rate if available."
+        "Specify the amounts of starting materials (Cs3Bi2I9 and HA).",
+        "Include the vendors for the starting materials.",
+        "Add more details about the polishing step, such as the duration and speed.",
+        "Include the heating rate in the conditions for the SPS consolidation step."
       ]
     }
   }
