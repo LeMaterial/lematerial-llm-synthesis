@@ -102,9 +102,7 @@ class HFFigureExtractor(FigureExtractorInterface):
 
                         # Check if the predicted label is a quantitative figure
                         if predicted_label in [
-                            "Bar plots",
                             "Line plots",
-                            "Scatter plot",
                         ]:
                             figure_info.quantitative = True
                         else:
