@@ -1,11 +1,159 @@
 import json
 import os
+import re
+from difflib import SequenceMatcher
 
 import numpy as np
 import pandas as pd
 import pingouin as pg
 from scipy.stats import spearmanr
 from sklearn.metrics import cohen_kappa_score
+
+
+def normalize_material_name(name: str) -> str:
+    """
+    Normalize material name for better matching by:
+    - Converting to lowercase
+    - Removing extra whitespace
+    - Standardizing common separators
+    - Removing common suffixes/prefixes
+    """
+    if not name:
+        return ""
+    
+    # Convert to lowercase and strip whitespace
+    normalized = name.lower().strip()
+    
+    # Standardize separators (replace various dashes and slashes)
+    normalized = re.sub(r'[–—−/−\\]', '-', normalized)
+    
+    # Remove common suffixes that don't affect matching
+    suffixes_to_remove = [
+        ' single crystals',
+        ' crystals',
+        ' nanostructures',
+        ' nanoparticles',
+        ' nanorods',
+        ' nanowires',
+        ' nanoneedles',
+        ' nanocombs',
+        ' composite',
+        ' ceramics',
+        ' powders',
+        ' films',
+        ' layers',
+        ' samples',
+        ' materials',
+        ' compounds',
+        ' structures'
+    ]
+    
+    for suffix in suffixes_to_remove:
+        if normalized.endswith(suffix):
+            normalized = normalized[:-len(suffix)]
+    
+    # Remove common prefixes
+    prefixes_to_remove = [
+        'synthesis of ',
+        'preparation of ',
+        'fabrication of ',
+        'formation of '
+    ]
+    
+    for prefix in prefixes_to_remove:
+        if normalized.startswith(prefix):
+            normalized = normalized[len(prefix):]
+    
+    # Clean up multiple spaces
+    normalized = re.sub(r'\s+', ' ', normalized)
+    
+    return normalized.strip()
+
+
+def calculate_string_similarity(str1: str, str2: str) -> float:
+    """
+    Calculate similarity between two strings using multiple methods.
+    Returns a score between 0 and 1, where 1 is identical.
+    """
+    if not str1 or not str2:
+        return 0.0
+    
+    # Normalize both strings
+    norm1 = normalize_material_name(str1)
+    norm2 = normalize_material_name(str2)
+    
+    # If normalized strings are identical, return 1.0
+    if norm1 == norm2:
+        return 1.0
+    
+    # Calculate sequence matcher similarity
+    sequence_similarity = SequenceMatcher(None, norm1, norm2).ratio()
+    
+    # Calculate word overlap similarity
+    words1 = set(norm1.split())
+    words2 = set(norm2.split())
+    
+    if not words1 or not words2:
+        word_similarity = 0.0
+    else:
+        intersection = words1.intersection(words2)
+        union = words1.union(words2)
+        word_similarity = len(intersection) / len(union) if union else 0.0
+    
+    # Calculate substring similarity (for cases like "R3B" vs "Rhodamine 3B")
+    substring_similarity = 0.0
+    if len(norm1) > 3 and len(norm2) > 3:
+        # Check if one is a substring of the other
+        if norm1 in norm2 or norm2 in norm1:
+            substring_similarity = 0.8
+        else:
+            # Check for significant substring matches
+            for i in range(len(norm1) - 2):
+                for j in range(i + 3, len(norm1) + 1):
+                    substr = norm1[i:j]
+                    if len(substr) >= 3 and substr in norm2:
+                        max_len = max(len(norm1), len(norm2))
+                        substring_similarity = max(
+                            substring_similarity, len(substr) / max_len
+                        )
+    
+    # Weighted combination of different similarity measures
+    final_similarity = (
+        0.4 * sequence_similarity +
+        0.4 * word_similarity +
+        0.2 * substring_similarity
+    )
+    
+    return final_similarity
+
+
+def find_best_matches(human_materials: list[str], llm_materials: list[str], 
+                     similarity_threshold: float = 0.7) -> dict[str, str]:
+    """
+    Find the best matching pairs between human and LLM materials.
+    Returns a dictionary mapping human material names to LLM material names.
+    """
+    matches = {}
+    used_llm_materials = set()
+    
+    # Sort by similarity to prioritize better matches
+    all_pairs = []
+    for human_mat in human_materials:
+        for llm_mat in llm_materials:
+            similarity = calculate_string_similarity(human_mat, llm_mat)
+            if similarity >= similarity_threshold:
+                all_pairs.append((similarity, human_mat, llm_mat))
+    
+    # Sort by similarity (highest first)
+    all_pairs.sort(reverse=True)
+    
+    # Assign matches greedily
+    for similarity, human_mat, llm_mat in all_pairs:
+        if human_mat not in matches and llm_mat not in used_llm_materials:
+            matches[human_mat] = llm_mat
+            used_llm_materials.add(llm_mat)
+    
+    return matches
 
 
 def calculate_icc_absolute_agreement(scores1, scores2):
@@ -297,13 +445,41 @@ def read_score_data_complete(
             f"Processing {paper_id}: {len(human_evaluations)} human evals, "
             f"{len(llm_evaluations)} LLM evals"
         )
-        for idx, (human_eval, llm_eval) in enumerate(
-            zip(human_evaluations, llm_evaluations)
-        ):
+        
+        # Create dictionaries to match evaluations by material name
+        human_eval_dict = {}
+        llm_eval_dict = {}
+        
+        # Index human evaluations by material name
+        for idx, human_eval in enumerate(human_evaluations):
+            if human_eval is not None:
+                material_name = human_eval.get("material", f"unknown_{idx}")
+                human_eval_dict[material_name] = (idx, human_eval)
+        
+        # Index LLM evaluations by material name
+        for idx, llm_eval in enumerate(llm_evaluations):
+            if llm_eval is not None:
+                material_name = llm_eval.get("material", f"unknown_{idx}")
+                llm_eval_dict[material_name] = (idx, llm_eval)
+        
+        # Use fuzzy matching to find best matches
+        human_materials = list(human_eval_dict.keys())
+        llm_materials = list(llm_eval_dict.keys())
+        
+        # Find best matches using fuzzy string matching
+        matches = find_best_matches(
+            human_materials, llm_materials, similarity_threshold=0.7
+        )
+        
+        # Process matched materials
+        for human_material, llm_material in matches.items():
+            human_idx, human_eval = human_eval_dict[human_material]
+            llm_idx, llm_eval = llm_eval_dict[llm_material]
+            
             # Skip if either evaluation is None
             if human_eval is None or llm_eval is None:
                 skipped_extractions.append(
-                    f"{paper_id}_{idx} (None evaluation)"
+                    f"{paper_id}_{human_material} (None evaluation)"
                 )
                 continue
 
@@ -320,7 +496,7 @@ def read_score_data_complete(
                 "Extraction failed:" in human_notes
                 or "Extraction failed:" in llm_notes
             ):
-                skipped_extractions.append(f"{paper_id}_{idx}")
+                skipped_extractions.append(f"{paper_id}_{human_material}")
                 continue
 
             # Process human evaluation
@@ -334,7 +510,7 @@ def read_score_data_complete(
                 # Create a row for this evaluation
                 row = {
                     "paper_id": paper_id,
-                    "material_id": f"{paper_id}_{idx}",
+                    "material_id": f"{paper_id}_{human_material}",
                     "material": human_eval.get("material", ""),
                     "evaluator_id": "human_expert",
                     "evaluator_type": "human",
@@ -358,7 +534,7 @@ def read_score_data_complete(
                 # Create a row for this evaluation
                 row = {
                     "paper_id": paper_id,
-                    "material_id": f"{paper_id}_{idx}",
+                    "material_id": f"{paper_id}_{human_material}",
                     "material": llm_eval.get("material", ""),
                     "evaluator_id": "llm_judge",
                     "evaluator_type": "llm",
@@ -370,6 +546,21 @@ def read_score_data_complete(
                         row[score_key] = score_value
 
                 llm_data.append(row)
+        
+        # Report unmatched materials
+        matched_human_materials = set(matches.keys())
+        matched_llm_materials = set(matches.values())
+        human_only = set(human_eval_dict.keys()) - matched_human_materials
+        llm_only = set(llm_eval_dict.keys()) - matched_llm_materials
+        
+        if human_only:
+            print(f"  Human-only materials: {list(human_only)}")
+        if llm_only:
+            print(f"  LLM-only materials: {list(llm_only)}")
+        
+        # Report matches for debugging
+        if matches:
+            print(f"  Matched materials: {list(matches.items())}")
 
     # Convert to DataFrames
     human_df = pd.DataFrame(human_data)
@@ -408,11 +599,6 @@ if __name__ == "__main__":
     skip_folders = [
         # ### Remove deliberately bad ones
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
-        "673b3fdd7be152b1d07c21f1",
-        "0d5ffdaf23a655e1eff80bc8b6b4978067de4d5b",
-        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
-        "1902.03049",
-        "ccc7c5d70ae3ca3f9e975d0dc3b4d631586c1586",
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
