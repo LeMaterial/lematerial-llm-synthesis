@@ -440,34 +440,14 @@ def read_score_data_with_categories(
                 continue
 
             # Get category information
-            human_synthesis = human_eval.get("synthesis", {})
+
             llm_synthesis = llm_eval.get("synthesis", {})
 
-            human_target_type = human_synthesis.get("target_compound_type")
-            human_synthesis_method = human_synthesis.get("synthesis_method")
             llm_target_type = llm_synthesis.get("target_compound_type")
             llm_synthesis_method = llm_synthesis.get("synthesis_method")
 
             # Always use LLM classifications, even if they disagree with human
             final_target_type = llm_target_type
-
-            target_type_match = (
-                human_target_type == llm_target_type
-                or llm_target_type == "other"
-            )
-            synthesis_method_match = (
-                human_synthesis_method == llm_synthesis_method
-                or llm_synthesis_method == "other"
-            )
-
-            if not (target_type_match and synthesis_method_match):
-                skipped_extractions.append(
-                    f"{paper_id}_{human_material} (category mismatch: "
-                    f"human_type='{human_target_type}' vs "
-                    f"llm_type='{llm_target_type}', "
-                    f"human_method='{human_synthesis_method}' vs "
-                    f"llm_method='{llm_synthesis_method}')"
-                )
             final_synthesis_method = llm_synthesis_method
 
             # Process human evaluation
@@ -538,6 +518,71 @@ def read_score_data_with_categories(
             print(f"  - {extraction}")
 
     return human_df, llm_df
+
+
+def create_score_comparison_csv(
+    human_df: pd.DataFrame,
+    llm_df: pd.DataFrame,
+    output_dir: str = "results",
+) -> pd.DataFrame:
+    """
+    Create a CSV with material type, synthesis type, and all score comparisons
+    between LLM and human evaluations.
+    """
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Merge human and LLM data on material_id
+    merged = pd.merge(
+        human_df,
+        llm_df,
+        on="material_id",
+        suffixes=("_human", "_llm"),
+        how="inner",
+    )
+
+    # Define the score columns we want to compare
+    score_columns = [
+        "structural_completeness_score",
+        "material_extraction_score",
+        "process_steps_score",
+        "equipment_extraction_score",
+        "conditions_extraction_score",
+        "semantic_accuracy_score",
+        "format_compliance_score",
+        "overall_score",
+    ]
+
+    # Create the comparison DataFrame
+    comparison_data = []
+
+    for _, row in merged.iterrows():
+        comparison_row = {
+            "material_type": row.get("target_compound_type_llm", ""),
+            "synthesis_type": row.get("synthesis_method_llm", ""),
+        }
+
+        # Add all score comparisons
+        for score_col in score_columns:
+            human_score = row.get(f"{score_col}_human", np.nan)
+            llm_score = row.get(f"{score_col}_llm", np.nan)
+
+            comparison_row[f"{score_col}_llm"] = llm_score
+            comparison_row[f"{score_col}_human"] = human_score
+
+        comparison_data.append(comparison_row)
+
+    # Create DataFrame
+    comparison_df = pd.DataFrame(comparison_data)
+
+    # Save to CSV
+    output_file = os.path.join(output_dir, "score_comparisons_by_material.csv")
+    comparison_df.to_csv(output_file, index=False)
+
+    print(f"\nScore comparison CSV saved to: {output_file}")
+    print(f"Total materials in comparison: {len(comparison_df)}")
+
+    return comparison_df
 
 
 def analyze_by_category(
@@ -745,5 +790,11 @@ if __name__ == "__main__":
     print("ANALYSIS BY SYNTHESIS METHOD")
     print("=" * 80)
     analyze_by_category(data_human, data_llm_judge, "synthesis_method")
+
+    # Create score comparison CSV
+    print("\n" + "=" * 80)
+    print("CREATING SCORE COMPARISON CSV")
+    print("=" * 80)
+    create_score_comparison_csv(data_human, data_llm_judge)
 
     print("\nAnalysis complete! Check the 'results' directory for CSV files.")
