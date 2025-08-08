@@ -25,7 +25,7 @@ def normalize_material_name(name: str) -> str:
     normalized = name.lower().strip()
 
     # Standardize separators (replace various dashes and slashes)
-    normalized = re.sub(r"[–—−/−\\]", "-", normalized)
+    normalized = re.sub(r"[–—−/−\\]", "-", normalized)  # noqa: RUF001
 
     # Remove common suffixes that don't affect matching
     suffixes_to_remove = [
@@ -448,8 +448,9 @@ def read_score_data_with_categories(
             llm_target_type = llm_synthesis.get("target_compound_type")
             llm_synthesis_method = llm_synthesis.get("synthesis_method")
 
-            # Check for category mismatches, but allow LLM "other" to match 
-            # human specific classifications
+            # Always use LLM classifications, even if they disagree with human
+            final_target_type = llm_target_type
+
             target_type_match = (
                 human_target_type == llm_target_type
                 or llm_target_type == "other"
@@ -467,19 +468,7 @@ def read_score_data_with_categories(
                     f"human_method='{human_synthesis_method}' vs "
                     f"llm_method='{llm_synthesis_method}')"
                 )
-                continue
-
-            # Use human classifications when LLM says "other"
-            final_target_type = (
-                human_target_type
-                if llm_target_type == "other"
-                else llm_target_type
-            )
-            final_synthesis_method = (
-                human_synthesis_method
-                if llm_synthesis_method == "other"
-                else llm_synthesis_method
-            )
+            final_synthesis_method = llm_synthesis_method
 
             # Process human evaluation
             if (
@@ -558,7 +547,7 @@ def analyze_by_category(
     output_dir: str = "results",
 ):
     """
-    Analyze evaluation agreement by category (target_compound_type or 
+    Analyze evaluation agreement by category (target_compound_type or
     synthesis_method).
     """
     # Create output directory if it doesn't exist
@@ -633,7 +622,7 @@ def analyze_by_category(
     # Create DataFrame and save to CSV
     results_df = pd.DataFrame(all_results)
 
-    # Sort by sample_size (high to low) and then by category for better 
+    # Sort by sample_size (high to low) and then by category for better
     # readability
     results_df = results_df.sort_values(
         ["sample_size", "category"], ascending=[False, True]
