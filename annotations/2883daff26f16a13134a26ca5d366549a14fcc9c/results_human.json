@@ -1,0 +1,641 @@
+[
+  {
+    "material": "Graphene Sheets",
+    "synthesis": {
+      "target_compound": "Graphene Sheets",
+      "target_compound_type": "two-dimensional materials",
+      "synthesis_method": "electrochemical deposition",
+      "starting_materials": [
+        {
+          "name": "Graphite rod",
+          "vendor": null,
+          "amount": null,
+          "unit": null,
+          "purity": "99.9%"
+        },
+        {
+          "name": "Graphite foil",
+          "vendor": null,
+          "amount": null,
+          "unit": null,
+          "purity": "99%"
+        },
+        {
+          "name": "HB2 pencil lead",
+          "vendor": null,
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "name": "Platinum mesh",
+          "vendor": "Alfa Aesar",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "name": "Sulfuric acid",
+          "vendor": "Thermo Fisher Scientific, India",
+          "amount": null,
+          "unit": null,
+          "purity": "analytical grade"
+        },
+        {
+          "name": "N,N-dimethylformamide",
+          "vendor": "Thermo Fisher Scientific, India",
+          "amount": null,
+          "unit": null,
+          "purity": "analytical grade"
+        },
+        {
+          "name": "Ethylenediamine",
+          "vendor": "Thermo Fisher Scientific, India",
+          "amount": null,
+          "unit": null,
+          "purity": "analytical grade"
+        },
+        {
+          "name": "Sodium chloride",
+          "vendor": "Merck Mumbai, India",
+          "amount": null,
+          "unit": null,
+          "purity": "analytical grade"
+        },
+        {
+          "name": "Sodium hydroxide",
+          "vendor": "Merck Mumbai, India",
+          "amount": null,
+          "unit": null,
+          "purity": "analytical grade"
+        },
+        {
+          "name": "Orthophosphoric acid",
+          "vendor": "Merck Mumbai, India",
+          "amount": null,
+          "unit": null,
+          "purity": "analytical grade"
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "wash",
+          "description": "Graphite electrodes were polished with sandpaper and rinsed with acetone and DI water.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "etch",
+          "description": "Electrochemical exfoliation was performed with graphite as anode and Pt mesh as cathode (3 cm apart) in various etchants under ambient conditions.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "electrolyze",
+          "description": "DC voltage of 2 V was applied for 2 minutes, then increased to 10 V until exfoliation was complete.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "wash",
+          "description": "Exfoliated solution was rinsed with DI water and ethanol until neutral pH.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 7.0
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "sonicate",
+          "description": "Washed solution was sonicated for 2 hours to obtain homogeneous graphene suspension.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 2.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "centrifuge",
+          "description": "Suspension was filtered through 0.22 \u03bcm filter paper or centrifuged at 3500 rpm to isolate thin graphene sheets.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": 3500.0,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "0.22 \u03bcm Whatman filter paper",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "Graphite exfoliation was performed under ambient conditions using different etchants and a Pt mesh counter electrode. Post-processing includes washing, sonication, and filtration."
+    },
+    "evaluation": {
+      "reasoning": "The LLM failed to identify or extract any synthesis steps, materials, or equipment related to the preparation of graphene sheets. Despite clear experimental procedures in the paper, the extracted ontology returned 'No materials synthesized'.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "The extracted ontology did not contain any structure related to this synthesis.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No materials were identified, including target compound or reagents.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No steps from the actual synthesis procedure were detected.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment listed.",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No synthesis conditions (time, temperature, etc.) present.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "Extracted content incorrectly states 'No materials synthesized'.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The JSON structure itself is valid and compliant with the ontology schema, despite having no valid content.",
+        "overall_score": 1.4,
+        "overall_reasoning": "This is a complete failure of content extraction. All substantive fields are missing or wrong, and no synthesis is recognized where it clearly exists in the source text."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "All relevant synthesis fields (materials, steps, equipment, conditions)"
+      ],
+      "extraction_errors": [
+        "Entire synthesis not detected"
+      ],
+      "improvement_suggestions": [
+        "Improve section recognition and parsing of synthesis details"
+      ]
+    }
+  },
+  {
+    "material": "Graphene Quantum Dots",
+    "synthesis": {
+      "target_compound": "Graphene Quantum Dots",
+      "target_compound_type": "emerging & quantum materials",
+      "synthesis_method": "hydrothermal",
+      "starting_materials": [
+        {
+          "name": "Graphene Sheets",
+          "vendor": null,
+          "amount": 50.0,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "name": "Nitric acid",
+          "vendor": null,
+          "amount": 5.0,
+          "unit": "M",
+          "purity": null
+        },
+        {
+          "name": "Orthophosphoric acid (H3PO4)",
+          "vendor": null,
+          "amount": 5.0,
+          "unit": "M",
+          "purity": null
+        },
+        {
+          "name": "Ethylenediamine",
+          "vendor": null,
+          "amount": 30.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "reflux",
+          "description": "Graphene sheets were acid-refluxed in 5 M HNO3 at 100 \u00b0C for 24 h to purify and reduce flake size.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 100.0,
+            "temp_unit": "C",
+            "duration": 24.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "wash",
+          "description": "The refluxed GS mixture was washed with DI water and ethanol to remove acid and neutralize pH.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 7.0
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "suspend",
+          "description": "The purified graphene sheets were suspended in a mixture of 5 M H3PO4 and ethylenediamine.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "sonicate",
+          "description": "Suspension was probe-sonicated for 2 h before hydrothermal treatment.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 2.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "Sonicated mixture was transferred to a Teflon-lined autoclave and heated at 200 \u00b0C for 4, 8, and 12 hr.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Teflon-lined stainless steel autoclave",
+              "instrument_vendor": null
+            }
+          ],
+          "conditions": {
+            "temperature": 200.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "cool",
+          "description": "Mixture was cooled to room temperature (~30 \u00b0C).",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 30.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "wash",
+          "description": "Brown GQD-containing solution was washed with ethanol and DI water to remove residual ethylenediamine.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 8,
+          "action": "filter",
+          "description": "Larger particles removed by vacuum filtration using 0.22 \u03bcm filter.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "0.22 \u03bcm filter paper",
+              "instrument_vendor": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 9,
+          "action": "dialyze",
+          "description": "Filtrate dialyzed over DI water in a dialysis bag for 24 h to obtain GQDs.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Dialysis membrane-50 (LA387-10MT)",
+              "instrument_vendor": "Himedia"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 24.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Hydrothermal GQDs labeled as GQD1-GQD3 depending on heating time. Control GQD4 (no passivation) and electrochemically synthesized GQD5 were also prepared."
+    },
+    "evaluation": {
+      "reasoning": "The LLM completely missed the multi-step hydrothermal synthesis procedure for graphene quantum dots, including key transformations of purified graphene sheets, reagent usage, and temperature-controlled autoclave processing. No steps or materials were captured, resulting in a complete omission of structured content despite its detailed description in the paper.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "The ontology did not identify this synthesis procedure at all.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No starting materials or products were extracted.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No synthesis steps related to this method were found.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment associated with hydrothermal synthesis was extracted.",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No heating temperature, duration, or pH values were captured.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "Does not mention GQDs or relevant experimental context.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "Correct format, but content missing.",
+        "overall_score": 1.4,
+        "overall_reasoning": "Extraction failed to capture the hydrothermal GQD synthesis."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "All relevant synthesis fields (materials, steps, equipment, conditions)"
+      ],
+      "extraction_errors": [
+        "Entire synthesis not detected"
+      ],
+      "improvement_suggestions": [
+        "Improve section recognition and parsing of synthesis details"
+      ]
+    }
+  },
+  {
+    "material": "Graphene Quantum Dots",
+    "synthesis": {
+      "target_compound": "Graphene Quantum Dots",
+      "target_compound_type": "emerging & quantum materials",
+      "synthesis_method": "electrochemical deposition",
+      "starting_materials": [
+        {
+          "name": "Graphite electrode",
+          "vendor": null,
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "name": "Sodium hydroxide",
+          "vendor": null,
+          "amount": 0.1,
+          "unit": "M",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "electrolyze",
+          "description": "Electrodes were immersed in 0.1 M NaOH solution and connected to a 10 V DC supply for 40 min.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "wash",
+          "description": "The resulting dark brown solution was washed thoroughly with DI water and ethanol to obtain neutral pH.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 7.0
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "filter",
+          "description": "Larger graphite particles were separated by vacuum filtration through 0.22 \u03bcm filter paper.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "0.22 \u03bcm filter paper",
+              "instrument_vendor": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "dialyze",
+          "description": "The filtrate was dialyzed over DI water in a dialysis bag for 24 h to isolate GQDs.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Dialysis membrane-50 (LA387-10MT)",
+              "instrument_vendor": "Himedia"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 24.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Electrochemical synthesis produced GQD5. Color change from colorless to dark brown indicated GQD formation. Solvent can be evaporated to isolate solid GQDs."
+    },
+    "evaluation": {
+      "reasoning": "The electrochemical synthesis of GQDs was entirely omitted by the LLM extraction, even though the process was distinctly described in the source. This includes electrode configuration, voltage application, and post-synthesis purification. The ontology contains no meaningful content, reflecting a complete failure in recognizing a clearly delineated synthesis method.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "The structure of the electrochemical synthesis was not extracted.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "Materials like NaOH and graphite electrodes were not identified.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "No procedural steps were included.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "Equipment such as dialysis membranes or filters were missed.",
+        "conditions_extraction_score": 1.0,
+        "conditions_extraction_reasoning": "No voltage, time, or duration values present.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "Completely absent despite presence in the paper.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "Output JSON is valid but content is missing.",
+        "overall_score": 1.4,
+        "overall_reasoning": "Complete extraction failure for this synthesis route."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "All relevant synthesis fields (materials, steps, equipment, conditions)"
+      ],
+      "extraction_errors": [
+        "Entire synthesis not detected"
+      ],
+      "improvement_suggestions": [
+        "Improve section recognition and parsing of synthesis details"
+      ]
+    }
+  }
+]
