@@ -111,6 +111,11 @@ def main(cfg: DictConfig) -> None:
         for p in papers
         if p.id not in os.listdir(cfg.result_save.architecture.result_dir)
     ]
+    ids_to_rerun = [
+        "cond-mat.9604170",
+    ]
+
+    to_process = [p for p in to_process if p.id in ids_to_rerun]
 
     def process_paper(paper) -> tuple:
         logging.info(f"Processing {paper.name}")

@@ -599,6 +599,8 @@ if __name__ == "__main__":
     skip_folders = [
         # ### Remove deliberately bad ones
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
+        "2883daff26f16a13134a26ca5d366549a14fcc9c",
+        "90233593a9aa72b4bacfdeadc20050ae6d4b88e1"
     ]
 
     # Load human and LLM evaluation data (only complete pairs, no extraction
