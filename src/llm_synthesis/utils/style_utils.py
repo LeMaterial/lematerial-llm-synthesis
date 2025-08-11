@@ -13,16 +13,31 @@ cmap = get_cmap() # Get the cmap for the current style
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
-from cmcrameri import cm
 
-cmap = cm.batlow
-palette = cmap.colors
-# convert to list
-palette = list(palette)
-palette.append("#D3D3D3")
-palette.append("#A9A9A9")
-palette.append("#808080")
+# from cmcrameri import cm
+
+# cmap = cm.batlow
+# palette = cmap.colors
+# # convert to list
+# palette = list(palette)
+# palette.append("#D3D3D3")
+# palette.append("#A9A9A9")
+# palette.append("#808080")
+
+# initialize empty palette
+palette = []
+palette.append("#E0A2D3")
+palette.append("#DFD6FB")
+palette.append("#448FF2")
+palette.append("#A7C8F2")
+palette.append("#F9CB9C")
+palette.append("#FCE5CD")
+palette.append("#FCEAF7")
+palette.append("#F2A8DD")
 sns.set_palette(palette)
+
+# create cmap out of palette
+cmap = mpl.colors.ListedColormap(palette)
 
 
 def get_palette() -> list[str]:
