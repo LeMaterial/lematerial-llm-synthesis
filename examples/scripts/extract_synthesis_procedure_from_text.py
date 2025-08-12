@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import random
 import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -111,11 +112,18 @@ def main(cfg: DictConfig) -> None:
         for p in papers
         if p.id not in os.listdir(cfg.result_save.architecture.result_dir)
     ]
-    ids_to_rerun = [
-        "cond-mat.9604170",
-    ]
 
-    to_process = [p for p in to_process if p.id in ids_to_rerun]
+    # if the key cfg.data_loader.number_of_samples is set, take n random samples
+    if cfg.data_loader.number_of_samples:
+        to_process = random.sample(
+            to_process, cfg.data_loader.number_of_samples
+        )
+
+    # ids_to_rerun = [
+    #     "cond-mat.9604170",
+    # ]
+
+    # to_process = [p for p in to_process if p.id in ids_to_rerun]
 
     def process_paper(paper) -> tuple:
         logging.info(f"Processing {paper.name}")
@@ -316,6 +324,7 @@ def main(cfg: DictConfig) -> None:
 
     max_workers = 4  # TODO: this should be a config
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        logging.info(f"Processing {len(to_process)} papers")
         futures = {
             executor.submit(process_paper, paper): paper for paper in to_process
         }
