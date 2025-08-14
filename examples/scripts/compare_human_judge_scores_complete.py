@@ -6,7 +6,7 @@ from difflib import SequenceMatcher
 import numpy as np
 import pandas as pd
 import pingouin as pg
-from scipy.stats import spearmanr
+from scipy.stats import spearmanr, permutation_test
 from sklearn.metrics import cohen_kappa_score
 
 
@@ -330,14 +330,43 @@ def evaluate_agreement_by_criterion_df(
             continue
 
         # Spearman (allow NaN when either side is constant)
+        x = valid[f"{col}_human"].to_numpy()
+        y = valid[f"{col}_llm"].to_numpy()
+
+        # drop pairs with NaN/Inf
+        m = np.isfinite(x) & np.isfinite(y)
+        x, y = x[m], y[m]
+
         if (
-            valid[f"{col}_human"].nunique() < 2
-            or valid[f"{col}_llm"].nunique() < 2
+            x.size < 2
+            or np.unique(x).size < 2
+            or np.unique(y).size < 2
         ):
             rho, p = np.nan, np.nan
         else:
-            rho, p = spearmanr(valid[f"{col}_human"], valid[f"{col}_llm"])
+            # Asymptotic Spearman (fast)
+            res_asym = spearmanr(x, y, nan_policy="omit", alternative="two-sided")
+            rho_asym, p_asym = float(res_asym.statistic), float(res_asym.pvalue)
 
+            # Permutation-based p-value for smaller samples
+            if x.size < 500:
+                def stat(x_perm):
+                    # permute only x relative to fixed y (pairings)
+                    return spearmanr(x_perm, y, nan_policy="omit", alternative="two-sided").statistic
+
+                res_perm = permutation_test(
+                    (x,),
+                    stat,
+                    permutation_type="pairings",
+                    n_resamples=10_000,
+                    alternative="two-sided",
+                    random_state=42,
+                )
+                rho, p = rho_asym, float(res_perm.pvalue)  # keep rho from spearmanr; use permutation p
+                print(f"{col} permutation p-value: {p:.6g}, asymptotic p-value: {p_asym:.6g}")
+            else:
+                rho, p = rho_asym, p_asym
+                
         # Kappa (quadratic)
         human_categories = valid[f"{col}_human"].apply(categorize_score)
         llm_categories = valid[f"{col}_llm"].apply(categorize_score)
