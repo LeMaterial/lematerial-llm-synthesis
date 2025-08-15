@@ -1,56 +1,14 @@
 [
-{
-  "material": "Heterometallic Iron-Sulfur Cluster (WFe2Ni-red and WFe2Ni-ox)",
-  "synthesis": {
-    "target_compound": "WFe2NiS4 clusters (WFe2Ni-red and WFe2Ni-ox)",
-    "target_compound_type": "inorganic compound",
-    "synthesis_method": "stepwise chemical assembly",
-    "starting_materials": [
-      {
-        "vendor": null,
-        "name": "WFe2 ([Et4N][Tp*WFe2Cl2S3(µ-SMe)])",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      },
-      {
-        "vendor": null,
-        "name": "IPrNi(styrene)2 (IPr = 1,3-bis(2,6-diisopropyl)-1,3-dihydro-2H-imidazol-2-ylidene)",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      },
-      {
-        "vendor": null,
-        "name": "THF",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      },
-      {
-        "vendor": null,
-        "name": "MeCN",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      },
-      {
-        "vendor": null,
-        "name": "ferrocenium hexafluorophosphate",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      }
-    ],
-    "steps": [
-      {
-        "step_number": 1,
-        "action": "reaction",
-        "description": "The **addition of IPrNi(styrene)2 to WFe2 in a THF:MeCN mixture** resulted in the conversion to WFe2Ni-red. X-ray crystallography showed that WFe2Ni-red has a **three-coordinate Ni site** bound to two sulfides and the NHC.",
-        "materials": [
+    {
+      "material": "WFe2Ni-red",
+      "synthesis": {
+        "target_compound": "WFe2Ni-red",
+        "target_compound_type": "other",
+        "synthesis_method": "simulation",
+        "starting_materials": [
           {
             "vendor": null,
-            "name": "WFe2",
+            "name": "[Et4N][Tp*WFe2Cl2S3(\u00b5-SMe)]",
             "amount": null,
             "unit": null,
             "purity": null
@@ -61,41 +19,88 @@
             "amount": null,
             "unit": null,
             "purity": null
-          },
+          }
+        ],
+        "steps": [
           {
-            "vendor": null,
-            "name": "THF",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "MeCN",
-            "amount": null,
-            "unit": null,
-            "purity": null
+            "step_number": 1,
+            "action": "add",
+            "description": "Addition of IPrNi(styrene)2 (IPr = 1,3-bis(2,6-diisopropyl)-1,3-dihydro-2*H*-imidazol-2 ylidene) to WFe2 in a THF:MeCN mixture results in conversion to a new *C*<sup>s</sup> species as indicated by a shift in the two diagnostic Tp\\* resonances in the <sup>1</sup> H NMR spectrum.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "IPrNi(styrene)2",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "[Et4N][Tp*WFe2Cl2S3(\u00b5-SMe)]",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
           }
         ],
         "equipment": [],
-        "conditions": {
-          "temperature": null,
-          "temp_unit": null,
-          "duration": null,
-          "time_unit": null,
-          "pressure": null,
-          "pressure_unit": null,
-          "atmosphere": null,
-          "stirring": null,
-          "stirring_speed": null,
-          "ph": null
-        }
+        "notes": "X-ray crystallography shows that the product (**WFe2Ni-red**) has a Ni site bound to two sulfides and the NHC, which is clearly three-coordinate as the Ni\u2027\u2027\u2027SMe distance of 3.102(12) \u00c5 is too long to be a bond."
       },
-      {
-        "step_number": 2,
-        "action": "oxidation",
-        "description": "WFe2Ni-red was **oxidized to WFe2Ni-ox by adding ferrocenium hexafluorophosphate to a MeCN solution of WFe2Ni-red**. This reaction resulted in an immediate color change from dark red to dark yellow. X-ray crystal analysis showed WFe2Ni-ox retains the three-coordinate Ni site.",
-        "materials": [
+      "evaluation": {
+        "reasoning": "The DFT simulation is performed in this paper, and the ontology only caputres the experimental synthesis.",
+        "scores": {
+          "structural_completeness_score": 3.5,
+          "structural_completeness_reasoning": "Extracted information obeys the ontology schema.",
+          "material_extraction_score": 4.0,
+          "material_extraction_reasoning": "The simulation procedure could be described in detail in the main paper and ontology needs to be updated to capture such steps. Some material names contain special characters which need to be handled while saving the data to json.",
+          "process_steps_score": 3.5,
+          "process_steps_reasoning": "Not provided in detail.",
+          "equipment_extraction_score": 0.0,
+          "equipment_extraction_reasoning": "Not applicable.",
+          "conditions_extraction_score": 3.0,
+          "conditions_extraction_reasoning": "Not provided in detail.",
+          "semantic_accuracy_score": 4.0,
+          "semantic_accuracy_reasoning": "The scientific meaning is mostly preserved. The overall context of the synthesis is maintained, and the relationships between materials and actions are correctly represented.",
+          "format_compliance_score": 5.0,
+          "format_compliance_reasoning": "Obeys the ontology schema.",
+          "overall_score": 3.28,
+          "overall_reasoning": "The extraction is reasonably good, Update ontology to capture simulation procedure."
+        },
+        "confidence_level": "low",
+        "missing_information": [
+          "Temperatures, duration, and amount are not provided."
+        ],
+        "extraction_errors": [],
+        "improvement_suggestions": [
+          "Include specific quantities and units for starting materials.",
+          "Add details about the reaction temperature and duration.",
+          "Explicitly mention any equipment used (e.g., reaction vessel, stirring apparatus).",
+          "Provide more concise descriptions of the process steps.",
+          "Incorporate characterization methods used to confirm the product's identity and purity."
+        ]
+      }
+    },
+    {
+      "material": "WFe2Ni-ox",
+      "synthesis": {
+        "target_compound": "WFe2Ni-ox",
+        "target_compound_type": "other",
+        "synthesis_method": "simulation",
+        "starting_materials": [
           {
             "vendor": null,
             "name": "WFe2Ni-red",
@@ -109,100 +114,81 @@
             "amount": null,
             "unit": null,
             "purity": null
-          },
+          }
+        ],
+        "steps": [
           {
-            "vendor": null,
-            "name": "MeCN",
-            "amount": null,
-            "unit": null,
-            "purity": null
+            "step_number": 1,
+            "action": "add",
+            "description": "Addition of the oxidant ferrocenium hexafluorophosphate to a MeCN solution of WFe2Ni-red results in an immediate color change from dark red to dark yellow in the oxidised product (WFe2Ni-ox).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "ferrocenium hexafluorophosphate",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "WFe2Ni-red",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "air",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
           }
         ],
         "equipment": [],
-        "conditions": {
-          "temperature": null,
-          "temp_unit": null,
-          "duration": null,
-          "time_unit": null,
-          "pressure": null,
-          "pressure_unit": null,
-          "atmosphere": null,
-          "stirring": null,
-          "stirring_speed": null,
-          "ph": null
-        }
+        "notes": "The 1H NMR spectrum of WFe2Ni-ox shows all resonances close to the diamagnetic region. X-ray crystal analysis shows that WFe2Ni-ox retains the three-coordinate Ni site, but poor crystal quality and disorder prevent further discussion of bond metrics until the DFT calculations described below."
+      },
+      "evaluation": {
+        "reasoning": "The extraction captures the synthesis of WFe2Ni-ox from WFe2Ni-red using ferrocenium hexafluorophosphate as an oxidant. The process involves a single step of addition in MeCN solution, resulting in a color change. The extracted information includes the starting materials, the action performed (addition), and the resulting product. However, the extraction misses key details such as the concentration of the reactants, the reaction time, and specific handling procedures. The notes section provides additional context from the text, which is helpful. The format compliance is good, but the completeness and accuracy could be improved by including more specific reaction conditions and material properties.",
+        "scores": {
+          "structural_completeness_score": 3.5,
+          "structural_completeness_reasoning": "Extracted information obeys the ontology schema.",
+          "material_extraction_score": 4.0,
+          "material_extraction_reasoning": "The simulation procedure could be described in detail in the main paper and ontology needs to be updated to capture such steps. Some material names contain special characters which need to be handled while saving the data to json.",
+          "process_steps_score": 3.5,
+          "process_steps_reasoning": "Not provided in detail.",
+          "equipment_extraction_score": 0.0,
+          "equipment_extraction_reasoning": "Not applicable.",
+          "conditions_extraction_score": 3.0,
+          "conditions_extraction_reasoning": "Not provided in detail.",
+          "semantic_accuracy_score": 4.0,
+          "semantic_accuracy_reasoning": "The scientific meaning is mostly preserved. The overall context of the synthesis is maintained, and the relationships between materials and actions are correctly represented.",
+          "format_compliance_score": 5.0,
+          "format_compliance_reasoning": "Obeys the ontology schema.",
+          "overall_score": 3.28,
+          "overall_reasoning": "The extraction is reasonably good, Update ontology to capture simulation procedure."
+        },
+        "confidence_level": "low",
+        "missing_information": [
+          "Concentrations of reactants",
+          "Reaction time",
+          "Temperature",
+          "Pressure"
+        ],
+        "extraction_errors": [],
+        "improvement_suggestions": [
+          "Include specific reaction conditions such as temperature, duration, and pressure.",
+          "Specify the concentrations of the reactants.",
+          "Add more details to the process step description to provide a more complete picture of the synthesis.",
+          "More details about the simulation are required."
+        ]
       }
-    ],
-    "equipment": [
-      {
-        "name": "EPR",
-        "instrument_vendor": null,
-        "settings": null
-      },
-      {
-        "name": "Mössbauer spectroscopy",
-        "instrument_vendor": null,
-        "settings": null
-      },
-      {
-        "name": "SQUID magnetometry",
-        "instrument_vendor": null,
-        "settings": null
-      },
-      {
-        "name": "X-ray absorption spectroscopy (XAS)",
-        "instrument_vendor": null,
-        "settings": null
-      },
-      {
-        "name": "X-ray crystallography",
-        "instrument_vendor": null,
-        "settings": null
-      },
-      {
-        "name": "1H NMR spectroscopy",
-        "instrument_vendor": null,
-        "settings": null
-      }
-    ],
-    "notes": "WFe2Ni-red provides the **first example of a three-coordinate nickel site in a synthetic iron-sulfur cluster**. The **nickel valence in the clusters is better described as nickel(I) than as nickel(0)** based on X-ray absorption spectroscopy and DFT calculations. The clusters **store electrons in metal-metal bonds**. A single electron change results in a **dramatic electronic structure reorganization from an S = 7/2 ground state in its reduced form to an S = 0 ground state in its oxidised form**."
-  },
-  "evaluation": {
-    "reasoning": "The extraction identifies the target compounds, their general type, and the main stepwise chemical assembly method. The key starting materials and the descriptions of the two main synthesis steps (formation of WFe2Ni-red from WFe2, and WFe2Ni-ox from WFe2Ni-red) are included. The characterization equipment used to study these compounds is also identified. However, the source text is a research paper focusing on electronic structure and characterization rather than a detailed synthesis procedure. Consequently, specific quantitative details for materials (amount, purity, vendor), detailed synthesis equipment, and precise reaction conditions (temperature, duration, pressure, stirring, atmosphere, pH) for each step are largely absent in the source and therefore in the extraction. The synthesis of the precursor WFe2 is also not detailed in the provided excerpt. Overall, the extraction accurately reflects the information available regarding the synthesis of these complex clusters within the given source.",
-    "scores": {
-      "structural_completeness_score": 3.0,
-      "structural_completeness_reasoning": "The main compounds and their conversion steps are identified, and relevant characterization equipment is listed. However, detailed synthesis procedures for the precursor WFe2 are missing, and many quantitative or specific parameters for the described steps (amounts, purities, precise conditions) are not provided in the source.",
-      "material_extraction_score": 3.0,
-      "material_extraction_reasoning": "All named starting materials are extracted. However, no information on vendor, amount, unit, or purity is available in the source, limiting completeness.",
-      "process_steps_score": 3.5,
-      "process_steps_reasoning": "The two main process steps are correctly identified and sequenced, with their 'action' accurately classified. The descriptions, while based on the source, lack the fine-grained detail of a dedicated experimental section, as the source is a scientific paper abstract/results.",
-      "equipment_extraction_score": 2.5,
-      "equipment_extraction_reasoning": "Characterization equipment used for studying the compounds is identified. However, specific equipment directly used in the chemical synthesis steps is not explicitly mentioned in the source excerpt, nor are settings or vendors for any equipment.",
-      "conditions_extraction_score": 2.0,
-      "conditions_extraction_reasoning": "Key solvent environments (THF:MeCN mixture, MeCN solution) are noted. However, no quantitative conditions such as temperature, duration, pressure, atmosphere, stirring details, or pH were specified in the source for the synthesis steps.",
-      "semantic_accuracy_score": 4.5,
-      "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis and characterization context. The relationships between materials, steps, and the general properties of the compounds are correctly represented.",
-      "format_compliance_score": 5.0,
-      "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and the data types are correctly specified."
-    },
-    "overall_score": 3.36,
-    "overall_reasoning": "The extraction is reasonably good, capturing the main steps, materials, and equipment used in the synthesis of the heterometallic iron-sulfur clusters WFe2Ni-red and WFe2Ni-ox. However, the extraction could be improved by including more specific details, such as the synthesis of the precursor WFe2, exact quantities of reactants, and precise reaction conditions (temperature, duration, pressure, etc.), which are not detailed in the provided source text. The semantic accuracy and format compliance are high."
-  },
-  "confidence_level": "high",
-  "missing_information": [
-    "Detailed synthesis procedure for the precursor WFe2.",
-    "Specific amounts, units, purity, and vendors for all starting materials.",
-    "Exact temperature, duration, pressure, atmosphere, stirring conditions, and pH for both synthesis steps.",
-    "Specific equipment used for the chemical synthesis reactions (beyond general laboratory glassware/setup).",
-    "Settings and vendors for all characterization equipment."
-  ],
-  "extraction_errors": [],
-  "improvement_suggestions": [
-    "If available from a more detailed experimental section (not provided in this excerpt), include the full synthesis procedure for WFe2.",
-    "Add quantitative details (amounts, units, purity) and vendor information for all materials if present in other parts of the source.",
-    "Specify all reaction conditions (temperature, duration, pressure, atmosphere, stirring, pH) for each step if found.",
-    "Identify and list specific equipment used for the chemical synthesis steps.",
-    "Include settings and vendors for all listed characterization equipment."
+    }
   ]
-}
-]
