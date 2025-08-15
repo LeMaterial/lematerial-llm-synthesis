@@ -6,7 +6,7 @@ from difflib import SequenceMatcher
 import numpy as np
 import pandas as pd
 import pingouin as pg
-from scipy.stats import spearmanr
+from scipy.stats import permutation_test, spearmanr
 from sklearn.metrics import cohen_kappa_score
 
 
@@ -225,36 +225,40 @@ def aggregate_human_scores_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def evaluate_agreement_by_criterion_df(
-    human_df: pd.DataFrame, llm_df: pd.DataFrame, score_columns: list[str]
+    human_df: pd.DataFrame,
+    llm_df: pd.DataFrame,
+    score_columns: list[str],
+    *,
+    small_n_threshold: int = 500,
+    n_resamples: int = 10_000,
+    random_state: int | None = 42,
+    verbose: bool = False,
 ) -> dict[
     str,
     tuple[
-        float,
-        float,
-        float,
-        float,
-        float,
-        float,
-        float,
-        float,
-        float,
+        float,  # rho
+        float,  # p
+        float,  # kappa
+        float,  # human_mean
+        float,  # human_median
+        float,  # human_std
+        float,  # llm_mean
+        float,  # llm_median
+        float,  # llm_std
     ],
 ]:
     """
-    Calculates Spearman correlation, Cohen's κ, and ICCs between human and LLM
-    scores for each criterion in the ontology, matched by material_id.
-    Also calculates mean, median, and standard deviation scores for both human
-    and LLM.
+    Calculates Spearman rho (effect size) and uses a permutation-based p-value
+    for small samples; otherwise uses the asymptotic p-value.
+    Also computes quadratic-weighted Cohen's kappa and summary stats.
     """
-    # Column mismatch guard: Intersect score_columns with columns present in
-    # both frames
+    # Guard: only keep columns present in both frames
     score_columns = [
-        c
-        for c in score_columns
+        c for c in score_columns 
         if c in human_df.columns and c in llm_df.columns
     ]
 
-    # Merge on material_id once
+    # Merge once on material_id
     merged = pd.merge(
         human_df[["material_id", *score_columns]],
         llm_df[["material_id", *score_columns]],
@@ -262,72 +266,78 @@ def evaluate_agreement_by_criterion_df(
         suffixes=("_human", "_llm"),
     )
 
-    def categorize_score(v):
-        # bins: (-inf,1], (1,2], (2,3], (3,4], (4, inf)
-        if v <= 1:
-            return 0
-        elif v <= 2:
-            return 1
-        elif v <= 3:
-            return 2
-        elif v <= 4:
-            return 3
-        else:
-            return 4
+    def categorize_score(v: float) -> int:
+        if v <= 1: return 0
+        elif v <= 2: return 1
+        elif v <= 3: return 2
+        elif v <= 4: return 3
+        else: return 4
 
-    results = {}
+    results: dict[str, tuple[float, float, float, float, float, float, 
+                            float, float, float]] = {}
+
     for col in score_columns:
         valid = merged[[f"{col}_human", f"{col}_llm"]].dropna()
         if len(valid) < 2:
-            results[col] = (
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-            )
+            results[col] = (np.nan, np.nan, np.nan, np.nan, np.nan, 
+                           np.nan, np.nan, np.nan, np.nan)
             continue
 
-        # Spearman (allow NaN when either side is constant)
-        if (
-            valid[f"{col}_human"].nunique() < 2
-            or valid[f"{col}_llm"].nunique() < 2
-        ):
+        # Arrays + finite mask
+        x = valid[f"{col}_human"].to_numpy()
+        y = valid[f"{col}_llm"].to_numpy()
+        m = np.isfinite(x) & np.isfinite(y)
+        x, y = x[m], y[m]
+
+        # Spearman (permit NaN when either side constant)
+        if x.size < 2 or np.unique(x).size < 2 or np.unique(y).size < 2:
             rho, p = np.nan, np.nan
         else:
-            rho, p = spearmanr(valid[f"{col}_human"], valid[f"{col}_llm"])
+            # Effect size from asymptotic spearman
+            res_asym = spearmanr(x, y, nan_policy="omit", 
+                                alternative="two-sided")
+            rho_asym, p_asym = float(res_asym.statistic), float(res_asym.pvalue)
 
-        # Kappa (quadratic)
+            # Permutation p-value for small n
+            if x.size < small_n_threshold:
+                def stat(x_perm):
+                    result = spearmanr(x_perm, y, nan_policy="omit", 
+                                     alternative="two-sided")
+                    return result.statistic
+                res_perm = permutation_test(
+                    (x,),
+                    stat,
+                    permutation_type="pairings",
+                    n_resamples=n_resamples,
+                    alternative="two-sided",
+                    random_state=random_state,
+                )
+                rho, p = rho_asym, float(res_perm.pvalue)
+                if verbose:
+                    print(f"{col}: n={x.size}, permutation p={p:.6g}, "
+                          f"asymptotic p={p_asym:.6g}, rho={rho:.4f}")
+            else:
+                rho, p = rho_asym, p_asym
+
+        # Quadratic-weighted κ on binned scores
         human_categories = valid[f"{col}_human"].apply(categorize_score)
         llm_categories = valid[f"{col}_llm"].apply(categorize_score)
-        kappa = cohen_kappa_score(
-            human_categories, llm_categories, weights="quadratic"
-        )
+        kappa = cohen_kappa_score(human_categories, llm_categories, 
+                                weights="quadratic")
 
         # Summary stats
-        human_mean = valid[f"{col}_human"].mean()
-        human_median = valid[f"{col}_human"].median()
-        human_std = valid[f"{col}_human"].std()
-        llm_mean = valid[f"{col}_llm"].mean()
-        llm_median = valid[f"{col}_llm"].median()
-        llm_std = valid[f"{col}_llm"].std()
+        human_mean   = float(valid[f"{col}_human"].mean())
+        human_median = float(valid[f"{col}_human"].median())
+        human_std    = float(valid[f"{col}_human"].std())
+        llm_mean     = float(valid[f"{col}_llm"].mean())
+        llm_median   = float(valid[f"{col}_llm"].median())
+        llm_std      = float(valid[f"{col}_llm"].std())
 
-        results[col] = (
-            rho,
-            p,
-            kappa,
-            human_mean,
-            human_median,
-            human_std,
-            llm_mean,
-            llm_median,
-            llm_std,
-        )
+        results[col] = (rho, p, kappa, human_mean, human_median, human_std, 
+                        llm_mean, llm_median, llm_std)
+
     return results
+
 
 
 def read_score_data_with_categories(
