@@ -6,7 +6,7 @@ from difflib import SequenceMatcher
 import numpy as np
 import pandas as pd
 import pingouin as pg
-from scipy.stats import spearmanr, permutation_test
+from scipy.stats import permutation_test, spearmanr
 from sklearn.metrics import cohen_kappa_score
 
 
@@ -345,14 +345,17 @@ def evaluate_agreement_by_criterion_df(
             rho, p = np.nan, np.nan
         else:
             # Asymptotic Spearman (fast)
-            res_asym = spearmanr(x, y, nan_policy="omit", alternative="two-sided")
+            res_asym = spearmanr(x, y, nan_policy="omit", 
+                                alternative="two-sided")
             rho_asym, p_asym = float(res_asym.statistic), float(res_asym.pvalue)
 
             # Permutation-based p-value for smaller samples
             if x.size < 500:
                 def stat(x_perm):
                     # permute only x relative to fixed y (pairings)
-                    return spearmanr(x_perm, y, nan_policy="omit", alternative="two-sided").statistic
+                    result = spearmanr(x_perm, y, nan_policy="omit", 
+                                     alternative="two-sided")
+                    return result.statistic
 
                 res_perm = permutation_test(
                     (x,),
@@ -362,8 +365,10 @@ def evaluate_agreement_by_criterion_df(
                     alternative="two-sided",
                     random_state=42,
                 )
-                rho, p = rho_asym, float(res_perm.pvalue)  # keep rho from spearmanr; use permutation p
-                print(f"{col} permutation p-value: {p:.6g}, asymptotic p-value: {p_asym:.6g}")
+                # keep rho from spearmanr; use permutation p
+                rho, p = rho_asym, float(res_perm.pvalue) 
+                print(f"{col} permutation p-value: {p:.6g}, "
+                      f"asymptotic p-value: {p_asym:.6g}")
             else:
                 rho, p = rho_asym, p_asym
                 
