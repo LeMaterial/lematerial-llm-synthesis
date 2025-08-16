@@ -7,8 +7,11 @@ from datasets import (
     get_dataset_split_names,
     load_dataset,
 )
-from paper_schema import paper_schema
-from synthesis_schema import synthesis_schema
+
+from llm_synthesis.services.storage.paper_schema import schema as paper_schema
+from llm_synthesis.services.storage.synthesis_schema import (
+    schema as synthesis_schema,
+)
 
 
 def cast_schema(args):
@@ -59,7 +62,13 @@ if __name__ == "__main__":
         "--dataset",
         type=str,
         default="LeMaterial/LeMat-Synth-Papers",
-        help="For the papers dataset, use 'LeMaterial/LeMat-Synth-Papers'. For the synthesis dataset, use 'LeMaterial/LeMat-Synth'. Note, that depending on which one you choose, the schema will be automatically inferred from `paper_schema.py` or `synthesis_schema.py`.",
+        help=(
+            "For the papers dataset, use 'LeMaterial/LeMat-Synth-Papers'. "
+            "For the synthesis dataset, use 'LeMaterial/LeMat-Synth'. "
+            "Note, that depending on which one you choose, the schema will "
+            "be automatically inferred from `paper_schema.py` or "
+            "`synthesis_schema.py`."
+        ),
     )
     parser.add_argument(
         "--config",
@@ -71,7 +80,7 @@ if __name__ == "__main__":
         "--split",
         type=str,
         default=None,
-        help="If None, this will run through all splits in the specified subset.",
+        help="If None, this will run through all splits in specified subset.",
     )
     args = parser.parse_args()
     cast_schema(args)

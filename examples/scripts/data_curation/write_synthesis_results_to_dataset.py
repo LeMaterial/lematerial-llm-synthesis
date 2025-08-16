@@ -4,7 +4,8 @@ from pathlib import Path
 
 import pandas as pd
 from datasets import Dataset, Features, load_dataset
-from synthesis_schema import schema
+
+from llm_synthesis.services.storage.synthesis_schema import schema
 
 
 class SynthesisWriter:
@@ -82,7 +83,8 @@ class SynthesisWriter:
 
         if not all_records:
             raise ValueError(
-                "It appears the results directory you have passed is empty or contains no files called result.json in subdirectories."
+                "It appears the results directory you have passed is empty or "
+                "contains no files called result.json in subdirectories."
             )
 
         results_df = pd.DataFrame(all_records)

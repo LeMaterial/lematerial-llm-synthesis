@@ -10,8 +10,9 @@ from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict
 from marker.output import text_from_rendered
 from multiprocess import set_start_method
-from paper_schema import schema
 from scidownl import scihub_download
+
+from llm_synthesis.services.storage.paper_schema import schema
 
 converter = PdfConverter(artifact_dict=create_model_dict())
 
@@ -87,7 +88,7 @@ class ImageTextExtractor:
                     f.write(response.content)
                 print(f"Downloaded: {file_path}")
                 rendered = converter(str(file_path))
-            except:
+            except Exception:
                 # if blocked, try getting it from scihub
                 try:
                     if "mdpi" in url:
@@ -101,7 +102,7 @@ class ImageTextExtractor:
                                 journal_id, "unknown"
                             )
                             # if unknown, it will fail for row, but not crash
-                            doi = f"10.3390/{journal_abbr}{volume}{issue}{article}"
+                            doi = f"10.3390/{journal_abbr}{volume}{issue}{article}"  # noqa: E501
                     elif "rsc" in url:
                         match = re.search(r"/([^/]+)$", url)
                         if match:
@@ -111,7 +112,7 @@ class ImageTextExtractor:
                     scihub_download(doi, paper_type="doi", out=str(file_path))
                     print(f"Downloaded: {file_path}")
                     rendered = converter(str(file_path))
-                except:
+                except Exception:
                     print("failed on: ", url)
                     return row
 
@@ -155,7 +156,7 @@ class ImageTextExtractor:
                         shard_location = self.disk_location / str(idx)
                         shard_location.mkdir(exist_ok=True)
                         dataset_shard.save_to_disk(shard_location)
-                except:
+                except Exception:
                     print(f"failed on shard {idx}")
                     pass
 

@@ -47,7 +47,7 @@ class ArxivScraper:
             markdown_text = pypandoc.convert_text(
                 content, "gfm", format="latex+raw_tex", extra_args=["--mathjax"]
             )
-        except:
+        except Exception:
             os.remove(tar_file)
             shutil.rmtree(extract_dir)
             return None, None
@@ -81,7 +81,7 @@ class ArxivScraper:
             if "gzip" in content_type:
                 try:
                     text, images = self.parse_latex(response)
-                except:
+                except Exception:
                     print("failed for id: ", id)
                     pass
                 method = "latex"
