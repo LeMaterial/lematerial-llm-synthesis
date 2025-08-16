@@ -4,7 +4,7 @@
     "synthesis": {
       "target_compound": "ceria-doped zirconia ceramics",
       "target_compound_type": "ceramics & glasses",
-      "synthesis_method": "precipitation",
+      "synthesis_method": "coprecipitation",
       "starting_materials": [
         {
           "vendor": "Fluka Chemicals, UK",
@@ -126,47 +126,41 @@
         }
       ],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed to identify the synthesis method correctly, misclassifying 'co-precipitation' which is a valid synthesis method. Consequently, the extraction process did not proceed to identify starting materials, steps, or equipment. This significantly impacts the structural completeness and semantic accuracy of the extraction.",
+      "reasoning": "The extraction captures the synthesis of gadolinia-doped zirconia/ceria ceramics using a co-precipitation method. The extraction includes details about the starting materials, synthesis steps (co-precipitation, drying, calcination, grinding, ball milling, sieving, mixing, pressing, and sintering), equipment used (XRD, SEM, Vickers hardness tester, universal testing machine, cutting machine, grinding/polishing machine), and relevant conditions (temperature, pH, pressure, atmosphere). The level of detail is generally good, but there are some areas for improvement, particularly in specifying quantities and units for all materials and providing more specific settings for the equipment.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure to identify the synthesis method, the extraction process did not proceed to identify starting materials, steps, or equipment, resulting in a very incomplete representation of the synthesis.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial failure in identifying the synthesis method. Therefore, the material extraction score is very low.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, as the synthesis method was not correctly identified, leading to a failure in parsing the subsequent steps.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted, as the synthesis method was not correctly identified, leading to a failure in parsing the equipment used.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted, as the synthesis method was not correctly identified, leading to a failure in parsing the conditions used.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is very low because the fundamental synthesis method was misidentified, leading to a complete misrepresentation of the synthesis process.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is low because the extraction process failed to correctly identify the synthesis method, leading to a failure in parsing the subsequent steps and materials.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is very low due to the initial failure in identifying the synthesis method, which cascaded into a complete failure to extract materials, steps, equipment, and conditions. This results in a very incomplete and inaccurate representation of the synthesis process."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as specific milling times or calcination durations.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is generally accurate, including the identification of zirconium oxychloride, cerium nitrate, ammonia solution, and gadolinium nitrate. The quantities and units are provided for some materials (e.g., 0.2 M solutions), but not for all. Purity is consistently noted. The final composition of the ceramics (0.85 mol % gadolinia/5 mol % ceria and 0.5 mol % gadolinia/10 mol % ceria) is also correctly identified.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and accurately reflect the synthesis procedure. The sequence of steps (co-precipitation, drying, calcination, grinding, ball milling, sieving, mixing, pressing, and sintering) is logical and complete. The descriptions of each step are generally clear and informative.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The extraction identifies most of the key equipment used in the synthesis and characterization, including the X-ray diffractometer, scanning electron microscope, Vickers hardness tester, universal testing machine, cutting machine, and grinding/polishing machine. The vendor information is provided for some equipment. However, specific settings for each piece of equipment could be more detailed.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction captures important synthesis conditions such as temperature (calcination and sintering temperatures), pH (co-precipitation pH), pressure (pressing pressure), and atmosphere (sintering in air). However, some conditions are missing, such as the duration of calcination and grinding.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, equipment, and conditions are correctly represented. The terminology used is consistent with materials science conventions.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
+        "overall_score": 4.3,
+        "overall_reasoning": "Overall, the ontology extraction is of high quality, capturing most of the key aspects of the synthesis procedure accurately and completely. The extraction is well-structured and adheres to the GeneralSynthesisOntology schema. Areas for improvement include providing more specific quantities and units for all materials and including more detailed settings for the equipment used."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Synthesis method",
-        "Starting materials",
-        "Process steps",
-        "Equipment",
-        "Conditions"
+        "Milling times for ball milling steps.",
+        "Duration of calcination steps.",
+        "Specific settings for XRD, SEM, Vickers hardness tester, universal testing machine, and cutting machine.",
+        "Solvent used for preparing gadolinium nitrate solution."
       ],
-      "extraction_errors": [
-        "Misidentification of synthesis method",
-        "Failure to extract materials",
-        "Failure to extract process steps",
-        "Failure to extract equipment",
-        "Failure to extract conditions"
-      ],
+      "extraction_errors": [],
       "improvement_suggestions": [
-        "Improve the accuracy of synthesis method identification.",
-        "Implement a more robust error handling mechanism to prevent cascading failures.",
-        "Enhance the ability to extract materials, steps, equipment, and conditions even when the synthesis method is not perfectly identified."
+        "Include specific milling times for ball milling steps.",
+        "Specify the duration of calcination steps.",
+        "Provide more detailed settings for each piece of equipment (e.g., voltage, current, scan rate for XRD; magnification for SEM).",
+        "Add the solvent used for preparing gadolinium nitrate solution."
       ]
     }
   },
@@ -175,7 +169,7 @@
     "synthesis": {
       "target_compound": "5CeGd",
       "target_compound_type": "ceramics & glasses",
-      "synthesis_method": "co-precipitation",
+      "synthesis_method": "coprecipitation",
       "starting_materials": [
         {
           "vendor": "Rare Earth Corporation",
@@ -283,44 +277,42 @@
         }
       ],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed completely, indicating a fundamental issue with the extraction process or the model's ability to interpret the text and map it to the ontology. The error message suggests that the 'synthesis_method' field did not accept 'co-precipitation', even though it should have been mapped to 'precipitation' or 'coprecipitation' as an 'other' option. This failure impacts all aspects of the evaluation, as no information was correctly extracted.",
+      "reasoning": "The extraction captures the synthesis of 5CeGd ceramics using a co-precipitation method followed by gadolinia doping. The structural completeness is good, covering most materials, steps, and conditions. Material extraction is generally accurate, although some quantities are missing. Process steps are well-organized. Equipment extraction is minimal. Conditions extraction is mostly accurate, but some parameters are missing. Semantic accuracy is high, preserving the scientific meaning. Format compliance is good overall. The main areas for improvement are adding missing quantities and equipment details.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the complete extraction failure, the structural completeness is extremely poor. No materials, steps, equipment, or conditions were extracted.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No material information was extracted. The extraction failed to identify and represent the starting materials or the target compound.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted. The synthesis procedure was not parsed or represented in the structured format.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted. The extraction failed to identify any of the equipment used in the synthesis.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions were extracted. The extraction failed to identify temperature, pressure, duration, or atmosphere.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is non-existent as no information was correctly extracted and represented.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is poor due to the extraction failure. The output does not adhere to the GeneralSynthesisOntology schema.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall extraction quality is extremely poor due to the complete failure to extract any meaningful information from the source text. The error message indicates a fundamental issue with the extraction process."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology captures most of the materials, steps, and conditions described in the text. However, some details are missing, such as specific equipment used in each step.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names and purities are extracted accurately. However, some quantities and units are missing for cerium nitrate and gadolinium nitrate.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are accurately sequenced and classified. The descriptions are clear and follow the logical flow of the synthesis.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "Equipment extraction is minimal. Only the XRD diffractometer, grinding/polishing machine, SEM, hardness tester, cutting machine, and bend testing machine are mentioned, but not linked to specific steps. More specific equipment used in each step should be identified.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature, pressure, duration, and atmosphere are mostly accurately extracted. The pH value for the co-precipitation step is correctly identified. However, stirring speed is missing.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The structured format accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are well-maintained.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. Minor adjustments may be needed for full compliance.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The ontology extraction is generally good, with high scores for process steps, semantic accuracy, and format compliance. The main areas for improvement are equipment extraction and material extraction (adding missing quantities)."
       },
-      "confidence_level": "high",
+      "confidence_level": "medium",
       "missing_information": [
-        "Material quantities, units, or purities",
-        "Process step details or sequencing",
-        "Equipment specifications or settings",
-        "Synthesis conditions (temperature, pressure, duration)"
+        "Specific equipment used in each step.",
+        "Quantities for cerium nitrate and gadolinium nitrate.",
+        "Stirring speed during co-precipitation."
       ],
       "extraction_errors": [
-        "Semantic meaning not preserved in structured format",
-        "Schema compliance issues or data type errors"
+        "Missing quantities for cerium nitrate and gadolinium nitrate.",
+        "Incomplete equipment extraction."
       ],
       "improvement_suggestions": [
-        "Improve coverage of all synthesis components",
-        "Enhance material parsing for quantities and units",
-        "Better organize and sequence process steps",
-        "Ensure strict adherence to ontology schema"
+        "Include specific quantities and units for all starting materials.",
+        "Identify and extract specific equipment used in each step of the synthesis.",
+        "Add stirring speed if available in the text."
       ]
     }
   },
@@ -329,7 +321,7 @@
     "synthesis": {
       "target_compound": "10CeGd",
       "target_compound_type": "ceramics & glasses",
-      "synthesis_method": "co-precipitation",
+      "synthesis_method": "coprecipitation",
       "starting_materials": [
         {
           "vendor": "Rare Earth Corporation",
@@ -437,38 +429,46 @@
         }
       ],
       "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='co-precipitation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed completely due to a validation error related to the synthesis method. The provided 'co-precipitation' is not a valid option according to the schema. This single error prevents any further evaluation of the extraction's completeness or accuracy.",
+      "reasoning": "The extraction captures the major steps and materials used in the synthesis of 10CeGd ceramics. The co-precipitation method, calcination, ball milling, and sintering steps are all identified. The materials, including zirconium oxychloride, cerium nitrate, gadolinium nitrate, and ammonia solution, are also extracted. However, there are some inaccuracies and omissions. The concentrations of starting materials are not always correctly associated with the right steps. The sintering temperature range is not fully captured, and the equipment used is not extracted. The description of the process steps is generally accurate, but could benefit from more detail. The format compliance is good, but there are some minor issues with units and data types.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure of the extraction, no structural elements (materials, steps, equipment, conditions) were extracted, resulting in minimal completeness.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted, so the accuracy is non-existent.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment information was extracted.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Since no information was extracted, semantic accuracy cannot be assessed.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The JSON is valid, but the content is empty due to the extraction failure.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The extraction failed due to a validation error, resulting in an empty ontology. The overall score reflects this complete failure."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the key synthesis steps and materials, but misses some details regarding equipment and the full range of sintering temperatures. The overall structure is sound, but could be more comprehensive.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The extraction of materials is generally accurate, including the identification of zirconium oxychloride, cerium nitrate, and gadolinium nitrate. However, the quantities and units are not always correctly associated with the corresponding steps. The purity of the materials is well captured.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are extracted in a logical order, and the actions are generally well-classified. However, the descriptions could be more detailed, and some steps could be further broken down for clarity.",
+        "equipment_extraction_score": 2.0,
+        "equipment_extraction_reasoning": "The extraction of equipment is very poor. No specific equipment is identified, which is a significant omission. The type of ball mill, furnace, and pressing equipment should be included.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "The extraction of conditions is partially accurate. The pH for co-precipitation and the sintering temperature and duration are extracted. However, the temperature range for sintering (1400-1600\u00b0C) is not fully captured, and other relevant conditions like the atmosphere during calcination are missing.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, as the extracted information preserves the scientific meaning of the original text. However, some inaccuracies in the association of quantities and units with specific steps slightly detract from the overall accuracy.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction largely adheres to the GeneralSynthesisOntology schema and data type requirements. There are only minor issues with units and data types that need to be addressed.",
+        "overall_score": 3.7,
+        "overall_reasoning": "The extraction is reasonably good, capturing most of the key synthesis steps and materials. However, the lack of equipment extraction and some inaccuracies in the association of quantities and units with specific steps bring down the overall score. Improving the completeness and accuracy of the extraction would significantly enhance its value."
       },
-      "confidence_level": "high",
+      "confidence_level": "medium",
       "missing_information": [
-        "All synthesis details are missing due to extraction failure."
+        "Specific equipment used in each step.",
+        "Atmosphere during calcination.",
+        "Full sintering temperature range.",
+        "Details of ball milling parameters (e.g., speed, ball size, milling time)."
       ],
       "extraction_errors": [
-        "Synthesis method 'co-precipitation' is not a valid option according to the schema."
+        "Incomplete capture of sintering temperature range (1400-1600\u00b0C).",
+        "Missing equipment information (ball mill, furnace, pressing equipment).",
+        "Inaccurate association of quantities and units with specific steps."
       ],
       "improvement_suggestions": [
-        "Correct the synthesis method to a valid option from the schema's enumerated list.",
-        "Ensure that the extraction process can handle the complexity of the synthesis text and accurately identify all relevant components (materials, steps, equipment, conditions)."
+        "Include specific equipment used in each step (e.g., ball mill type, furnace model, pressing equipment).",
+        "Ensure accurate association of quantities and units with the corresponding steps.",
+        "Capture the full range of sintering temperatures (1400-1600\u00b0C).",
+        "Add atmosphere condition for calcination steps.",
+        "Provide more detailed descriptions of each process step."
       ]
     }
   }

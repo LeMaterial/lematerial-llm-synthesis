@@ -3,7 +3,7 @@
     "material": "R3B SMILES",
     "synthesis": {
       "target_compound": "R3B SMILES",
-      "target_compound_type": "functional materials & cataysts",
+      "target_compound_type": "functional materials & catalysts",
       "synthesis_method": "self-assembly",
       "starting_materials": [
         {
@@ -98,7 +98,7 @@
     "material": "Oxazine SMILES",
     "synthesis": {
       "target_compound": "Oxazine SMILES",
-      "target_compound_type": "functional materials & cataysts",
+      "target_compound_type": "functional materials & catalysts",
       "synthesis_method": "self-assembly",
       "starting_materials": [
         {
@@ -160,8 +160,8 @@
       "scores": {
         "structural_completeness_score": 4.0,
         "structural_completeness_reasoning": "The extraction is correct for the starting materials and the synthesis step",
-        "material_extraction_score": 2.0,
-        "material_extraction_reasoning": "The name of the dye is incorrectly extracted and the quantity of cyanostar is not specified.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The materials are correctly identified (oxazine 720\u2022ClO4 and cyanostar), and the stoichiometry of cyanostar is accurately captured. However, vendor information and purity are missing, which reduces the score slightly.",
         "process_steps_score": 5.0,
         "process_steps_reasoning": "The mixing procedure is clearly identified, with the final characteristic of the SMILES material.",
         "equipment_extraction_score": 5.0,
@@ -172,7 +172,7 @@
         "semantic_accuracy_reasoning": "The extracted information is generally accurate and preserves the scientific meaning of the source text. The key concept of mixing the dye and cyanostar to produce SMILES is correctly represented.",
         "format_compliance_score": 5.0,
         "format_compliance_reasoning": "The extracted data is compliant. The JSON format is valid and the data types are correctly assigned.",
-        "overall_score": 4.4,
+        "overall_score": 4.7,
         "overall_reasoning": "The extraction is of good quality, but the quantity of cyanostar is missing and the name of the dye is not correctly specified."
       },
       "confidence_level": "high",
@@ -195,7 +195,7 @@
     "material": "Pyridine 1 SMILES",
     "synthesis": {
       "target_compound": "Pyridine 1 SMILES",
-      "target_compound_type": "functional materials & cataysts",
+      "target_compound_type": "functional materials & catalysts",
       "synthesis_method": "self-assembly",
       "starting_materials": [
         {
@@ -257,8 +257,8 @@
       "scores": {
         "structural_completeness_score": 4.0,
         "structural_completeness_reasoning": "The extraction is correct for the starting materials and the synthesis step",
-        "material_extraction_score": 2.0,
-        "material_extraction_reasoning": "The name of the dye is incorrectly extracted and the quantity of cyanostar is not specified for ‘starting materials’.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The materials are correctly identified, and the stoichiometry of cyanostar is accurately captured. The lack of vendor information and purities is not penalized since this information was not explicitly provided in the source text. The chemical names are accurate.",
         "process_steps_score": 5.0,
         "process_steps_reasoning": "The mixing procedure is clearly identified",
         "equipment_extraction_score": 5.0,
@@ -269,7 +269,7 @@
         "semantic_accuracy_reasoning": "The extracted information is generally accurate and preserves the scientific meaning of the source text. The key concept of mixing the dye and cyanostar to produce SMILES is correctly represented.",
         "format_compliance_score": 5.0,
         "format_compliance_reasoning": "The extracted data is compliant. The JSON format is valid and the data types are correctly assigned.",
-        "overall_score": 4.4,
+        "overall_score": 4.8,
         "overall_reasoning": "The extraction is of good quality, but the quantity of cyanostar is missing for ‘starting materials’ and the name of the dye is not correctly specified."
       },
       "confidence_level": "high",
@@ -292,7 +292,7 @@
     "material": "cyanine SMILES",
     "synthesis": {
       "target_compound": "cyanine SMILES",
-      "target_compound_type": "functional materials & cataysts",
+      "target_compound_type": "functional materials & catalysts",
       "synthesis_method": "self-assembly",
       "starting_materials": [
         {
@@ -389,7 +389,7 @@
     "material": "DAOTA SMILES",
     "synthesis": {
       "target_compound": "DAOTA SMILES",
-      "target_compound_type": "functional materials & cataysts",
+      "target_compound_type": "functional materials & catalysts",
       "synthesis_method": "self-assembly",
       "starting_materials": [
         {
@@ -451,8 +451,8 @@
       "scores": {
         "structural_completeness_score": 4.0,
         "structural_completeness_reasoning": "The extraction is correct for the starting materials and the synthesis step",
-        "material_extraction_score": 3.0,
-        "material_extraction_reasoning": "The quantity of cyanostar is not specified for ‘starting materials’.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The extraction accurately identifies the starting materials, including the dye (N,N'-dipropyl-diazaoxatriangulenium tetrafluoroborate) and cyanostar. The stoichiometry of 2 equivalents of cyanostar is also correctly captured. The absence of vendor and purity information is acceptable as it's not explicitly stated in the source text.",
         "process_steps_score": 5.0,
         "process_steps_reasoning": "The mixing procedure is clearly identified",
         "equipment_extraction_score": 5.0,
@@ -463,7 +463,7 @@
         "semantic_accuracy_reasoning": "The extracted information is generally accurate and preserves the scientific meaning of the source text. The key concept of mixing the dye and cyanostar to produce SMILES is correctly represented.",
         "format_compliance_score": 5.0,
         "format_compliance_reasoning": "The extracted data is compliant. The JSON format is valid and the data types are correctly assigned.",
-        "overall_score": 4.6,
+        "overall_score": 4.8,
         "overall_reasoning": "The extraction is of good quality, but the quantity of cyanostar is missing for ‘starting materials’."
       },
       "confidence_level": "high",

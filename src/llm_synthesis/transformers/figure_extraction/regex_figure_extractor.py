@@ -66,8 +66,6 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
 
                 # Check if the predicted label is a quantitative figure
                 if predicted_label in [
-                    "Bar plots",
-                    "Scatter plot",
                     "Line plots",
                 ]:
                     figure_info.quantitative = True

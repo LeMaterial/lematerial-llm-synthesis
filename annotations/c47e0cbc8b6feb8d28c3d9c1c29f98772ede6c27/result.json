@@ -3,52 +3,206 @@
     "material": "SSNi-0",
     "synthesis": {
       "target_compound": "SSNi-0",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Degussa, Germany",
+          "name": "Sipernat 50",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.0,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Pre-grinding for 15 min, grinding Ni(NO3)2-6H2O and homogenization of the mixture",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Sipernat 50",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Grinding for 30 min (2 x 15 min), heating of the system, resulting starch gelation and better homogenization of the sample",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Sipernat 50",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Pyrolysis process",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SSNi-0 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0. Additionally, to examine the effect of mechanochemical treatment on porous structure of the matrix, the initial silicas were subjected to mechanochemical treatment under the same conditions and they are denoted A-200 M and S-50 M. The pyrolysis was carried out in a rotary quartz reactor in nitrogen atmosphere (120 cm3 min-1 ) using the following procedure: heating from 20 to 500 C (10 C min-1 ), isothermal annealing at 500 C (3 h) and cooling to room temperature. The samples obtained in this way are denoted with the general formulae SSNi-x (for the samples prepared on the base of Sipernat) and ASNi-x (for the samples prepared on the base of Aerosil, where x = 0, 0.1, \u2026, 0.5)."
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The value 'mechanochemical' is not a recognized term in the schema's enumerated list of synthesis methods. This indicates a failure in format compliance and semantic accuracy, as the correct synthesis method was not identified or mapped to an acceptable term. The extraction also failed to identify any starting materials, steps, or equipment, indicating a significant lack of structural completeness.",
+      "reasoning": "The extraction captures the mechanochemical synthesis of SSNi-0 carbosils. It correctly identifies the starting materials, equipment, and process steps. The conditions, such as temperature, duration, and atmosphere, are also extracted accurately. However, there are some inaccuracies in the material amounts and units, and the description of the steps could be more detailed.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "The extraction completely failed to identify materials, steps, equipment, and conditions, resulting in minimal information captured from the source text.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted. This indicates a complete failure to identify and represent the chemical components involved in the synthesis.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted. This indicates a complete failure to identify and represent the sequence of actions performed during the synthesis.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted. This indicates a complete failure to identify and represent the tools and instruments used during the synthesis.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted. This indicates a complete failure to identify and represent the parameters such as temperature, pressure, and duration of the synthesis.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The extraction failed to preserve any scientific meaning due to the lack of extracted information and the incorrect classification of the synthesis method.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed to comply with the GeneralSynthesisOntology schema due to the invalid value for the synthesis method and the lack of extracted information.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The extraction received the lowest possible score due to the complete failure to extract relevant information and comply with the ontology schema. The validation error in the synthesis method further compounds the issue."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the relevant synthesis components, including materials, steps, equipment, and conditions. However, some details are missing, such as the heating rate during pyrolysis.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The material names and vendors are extracted correctly. However, the amounts and units for the starting materials are not entirely accurate. The amount of Ni(NO3)2-6H2O is listed as 0.0 mol, which is incorrect for SSNi-0, as it should be 0 mol. The SiO2 amount is missing, but it is stated that the molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized and the actions are correctly classified. However, the descriptions could be more detailed, especially regarding the heating rate during pyrolysis.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment is correctly identified, including the Planetary Mill and rotary quartz reactor. The vendors are also accurately extracted.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions, such as temperature, duration, and atmosphere, are extracted accurately. However, the heating rate during pyrolysis (10 C min-1) is missing from the conditions of step 3.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning and intent of the source text. However, the inaccuracies in material amounts and the missing heating rate slightly detract from the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally well-done, capturing most of the relevant synthesis information. However, there are some inaccuracies in material amounts and missing details in the process step descriptions. Addressing these issues would further improve the extraction quality."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "Starting materials and their quantities",
-        "Detailed process steps",
-        "Equipment used in the synthesis",
-        "Synthesis conditions (temperature, pressure, duration)",
-        "Role of Ni(NO3)2-6H2O"
+        "Heating rate during pyrolysis (10 C min-1)."
       ],
       "extraction_errors": [
-        "Invalid synthesis method: 'mechanochemical' is not a valid option.",
-        "Failed to extract starting materials.",
-        "Failed to extract process steps.",
-        "Failed to extract equipment.",
-        "Failed to extract conditions."
+        "Incorrect amount of Ni(NO3)2-6H2O (should be 0 mol for SSNi-0).",
+        "Missing amount of SiO2 (should be 1 mol based on the molar ratio)."
       ],
       "improvement_suggestions": [
-        "Expand the enumerated list of synthesis methods to include 'mechanochemical' or map it to a more general category like 'mechanical mixing'.",
-        "Improve the extraction logic to identify and extract starting materials, process steps, equipment, and conditions.",
-        "Implement more robust error handling and validation to prevent extraction failures."
+        "Ensure accurate extraction of material amounts and units.",
+        "Include more detailed descriptions of the process steps, such as heating rates.",
+        "Verify the consistency of extracted information with the target compound (e.g., SSNi-0)."
       ]
     }
   },
@@ -56,52 +210,244 @@
     "material": "SSNi-0.1",
     "synthesis": {
       "target_compound": "SSNi-0.1",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Degussa, Germany",
+          "name": "Sipernat 50 (porous silica gel, S-50)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application. The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1",
+          "materials": [
+            {
+              "vendor": "Degussa, Germany",
+              "name": "Sipernat 50 (porous silica gel, S-50)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Superior, Poland",
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": "pre-grinding for 15 min, 500 rpm [grinding Ni(NO3)2-6H2O and homogenization of the mixture], followed by grinding for 30 min (2 \u00d7 15 min), 750 rpm (heating of the system, resulting starch gelation and better homogenization of the sample)"
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silica/starch/Ni(NO3)2 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "heating from 20 to 500 C",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 20.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "anneal",
+          "description": "isothermal annealing at 500 C",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill, PULVERISETTE 7",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed because the synthesis method 'mechanochemistry' was not a valid option in the schema. The model should have classified it as 'other'. Due to this error, the rest of the extraction was not performed, leading to empty lists for starting materials, steps, and equipment.",
+      "reasoning": "The extraction captures the main synthesis steps and materials used for the preparation of Ni-doped carbosils. The mechanochemical process and subsequent pyrolysis are well-represented. However, there are some inaccuracies in the step descriptions and missing details regarding the molar ratios and specific conditions. The target material is correctly identified, and the overall structure of the extracted ontology is reasonable.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, the extraction process halted, resulting in a complete lack of information regarding materials, steps, equipment, and conditions. This indicates a severe lack of structural completeness.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error. The extraction process did not proceed to identify and extract any material information, resulting in a score of 1.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted. The failure to recognize the synthesis method prevented the extraction of any subsequent steps, leading to a score of 1.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted. The initial error prevented the identification and extraction of any equipment used in the synthesis, resulting in a score of 1.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted. The failure to correctly identify the synthesis method prevented the extraction of any synthesis conditions, leading to a score of 1.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is extremely low because no meaningful information was extracted from the text. The initial error cascaded through the entire extraction process, resulting in a complete failure to preserve any scientific meaning.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is low because the extraction process failed to populate the required fields accurately. While the JSON structure is valid, the content is essentially empty due to the initial error.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process. The inability to correctly identify the synthesis method led to a cascade of errors, preventing the extraction of any meaningful information. This indicates a critical flaw in the extraction system's ability to handle variations in synthesis descriptions."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes most of the relevant synthesis components (materials, steps, equipment, conditions). However, the description of each step could be more detailed, and the molar ratios should be included in the material list for each step.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including vendor information. However, the amounts and units are missing for the starting materials in the initial mixing step. The molar ratio information is present in the description but should be associated with the materials directly.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and generally accurate. However, steps 4-6 (heating, annealing, cooling) could be combined into a single 'pyrolysis' step for better clarity. The description of each step could also be more concise and focused.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment is correctly identified, including the planetary mill and rotary quartz reactor. The vendor information is also provided for the planetary mill. The settings for the planetary mill are included in the description of step 2, which is appropriate.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions for the pyrolysis step are well-extracted, including temperature, duration, and atmosphere. However, the heating rate is missing from step 4. The conditions for the mechanochemical treatment are partially captured in the equipment settings but could be more explicitly stated.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the source text. There are no major misinterpretations or distortions of the synthesis procedure. The use of 'mechanochemical' and 'pyrolysis' as synthesis methods is appropriate.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid, and the field structure is correct.",
+        "overall_score": 4.3,
+        "overall_reasoning": "The extraction is generally well-done, capturing the main synthesis steps and materials. However, there are some areas for improvement, such as including more specific details about the molar ratios, heating rate, and combining the heating, annealing, and cooling steps into a single pyrolysis step."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "Starting materials",
-        "Synthesis steps",
-        "Equipment used",
-        "Reaction conditions (temperature, pressure, duration)",
-        "Material quantities and units"
+        "Amounts and units for starting materials in the mixing step.",
+        "Heating rate for the heating step."
       ],
-      "extraction_errors": [
-        "Incorrect synthesis method classification",
-        "Failure to extract materials",
-        "Failure to extract process steps",
-        "Failure to extract equipment",
-        "Failure to extract conditions"
-      ],
+      "extraction_errors": [],
       "improvement_suggestions": [
-        "Expand the list of recognized synthesis methods to include 'mechanochemistry' or map it to 'other'.",
-        "Implement error handling to allow the extraction process to continue even if the synthesis method is not immediately recognized.",
-        "Improve the model's ability to identify and extract information even with variations in terminology and phrasing."
+        "Include molar ratios directly with the materials in the mixing step.",
+        "Combine heating, annealing, and cooling steps into a single 'pyrolysis' step.",
+        "Add the heating rate to the conditions for the heating step.",
+        "Ensure all relevant conditions are explicitly stated, not just embedded in equipment settings."
       ]
     }
   },
@@ -109,48 +455,180 @@
     "material": "SSNi-0.2",
     "synthesis": {
       "target_compound": "SSNi-0.2",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Degussa, Germany",
+          "name": "Sipernat 50 (porous silica gel, S-50)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application. The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.2.",
+          "materials": [
+            {
+              "vendor": "Degussa, Germany",
+              "name": "Sipernat 50 (porous silica gel, S-50)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Superior, Poland",
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixture of Sipernat 50, potato starch and Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": "pre-grinding for 15 min, 500 rpm [grinding Ni(NO3)2-6H2O and homogenization of the mixture], followed by grinding for 30 min (2 \u00d7 15 min), 750 rpm (heating of the system, resulting starch gelation and better homogenization of the sample)"
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silica/starch/Ni(NO3)2 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "cool",
+          "description": "Cooling to room temperature.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "pyrolyzed silica/starch/Ni(NO3)2 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": null
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill, PULVERISETTE 7",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "Heating rate from 20 to 500 C was 10 C min-1. Nitrogen atmosphere flow rate was 120 cm3 min-1."
     },
     "evaluation": {
-      "reasoning": "The extraction failed because the synthesis method 'mechanochemistry' was not recognized as a valid option in the ontology. This resulted in a format compliance error, preventing further extraction of materials, steps, equipment, and conditions. The overall score is low due to this critical failure.",
+      "reasoning": "The extraction captures the mechanochemical synthesis of Ni-doped carbosils, focusing on the preparation of SSNi-0.2. The extraction accurately identifies the starting materials, equipment, and process steps. The conditions for pyrolysis are well-defined, including temperature, duration, and atmosphere. The molar ratio of the starting materials is also correctly extracted. However, the extraction could benefit from including the heating rate and nitrogen flow rate as part of the conditions in the pyrolysis step. The equipment list is redundant, as the equipment is already listed in the steps. Overall, the extraction is well-structured and captures the key aspects of the synthesis procedure.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, no other components of the synthesis (materials, steps, equipment, conditions) could be extracted, resulting in minimal structural completeness.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error in synthesis method identification. The material extraction is therefore incomplete and inaccurate.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted as the synthesis method was not recognized, preventing any further analysis of the procedure.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted due to the failure in identifying the synthesis method. The equipment extraction is therefore non-existent.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted due to the initial error. The conditions extraction is completely missing.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is extremely low as the fundamental synthesis method was misinterpreted, leading to a complete breakdown in understanding the scientific context.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is poor because the synthesis method was not a valid option, causing a schema validation error and preventing the creation of a compliant JSON structure.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the critical failure in identifying the synthesis method, which cascaded into a complete failure to extract any other relevant information. The extraction is fundamentally flawed."
+        "structural_completeness_score": 4.5,
+        "structural_completeness_reasoning": "The extraction covers the main components of the synthesis, including materials, steps, equipment, and conditions. The molar ratio of the starting materials is also correctly extracted. However, the extraction could benefit from including the heating rate and nitrogen flow rate as part of the conditions in the pyrolysis step.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The extraction accurately identifies the starting materials, including their names and vendors. The molar ratio of the starting materials is also correctly extracted.",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "The process steps are accurately extracted and organized in a logical sequence. The actions are correctly classified, and the descriptions provide sufficient detail.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The extraction identifies the equipment used in the synthesis, including the planetary mill and rotary quartz reactor. However, the equipment list is redundant, as the equipment is already listed in the steps.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions for pyrolysis are well-defined, including temperature, duration, and atmosphere. However, the extraction could benefit from including the heating rate and nitrogen flow rate as part of the conditions in the pyrolysis step.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning and intent of the source text. There are no misinterpretations or distortions of the information.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The data is well-structured and organized.",
+        "overall_score": 4.6,
+        "overall_reasoning": "The extraction is well-structured and captures the key aspects of the synthesis procedure. The extraction accurately identifies the starting materials, equipment, and process steps. The conditions for pyrolysis are well-defined, including temperature, duration, and atmosphere. The molar ratio of the starting materials is also correctly extracted. However, the extraction could benefit from including the heating rate and nitrogen flow rate as part of the conditions in the pyrolysis step. The equipment list is redundant, as the equipment is already listed in the steps."
       },
-      "confidence_level": "low",
-      "missing_information": [
-        "All materials used in the synthesis.",
-        "Detailed process steps.",
-        "Specific equipment used.",
-        "Synthesis conditions (temperature, pressure, duration, atmosphere)."
-      ],
-      "extraction_errors": [
-        "Synthesis method 'mechanochemistry' not recognized as a valid option.",
-        "Failure to extract materials, steps, equipment, and conditions due to initial error."
-      ],
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
       "improvement_suggestions": [
-        "Expand the list of valid synthesis methods in the ontology to include 'mechanochemistry'.",
-        "Implement more robust error handling to allow partial extraction even if the synthesis method is not immediately recognized.",
-        "Improve the model's ability to handle variations in synthesis method nomenclature."
+        "Include the heating rate and nitrogen flow rate as part of the conditions in the pyrolysis step.",
+        "Remove the redundant equipment list at the end of the steps."
       ]
     }
   },
@@ -158,49 +636,171 @@
     "material": "SSNi-0.3",
     "synthesis": {
       "target_compound": "SSNi-0.3",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Degussa, Germany",
+          "name": "Sipernat 50 (porous silica gel, S-50)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application. The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.3.",
+          "materials": [
+            {
+              "vendor": "Degussa, Germany",
+              "name": "Sipernat 50 (porous silica gel, S-50)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Superior, Poland",
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": "pre-grinding for 15 min, 500 rpm [grinding Ni(NO3)2-6H2O and homogenization of the mixture], followed by grinding for 30 min (2 \u00d7 15 min), 750 rpm (heating of the system, resulting starch gelation and better homogenization of the sample)."
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silica/starch/Ni(NO3)2 mixtures",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill, PULVERISETTE 7",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed because the synthesis method 'mechanochemical' was not recognized as a valid option in the ontology. This resulted in a complete failure to extract any meaningful information about the synthesis process, materials, equipment, or conditions. The structural completeness, material extraction, process steps, equipment extraction, conditions extraction, semantic accuracy, and format compliance are all severely impacted.",
+      "reasoning": "The extraction captures the mechanochemical synthesis of Ni-doped carbosils. It correctly identifies the starting materials, equipment, and process steps. The conditions for pyrolysis are also well-extracted. However, there are some inaccuracies in the molar ratio and the description of the grinding step. The target material is also correctly identified.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure to recognize the synthesis method, no information about materials, steps, equipment, or conditions was extracted, resulting in minimal structural completeness.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error, leading to a complete lack of material information.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted, reflecting the overall failure to capture synthesis details.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions were extracted, indicating a complete lack of information about the reaction environment.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "No semantic meaning was preserved.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is poor due to the failure to extract data.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process, stemming from the unrecognized synthesis method. This resulted in a lack of structural completeness, material extraction, process steps, equipment extraction, conditions extraction, semantic accuracy, and format compliance."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the relevant synthesis components, including materials, steps, equipment, and conditions. However, the description of the mechanochemical treatment could be more detailed.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The extraction accurately identifies the names and vendors of the starting materials. However, the amounts and units are missing, which reduces the score. The molar ratio is also slightly inaccurate (0.3 instead of 0.1 for Ni).",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are generally well-organized and the actions are correctly classified. The sequence of mixing, grinding, and calcination is accurate. The descriptions could be more detailed, especially for the grinding step.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The extraction correctly identifies the equipment used in the synthesis, including the planetary mill and rotary quartz reactor. However, the settings for the planetary mill are not fully captured in the equipment list, only in the process step.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The extraction accurately records the temperature, duration, and atmosphere for the pyrolysis step. The heating rate is missing. The conditions for the grinding step are partially captured within the equipment settings.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning and intent of the source text. There are no major misinterpretations or distortions of the information.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and the fields are correctly structured.",
+        "overall_score": 4.4,
+        "overall_reasoning": "The extraction is generally accurate and complete, capturing most of the relevant synthesis information. The main areas for improvement are providing more detail in the descriptions of the process steps and equipment settings, and ensuring the accuracy of the molar ratios."
       },
       "confidence_level": "high",
       "missing_information": [
-        "All materials used in the synthesis.",
-        "Detailed process steps.",
-        "Equipment used.",
-        "Synthesis conditions (temperature, pressure, atmosphere, duration).",
-        "Material ratios.",
-        "Vendor information."
+        "Heating rate for pyrolysis",
+        "Amounts and units for starting materials"
       ],
       "extraction_errors": [
-        "Synthesis method 'mechanochemical' not recognized.",
-        "Failed to extract any synthesis information."
+        "Inaccurate molar ratio for Ni (0.3 instead of 0.1)",
+        "Missing heating rate for pyrolysis (10 C min-1)"
       ],
       "improvement_suggestions": [
-        "Add 'mechanochemical' to the list of valid synthesis methods in the ontology.",
-        "Improve error handling to allow partial extraction even when the synthesis method is not immediately recognized."
+        "Include the heating rate for pyrolysis in the conditions.",
+        "Verify and correct the molar ratio of SiO2/starch/Ni2+.",
+        "Provide more detailed descriptions of the mechanochemical treatment and equipment settings."
       ]
     }
   },
@@ -208,43 +808,225 @@
     "material": "SSNi-0.4",
     "synthesis": {
       "target_compound": "SSNi-0.4",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Degussa, Germany",
+          "name": "Sipernat 50 (porous silica gel)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.4,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "pre-grinding and homogenization of the mixture",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Sipernat 50 (porous silica gel)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "grinding, starch gelation and better homogenization of the sample",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Sipernat 50 (porous silica gel)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "pyrolysis process",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill, PULVERISETTE 7",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5."
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemical' was not a recognized option in the schema's enumerated list. This indicates a failure in format compliance and structural completeness, as the extraction process could not properly classify the synthesis method. No other fields could be evaluated due to this initial error.",
+      "reasoning": "The extraction captures the main synthesis steps and materials used to create the target material, SSNi-0.4. The mechanochemical process and subsequent pyrolysis are correctly identified. However, there are some inaccuracies in the material quantities and units, and the description of the steps could be more detailed. The equipment used is also correctly identified.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure to identify the synthesis method, the structural completeness is severely lacking. The ontology could not be fully populated.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "Material extraction was not possible due to the initial error. No materials were extracted.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "Process steps extraction was not possible due to the initial error.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "Equipment extraction was not possible due to the initial error.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "Conditions extraction was not possible due to the initial error.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Semantic accuracy could not be assessed due to the lack of extracted information.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "Format compliance failed because the synthesis method was not a valid option according to the schema.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the fundamental failure to extract and validate the synthesis method, preventing any further meaningful extraction."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes the key components of the synthesis: materials, steps, equipment, and conditions. However, some details are missing, such as the heating rate during pyrolysis.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including the vendors. However, the units for starch and Ni(NO3)2-6H2O are incorrectly assigned as 'mol'. Based on the text, these should be molar ratios relative to SiO2, which is implicitly '1 mol'. The purity of the starting materials is not specified in the text, so it is correctly omitted.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are extracted in the correct order and the actions are generally well-classified. The descriptions could be more detailed, but they capture the essence of each step.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment used in the synthesis is correctly identified, including the Planetary Mill and rotary quartz reactor. The vendors are also correctly extracted where available.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions for each step are mostly well-extracted, including temperature, duration, and atmosphere. However, the heating rate during pyrolysis (10 C min-1) is missing.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The main steps and materials are correctly identified and classified. The error in material units slightly detracts from the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated and formatted.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-done, capturing the key aspects of the synthesis procedure. The main areas for improvement are the accuracy of material units and the inclusion of the heating rate during pyrolysis."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "All synthesis details are missing due to the initial error."
+        "Heating rate during pyrolysis (10 C min-1)."
       ],
       "extraction_errors": [
-        "Invalid synthesis method: 'mechanochemical' is not a recognized option."
+        "Incorrect units for starch and Ni(NO3)2-6H2O (should be molar ratios, not 'mol').",
+        "Missing heating rate during pyrolysis (10 C min-1)."
       ],
       "improvement_suggestions": [
-        "Expand the list of valid synthesis methods in the schema to include 'mechanochemical' or provide a mapping to a more general category.",
-        "Implement more robust error handling to allow partial extraction even when some fields fail validation."
+        "Correct the units for starch and Ni(NO3)2-6H2O to reflect molar ratios relative to SiO2.",
+        "Include the heating rate during pyrolysis in the conditions for step 3.",
+        "Add more detail to the step descriptions where possible."
       ]
     }
   },
@@ -253,11 +1035,11 @@
     "synthesis": {
       "target_compound": "SSNi-0.5",
       "target_compound_type": "hybrid & organic-inorganic",
-      "synthesis_method": "mechanical mixing",
+      "synthesis_method": "mechanochemical",
       "starting_materials": [
         {
           "vendor": "Degussa, Germany",
-          "name": "Sipernat 50",
+          "name": "Sipernat 50 (porous silica gel, S-50)",
           "amount": null,
           "unit": null,
           "purity": null
@@ -285,9 +1067,9 @@
           "materials": [
             {
               "vendor": "Degussa, Germany",
-              "name": "Sipernat 50",
-              "amount": null,
-              "unit": null,
+              "name": "Sipernat 50 (porous silica gel, S-50)",
+              "amount": 1.0,
+              "unit": "mol",
               "purity": null
             },
             {
@@ -301,6 +1083,217 @@
               "vendor": "POCh, Poland",
               "name": "Ni(NO3)2-6H2O",
               "amount": 0.5,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "pre-grinding for homogenization of the mixture",
+          "materials": [
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "grind",
+          "description": "grinding resulting starch gelation and better homogenization of the sample",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "pyrolysis process",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silica/starch/Ni(NO3)2 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill, PULVERISETTE 7",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5. Nitrogen atmosphere (120 cm3 min-1 ) and heating rate of 10 C min-1 were used during pyrolysis."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main synthesis steps and materials used to create the target material, SSNi-0.5. The mechanochemical process and pyrolysis are correctly identified. The molar ratios of the starting materials are also captured. However, there are some inaccuracies in the units and some missing details regarding the pyrolysis conditions.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes most of the relevant synthesis components: materials, steps, equipment, and conditions. However, some details are missing, such as the flow rate of nitrogen during pyrolysis.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including names, vendors, and amounts. However, the units for the amounts are not always correct (e.g., 'mol' should be relative ratio).",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are accurately ordered and the actions are correctly classified. The descriptions are also helpful.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment is correctly identified, including names and vendors. However, specific settings for the equipment are not always extracted.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions are mostly well-extracted, including temperature, duration, and atmosphere. However, the heating rate during pyrolysis is missing from the conditions of step 4.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The scientific meaning is generally well-preserved. The extraction accurately reflects the synthesis procedure described in the text.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.4,
+        "overall_reasoning": "Overall, the extraction is of good quality. It captures the main synthesis steps and materials accurately. The main areas for improvement are in the accuracy of units and the completeness of the conditions extraction."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Heating rate during pyrolysis."
+      ],
+      "extraction_errors": [
+        "Incorrect unit 'mol' used for molar ratios of starting materials.",
+        "Missing heating rate during pyrolysis in step 4."
+      ],
+      "improvement_suggestions": [
+        "Ensure correct units are used for all quantities.",
+        "Include all relevant conditions, such as heating rate, for each step."
+      ]
+    }
+  },
+  {
+    "material": "ASNi-0",
+    "synthesis": {
+      "target_compound": "ASNi-0",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Kalush, Ukraine",
+          "name": "Aerosil 200",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application.",
+          "materials": [
+            {
+              "vendor": "Kalush, Ukraine",
+              "name": "Aerosil 200",
+              "amount": 1.0,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": "Superior, Poland",
+              "name": "potato starch",
+              "amount": 0.3,
               "unit": "mol",
               "purity": null
             }
@@ -326,16 +1319,176 @@
               "settings": null
             }
           ],
-          "conditions": null
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
         },
         {
           "step_number": 3,
           "action": "grind",
-          "description": "pre-grinding",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "The pyrolysis was carried out in a rotary quartz reactor in nitrogen atmosphere",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the mechanochemical synthesis of ASNi-0 carbosils, including materials, steps, equipment, and conditions. The extraction accurately represents the source text, with a few minor omissions. The use of mechanochemistry and pyrolysis is correctly identified. The molar ratios of the starting materials are also captured. The extraction could be improved by including the nitrogen flow rate during pyrolysis and the heating rate.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes most of the relevant synthesis components (materials, steps, equipment, conditions). However, it misses the nitrogen flow rate during pyrolysis and the heating rate.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The materials are accurately extracted with correct names, amounts, and units. The vendor information is also included. The purity of the materials is not specified in the text, so it is correctly omitted.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are accurately extracted and sequenced. The actions are correctly classified (mix, grind, heat, cool).",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment used in the synthesis is correctly identified (Planetary Mill, rotary quartz reactor). The vendor for the Planetary Mill is also included.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions are mostly accurately extracted, including temperature, duration, and atmosphere. The stirring speed during grinding is also included. The heating rate during pyrolysis and the nitrogen flow rate are missing.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis procedure. There are no significant misinterpretations.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.4,
+        "overall_reasoning": "The extraction is generally accurate and complete, capturing most of the relevant synthesis information. The main areas for improvement are including the heating rate and nitrogen flow rate during pyrolysis."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Heating rate during pyrolysis",
+        "Nitrogen flow rate during pyrolysis"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include the heating rate during pyrolysis.",
+        "Include the nitrogen flow rate during pyrolysis."
+      ]
+    }
+  },
+  {
+    "material": "ASNi-0.1",
+    "synthesis": {
+      "target_compound": "ASNi-0.1",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Kalush, Ukraine",
+          "name": "Aerosil 200",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.1,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Pre-grinding for 15 min, grinding Ni(NO3)2-6H2O and homogenization of the mixture",
           "materials": [
             {
-              "vendor": "POCh, Poland",
+              "vendor": null,
               "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
               "amount": null,
               "unit": null,
               "purity": null
@@ -362,10 +1515,32 @@
           }
         },
         {
-          "step_number": 4,
-          "action": "grind",
-          "description": "grinding",
-          "materials": [],
+          "step_number": 2,
+          "action": "mix",
+          "description": "Grinding for 30 min (2 x 15 min), heating of the system, resulting starch gelation and better homogenization of the sample",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
           "equipment": [
             {
               "name": "Planetary Mill",
@@ -387,18 +1562,227 @@
           }
         },
         {
-          "step_number": 5,
+          "step_number": 3,
           "action": "heat",
-          "description": "heating of the system, resulting starch gelation and better homogenization of the sample",
-          "materials": [],
-          "equipment": [],
-          "conditions": null
+          "description": "Pyrolysis process",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
         },
         {
-          "step_number": 6,
-          "action": "calcine",
-          "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
-          "materials": [],
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5. Nitrogen atmosphere (120 cm3 min-1 ), heating from 20 to 500 C (10 C min-1 ), isothermal annealing at 500 C (3 h) and cooling to room temperature."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the mechanochemical synthesis of Ni-doped carbosils, focusing on the preparation of ASNi-0.1. It correctly identifies the starting materials, equipment, and process steps. The conditions, including temperature, duration, and atmosphere, are also extracted. However, there are some inaccuracies in the quantities and units of the starting materials. The overall structure and semantic accuracy are good, but there's room for improvement in the precision of material extraction and condition reporting.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes all major components of the synthesis: materials, steps, equipment, and conditions. It covers the mechanochemical treatment and pyrolysis process adequately.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The material extraction is mostly accurate, identifying the correct chemical names and vendors. However, the amounts of starting materials are not entirely precise. The SiO2 amount is missing, and the unit 'mol' is assigned to starch and Ni(NO3)2-6H2O without explicit mention in the text. The ratio is given, but not the absolute molar amounts.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and accurately reflect the experimental procedure. The actions (mixing, grinding, heating) are correctly classified, and the sequence is logical.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment extraction is accurate, identifying the Planetary Mill and rotary quartz reactor. The vendor for the Planetary Mill is also correctly extracted.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction of conditions is generally good, capturing temperature, duration, atmosphere, and stirring speed. However, the heating rate (10 C min-1) and nitrogen flow rate (120 cm3 min-1) during pyrolysis, mentioned in the notes, are not extracted as explicit conditions for step 3.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The semantic accuracy is high, with the scientific meaning and intent of the synthesis procedure faithfully preserved. There are no major misinterpretations or distortions of the information.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid, and the fields are structured correctly.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-done, capturing most of the essential synthesis information. The main areas for improvement are in the precision of material quantities and the completeness of condition extraction, particularly regarding the heating rate and gas flow rate during pyrolysis."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Amount of SiO2.",
+        "Heating rate during pyrolysis.",
+        "Nitrogen flow rate during pyrolysis."
+      ],
+      "extraction_errors": [
+        "Inaccurate molar amounts for starch and Ni(NO3)2-6H2O; unit 'mol' assigned without explicit mention.",
+        "SiO2 amount missing."
+      ],
+      "improvement_suggestions": [
+        "Improve the accuracy of material quantity extraction by explicitly stating the amount of SiO2.",
+        "Verify the units of starting materials (starch and Ni(NO3)2-6H2O) and ensure they are consistent with the source text.",
+        "Extract the heating rate (10 C min-1) and nitrogen flow rate (120 cm3 min-1) during pyrolysis as explicit conditions for step 3."
+      ]
+    }
+  },
+  {
+    "material": "ASNi-0.2",
+    "synthesis": {
+      "target_compound": "ASNi-0.2",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Kalush, Ukraine",
+          "name": "Aerosil 200",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.2,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Pre-grinding and homogenization of the mixture",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Grinding, starch gelation and homogenization of the sample",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Pyrolysis in a rotary quartz reactor",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
           "equipment": [
             {
               "name": "rotary quartz reactor",
@@ -420,12 +1804,23 @@
           }
         },
         {
-          "step_number": 7,
+          "step_number": 4,
           "action": "cool",
-          "description": "cooling to room temperature",
+          "description": "Cooling to room temperature",
           "materials": [],
           "equipment": [],
-          "conditions": null
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
         }
       ],
       "equipment": [
@@ -440,199 +1835,40 @@
           "settings": null
         }
       ],
-      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5."
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5. Heating rate from 20 to 500 C was 10 C min-1. Nitrogen atmosphere flow rate was 120 cm3 min-1."
     },
     "evaluation": {
-      "reasoning": "The extraction captures the main steps and materials used in the synthesis of Ni-doped carbosils. The mechanochemical process and subsequent pyrolysis are well-represented. However, there are inaccuracies in the material amounts and units, and some conditions are missing or incomplete. The structural completeness is good, but the accuracy of specific details needs improvement.",
+      "reasoning": "The extraction captures the main elements of the synthesis procedure for ASNi-0.2. The materials, steps, equipment, and conditions are generally well-represented. However, there are some inaccuracies in the quantities and units of the starting materials, and the notes section contains important details that should ideally be integrated into the structured data.",
       "scores": {
         "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology captures most of the key synthesis steps, materials, and equipment. The overall flow of the synthesis is represented, but some finer details are missing.",
-        "material_extraction_score": 3.0,
-        "material_extraction_reasoning": "Material names are generally correct, but the units for the starting materials are inconsistent and potentially incorrect (molar ratio interpreted as moles). The vendor information is useful. Purity is not specified in the text, so its absence is acceptable.",
+        "structural_completeness_reasoning": "The extraction includes most of the relevant synthesis components (materials, steps, equipment, conditions). The overall structure is logical and follows the experimental procedure. However, some details from the notes section are missing from the main steps.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The chemical names and vendors are correctly identified. However, the amounts and units for the starting materials are not entirely accurate. The molar ratio is given as 1:0.3:0.1-0.5, and the extraction uses 0.3 and 0.2 'mol' for starch and Ni(NO3)2-6H2O respectively, which is not explicitly stated in the text. The SiO2 amount is missing. Purity is not specified in the text, so its absence is acceptable.",
         "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are generally well-defined and in the correct sequence. The actions are appropriately classified. However, more detail could be added to some steps.",
-        "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The main equipment items (Planetary Mill, rotary quartz reactor) are identified with their vendors. Settings are not fully specified in the text, so their absence is not a major issue.",
-        "conditions_extraction_score": 3.5,
-        "conditions_extraction_reasoning": "Temperature and duration are extracted for the pyrolysis step, but some conditions for the mechanochemical treatment are missing (e.g., atmosphere). The heating rate during pyrolysis is also not extracted. Stirring speed is extracted, but it's unclear if this is actually stirring or rotation speed of the mill.",
+        "process_steps_reasoning": "The process steps are accurately ordered and the actions are correctly classified (mix, heat, cool). The descriptions are generally good, but could benefit from incorporating more details from the source text, such as the heating rate during pyrolysis.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment is correctly identified, including the Planetary Mill and rotary quartz reactor. The vendor for the Planetary Mill is also provided. Settings are included where available.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions such as temperature, duration, and atmosphere are mostly accurately extracted. The stirring speed for the mixing steps is also included. The heating rate during pyrolysis (10 C min-1) is present in the notes but not in the conditions for step 3.",
         "semantic_accuracy_score": 4.0,
-        "semantic_accuracy_reasoning": "The overall scientific meaning is preserved, but the inaccuracies in material amounts and missing conditions slightly detract from the semantic accuracy.",
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. There are no major misinterpretations. However, the missing details (e.g., heating rate) slightly reduce the semantic accuracy.",
         "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data type requirements.",
-        "overall_score": 3.9,
-        "overall_reasoning": "The extraction is generally good, capturing the main aspects of the synthesis. However, inaccuracies in material amounts and missing conditions need to be addressed to improve the overall quality."
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally good, capturing most of the key synthesis information. The main areas for improvement are in the accuracy of material quantities and the integration of details from the notes section into the structured data."
       },
       "confidence_level": "high",
       "missing_information": [
-        "Atmosphere during mechanochemical treatment.",
-        "Heating rate during pyrolysis."
+        "Heating rate during pyrolysis (10 C min-1)."
       ],
       "extraction_errors": [
-        "Inaccurate material amounts and units (molar ratio interpreted as moles).",
-        "Missing atmosphere for mechanochemical treatment.",
-        "Heating rate during pyrolysis not extracted."
+        "Inaccurate material quantities and units.",
+        "Heating rate during pyrolysis is missing from the conditions for step 3."
       ],
       "improvement_suggestions": [
-        "Verify and correct the units for material amounts.",
-        "Extract the atmosphere for the mechanochemical treatment.",
-        "Include the heating rate during pyrolysis.",
-        "Clarify whether 'stirring speed' refers to actual stirring or the rotation speed of the mill."
-      ]
-    }
-  },
-  {
-    "material": "ASNi-0",
-    "synthesis": {
-      "target_compound": "ASNi-0",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
-    },
-    "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemistry' is not a recognized term in the ontology's enumerated list of synthesis methods. This indicates a failure in format compliance and semantic accuracy, as the system could not map the provided synthesis method to a valid ontology term. The extraction also failed to identify any starting materials, steps, or equipment, indicating a significant lack of structural completeness.",
-      "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "The extraction completely failed to identify any starting materials, process steps, or equipment used in the synthesis. This indicates a severe lack of completeness in capturing the synthesis information.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted. The extraction process failed to identify and represent the chemical compounds and their quantities used in the synthesis.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted. The extraction process failed to identify and represent the sequence of actions performed during the synthesis.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted. The extraction process failed to identify and represent the tools and instruments used in the synthesis.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted. The extraction process failed to identify and represent the temperature, pressure, duration, and atmosphere used in the synthesis.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Due to the failure to extract any meaningful information, the semantic accuracy is extremely low. The extracted data does not preserve the scientific meaning of the synthesis procedure.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed to comply with the required format due to the invalid `synthesis_method` value. This indicates a failure to adhere to the GeneralSynthesisOntology schema and data type requirements.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall extraction quality is extremely poor due to the complete failure to extract any meaningful information and the violation of the ontology schema. The extraction process needs significant improvement to accurately capture and represent synthesis information."
-      },
-      "confidence_level": "low",
-      "missing_information": [
-        "Starting materials",
-        "Process steps",
-        "Equipment",
-        "Synthesis conditions (temperature, pressure, duration)",
-        "Quantities and units of materials"
-      ],
-      "extraction_errors": [
-        "Invalid synthesis_method value ('mechanochemistry')",
-        "Failure to extract any materials",
-        "Failure to extract any process steps",
-        "Failure to extract any equipment",
-        "Failure to extract any synthesis conditions"
-      ],
-      "improvement_suggestions": [
-        "Improve the recognition of synthesis methods and map them to valid ontology terms.",
-        "Enhance the extraction process to identify and extract starting materials, process steps, equipment, and synthesis conditions.",
-        "Implement unit conversion and validation to ensure consistency and accuracy of extracted values.",
-        "Improve error handling and provide more informative error messages to guide users in correcting extraction errors."
-      ]
-    }
-  },
-  {
-    "material": "ASNi-0.1",
-    "synthesis": {
-      "target_compound": "ASNi-0.1",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
-    },
-    "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemical' is not a recognized term in the ontology's enumerated list of synthesis methods. This indicates a failure in either the extraction process or the ontology's coverage of synthesis techniques. The lack of extracted materials, steps, and equipment further compounds the failure.",
-      "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "The extraction is structurally incomplete as it contains only the target compound and an invalid synthesis method. No materials, steps, equipment, or conditions were extracted.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No starting materials were extracted, indicating a complete failure in identifying and extracting material information from the text.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted, indicating a failure to identify and structure the synthesis procedure.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted, indicating a failure to identify and extract equipment information from the text.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No synthesis conditions were extracted, indicating a failure to identify and extract relevant parameters such as temperature, pressure, or duration.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Due to the lack of extracted information, the semantic accuracy cannot be assessed. The single extracted piece of information (synthesis method) is invalid, further reducing the score.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction fails to comply with the ontology format due to the invalid 'synthesis_method' value. While the JSON structure is valid, the content violates the schema's constraints.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process. The invalid synthesis method and the absence of any other extracted information indicate a significant deficiency in the extraction system's ability to process the given text."
-      },
-      "confidence_level": "low",
-      "missing_information": [
-        "Starting materials",
-        "Process steps",
-        "Equipment",
-        "Synthesis conditions (temperature, pressure, duration)",
-        "Quantities and units for materials"
-      ],
-      "extraction_errors": [
-        "Invalid synthesis method: 'mechanochemical' is not a valid option.",
-        "No starting materials extracted.",
-        "No process steps extracted.",
-        "No equipment extracted.",
-        "No synthesis conditions extracted."
-      ],
-      "improvement_suggestions": [
-        "Expand the ontology's list of valid synthesis methods to include 'mechanochemical' or map it to a more general category.",
-        "Improve the extraction system's ability to identify and extract starting materials, process steps, equipment, and synthesis conditions.",
-        "Implement more robust error handling and validation to prevent invalid values from being included in the extracted ontology.",
-        "Consider using a more flexible ontology schema that allows for custom synthesis methods."
-      ]
-    }
-  },
-  {
-    "material": "ASNi-0.2",
-    "synthesis": {
-      "target_compound": "ASNi-0.2",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
-    },
-    "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemistry' is not among the allowed literal values in the schema. This indicates a failure in correctly classifying the synthesis method according to the defined ontology. The extraction process did not proceed beyond this initial validation check, resulting in empty lists for starting materials, steps, and equipment.",
-      "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in the initial validation, no structural information was extracted. The ontology is entirely incomplete, missing all key components.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No material information was extracted due to the initial validation failure. The starting_materials list is empty.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted due to the initial validation failure. The steps list is empty.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment information was extracted due to the initial validation failure. The equipment list is empty.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted due to the initial validation failure. The extraction process halted before reaching this stage.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Since no information was extracted beyond the target compound, semantic accuracy cannot be assessed. The initial validation failure prevented any meaningful extraction.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is extremely poor due to the validation error in the `synthesis_method` field. The extraction process failed to adhere to the schema's literal value constraints.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall extraction quality is extremely poor due to a fundamental validation error that prevented any meaningful information from being extracted. The ontology is essentially empty and non-compliant."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Starting materials",
-        "Process steps",
-        "Equipment",
-        "Synthesis conditions"
-      ],
-      "extraction_errors": [
-        "Validation error: Invalid synthesis_method value ('mechanochemistry')."
-      ],
-      "improvement_suggestions": [
-        "Correctly classify 'mechanochemistry' within the synthesis_method ontology, either by adding it as a valid literal or mapping it to an existing category.",
-        "Implement error handling to allow partial extraction even if some fields fail validation.",
-        "Ensure the extraction model is capable of handling the `response_format` argument."
+        "Double-check and correct the material quantities and units based on the molar ratio.",
+        "Incorporate the heating rate (10 C min-1) into the conditions for the pyrolysis step.",
+        "Consider adding a field for 'notes' within each step to capture additional relevant details."
       ]
     }
   },
@@ -640,43 +1876,207 @@
     "material": "ASNi-0.3",
     "synthesis": {
       "target_compound": "ASNi-0.3",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemical', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Kalush, Ukraine",
+          "name": "Aerosil 200",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Pre-grinding and homogenization of the mixture",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Grinding, starch gelation and better homogenization of the sample",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "calcine",
+          "description": "Pyrolysis process",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "ASNi-0.3 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5. Heating rate for pyrolysis was 10 C min-1, and nitrogen flow rate was 120 cm3 min-1."
     },
     "evaluation": {
-      "reasoning": "The extraction failed due to a validation error in the `synthesis_method` field. The provided value 'mechanochemical' was not a recognized option in the schema's enumerated list. This indicates a failure in format compliance and semantic accuracy, as the correct synthesis method was not properly identified and categorized.",
+      "reasoning": "The extraction captures the mechanochemical synthesis of Ni-doped carbosils. The materials, steps, equipment, and conditions are generally well-extracted, but there are some inaccuracies in the quantities of starting materials and the description of the steps. The overall structure is good, but semantic accuracy could be improved by more precise material assignments and condition specifications.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in extracting even the basic synthesis method, the structural completeness is extremely low. No materials, steps, equipment, or conditions could be reliably extracted.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "Material extraction is non-existent as the process failed before any material identification could occur.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted due to the initial failure.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "Equipment extraction is impossible without a successful initial extraction.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "Conditions extraction is impossible without a successful initial extraction.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "Semantic accuracy is completely absent as the extraction process failed to interpret the synthesis context.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The primary error was a format compliance issue, as the 'synthesis_method' did not match the allowed values in the schema.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process. The error in 'synthesis_method' prevented any further meaningful data extraction."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes all major components of the synthesis: materials, steps, equipment, and conditions. However, some details are missing, such as the specific ratios used in each step.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names are correctly extracted, but the amounts and units are not always accurate. For example, the amount of Ni(NO3)2-6H2O is given as 0.3 mol, which is inconsistent with the molar ratio range provided in the text (0.1-0.5). The target compound is correctly identified.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized and the actions are correctly classified. However, the description of each step could be more detailed, and the association of materials with specific steps could be improved.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment is correctly identified, including the Planetary Mill and rotary quartz reactor. The vendor for the Planetary Mill is also provided. More specific settings could be included if available in the text.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions, such as temperature, duration, and atmosphere, are extracted with reasonable accuracy. However, the heating rate during pyrolysis (10 C min-1) and the nitrogen flow rate (120 cm3 min-1) are mentioned in the notes but not explicitly included in the conditions for step 3.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. However, some inaccuracies in material quantities and condition specifications slightly reduce the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally good, capturing most of the key synthesis information. However, there are some inaccuracies in material quantities and condition specifications that need to be addressed to improve the overall quality."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "All synthesis details: materials, steps, equipment, conditions."
+        "Heating rate during pyrolysis",
+        "Nitrogen flow rate during pyrolysis"
       ],
       "extraction_errors": [
-        "Incorrect synthesis method classification ('mechanochemical' not in allowed values)."
+        "Inaccurate material quantities (Ni(NO3)2-6H2O amount)",
+        "Missing heating rate and nitrogen flow rate in pyrolysis step"
       ],
       "improvement_suggestions": [
-        "Expand the enumerated list of 'synthesis_method' to include 'mechanochemical' or implement a more flexible method for synthesis method classification.",
-        "Implement error handling to allow partial extraction even if some fields fail validation."
+        "Verify and correct material quantities based on the molar ratios provided in the text.",
+        "Include the heating rate and nitrogen flow rate in the conditions for the pyrolysis step.",
+        "Improve the description of each step to include more specific details about the actions and materials involved."
       ]
     }
   },
@@ -684,44 +2084,278 @@
     "material": "ASNi-0.4",
     "synthesis": {
       "target_compound": "ASNi-0.4",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Kalush, Ukraine",
+          "name": "Aerosil 200",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.4,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application.",
+          "materials": [
+            {
+              "vendor": "Kalush, Ukraine",
+              "name": "Aerosil 200",
+              "amount": 1.0,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": "Superior, Poland",
+              "name": "potato starch",
+              "amount": 0.3,
+              "unit": "mol",
+              "purity": null
+            },
+            {
+              "vendor": "POCh, Poland",
+              "name": "Ni(NO3)2-6H2O",
+              "amount": 0.4,
+              "unit": "mol",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 3,
+          "action": "grind",
+          "description": "pre-grinding for homogenization of the mixture",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "grind",
+          "description": "grinding",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "heating of the system, resulting starch gelation and better homogenization of the sample",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "calcine",
+          "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "heat",
+          "description": "heating",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 8,
+          "action": "anneal",
+          "description": "isothermal annealing",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 9,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
     },
     "evaluation": {
-      "reasoning": "The extraction failed completely due to a validation error in the synthesis method. The model incorrectly identified 'mechanochemistry' as the synthesis method, which is not a valid option in the schema's enumerated list. This resulted in a failure to extract any meaningful information about the synthesis process, materials, equipment, or conditions.",
+      "reasoning": "The extraction captures the main steps and materials used in the synthesis of ASNi-0.4. The mechanochemical process and subsequent pyrolysis are well-represented in the extracted ontology. The use of specific equipment like the Planetary Mill and rotary quartz reactor is also noted. However, there are some inaccuracies in the quantities and units of the starting materials, and the conditions for some steps are not fully specified, which impacts the overall completeness and accuracy.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the complete extraction failure, no aspects of the synthesis (materials, steps, equipment, conditions) were captured. The structural completeness is therefore extremely poor.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error in identifying the synthesis method. The material extraction is completely absent.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted. The extraction process failed before reaching this stage.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted. The extraction process failed before reaching this stage.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted. The extraction process failed before reaching this stage.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "No information was extracted, so semantic accuracy is non-existent.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The extraction failed to comply with the schema due to the invalid synthesis method. The entire structure is therefore non-compliant.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The extraction process failed at the initial stage due to an invalid synthesis method. This resulted in a complete lack of information extraction and a failure to comply with the GeneralSynthesisOntology schema. The overall extraction quality is extremely poor."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes most of the relevant synthesis components (materials, steps, equipment, conditions), but some details are missing, such as the flow rate of nitrogen during pyrolysis. The overall structure is well-organized.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including the vendors. However, the amounts of the starting materials are given as molar ratios (1:0.3:0.4), but the extraction represents them as absolute mole values. This is a misinterpretation of the source text. The purity of the materials is not specified in the text, so it is correctly omitted.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are accurately ordered and the actions are correctly classified. The descriptions provide a good overview of what is happening in each step. However, the connection between steps 3, 4, and 5 could be made more explicit.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment used in the synthesis is correctly identified, including the Planetary Mill and rotary quartz reactor. The vendor for the Planetary Mill is also provided. The settings for the equipment are not fully specified in the text, so their omission is acceptable.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "The conditions for some steps are well-extracted, such as the temperature and duration of the annealing step. However, the flow rate of nitrogen during pyrolysis (120 cm3 min-1) is missing. Also, the heating rate (10 C min-1) during the heating step of pyrolysis is not extracted.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The mechanochemical treatment and pyrolysis process are accurately represented. However, the misinterpretation of the molar ratios as absolute mole values slightly detracts from the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON is well-formed and the fields are correctly structured.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction provides a good representation of the synthesis procedure, capturing the main steps, materials, and equipment. However, there are some inaccuracies in the quantities and units of the starting materials, and the conditions for some steps are not fully specified. Addressing these issues would improve the overall quality of the extraction."
       },
       "confidence_level": "high",
       "missing_information": [
-        "All synthesis details (materials, steps, equipment, conditions)."
+        "Nitrogen flow rate during pyrolysis (120 cm3 min-1).",
+        "Heating rate during pyrolysis (10 C min-1)."
       ],
       "extraction_errors": [
-        "Incorrect identification of synthesis method ('mechanochemistry' not a valid option)."
+        "Molar ratios of starting materials incorrectly interpreted as absolute mole values.",
+        "Nitrogen flow rate during pyrolysis not extracted.",
+        "Heating rate during pyrolysis not extracted."
       ],
       "improvement_suggestions": [
-        "Expand the enumerated list of valid synthesis methods in the schema to include 'mechanochemistry' or similar terms.",
-        "Improve the model's ability to handle cases where the synthesis method is described using terms not directly present in the schema.",
-        "Implement error handling to allow partial extraction even if the synthesis method is not immediately recognized."
+        "Ensure accurate interpretation of molar ratios and represent them correctly in the ontology.",
+        "Extract all relevant conditions, including gas flow rates and heating rates.",
+        "Improve the connection between grinding and heating steps to clarify the process flow."
       ]
     }
   },
@@ -729,48 +2363,203 @@
     "material": "ASNi-0.5",
     "synthesis": {
       "target_compound": "ASNi-0.5",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": "Extraction failed: Both structured output format and JSON mode failed. Please choose a model that supports `response_format` argument. Original error: 1 validation error for GeneralSynthesisOntology\nsynthesis_method\n  Input should be 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth', 'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering', 'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly', 'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation', 'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing' or 'other' [type=literal_error, input_value='mechanochemistry', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/literal_error"
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "mechanochemical",
+      "starting_materials": [
+        {
+          "vendor": "Kalush, Ukraine",
+          "name": "Aerosil 200",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Superior, Poland",
+          "name": "potato starch",
+          "amount": 0.3,
+          "unit": "mol",
+          "purity": null
+        },
+        {
+          "vendor": "POCh, Poland",
+          "name": "Ni(NO3)2-6H2O",
+          "amount": 0.5,
+          "unit": "mol",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mechanochemical treatment of prepared mixtures",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ni(NO3)2-6H2O",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Aerosil 200",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "potato starch",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Planetary Mill, PULVERISETTE 7",
+              "instrument_vendor": "Fritsch, Germany",
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "grind",
+          "description": "pre-grinding and homogenization of the mixture",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": 500.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "grind",
+          "description": "starch gelation and better homogenization of the sample",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": 750.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "pyrolysis process",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silica/starch/Ni(NO3)2 mixture",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "rotary quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "C",
+            "duration": 3.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "cool",
+          "description": "cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "nitrogen",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Planetary Mill, PULVERISETTE 7",
+          "instrument_vendor": "Fritsch, Germany",
+          "settings": null
+        },
+        {
+          "name": "rotary quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1\u20130.5. Heating from 20 to 500 C (10 C min-1 ), isothermal annealing at 500 C (3 h) and cooling to room temperature. Nitrogen atmosphere (120 cm3 min-1 )"
     },
     "evaluation": {
-      "reasoning": "The extraction failed completely due to a validation error related to the synthesis method. The model incorrectly identified 'mechanochemistry' as a valid synthesis method according to the schema, leading to a failure in generating a complete and accurate ontology. All other fields are empty as a result of this initial error.",
+      "reasoning": "The extraction captures the main synthesis steps and materials used. The use of mechanochemistry is well-represented. However, there are some inaccuracies in the material amounts and units, and some missing details regarding the heating rate during pyrolysis. The target material is correctly identified.",
       "scores": {
-        "structural_completeness_score": 1.0,
-        "structural_completeness_reasoning": "Due to the failure in identifying the synthesis method, the ontology is structurally incomplete, missing all key components such as materials, steps, equipment, and conditions.",
-        "material_extraction_score": 1.0,
-        "material_extraction_reasoning": "No materials were extracted due to the initial error, resulting in a score of 1.0.",
-        "process_steps_score": 1.0,
-        "process_steps_reasoning": "No process steps were extracted due to the initial error, resulting in a score of 1.0.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No equipment was extracted due to the initial error, resulting in a score of 1.0.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No conditions were extracted due to the initial error, resulting in a score of 1.0.",
-        "semantic_accuracy_score": 1.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is non-existent as no meaningful information was extracted, resulting in a score of 1.0.",
-        "format_compliance_score": 1.0,
-        "format_compliance_reasoning": "The format compliance is poor due to the initial validation error, resulting in a score of 1.0.",
-        "overall_score": 1.0,
-        "overall_reasoning": "The overall score is 1.0 due to the complete failure of the extraction process, stemming from the incorrect identification of the synthesis method."
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the relevant synthesis components, including materials, steps, equipment, and conditions. However, some finer details, such as the heating rate during pyrolysis, are missing.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material names and vendors are generally correct. However, the units for the starting materials (potato starch and Ni(NO3)2-6H2O) are incorrectly extracted as 'mol'. The source text provides a molar ratio relative to SiO2, but not absolute molar amounts. This is a significant error.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized and the actions are correctly classified. The sequence of mixing, grinding, heating, and cooling is accurately represented.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment used (Planetary Mill and rotary quartz reactor) is correctly identified, including the vendor for the mill. The settings for the equipment are not fully specified in the text, so their absence in the extraction is acceptable.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction captures the temperature, duration, and atmosphere for the pyrolysis step. The stirring speed for the grinding steps is also correctly extracted. However, the heating rate (10 C min-1) during pyrolysis is not extracted, which is a notable omission.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The key steps and conditions are accurately represented. The error in material units slightly detracts from the overall semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and the fields are correctly structured.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally good, capturing most of the key synthesis information. The main weaknesses are the incorrect material units and the missing heating rate during pyrolysis. Addressing these issues would significantly improve the extraction quality."
       },
-      "confidence_level": "low",
+      "confidence_level": "high",
       "missing_information": [
-        "All materials used in the synthesis.",
-        "Detailed process steps of the synthesis.",
-        "Equipment used in the synthesis.",
-        "Synthesis conditions (temperature, pressure, duration, atmosphere)."
+        "Heating rate (10 C min-1) during the pyrolysis process is not extracted."
       ],
       "extraction_errors": [
-        "Incorrect identification of 'mechanochemistry' as a valid synthesis method according to the schema.",
-        "Failure to extract any materials, process steps, equipment, or conditions."
+        "Incorrect units ('mol') for potato starch and Ni(NO3)2-6H2O amounts. The source provides molar ratios, not absolute molar amounts."
       ],
       "improvement_suggestions": [
-        "Correct the validation schema to include 'mechanochemistry' as a valid synthesis method or map it to a more general category like 'ball milling'.",
-        "Improve the model's ability to handle cases where the synthesis method is not explicitly listed in the schema.",
-        "Implement better error handling to allow for partial extraction even when some fields fail validation."
+        "Correct the units for material amounts to reflect the molar ratio relative to SiO2, or indicate that the absolute amounts are not specified.",
+        "Ensure that all relevant conditions, such as heating rates, are extracted when explicitly mentioned in the source text."
       ]
     }
   }
