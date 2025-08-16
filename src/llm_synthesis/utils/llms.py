@@ -20,11 +20,13 @@ class LLMConfig:
         model: The name of the model to instantiate.
         api_key: The name of the environment variable containing the API key.
         api_base: The base URL of the API.
+        extra_kwargs: Additional model-specific parameters (e.g., thinking mode).
     """
 
     model: str
     api_key: str | None = None
     api_base: str | None = None
+    extra_kwargs: dict | None = None
 
 
 @dataclass(frozen=True)
@@ -44,6 +46,10 @@ LLM_REGISTRY = LLMRegistry(
         "gemini-2.0-flash": LLMConfig(model="gemini/gemini-2.0-flash"),
         "gemini-2.5-flash": LLMConfig(
             model="gemini/gemini-2.5-flash-preview-05-20"
+        ),
+        "gemini-2.5-flash-lite": LLMConfig(
+            model="gemini/gemini-2.5-flash-lite",
+            extra_kwargs={"thinking": {"type": "enabled"}}
         ),
         "gemini-2.5-pro": LLMConfig(
             model="gemini/gemini-2.5-pro-preview-05-06"
