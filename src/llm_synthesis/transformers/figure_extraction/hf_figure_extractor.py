@@ -102,7 +102,34 @@ class HFFigureExtractor(FigureExtractorInterface):
 
                         # Check if the predicted label is a quantitative figure
                         if predicted_label in [
-                            "Line plots",
+                            # "3D objects",
+                            # "Algorithm",
+                            # "Area chart",
+                            "Bar plots",
+                            # "Block diagram",
+                            "Box plot",
+                            "Bubble Chart",
+                            "Confusion matrix",
+                            "Contour plot",
+                            # "Flow chart",
+                            # "Geographic map",
+                            "Graph plots",
+                            "Heat map",
+                            "Histogram",
+                            # "Mask",
+                            # "Medical images",
+                            # "Natural images",
+                            "Pareto charts",
+                            "Pie chart",
+                            "Polar plot",
+                            "Radar chart",
+                            "Scatter plot",
+                            # "Sketches",
+                            "Surface plot",
+                            # "Tables",
+                            # "Tree Diagram",
+                            "Vector plot",
+                            # "Venn Diagram",
                         ]:
                             figure_info.quantitative = True
                         else:
