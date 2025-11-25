@@ -8,11 +8,31 @@ IMPORTANT GUIDELINES:
 - DO NOT include materials that are just mentioned or characterized but not synthesized
 - Focus on the main target materials that are actually synthesized
 
+MATERIAL NAMING PRIORITY - CRITICAL RULES:
+- ALWAYS use ONLY chemical formulas, NEVER use common names or descriptive names
+- If a material has both a chemical formula and a common name, use ONLY the chemical formula
+- Use standard chemical notation with proper subscripts (e.g., "Cr2Te4O11", "Sr3(P3O9)2·7H2O")
+- For complex organic compounds, use the molecular formula (e.g., "C12H11O5N2Br")
+- Include crystal phase information when specified (e.g., "NaH2PO4·H2O")
+- DO NOT output both name and formula - use ONLY the formula
+
+MULTILINGUAL SUPPORT:
+- Extract materials from papers in ANY language (English, French, German, Chinese, etc.)
+- Look for chemical formulas regardless of the language used in the paper
+- Chemical formulas are universal and should be extracted even from non-English papers
+- Common chemical notation patterns to look for:
+  * Element symbols with numbers (e.g., "Sr3", "P3O9", "H2O")
+  * Parentheses for groups (e.g., "(P3O9)2")
+  * Dots or periods for water of hydration (e.g., "·7H2O", ".7H2O")
+  * Common prefixes like "mono-", "di-", "tri-" before chemical names
+
 EXAMPLES OF WHAT TO INCLUDE:
+- "LiFePO4" (not "lithium iron phosphate")
+- "Cr2Te4O11" (not "chromium tellurate")
 - "Ni/Al2O3" (if Ni is deposited on Al2O3)
 - "Ir/SiO2" (if Ir is supported on SiO2) 
-- "LiFePO4 nanoparticles" (if LiFePO4 is synthesized)
-- "Co-doped LiFePO4" (if this specific material is synthesized)
+- "LaF3", "CeF3" (lanthanide fluorides)
+- "NaH2PO4·H2O" (sodium dihydrogen phosphate monohydrate)
 
 EXAMPLES OF WHAT TO EXCLUDE:
 - "Ni", "Ir", "Ru" (if these are just precursors)
@@ -21,8 +41,15 @@ EXAMPLES OF WHAT TO EXCLUDE:
 - "Deionized water" (solvents)
 - "Ammonium hydroxide" (reagents)
 
-Return a simple comma-separated list of ONLY the final synthesized materials.
+CRITICAL OUTPUT REQUIREMENT:
+- You MUST return ONLY chemical formulas, never common names
+- If you see "Sr3(PaO9)2.7HzO" in the text, output "Sr3(P3O9)2·7H2O" 
+- If you see "LiH2PO3" in the text, output "LiH2PO3"
+- If you see "Lithium Hydrogen Phosphite" in the text, output "LiH2PO3"
+- ALWAYS convert common names to chemical formulas
+
+Return a simple comma-separated list of ONLY the final synthesized materials using chemical formulas.
 
 If no materials are synthesized in the paper, return "No materials synthesized".
 
-Keep the output simple and clean - just the final synthesized material names separated by commas. 
+Keep the output simple and clean - just the final synthesized material chemical formulas separated by commas. 

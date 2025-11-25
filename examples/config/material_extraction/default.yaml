@@ -6,10 +6,10 @@ architecture:
     instructions: "Extract ONLY the final synthesized materials from the publication text."
     input_description: "The publication text to extract the final synthesized materials from."
     output_name: "materials"
-    output_description: "The final synthesized materials as a comma-separated list."
+    output_description: "The final synthesized materials as a comma-separated list using ONLY chemical formulas (e.g., 'Sr3(P3O9)2·7H2O, LiH2PO3'). Never use common names."
   lm:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gemini-2.0-flash"
+    llm_name: "gemini-2.5-flash-lite"  # 使用Gemini 2.5 Flash Lite
     model_kwargs:
       temperature: 0.0
     system_prompt:
