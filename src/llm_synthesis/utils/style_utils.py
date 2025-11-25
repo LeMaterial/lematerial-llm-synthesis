@@ -34,6 +34,15 @@ palette.append("#F9CB9C")
 palette.append("#FCE5CD")
 palette.append("#FCEAF7")
 palette.append("#F2A8DD")
+palette.append("#D3D3D3")
+
+palette.append("#A9A9A9")
+
+palette.append("#808080")
+palette.append("#000000")
+palette.append("#7B5AEF")
+palette.append("#B27EDD")
+
 sns.set_palette(palette)
 
 # create cmap out of palette
@@ -71,7 +80,7 @@ def set_style(style: str = "manuscript") -> None:
     # Common settings for all styles
     common_settings = {
         "pdf.fonttype": 42,
-        "font.family": "Latin Modern Sans",
+        "font.family": "Deja Vu Sans",
         "mathtext.fontset": "dejavusans",
         "text.latex.preamble": (
             r"\usepackage{amsmath} \usepackage{amssymb} \usepackage{sfmath}"

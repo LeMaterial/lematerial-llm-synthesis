@@ -67,6 +67,9 @@ def is_valid_material_name(name):
     if re.search(r"sample\s*\d+", name_lower):
         return False
 
+    if re.search(r"\b[a-z]+\s*\d+\b", name_lower):
+        return False
+
     return True
 
 
@@ -91,6 +94,7 @@ def main():
         "compound_pattern": 0,
         "number_letter_pattern": 0,
         "generic_names": 0,
+        "generic_names_other": 0,
         "other": 0,
     }
 
@@ -161,6 +165,7 @@ def analyze_removed_entries(dataset_split):
         "compound_pattern": 0,
         "number_letter_pattern": 0,
         "generic_names": 0,
+        "generic_names_other": 0,
         "other": 0,
     }
 
@@ -194,6 +199,8 @@ def analyze_removed_entries(dataset_split):
             or re.search(r"sample\s*\d+", name_lower)
         ):
             stats["generic_names"] += 1
+        elif re.search(r"\b[a-z]+\s*\d+\b", name_lower):
+            stats["generic_names_other"] += 1
         elif not is_valid_material_name(name):
             stats["other"] += 1
 
