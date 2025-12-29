@@ -35,7 +35,10 @@ class DspyTextExtractor(MaterialExtractorInterface):
             str: The extracted text from the str.
         """
         predict_kwargs = {"publication_text": input}
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm,
+            adapter=dspy.adapters.JSONAdapter(),
+        ):
             return dspy.ChainOfThought(self.signature)(
                 **predict_kwargs
             ).__getattr__(next(iter(self.signature.output_fields.keys())))

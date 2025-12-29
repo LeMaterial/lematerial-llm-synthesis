@@ -50,7 +50,9 @@ class PlotDataExtractor(PlotDataExtractorInterface):
             ),
             "subplot_focus": subplot_focus,
         }
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
+        ):
             result = dspy.ChainOfThought(self.signature)(**predict_kwargs)
 
             # The signature now returns a list of ExtractedPlotData

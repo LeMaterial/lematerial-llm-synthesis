@@ -1,0 +1,262 @@
+[
+  {
+    "material": "GaAs/AlGaAs quantum dot",
+    "synthesis": {
+      "target_compound": "GaAs/AlGaAs quantum dot",
+      "target_compound_type": "semiconductors & electronics",
+      "synthesis_method": "molecular beam epitaxy",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "GaAs (001) substrate",
+          "amount": 350.0,
+          "unit": "\u00b5m",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Al0.75Ga0.25As",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "GaAs",
+          "amount": 4.0,
+          "unit": "nm",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Al0.33Ga0.67As",
+          "amount": 69.0,
+          "unit": "nm",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Al",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "grow",
+          "description": "A sacrificial layer of Al0.75Ga0.25As is first grown on a 350 \u00b5m thick GaAs (001) commercial substrate in a MBE system.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Al0.75Ga0.25As",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "GaAs (001) substrate",
+              "amount": 350.0,
+              "unit": "\u00b5m",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE system",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "grow",
+          "description": "Then, the membrane containing the QDs is grown by first depositing a 4 nm thick layer of GaAs to protect the AlGaAs matrix from oxidation, followed by a first 69 nm thick layer of Al0.33Ga0.67As.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "GaAs",
+              "amount": 4.0,
+              "unit": "nm",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Al0.33Ga0.67As",
+              "amount": 69.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE system",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "evaporate",
+          "description": "The QDs are obtained by evaporating Al on the surface to form droplets drilling highly symmetric nanoholes on the surface.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Al",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "grow",
+          "description": "The holes are then filled with a 1.5 nm thick layer of GaAs and capped with another 70 nm thick layer of Al0.33Ga0.67As for a total thickness of the membrane of roughly 140 nm.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "GaAs",
+              "amount": 1.5,
+              "unit": "nm",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Al0.33Ga0.67As",
+              "amount": 70.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE system",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "grow",
+          "description": "The structure is then protected with another 4 nm thick layer of GaAs bringing the total thickness to 148 nm.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "GaAs",
+              "amount": 4.0,
+              "unit": "nm",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE system",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "MBE system",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the essence of the GaAs/AlGaAs quantum dot synthesis using molecular beam epitaxy (MBE). This is quite an unusual recipe, as it involves 'new' tecnhiques that aren't used that much in material synthesis. The LLM has capture this very well, especially given the number of different steps involved and the care needed with the specific number being given. Note that I left the thickness of the samples as the 'quantities', as they are the importnat metrics in this synthesis procedure.",
+      "scores": {
+        "structural_completeness_score": 5,
+        "structural_completeness_reasoning": "All good.",
+        "material_extraction_score": 5,
+        "material_extraction_reasoning": "All good.",
+        "process_steps_score": 5,
+        "process_steps_reasoning": "All good.",
+        "equipment_extraction_score": 5,
+        "equipment_extraction_reasoning": "All good.",
+        "conditions_extraction_score": 5,
+        "conditions_extraction_reasoning": "All good.",
+        "semantic_accuracy_score": 5,
+        "semantic_accuracy_reasoning": "All good.",
+        "format_compliance_score": 5,
+        "format_compliance_reasoning": "All good.",
+        "overall_score": 5,
+        "overall_reasoning": "All good."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  }
+]

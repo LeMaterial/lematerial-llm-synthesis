@@ -25,18 +25,16 @@ def remove_figs(text: str) -> str:
 
 def remove_references(text: str) -> str:
     """
-    Remove references and all subsequent text from extracted papers.
+    Remove 50 lines after references section from extracted papers.
     """
 
-    # This pattern matches the reference heading
-    # and then everything (.*) until the end of the string ($)
+    # This pattern matches the reference heading and captures the next 50 lines
     reference_pattern: Pattern = re.compile(
-        r"(# References|## References|### References).*$",
-        re.IGNORECASE | re.DOTALL,
+        r"(# References|## References|### References)(?:.*\n){0,50}",
+        re.IGNORECASE,
     )
-    # re.DOTALL is crucial here to make '.' match newlines as well.
 
-    # Remove everything in the string after the reference pattern
+    # Remove just the references section and 50 lines after
     cleaned = re.sub(reference_pattern, "", text)
     return cleaned
 

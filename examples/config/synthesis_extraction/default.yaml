@@ -10,7 +10,7 @@ architecture:
     output_description: "The extracted structured synthesis for the specific material."
   lm:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gemini-2.5-flash"
+    llm_name: "gemini-2.0-flash"
     model_kwargs:
       temperature: 0.0
       max_tokens: 8000

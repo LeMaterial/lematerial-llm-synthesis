@@ -42,7 +42,9 @@ class DspyFigureDescriptionExtractor(FigureDescriptionExtractorInterface):
             "caption_context": input.context_before + input.context_after,
             "figure_position_info": input.figure_reference,
         }
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
+        ):
             return dspy.ChainOfThought(self.signature)(
                 **predict_kwargs
             ).__getattr__(next(iter(self.signature.output_fields.keys())))
@@ -75,10 +77,7 @@ class DspyFigureDescriptionExtractor(FigureDescriptionExtractorInterface):
             raise ValueError("Caption context must be a string")
         if "figure_position_info" not in signature.input_fields:
             raise ValueError("Figure position info must be in signature")
-        if (
-            signature.input_fields["figure_position_info"].annotation
-            is not str
-        ):
+        if signature.input_fields["figure_position_info"].annotation is not str:
             raise ValueError("Figure position info must be a string")
         if "figure_description" not in signature.output_fields:
             raise ValueError("Figure description must be in signature")

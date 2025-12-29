@@ -1,0 +1,1180 @@
+[
+  {
+    "material": "KTaO3",
+    "synthesis": {
+      "target_compound": "KTaO3 (001)",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "wet etching and annealing",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "etch",
+          "description": "Wet etching with a commercially available BHF.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "BHF",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "anneal",
+          "description": "Annealing treatments in air.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Etching the surface for 15 min produces a step-terrace structure with step height of one-unit cell (~4 Å) and terrace width of 500-800 nm. It is presumed that hydroxides are removed by the acidic etchant, producing the single terminated atomically flat surface. Judging from the formability and solubility of KOH in a BHF solution, one can conjecture that the surface is predominantly terminated by TaO2. However, there is no direct experimental evidence available yet for the chemical nature of the surface."
+    },
+    "evaluation": {
+      "reasoning": "Wet etching followed by annealing is required.",
+      "scores": {
+        "structural_completeness_score": 3.0,
+        "structural_completeness_reasoning": "Some materials missed because synthesis of three rare earth element is descirbed in a combined manner.",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "Some materials missed because synthesis of three rare earth element is descirbed in a combined manner.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are logically sequenced and accurately classified as etching and annealing. The description provides a good overview of the process.",
+        "equipment_extraction_score": 2.5,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, resulting in a low equipment extraction score. The extraction should ideally include the type of furnace used for annealing.",
+        "conditions_extraction_score": 2.0,
+        "conditions_extraction_reasoning": "Durations and pressure are not mentioned accurately.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extracted information accurately reflects the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted ontology strictly adheres to the GeneralSynthesisOntology schema, with correct data types and field names.",
+        "overall_score": 3.2,
+        "overall_reasoning": "Major errors due to non-extraction of materials having rare earths elements."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Annealing temperature",
+        "BHF concentration",
+        "Equipment used for annealing",
+        "Substrate cleaning steps",
+        "Materials having rare earth elements"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "obtain exact annealing time",
+        "pressure for annealing atmosphere not given"
+      ]
+    }
+  },
+  {
+    "material": "DyScO3",
+    "synthesis": {
+      "target_compound": "DyScO3 (110) surfaces",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "annealing",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "As-received substrates are annealed to induce segregation of one of the elements onto the surface.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "DyScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1320.0,
+            "temp_unit": "K",
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "O2 or Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "RE = Dy, Gd, and Nd. The one-unit cell step height of ~4 Å of such treated surface was confirmed by AFM measurements. The TOF-MSRI analyses revealed that the surfaces were fully ScO2 terminated for all three scandates."
+    }
+  },
+  {
+    "material": "DyScO3",
+    "synthesis": {
+      "target_compound": "DyScO3 (110) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "annealing and wet etching",
+      "starting_materials": [{
+        "vendor": null,
+        "name": "DyScO3 substrate",
+        "amount": null,
+        "unit": null,
+        "purity": null
+      }],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "As-received substrates are annealed to induce segregation of one of the elements onto the surface.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "DyScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "etch",
+          "description": "The surface layer of the annealed substrates is etched out by immersion in 12 M NaOH-DI water solutions.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "DyScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "NaOH",
+              "amount": 12.0,
+              "unit": "M",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "DI water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "RE = Dy, Gd, and Nd. The one-unit cell step height of ~4 \u00c5 of such treated surface was confirmed by AFM measurements. The TOF-MSRI analyses revealed that the surfaces were fully ScO2 terminated for all three scandates."
+    },
+    "evaluation": {
+      "reasoning": "Common synthesis procedure for three materials.",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Not extracted individually, common extraction is correctly structured.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "Not extracted individually for this material",
+        "process_steps_score": 2.5,
+        "process_steps_reasoning": "Not extracted individually for this material",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is correct.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Conditions extraction is accurate, including temperature and etchant concentration. However, some parameters like duration of etching are missing.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent, with the scientific meaning well-preserved in the structured format.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, ensuring format compliance.",
+        "overall_score": 3.86,
+        "overall_reasoning": "The overall extraction quality is high, with accurate representation of the synthesis procedure. Minor improvements could be made by including vendor information and specifying the rare earth element."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Vendor information for starting materials",
+        "Specific rare earth element in REScO3",
+        "Duration of etching"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include vendor information for starting materials.",
+        "Specify the rare earth element in REScO3.",
+        "Add duration of etching"
+      ]
+    }
+  },
+  {
+    "material": "GdScO3",
+    "synthesis": {
+      "target_compound": "GdScO3 (110) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "annealing and wet etching",
+      "starting_materials": [{
+        "vendor": null,
+        "name": "GdScO3 substrate",
+        "amount": null,
+        "unit": null,
+        "purity": null
+      }],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "As-received substrates are annealed to induce segregation of one of the elements onto the surface.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "GdScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "etch",
+          "description": "The surface layer of the annealed substrates is etched out by immersion in 12 M NaOH-DI water solutions.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "GdScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "NaOH",
+              "amount": 12.0,
+              "unit": "M",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "DI water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "RE = Dy, Gd, and Nd. The one-unit cell step height of ~4 \u00c5 of such treated surface was confirmed by AFM measurements. The TOF-MSRI analyses revealed that the surfaces were fully ScO2 terminated for all three scandates."
+    },
+    "evaluation": {
+      "reasoning": "Common synthesis procedure for three materials.",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Not extracted individually, common extraction is correctly structured.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "Not extracted individually for this material",
+        "process_steps_score": 2.5,
+        "process_steps_reasoning": "Not extracted individually for this material",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is correct.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Conditions extraction is accurate, including temperature and etchant concentration. However, some parameters like duration of etching are missing.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent, with the scientific meaning well-preserved in the structured format.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, ensuring format compliance.",
+        "overall_score": 3.86,
+        "overall_reasoning": "The overall extraction quality is high, with accurate representation of the synthesis procedure. Minor improvements could be made by including vendor information and specifying the rare earth element."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Vendor information for starting materials",
+        "Specific rare earth element in REScO3",
+        "Duration of etching"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include vendor information for starting materials.",
+        "Specify the rare earth element in REScO3.",
+        "Add duration of etching"
+      ]
+    }
+  },
+  {
+    "material": "NdScO3",
+    "synthesis": {
+      "target_compound": "NdScO3 (110) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "annealing and wet etching",
+      "starting_materials": [{
+        "vendor": null,
+        "name": "NdScO3 substrate",
+        "amount": null,
+        "unit": null,
+        "purity": null
+      }],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "As-received substrates are annealed to induce segregation of one of the elements onto the surface.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NdScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "etch",
+          "description": "The surface layer of the annealed substrates is etched out by immersion in 12 M NaOH-DI water solutions.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NdScO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "NaOH",
+              "amount": 12.0,
+              "unit": "M",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "DI water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "RE = Dy, Gd, and Nd. The one-unit cell step height of ~4 \u00c5 of such treated surface was confirmed by AFM measurements. The TOF-MSRI analyses revealed that the surfaces were fully ScO2 terminated for all three scandates."
+    },
+    "evaluation": {
+      "reasoning": "Common synthesis procedure for three materials.",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Not extracted individually, common extraction is correctly structured.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "Not extracted individually for this material",
+        "process_steps_score": 2.5,
+        "process_steps_reasoning": "Not extracted individually for this material",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is correct.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "Conditions extraction is accurate, including temperature and etchant concentration. However, some parameters like duration of etching are missing.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent, with the scientific meaning well-preserved in the structured format.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, ensuring format compliance.",
+        "overall_score": 3.86,
+        "overall_reasoning": "The overall extraction quality is high, with accurate representation of the synthesis procedure. Minor improvements could be made by including vendor information and specifying the rare earth element."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Vendor information for starting materials",
+        "Specific rare earth element in REScO3",
+        "Duration of etching"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include vendor information for starting materials.",
+        "Specify the rare earth element in REScO3.",
+        "Add duration of etching"
+      ]
+    }
+  },
+  {
+    "material": "SrTiO3",
+    "synthesis": {
+      "target_compound": "SrTiO3 (001) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "etching",
+      "starting_materials": [{
+        "vendor": null,
+        "name": "SrO",
+        "amount": null,
+        "unit": null,
+        "purity": null
+      },
+      {
+        "vendor": null,
+        "name": "TiO2",
+        "amount": null,
+        "unit": null,
+        "purity": null
+      }
+    ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "etch",
+          "description": "The method adopts a buffered hydrofluoric acid (BHF) etching solution with pH = 4.5 for the (001) surface. After etching for 30 s, the substrates are annealed at 1000 °C in O2 gas flow for 2~3 h to get a step terrace structure; the annealing temperature is nominally kept around 1000°C ",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SrTiO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+                "vendor": null,
+                "name": "buffered hydrofluoric acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": "C",
+            "duration": 30,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 4.5
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "anneal",
+          "description": "After etching for 30 s, the substrates are annealed at 1000 °C in O2 gas flow for 2~3 h to get a step terrace structure; the annealing temperature is nominally kept around 1000°C ",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SrTiO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000,
+            "temp_unit": "C",
+            "duration": 3,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "There are three surface orientations of this material in the paper."
+    },
+    "evaluation": {
+      "reasoning": "Same material but different surface orientations",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Not extracted individually, common extraction is correctly structured.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "Not extracted individually for this material",
+        "process_steps_score": 2.5,
+        "process_steps_reasoning": "Not extracted individually for this material",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is correct.",
+        "conditions_extraction_score": 2.5,
+        "conditions_extraction_reasoning": "Not extracted individually for this material",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent, with the scientific meaning well-preserved in the structured format.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, ensuring format compliance.",
+        "overall_score": 3.57,
+        "overall_reasoning": "The overall extraction quality is high, with accurate representation of the synthesis procedure."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "details of 2 other surfaces orientations not extracted"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Provide exact time of each instead instead of range. e.g. 2~3 h"
+      ]
+    }
+  },
+  {
+    "material": "SrTiO3",
+    "synthesis": {
+      "target_compound": "SrTiO3 (110) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "annealing",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Bachelet et al. observed that annealing substrates above 1000 °C produces atomically flat surfaces with a step height of two unit cells, called step bunching, for substrates with high miscut angle.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SrTiO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "There are three surface orientations of this material in the paper."
+    },
+    "evaluation": {
+      "reasoning": "Same material but different surface orientations",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Not extracted individually, common extraction is correctly structured.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "Not extracted individually for this material",
+        "process_steps_score": 2.5,
+        "process_steps_reasoning": "Not extracted individually for this material",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is correct.",
+        "conditions_extraction_score": 2.5,
+        "conditions_extraction_reasoning": "Not extracted individually for this material",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent, with the scientific meaning well-preserved in the structured format.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, ensuring format compliance.",
+        "overall_score": 3.57,
+        "overall_reasoning": "The overall extraction quality is high, with accurate representation of the synthesis procedure."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "details of 2 other surfaces orientations not extracted"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Provide exact time of annealing.",
+        "Since it is a review paper, these details could have been provided in a more structured format."
+      ]
+    }
+  },
+  {
+    "material": "SrTiO3",
+    "synthesis": {
+      "target_compound": "SrTiO3 (111) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "annealing",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "There are several studies available in the literature on producing the atomically flat surface for SrTiO3 (111) by annealing only.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SrTiO3 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "There are three surface orientations of this material in the paper."
+    },
+    "evaluation": {
+      "reasoning": "Same material but different surface orientations",
+      "scores": {
+        "structural_completeness_score": 2.5,
+        "structural_completeness_reasoning": "Not extracted individually, common extraction is correctly structured.",
+        "material_extraction_score": 2.5,
+        "material_extraction_reasoning": "Not extracted individually for this material",
+        "process_steps_score": 2.5,
+        "process_steps_reasoning": "Not extracted individually for this material",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is correct.",
+        "conditions_extraction_score": 2.5,
+        "conditions_extraction_reasoning": "Not extracted individually for this material",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The semantic accuracy is excellent, with the scientific meaning well-preserved in the structured format.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, ensuring format compliance.",
+        "overall_score": 3.57,
+        "overall_reasoning": "The overall extraction quality is high, with accurate representation of the synthesis procedure."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "two temperatures are mentioned which result in different morphologies but the chemistry is same."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Update the ontology to account for different synthesis methods for same material."
+      ]
+    }
+  },
+  {
+    "material": "La0.18Sr0.82Al0.59Ta0.41O3",
+    "synthesis": {
+      "target_compound": "La0.18Sr0.82Al0.59Ta0.41O3",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "solid-state",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Anneal the LSAT substrate under La vapor pressure. La vapor was provided by placing a LaAlO3 (001) substrate close to the LSAT substrate during high temperature annealing.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "LaAlO3",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "La0.18Sr0.82Al0.59Ta0.41O3",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1300.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "High temperature annealing of a LSAT substrate induces the formation of many SrO particles on the substrate surface. This result indicates that La ions would evaporate from the surface while Sr ions would not, considering the fact that the A-sites contain both La and Sr ions. One way to compensate for the loss of La ions is to provide extra La ions to the surface, and this can be done by exposing the substrate to La vapor released from an annealed LaAlO3 crystal."
+    },
+    "evaluation": {
+      "reasoning": "one of the two methods to make this material.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "The ontology covers the main materials, steps, equipment, and conditions, but lacks some details, such as specific quantities and equipment settings.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "Material names are accurate, but quantities and purities are often missing.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "Only one step is required.",
+        "equipment_extraction_score": 5,
+        "equipment_extraction_reasoning": "No equipment mentioned",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "annealing duration is not mentioned.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The scientific meaning is well-preserved in the structured format. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements, but some fields are left empty due to missing information.",
+        "overall_score": 4.57,
+        "overall_reasoning": "The extraction is reasonably complete and accurate, but could benefit from more specific details, especially regarding quantities and equipment settings. The process steps are well-defined and follow a logical sequence."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "provided details are extracted correctly."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Although its a review paper, synthesis methods can be reported in proper manner."
+      ]
+    }
+  },
+  {
+    "material": "NdGaO3",
+    "synthesis": {
+      "target_compound": "NdGaO3",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "anneal",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "demonstrated that a constant flow of pure oxygen at 1200 ° C for 20 h also produces atomically flat surfaces with single termination for NdGaO3 (001) substrates.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1200.0,
+            "temp_unit": "C",
+            "duration": 20,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "O2",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Atomically flat A-site termination on NdGaO3 (001) substrates was achieved by Ohnishi et al. via pure annealing treatment. Gunnarsson et al. also obtained atomically flat surfaces by annealing only and showed Nd-rich termination using XPS measurements. Radovic et al. demonstrated that a constant flow of pure oxygen at 1200 °C for 20 h also produces atomically flat surfaces with single termination for NdGaO3 (001) substrates, again confirmed by XPS; Talik et al. also showed the A-site termination using a similar method. AES measurements were also used to confirm the NdO termination for annealed surfaces, where Ga and O are depleted from. Cavallaro et al. annealed the substrate at a high temperature of 1000 °C under different gas fluxes and showed that, irrespective of various gas types, NdGaO3 surfaces always end up with the A-site rich termination as verified by Low Energy Ion Scattering (LEIS). Thermal annealing seems to allow the evaporation of gallium ions from the surface by forming volatile species Ga2O. In order to alter the surface termination, solutions of BHF or HCl+NH4Cl were tested as an etchant and the result was analyzed by RHEED; indeed, B-site termination was successfully achieved by the etching method on NdGaO3 surfaces. From these various studies on NdGaO3 (001) substrates, it is now established that high temperature annealing is sufficient to produce A-site terminated atomically flat smooth NdGaO3 surfaces."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the high-level synthesis information for NdGaO3 substrates, focusing on surface treatment via annealing. The material extraction is accurate, identifying NdGaO3 as the target. The process steps are generally well-represented, with annealing as the primary action. However, there are some limitations in completeness and accuracy. The conditions extraction is partially complete, capturing temperature and atmosphere, but missing duration in the first step. The equipment extraction is missing entirely. The format compliance is good, adhering to the schema, but the structural completeness could be improved by including more details about the annealing process and equipment used. Semantic accuracy is generally maintained, but the lack of specific equipment details and duration reduces the overall usefulness of the extracted information.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology captures the main material and process (annealing), but lacks details about equipment and specific parameters like duration for the first step. The notes section contains additional information that should ideally be structured.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The target material, NdGaO3, is accurately identified and classified. There are no starting materials, which is appropriate for a substrate treatment.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process step of annealing is correctly identified. However, the description could be more detailed, and the logical flow is somewhat limited as it's a single-step process.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted. The type of furnace or annealing setup is not mentioned, which is a significant omission.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "Temperature and atmosphere are extracted, but the duration is missing for the first step. The temperature unit is correctly identified. Pressure is correctly identified as null.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is mostly preserved, but the lack of equipment and duration details reduces the overall semantic accuracy. The notes section contains valuable information that is not structured.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted JSON adheres to the schema and data type requirements. There are no apparent format errors.",
+        "overall_score": 3.6,
+        "overall_reasoning": "The extraction is reasonably good, accurately identifying the material and process. However, the lack of equipment details and duration, along with the unstructured notes section, significantly reduces the overall score. Structural completeness and conditions extraction are the weakest areas."
+      },
+      "confidence_level": "low",
+      "missing_information": [
+        "Duration of annealing in the first step",
+        "Type of furnace or annealing equipment used",
+        "Specific annealing ramp rates or cooling procedures"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include duration of annealing in the first step.",
+        "Identify and extract the type of furnace or annealing equipment used.",
+        "Structure the information in the notes section into appropriate fields, such as 'additional_conditions' or 'surface_characterization_methods'.",
+        "Consider adding ramp rates and cooling procedures to the conditions."
+      ]
+    }
+  },
+  {
+    "material": "LaAlO3",
+    "synthesis": {
+      "target_compound": "LaAlO3",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "other",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "clean",
+          "description": "Clean a substrate with acetone and methanol, and then soak in ultrasonically-stimulated water.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "methanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonic bath",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "etch",
+          "description": "Wet etch for 30 s with dilute HCl (pH ~ 4.5). This pH of HCl is chosen to selectively etch out the lanthanum-related oxides to produce a surface that consists of single terminated AlO2.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "HCl",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 4.5
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "anneal",
+          "description": "Anneal at 1000 °C for 2.5 h. The annealing produces an atomically flat surface with step-terrace width ~350 nm and one-unit cell step height ~3.78 Å",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000.0,
+            "temp_unit": "C",
+            "duration": 2.5,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the synthesis procedure for LaAlO3 reasonably well, but there are areas for improvement. The structural completeness is good, covering the main steps, materials, and conditions. Material extraction is generally accurate, though some quantities are missing. The process steps are logically sequenced and the actions are correctly classified. Equipment extraction is minimal, and conditions extraction could be more detailed. Semantic accuracy is mostly preserved, but some scientific context is lost due to lack of specific details. Format compliance is satisfactory, but some data types could be more precise. Overall, the extraction is decent but lacks some finer details that would make it more comprehensive and useful.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology includes the main steps (cleaning, etching, annealing), materials (acetone, methanol, water, HCl), and conditions (temperature, duration, pH). However, it misses some details like the concentration of HCl or the type of annealing atmosphere.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names are correctly identified, but quantities and purities are often missing. For example, the concentration of HCl is not specified, and the purity of acetone, methanol, and water are not mentioned.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are logically sequenced and the actions (clean, etch, anneal) are correctly classified. The description of each step is clear and concise.",
+        "equipment_extraction_score": 3.0,
+        "equipment_extraction_reasoning": "Equipment extraction is minimal. Only the ultrasonic bath is mentioned. The annealing furnace or other potential equipment are not identified.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "Temperature and duration of annealing are accurately extracted, and the pH of the HCl solution is also noted. However, the annealing atmosphere is not specified, and other potential conditions like ramp rates are missing.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is mostly preserved, but some context is lost due to the lack of specific details. For example, knowing the concentration of HCl is crucial for replicating the synthesis.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The ontology adheres to the schema and data type requirements. However, some fields could be more precise. For example, specifying the type of water (deionized, distilled) would improve the data quality.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The extraction is reasonably good, capturing the main aspects of the synthesis procedure. However, it lacks some finer details that would make it more comprehensive and useful. The scores reflect the balance between completeness and missing information."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Concentration of HCl in the etching step.",
+        "Purity of starting materials (acetone, methanol, water).",
+        "Annealing atmosphere.",
+        "Ramp rate during annealing.",
+        "Specific settings for the ultrasonic bath (power, frequency)."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include the concentration of HCl in the etching step.",
+        "Specify the purity of starting materials (acetone, methanol, water).",
+        "Mention the annealing atmosphere (e.g., air, oxygen, inert gas).",
+        "Add information about the ramp rate during annealing.",
+        "Provide specific settings for the ultrasonic bath (power, frequency)."
+      ]
+    }
+  },
+  {
+    "material": "SrLaAlO4",
+    "synthesis": {
+      "target_compound": "SrLaAlO4",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "solid-state",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": "Annealing a substrate in La2O3-rich environments yields a (Sr,La)O-terminated (A-site) surface whereas annealing in LaAlO3 yields an AlO2 terminated (B-site) surface.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "SrLaAlO4",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "La2O3",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Preparing atomically flat surfaces of SLAO is not straightforward because of its unusual layered structure and also because both Sr and La cations are present in A sites; these characteristics would hinder the use of naive etching and annealing methods. Furthermore, the surface of SLAO is unstable against La loss at high temperatures, and annealing would cause the formation of SrO particles at the surface. To avoid SrO formation, SLAO substrates should be annealed in cation rich environments."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the essential steps for synthesizing atomically flat SrLaAlO4 (SLAO) surfaces, focusing on cation-rich annealing treatments. It correctly identifies the two main annealing environments (La2O3-rich and LaAlO3) and their resulting surface terminations. However, the extraction could be improved by including more specific details about the experimental setup and the reasoning behind the chosen conditions. The absence of starting materials is appropriate given the process focuses on substrate treatment rather than de novo synthesis.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers the main steps and materials involved in the surface treatment. It lacks details about the specific equipment used for annealing and the rationale for selecting these particular cation-rich environments.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The material extraction is accurate, correctly identifying SrLaAlO4, La2O3, and LaAlO3. However, the amounts and purities of these materials are not specified, which is understandable given the context of surface treatment rather than bulk synthesis. The absence of starting materials is appropriate.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized, with a clear distinction between the two annealing environments. However, the description of each step could be more detailed, including information about the heating and cooling rates, gas flow rates, and the positioning of the SLAO substrate relative to the La2O3 or LaAlO3 source.",
+        "equipment_extraction_score": 3.0,
+        "equipment_extraction_reasoning": "The equipment extraction is weak, as it only mentions 'equipment' without specifying the type of furnace, gas flow controllers, or other relevant instrumentation. Identifying the specific equipment used would significantly enhance the reproducibility of the synthesis.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The conditions extraction is reasonably accurate, providing the annealing temperature and duration. However, it lacks information about the atmosphere (e.g., oxygen partial pressure), heating/cooling rates, and other relevant parameters that could influence the surface termination.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The semantic accuracy is high, as the extracted information accurately reflects the scientific meaning of the source text. The descriptions of the annealing environments and their resulting surface terminations are consistent with the reported findings.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The format compliance is excellent, as the extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated, and the structure is well-organized.",
+        "overall_score": 4.1,
+        "overall_reasoning": "Overall, the ontology extraction is of good quality, capturing the essential steps and materials for synthesizing atomically flat SrLaAlO4 surfaces. However, the extraction could be improved by including more specific details about the equipment, process conditions, and the rationale behind the chosen parameters. The absence of starting materials is appropriate, given the context of surface treatment."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Specific equipment details (furnace type, gas flow controllers)",
+        "Detailed process conditions (heating/cooling rates, gas flow rates)",
+        "Chemical processes involved in surface termination (La diffusion, SrO formation)"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include more specific details about the equipment used for annealing, such as the type of furnace and gas flow controllers.",
+        "Provide more detailed descriptions of the process conditions, including heating/cooling rates, gas flow rates, and the positioning of the SLAO substrate relative to the La2O3 or LaAlO3 source.",
+        "Add a brief explanation of the chemical processes involved in the surface termination, such as the diffusion of La ions and the formation of SrO particles."
+      ]
+    }
+  },
+  {
+    "material": "YAlO3",
+    "synthesis": {
+      "target_compound": "YAlO3 (110) surface",
+      "target_compound_type": "perovskites",
+      "synthesis_method": "anneal",
+      "starting_materials": [],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "anneal",
+          "description": null,
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 1000.0,
+            "temp_unit": "C",
+            "duration": 2.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "Annealing a YAlO3 crystal at temperatures above 1160 °C would generate a second phase Y3Al5O12, and annealing at an even higher temperature 1300 °C would cause segregation to Al2O3 and YAlO3"
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the synthesis of YAlO3 through a simple annealing process. The structural completeness is reasonable, covering the material, a single process step, and annealing conditions. Material extraction is limited as there are no starting materials. The process step is accurately identified as annealing, and the conditions are well-extracted, including temperature, duration, and atmosphere. Semantic accuracy is maintained, and the format complies with the schema. However, the absence of starting materials and equipment details limits the overall score.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "The ontology includes the target material, a process step (annealing), and annealing conditions. However, it lacks information on starting materials and specific equipment used, which reduces the completeness.",
+        "material_extraction_score": 2.0,
+        "material_extraction_reasoning": "Only the target material (YAlO3) is extracted. There is no information about starting materials, their quantities, units, or purities, which significantly lowers the score.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process step is correctly identified as annealing. The description is missing, but the action is accurate.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extracted. The type of furnace or annealing setup is not specified, resulting in a low score.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The annealing conditions are accurately extracted, including temperature (1000\u00b0C), duration (2 hours), and atmosphere (air). The units are consistent and correct.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The scientific meaning is well-preserved. The extracted information accurately reflects the synthesis procedure described in the text.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted.",
+        "overall_score": 3.6,
+        "overall_reasoning": "The overall score reflects the good extraction of process steps and conditions, but is limited by the lack of starting material and equipment information. The format compliance and semantic accuracy are excellent."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Starting materials",
+        "Equipment details (e.g., furnace type)"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include starting materials, even if they are implicit in the text.",
+        "Specify the type of equipment used for annealing (e.g., tube furnace).",
+        "Add a brief description of the annealing step, if available."
+      ]
+    }
+  }
+]

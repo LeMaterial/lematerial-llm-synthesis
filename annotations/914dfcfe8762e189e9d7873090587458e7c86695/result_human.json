@@ -1,0 +1,1196 @@
+[
+  {
+    "material": "ZnO nanowires",
+    "synthesis": {
+      "target_compound": "ZnO nanowires",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Zn powders",
+          "amount": 1.0,
+          "unit": "g",
+          "purity": "99.99%"
+        },
+        {
+          "vendor": null,
+          "name": "silicon substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "hydrofluoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ethanol",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Au film",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": 4.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "The silicon was deposited with a 10 nm Au film on the surface by sputtering.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Au film",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name":"Zn powders",
+              "amount": 1.0,
+              "unit": "g",
+              "purity": "99.99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "The furnace was heated to reaction temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "horizontal-tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 730.0,
+            "temp_unit": "C",
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "argon",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal-tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanowire synthesis using water-assisted physical vapor deposition. The materials, equipment, and conditions are generally well-extracted, but there are some areas for improvement in terms of completeness and accuracy. The structural completeness is good, covering most aspects of the synthesis. Material extraction is mostly accurate, although some quantities are missing. Process steps are well-defined and logically sequenced. Equipment extraction is basic but correct. Conditions extraction is generally accurate, but pressure information is lacking. Semantic accuracy is maintained, and the format compliance is satisfactory. Overall, the extraction is reasonably good but could benefit from more detailed information and improved accuracy in certain areas.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "Everything from the source text is present in the extracted ontology.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Everything from source text there, just quantity of Au film does not make sense as is extracted (model missing context from paper).",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "Logical flow from synthesis is there. Process steps are well-organized and logically sequenced.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Most important equipment identified, Equipment extraction identifies the main equipment used, such as the horizontal-tube furnace and mechanical pump.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Conditions well extracted.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "Scientific context well replicated.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema and data type requirements. All required fields are present, and the data types are generally correct.",
+        "overall_score": 4.6,
+        "overall_reasoning": "Extraction is very detailed."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [
+        "Ontology mistakes",
+        "Au film amount"
+      ],
+      "improvement_suggestions": [
+        "Stick closely to ontology and disregard small step when it is not defined in ontology."
+      ]
+    }
+  },
+  {
+    "material": "ZnO nanorods",
+    "synthesis": {
+      "target_compound": "ZnO nanorods",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Zn powders",
+          "amount": 1.0,
+          "unit": "g",
+          "purity": "99.99%"
+        },
+        {
+          "vendor": null,
+          "name": "silicon substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "hydrofluoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ethanol",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Au film",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": 4.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "The silicon was deposited with a 10 nm Au film on the surface by sputtering.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Au film",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name":"Zn powders",
+              "amount": 1.0,
+              "unit": "g",
+              "purity": "99.99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "The furnace was heated to reaction temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "horizontal-tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 730.0,
+            "temp_unit": "C",
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "argon",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal-tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanorod synthesis using water-assisted physical vapor deposition. Material extraction is generally good, although some quantities are missing. Process steps are well-organized and follow the text. Equipment is identified, but vendor information is absent. Conditions are mostly extracted, but pressure during the vacuuming step is not specified. Semantic accuracy is maintained, and the format generally complies with the schema. Overall, the extraction is reasonably complete and accurate but could benefit from more precise quantification of certain parameters.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "Everything from the source text is present in the extracted ontology.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Everything from source text there, just quantity of Au film does not make sense as is extracted (model missing context from paper). Ar extracted superfluosuly.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "Logical flow from synthesis is there. Process steps are well-organized and logically sequenced.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Most important equipment identified.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Conditions well extracted.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "Scientific context well replicated, often too many details that are not captured by ontology.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated and formatted.",
+        "overall_score": 4.6,
+        "overall_reasoning": "The extraction is reasonably complete and accurate."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [
+        "Ontology mistakes",
+        "Au film amount"
+      ],
+      "improvement_suggestions": [
+        "good"
+      ]
+    }
+  },
+  {
+    "material": "ZnO nanoneedles",
+    "synthesis": {
+      "target_compound": "ZnO nanoneedles",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Zn powders",
+          "amount": 1.0,
+          "unit": "g",
+          "purity": "99.99%"
+        },
+        {
+          "vendor": null,
+          "name": "silicon substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "hydrofluoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ethanol",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Au film",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": 4.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "The silicon was deposited with a 10 nm Au film on the surface by sputtering.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Au film",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name":"Zn powders",
+              "amount": 1.0,
+              "unit": "g",
+              "purity": "99.99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "The furnace was heated to reaction temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "horizontal-tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 730.0,
+            "temp_unit": "C",
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "argon",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal-tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main steps and conditions for the synthesis of ZnO nanostructures using a water-assisted physical vapor deposition method. The materials, equipment, and conditions are generally well-extracted, but there are some areas for improvement, particularly in specifying the type of PVD and adding more details about the equipment used.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, more detail could be included about the specific type of PVD used (e.g., thermal evaporation, sputtering) and the specific model of the furnace.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "The materials are generally well-extracted, including the quantities and purities where specified. The units are correctly identified. However, the role of each material in the synthesis could be clarified further (e.g., Ar as a carrier gas).",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically organized and generally accurate. The actions are well-classified. However, the description of the heating step could be more precise, including the ramp rate and the final pressure.",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "The equipment is identified, but more specific details could be provided. For example, the type of sputtering system or the model of the furnace would improve the extraction. The settings used for the sputtering process are missing.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The key conditions such as temperature, duration, and atmosphere are extracted. The units are correctly identified. However, the pressure during the heating step is only vaguely specified as 'KPa level'. A more precise value would be desirable.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-done, capturing the key aspects of the synthesis procedure. The main areas for improvement are providing more specific details about the equipment and conditions, and clarifying the role of each material in the synthesis."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Specific type of PVD method used.",
+        "Model of the furnace.",
+        "Sputtering settings.",
+        "Precise pressure during the heating step."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Specify the type of PVD method used.",
+        "Include the model of the furnace.",
+        "Add the sputtering settings.",
+        "Provide a more precise pressure value during the heating step.",
+        "Clarify the role of each material in the synthesis description."
+      ]
+    }
+  },
+  {
+    "material": "ZnO nanocombs",
+    "synthesis": {
+      "target_compound": "ZnO nanocombs",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "PVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Zn powders",
+          "amount": 1.0,
+          "unit": "g",
+          "purity": "99.99%"
+        },
+        {
+          "vendor": null,
+          "name": "silicon substrate",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "hydrofluoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "acetone",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ethanol",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Au film",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "water",
+          "amount": 4.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "sonicate",
+          "description": "The silicon was ultrasonically cleaned successively in acetone, ethanol, and deionized water for 15 min for each step.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "The silicon was deposited with a 10 nm Au film on the surface by sputtering.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Au film",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "silicon",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name":"Zn powders",
+              "amount": 1.0,
+              "unit": "g",
+              "purity": "99.99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "The furnace was heated to reaction temperature.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "horizontal-tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 730.0,
+            "temp_unit": "C",
+            "duration": 40.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "argon",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal-tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+              "name": "ultrasonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main steps and conditions of the ZnO nanowire synthesis using water-assisted physical vapor deposition. The materials, equipment, and conditions are generally well-extracted, but there are some areas for improvement in terms of completeness and accuracy. The structural completeness is good, covering most aspects of the synthesis. Material extraction is mostly accurate, although some quantities are missing. Process steps are well-defined and logically sequenced. Equipment extraction is basic but correct. Conditions extraction is generally accurate, but pressure information is lacking. Semantic accuracy is maintained, and the format compliance is satisfactory. Overall, the extraction is reasonably good but could benefit from more detailed information and improved accuracy in certain areas.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "Everything from the source text is present in the extracted ontology.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Everything from source text there, just quantity of Au film does not make sense as is extracted (model missing context from paper).",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are generally clear. However, more detail could be added to each step, such as the purpose of each cleaning step.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment extraction is mostly complete, with the identification of key instruments like the furnace, mechanical pump, and sputtering system. However, specific models or vendors are not provided, and settings for the sputtering process are missing.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Conditions well extracted.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "Scientific context well replicated, often too many details that are not captured by ontology.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly populated, and the structure is valid.",
+        "overall_score": 4.6,
+        "overall_reasoning": "Extraction is very detailed."
+      },
+      "confidence_level": "medium",
+      "missing_information": [],
+      "extraction_errors": [
+        "Ontology mistakes",
+        "Au film amount"
+      ],
+      "improvement_suggestions": [
+        "All good"
+      ]
+    }
+  }
+]

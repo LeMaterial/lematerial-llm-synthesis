@@ -21,6 +21,7 @@ class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
         max_tokens: int = 1024,
         temperature: float = 0.0,
     ):
+        super().__init__()
         self.claude_client = ClaudeAPIClient(model_name)
         self.prompt = prompt
         self.max_tokens = max_tokens
@@ -31,13 +32,26 @@ class ClaudeLinePlotDataExtractor(LinePlotDataExtractorInterface):
         input: FigureInfoWithPaper,
     ) -> ExtractedLinePlotData:
         figure_base64 = input.base64_data
-        claude_response = self.claude_client.vision_model_api_call(
+
+        self.claude_client.reset_cost()
+
+        # Use the cost-aware method
+        claude_response_obj = self.claude_client.vision_model_api_call(
             figure_base64=figure_base64,
             prompt=self.prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
         )
-        return self._parse_into_pydantic(claude_response)
+
+        return self._parse_into_pydantic(claude_response_obj)
+
+    def get_cost(self) -> float:
+        """Get cumulative cost from Claude client."""
+        return self.claude_client.get_cost()
+
+    def reset_cost(self) -> float:
+        """Reset costs in Claude client."""
+        return self.claude_client.reset_cost()
 
     def _parse_into_pydantic(self, response: str) -> ExtractedLinePlotData:
         """

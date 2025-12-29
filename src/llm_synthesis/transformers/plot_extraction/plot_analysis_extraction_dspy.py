@@ -55,7 +55,9 @@ class PlotAnalysisExtractor(PlotAnalysisSignature):
                 figure_info.context_before + figure_info.context_after
             ),
         }
-        with dspy.settings.context(lm=self.lm):
+        with dspy.settings.context(
+            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
+        ):
             result = dspy.ChainOfThought(self.signature)(**predict_kwargs)
             return result.scientific_analysis
 
