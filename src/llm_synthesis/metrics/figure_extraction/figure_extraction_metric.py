@@ -1,7 +1,7 @@
 import logging
 from typing import Literal
 
-from llm_synthesis.metrics.extraction_metric.base import (
+from llm_synthesis.metrics.figure_extraction.base import (
     LinePlotExtractionMetric,
 )
 from llm_synthesis.models.plot import ExtractedLinePlotData
@@ -16,7 +16,8 @@ class FigureExtractionMetric(LinePlotExtractionMetric):
     ) -> float:
         """
         Compute average RMSE or MAE across all matching series.
-        For each series, it uses normalized-to-axis-sclae nearest-neighbor matching to find the closest points
+        For each series, it uses normalized-to-axis-sclae nearest-neighbor
+        matching to find the closest points
         in the ground truth data to the extracted points from the LLM output.
         And then computes the error metric (RMSE or MAE) based on these matches.
         """
@@ -30,7 +31,8 @@ class FigureExtractionMetric(LinePlotExtractionMetric):
         common_keys = set(extracted) & set(ground_truth)
         if not common_keys:
             logging.warning(
-                "No common series names found between ground truth and LLM output."
+                "No common series names found between ground truth \
+                and LLM output."
             )
             return None
 

@@ -1,4 +1,4 @@
-from llm_synthesis.metrics.extraction.base import (
+from llm_synthesis.metrics.text_extraction.base import (
     TextToOntologyExtractionMetric,
 )
 from llm_synthesis.models.ontologies import GeneralSynthesisOntology
