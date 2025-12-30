@@ -4,6 +4,7 @@ Loads paper IDs from pkl file and applies LLM inference to check for
 performance vs temperature plots.
 """
 
+import argparse
 import os
 import pickle
 
@@ -96,8 +97,10 @@ Answer:"""
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=1, min=4, max=10),
 )
-def ask_llm_is_plot_of_material_performance_vs_temperature(text, client, model):
-    message = PROMPT.format(paper_text=text)
+def ask_llm_is_plot_of_material_performance_vs_temperature(
+    text, client, model, selected_prompt
+):
+    message = selected_prompt.format(paper_text=text)
     try:
         response = client.chat.completions.create(
             model=model,
@@ -112,18 +115,27 @@ def ask_llm_is_plot_of_material_performance_vs_temperature(text, client, model):
         return False
 
 
-def process_example(example, client, model, tokenizer):
+def process_example(example, client, model, tokenizer, selected_prompt):
     text = example["text_paper"]
     tokens = tokenizer.encode(text)
     if len(tokens) > MAX_MODEL_LEN:
         text = tokenizer.decode(tokens[: MAX_MODEL_LEN - 150])
     return ask_llm_is_plot_of_material_performance_vs_temperature(
-        text, client, model
+        text, client, model, selected_prompt
     )
 
 
 # --- Main Workflow ---
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--prompt", choices=["default", "long"], default="default"
+    )
+    args = parser.parse_args()
+
+    selected_prompt = PROMPT if args.prompt == "default" else PROMPT_LONG
+    print(f"Using {args.prompt} prompt\n")
+
     # Load keyword search results from pkl
     print(f"Loading keyword search results from {PKL_FILE}...")
     with open(PKL_FILE, "rb") as f:
@@ -161,7 +173,15 @@ def main():
 
     results = []
     for paper in tqdm(keyword_papers, desc="LLM filtering"):
-        results.append(process_example(paper, client, MODEL_NAME, tokenizer))
+        results.append(
+            process_example(
+                paper,
+                client,
+                MODEL_NAME,
+                tokenizer,
+                selected_prompt=selected_prompt,
+            )
+        )
 
     # Add results to dataset
     keyword_papers = keyword_papers.add_column(
