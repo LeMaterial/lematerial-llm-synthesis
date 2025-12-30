@@ -1,8 +1,8 @@
 ![](assets/lematerial-logo.png)
 
-# LeMaterial-Synthesis-Parser (LeMat-SynthP)
+# LeMaterial-Synthesis
 
-LeMaterial's LLM-based academic paper parsing module
+An open-source multi-modal toolbox for extracting structured synthesis procedures and performance data from materials science literature at scale. This repository contains the implementations of ... plus the extendable codebase for usecases in materials science.
 
 ## Installation
 
@@ -60,8 +60,10 @@ No errors? You're all set!
 
 ## Fetching Huggingface Dataset LeMat-Synth
 
-The data is hosted as a LeMaterial Dataset on HuggingFace ([see here](https://huggingface.co/datasets/LeMaterial/LeMat-Synth/settings)).
+The data is hosted as a LeMaterial Dataset on HuggingFace ([see here](https://huggingface.co/datasets/LeMaterial/LeMat-Synth/)).
 In order to download and use it, apply for access once (the request will be instantly approved). Install the huggingafce-cli (use [this guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli), recommended: `pip install -U "huggingface_hub[cli]"` or `brew install huggingface-cli` (macOS)) and log in with an access token (`huggingface-cli login`).
+
+Note that an additional dataset called [LeMat-Synth-Papers](https://huggingface.co/datasets/LeMaterial/LeMat-Synth-Papers/) exists. This is an intermediate dataset that stores the **papers** associated with this publication (per-paper format). [LeMat-Synth](https://huggingface.co/datasets/LeMaterial/LeMat-Synth/) contains the synthesis procedures and images in a structured (per-synthesis) format.
 
 ## Usage
 
@@ -88,6 +90,7 @@ uv run examples/scripts/extract_text_from_pdfs.py \
 ### Synthesis extraction
 
 **From HuggingFace**:
+
 ```sh
 uv run examples/scripts/extract_synthesis_procedure_from_text.py \
   data_loader=default \
@@ -98,6 +101,7 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 ```
 
 **Locally**:
+
 ```sh
 uv run examples/scripts/extract_synthesis_procedure_from_text.py \
   data_loader=local \
