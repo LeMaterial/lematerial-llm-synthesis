@@ -2,7 +2,7 @@
 
 # LeMaterial-Synthesis
 
-An open-source multi-modal toolbox for extracting structured synthesis procedures and performance data from materials science literature at scale. This repository contains the implementations of ... plus the extendable codebase for usecases in materials science.
+An open-source multi-modal toolbox for extracting structured synthesis procedures and performance data from materials science literature at scale. This repository contains the implementations of [LeMat-Synth v1.0](https://arxiv.org/abs/2510.26824) (published on the arXiv and presented at NeurIPS AI4Mat 2025) plus the extendable codebase for usecases in materials science.
 
 ## Installation
 
@@ -112,8 +112,7 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
   result_save=default
 ```
 
-**Benchmark – Sweeping over different configurations**. DSPy designs LLM pipelines in a very modular way: The quality of the output is influenced by the LLM, prompting strategy, pre-processing steps etc.
-In order to keep track of every _moving part_ of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
+**Benchmark – Sweeping over different configurations**. DSPy designs LLM pipelines in a very modular way: The quality of the output is influenced by the LLM, prompting strategy, pre-processing steps etc. In order to keep track of every _moving part_ of our model, we use [hydra](https://hydra.cc/) to track experiments. We can run a specific configuration directly from the command line:
 
 ```
 uv run examples/scripts/extract_synthesis_procedure_from_text.py \
