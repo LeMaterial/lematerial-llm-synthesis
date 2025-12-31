@@ -73,7 +73,7 @@ No errors? You're all set!
 
 ---
 
-## 📊 Dataset Access
+## Dataset Access
 
 <details>
 <summary><b>Fetching HuggingFace Dataset LeMat-Synth</b></summary>
@@ -97,7 +97,7 @@ The data is hosted as a LeMaterial Dataset on HuggingFace: [LeMat-Synth](https:/
 
 ---
 
-## 💻 Usage
+## Usage
 
 ### Extract from HuggingFace Dataset
 ```bash
@@ -122,6 +122,9 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 
 ### Extract Images Locally
 
+*Work in Progress*
+
+### Customize LeMat-Synth
 *Work in Progress*
 
 ### Thermocatalysis Case Study
