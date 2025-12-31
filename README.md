@@ -129,3 +129,15 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 
 The results of the runs are saved in `results/single_run` and `results/multi_run`, respectively. The synthesis paragraphs and structured synthesis procedures are saved and can be inspected there.
 **Metrics**: Note that the metrics are an arbitrary, random number at this stage.
+
+# Examples
+
+### Thermocatalysis case study
+
+Filter down
+
+```
+uv run examples/scripts/case_study_thermocatalysis/keyword_search.py
+uv run examples/scripts/case_study_thermocatalysis/downsample_with_llm.py --prompt default
+examples/scripts/case_study_thermocatalysis/downsample_with_llm.py --prompt long
+```
