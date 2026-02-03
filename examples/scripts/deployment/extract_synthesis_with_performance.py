@@ -218,28 +218,75 @@ def _is_temperature_x_axis(plot: ExtractedLinePlotData) -> bool:
 
 
 def _is_conversion_y_axis(plot: ExtractedLinePlotData) -> bool:
-    """Check if a plot has conversion/activity on the y-axis (not TOF, intensity, etc.)."""
-    label = (plot.y_left_axis_label or "").lower()
-    unit = (plot.y_left_axis_unit or "").lower()
+    """
+    Check if a plot has conversion/activity on the y-axis.
+
+    Uses a whitelist approach: only accept plots that clearly indicate
+    conversion, yield, selectivity, or similar performance metrics.
+
+    Key insight: Conversion data almost always has '%' as the unit.
+    Characterization plots (TCD, XPS, XRD, magnetism, etc.) use
+    'a.u.', 'counts', 'emu', 'intensity', etc.
+    """
+    label = (plot.y_left_axis_label or "").lower().strip()
+    unit = (plot.y_left_axis_unit or "").lower().strip()
 
     # If y-axis is completely empty, we can't verify — reject it
     if not label and not unit:
         return False
 
-    # Reject known non-conversion y-axes
-    reject_labels = ["tof", "intensity", "a.u.", "counts", "2θ", "2theta"]
-    if any(r in label for r in reject_labels):
+    # ══════════════════════════════════════════════════════════════════════
+    # Helper: Check if label indicates conversion/performance metric
+    # ══════════════════════════════════════════════════════════════════════
+    conversion_keywords = [
+        "conversion",  # NH3 conversion, CO conversion, etc.
+        "yield",       # H2 yield, product yield, etc.
+        "selectivity", # N2 selectivity, etc.
+        "activity",    # Catalytic activity
+    ]
+    has_conversion_keyword = any(kw in label for kw in conversion_keywords)
+
+    # Check for "X" as conversion symbol (common in catalysis papers)
+    # e.g., "X", "X_NH3", "X_CO", "X (%)" but NOT "XPS", "XRD"
+    is_x_conversion = label == "x" or label.startswith("x_") or label.startswith("x ")
+
+    # ══════════════════════════════════════════════════════════════════════
+    # MAIN CHECK: % unit is a hint, but must be validated by label
+    # ══════════════════════════════════════════════════════════════════════
+    # Having % as unit suggests it might be conversion, but labels like
+    # "H₂ (%)" or "O₂ (%)" are TPR/TPD characterization plots, not conversion.
+    # Require that the label also indicates it's a conversion metric.
+    if unit == "%" or unit == "percent":
+        if has_conversion_keyword or is_x_conversion:
+            return True
+        # % unit alone without conversion indicator in label — reject
         return False
 
-    # Accept known conversion-type y-axes
-    accept_labels = ["x_", "conversion", "yield", "selectivity", "activity", "rate"]
-    accept_units = ["%", "mol"]
-    if any(a in label for a in accept_labels) or any(a in unit for a in accept_units):
+    # ══════════════════════════════════════════════════════════════════════
+    # SECONDARY CHECK: Label-based detection (even without % unit)
+    # ══════════════════════════════════════════════════════════════════════
+    if has_conversion_keyword or is_x_conversion:
         return True
 
-    # If we have a label but it's not recognized, let it through
-    # (better to include unknown plots than miss real conversion data)
-    return True
+    # ══════════════════════════════════════════════════════════════════════
+    # DEFAULT: Reject unknown plot types
+    # ══════════════════════════════════════════════════════════════════════
+    # This avoids including characterization plots like TCD, XPS, XRD,
+    # magnetism, impedance, etc. which have varied labels/units
+    return False
+
+
+class LinkingStats(BaseModel):
+    """Statistics about plot linking for summary output."""
+    total_plots_extracted: int = 0
+    plots_linked: int = 0
+    plots_skipped_not_temperature_x: int = 0
+    plots_skipped_not_conversion_y: int = 0
+    plots_skipped_no_series: int = 0
+    skipped_plots: list[dict] = Field(default_factory=list)
+    linked_plots: list[dict] = Field(default_factory=list)
+    all_unmatched_series: list[str] = Field(default_factory=list)
+    confidence_counts: dict[str, int] = Field(default_factory=lambda: {"high": 0, "medium": 0, "low": 0})
 
 
 def link_all_plots(
@@ -248,11 +295,14 @@ def link_all_plots(
     figure_infos: list[FigureInfo],
     lm,
     only_temperature_x: bool = True,
-) -> list[PlotMaterialMapping]:
+) -> tuple[list[PlotMaterialMapping], LinkingStats]:
     all_mappings = []
+    stats = LinkingStats(total_plots_extracted=len(plots))
+
     for idx, (plot, fig) in enumerate(zip(plots, figure_infos)):
         series_names = list(plot.name_to_coordinates.keys())
         if not series_names:
+            stats.plots_skipped_no_series += 1
             continue
 
         # Filter: only link plots with temperature on x-axis and conversion on y-axis
@@ -262,12 +312,26 @@ def link_all_plots(
                     f"  Skipping plot {idx} '{plot.title or 'N/A'}' "
                     f"(x-axis: '{plot.x_axis_label}' [{plot.x_axis_unit}] — not temperature)"
                 )
+                stats.plots_skipped_not_temperature_x += 1
+                stats.skipped_plots.append({
+                    "plot_index": idx,
+                    "reason": "not_temperature_x",
+                    "x_axis": f"{plot.x_axis_label} [{plot.x_axis_unit}]",
+                    "y_axis": f"{plot.y_left_axis_label} [{plot.y_left_axis_unit}]",
+                })
                 continue
             if not _is_conversion_y_axis(plot):
                 logger.info(
                     f"  Skipping plot {idx} '{plot.title or 'N/A'}' "
                     f"(y-axis: '{plot.y_left_axis_label}' [{plot.y_left_axis_unit}] — not conversion)"
                 )
+                stats.plots_skipped_not_conversion_y += 1
+                stats.skipped_plots.append({
+                    "plot_index": idx,
+                    "reason": "not_conversion_y",
+                    "x_axis": f"{plot.x_axis_label} [{plot.x_axis_unit}]",
+                    "y_axis": f"{plot.y_left_axis_label} [{plot.y_left_axis_unit}]",
+                })
                 continue
 
         context = f"{fig.context_before} {fig.context_after}"
@@ -295,9 +359,26 @@ def link_all_plots(
                 unmatched_series=unmatched,
             )
         )
+
+        # Update stats
+        stats.plots_linked += 1
+        stats.all_unmatched_series.extend(unmatched)
+        for m in validated:
+            conf = m.confidence.lower() if m.confidence else "medium"
+            if conf in stats.confidence_counts:
+                stats.confidence_counts[conf] += 1
+        stats.linked_plots.append({
+            "plot_index": idx,
+            "figure_reference": fig.figure_reference,
+            "series_count": len(series_names),
+            "matched_count": len(validated),
+            "unmatched_count": len(unmatched),
+            "y_axis": f"{plot.y_left_axis_label} [{plot.y_left_axis_unit}]",
+        })
+
         logger.info(f"    Matched: {len(validated)}, Unmatched: {unmatched}")
 
-    return all_mappings
+    return all_mappings, stats
 
 
 def aggregate_performance(
@@ -479,17 +560,19 @@ def process_paper(
             )
             extracted_plots = plots
 
-            if plots:
-                # ── Step 4: Performance linking ─────────────────────────
-                logger.info("  Linking series to materials...")
-                plot_mappings = link_all_plots(
-                    materials, plots, plot_figures, linker_lm
-                )
+    linking_stats = None
+    if not skip_figures:
+        if plots:
+            # ── Step 4: Performance linking ─────────────────────────
+            logger.info("  Linking series to materials...")
+            plot_mappings, linking_stats = link_all_plots(
+                materials, plots, plot_figures, linker_lm
+            )
 
-                for mat in materials:
-                    perf = aggregate_performance(mat, plot_mappings, plots)
-                    if perf.plot_data:
-                        performance_data[mat] = perf
+            for mat in materials:
+                perf = aggregate_performance(mat, plot_mappings, plots)
+                if perf.plot_data:
+                    performance_data[mat] = perf
 
     # ── Step 5: Build results ───────────────────────────────────────────
     results = []
@@ -506,6 +589,10 @@ def process_paper(
         }
         results.append(result)
 
+    # Build summary
+    materials_with_perf = [m for m in materials if m in performance_data]
+    materials_without_perf = [m for m in materials if m not in performance_data]
+
     return {
         "paper_id": paper.id,
         "paper_name": paper.name,
@@ -513,6 +600,9 @@ def process_paper(
         "results": results,
         "plot_mappings": [m.model_dump() for m in plot_mappings],
         "num_plots": len(extracted_plots),
+        "linking_stats": linking_stats.model_dump() if linking_stats else None,
+        "materials_with_performance": materials_with_perf,
+        "materials_without_performance": materials_without_perf,
     }
 
 
@@ -522,7 +612,7 @@ def _sanitize_filename(name: str) -> str:
 
 
 def save_results(output: dict, output_dir: str):
-    """Save results to disk — one JSON per material."""
+    """Save results to disk — one JSON per material + summary."""
     paper_dir = os.path.join(output_dir, output["paper_id"])
     os.makedirs(paper_dir, exist_ok=True)
 
@@ -533,11 +623,43 @@ def save_results(output: dict, output_dir: str):
         with open(mat_path, "w") as f:
             json.dump(result, f, indent=2)
 
-    # Plot mappings (kept as a single file for debugging/inspection)
-    if output["plot_mappings"]:
-        mappings_path = os.path.join(paper_dir, "performance_mappings.json")
-        with open(mappings_path, "w") as f:
-            json.dump(output["plot_mappings"], f, indent=2)
+    # Plot mappings (always created, even if empty, for consistency)
+    mappings_path = os.path.join(paper_dir, "performance_mappings.json")
+    with open(mappings_path, "w") as f:
+        json.dump(output["plot_mappings"], f, indent=2)
+
+    # ══════════════════════════════════════════════════════════════════════
+    # Summary statistics file for easy evaluation
+    # ══════════════════════════════════════════════════════════════════════
+    summary = {
+        "paper_id": output["paper_id"],
+        "paper_name": output["paper_name"],
+        "total_materials": len(output["materials"]),
+        "materials_with_performance": len(output.get("materials_with_performance", [])),
+        "materials_without_performance": len(output.get("materials_without_performance", [])),
+        "materials_list": output["materials"],
+        "materials_with_performance_list": output.get("materials_with_performance", []),
+        "materials_without_performance_list": output.get("materials_without_performance", []),
+        "total_plots_extracted": output["num_plots"],
+    }
+
+    # Add linking stats if available
+    if output.get("linking_stats"):
+        stats = output["linking_stats"]
+        summary["plots_linked"] = stats.get("plots_linked", 0)
+        summary["plots_skipped"] = {
+            "not_temperature_x": stats.get("plots_skipped_not_temperature_x", 0),
+            "not_conversion_y": stats.get("plots_skipped_not_conversion_y", 0),
+            "no_series": stats.get("plots_skipped_no_series", 0),
+        }
+        summary["confidence_breakdown"] = stats.get("confidence_counts", {})
+        summary["all_unmatched_series"] = stats.get("all_unmatched_series", [])
+        summary["skipped_plots_detail"] = stats.get("skipped_plots", [])
+        summary["linked_plots_detail"] = stats.get("linked_plots", [])
+
+    summary_path = os.path.join(paper_dir, "linking_summary.json")
+    with open(summary_path, "w") as f:
+        json.dump(summary, f, indent=2)
 
     logger.info(
         f"  Saved {len(output['results'])} material files to {paper_dir}/"
@@ -585,7 +707,7 @@ def main():
     parser.add_argument(
         "--linker-model",
         type=str,
-        default="gemini-2.5-pro",
+        default="gemini-3-pro-preview",
         help="Gemini model for performance linking (series-to-material matching)",
     )
     args = parser.parse_args()
