@@ -709,6 +709,7 @@ If the exact method is not in the list, use the closest match or 'other'."""
     linker_lm = dspy.LM(
         f"gemini/{args.linker_model}",
         temperature=0.0,
+        max_tokens=8000,
         api_key=gemini_key,
     )
 
