@@ -7,6 +7,9 @@ from llm_synthesis.models.performance import (
     PlotMaterialMapping,
     SeriesMapping,
 )
+from llm_synthesis.models.dino import FigureSegmenter
+from llm_synthesis.models.florence import Detection, FlorenceSegmenter
+from llm_synthesis.models.resnet import FigureClassifier
 
 __all__ = [
     "SeriesMapping",
@@ -14,4 +17,9 @@ __all__ = [
     "MaterialPlotEntry",
     "MaterialPerformanceData",
     "LinkingStats",
+    "FigureSegmenter",
+    "FlorenceSegmenter",
+    "Detection",
+    "FigureClassifier",
 ]
+
