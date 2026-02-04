@@ -28,7 +28,7 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
 
     def __init__(
         self,
-        segmenter: Literal["dino", "florence"] = "dino",
+        segmenter: Literal["dino", "florence"] = "florence",
         florence_repo_id: str = (
             "amayuelas/plot-visualization-florence-2-lora-32"
         ),
