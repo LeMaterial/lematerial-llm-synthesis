@@ -92,6 +92,12 @@ def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
     """
     figures = []
 
+    # Create a cleaned version of the text for context extraction.
+    # This replaces base64 image data with short placeholders so that
+    # the context window captures actual text (e.g., captions) instead
+    # of being filled with base64 data from neighboring images.
+    cleaned_text = clean_text_from_images(markdown_text)
+
     # Pattern to match markdown images with data URIs
     pattern = r"!\[([^\]]*)\]\((data:image/[^)]+)\)"
 
@@ -100,13 +106,32 @@ def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
         data_uri = match.group(2)
         position = match.start()
 
-        # Extract context around the figure
+        # Find the corresponding position in cleaned text.
+        # Count how many figures appear before this one to calculate
+        # the offset caused by replacing base64 data with placeholders.
+        preceding_text = markdown_text[:position]
+        figure_index = len(re.findall(pattern, preceding_text))
+
+        # Find the position of the (figure_index+1)-th placeholder
+        # in the cleaned text (this is the current figure)
+        placeholder_pattern = r"!\[[^\]]*\]\(placeholder_image\)"
+        cleaned_position = 0
+        for i, m in enumerate(
+            re.finditer(placeholder_pattern, cleaned_text)
+        ):
+            if i == figure_index:
+                cleaned_position = m.start()
+                break
+
+        # Extract context from cleaned text (no base64 noise)
         context_before, context_after = extract_figure_context(
-            markdown_text, position, context_window=500
+            cleaned_text, cleaned_position, context_window=500
         )
 
         # Find figure reference
-        figure_reference = find_figure_reference(context_before, context_after)
+        figure_reference = find_figure_reference(
+            context_before, context_after
+        )
 
         # Extract base64 data
         base64_data = extract_base64_from_data_uri(data_uri)

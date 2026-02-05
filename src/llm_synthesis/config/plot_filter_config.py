@@ -38,17 +38,17 @@ class PlotFilterConfig(BaseModel):
 
     # X-axis configuration (default: temperature for catalysis)
     x_axis_labels: list[str] = Field(
-        default=["t", "temp", "temperature"],
-        description="X-axis labels that indicate relevance (case-insensitive)",
+        default=["temperature", "temp"],
+        description="X-axis labels that indicate relevance (substring match, case-insensitive)",
     )
     x_axis_units: list[str] = Field(
-        default=["°c", "°k", "°f", "ºc", "ºk"],
+        default=["°c", "°k", "°f", "ºc", "ºk", "k", "c", "f", "kelvin", "celsius"],
         description="X-axis units that indicate relevance (case-insensitive)",
     )
 
     # Y-axis configuration (default: conversion/performance metrics)
     y_axis_keywords: list[str] = Field(
-        default=["conversion", "yield", "selectivity", "activity"],
+        default=["conversion", "yield", "activity"],
         description="Keywords in y-axis label indicating performance metrics",
     )
     y_axis_units: list[str] = Field(
@@ -100,11 +100,11 @@ class PlotFilterConfig(BaseModel):
         label_lower = (label or "").lower().strip()
         unit_lower = (unit or "").lower().strip()
 
-        # Check if label matches any configured labels
-        if any(t == label_lower for t in self.x_axis_labels):
+        # Check if label contains any configured labels (substring match)
+        if any(t in label_lower for t in self.x_axis_labels):
             return True
 
-        # Check if unit matches any configured units
+        # Check if unit matches any configured units (exact match for units)
         if any(u == unit_lower for u in self.x_axis_units):
             return True
 

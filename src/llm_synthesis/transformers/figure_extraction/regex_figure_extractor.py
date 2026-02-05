@@ -158,7 +158,22 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
 
             # Check if the predicted label is a quantitative figure
             if predicted_label in [
+                "Bar plots",
+                "Box plot",
+                "Bubble Chart",
+                "Confusion matrix",
+                "Contour plot",
+                "Graph plots",
+                "Heat map",
+                "Histogram",
                 "Line plots",
+                "Pareto charts",
+                "Pie chart",
+                "Polar plot",
+                "Radar chart",
+                "Scatter plot",
+                "Surface plot",
+                "Vector plot",
             ]:
                 figure_info.quantitative = True
             else:

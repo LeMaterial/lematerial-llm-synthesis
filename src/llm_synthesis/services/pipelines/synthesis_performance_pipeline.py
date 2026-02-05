@@ -48,6 +48,7 @@ class SynthesisWithPerformanceEntry(BaseModel):
     synthesis: GeneralSynthesisOntology | None = None
     evaluation: Any | None = None  # GeneralSynthesisEvaluation
     performance: MaterialPerformanceData | None = None
+    linking_evaluation: Any | None = None  # LinkingEvaluation
 
 
 class PipelineResult(BaseModel):
@@ -80,6 +81,7 @@ class SynthesisPerformancePipeline:
         material_extractor,
         synthesis_extractor,
         judge=None,
+        linking_judge=None,
         plot_extractor=None,
         series_linker: SeriesMaterialLinker | None = None,
         plot_filter_config: PlotFilterConfig | None = None,
@@ -90,6 +92,7 @@ class SynthesisPerformancePipeline:
             material_extractor: Extractor for identifying materials in paper
             synthesis_extractor: Extractor for synthesis procedures
             judge: Optional judge for evaluating synthesis quality
+            linking_judge: Optional judge for evaluating linking quality
             plot_extractor: Optional extractor for plot data (e.g., ClaudeLinePlotDataExtractor)
             series_linker: Optional linker for matching series to materials
             plot_filter_config: Optional config for filtering plots
@@ -97,6 +100,7 @@ class SynthesisPerformancePipeline:
         self.material_extractor = material_extractor
         self.synthesis_extractor = synthesis_extractor
         self.judge = judge
+        self.linking_judge = linking_judge
         self.plot_extractor = plot_extractor
         self.series_linker = series_linker
         self.plot_filter = (
@@ -348,6 +352,79 @@ class SynthesisPerformancePipeline:
 
         return all_mappings, stats
 
+    def _evaluate_linking(
+        self,
+        paper_text: str,
+        all_syntheses: list[SynthesisEntry],
+        plots: list[ExtractedLinePlotData],
+        plot_mappings: list[PlotMaterialMapping],
+        performance_data: dict[str, MaterialPerformanceData],
+    ) -> Any | None:
+        """Step 6: Evaluate linking quality with the linking judge.
+
+        Calls the linking judge once per paper with the full context:
+        paper text, all extracted syntheses, all plot data, and the
+        linking output.
+
+        Args:
+            paper_text: Full paper text
+            all_syntheses: All synthesis entries for the paper
+            plots: All extracted plot data
+            plot_mappings: All plot-to-material mappings (linking output)
+            performance_data: Aggregated performance per material
+
+        Returns:
+            LinkingEvaluation or None if judge fails
+        """
+        logger.info("Step 6: Evaluating linking quality...")
+        try:
+            synthesis_json = json.dumps(
+                [
+                    {
+                        "material": e.material,
+                        "synthesis": e.synthesis.model_dump() if e.synthesis else None,
+                    }
+                    for e in all_syntheses
+                ],
+                indent=2,
+            )
+            plot_data_json = json.dumps(
+                [p.model_dump() for p in plots],
+                indent=2,
+            )
+            linking_output_json = json.dumps(
+                {
+                    "mappings": [m.model_dump() for m in plot_mappings],
+                    "performance_per_material": {
+                        k: v.model_dump() for k, v in performance_data.items()
+                    },
+                },
+                indent=2,
+            )
+
+            evaluation = self.linking_judge.forward(
+                (
+                    clean_text(paper_text),
+                    synthesis_json,
+                    plot_data_json,
+                    linking_output_json,
+                )
+            )
+            logger.info(
+                f"  Linking evaluation score: "
+                f"{evaluation.scores.overall_score}/5.0"
+            )
+            if evaluation.failure_flags.active_flags():
+                logger.info(
+                    f"  Failure flags: "
+                    f"{evaluation.failure_flags.active_flags()}"
+                )
+            return evaluation
+
+        except Exception as e:
+            logger.warning(f"  Linking judge evaluation failed: {e}")
+            return None
+
     def process_paper(
         self,
         paper: Paper,
@@ -389,6 +466,7 @@ class SynthesisPerformancePipeline:
         plot_mappings = []
         extracted_plots = []
         linking_stats = None
+        linking_evaluation = None
 
         if not skip_figures:
             # Step 3: Extract figures
@@ -412,6 +490,16 @@ class SynthesisPerformancePipeline:
                         materials, plot_mappings, plots
                     )
 
+                    # Step 6: Evaluate linking quality (optional)
+                    if self.linking_judge and plot_mappings:
+                        linking_evaluation = self._evaluate_linking(
+                            paper_text=paper.publication_text,
+                            all_syntheses=all_syntheses,
+                            plots=plots,
+                            plot_mappings=plot_mappings,
+                            performance_data=performance_data,
+                        )
+
         # Build results
         results = []
         for entry in all_syntheses:
@@ -421,6 +509,7 @@ class SynthesisPerformancePipeline:
                     synthesis=entry.synthesis,
                     evaluation=entry.evaluation,
                     performance=performance_data.get(entry.material),
+                    linking_evaluation=linking_evaluation,
                 )
             )
 

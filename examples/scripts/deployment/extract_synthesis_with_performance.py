@@ -35,6 +35,10 @@ from llm_synthesis.metrics.judge.general_synthesis_judge import (
     DspyGeneralSynthesisJudge,
     make_general_synthesis_judge_signature,
 )
+from llm_synthesis.metrics.judge.linking_judge import (
+    DspyLinkingJudge,
+    make_linking_judge_signature,
+)
 from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (
     SynthesisPerformancePipeline,
 )
@@ -179,6 +183,7 @@ def create_pipeline(
     # Plot extractor and linker (only if not skipping figures)
     plot_extractor = None
     series_linker = None
+    linking_judge = None
 
     if not skip_figures:
         plot_extractor = ClaudeLinePlotDataExtractor(model_name=claude_model)
@@ -191,10 +196,21 @@ def create_pipeline(
         )
         series_linker = SeriesMaterialLinker(lm=linker_lm)
 
+        # Linking judge — evaluates linking quality after performance linking
+        linking_judge_lm = get_llm_from_name(
+            gemini_model,
+            model_kwargs={"temperature": 0.1, "max_tokens": 4096},
+        )
+        linking_judge_sig = make_linking_judge_signature()
+        linking_judge = DspyLinkingJudge(
+            signature=linking_judge_sig, lm=linking_judge_lm
+        )
+
     return SynthesisPerformancePipeline(
         material_extractor=material_extractor,
         synthesis_extractor=synthesis_extractor,
         judge=judge,
+        linking_judge=linking_judge,
         plot_extractor=plot_extractor,
         series_linker=series_linker,
         plot_filter_config=plot_filter_config,
