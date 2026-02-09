@@ -198,20 +198,11 @@ class SynthesisPerformancePipeline:
             extractor = FigureExtractorMarkdown()
             all_figures = extractor.forward(markdown_text)
 
-            quantitative_classes = [
-                "Bar plots", "Contour plot", "Graph plots",
-                "Scatter plot", "Surface plot", "Vector plot",
-            ]
-            quantitative = [
-                f for f in all_figures
-                if f.quantitative or f.figure_class in quantitative_classes
-            ]
-
-            logger.info(
-                f"  Found {len(all_figures)} figures, "
-                f"{len(quantitative)} quantitative"
-            )
-            return quantitative
+            # Send ALL figures to Claude VLM - it will determine which
+            # contain extractable quantitative data. Florence-2 often
+            # classifies plots as "unknown", so filtering here loses data.
+            logger.info(f"  Found {len(all_figures)} figures")
+            return all_figures
 
         except Exception as e:
             logger.warning(f"  Figure extraction failed: {e}")
@@ -480,25 +471,32 @@ class SynthesisPerformancePipeline:
                 extracted_plots = plots
 
                 if plots:
-                    # Step 5: Link performance
-                    plot_mappings, linking_stats = self.link_performance(
-                        materials, plots, plot_figures
-                    )
-
-                    # Aggregate per material
-                    performance_data = aggregate_all_materials_performance(
-                        materials, plot_mappings, plots
-                    )
-
-                    # Step 6: Evaluate linking quality (optional)
-                    if self.linking_judge and plot_mappings:
-                        linking_evaluation = self._evaluate_linking(
-                            paper_text=paper.publication_text,
-                            all_syntheses=all_syntheses,
-                            plots=plots,
-                            plot_mappings=plot_mappings,
-                            performance_data=performance_data,
+                    # Step 5: Link performance (with graceful error handling)
+                    try:
+                        plot_mappings, linking_stats = self.link_performance(
+                            materials, plots, plot_figures
                         )
+
+                        # Aggregate per material
+                        performance_data = aggregate_all_materials_performance(
+                            materials, plot_mappings, plots
+                        )
+
+                        # Step 6: Evaluate linking quality (optional)
+                        if self.linking_judge and plot_mappings:
+                            linking_evaluation = self._evaluate_linking(
+                                paper_text=paper.publication_text,
+                                all_syntheses=all_syntheses,
+                                plots=plots,
+                                plot_mappings=plot_mappings,
+                                performance_data=performance_data,
+                            )
+                    except Exception as e:
+                        logger.warning(
+                            f"  Performance linking failed: {e}. "
+                            "Synthesis results will be saved without performance data."
+                        )
+                        # Keep empty defaults - synthesis results are still saved
 
         # Build results
         results = []

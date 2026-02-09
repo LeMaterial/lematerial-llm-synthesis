@@ -1,8 +1,7 @@
 """Configuration for plot filtering in performance linking.
 
 This module provides configurable filtering criteria for determining which plots
-are relevant for performance data extraction. Previously hardcoded values are
-now configurable, allowing domain-specific customization.
+are relevant for performance data extraction, allowing domain-specific customization.
 
 Example usage:
     # Default catalysis configuration

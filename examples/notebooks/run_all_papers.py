@@ -2,13 +2,30 @@
 """
 Batch runner for Synthesis + Performance Extraction Pipeline.
 
-Processes all 6 PDF papers (01-06) sequentially without manual intervention.
+Processes all PDF papers in a folder sequentially without manual intervention.
 Results are saved to results/<paper_id>/ for each paper.
 
+Uses the SynthesisPerformancePipeline class for all processing logic,
+avoiding code duplication with the notebooks.
+
 Usage:
+    # Process all PDFs in the default folder (../data/pdf_papers)
     python run_all_papers.py
+
+    # Process all PDFs in a specific folder
+    python run_all_papers.py /path/to/pdf/folder
+
+    # Process all PDFs and save to custom output folder
+    python run_all_papers.py /path/to/pdf/folder /path/to/output
+
+    # Process only first 5 papers (testing)
+    python run_all_papers.py --max 5
+
+    # Skip papers that already have results
+    python run_all_papers.py --skip-existing
 """
 
+import argparse
 import json
 import logging
 import os
@@ -19,26 +36,16 @@ import warnings
 from pathlib import Path
 
 # ==============================================================================
-# CONFIGURATION
+# CONFIGURATION (defaults, can be overridden via CLI)
 # ==============================================================================
 
-PDF_DIR = "../data/pdf_papers"
-OUTPUT_DIR = "results/"
-
-# Papers to process (in order)
-PAPERS = [
-    "01_Duan_2012_MCM.pdf",
-    "02_Itoh_2002_Hydrogen.pdf",
-    "03_Usman_2025_Rare.pdf",
-    "04_Wu_2020_Ammonia.pdf",
-    "05_Sayas_2020_High.pdf",
-    "06_Khan_2023_Recent.pdf",
-]
+DEFAULT_PDF_DIR = "../data/pdf_papers"
+DEFAULT_OUTPUT_DIR = "../data/results_catalysis/"
 
 # Models
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3.0-flash"
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
-LINKER_MODEL = "gemini-3-pro-preview"
+LINKER_MODEL = "gemini-3.0-flash"
 
 # ==============================================================================
 # SETUP
@@ -69,18 +76,23 @@ logging.basicConfig(
 logger = logging.getLogger("batch_runner")
 
 # ==============================================================================
-# IMPORTS (done once)
+# IMPORTS
 # ==============================================================================
 
 import dspy
 
 from llm_synthesis.config.plot_filter_config import PlotFilterConfig
-from llm_synthesis.models.figure import FigureInfoWithPaper
-from llm_synthesis.models.paper import Paper, SynthesisEntry
-from llm_synthesis.models.performance import PlotMaterialMapping
+from llm_synthesis.models.paper import Paper
 from llm_synthesis.metrics.judge.general_synthesis_judge import (
     DspyGeneralSynthesisJudge,
     make_general_synthesis_judge_signature,
+)
+from llm_synthesis.metrics.judge.linking_judge import (
+    DspyLinkingJudge,
+    make_linking_judge_signature,
+)
+from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (
+    SynthesisPerformancePipeline,
 )
 from llm_synthesis.transformers.figure_extraction import FigureExtractorMarkdown
 from llm_synthesis.transformers.material_extraction.dspy_extraction import (
@@ -88,8 +100,6 @@ from llm_synthesis.transformers.material_extraction.dspy_extraction import (
     make_dspy_text_extractor_signature,
 )
 from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
-from llm_synthesis.transformers.performance_linking.base import LinkingInput
-from llm_synthesis.transformers.performance_linking.plot_filter import PlotFilter
 from llm_synthesis.transformers.performance_linking.series_material_linker import (
     SeriesMaterialLinker,
 )
@@ -100,17 +110,8 @@ from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction i
     DspySynthesisExtractor,
     make_dspy_synthesis_extractor_signature,
 )
-from llm_synthesis.metrics.judge.linking_judge import (
-    DspyLinkingJudge,
-    make_linking_judge_signature,
-)
-from llm_synthesis.utils import clean_text
 from llm_synthesis.utils.dspy_utils import get_llm_from_name
-from llm_synthesis.utils.figure_utils import clean_text_from_images
-from llm_synthesis.utils.performance_utils import (
-    aggregate_all_materials_performance,
-    sanitize_filename,
-)
+from llm_synthesis.utils.performance_utils import sanitize_filename
 
 
 # ==============================================================================
@@ -140,14 +141,18 @@ If the exact method is not in the list, use the closest match or 'other'."""
 
 
 # ==============================================================================
-# INITIALIZE SHARED MODELS (loaded once, reused across papers)
+# INITIALIZE PIPELINE
 # ==============================================================================
 
-def init_models():
-    """Initialize all models once to avoid reloading for each paper."""
-    logger.info("Initializing models...")
+def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
+    """Initialize the PDF extractor and synthesis-performance pipeline.
 
-    # PDF extractor
+    Returns:
+        Tuple of (pdf_extractor, pipeline)
+    """
+    logger.info("Initializing pipeline components...")
+
+    # PDF extractor (separate from pipeline as it handles raw bytes)
     pdf_extractor = MistralPDFExtractor(structured=False)
 
     # Material extractor
@@ -168,8 +173,8 @@ def init_models():
         ),
     )
     material_lm = get_llm_from_name(
-        "gemini-2.5-flash-lite",
-        model_kwargs={"temperature": 0.0},
+        "gemini-3.0-pro",
+        model_kwargs={"temperature": 0.0, "max_tokens": 8000},
     )
     material_extractor = DspyTextExtractor(signature=material_sig, lm=material_lm)
 
@@ -183,356 +188,128 @@ def init_models():
     )
     synthesis_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.0, "max_tokens": 8000, "max_retries": 3},
+        model_kwargs={"temperature": 0.0, "max_tokens": 16000, "max_retries": 3},
         system_prompt=SYNTHESIS_SYSTEM_PROMPT,
     )
     synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
 
-    # Judge
+    # Synthesis judge
     judge_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.1, "max_tokens": 4096},
+        model_kwargs={"temperature": 0.1, "max_tokens": 8192},
     )
     judge_sig = make_general_synthesis_judge_signature()
     judge = DspyGeneralSynthesisJudge(signature=judge_sig, lm=judge_lm)
 
-    # Figure extractor (Florence-2 model)
-    figure_extractor = FigureExtractorMarkdown(
-        segmenter="florence",
-        florence_repo_id="amayuelas/plot-visualization-florence-2-lora-32",
-    )
-
     # Plot data extractor (Claude VLM)
     plot_extractor = ClaudeLinePlotDataExtractor(model_name=CLAUDE_MODEL)
 
-    # Plot filter (catalysis)
-    filter_config = PlotFilterConfig.for_catalysis()
-    plot_filter = PlotFilter(filter_config)
-
-    # Series-material linker
-    gemini_key = os.getenv("GEMINI_API_KEY", "")
-    linker_lm = dspy.LM(
-        f"gemini/{LINKER_MODEL}",
-        temperature=0.0,
-        max_tokens=8000,
-        api_key=gemini_key,
+    # Series-material linker (increased max_tokens to handle large papers)
+    linker_lm = get_llm_from_name(
+        LINKER_MODEL,
+        model_kwargs={"temperature": 0.0, "max_tokens": 16000},
     )
     series_linker = SeriesMaterialLinker(lm=linker_lm)
 
     # Linking judge
     linking_judge_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.1, "max_tokens": 4096},
+        model_kwargs={"temperature": 0.1, "max_tokens": 8192},
     )
     linking_judge_sig = make_linking_judge_signature()
     linking_judge = DspyLinkingJudge(
         signature=linking_judge_sig, lm=linking_judge_lm
     )
 
-    logger.info("All models initialized.")
+    # Plot filter config (catalysis)
+    filter_config = PlotFilterConfig.for_catalysis()
 
-    return {
-        "pdf_extractor": pdf_extractor,
-        "material_extractor": material_extractor,
-        "synthesis_extractor": synthesis_extractor,
-        "judge": judge,
-        "figure_extractor": figure_extractor,
-        "plot_extractor": plot_extractor,
-        "plot_filter": plot_filter,
-        "series_linker": series_linker,
-        "linking_judge": linking_judge,
-    }
-
-
-# ==============================================================================
-# PROCESS ONE PAPER
-# ==============================================================================
-
-def process_paper(pdf_path: str, models: dict) -> dict:
-    """Process a single paper through the full pipeline.
-
-    Returns a summary dict with results and timing.
-    """
-    paper_start = time.time()
-    input_path = Path(pdf_path)
-    paper_id = input_path.stem
-
-    logger.info(f"{'=' * 70}")
-    logger.info(f"PROCESSING: {input_path.name}")
-    logger.info(f"{'=' * 70}")
-
-    # ------------------------------------------------------------------
-    # Step 0: Load paper text
-    # ------------------------------------------------------------------
-    logger.info("Step 0: Extracting text from PDF...")
-    if input_path.suffix.lower() == ".pdf":
-        with open(input_path, "rb") as f:
-            paper_text = models["pdf_extractor"].forward(f.read())
-    elif input_path.suffix.lower() in [".md", ".txt"]:
-        with open(input_path, "r", errors="replace") as f:
-            paper_text = f.read()
-    else:
-        raise ValueError(f"Unsupported file type: {input_path.suffix}")
-
-    paper = Paper(
-        name=paper_id,
-        id=paper_id,
-        publication_text=paper_text,
-        si_text="",
+    # Create the pipeline
+    pipeline = SynthesisPerformancePipeline(
+        material_extractor=material_extractor,
+        synthesis_extractor=synthesis_extractor,
+        judge=judge,
+        linking_judge=linking_judge,
+        plot_extractor=plot_extractor,
+        series_linker=series_linker,
+        plot_filter_config=filter_config,
     )
-    logger.info(f"  Extracted {len(paper_text):,} characters")
 
-    # ------------------------------------------------------------------
-    # Step 1: Extract materials
-    # ------------------------------------------------------------------
-    logger.info("Step 1: Extracting materials...")
-    text_for_llm = clean_text(paper.publication_text)
-    materials_text = models["material_extractor"].forward(input=text_for_llm)
-    materials = [
-        m.strip()
-        for m in materials_text.replace("\n", ",").split(",")
-        if m.strip()
-    ]
-    logger.info(f"  Found {len(materials)} materials: {materials}")
+    logger.info("Pipeline initialized.")
+    return pdf_extractor, pipeline
 
-    # ------------------------------------------------------------------
-    # Step 2: Extract synthesis procedures
-    # ------------------------------------------------------------------
-    logger.info("Step 2: Extracting synthesis procedures...")
-    all_syntheses = []
-    for i, material in enumerate(materials, 1):
-        logger.info(f"  Synthesis {i}/{len(materials)}: {material}")
-        try:
-            synthesis = models["synthesis_extractor"].forward(
-                input=(text_for_llm, material)
-            )
-            try:
-                evaluation = models["judge"].forward(
-                    (text_for_llm, json.dumps(synthesis.model_dump()), material)
-                )
-                score = evaluation.scores.overall_score
-                logger.info(f"    Score: {score}/5.0 | Method: {synthesis.synthesis_method}")
-            except Exception as e:
-                logger.warning(f"    Judge failed: {e}")
-                evaluation = None
 
-            all_syntheses.append(SynthesisEntry(
-                material=material,
-                synthesis=synthesis,
-                evaluation=evaluation,
-            ))
-        except Exception as e:
-            logger.error(f"    Extraction failed: {e}")
-            all_syntheses.append(SynthesisEntry(
-                material=material, synthesis=None, evaluation=None
-            ))
+# ==============================================================================
+# CUSTOM SAVE FUNCTION (with human annotation template)
+# ==============================================================================
 
-    # ------------------------------------------------------------------
-    # Step 3: Extract figures
-    # ------------------------------------------------------------------
-    logger.info("Step 3: Extracting figures...")
-    figures = models["figure_extractor"].forward(paper.publication_text)
-    logger.info(f"  Found {len(figures)} subfigures")
+def save_results_with_annotations(result, output_dir: str, processing_time: float) -> None:
+    """Save pipeline results with both LLM and human annotation templates.
 
-    # ------------------------------------------------------------------
-    # Step 4: Extract plot data
-    # ------------------------------------------------------------------
-    logger.info("Step 4: Extracting plot data with Claude VLM...")
-    plots = []
-    plot_figures = []
+    Extends the pipeline's save_results with:
+    - linking_summary_llm.json: Summary + LLM evaluation
+    - linking_summary_human.json: Summary + empty fields for human annotation
 
-    for i, fig in enumerate(figures):
-        fig_ref = fig.figure_reference or f"Figure {i}"
-        logger.info(f"  Processing {i + 1}/{len(figures)}: {fig_ref}")
-
-        fig_with_paper = FigureInfoWithPaper(
-            base64_data=fig.base64_data,
-            alt_text=fig.alt_text,
-            position=fig.position,
-            context_before=fig.context_before,
-            context_after=fig.context_after,
-            figure_reference=fig.figure_reference,
-            figure_class=fig.figure_class,
-            quantitative=fig.quantitative,
-            paper_text=clean_text_from_images(paper.publication_text),
-            si_text=paper.si_text,
-        )
-
-        try:
-            plot_data = models["plot_extractor"].forward(fig_with_paper)
-            if plot_data and plot_data.name_to_coordinates:
-                plots.append(plot_data)
-                plot_figures.append(fig)
-                series = list(plot_data.name_to_coordinates.keys())
-                logger.info(f"    Extracted {len(series)} series: {series}")
-            else:
-                logger.info(f"    No extractable data")
-        except Exception as e:
-            logger.error(f"    Failed: {e}")
-
-    logger.info(f"  Extracted data from {len(plots)}/{len(figures)} figures")
-
-    # ------------------------------------------------------------------
-    # Step 5: Filter plots
-    # ------------------------------------------------------------------
-    logger.info("Step 5: Filtering plots...")
-    if plots:
-        relevant_plots, skip_counts = models["plot_filter"].filter_plots(
-            plots, log_skipped=True
-        )
-        logger.info(f"  {len(relevant_plots)} relevant plots out of {len(plots)}")
-    else:
-        relevant_plots = []
-
-    # ------------------------------------------------------------------
-    # Step 6: Link series to materials
-    # ------------------------------------------------------------------
-    logger.info("Step 6: Linking series to materials...")
-    plot_mappings = []
-
-    if relevant_plots:
-        for idx, plot in relevant_plots:
-            fig = plot_figures[idx]
-            series_names = list(plot.name_to_coordinates.keys())
-            logger.info(f"  Linking plot {idx}: {len(series_names)} series")
-
-            context = f"{fig.context_before} {fig.context_after}"
-            plot_meta = {
-                "title": plot.title,
-                "x_axis_label": plot.x_axis_label,
-                "x_axis_unit": plot.x_axis_unit,
-                "y_left_axis_label": plot.y_left_axis_label,
-                "y_left_axis_unit": plot.y_left_axis_unit,
-            }
-
-            linking_input = LinkingInput(
-                materials=materials,
-                series_names=series_names,
-                context=context,
-                plot_metadata=plot_meta,
-            )
-            validated_mappings = models["series_linker"].forward(linking_input)
-
-            matched_series = {m.series_name for m in validated_mappings}
-            unmatched = [s for s in series_names if s not in matched_series]
-
-            plot_mappings.append(PlotMaterialMapping(
-                plot_index=idx,
-                figure_reference=fig.figure_reference,
-                mappings=validated_mappings,
-                unmatched_series=unmatched,
-            ))
-
-            for m in validated_mappings:
-                logger.info(f"    '{m.series_name}' -> '{m.material_name}' ({m.confidence})")
-            if unmatched:
-                logger.warning(f"    Unmatched: {unmatched}")
-
-    # ------------------------------------------------------------------
-    # Step 7: Aggregate performance data
-    # ------------------------------------------------------------------
-    logger.info("Step 7: Aggregating performance data...")
-    if plot_mappings and plots:
-        performance_data = aggregate_all_materials_performance(
-            materials, plot_mappings, plots
-        )
-    else:
-        performance_data = {}
-
-    # ------------------------------------------------------------------
-    # Step 7.5: Evaluate linking quality
-    # ------------------------------------------------------------------
-    linking_evaluation = None
-    if plot_mappings and performance_data:
-        logger.info("Step 7.5: Evaluating linking quality...")
-        try:
-            synthesis_json = json.dumps(
-                [
-                    {
-                        "material": e.material,
-                        "synthesis": e.synthesis.model_dump() if e.synthesis else None,
-                    }
-                    for e in all_syntheses
-                ],
-                indent=2,
-            )
-            plot_data_json = json.dumps(
-                [p.model_dump() for p in plots], indent=2
-            )
-            linking_output_json = json.dumps(
-                {
-                    "mappings": [m.model_dump() for m in plot_mappings],
-                    "performance_per_material": {
-                        k: v.model_dump() for k, v in performance_data.items()
-                    },
-                },
-                indent=2,
-            )
-            linking_evaluation = models["linking_judge"].forward(
-                (clean_text(paper.publication_text), synthesis_json,
-                 plot_data_json, linking_output_json)
-            )
-            logger.info(
-                f"  Linking quality: {linking_evaluation.scores.overall_score}/5.0"
-            )
-        except Exception as e:
-            logger.warning(f"  Linking judge failed: {e}")
-
-    # ------------------------------------------------------------------
-    # Step 8: Build final results
-    # ------------------------------------------------------------------
-    final_results = []
-    for entry in all_syntheses:
-        result = {
-            "material": entry.material,
-            "synthesis": entry.synthesis.model_dump() if entry.synthesis else None,
-            "evaluation": entry.evaluation.model_dump() if entry.evaluation else None,
-            "performance": (
-                performance_data[entry.material].model_dump()
-                if entry.material in performance_data
-                else None
-            ),
-        }
-        final_results.append(result)
-
-    materials_with_perf = [m for m in materials if m in performance_data]
-    materials_without_perf = [m for m in materials if m not in performance_data]
-
-    # ------------------------------------------------------------------
-    # Step 9: Save results
-    # ------------------------------------------------------------------
-    logger.info("Step 9: Saving results...")
-    paper_dir = os.path.join(OUTPUT_DIR, paper.id)
+    Args:
+        result: PipelineResult from the pipeline
+        output_dir: Base output directory
+        processing_time: Time taken to process this paper (seconds)
+    """
+    paper_dir = os.path.join(output_dir, result.paper_id)
     os.makedirs(paper_dir, exist_ok=True)
 
     # Save individual material files (without linking_evaluation)
-    for result in final_results:
-        mat_name = sanitize_filename(result["material"])
+    for entry in result.results:
+        mat_name = sanitize_filename(entry.material)
         mat_path = os.path.join(paper_dir, f"{mat_name}.json")
-        with open(mat_path, "w") as f:
-            json.dump(result, f, indent=2, default=str)
 
-    if plot_mappings:
+        # Build dict without linking_evaluation (it goes in summary)
+        mat_data = {
+            "material": entry.material,
+            "synthesis": entry.synthesis.model_dump() if entry.synthesis else None,
+            "evaluation": entry.evaluation.model_dump() if entry.evaluation else None,
+            "performance": entry.performance.model_dump() if entry.performance else None,
+        }
+        with open(mat_path, "w") as f:
+            json.dump(mat_data, f, indent=2, default=str)
+
+    # Save plot mappings
+    if result.plot_mappings:
         mappings_path = os.path.join(paper_dir, "performance_mappings.json")
         with open(mappings_path, "w") as f:
-            json.dump([m.model_dump() for m in plot_mappings], f, indent=2)
+            json.dump([m.model_dump() for m in result.plot_mappings], f, indent=2)
 
     # Base summary content
     base_summary = {
-        "paper_id": paper.id,
-        "paper_name": paper.name,
-        "total_materials": len(materials),
-        "materials_with_synthesis": sum(1 for r in final_results if r["synthesis"]),
-        "materials_with_performance": len(materials_with_perf),
-        "materials_without_performance": len(materials_without_perf),
-        "materials_list": materials,
-        "materials_with_performance_list": materials_with_perf,
-        "materials_without_performance_list": materials_without_perf,
-        "total_figures": len(figures),
-        "total_plots_extracted": len(plots),
-        "plots_linked": len(plot_mappings),
-        "processing_time_seconds": round(time.time() - paper_start, 1),
+        "paper_id": result.paper_id,
+        "paper_name": result.paper_name,
+        "total_materials": len(result.materials),
+        "materials_with_synthesis": sum(1 for r in result.results if r.synthesis),
+        "materials_with_performance": len(result.materials_with_performance),
+        "materials_without_performance": len(result.materials_without_performance),
+        "materials_list": result.materials,
+        "materials_with_performance_list": result.materials_with_performance,
+        "materials_without_performance_list": result.materials_without_performance,
+        "total_plots_extracted": result.num_plots,
+        "plots_linked": len(result.plot_mappings),
+        "processing_time_seconds": round(processing_time, 1),
     }
+
+    # Add linking stats if available
+    if result.linking_stats:
+        stats = result.linking_stats
+        base_summary["plots_skipped"] = {
+            "not_relevant_x": stats.plots_skipped_not_relevant_x,
+            "not_relevant_y": stats.plots_skipped_not_relevant_y,
+            "no_series": stats.plots_skipped_no_series,
+        }
+        base_summary["confidence_breakdown"] = stats.confidence_counts
+        base_summary["all_unmatched_series"] = stats.all_unmatched_series
+
+    # Get linking evaluation from the first result entry (it's the same for all)
+    linking_evaluation = None
+    if result.results and result.results[0].linking_evaluation:
+        linking_evaluation = result.results[0].linking_evaluation
 
     # linking_summary_llm.json: summary + LLM evaluation
     llm_summary = {**base_summary}
@@ -577,11 +354,153 @@ def process_paper(pdf_path: str, models: dict) -> dict:
     with open(os.path.join(paper_dir, "linking_summary_human.json"), "w") as f:
         json.dump(human_summary, f, indent=2, default=str)
 
-    logger.info(f"  Saved to {paper_dir}/")
-    elapsed = round(time.time() - paper_start, 1)
-    logger.info(f"  Completed in {elapsed}s")
+    logger.info(f"  Saved {len(result.results)} material files to {paper_dir}/")
 
-    return base_summary
+
+# ==============================================================================
+# SI FILE DETECTION
+# ==============================================================================
+
+# Patterns that indicate a file is supplementary information
+SI_PATTERNS = ["_SI", "-SI", "_si", "-si", "_Supporting", "_supporting",
+               "_Supplementary", "_supplementary", "_supp", "_Supp"]
+
+
+def is_si_file(path: Path) -> bool:
+    """Check if a file is a Supplementary Information file."""
+    stem = path.stem
+    return any(pattern in stem for pattern in SI_PATTERNS)
+
+
+def find_si_file(main_paper_path: Path) -> Path | None:
+    """Find the SI file matching a main paper.
+
+    Looks for files like:
+    - MainPaper_SI.pdf
+    - MainPaper-SI.pdf
+    - MainPaper_Supporting.pdf
+    - MainPaper_Supplementary.pdf
+
+    Args:
+        main_paper_path: Path to the main paper file
+
+    Returns:
+        Path to SI file if found, None otherwise
+    """
+    parent_dir = main_paper_path.parent
+    main_stem = main_paper_path.stem
+
+    # Try each SI pattern
+    for pattern in SI_PATTERNS:
+        # Look for PDF first, then MD
+        for ext in [".pdf", ".md", ".txt"]:
+            si_path = parent_dir / f"{main_stem}{pattern}{ext}"
+            if si_path.exists():
+                return si_path
+
+    return None
+
+
+def load_file_text(path: Path, pdf_extractor: MistralPDFExtractor) -> str:
+    """Load text from a PDF, MD, or TXT file.
+
+    Args:
+        path: Path to the file
+        pdf_extractor: PDF extractor for PDF files
+
+    Returns:
+        Extracted text content
+    """
+    suffix = path.suffix.lower()
+
+    if suffix == ".pdf":
+        with open(path, "rb") as f:
+            return pdf_extractor.forward(f.read())
+    elif suffix in [".md", ".txt"]:
+        with open(path, "r", errors="replace") as f:
+            return f.read()
+    else:
+        raise ValueError(f"Unsupported file type: {suffix}")
+
+
+# ==============================================================================
+# PROCESS ONE PAPER
+# ==============================================================================
+
+def process_paper(
+    pdf_path: str,
+    pdf_extractor: MistralPDFExtractor,
+    pipeline: SynthesisPerformancePipeline,
+    output_dir: str,
+) -> dict:
+    """Process a single paper through the pipeline.
+
+    Args:
+        pdf_path: Path to the PDF or MD file
+        pdf_extractor: PDF extractor instance
+        pipeline: Initialized SynthesisPerformancePipeline
+        output_dir: Output directory for results
+
+    Returns:
+        Summary dict with paper statistics
+    """
+    paper_start = time.time()
+    input_path = Path(pdf_path)
+    paper_id = input_path.stem
+
+    logger.info(f"{'=' * 70}")
+    logger.info(f"PROCESSING: {input_path.name}")
+    logger.info(f"{'=' * 70}")
+
+    # Step 0: Load main paper text
+    logger.info("Step 0: Extracting text from file...")
+    paper_text = load_file_text(input_path, pdf_extractor)
+    logger.info(f"  Main paper: {len(paper_text):,} characters")
+
+    # Step 0b: Look for and load SI file
+    si_text = ""
+    si_path = find_si_file(input_path)
+    if si_path:
+        logger.info(f"  Found SI file: {si_path.name}")
+        try:
+            si_text = load_file_text(si_path, pdf_extractor)
+            logger.info(f"  SI text: {len(si_text):,} characters")
+        except Exception as e:
+            logger.warning(f"  Failed to load SI file: {e}")
+
+    paper = Paper(
+        name=paper_id,
+        id=paper_id,
+        publication_text=paper_text,
+        si_text=si_text,
+    )
+    logger.info(f"  Total: {len(paper_text) + len(si_text):,} characters")
+
+    # Run the pipeline
+    result = pipeline.process_paper(paper, skip_figures=False)
+
+    if result is None:
+        raise ValueError("Pipeline returned no results (no materials found?)")
+
+    processing_time = time.time() - paper_start
+
+    # Save with custom function (adds human annotation template)
+    save_results_with_annotations(result, output_dir, processing_time)
+
+    logger.info(f"  Completed in {round(processing_time, 1)}s")
+
+    # Return summary for batch tracking
+    return {
+        "paper_id": result.paper_id,
+        "paper_name": result.paper_name,
+        "total_materials": len(result.materials),
+        "materials_with_synthesis": sum(1 for r in result.results if r.synthesis),
+        "materials_with_performance": len(result.materials_with_performance),
+        "materials_without_performance": len(result.materials_without_performance),
+        "total_plots_extracted": result.num_plots,
+        "plots_linked": len(result.plot_mappings),
+        "processing_time_seconds": round(processing_time, 1),
+    }
 
 
 # ==============================================================================
@@ -589,27 +508,116 @@ def process_paper(pdf_path: str, models: dict) -> dict:
 # ==============================================================================
 
 def main():
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description="Batch process PDF papers for synthesis + performance extraction.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python run_all_papers.py
+      Process all PDFs in ../data/pdf_papers
+
+  python run_all_papers.py /path/to/catalysis_papers
+      Process all PDFs in the specified folder
+
+  python run_all_papers.py /path/to/papers /path/to/output
+      Process PDFs and save results to custom output folder
+
+  python run_all_papers.py --max 5
+      Process only the first 5 PDFs (useful for testing)
+
+  python run_all_papers.py --skip-existing
+      Skip papers that already have results
+        """,
+    )
+    parser.add_argument(
+        "pdf_dir",
+        nargs="?",
+        default=DEFAULT_PDF_DIR,
+        help=f"Directory containing PDF files (default: {DEFAULT_PDF_DIR})",
+    )
+    parser.add_argument(
+        "output_dir",
+        nargs="?",
+        default=DEFAULT_OUTPUT_DIR,
+        help=f"Output directory for results (default: {DEFAULT_OUTPUT_DIR})",
+    )
+    parser.add_argument(
+        "--max",
+        type=int,
+        default=None,
+        help="Maximum number of papers to process (useful for testing)",
+    )
+    parser.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="Skip papers that already have results in the output directory",
+    )
+    args = parser.parse_args()
+
+    pdf_dir = Path(args.pdf_dir)
+    output_dir = args.output_dir
+
+    # Validate input directory
+    if not pdf_dir.exists():
+        print(f"Error: Directory not found: {pdf_dir}")
+        sys.exit(1)
+
+    if not pdf_dir.is_dir():
+        print(f"Error: Not a directory: {pdf_dir}")
+        sys.exit(1)
+
     total_start = time.time()
 
-    # Check which papers exist
-    pdf_dir = Path(PDF_DIR)
-    available_papers = []
-    for paper_name in PAPERS:
-        pdf_path = pdf_dir / paper_name
-        # Also check for .md version
-        md_path = pdf_dir / paper_name.replace(".pdf", ".md")
-        if pdf_path.exists():
-            available_papers.append(str(pdf_path))
-        elif md_path.exists():
-            available_papers.append(str(md_path))
-            logger.info(f"Using .md file for {paper_name}")
-        else:
-            logger.warning(f"Paper not found: {paper_name} (skipping)")
+    # Find all PDF and MD files in the directory
+    pdf_files = sorted(pdf_dir.glob("*.pdf"))
+    md_files = sorted(pdf_dir.glob("*.md"))
 
-    logger.info(f"Found {len(available_papers)}/{len(PAPERS)} papers to process")
+    # Filter out SI files (they will be loaded automatically with their main paper)
+    pdf_files = [p for p in pdf_files if not is_si_file(p)]
+    md_files = [p for p in md_files if not is_si_file(p)]
 
-    # Initialize all models once
-    models = init_models()
+    # Combine: prefer PDF if both exist, otherwise use MD
+    pdf_stems = {p.stem for p in pdf_files}
+    available_papers = [str(p) for p in pdf_files]
+    for md_file in md_files:
+        if md_file.stem not in pdf_stems:
+            available_papers.append(str(md_file))
+
+    # Sort by filename
+    available_papers = sorted(available_papers, key=lambda x: Path(x).name)
+
+    if not available_papers:
+        print(f"Error: No PDF or MD files found in {pdf_dir}")
+        sys.exit(1)
+
+    # Skip existing if requested
+    if args.skip_existing:
+        papers_to_process = []
+        for paper_path in available_papers:
+            paper_id = Path(paper_path).stem
+            result_dir = Path(output_dir) / paper_id
+            if result_dir.exists() and (result_dir / "linking_summary_llm.json").exists():
+                logger.info(f"Skipping {paper_id} (already processed)")
+            else:
+                papers_to_process.append(paper_path)
+        available_papers = papers_to_process
+
+    # Apply max limit if specified
+    if args.max and len(available_papers) > args.max:
+        logger.info(f"Limiting to first {args.max} papers (--max flag)")
+        available_papers = available_papers[: args.max]
+
+    logger.info(f"Found {len(available_papers)} papers to process in {pdf_dir}")
+    for p in available_papers:
+        logger.info(f"  - {Path(p).name}")
+
+    if not available_papers:
+        print("No papers to process.")
+        sys.exit(0)
+
+    # Initialize pipeline once
+    pdf_extractor, pipeline = init_pipeline()
 
     # Process each paper
     all_summaries = []
@@ -619,9 +627,18 @@ def main():
         logger.info(f"{'#' * 70}")
 
         try:
-            summary = process_paper(pdf_path, models)
+            summary = process_paper(pdf_path, pdf_extractor, pipeline, output_dir)
             all_summaries.append(summary)
         except Exception as e:
+            error_str = str(e).lower()
+            # Stop batch on rate limit errors - don't continue with incomplete data
+            if "rate" in error_str and "limit" in error_str or "429" in error_str or "quota" in error_str or "resource_exhausted" in error_str:
+                logger.error(f"RATE LIMIT HIT - stopping batch to avoid incomplete data: {e}")
+                all_summaries.append({
+                    "paper_id": Path(pdf_path).stem,
+                    "error": f"RATE_LIMIT: {e}",
+                })
+                break  # Stop processing more papers
             logger.error(f"FAILED to process {Path(pdf_path).name}: {e}")
             traceback.print_exc()
             all_summaries.append({
@@ -640,8 +657,8 @@ def main():
         "papers": all_summaries,
     }
 
-    batch_path = os.path.join(OUTPUT_DIR, "batch_summary.json")
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    batch_path = os.path.join(output_dir, "batch_summary.json")
+    os.makedirs(output_dir, exist_ok=True)
     with open(batch_path, "w") as f:
         json.dump(batch_summary, f, indent=2)
 
@@ -666,7 +683,7 @@ def main():
                 f"{s.get('processing_time_seconds', '?')}s"
             )
 
-    print(f"\n  Results: {OUTPUT_DIR}")
+    print(f"\n  Results: {output_dir}")
     print(f"  Batch summary: {batch_path}")
 
 
