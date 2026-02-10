@@ -30,7 +30,7 @@ def normalize_material_name(name: str) -> str:
     normalized = name.lower().strip()
 
     # Standardize separators (replace various dashes and slashes)
-    normalized = re.sub(r"[–—−/−\\]", "-", normalized)  # noqa: RUF001
+    normalized = re.sub(r"[-—−/−\\]", "-", normalized)  # noqa: RUF001
 
     # Remove common suffixes that don't affect matching
     suffixes_to_remove = [
