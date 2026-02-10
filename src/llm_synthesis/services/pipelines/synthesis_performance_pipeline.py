@@ -198,11 +198,17 @@ class SynthesisPerformancePipeline:
             extractor = FigureExtractorMarkdown()
             all_figures = extractor.forward(markdown_text)
 
-            # Send ALL figures to Claude VLM - it will determine which
-            # contain extractable quantitative data. Florence-2 often
-            # classifies plots as "unknown", so filtering here loses data.
-            logger.info(f"  Found {len(all_figures)} figures")
-            return all_figures
+            # Filter to only quantitative figures (classified by ResNet).
+            # This avoids sending non-quantitative figures (schematics,
+            # microscopy, etc.) to the Claude VLM, saving compute.
+            quantitative_figures = [
+                f for f in all_figures if f.quantitative
+            ]
+            logger.info(
+                f"  Found {len(all_figures)} figures, "
+                f"{len(quantitative_figures)} quantitative"
+            )
+            return quantitative_figures
 
         except Exception as e:
             logger.warning(f"  Figure extraction failed: {e}")

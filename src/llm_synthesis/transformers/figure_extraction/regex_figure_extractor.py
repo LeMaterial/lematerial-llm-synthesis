@@ -48,7 +48,7 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
 
         if segmenter == "florence":
             self.segmenter = FlorenceSegmenter(repo_id=florence_repo_id)
-            self.classifier = None  # Florence handles classification
+            self.classifier = FigureClassifier()
         else:
             self.segmenter = FigureSegmenter()
             self.classifier = FigureClassifier()
@@ -107,8 +107,6 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
             return [figure]
 
         for detection in detections:
-            is_quantitative = self.segmenter.is_quantitative(detection.label)
-
             figure_info = FigureInfo(
                 base64_data=self.segmenter._image_to_base64(detection.image),
                 alt_text=figure.alt_text,
@@ -116,9 +114,38 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
                 context_before=figure.context_before,
                 context_after=figure.context_after,
                 figure_reference=figure.figure_reference,
-                figure_class=detection.label,
-                quantitative=is_quantitative,
+                figure_class="Unknown",
+                quantitative=False,
             )
+
+            # Classify using ResNet
+            try:
+                predicted_label = self.classifier.predict(detection.image)
+                figure_info.figure_class = predicted_label
+
+                if predicted_label in [
+                    "Area chart",
+                    "Bar plots",
+                    "Box plot",
+                    "Bubble Chart",
+                    "Confusion matrix",
+                    "Contour plot",
+                    "Graph plots",
+                    "Heat map",
+                    "Histogram",
+                    "Line plots",
+                    "Pareto charts",
+                    "Pie chart",
+                    "Polar plot",
+                    "Radar chart",
+                    "Scatter plot",
+                    "Surface plot",
+                    "Vector plot",
+                ]:
+                    figure_info.quantitative = True
+            except Exception as e:
+                print(f"Failed to classify subfigure: {e}")
+
             results.append(figure_info)
 
         return results
@@ -160,20 +187,20 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
             if predicted_label in [
                 "Bar plots",
                 "Box plot",
-                "Bubble Chart",
-                "Confusion matrix",
-                "Contour plot",
+                #"Bubble Chart",
+                #"Confusion matrix",
+                #"Contour plot",
                 "Graph plots",
-                "Heat map",
+                #"Heat map",
                 "Histogram",
                 "Line plots",
-                "Pareto charts",
-                "Pie chart",
-                "Polar plot",
-                "Radar chart",
+                #"Pareto charts",
+                #"Pie chart",
+                #"Polar plot",
+                #"Radar chart",
                 "Scatter plot",
-                "Surface plot",
-                "Vector plot",
+                #"Surface plot",
+                #"Vector plot",
             ]:
                 figure_info.quantitative = True
             else:
