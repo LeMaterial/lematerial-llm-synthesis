@@ -6,6 +6,7 @@ import tqdm
 from datasets import Dataset, load_dataset
 from PIL import Image
 
+from llm_synthesis.models.resnet import QUANT_FIGURE_CATEGORIES
 from llm_synthesis.transformers.figure_extraction.hf_figure_extractor import (
     HFFigureExtractor,
 )
@@ -162,19 +163,10 @@ def main(batch_size: int = 10, config="full", split="chemrxiv"):
             filename = f"quantitative_figure_{i + 1}_{clean_class}"
             save_image_to_folder(img, quantitative_path, filename)
 
-        quantitative_images_classes_for_extraction = [
-            "Bar plots",
-            "Contour plot",
-            "Graph plots",
-            "Scatter plot",
-            "Surface plot",
-            "Vector plot",
-        ]
-
         line_charts = [
             img
             for img in quantative_images
-            if img.figure_class in quantitative_images_classes_for_extraction
+            if img.figure_class in QUANT_FIGURE_CATEGORIES
         ]
         logging.info(f"Found {len(line_charts)} line charts in paper.")
 
