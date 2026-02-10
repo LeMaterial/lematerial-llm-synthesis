@@ -214,7 +214,7 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
     # Linking judge
     linking_judge_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.1, "max_tokens": 8192},
+        model_kwargs={"temperature": 0.1, "max_tokens": 16000},
     )
     linking_judge_sig = make_linking_judge_signature()
     linking_judge = DspyLinkingJudge(
