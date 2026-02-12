@@ -188,7 +188,7 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
     )
     synthesis_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.0, "max_tokens": 16000, "max_retries": 3},
+        model_kwargs={"temperature": 0.0, "max_tokens": 80000, "max_retries": 3},
         system_prompt=SYNTHESIS_SYSTEM_PROMPT,
     )
     synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
@@ -196,7 +196,7 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
     # Synthesis judge
     judge_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.1, "max_tokens": 8192},
+        model_kwargs={"temperature": 0.1, "max_tokens": 20000},
     )
     judge_sig = make_general_synthesis_judge_signature()
     judge = DspyGeneralSynthesisJudge(signature=judge_sig, lm=judge_lm)
@@ -207,14 +207,14 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
     # Series-material linker (increased max_tokens to handle large papers)
     linker_lm = get_llm_from_name(
         LINKER_MODEL,
-        model_kwargs={"temperature": 0.0, "max_tokens": 16000},
+        model_kwargs={"temperature": 0.0, "max_tokens": 32000},
     )
     series_linker = SeriesMaterialLinker(lm=linker_lm)
 
     # Linking judge
     linking_judge_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.1, "max_tokens": 16000},
+        model_kwargs={"temperature": 0.1, "max_tokens": 60000},
     )
     linking_judge_sig = make_linking_judge_signature()
     linking_judge = DspyLinkingJudge(
