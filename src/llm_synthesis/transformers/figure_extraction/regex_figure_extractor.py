@@ -6,6 +6,7 @@ from llm_synthesis.models.dino import FigureSegmenter
 from llm_synthesis.models.figure import FigureInfo
 from llm_synthesis.models.florence import FlorenceSegmenter
 from llm_synthesis.models.resnet import (
+    QUANT_FIGURE_CATEGORIES,
     FigureClassifier,
 )
 from llm_synthesis.transformers.figure_extraction.base import (
@@ -123,25 +124,7 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
                 predicted_label = self.classifier.predict(detection.image)
                 figure_info.figure_class = predicted_label
 
-                if predicted_label in [
-                    "Area chart",
-                    "Bar plots",
-                    "Box plot",
-                    "Bubble Chart",
-                    "Confusion matrix",
-                    "Contour plot",
-                    "Graph plots",
-                    "Heat map",
-                    "Histogram",
-                    "Line plots",
-                    "Pareto charts",
-                    "Pie chart",
-                    "Polar plot",
-                    "Radar chart",
-                    "Scatter plot",
-                    "Surface plot",
-                    "Vector plot",
-                ]:
+                if predicted_label in QUANT_FIGURE_CATEGORIES:
                     figure_info.quantitative = True
             except Exception as e:
                 print(f"Failed to classify subfigure: {e}")
@@ -183,25 +166,7 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
             predicted_label = self.classifier.predict(subfigure)
             figure_info.figure_class = predicted_label
 
-            # Check if the predicted label is a quantitative figure
-            if predicted_label in [
-                "Bar plots",
-                "Box plot",
-                #"Bubble Chart",
-                #"Confusion matrix",
-                #"Contour plot",
-                "Graph plots",
-                #"Heat map",
-                "Histogram",
-                "Line plots",
-                #"Pareto charts",
-                #"Pie chart",
-                #"Polar plot",
-                #"Radar chart",
-                "Scatter plot",
-                #"Surface plot",
-                #"Vector plot",
-            ]:
+            if predicted_label in QUANT_FIGURE_CATEGORIES:
                 figure_info.quantitative = True
             else:
                 figure_info.quantitative = False

@@ -5,6 +5,56 @@ from PIL import Image
 from pydantic import BaseModel, Field
 from torchvision import models, transforms
 
+FIGURE_CATEGORIES: list[str] = [
+    "3D objects",
+    "Algorithm",
+    "Area chart",
+    "Bar plots",
+    "Block diagram",
+    "Box plot",
+    "Bubble Chart",
+    "Confusion matrix",
+    "Contour plot",
+    "Flow chart",
+    "Geographic map",
+    "Graph plots",
+    "Heat map",
+    "Histogram",
+    "Mask",
+    "Medical images",
+    "Natural images",
+    "Pareto charts",
+    "Pie chart",
+    "Polar plot",
+    "Radar chart",
+    "Scatter plot",
+    "Sketches",
+    "Surface plot",
+    "Tables",
+    "Tree Diagram",
+    "Vector plot",
+    "Venn Diagram",
+]
+
+QUANT_FIGURE_CATEGORIES: list[str] = [
+    "Area chart",
+    "Bar plots",
+    "Box plot",
+    "Bubble Chart",
+    "Confusion matrix",
+    "Contour plot",
+    "Graph plots",
+    "Heat map",
+    "Histogram",
+    "Pareto charts",
+    "Pie chart",
+    "Polar plot",
+    "Radar chart",
+    "Scatter plot",
+    "Surface plot",
+    "Vector plot",
+]
+
 
 class ModelConfig(BaseModel):
     """Configuration for the ResNet model."""
@@ -25,38 +75,7 @@ class TransformConfig(BaseModel):
 class LabelConfig(BaseModel):
     """Label mapping for prediction output."""
 
-    labels: list[str] = Field(
-        default=[
-            "3D objects",
-            "Algorithm",
-            "Area chart",
-            "Bar plots",
-            "Block diagram",
-            "Box plot",
-            "Bubble Chart",
-            "Confusion matrix",
-            "Contour plot",
-            "Flow chart",
-            "Geographic map",
-            "Graph plots",
-            "Heat map",
-            "Histogram",
-            "Mask",
-            "Medical images",
-            "Natural images",
-            "Pareto charts",
-            "Pie chart",
-            "Polar plot",
-            "Radar chart",
-            "Scatter plot",
-            "Sketches",
-            "Surface plot",
-            "Tables",
-            "Tree Diagram",
-            "Vector plot",
-            "Venn Diagram",
-        ]
-    )
+    labels: list[str] = Field(default=FIGURE_CATEGORIES)
 
 
 class ResNetDocfigModel(nn.Module, PyTorchModelHubMixin):
