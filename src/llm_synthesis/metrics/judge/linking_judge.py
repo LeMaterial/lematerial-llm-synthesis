@@ -11,13 +11,10 @@ import logging
 from typing import Literal
 
 import dspy
-from pydantic import BaseModel, Field
 
-from llm_synthesis.metrics.judge.base import JudgeInterface, JudgeMeta
+from llm_synthesis.metrics.judge.base import JudgeInterface
 from llm_synthesis.metrics.judge.linking_evaluation_ontology import (
     LinkingEvaluation,
-    LinkingEvaluationScore,
-    LinkingFailureFlags,
 )
 
 logger = logging.getLogger(__name__)
@@ -45,7 +42,7 @@ class DspyLinkingJudge(LinkingJudgeInterface):
         4. The linking output mapping syntheses to plot series (JSON).
 
     It produces a ``LinkingEvaluation`` with four criterion scores
-    (1–5 in 0.5 increments), nine failure-mode flags, and supporting
+    (1-5 in 0.5 increments), nine failure-mode flags, and supporting
     reasoning.
     """
 
@@ -79,9 +76,7 @@ class DspyLinkingJudge(LinkingJudgeInterface):
         Returns:
             A ``LinkingEvaluation`` instance.
         """
-        source_text, synthesis_json, plot_data_json, linking_output_json = (
-            input
-        )
+        source_text, synthesis_json, plot_data_json, linking_output_json = input
 
         self._validate_inputs(
             source_text, synthesis_json, plot_data_json, linking_output_json
@@ -118,10 +113,7 @@ class DspyLinkingJudge(LinkingJudgeInterface):
                     f"Required input field '{field_name}' missing from "
                     f"signature"
                 )
-            if (
-                signature.input_fields[field_name].annotation
-                is not field_type
-            ):
+            if signature.input_fields[field_name].annotation is not field_type:
                 raise ValueError(
                     f"Input field '{field_name}' must be {field_type}"
                 )
@@ -195,13 +187,11 @@ class DspyLinkingJudge(LinkingJudgeInterface):
             evaluation.missing_links = self._extract_missing_links(evaluation)
 
         if not evaluation.spurious_links:
-            evaluation.spurious_links = self._extract_spurious_links(
-                evaluation
-            )
+            evaluation.spurious_links = self._extract_spurious_links(evaluation)
 
         if not evaluation.improvement_suggestions:
-            evaluation.improvement_suggestions = (
-                self._generate_suggestions(evaluation)
+            evaluation.improvement_suggestions = self._generate_suggestions(
+                evaluation
             )
 
         return evaluation
@@ -250,7 +240,7 @@ class DspyLinkingJudge(LinkingJudgeInterface):
         flags = evaluation.failure_flags
         if flags.f8_false_negative:
             missing.append(
-                "Algorithm missed at least one synthesis–performance pair "
+                "Algorithm missed at least one synthesis-performance pair "
                 "present in the paper"
             )
         if flags.f2_one_to_many_synthesis:
@@ -287,9 +277,7 @@ class DspyLinkingJudge(LinkingJudgeInterface):
             )
         return spurious
 
-    def _generate_suggestions(
-        self, evaluation: LinkingEvaluation
-    ) -> list[str]:
+    def _generate_suggestions(self, evaluation: LinkingEvaluation) -> list[str]:
         suggestions = []
         scores = evaluation.scores
         flags = evaluation.failure_flags
@@ -306,7 +294,7 @@ class DspyLinkingJudge(LinkingJudgeInterface):
             )
         if scores.completeness_score < 3.5:
             suggestions.append(
-                "Enhance coverage — ensure all synthesis–performance pairs "
+                "Enhance coverage — ensure all synthesis-performance pairs "
                 "in the paper are captured"
             )
         if scores.format_structure_score < 3.5:
@@ -371,7 +359,7 @@ class LinkingJudgeSignature(dspy.Signature):
             """Comprehensive evaluation of synthesis-to-performance linking
 quality.
 
-EVALUATION CRITERIA (score each 1–5 in 0.5 increments):
+EVALUATION CRITERIA (score each 1-5 in 0.5 increments):
 
 1. Material Identity Match (material_identity_score)
    Core question: Is this the right synthesis for this data series?
@@ -390,7 +378,7 @@ EVALUATION CRITERIA (score each 1–5 in 0.5 increments):
 
 3. Completeness (completeness_score)
    Core question: Is anything missing or wrongly added?
-   - Check that ALL valid synthesis–performance pairs in the paper are
+   - Check that ALL valid synthesis-performance pairs in the paper are
      captured (no false negatives).
    - Check that no spurious links were introduced (no false positives).
    - Consider one-to-many and many-to-one relationships.
@@ -434,9 +422,7 @@ IMPORTANT:
 def make_linking_judge_signature(
     signature_name: str = "LinkingJudgeSignature",
     instructions: str | None = None,
-    source_text_description: str = (
-        "Full paper text for linking evaluation."
-    ),
+    source_text_description: str = ("Full paper text for linking evaluation."),
     synthesis_json_description: str = (
         "JSON list of extracted synthesis ontologies."
     ),

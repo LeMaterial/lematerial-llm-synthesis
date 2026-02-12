@@ -104,7 +104,7 @@ class LinkingFailureFlags(BaseModel):
 class LinkingEvaluationScore(BaseModel):
     """Scoring rubric for synthesis-to-performance linking quality.
 
-    Each criterion is scored 1.0–5.0 in 0.5 increments.
+    Each criterion is scored 1.0-5.0 in 0.5 increments.
 
     Scale:
         5.0  Excellent — fully correct, no issues
@@ -159,7 +159,7 @@ class LinkingEvaluationScore(BaseModel):
         ...,
         description=(
             "Score (1-5): Is anything missing or wrongly added? "
-            "Assesses whether all valid synthesis–performance pairs in "
+            "Assesses whether all valid synthesis-performance pairs in "
             "the paper were captured and whether any spurious links "
             "were introduced."
         ),
@@ -254,7 +254,7 @@ class LinkingEvaluation(BaseModel):
     missing_links: list[str] = Field(
         default_factory=list,
         description=(
-            "List of synthesis–performance pairs present in the paper "
+            "List of synthesis-performance pairs present in the paper "
             "but absent from the linking output (false negatives)."
         ),
     )
