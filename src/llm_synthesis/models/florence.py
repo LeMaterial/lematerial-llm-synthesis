@@ -75,7 +75,7 @@ class FlorenceSegmenter:
         self.processor = AutoProcessor.from_pretrained(
             self.base_model, trust_remote_code=True
         )
-        
+
         # Use flash attention for better GPU utilization if available
         attn_implementation = "eager"
         if self.use_flash_attention and self.device == "cuda":
@@ -86,7 +86,7 @@ class FlorenceSegmenter:
             except Exception:
                 print("flash_attention_2 not available, falling back to eager")
                 attn_implementation = "eager"
-        
+
         model = AutoModelForCausalLM.from_pretrained(
             self.base_model,
             trust_remote_code=True,
