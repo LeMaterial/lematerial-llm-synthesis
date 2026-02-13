@@ -206,7 +206,7 @@ class FigureClassifier:
                 image_tensors.append(image_tensor)
             except Exception as e:
                 raise ValueError(
-                    f"Failed to convert image at index {i} to RGB mode."
+                    f"Failed to convert image at index {i} to RGB mode: {e}"
                 ) from e
 
         # Stack into batch and move to device

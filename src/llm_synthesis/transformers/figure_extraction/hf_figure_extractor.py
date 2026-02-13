@@ -221,6 +221,17 @@ class HFFigureExtractor(FigureExtractorInterface):
                     )
                     predicted_labels.append("Unknown")
 
+        # Validate that we have labels for all segmented images
+        if len(predicted_labels) != len(segmented_images):
+            print(
+                f"Warning: Label count mismatch for {figure_path}. "
+                f"Expected {len(segmented_images)}, got {len(predicted_labels)}. "
+                "Padding with 'Unknown'."
+            )
+            # Pad with "Unknown" if needed
+            while len(predicted_labels) < len(segmented_images):
+                predicted_labels.append("Unknown")
+
         # Process each subfigure with its predicted label
         for i, (subfigure, predicted_label) in enumerate(
             zip(segmented_images, predicted_labels)
