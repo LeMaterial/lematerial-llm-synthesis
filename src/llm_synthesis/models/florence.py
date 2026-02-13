@@ -77,24 +77,40 @@ class FlorenceSegmenter:
         )
 
         # Use flash attention for better GPU utilization if available
+        # Flash attention will be tested during model loading, not here
         attn_implementation = "eager"
         if self.use_flash_attention and self.device == "cuda":
-            try:
-                # Try to use flash attention for ~2-4x speedup
-                attn_implementation = "flash_attention_2"
-                print("Using flash_attention_2 for optimized GPU performance")
-            except Exception:
-                print("flash_attention_2 not available, falling back to eager")
-                attn_implementation = "eager"
+            attn_implementation = "flash_attention_2"
+            print(
+                "Attempting to use flash_attention_2 for optimized GPU performance"
+            )
 
-        model = AutoModelForCausalLM.from_pretrained(
-            self.base_model,
-            trust_remote_code=True,
-            torch_dtype=torch.float16
-            if self.device != "cpu"
-            else torch.float32,
-            attn_implementation=attn_implementation,
-        )
+        try:
+            model = AutoModelForCausalLM.from_pretrained(
+                self.base_model,
+                trust_remote_code=True,
+                torch_dtype=torch.float16
+                if self.device != "cpu"
+                else torch.float32,
+                attn_implementation=attn_implementation,
+            )
+        except Exception as e:
+            # Flash attention might not be available, fall back to eager
+            if attn_implementation == "flash_attention_2":
+                print(
+                    f"flash_attention_2 not available ({e}), "
+                    "falling back to eager attention"
+                )
+                model = AutoModelForCausalLM.from_pretrained(
+                    self.base_model,
+                    trust_remote_code=True,
+                    torch_dtype=torch.float16
+                    if self.device != "cpu"
+                    else torch.float32,
+                    attn_implementation="eager",
+                )
+            else:
+                raise
 
         print(f"Loading LoRA adapters from: {self.repo_id}")
         model = PeftModel.from_pretrained(model, self.repo_id)

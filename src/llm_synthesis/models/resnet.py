@@ -197,8 +197,8 @@ class FigureClassifier:
         for image_input in image_inputs:
             if not isinstance(image_input, Image.Image):
                 raise TypeError(
-                    "Expected all image_inputs to be PIL Images.",
-                    f"Got {type(image_input)}.",
+                    f"Expected all image_inputs to be PIL Images. "
+                    f"Got {type(image_input)}."
                 )
             try:
                 image = image_input.convert("RGB")

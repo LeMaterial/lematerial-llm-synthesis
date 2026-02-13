@@ -211,7 +211,8 @@ class HFFigureExtractor(FigureExtractorInterface):
                     predicted_labels.append(
                         self.classifier.predict(subfigure)
                     )
-                except Exception:
+                except Exception as e:
+                    print(f"Single image classification also failed: {e}")
                     predicted_labels.append("Unknown")
 
         # Process each subfigure with its predicted label
