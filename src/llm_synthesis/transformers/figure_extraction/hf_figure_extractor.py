@@ -218,7 +218,7 @@ class HFFigureExtractor(FigureExtractorInterface):
             )
             # Fallback to single-image processing
             predicted_labels = []
-            for subfigure in segmented_images:
+            for idx, subfigure in enumerate(segmented_images):
                 try:
                     predicted_labels.append(
                         self.classifier.predict(subfigure)
@@ -226,7 +226,7 @@ class HFFigureExtractor(FigureExtractorInterface):
                 except Exception as e:
                     logger.error(
                         "Classification failed for subfigure %d from %s: %s",
-                        len(predicted_labels) + 1,
+                        idx + 1,
                         figure_path,
                         e,
                     )
