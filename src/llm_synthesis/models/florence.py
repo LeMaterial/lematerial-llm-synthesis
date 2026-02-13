@@ -40,6 +40,7 @@ class FlorenceSegmenter:
         repo_id: str = "amayuelas/plot-visualization-florence-2-lora-32",
         base_model: str = "microsoft/Florence-2-base-ft",
         device: str | None = None,
+        use_flash_attention: bool = True,
     ):
         """
         Initialize the segmenter with Florence-2 + LoRA model.
@@ -48,6 +49,7 @@ class FlorenceSegmenter:
             repo_id: HuggingFace repo ID for the LoRA adapter
             base_model: Base Florence-2 model identifier
             device: to run model on ('cuda', 'cpu', 'mps', or None for auto)
+            use_flash_attention: Whether to use flash attention for faster inference
         """
         if device is None:
             if torch.cuda.is_available():
@@ -60,6 +62,7 @@ class FlorenceSegmenter:
         self.device = device
         self.repo_id = repo_id
         self.base_model = base_model
+        self.use_flash_attention = use_flash_attention
 
         # Store last detections for classification lookup
         self._last_detections: list[Detection] = []
@@ -72,13 +75,25 @@ class FlorenceSegmenter:
         self.processor = AutoProcessor.from_pretrained(
             self.base_model, trust_remote_code=True
         )
+        
+        # Use flash attention for better GPU utilization if available
+        attn_implementation = "eager"
+        if self.use_flash_attention and self.device == "cuda":
+            try:
+                # Try to use flash attention for ~2-4x speedup
+                attn_implementation = "flash_attention_2"
+                print("Using flash_attention_2 for optimized GPU performance")
+            except Exception:
+                print("flash_attention_2 not available, falling back to eager")
+                attn_implementation = "eager"
+        
         model = AutoModelForCausalLM.from_pretrained(
             self.base_model,
             trust_remote_code=True,
             torch_dtype=torch.float16
             if self.device != "cpu"
             else torch.float32,
-            attn_implementation="eager",
+            attn_implementation=attn_implementation,
         )
 
         print(f"Loading LoRA adapters from: {self.repo_id}")
@@ -210,14 +225,14 @@ class FlorenceSegmenter:
         if self.device != "cpu":
             inputs["pixel_values"] = inputs["pixel_values"].to(torch.float16)
 
-        # Run inference
+        # Run inference with KV cache enabled for better memory efficiency
         with torch.no_grad():
             generated_ids = self.model.generate(
                 input_ids=inputs["input_ids"],
                 pixel_values=inputs["pixel_values"],
                 max_new_tokens=1024,
                 num_beams=3,
-                use_cache=False,
+                use_cache=True,  # Enable KV cache for faster generation
             )
 
         generated_text = self.processor.batch_decode(

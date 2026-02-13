@@ -165,7 +165,62 @@ class FigureClassifier:
         image_tensor = image_tensor.unsqueeze(0)  # Add batch dimension
 
         with torch.no_grad():
-            outputs = self.model(image_tensor)
+            # Use mixed precision for faster inference on GPU
+            if self.device.type == "cuda":
+                with torch.amp.autocast("cuda", dtype=torch.float16):
+                    outputs = self.model(image_tensor)
+            else:
+                outputs = self.model(image_tensor)
 
         _, preds = torch.max(outputs, 1)
         return self.label_config.labels[preds.item()]  # type: ignore
+
+    def predict_batch(
+        self, image_inputs: list[Image.Image]
+    ) -> list[str]:
+        """
+        Predicts the labels of multiple input images in a single batch.
+        This is significantly faster than calling predict() multiple times
+        as it processes all images in parallel on GPU.
+
+        Args:
+            image_inputs: List of PIL Image objects in RGB mode.
+
+        Returns:
+            List of predicted label names.
+        """
+        if not image_inputs:
+            return []
+
+        # Convert all images to RGB and create tensors
+        image_tensors = []
+        for image_input in image_inputs:
+            if not isinstance(image_input, Image.Image):
+                raise TypeError(
+                    "Expected all image_inputs to be PIL Images.",
+                    f"Got {type(image_input)}.",
+                )
+            try:
+                image = image_input.convert("RGB")
+                image_tensor = self.transform(image)  # type: ignore
+                image_tensors.append(image_tensor)
+            except Exception as e:
+                raise ValueError(
+                    "Invalid PIL Image object: cannot convert to RGB mode."
+                ) from e
+
+        # Stack into batch and move to device
+        batch_tensor = torch.stack(image_tensors).to(self.device)
+
+        with torch.no_grad():
+            # Use mixed precision for faster inference on GPU
+            if self.device.type == "cuda":
+                with torch.amp.autocast("cuda", dtype=torch.float16):
+                    outputs = self.model(batch_tensor)
+            else:
+                outputs = self.model(batch_tensor)
+
+        _, preds = torch.max(outputs, 1)
+        return [
+            self.label_config.labels[pred.item()] for pred in preds  # type: ignore
+        ]

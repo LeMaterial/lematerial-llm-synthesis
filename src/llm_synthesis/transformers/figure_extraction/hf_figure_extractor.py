@@ -180,7 +180,8 @@ class HFFigureExtractor(FigureExtractorInterface):
         self, pil_image: Image.Image, figure_path: str
     ) -> list[FigureInfo]:
         """
-        Process an image using DINO segmenter + ResNet classifier (original).
+        Process an image using DINO segmenter + ResNet classifier.
+        Uses batch processing for efficient GPU utilization.
 
         Args:
             pil_image: PIL Image to process
@@ -198,7 +199,25 @@ class HFFigureExtractor(FigureExtractorInterface):
             print(f"Failed to segment figure {figure_path}: {e}")
             segmented_images = [pil_image]
 
-        for i, subfigure in enumerate(segmented_images):
+        # Classify all subfigures in a single batch for GPU efficiency
+        try:
+            predicted_labels = self.classifier.predict_batch(segmented_images)
+        except Exception as e:
+            print(f"Batch classification failed for {figure_path}: {e}")
+            # Fallback to single-image processing
+            predicted_labels = []
+            for subfigure in segmented_images:
+                try:
+                    predicted_labels.append(
+                        self.classifier.predict(subfigure)
+                    )
+                except Exception:
+                    predicted_labels.append("Unknown")
+
+        # Process each subfigure with its predicted label
+        for i, (subfigure, predicted_label) in enumerate(
+            zip(segmented_images, predicted_labels)
+        ):
             try:
                 # Create FigureInfo object for each subfigure
                 figure_info = FigureInfo(
@@ -208,55 +227,43 @@ class HFFigureExtractor(FigureExtractorInterface):
                     context_before="",
                     context_after="",
                     figure_reference=f"{figure_path}_subfigure_{i + 1}",
-                    figure_class="Unknown",
+                    figure_class=predicted_label,
                     quantitative=False,
                 )
 
-                # Classify the subfigure
-                try:
-                    predicted_label = self.classifier.predict(subfigure)
-                    figure_info.figure_class = predicted_label
-
-                    # Check if the predicted label is a quantitative figure
-                    if predicted_label in [
-                        # "3D objects",
-                        # "Algorithm",
-                        # "Area chart",
-                        "Bar plots",
-                        # "Block diagram",
-                        "Box plot",
-                        "Bubble Chart",
-                        "Confusion matrix",
-                        "Contour plot",
-                        # "Flow chart",
-                        # "Geographic map",
-                        "Graph plots",
-                        "Heat map",
-                        "Histogram",
-                        # "Mask",
-                        # "Medical images",
-                        # "Natural images",
-                        "Pareto charts",
-                        "Pie chart",
-                        "Polar plot",
-                        "Radar chart",
-                        "Scatter plot",
-                        # "Sketches",
-                        "Surface plot",
-                        # "Tables",
-                        # "Tree Diagram",
-                        "Vector plot",
-                        # "Venn Diagram",
-                    ]:
-                        figure_info.quantitative = True
-                    else:
-                        figure_info.quantitative = False
-                except Exception as e:
-                    print(
-                        f"Failed to classify subfig. {i + 1}",
-                        f"from {figure_path}: {e}",
-                    )
-                    figure_info.figure_class = "Unknown"
+                # Check if the predicted label is a quantitative figure
+                if predicted_label in [
+                    # "3D objects",
+                    # "Algorithm",
+                    # "Area chart",
+                    "Bar plots",
+                    # "Block diagram",
+                    "Box plot",
+                    "Bubble Chart",
+                    "Confusion matrix",
+                    "Contour plot",
+                    # "Flow chart",
+                    # "Geographic map",
+                    "Graph plots",
+                    "Heat map",
+                    "Histogram",
+                    # "Mask",
+                    # "Medical images",
+                    # "Natural images",
+                    "Pareto charts",
+                    "Pie chart",
+                    "Polar plot",
+                    "Radar chart",
+                    "Scatter plot",
+                    # "Sketches",
+                    "Surface plot",
+                    # "Tables",
+                    # "Tree Diagram",
+                    "Vector plot",
+                    # "Venn Diagram",
+                ]:
+                    figure_info.quantitative = True
+                else:
                     figure_info.quantitative = False
 
                 results.append(figure_info)

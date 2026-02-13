@@ -30,6 +30,8 @@ class DoclingPDFExtractor(PdfExtractorInterface):
         scale (float): The scaling factor for images (default: 2.0).
         format (str): The output format. Options are "markdown", "doctags",
         "json", or "tokens" (default: "markdown").
+        batch_size (int | None): Batch size for OCR processing. If None,
+        defaults to 4 for GPU or 1 for CPU (default: None).
 
     Methods:
 
@@ -46,6 +48,7 @@ class DoclingPDFExtractor(PdfExtractorInterface):
         use_gpu: bool = True,
         scale: float = 2.0,
         format: str = "markdown",
+        batch_size: int | None = None,
     ):
         self.pipeline = pipeline
         self.table_mode = table_mode
@@ -53,6 +56,11 @@ class DoclingPDFExtractor(PdfExtractorInterface):
         self.use_gpu = use_gpu
         self.scale = scale
         self.format = format
+        # Auto-configure batch size based on GPU availability if not specified
+        if batch_size is None:
+            self.batch_size = 4 if self.use_gpu else 1
+        else:
+            self.batch_size = batch_size
 
     def forward(self, input: bytes) -> str:
         """
@@ -72,7 +80,7 @@ class DoclingPDFExtractor(PdfExtractorInterface):
             generate_page_images=self.add_page_images,
             images_scale=self.scale,
             ocr=True,
-            batch_size=4 if self.use_gpu else 1,
+            batch_size=self.batch_size,
         )
         conv = DocumentConverter(
             format_options={
