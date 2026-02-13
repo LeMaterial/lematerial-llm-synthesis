@@ -197,9 +197,13 @@ class HFFigureExtractor(FigureExtractorInterface):
 
         try:
             segmented_images = self.segmenter.segment(pil_image)
-            print(f"segm. {len(segmented_images)} subfig. from {figure_path}.")
+            logger.info(
+                "Segmented %d subfigure(s) from %s",
+                len(segmented_images),
+                figure_path,
+            )
         except Exception as e:
-            print(f"Failed to segment figure {figure_path}: {e}")
+            logger.error("Failed to segment figure %s: %s", figure_path, e)
             segmented_images = [pil_image]
 
         # Classify all subfigures in a single batch for GPU efficiency
