@@ -206,9 +206,11 @@ class HFFigureExtractor(FigureExtractorInterface):
         try:
             predicted_labels = self.classifier.predict_batch(segmented_images)
         except Exception as e:
-            print(
-                f"Batch classification failed for {figure_path}: {e}. "
-                "Falling back to single-image processing."
+            logger.warning(
+                "Batch classification failed for %s: %s. "
+                "Falling back to single-image processing.",
+                figure_path,
+                e,
             )
             # Fallback to single-image processing
             predicted_labels = []
@@ -218,9 +220,11 @@ class HFFigureExtractor(FigureExtractorInterface):
                         self.classifier.predict(subfigure)
                     )
                 except Exception as e:
-                    print(
-                        f"Classification failed for subfigure "
-                        f"{len(predicted_labels) + 1} from {figure_path}: {e}"
+                    logger.error(
+                        "Classification failed for subfigure %d from %s: %s",
+                        len(predicted_labels) + 1,
+                        figure_path,
+                        e,
                     )
                     predicted_labels.append("Unknown")
 

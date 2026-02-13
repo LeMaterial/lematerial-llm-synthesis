@@ -9,6 +9,7 @@ directly outputs both bounding boxes AND classification labels
 
 import base64
 import io
+import logging
 import re
 from dataclasses import dataclass
 
@@ -16,6 +17,8 @@ import torch
 from peft import PeftModel
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoProcessor
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -71,7 +74,7 @@ class FlorenceSegmenter:
 
     def _load_model(self):
         """Load the Florence-2 base model with LoRA adapters."""
-        print(f"Loading Florence-2 base model: {self.base_model}")
+        logger.info("Loading Florence-2 base model: %s", self.base_model)
         self.processor = AutoProcessor.from_pretrained(
             self.base_model, trust_remote_code=True
         )
@@ -81,7 +84,7 @@ class FlorenceSegmenter:
         attn_implementation = "eager"
         if self.use_flash_attention and self.device == "cuda":
             attn_implementation = "flash_attention_2"
-            print(
+            logger.info(
                 "Attempting to use flash_attention_2 for optimized GPU performance"
             )
 
@@ -97,9 +100,10 @@ class FlorenceSegmenter:
         except Exception as e:
             # Flash attention might not be available, fall back to eager
             if attn_implementation == "flash_attention_2":
-                print(
-                    f"flash_attention_2 not available ({e}), "
-                    "falling back to eager attention"
+                logger.warning(
+                    "flash_attention_2 not available (%s), "
+                    "falling back to eager attention",
+                    e,
                 )
                 model = AutoModelForCausalLM.from_pretrained(
                     self.base_model,
@@ -112,14 +116,14 @@ class FlorenceSegmenter:
             else:
                 raise
 
-        print(f"Loading LoRA adapters from: {self.repo_id}")
+        logger.info("Loading LoRA adapters from: %s", self.repo_id)
         model = PeftModel.from_pretrained(model, self.repo_id)
 
-        print("Merging LoRA adapters with base model...")
+        logger.info("Merging LoRA adapters with base model...")
         model = model.merge_and_unload()
 
         self.model = model.to(self.device)
-        print(f"Florence-2 model loaded on {self.device}")
+        logger.info("Florence-2 model loaded on %s", self.device)
 
     def _parse_output(self, output_text: str) -> list[dict]:
         """
