@@ -263,17 +263,17 @@ class HFFigureExtractor(FigureExtractorInterface):
 
         # Process each subfigure with its predicted label
         for i, (subfigure, predicted_label) in enumerate(
-            zip(segmented_images, predicted_labels)
+            zip(segmented_images, predicted_labels), start=1
         ):
             try:
                 # Create FigureInfo object for each subfigure
                 figure_info = FigureInfo(
                     base64_data=self.segmenter._image_to_base64(subfigure),
-                    alt_text=f"Subfigure {i + 1} from {figure_path}",
+                    alt_text=f"Subfigure {i} from {figure_path}",
                     position=0,
                     context_before="",
                     context_after="",
-                    figure_reference=f"{figure_path}_subfigure_{i + 1}",
+                    figure_reference=f"{figure_path}_subfigure_{i}",
                     figure_class=predicted_label,
                     quantitative=False,
                 )
