@@ -1,3 +1,4 @@
+import logging
 from io import BytesIO
 from typing import Literal
 
@@ -13,6 +14,8 @@ from llm_synthesis.models.resnet import (
 from llm_synthesis.transformers.figure_extraction.base import (
     FigureExtractorInterface,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class HFFigureExtractor(FigureExtractorInterface):
@@ -222,21 +225,30 @@ class HFFigureExtractor(FigureExtractorInterface):
                     predicted_labels.append("Unknown")
 
         # Validate that we have labels for all segmented images
+        # Note: Mismatches may indicate bugs in batch processing
         if len(predicted_labels) != len(segmented_images):
             if len(predicted_labels) < len(segmented_images):
-                print(
-                    f"Warning: Too few labels for {figure_path}. "
-                    f"Expected {len(segmented_images)}, got {len(predicted_labels)}. "
-                    "Padding with 'Unknown'."
+                logger.warning(
+                    "Label count mismatch for %s: "
+                    "Expected %d labels, got %d. "
+                    "Padding with 'Unknown'. "
+                    "This may indicate an issue with batch classification.",
+                    figure_path,
+                    len(segmented_images),
+                    len(predicted_labels),
                 )
                 # Pad with "Unknown" if needed
                 while len(predicted_labels) < len(segmented_images):
                     predicted_labels.append("Unknown")
             else:
-                print(
-                    f"Warning: Too many labels for {figure_path}. "
-                    f"Expected {len(segmented_images)}, got {len(predicted_labels)}. "
-                    "Truncating extra labels."
+                logger.warning(
+                    "Label count mismatch for %s: "
+                    "Expected %d labels, got %d. "
+                    "Truncating extra labels. "
+                    "This may indicate an issue with batch classification.",
+                    figure_path,
+                    len(segmented_images),
+                    len(predicted_labels),
                 )
                 # Truncate excess labels
                 predicted_labels = predicted_labels[: len(segmented_images)]

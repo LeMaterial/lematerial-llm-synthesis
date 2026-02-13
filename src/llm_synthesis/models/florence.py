@@ -248,7 +248,7 @@ class FlorenceSegmenter:
                 pixel_values=inputs["pixel_values"],
                 max_new_tokens=1024,
                 num_beams=3,
-                use_cache=True,  # Enable KV cache for faster generation
+                use_cache=True,  # Enable KV cache for better memory efficiency
             )
 
         generated_text = self.processor.batch_decode(
