@@ -223,14 +223,23 @@ class HFFigureExtractor(FigureExtractorInterface):
 
         # Validate that we have labels for all segmented images
         if len(predicted_labels) != len(segmented_images):
-            print(
-                f"Warning: Label count mismatch for {figure_path}. "
-                f"Expected {len(segmented_images)}, got {len(predicted_labels)}. "
-                "Padding with 'Unknown'."
-            )
-            # Pad with "Unknown" if needed
-            while len(predicted_labels) < len(segmented_images):
-                predicted_labels.append("Unknown")
+            if len(predicted_labels) < len(segmented_images):
+                print(
+                    f"Warning: Too few labels for {figure_path}. "
+                    f"Expected {len(segmented_images)}, got {len(predicted_labels)}. "
+                    "Padding with 'Unknown'."
+                )
+                # Pad with "Unknown" if needed
+                while len(predicted_labels) < len(segmented_images):
+                    predicted_labels.append("Unknown")
+            else:
+                print(
+                    f"Warning: Too many labels for {figure_path}. "
+                    f"Expected {len(segmented_images)}, got {len(predicted_labels)}. "
+                    "Truncating extra labels."
+                )
+                # Truncate excess labels
+                predicted_labels = predicted_labels[: len(segmented_images)]
 
         # Process each subfigure with its predicted label
         for i, (subfigure, predicted_label) in enumerate(
