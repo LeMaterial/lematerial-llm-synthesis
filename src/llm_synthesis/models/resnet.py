@@ -194,11 +194,11 @@ class FigureClassifier:
 
         # Convert all images to RGB and create tensors
         image_tensors = []
-        for image_input in image_inputs:
+        for i, image_input in enumerate(image_inputs):
             if not isinstance(image_input, Image.Image):
                 raise TypeError(
                     f"Expected all image_inputs to be PIL Images. "
-                    f"Got {type(image_input)}."
+                    f"Got {type(image_input)} at index {i}."
                 )
             try:
                 image = image_input.convert("RGB")
@@ -206,7 +206,7 @@ class FigureClassifier:
                 image_tensors.append(image_tensor)
             except Exception as e:
                 raise ValueError(
-                    "Invalid PIL Image object: cannot convert to RGB mode."
+                    f"Failed to convert image at index {i} to RGB mode."
                 ) from e
 
         # Stack into batch and move to device
