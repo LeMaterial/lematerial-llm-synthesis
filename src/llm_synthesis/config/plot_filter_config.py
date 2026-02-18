@@ -65,6 +65,16 @@ class PlotFilterConfig(BaseModel):
         description="Exact matches for conversion symbol",
     )
 
+    # Exclusion patterns for y-axis (reject if label matches any of these)
+    y_axis_exclude_patterns: list[str] = Field(
+        default=[],
+        description=(
+            "Patterns in y-axis label that indicate a derived/non-raw plot "
+            "even if a y_axis_keyword matches. Checked as substrings after "
+            "lowercasing. E.g., 'ρ-ρ' excludes difference-resistivity plots."
+        ),
+    )
+
     # Filtering behavior
     require_y_keyword_with_percentage: bool = Field(
         default=True,
@@ -129,6 +139,10 @@ class PlotFilterConfig(BaseModel):
         if not label_lower and not unit_lower:
             return False
 
+        # Check exclusion patterns first — reject derived/difference plots
+        if any(pat in label_lower for pat in self.y_axis_exclude_patterns):
+            return False
+
         # Check for conversion keywords in label
         has_keyword = any(kw in label_lower for kw in self.y_axis_keywords)
 
@@ -166,6 +180,37 @@ class PlotFilterConfig(BaseModel):
             x_axis_units=["v", "mv", "v vs. rhe", "v vs rhe"],
             y_axis_keywords=["current", "capacitance", "capacity", "coulombic"],
             y_axis_units=["%", "percent", "ma", "a", "f/g", "mah/g"],
+            require_y_keyword_with_percentage=False,
+        )
+
+    @classmethod
+    def for_superconductivity(cls) -> "PlotFilterConfig":
+        """Factory method for superconductivity domain (R(T) plots)."""
+        return cls(
+            x_axis_labels=["temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"],
+            x_axis_units=["k", "°k", "kelvin"],
+            y_axis_keywords=[
+                "resistance", "resistivity", "r(t)", "r/r",
+                "ρ", "rho", "normalized resistance", "r (ω",
+                "r (m", "r (μ", "r [ω", "r [m", "r [μ",
+                "ρ (", "ρ [",
+            ],
+            y_axis_units=[
+                "ω", "ohm", "mω", "μω", "ω·cm", "μω·cm", "mω·cm",
+                "ω cm", "μω cm", "mω cm", "ωcm", "μωcm", "mωcm",
+                "ω⋅cm", "μω⋅cm", "mω⋅cm",
+                "a.u.",
+            ],
+            y_axis_exclude_patterns=[
+                # Difference / subtracted quantities
+                "ρ-ρ", "r-r", "ρ−ρ", "r−r",  # minus sign variants
+                "ρ - ρ", "r - r",              # spaced minus
+                "δρ", "δr", "Δρ", "Δr",        # delta variants
+                # Derivatives
+                "dρ/dt", "dr/dt", "dρ/d", "dr/d",
+                # Normalized differences
+                "ρ/ρ", "r/r₀", "r/r0",         # ratio to residual
+            ],
             require_y_keyword_with_percentage=False,
         )
 

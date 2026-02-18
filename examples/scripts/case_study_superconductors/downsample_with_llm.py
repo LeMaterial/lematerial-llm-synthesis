@@ -41,23 +41,22 @@ Important: The y-axis is typically labeled as ρ (with units like mΩ·cm, μΩ�
 Ω·cm) or R (with units like Ω, mΩ). It may sometimes say "resistivity" but
 do not rely on that word alone — most papers use the symbol ρ or R instead.
 
-We do NOT want plots where the only variation between curves is:
-- Applied magnetic field (H or B)
-- Applied pressure (GPa, kbar)
-Those are excluded.
+CRITICAL: If the ρ(T) or R(T) plot has multiple curves where the ONLY
+difference is applied magnetic field (H, B, μ₀H) or pressure (GPa, kbar),
+answer "no". Look carefully at figure captions and legends for values in
+Tesla (T), Oe, kOe, GPa, or kbar.
+
+Follow these two steps:
+Step 1: Check if the paper has a ρ(T) or R(T) plot.
+Step 2: If yes, check the figure caption/legend — do the different curves
+represent different magnetic fields or pressures? If so, answer "no".
 
 Answer with only yes or no.
-Do not include any other text in your answer.
 If you are not sure, answer with no.
 
-Start Example:
-Paper: [paper_text]
-Question: Does this paper contain a resistivity/resistance vs temperature plot?
-Answer: [yes/no]
-End Example.
-
 Paper: {paper_text}
-Question: Does this paper contain a resistivity/resistance vs temperature plot?
+Question: Does this paper contain a resistivity/resistance vs temperature plot
+that is NOT just varying magnetic field or pressure?
 Answer:
 """
 
