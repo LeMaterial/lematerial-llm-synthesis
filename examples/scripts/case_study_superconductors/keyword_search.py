@@ -6,6 +6,7 @@ Pipeline:
 2. Filter by category: "Superconductor" (substring match, case-insensitive)
 3. Filter by keyword: "resistivity" in abstract
 4. Export matched paper IDs to pickle file for downstream LLM filtering
+5. Upload filtered dataset to HF as a new config "superconductor_keywords_only"
 """
 
 import pickle
@@ -67,11 +68,17 @@ if __name__ == "__main__":
 
     # Use all three splits
     split_name_list = ["arxiv", "omg24", "chemrxiv"]
+    # arxiv has structured categories; chemrxiv/omg24 do not
     category_filter = ["Superconductor"]
+    superconductor_keywords = [
+        "superconductor",
+        "superconducting",
+        "superconductivity",
+    ]
     text_column = "abstract"
     include_keywords = ["resistivity"]
 
-    db = {}
+    filtered_splits = []
 
     for split_name in split_name_list:
         ds = dataset[split_name]
@@ -79,36 +86,53 @@ if __name__ == "__main__":
         print(f"Processing split: {split_name} ({len(ds)} papers)")
         print(f"{'=' * 60}")
 
-        # Step 1: Filter by category
-        ds_cat = filter_by_category(ds, category_filter)
-        print(
-            f"  Category filter {category_filter}: "
-            f"{len(ds_cat)} / {len(ds)} papers"
-        )
+        if split_name == "arxiv":
+            # Step 1a: Filter by structured category
+            ds_sc = filter_by_category(ds, category_filter)
+            print(
+                f"  Category filter {category_filter}: "
+                f"{len(ds_sc)} / {len(ds)} papers"
+            )
+        else:
+            # Step 1b: No structured categories — use keyword filter on abstract
+            ds_sc = keyword_filter(ds, text_column, superconductor_keywords)
+            print(
+                f"  Superconductor keyword filter {superconductor_keywords}: "
+                f"{len(ds_sc)} / {len(ds)} papers"
+            )
 
         # Step 2: Filter by keyword "resistivity" in abstract
-        ds_filtered = keyword_filter(ds_cat, text_column, include_keywords)
+        ds_filtered = keyword_filter(ds_sc, text_column, include_keywords)
         print(
             f"  Keyword filter {include_keywords}: "
-            f"{len(ds_filtered)} / {len(ds_cat)} papers"
+            f"{len(ds_filtered)} / {len(ds_sc)} papers"
         )
 
-        # Collect IDs
-        ids = set(ds_filtered["id"])
-        db[split_name] = ids
-        print(f"  Final IDs for {split_name}: {len(ids)}")
+        print(f"  Final papers for {split_name}: {len(ds_filtered)}")
+        filtered_splits.append(ds_filtered)
 
-    # Summary
-    all_ids = set()
-    for split_name, ids in db.items():
-        all_ids.update(ids)
-    print(f"\n{'=' * 60}")
-    print(f"TOTAL unique papers across all splits: {len(all_ids)}")
-    print(f"{'=' * 60}")
-
-    # Export to pickle
+    # Export IDs to pickle
+    db = {
+        split_name: set(ds["id"])
+        for split_name, ds in zip(split_name_list, filtered_splits)
+    }
     output_path = "results/db_superconductors.pkl"
     with open(output_path, "wb") as f:
         pickle.dump(db, f)
-
     print(f"\nSaved {output_path} with keys: {list(db.keys())}")
+
+    # Combine all splits into one
+    combined = concatenate_datasets(filtered_splits)
+
+    print(f"Total unique papers across all splits: {len(combined)}")
+
+    # Upload to HuggingFace as new config "superconductor_keywords_only"
+    print("\nUploading to HuggingFace (creating PR)...")
+    combined.push_to_hub(
+        "LeMaterial/LeMat-Synth-Papers",
+        config_name="superconductor_keywords_only",
+        split="full",
+        create_pr=True,
+        token=True,
+    )
+    print("Done. PR created on LeMaterial/LeMat-Synth-Papers.")
