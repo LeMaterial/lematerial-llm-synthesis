@@ -90,17 +90,42 @@ REQUIRED CRITERIA (all must be met):
 (showing trends across multiple temperatures)
 4. The plot must show EXPERIMENTAL data
 
-EXCLUDE papers that ONLY have:
-- ρ(T) or R(T) curves where the ONLY variation is applied magnetic field \
-(H or B) — these show field-induced broadening of the superconducting \
-transition and are NOT what we want
+CRITICAL — MAGNETIC FIELD EXCLUSION (most common false positive):
+Many superconductor papers plot ρ(T) or R(T) at different applied magnetic \
+fields to study the upper critical field Hc2. These plots show the \
+superconducting transition broadening and shifting to lower temperatures \
+with increasing field. The legend or caption will show values in Tesla (T), \
+Oersted (Oe), or kOe. Common notations include:
+  - H = 0, 1, 3, 5, 7, 9 T
+  - μ₀H = 0, 0.1, 0.2 ... 0.8 T
+  - H = 0T, 0.5T, 1T, 2T, 4T, 6T, 8T, 10T
+  - H(θ = 0 deg), H = 15T
+  - Applied fields of 0, 0.5, 1, 2 T
+  - H_dc, H_a, H_ext, B_a in Tesla
+  - "in magnetic fields" or "under various fields"
+  - "resistivity curves for the x = 0.6 sample in magnetic fields"
+  - ρ_xx(T) at different fields (longitudinal resistivity in field)
+These are ALL excluded — answer "no".
+
+Also EXCLUDE:
 - ρ(T) or R(T) curves where the ONLY variation is applied pressure \
-(GPa, kbar) — we do NOT want pressure-dependent studies
+(GPa, kbar)
 - Hall resistivity (ρ_xy or ρ_Hall) vs temperature
 - Thermopower or Seebeck coefficient vs temperature
 - Magnetoresistance (MR) vs field at fixed temperatures
 - AC susceptibility (χ) vs temperature (this is not resistivity)
+- Upper critical field Hc2(T) plots (these plot field vs temperature, \
+not resistivity vs temperature)
 - Only computational/theoretical curves with no experimental data
+
+ANALYSIS STEPS — follow these before answering:
+Step 1: Does the paper describe a ρ(T) or R(T) plot?
+Step 2: Look at the figure captions and legends. What do the different \
+curves represent? Are they labeled with field values (T, Oe, kOe), \
+pressure values (GPa, kbar), or material/composition labels?
+Step 3: If the curves are labeled with field or pressure values, answer "no". \
+If they represent different materials, compositions, dopings, substitutions, \
+or if it is a single-curve plot for one material, answer "yes".
 
 Examples of VALID plots:
 - "Resistivity ρ (mΩ cm) vs Temperature (K) for Nd[O₀.₈₉F₀.₁₁]FeAs" — \
@@ -109,11 +134,20 @@ single material showing superconducting transition
 comparing different compositions
 - "Temperature dependence of resistivity for samples with x = 0, 0.05, 0.1" \
 — comparing different dopings
+- "R(T) for parent and Co-doped BaFe₂As₂" — comparing doping levels
 
 Examples of INVALID plots:
 - "ρ(T) at μ₀H = 0, 0.05, 0.1, 0.15 ... 0.8 T" — only varying magnetic field
 - "R(T) under H = 0, 1, 3, 5, 7, 9 T" — only varying magnetic field
+- "ρ(T) in applied fields of 0, 0.5, 1, 2, 5 T" — only varying magnetic field
+- "resistivity curves for the x = 0.6 sample in magnetic fields" — \
+only varying field for one composition
+- "ρ_xx(T) at H = 15T, θ(deg) = 0, 40, 68, 73, 75, 77, 80, 85, 90" — \
+varying field angle, still a field study
+- "ρ(T) at 0T, 0.5T, 1T, 2T, 4T marked in legend" — field sweep
 - "R(T) for CaLi₂ at 8, 11, 26, 36, 45 GPa" — only varying pressure
+- "Hc2(T) determined from resistivity midpoint" — this is an Hc2 plot, \
+not a ρ(T) plot
 
 Answer ONLY with "yes" or "no". No other text.
 If uncertain, answer "no".
