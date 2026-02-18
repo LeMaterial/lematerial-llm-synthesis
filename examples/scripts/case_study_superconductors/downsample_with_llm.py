@@ -1,10 +1,12 @@
 """
-Script to apply LLM filtering to superconductor papers identified by keyword search.
+Script to apply LLM filtering to superconductor papers
+identified by keyword search.
 Loads paper IDs from pkl file and applies LLM inference to check for
 resistivity vs temperature plots.
 
 We want papers that show ρ (or R) vs T plots — either a single curve for one
-material or multiple curves comparing different compositions/dopings/substitutions.
+material or multiple curves comparing different
+compositions/dopings/substitutions.
 We exclude papers where the only variation between curves is magnetic field or
 pressure.
 """
@@ -14,25 +16,22 @@ import os
 import pickle
 
 import datasets
-import openai
 import requests
 from datasets import Features, Value, concatenate_datasets
+from google import genai
+from google.genai import types
 from tenacity import retry, stop_after_attempt, wait_exponential
 from tqdm import tqdm
-from transformers import AutoTokenizer
 
 # --- Constants ---
-MODEL_NAME = "mistralai/Ministral-3-14B-Instruct-2512"
-MAX_MODEL_LEN = 50000
-VLLM_ENDPOINT = "http://localhost:8000/v1"
-OUTPUT_REPO = "amayuelas/LeMat-Synth-Papers-Superconductors-Filtered-v1"
+MODEL_NAME = "gemini-2.5-flash"
 DOWNLOAD_FOLDER = "../data/superconductor_pdfs-filtered-v1"
 PKL_FILE = "results/db_superconductors.pkl"
 
 # --- LLM Prompt (short) ---
-PROMPT = """You are provided with a scientific materials paper about superconductors.
-We want to know if the paper contains a plot of electrical resistivity (ρ) or
-resistance (R) as a function of temperature (T).
+PROMPT = """You are provided with a scientific materials paper about
+superconductors. We want to know if the paper contains a plot of
+electrical resistivity (ρ) or resistance (R) as a function of temperature (T).
 
 The plot can show a single curve for one material, or multiple curves comparing
 different materials, compositions, dopings, or substitutions.
@@ -131,31 +130,27 @@ Answer:"""
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=1, min=4, max=10),
 )
-def ask_llm_has_resistivity_vs_temperature_plot(
-    text, client, model, selected_prompt
-):
+def ask_llm_has_resistivity_vs_temperature_plot(text, client, selected_prompt):
     message = selected_prompt.format(paper_text=text)
     try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": message}],
-            temperature=0,
-            max_tokens=100,
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=message,
+            config=types.GenerateContentConfig(
+                temperature=0, max_output_tokens=100
+            ),
         )
-        answer = response.choices[0].message.content.strip().lower()
+        answer = response.text.strip().lower()
         return answer in ["yes", "yes."] or ("yes" in answer)
     except Exception as e:
         print(f"LLM call failed: {e}")
         return False
 
 
-def process_example(example, client, model, tokenizer, selected_prompt):
+def process_example(example, client, selected_prompt):
     text = example["text_paper"]
-    tokens = tokenizer.encode(text)
-    if len(tokens) > MAX_MODEL_LEN:
-        text = tokenizer.decode(tokens[: MAX_MODEL_LEN - 150])
     return ask_llm_has_resistivity_vs_temperature_plot(
-        text, client, model, selected_prompt
+        text, client, selected_prompt
     )
 
 
@@ -202,19 +197,20 @@ def main():
 
     # Apply LLM filtering
     print(f"\nProcessing {len(keyword_papers)} papers with LLM...")
-    client = openai.OpenAI(base_url=VLLM_ENDPOINT, api_key="not-needed")
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get(
+        "GOOGLE_API_KEY"
+    )
+    if not api_key:
+        raise OSError(
+            "Set GEMINI_API_KEY (or GOOGLE_API_KEY) env var. "
+            "Use 'export GEMINI_API_KEY=...' so subprocesses inherit it."
+        )
+    client = genai.Client(api_key=api_key)
 
     results = []
     for paper in tqdm(keyword_papers, desc="LLM filtering"):
         results.append(
-            process_example(
-                paper,
-                client,
-                MODEL_NAME,
-                tokenizer,
-                selected_prompt=selected_prompt,
-            )
+            process_example(paper, client, selected_prompt=selected_prompt)
         )
 
     # Add results to dataset
@@ -231,15 +227,19 @@ def main():
     print("RESULTS:")
     print(f"{'=' * 60}")
     print(f"Papers processed: {len(keyword_papers)}")
-    print(
-        f"Papers with resistivity vs temperature plots: {len(final_papers)}"
-    )
+    print(f"Papers with resistivity vs temperature plots: {len(final_papers)}")
     print(f"Success rate: {len(final_papers) / len(keyword_papers) * 100:.1f}%")
     print(f"{'=' * 60}\n")
 
     # Save to HuggingFace Hub
-    print(f"Pushing dataset to {OUTPUT_REPO}...")
-    final_papers.push_to_hub(OUTPUT_REPO)
+    print("Pushing dataset ")
+    final_papers.push_to_hub(
+        "LeMaterial/LeMat-Synth-Papers",
+        config_name="superconductor_keywords_and_LLM",
+        split="full",
+        create_pr=True,
+        token=True,
+    )
     print("Dataset saved successfully!")
 
     # Download PDFs

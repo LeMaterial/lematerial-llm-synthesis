@@ -65,6 +65,7 @@ line-length = 80
 [tool.ruff.lint]
 # Ruff-specific rules (`RUF`), isort (`I`), pycodestyle (`E`), and more common rulesets
 select = ["E", "F", "I", "N", "UP", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]
 
 # Allow autofix for all enabled rules
 fixable = ["ALL"]
