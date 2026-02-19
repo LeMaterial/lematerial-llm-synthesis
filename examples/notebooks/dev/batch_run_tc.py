@@ -781,7 +781,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                 from llm_synthesis.models.performance import PlotMaterialMapping
 
                 linker_lm = get_llm_from_name(LINKER_MODEL,
-                                               model_kwargs={"temperature": 0.0, "max_tokens": 8000})
+                                               model_kwargs={"temperature": 0.0, "max_tokens": 16000})
                 series_linker = SeriesMaterialLinker(lm=linker_lm)
                 for idx, plot in relevant_plots:
                     fig = plot_figures[idx]

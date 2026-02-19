@@ -127,7 +127,7 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
             response_text = "\n".join(lines[1:-1])
 
         # Try to extract JSON array from response if there's extra text
-        if "[" in response_text:
+        if "[" in response_text and "]" in response_text:
             start = response_text.index("[")
             end = response_text.rindex("]") + 1
             response_text = response_text[start:end]
