@@ -931,7 +931,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     # Save JSONL
     with open(paper_dir / "tc_flat_records.jsonl", "w") as f:
         for rec in flat_records:
-            f.write(json.dumps(rec, default=str) + "\n")
+            f.write(json.dumps(rec, default=str, indent=2) + "\n")
 
     # Print summary table
     print(f"\n  {'Material':<35} {'SC?':<5} {'Tc_text':>8} {'Tc_VLM':>8} {'Tc_best':>8} {'Source':<12}")
