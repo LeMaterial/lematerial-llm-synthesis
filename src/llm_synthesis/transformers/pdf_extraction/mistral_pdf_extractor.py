@@ -3,6 +3,7 @@ import json
 import logging
 import mimetypes
 import os
+import time
 
 from mistralai import Mistral
 
@@ -48,8 +49,12 @@ class MistralPDFExtractor(PdfExtractorInterface):
         self,
         structured: bool = False,
         mistral_api_key: str | None = None,
+        max_retries: int = 3,
+        retry_base_delay: float = 2.0,
     ):
         self.structured = structured
+        self.max_retries = max_retries
+        self.retry_base_delay = retry_base_delay
         self.mistral_api_key = mistral_api_key or os.environ.get(
             "MISTRAL_API_KEY"
         )
@@ -77,7 +82,8 @@ class MistralPDFExtractor(PdfExtractorInterface):
         """
         data_uri = self._get_data_uri_from_bytes(input)
 
-        resp = self.mistral_api_client.ocr.process(
+        resp = self._call_with_retry(
+            self.mistral_api_client.ocr.process,
             document={"type": "document_url", "document_url": data_uri},
             model="mistral-ocr-latest",
             include_image_base64=True,
@@ -91,7 +97,8 @@ class MistralPDFExtractor(PdfExtractorInterface):
     async def aforward(self, input: bytes) -> str:
         data_uri = self._get_data_uri_from_bytes(input)
 
-        resp = await self.mistral_api_client.ocr.process_async(
+        resp = await self._acall_with_retry(
+            self.mistral_api_client.ocr.process_async,
             document={"type": "document_url", "document_url": data_uri},
             model="mistral-ocr-latest",
             include_image_base64=True,
@@ -101,6 +108,38 @@ class MistralPDFExtractor(PdfExtractorInterface):
             return json.dumps(resp.to_dict(), indent=2)
 
         return self._process_pages(resp)
+
+    def _call_with_retry(self, fn, **kwargs):
+        for attempt in range(self.max_retries):
+            try:
+                return fn(**kwargs)
+            except Exception as e:
+                if attempt == self.max_retries - 1:
+                    raise
+                delay = self.retry_base_delay * (2 ** attempt)
+                LOGGER.warning(
+                    "Mistral OCR call failed (attempt %d/%d): %s. "
+                    "Retrying in %.1fs...",
+                    attempt + 1, self.max_retries, e, delay,
+                )
+                time.sleep(delay)
+
+    async def _acall_with_retry(self, fn, **kwargs):
+        import asyncio
+
+        for attempt in range(self.max_retries):
+            try:
+                return await fn(**kwargs)
+            except Exception as e:
+                if attempt == self.max_retries - 1:
+                    raise
+                delay = self.retry_base_delay * (2 ** attempt)
+                LOGGER.warning(
+                    "Mistral OCR async call failed (attempt %d/%d): %s. "
+                    "Retrying in %.1fs...",
+                    attempt + 1, self.max_retries, e, delay,
+                )
+                await asyncio.sleep(delay)
 
     def _get_data_uri_from_bytes(self, input):
         return (
