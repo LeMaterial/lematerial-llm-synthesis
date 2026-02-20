@@ -93,6 +93,38 @@ class PlotFilterConfig(BaseModel):
         description="Whether to apply y-axis filtering",
     )
 
+    @staticmethod
+    def _normalize_axis_text(text: str) -> str:
+        """Normalize axis label/unit text for matching.
+
+        Strips LaTeX formatting and converts LaTeX symbols to Unicode equivalents
+        so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
+        """
+        # Strip LaTeX dollar signs
+        text = text.replace("$", "")
+        # Convert common LaTeX symbols to Unicode
+        # Use raw strings to match literal backslash sequences
+        latex_to_unicode = [
+            ("\\rho", "ρ"),
+            ("\\omega", "ω"),
+            ("\\mu", "μ"),
+            ("\\delta", "δ"),
+            ("\\sigma", "σ"),
+            ("\\alpha", "α"),
+            ("\\beta", "β"),
+            ("\\gamma", "γ"),
+            ("\\chi", "χ"),
+            ("\\lambda", "λ"),
+            ("\\cdot", "·"),
+        ]
+        for latex, uni in latex_to_unicode:
+            text = text.replace(latex, uni)
+        # Also handle case where \r was interpreted as carriage return
+        # (happens when Python string literal has \rho without raw prefix)
+        text = text.replace("\rho", "ρ")
+        text = text.replace("\mu", "μ")
+        return text
+
     def is_relevant_x_axis(self, label: str | None, unit: str | None) -> bool:
         """Check if x-axis indicates a relevant plot.
 
@@ -106,8 +138,8 @@ class PlotFilterConfig(BaseModel):
         if not self.filter_x_axis:
             return True
 
-        label_lower = (label or "").lower().strip()
-        unit_lower = (unit or "").lower().strip()
+        label_lower = self._normalize_axis_text((label or "").lower().strip())
+        unit_lower = self._normalize_axis_text((unit or "").lower().strip())
 
         # Check if label contains any configured labels (substring match)
         if any(t in label_lower for t in self.x_axis_labels):
@@ -132,8 +164,8 @@ class PlotFilterConfig(BaseModel):
         if not self.filter_y_axis:
             return True
 
-        label_lower = (label or "").lower().strip()
-        unit_lower = (unit or "").lower().strip()
+        label_lower = self._normalize_axis_text((label or "").lower().strip())
+        unit_lower = self._normalize_axis_text((unit or "").lower().strip())
 
         # If y-axis is completely empty, we can't verify — reject it
         if not label_lower and not unit_lower:
@@ -193,7 +225,7 @@ class PlotFilterConfig(BaseModel):
                 "resistance", "resistivity", "r(t)", "r/r",
                 "ρ", "rho", "normalized resistance", "r (ω",
                 "r (m", "r (μ", "r [ω", "r [m", "r [μ",
-                "ρ (", "ρ [",
+                "ρ (", "ρ [", "ρ/ρ",
             ],
             y_axis_units=[
                 "ω", "ohm", "mω", "μω", "ω·cm", "μω·cm", "mω·cm",
@@ -208,8 +240,11 @@ class PlotFilterConfig(BaseModel):
                 "δρ", "δr", "Δρ", "Δr",        # delta variants
                 # Derivatives
                 "dρ/dt", "dr/dt", "dρ/d", "dr/d",
-                # Normalized differences
-                "ρ/ρ", "r/r₀", "r/r0",         # ratio to residual
+                # Ratio to residual resistivity (but NOT normalized to room temp)
+                # "ρ/ρ₀", "r/r₀", "r/r0" are residual-ratio plots (not useful)
+                # "ρ/ρ₃₀₀" or "r/r(300)" are room-temp-normalized R(T) (useful!)
+                "ρ/ρ₀", "ρ/ρ0",
+                "r/r₀", "r/r0",
             ],
             require_y_keyword_with_percentage=False,
         )
