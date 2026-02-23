@@ -1,0 +1,17 @@
+# Configuration for creating custom dataset subset
+
+#the dataset from which subset is being created
+dataset:
+  uri: "LeMaterial/LeMat-Synth-Papers"
+  config_name: "default"
+  split: "sample_for_evaluation"
+
+#new dataset being created
+output:
+  uri: "NikhilYelamarthy/LeMat-Synth-Annotations-38"
+  split: "sample_for_evaluation"
+  private: false
+
+#annotations directory
+annotations:
+  directory: "annotations"
