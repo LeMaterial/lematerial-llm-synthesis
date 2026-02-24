@@ -55,7 +55,7 @@ logging.getLogger("litellm").setLevel(logging.ERROR)
 
 # ── Model config ──
 GEMINI_MODEL = "gemini-3.0-flash"
-CLAUDE_MODEL = "claude-opus-4-6"
+CLAUDE_MODEL = "claude-sonnet-4-6"
 LINKER_MODEL = "gemini-3.0-flash"
 
 
