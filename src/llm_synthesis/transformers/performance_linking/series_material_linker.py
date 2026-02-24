@@ -11,6 +11,7 @@ from llm_synthesis.transformers.performance_linking.base import (
     LinkingInput,
     PerformanceLinkingInterface,
 )
+from llm_synthesis.utils.formula_utils import normalize_formula
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ Return a JSON list of matches. Each match must have:
 - "series_name": exactly one of the series names listed above
 - "material_name": exactly one of the material names listed above
 - "confidence": "high", "medium", or "low"
-- "reasoning": brief explanation of why this match was made
+- "reasoning": 1-2 WORDS only (e.g. "formula match", "composition match")
 
 Rules:
 - Only match when there is a CLEAR connection between the series name and a material name
@@ -39,6 +40,9 @@ Rules:
   the series unmatched. An empty list [] is a valid response.
 - If a series is a baseline, reference, substrate, equilibrium line, or pressure condition — do NOT include it.
 - series_name and material_name MUST be exactly from the lists above. Do not modify them.
+- Formatting differences are irrelevant: "Re0.88Mo0.12" and "Re_{{0.88}}Mo_{{0.12}}" are the SAME material.
+  Match based on chemical composition, not string formatting.
+- KEEP reasoning extremely short to avoid response truncation.
 
 Return ONLY a valid JSON list, no other text."""
 
@@ -159,7 +163,9 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
     ) -> list[SeriesMapping]:
         """Validate mappings against known series and materials.
 
-        Discards any mapping with hallucinated series_name or material_name.
+        Uses fuzzy formula normalization as a fallback when exact string
+        matching fails. This handles cases where the LLM returns
+        "Re0.88Mo0.12" but the valid material is "Re_{0.88}Mo_{0.12}".
 
         Args:
             raw_mappings: Raw mapping dicts from LLM
@@ -171,18 +177,49 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
         """
         valid_series_set = set(valid_series)
         valid_materials_set = set(valid_materials)
+
+        # Build normalized lookup for fuzzy fallback
+        norm_to_series: dict[str, str] = {}
+        for s in valid_series:
+            norm = normalize_formula(s)
+            if norm not in norm_to_series:
+                norm_to_series[norm] = s
+
+        norm_to_material: dict[str, str] = {}
+        for mat in valid_materials:
+            norm = normalize_formula(mat)
+            if norm not in norm_to_material:
+                norm_to_material[norm] = mat
+
         validated = []
 
         for m in raw_mappings:
             sn = m.get("series_name", "")
             mn = m.get("material_name", "")
 
+            # --- Validate series_name ---
             if sn not in valid_series_set:
-                logger.debug(f"Discarding mapping: series '{sn}' not in plot")
-                continue
+                sn_norm = normalize_formula(sn)
+                resolved_sn = norm_to_series.get(sn_norm)
+                if resolved_sn:
+                    logger.debug(f"Fuzzy series match: '{sn}' -> '{resolved_sn}'")
+                    sn = resolved_sn
+                else:
+                    logger.debug(f"Discarding mapping: series '{sn}' not in plot")
+                    continue
+
+            # --- Validate material_name ---
             if mn not in valid_materials_set:
-                logger.debug(f"Discarding mapping: material '{mn}' not in list")
-                continue
+                mn_norm = normalize_formula(mn)
+                resolved_mn = norm_to_material.get(mn_norm)
+                if resolved_mn:
+                    logger.debug(f"Fuzzy material match: '{mn}' -> '{resolved_mn}'")
+                    mn = resolved_mn
+                else:
+                    logger.debug(
+                        f"Discarding mapping: material '{mn}' not in list"
+                    )
+                    continue
 
             validated.append(
                 SeriesMapping(
