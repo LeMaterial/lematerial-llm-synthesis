@@ -300,7 +300,10 @@ def _normalize_formula(s: str) -> str:
     base = base.replace('₀', '0').replace('₁', '1').replace('₂', '2').replace('₃', '3')
     base = base.replace('₄', '4').replace('₅', '5').replace('₆', '6').replace('₇', '7')
     base = base.replace('₈', '8').replace('₉', '9').replace('₋', '-')
-    return base.lower().replace(' ', '').replace('−', '-')
+    base = base.lower().replace(' ', '').replace('−', '-')
+    # Strip trailing zeros from decimal numbers: 0.80 -> 0.8, 0.10 -> 0.1
+    base = re.sub(r'(\.\d*?)0+(?=\D|$)', r'\1', base)
+    return base
 
 
 # All element symbols for material name validation
@@ -1305,6 +1308,19 @@ If the exact method is not in the list, use the closest match or 'other'."""
 
     # ── Step 3: Extract Tc from text (multi-condition) ──
     print("[Step 3] Extracting Tc from text (multi-condition)...")
+
+    # Build materials context for Tc extraction
+    mat_list_str = ", ".join(materials[:30])  # cap at 30 to avoid bloating prompt
+    materials_context = (
+        f"\n\n5. MATERIALS IN THIS PAPER (from prior extraction):\n"
+        f"   {mat_list_str}\n"
+        f"   You MUST report a Tc line for EACH of these materials.\n"
+        f"   If a material has no Tc mentioned anywhere in the text, report it with\n"
+        f"   superconducting: NO and all Tc fields as NR.\n"
+        f"   If additional materials with Tc values appear in the text but are not in\n"
+        f"   this list, include them too."
+    )
+
     tc_text_sig = make_dspy_text_extractor_signature(
         signature_name="TextToTcMulti",
         instructions=(
@@ -1318,14 +1334,28 @@ If the exact method is not in the list, use the closest match or 'other'."""
             "   midpoint: Tc, Tc_mid, Tc,mid, T_c^mid\n"
             "   zero-resistance: Tc_zero, Tc,zero, Tc(0), T_c^zero\n"
             "   transition width: ΔTc, delta_Tc — report this as delta_Tc, NOT as a Tc value.\n\n"
-            "3. MATERIAL NAME = fully resolved chemical formula.\n"
+            "3. WHERE TO FIND Tc — check ALL of these locations in the paper:\n"
+            "   - Abstract (often states the main Tc result)\n"
+            "   - Results / Discussion sections (detailed Tc values per sample)\n"
+            "   - Tables (Tc columns, summary tables of properties)\n"
+            "   - Figure captions (e.g., 'Tc = 39 K as shown in Fig. 3')\n"
+            "   - Conclusions (often restates key Tc findings)\n"
+            "   Also look for INDIRECT phrasings:\n"
+            "   - 'superconductivity emerges below 39 K'\n"
+            "   - 'becomes superconducting at 23 K'\n"
+            "   - 'critical temperature of 92 K'\n"
+            "   - 'superconducting transition at 7.2 K'\n"
+            "   - 'zero resistance below 25 K'\n"
+            "   - 'onset of superconductivity near 30 K'\n\n"
+            "4. MATERIAL NAME = fully resolved chemical formula.\n"
             "   Substitute all variables with their numeric values.\n"
             "   e.g. A(B1-xCx) with x=0.3 → AB0.7C0.3\n"
             "   Each distinct composition gets its own row.\n"
             "   Use the chemical formula, not sample labels (S1, SC2, etc.).\n\n"
-            "4. CONDITION = only external factors NOT encoded in the formula:\n"
+            "5. CONDITION = only external factors NOT encoded in the formula:\n"
             "   pressure, magnetic field, sample form (single-crystal, thin-film, etc.).\n"
             "   If none apply, use 'ambient'."
+            + materials_context
         ),
         input_description="The full publication text from a superconductivity paper.",
         output_name="tc_values",

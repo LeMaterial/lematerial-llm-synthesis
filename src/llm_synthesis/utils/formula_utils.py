@@ -42,7 +42,10 @@ def normalize_formula(s: str) -> str:
         ("\u208b", "-"),
     ]:
         base = base.replace(char, digit)
-    return base.lower().replace(" ", "").replace("\u2212", "-")
+    base = base.lower().replace(" ", "").replace("\u2212", "-")
+    # Strip trailing zeros from decimal numbers: 0.80 -> 0.8, 0.10 -> 0.1
+    base = re.sub(r"(\.\d*?)0+(?=\D|$)", r"\1", base)
+    return base
 
 
 def extract_condition_annotation(s: str) -> str | None:
