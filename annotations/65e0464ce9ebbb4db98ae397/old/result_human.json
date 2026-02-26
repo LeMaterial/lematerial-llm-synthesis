@@ -1,0 +1,1275 @@
+[
+  {
+    "material": "Ac-LIVKHH-NH2",
+    "synthesis": {
+      "target_compound": "Ac-LIVKHH-NH2",
+      "target_compound_type": "biomaterials & biological",
+      "synthesis_method": "wet chemical synthesis",
+      "starting_materials": [
+        {
+          "vendor": "Merck",
+          "name": "Fmoc rink amide AM resin",
+          "amount": 0.78,
+          "unit": "mmol/g",
+          "purity": null
+        },
+        {
+          "vendor": "Iris Biotech",
+          "name": "Fmoc protected amino acids (leucine, isoleucine, valine, lysine, histidine)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Iris Biotech",
+          "name": "diisopropylethylamine (DIPEA)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Acros-Fischer",
+          "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Fluorochem Limited",
+          "name": "trifluoroacetic acid (TFA)",
+          "amount": null,
+          "unit": null,
+          "purity": "peptide grade"
+        },
+        {
+          "vendor": "TCI Europe",
+          "name": "triisopropylsilane (TIS)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Alfa Aesar",
+          "name": "piperidine",
+          "amount": null,
+          "unit": null,
+          "purity": "99%"
+        },
+        {
+          "vendor": "ChemSolute",
+          "name": "diethyl ether (Et2O)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "ChemSolute",
+          "name": "dichloromethane (DCM)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Fischer Chemical",
+          "name": "dimethylformamide (DMF)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Sigma Aldrich",
+          "name": "acetic anhydride (Ac2O)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Millipore",
+          "name": "Milli-Q water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Fmoc-rink amide AM resin was weighed out, and the beads were allowed to swell for 1h in DMF.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "Fmoc-rink amide AM resin",
+              "amount": 0.78,
+              "unit": "mmol/g",
+              "purity": null
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Fmoc deprotection was achieved with a mixture of 20% v/v piperidine in DMF, which was added to the resin and left to agitate for 15 min.",
+          "materials": [
+            {
+              "vendor": "Alfa Aesar",
+              "name": "piperidine",
+              "amount": 20.0,
+              "unit": "v/v",
+              "purity": "99%"
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "add",
+          "description": "After thorough washing with DMF, 2 equiv. of HOBt and HBTU were dissolved in DMF and combined. Another 2 equiv. of the initial protected amino acid, pre-dissolved in DMF, were introduced to the mixture, followed by the addition of 2 equiv. of DIPEA to the same solution, allowing 20 seconds for activation.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "HOBt",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Acros-Fischer",
+              "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU)",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "protected amino acid",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Iris Biotech",
+              "name": "diisopropylethylamine (DIPEA)",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 20.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "Subsequently, this solution was added to the resin and left to agitate for 45 minutes.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "resin",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": 45.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "wash",
+          "description": "The resin was washed with DMF and subjected to a series of deprotection and coupling reactions with the desired amino acids. All the reactions were performed at 25 \u00b0C, and the couplings were monitored via Kaiser test.",
+          "materials": [
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "amino acids",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "add",
+          "description": "After a though washing with DMF, a DMF solution of 12 equiv. of Ac2O and DIPEA was added (capping) to prevent side reactions of the side-groups, and the mixture was incubated for 30 minutes.",
+          "materials": [
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Sigma Aldrich",
+              "name": "acetic anhydride (Ac2O)",
+              "amount": 12.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Iris Biotech",
+              "name": "diisopropylethylamine (DIPEA)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "add",
+          "description": "To obtain the P1, the Fmoc group of the final amino acid was deprotected.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 8,
+          "action": "add",
+          "description": "Then, the N-terminus of P1 was acetylated using a 5-times excess of Ac2O and DIPEA.",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich",
+              "name": "acetic anhydride (Ac2O)",
+              "amount": 5.0,
+              "unit": "excess",
+              "purity": null
+            },
+            {
+              "vendor": "Iris Biotech",
+              "name": "diisopropylethylamine (DIPEA)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 9,
+          "action": "wash",
+          "description": "The resin was subsequently washed with DMF and DCM and allowed to dry before the peptide cleavage step using a mixture of 94% TFA, 3% Milli-Q water and 3% TIS.",
+          "materials": [
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "ChemSolute",
+              "name": "dichloromethane (DCM)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 10,
+          "action": "add",
+          "description": "peptide cleavage step using a mixture of 94% TFA, 3% Milli-Q water and 3% TIS.",
+          "materials": [
+            {
+              "vendor": "Fluorochem Limited",
+              "name": "trifluoroacetic acid (TFA)",
+              "amount": 94.0,
+              "unit": "%",
+              "purity": "peptide grade"
+            },
+            {
+              "vendor": null,
+              "name": "Milli-Q water",
+              "amount": 3.0,
+              "unit": "%",
+              "purity": null
+            },
+            {
+              "vendor": "TCI Europe",
+              "name": "triisopropylsilane (TIS)",
+              "amount": 3.0,
+              "unit": "%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 11,
+          "action": "precipitate",
+          "description": "The solvents were reduced under Ar atmosphere, and Et2O was added to precipitate the peptide.",
+          "materials": [
+            {
+              "vendor": "ChemSolute",
+              "name": "diethyl ether (Et2O)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 12,
+          "action": "centrifuge",
+          "description": "The peptides were isolated through several centrifugations, washed with Et2O, and dried under reduced pressure.",
+          "materials": [
+            {
+              "vendor": "ChemSolute",
+              "name": "diethyl ether (Et2O)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 13,
+          "action": "add",
+          "description": "The peptides were then lyophilized in Milli-Q water with the presence of 0.01% TFA and analyzed by high-performance liquid chromatography system coupled to a mass spectrometer (HPLC-MS, Thermo scientific, Ultimate 3000 HPLC system coupled with maXis UHR-TOF).",
+          "materials": [
+            {
+              "vendor": "Millipore",
+              "name": "Milli-Q water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Fluorochem Limited",
+              "name": "trifluoroacetic acid (TFA)",
+              "amount": 0.01,
+              "unit": "%",
+              "purity": "peptide grade"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "high-performance liquid chromatography system coupled to a mass spectrometer (HPLC-MS)",
+              "instrument_vendor": "Thermo scientific",
+              "settings": "Ultimate 3000 HPLC system coupled with maXis UHR-TOF"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "The purity of the desired peptides ranged between 95 and 99%, therefore, no further purification was necessary. ESI-MS spectra were measured on a Brucker maXis UHR-TOF equipped with ESI electrospray ionization chamber in positive mode. Yield: P1: 287 mg (57.4%);"
+    },
+    "evaluation": {
+      "reasoning": "The LLM successfully extracted the material name, synthesis method, and most key reagents (resin, Fmoc-protected amino acids, HOBt, HBTU, DIPEA, Ac2O, etc.). The stepwise deprotection and coupling process was also accurately captured. Overall semantic accuracy and structural representation are strong.",
+      "scores": {
+        "structural_completeness_score": 4.5,
+        "structural_completeness_reasoning": "Most of the major synthesis steps and materials are present, including deprotection, coupling, washing, capping, acetylation, and cleavage. Equipment like resin, vortex, and centrifuge could be better specified.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Most starting materials and reagents are correctly named, though occasional ambiguity exists in concentration or brand details.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "Sequencing is generally accurate, but multiple steps could be broken down more cleanly or reclassified for clearer action (e.g., 'agitate' vs 'mix').",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Centrifuge and HPLC are implicitly captured, but not consistently tagged in all steps. Some instruments (e.g., lyophilizer) are inferred, not extracted.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature and durations are generally included but not consistently structured; some values (e.g., 25 \u00b0C, 45 minutes) are partially omitted.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "Scientific meaning is well-preserved; the synthetic logic and product identity are maintained.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "All schema fields are correctly filled and data types are respected.",
+        "overall_score": 4.4,
+        "overall_reasoning": "A strong extraction with good coverage, minor issues in action naming and completeness, but faithful semantic representation.",
+        "confidence_level": "high"
+      },
+      "missing_information": [
+        "minor reaction conditions",
+        "some equipment tags"
+      ],
+      "extraction_errors": [
+        "occasional ambiguous units"
+      ],
+      "improvement_suggestions": [
+        "explicitly extract all equipment and add 'swell' under allowed action types"
+      ]
+    }
+  },
+  {
+    "material": "Fmoc-LIVKHH-NH2",
+    "synthesis": {
+      "target_compound": "Fmoc-LIVKHH-NH2",
+      "target_compound_type": "biomaterials & biological",
+      "synthesis_method": "wet chemical synthesis",
+      "starting_materials": [
+        {
+          "vendor": "Merck",
+          "name": "Fmoc rink amide AM resin",
+          "amount": 0.78,
+          "unit": "mmol/g",
+          "purity": null
+        },
+        {
+          "vendor": "Iris Biotech",
+          "name": "Fmoc protected amino acids",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Iris Biotech",
+          "name": "diisopropylethylamine (DIPEA)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Acros-Fischer",
+          "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Fluorochem Limited",
+          "name": "trifluoroacetic acid (TFA)",
+          "amount": null,
+          "unit": null,
+          "purity": "peptide grade"
+        },
+        {
+          "vendor": "TCI Europe",
+          "name": "triisopropylsilane (TIS)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Alfa Aesar",
+          "name": "piperidine",
+          "amount": null,
+          "unit": null,
+          "purity": "99%"
+        },
+        {
+          "vendor": "ChemSolute",
+          "name": "diethyl ether (Et2O)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "ChemSolute",
+          "name": "dichloromethane (DCM)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Fischer Chemical",
+          "name": "dimethylformamide (DMF)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Sigma Aldrich",
+          "name": "acetic anhydride (Ac2O)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Millipore",
+          "name": "Milli-Q water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Fmoc-rink amide AM resin was weighed out, and the beads were allowed to swell for 1h in DMF.",
+          "materials": [
+            {
+              "vendor": "Merck",
+              "name": "Fmoc-rink amide AM resin",
+              "amount": 0.78,
+              "unit": "mmol/g",
+              "purity": null
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Fmoc deprotection was achieved with a mixture of 20% v/v piperidine in DMF, which was added to the resin and left to agitate for 15 min.",
+          "materials": [
+            {
+              "vendor": "Alfa Aesar",
+              "name": "piperidine",
+              "amount": 20.0,
+              "unit": "v/v",
+              "purity": "99%"
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": 15.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "mix",
+          "description": "2 equiv. of HOBt and HBTU were dissolved in DMF and combined. Another 2 equiv. of the initial protected amino acid, pre-dissolved in DMF, were introduced to the mixture, followed by the addition of 2 equiv. of DIPEA to the same solution, allowing 20 seconds for activation.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "HOBt",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Acros-Fischer",
+              "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU)",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Iris Biotech",
+              "name": "Fmoc protected amino acids",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Iris Biotech",
+              "name": "DIPEA",
+              "amount": 2.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": 20.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "This solution was added to the resin and left to agitate for 45 minutes. The resin was washed with DMF and subjected to a series of deprotection and coupling reactions with the desired amino acids. All the reactions were performed at 25\u00b0C, and the couplings were monitored via Kaiser test.",
+          "materials": [
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": 45.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "add",
+          "description": "After a though washing with DMF, a DMF solution of 12 equiv. of Ac2O and DIPEA was added (capping) to prevent side reactions of the side-groups, and the mixture was incubated for 30 minutes.",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich",
+              "name": "Ac2O",
+              "amount": 12.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Iris Biotech",
+              "name": "DIPEA",
+              "amount": 12.0,
+              "unit": "equiv",
+              "purity": null
+            },
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 30.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "wash",
+          "description": "The resin was subsequently washed with DMF and DCM and allowed to dry before the peptide cleavage step using a mixture of 94% TFA, 3% Milli-Q water and 3% TIS.",
+          "materials": [
+            {
+              "vendor": "Fischer Chemical",
+              "name": "dimethylformamide (DMF)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "ChemSolute",
+              "name": "dichloromethane (DCM)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Fluorochem Limited",
+              "name": "trifluoroacetic acid (TFA)",
+              "amount": 94.0,
+              "unit": "%",
+              "purity": "peptide grade"
+            },
+            {
+              "vendor": "MilliporeSigma",
+              "name": "Milli-Q water",
+              "amount": 3.0,
+              "unit": "%",
+              "purity": null
+            },
+            {
+              "vendor": "TCI Europe",
+              "name": "triisopropylsilane (TIS)",
+              "amount": 3.0,
+              "unit": "%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "precipitate",
+          "description": "The solvents were reduced under an Ar atmosphere, and Et2O was added to precipitate the peptide. The peptides were isolated through several centrifugations, washed with Et2O, and dried under reduced pressure.",
+          "materials": [
+            {
+              "vendor": "ChemSolute",
+              "name": "diethyl ether (Et2O)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 8,
+          "action": "add",
+          "description": "The peptides were then lyophilized in Milli-Q water with the presence of 0.01% TFA and analyzed by high-performance liquid chromatography system coupled to a mass spectrometer (HPLC-MS, Thermo scientific, Ultimate 3000 HPLC system coupled with maXis UHR-TOF).",
+          "materials": [
+            {
+              "vendor": "Millipore",
+              "name": "Milli-Q water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Fluorochem Limited",
+              "name": "trifluoroacetic acid (TFA)",
+              "amount": 0.01,
+              "unit": "%",
+              "purity": "peptide grade"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "HPLC-MS",
+              "instrument_vendor": "Thermo scientific",
+              "settings": "Ultimate 3000 HPLC system coupled with maXis UHR-TOF"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "HPLC-MS",
+          "instrument_vendor": null
+        },
+        {
+          "name": "ESI-MS",
+          "instrument_vendor": null
+        },
+        {
+          "name": "centrifuge",
+          "instrument_vendor": null
+        }
+      ],
+      "notes": "The purity of the desired peptides ranged between 95 and 99%, therefore, no further purification was necessary."
+    },
+    "evaluation": {
+      "reasoning": "The LLM captured nearly the same process as Ac-LIVKHH-NH₂, with the main difference being the N-terminal modification. The result includes key reagents and structured steps but with slightly lower clarity in differentiating steps from the Ac-terminated analog.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "Captures the general structure well, but lacks clarity on how Fmoc terminal group is preserved.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Materials like Fmoc-amino acids, DIPEA, HBTU are all included.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "Reasonably well ordered, but the difference in terminal treatment could be emphasized better.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Same limitations as above; minor omissions in explicitly tagging.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature (25 \u00b0C) is partially inferred, not consistently tagged.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "Preserves intended difference in peptide structure, though not with strong clarity.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "All schema constraints respected.",
+        "overall_score": 4.2,
+        "overall_reasoning": "Very similar extraction quality to Ac variant, with slightly reduced clarity around the N-terminal capping.",
+        "confidence_level": "high"
+      },
+      "missing_information": [
+        "explicit difference in N-terminal treatment"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "better highlight Fmoc protection retention"
+      ]
+    }
+  },
+  {
+    "material": "metallo-hydrogels",
+    "synthesis": {
+      "target_compound": "metallo-hydrogels",
+      "target_compound_type": "hybrid & organic-inorganic",
+      "synthesis_method": "wet chemical synthesis",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Ac-LIVKHH-NH2",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Fmoc-LIVKHH-NH2",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Zn(OAc)2",
+          "amount": 0.5,
+          "unit": "equiv",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "NaOH",
+          "amount": 750.0,
+          "unit": "mM",
+          "purity": null
+        },
+        {
+          "vendor": "Alfa Aesar",
+          "name": "phosphate-buffered saline 10x (PBS)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "BLD Pharmatech Ltd",
+          "name": "2-(N-morpholino)ethanesulfonic acid buffer solution (MES)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Millipore",
+          "name": "Milli-Q water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "dissolve",
+          "description": "Pre-weighed peptide powder of P1 and P2 was dissolved in total volume of 1 or 2 mL (depending on the measurement) in Milli-Q water",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ac-LIVKHH-NH2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Fmoc-LIVKHH-NH2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Millipore",
+              "name": "Milli-Q water",
+              "amount": null,
+              "unit": "mL",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 7.0
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "0.5 equiv. of Zn(OAc)2 was added to the solution",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Zn(OAc)2",
+              "amount": 0.5,
+              "unit": "equiv",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "mix",
+          "description": "The vial was vortexed and sonicated for 10-20 sec to achieve a homogenous solution.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "vortex",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "sonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "add",
+          "description": "The pH was then adjusted to approximately 7 using 750 mM NaOH solution.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NaOH",
+              "amount": 750.0,
+              "unit": "mM",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": 7.0
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "age",
+          "description": "The vials were kept on the bench, and hydrogel formation was initially observed over time via the vial inversion method and later was verified through rheology",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 25.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [],
+      "notes": "All hydrogels were prepared using either Milli-Q water (with the pH adjusted with 750 mM NaOH solution to approximately pH = 7), phosphate-buffered saline (PBS 10X, pH 7.4) or 2-(N-morpholino)ethanesulfonic acid buffer solution (MES, pH 6.4) at room temperature (25 \u00b0C). Similar hydrogels were prepared also in absence of Zn(OAc)2."
+    },
+    "evaluation": {
+      "reasoning": "The LLM captures the hydrogel preparation protocol fairly well, including the role of peptide, Zn2+, and buffers (PBS, MES). Actions like 'add', 'sonicate', 'adjust' are present. However, several steps are merged, and key distinctions such as control without Zn2+ or collagen hydrogel preparation are missed.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "Main steps of hydrogel formation are included, but lacks structural clarity for control and collagen hydrogel variants.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Most buffer and peptide ingredients included, but NaOH is inconsistently labeled.",
+        "process_steps_score": 3.5,
+        "process_steps_reasoning": "Logical order is retained, but step-level granularity is low (e.g., titration and pH adjustment merged).",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "Sonicator and vortex are mentioned, but not all tagged as equipment.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "pH and temperature (25 \u00b0C and 37 \u00b0C) included partially; buffer concentrations inconsistently captured.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "Correctly preserves scientific meaning of Zn2+ driven self-assembly.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "Valid structured schema.",
+        "overall_score": 4.0,
+        "overall_reasoning": "A good extraction with slight deficiencies in step breakdown and control variant handling.",
+        "confidence_level": "high"
+      },
+      "missing_information": [
+        "collagen hydrogel preparation details",
+        "titration and pH adjustment steps"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "break down pH adjustment"
+      ]
+    }
+  }
+]

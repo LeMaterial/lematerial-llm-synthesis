@@ -1,0 +1,225 @@
+[
+  {
+    "material": "CNT array",
+    "synthesis": {
+      "target_compound": "CNT array",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "xylene",
+          "amount": 90.0,
+          "unit": "mol%",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "ferrocene",
+          "amount": 10.0,
+          "unit": "mol%",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "CNT arrays were synthesized on Si substrates by the floating catalyst CVD via a high-temperature pyrolysis of the xylene/ferrocene solution injected into the reaction zone of quartz reactor.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "xylene",
+              "amount": 90.0,
+              "unit": "mol%",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ferrocene",
+              "amount": 10.0,
+              "unit": "mol%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "CNT arrays were synthesized on Si substrates by the floating catalyst CVD via a high-temperature pyrolysis of the xylene/ferrocene solution injected into the reaction zone of quartz reactor.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "xylene / ferrocene solution",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "quartz reactor",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 875.0,
+            "temp_unit": "C",
+            "duration": 30.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "ambient",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "quartz reactor",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": ""
+    },
+    "evaluation": {
+      "reasoning": "The extraction gets both the material and its synthesis wrong.",
+      "scores": {
+        "structural_completeness_score": 1.0,
+        "structural_completeness_reasoning": "All the materials and steps missed",
+        "material_extraction_score": 1.0,
+        "material_extraction_reasoning": "No materials were extracted.",
+        "process_steps_score": 1.0,
+        "process_steps_reasoning": "The synthesis process extracted differs completely from the given one.",
+        "equipment_extraction_score": 1.0,
+        "equipment_extraction_reasoning": "No equipment is extraced.",
+        "conditions_extraction_score": 1.5,
+        "conditions_extraction_reasoning": "The ambient atmosphere is correctly extraced, rest not.",
+        "semantic_accuracy_score": 1.0,
+        "semantic_accuracy_reasoning": "Complete wrong sense of synthesis.",
+        "format_compliance_score": 3.0,
+        "format_compliance_reasoning": "Ablate not part of the ontology. Also, no materials, conditions and equipment make no sense.",
+        "overall_score": 1.4,
+        "overall_reasoning": "Gets almost everything completely wrong."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Starting materials, equipment, conditions"
+      ],
+      "extraction_errors": [
+        "Which material it is and where the process is described"
+      ],
+      "improvement_suggestions": [
+        "Focus on finding relevant section"
+      ]
+    }
+  },
+  {
+    "material": "Fe phase nanosphere/conical CNT bundle nanostructures",
+    "synthesis": {
+      "target_compound": "Fe phase nanosphere/conical CNT bundle nanostructures",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "pulsed laser deposition",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "vertically aligned carbon nanotubes intercalated with the ferromagnetic (Fe phase) nanoparticles",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "The FSL irradiation was performed in ambient atmosphere with laser scanning microscope (Zeiss LSM 510 NLO based on Zeiss Aviovert 200 M inverted research microscope).",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "vertically aligned carbon nanotubes intercalated with the ferromagnetic (Fe phase) nanoparticles",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "laser scanning microscope",
+              "instrument_vendor": "Zeiss",
+              "settings": "Ti Sapphire laser; 100 fs pulses; 790 nm; 82 MHz repetition rate; 15 nJ pulse energy; 1.2 micrometer focus;"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "ambient",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "laser scanning microscope",
+          "instrument_vendor": "Zeiss",
+          "settings": null
+        }
+      ],
+      "notes": "The energy of a single pulse was 15 nJ. The laser beam was then focused by Zeiss Plan-Neofluar 40x/0.75 objective and formed a spot with 1.2 \u03bcm in diameter on the sample surface. The beam was attenuated with an acoustic-optical filter to the energy level of 6.25nJ per pulse at the focal plane of the microscope objective. The investigated samples were placed onto the stage of the microscope without cover glass."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the essence of the synthesis, focusing on the laser ablation process. It identifies the key equipment, conditions, and steps involved in modifying the CNT array.",
+      "scores": {
+        "structural_completeness_score": 3.5,
+        "structural_completeness_reasoning": "Skeleton is there, many things too much / wrongly placed or omitted",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material section correctly there, just not in process.",
+        "process_steps_score": 2.0,
+        "process_steps_reasoning": "Two steps made out of one; equipment wrongly placed, materials omitted",
+        "equipment_extraction_score": 3.0,
+        "equipment_extraction_reasoning": "Lots of equipment the same what is essentially duplicated.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "Conditions well extracted.",
+        "semantic_accuracy_score": 3.0,
+        "semantic_accuracy_reasoning": "Many materials missing / equipment convoluted, steps not properly aligned.",
+        "format_compliance_score": 3.0,
+        "format_compliance_reasoning": "Process names were not part of the ontology.",
+        "overall_score": 3.4,
+        "overall_reasoning": "Convoluted extracted synthesis that does not properly place equipments and materials correctly."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Many materials in the process part"
+      ],
+      "extraction_errors": [
+        "Equipment wrongly placed"
+      ],
+      "improvement_suggestions": [
+        "Go through the process step by step and think how the materials and equipment parts are related to each other"
+      ]
+    }
+  }
+]
