@@ -1,7 +1,8 @@
 """Configuration for plot filtering in performance linking.
 
 This module provides configurable filtering criteria for determining which plots
-are relevant for performance data extraction, allowing domain-specific customization.
+are relevant for performance data extraction, allowing domain-specific 
+customization.
 
 Example usage:
     # Default catalysis configuration
@@ -38,10 +39,24 @@ class PlotFilterConfig(BaseModel):
     # X-axis configuration (default: temperature for catalysis)
     x_axis_labels: list[str] = Field(
         default=["temperature", "temp"],
-        description="X-axis labels that indicate relevance (substring match, case-insensitive)",
+        description=(
+            "X-axis labels that indicate relevance "
+            "(substring match, case-insensitive)"
+        ),
     )
     x_axis_units: list[str] = Field(
-        default=["°c", "°k", "°f", "ºc", "ºk", "k", "c", "f", "kelvin", "celsius"],
+        default=[
+            "°c",
+            "°k",
+            "°f",
+            "ºc",
+            "ºk",
+            "k",
+            "c",
+            "f",
+            "kelvin",
+            "celsius",
+        ],
         description="X-axis units that indicate relevance (case-insensitive)",
     )
 
@@ -133,9 +148,8 @@ class PlotFilterConfig(BaseModel):
         has_keyword = any(kw in label_lower for kw in self.y_axis_keywords)
 
         # Check for conversion symbol (e.g., "X" for conversion)
-        is_x_symbol = (
-            label_lower in self.x_symbol_exact
-            or any(label_lower.startswith(p) for p in self.x_symbol_prefixes)
+        is_x_symbol = label_lower in self.x_symbol_exact or any(
+            label_lower.startswith(p) for p in self.x_symbol_prefixes
         )
 
         # Check for percentage unit

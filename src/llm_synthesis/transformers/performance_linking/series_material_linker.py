@@ -15,9 +15,9 @@ from llm_synthesis.transformers.performance_linking.base import (
 logger = logging.getLogger(__name__)
 
 
-DEFAULT_MATCHING_PROMPT = """You are given materials studied in a scientific paper and series/line names
-extracted from a plot in that paper. Match each series name to the material
-it represents.
+DEFAULT_MATCHING_PROMPT = """You are given materials studied in a scientific 
+paper and series/line names extracted from a plot in that paper. Match each 
+series name to the material it represents.
 
 Materials: {materials}
 Series names from plot: {series_names}
@@ -33,12 +33,14 @@ Return a JSON list of matches. Each match must have:
 - "reasoning": brief explanation of why this match was made
 
 Rules:
-- Only match when there is a CLEAR connection between the series name and a material name
-  (e.g., the names are similar, or context makes the link obvious).
-- NEVER guess or assign matches randomly. If you cannot identify a real connection, leave
-  the series unmatched. An empty list [] is a valid response.
-- If a series is a baseline, reference, substrate, equilibrium line, or pressure condition — do NOT include it.
-- series_name and material_name MUST be exactly from the lists above. Do not modify them.
+- Only match when there is a CLEAR connection between the series name and a
+  material name (e.g., names are similar, or context makes the link obvious).
+- NEVER guess or assign matches randomly. If you cannot identify a real
+  connection, leave the series unmatched. An empty list [] is a valid response.
+- If a series is a baseline, reference, substrate, equilibrium line, or
+  pressure condition — do NOT include it.
+- series_name and material_name MUST be exactly from the lists above.
+  Do not modify them.
 
 Return ONLY a valid JSON list, no other text."""
 
@@ -89,7 +91,9 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
         response_text = response if isinstance(response, str) else response[0]
 
         if not response_text:
-            logger.warning("LLM returned empty/None response (possibly truncated)")
+            logger.warning(
+                "LLM returned empty/None response (possibly truncated)"
+            )
             return []
 
         # Parse response
@@ -144,7 +148,9 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
                 except json.JSONDecodeError:
                     continue
             if results:
-                logger.debug(f"Recovered {len(results)} mappings from malformed JSON")
+                logger.debug(
+                    f"Recovered {len(results)} mappings from malformed JSON"
+                )
                 return results
             logger.warning(
                 f"Failed to parse LLM response.\nRaw: {response_text[:300]}"

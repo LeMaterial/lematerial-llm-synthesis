@@ -119,11 +119,13 @@ def build_multi_llm_human(
             human_recipe = json.loads(json.dumps(old_entry["synthesis"]))
         else:
             human_recipe = _empty_human_recipe()
-        materials.append({
-            "material_name": material_name,
-            "human_recipe": human_recipe,
-            "evaluations": _empty_evaluation_block(),
-        })
+        materials.append(
+            {
+                "material_name": material_name,
+                "human_recipe": human_recipe,
+                "evaluations": _empty_evaluation_block(),
+            }
+        )
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -215,8 +217,7 @@ def main():
 
     paper_id_to_url = load_paper_id_to_url(args.papers_json.resolve())
     paper_dirs = sorted(
-        d for d in root.iterdir()
-        if d.is_dir() and not d.name.startswith(".")
+        d for d in root.iterdir() if d.is_dir() and not d.name.startswith(".")
     )
     total_copied = 0
     total_new = 0

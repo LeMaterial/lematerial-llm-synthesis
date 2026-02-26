@@ -78,9 +78,7 @@ class DspySynthesisExtractor(SynthesisExtractorInterface):
             with dspy.settings.context(
                 lm=self.lm, adapter=SynthesisJSONAdapter()
             ):
-                result = dspy.Predict(self.signature)(
-                    **predict_kwargs
-                )
+                result = dspy.Predict(self.signature)(**predict_kwargs)
                 synthesis_data = result.__getattr__(
                     next(iter(self.signature.output_fields.keys()))
                 )

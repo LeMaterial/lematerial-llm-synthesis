@@ -11,7 +11,6 @@ import asyncio
 import json
 import logging
 import os
-from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -30,7 +29,7 @@ from llm_synthesis.transformers.performance_linking.base import LinkingInput
 from llm_synthesis.transformers.performance_linking.plot_filter import (
     PlotFilter,
 )
-from llm_synthesis.transformers.performance_linking.series_material_linker import (
+from llm_synthesis.transformers.performance_linking.series_material_linker import (  # noqa: E501
     SeriesMaterialLinker,
 )
 from llm_synthesis.utils import clean_text
@@ -97,7 +96,8 @@ class SynthesisPerformancePipeline:
             synthesis_extractor: Extractor for synthesis procedures
             judge: Optional judge for evaluating synthesis quality
             linking_judge: Optional judge for evaluating linking quality
-            plot_extractor: Optional extractor for plot data (e.g., ClaudeLinePlotDataExtractor)
+            plot_extractor: Optional plot extractor
+                (e.g. ClaudeLinePlotDataExtractor).
             series_linker: Optional linker for matching series to materials
             plot_filter_config: Optional config for filtering plots
         """
@@ -123,7 +123,9 @@ class SynthesisPerformancePipeline:
             List of material names
         """
         logger.info("Step 1: Extracting materials...")
-        materials_text = self.material_extractor.forward(input=clean_text(paper_text))
+        materials_text = self.material_extractor.forward(
+            input=clean_text(paper_text)
+        )
 
         if not materials_text:
             logger.warning("  No materials found")
@@ -163,9 +165,16 @@ class SynthesisPerformancePipeline:
             if self.judge:
                 try:
                     evaluation = self.judge.forward(
-                        (clean_text(paper_text), json.dumps(synthesis.model_dump()), material)
+                        (
+                            clean_text(paper_text),
+                            json.dumps(synthesis.model_dump()),
+                            material,
+                        )
                     )
-                    logger.info(f"  Evaluation score: {evaluation.scores.overall_score}/5.0")
+                    logger.info(
+                        f"  Evaluation score: "
+                        f"{evaluation.scores.overall_score}/5.0"
+                    )
                 except Exception as e:
                     logger.warning(f"  Judge evaluation failed: {e}")
 
@@ -195,7 +204,7 @@ class SynthesisPerformancePipeline:
         logger.info("Step 3: Extracting figures...")
 
         try:
-            from llm_synthesis.transformers.figure_extraction.regex_figure_extractor import (
+            from llm_synthesis.transformers.figure_extraction.regex_figure_extractor import (  # noqa: E501
                 FigureExtractorMarkdown,
             )
 
@@ -205,9 +214,7 @@ class SynthesisPerformancePipeline:
             # Filter to only quantitative figures (classified by ResNet).
             # This avoids sending non-quantitative figures (schematics,
             # microscopy, etc.) to the Claude VLM, saving compute.
-            quantitative_figures = [
-                f for f in all_figures if f.quantitative
-            ]
+            quantitative_figures = [f for f in all_figures if f.quantitative]
             logger.info(
                 f"  Found {len(all_figures)} figures, "
                 f"{len(quantitative_figures)} quantitative"
@@ -244,7 +251,9 @@ class SynthesisPerformancePipeline:
             if plot_data and plot_data.name_to_coordinates:
                 return plot_data, fig
         except Exception as e:
-            logger.warning(f"    {fig.figure_reference}: extraction failed - {e}")
+            logger.warning(
+                f"    {fig.figure_reference}: extraction failed - {e}"
+            )
         return None, fig
 
     def extract_plot_data(
@@ -264,7 +273,9 @@ class SynthesisPerformancePipeline:
             Tuple of (list of plot data, list of corresponding figures)
         """
         if not self.plot_extractor:
-            logger.info("Step 4: Skipping plot extraction (no extractor configured)")
+            logger.info(
+                "Step 4: Skipping plot extraction (no extractor configured)"
+            )
             return [], []
 
         logger.info(f"Step 4: Extracting data from {len(figures)} plots...")
@@ -338,10 +349,15 @@ class SynthesisPerformancePipeline:
             Tuple of (list of mappings, linking statistics)
         """
         if not self.series_linker:
-            logger.info("Step 5: Skipping performance linking (no linker configured)")
+            logger.info(
+                "Step 5: Skipping performance linking (no linker configured)"
+            )
             return [], LinkingStats(total_plots_extracted=len(plots))
 
-        logger.info(f"Step 5: Linking {len(plots)} plots to {len(materials)} materials...")
+        logger.info(
+            f"Step 5: Linking {len(plots)} plots to {len(materials)} "
+            "materials..."
+        )
 
         # Filter plots
         relevant_plots, skip_counts = self.plot_filter.filter_plots(plots)
@@ -402,7 +418,9 @@ class SynthesisPerformancePipeline:
                 [
                     {
                         "material": e.material,
-                        "synthesis": e.synthesis.model_dump() if e.synthesis else None,
+                        "synthesis": e.synthesis.model_dump()
+                        if e.synthesis
+                        else None,
                     }
                     for e in all_syntheses
                 ],
@@ -454,7 +472,7 @@ class SynthesisPerformancePipeline:
 
         Args:
             paper: Paper object with text content
-            skip_figures: If True, skip figure extraction and performance linking
+            skip_figures: If True, skip figures and performance linking
 
         Returns:
             PipelineResult or None if processing failed
@@ -464,7 +482,7 @@ class SynthesisPerformancePipeline:
         # Step 1: Extract materials
         materials = self.extract_materials(paper.publication_text)
         if not materials:
-            logger.warning(f"  No materials found, skipping paper")
+            logger.warning("  No materials found, skipping paper")
             return None
 
         # Step 2: Extract synthesis for each material
@@ -523,9 +541,9 @@ class SynthesisPerformancePipeline:
                     except Exception as e:
                         logger.warning(
                             f"  Performance linking failed: {e}. "
-                            "Synthesis results will be saved without performance data."
+                            "Synthesis results saved without performance data."
                         )
-                        # Keep empty defaults - synthesis results are still saved
+                        # Keep empty defaults - synthesis still saved
 
         # Build results
         results = []
@@ -542,7 +560,9 @@ class SynthesisPerformancePipeline:
 
         # Summary
         materials_with_perf = [m for m in materials if m in performance_data]
-        materials_without_perf = [m for m in materials if m not in performance_data]
+        materials_without_perf = [
+            m for m in materials if m not in performance_data
+        ]
 
         return PipelineResult(
             paper_id=paper.id,
@@ -562,7 +582,7 @@ class SynthesisPerformancePipeline:
         semaphore: asyncio.Semaphore,
         skip_figures: bool = False,
     ) -> PipelineResult | None:
-        """Process a single paper with concurrent LLM calls (asyncio + semaphore).
+        """Process one paper with concurrent LLM calls (asyncio + semaphore).
 
         Same as process_paper but runs independent LLM calls in parallel:
         - Materials: one call, then synthesis+judge per material in parallel
@@ -571,8 +591,8 @@ class SynthesisPerformancePipeline:
 
         Args:
             paper: Paper object with text content
-            semaphore: Cap on concurrent LLM calls (e.g. from get_max_concurrent_llm_calls)
-            skip_figures: If True, skip figure extraction and performance linking
+            semaphore: Cap on concurrent LLM calls
+            skip_figures: If True, skip figures and performance linking
 
         Returns:
             PipelineResult or None if processing failed
@@ -627,7 +647,9 @@ class SynthesisPerformancePipeline:
                     evaluation=evaluation,
                 )
             except Exception as e:
-                logger.error(f"  Synthesis extraction failed for {material}: {e}")
+                logger.error(
+                    f"  Synthesis extraction failed for {material}: {e}"
+                )
                 return SynthesisEntry(
                     material=material,
                     synthesis=GeneralSynthesisOntology(
@@ -644,7 +666,7 @@ class SynthesisPerformancePipeline:
         )
         all_syntheses = list(all_syntheses)
 
-        # Steps 3–5: Figures, plot extraction, linking (optional)
+        # Steps 3-5: Figures, plot extraction, linking (optional)
         performance_data = {}
         plot_mappings = []
         extracted_plots = []
@@ -658,7 +680,7 @@ class SynthesisPerformancePipeline:
             )
 
             if figures:
-                # Step 4: Extract plot data in parallel (one LLM call per figure)
+                # Step 4: Extract plot data in parallel (one call per figure)
                 paper_text = paper.publication_text
                 si_text = paper.si_text or ""
                 plot_results = await asyncio.gather(
@@ -685,8 +707,8 @@ class SynthesisPerformancePipeline:
                 if plots:
                     try:
                         # Step 5: Link each plot in parallel
-                        relevant_plots, skip_counts = self.plot_filter.filter_plots(
-                            plots
+                        relevant_plots, skip_counts = (
+                            self.plot_filter.filter_plots(plots)
                         )
                         skipped_plots = []
                         link_tasks = [
@@ -764,7 +786,7 @@ class SynthesisPerformancePipeline:
                     except Exception as e:
                         logger.warning(
                             f"  Performance linking failed: {e}. "
-                            "Synthesis results will be saved without performance."
+                            "Synthesis saved without performance."
                         )
 
         # Build results
@@ -815,18 +837,28 @@ class SynthesisPerformancePipeline:
         # Plot mappings
         mappings_path = os.path.join(paper_dir, "performance_mappings.json")
         with open(mappings_path, "w") as f:
-            json.dump([m.model_dump() for m in result.plot_mappings], f, indent=2)
+            json.dump(
+                [m.model_dump() for m in result.plot_mappings], f, indent=2
+            )
 
         # Summary
         summary = {
             "paper_id": result.paper_id,
             "paper_name": result.paper_name,
             "total_materials": len(result.materials),
-            "materials_with_performance": len(result.materials_with_performance),
-            "materials_without_performance": len(result.materials_without_performance),
+            "materials_with_performance": len(
+                result.materials_with_performance
+            ),
+            "materials_without_performance": len(
+                result.materials_without_performance
+            ),
             "materials_list": result.materials,
-            "materials_with_performance_list": result.materials_with_performance,
-            "materials_without_performance_list": result.materials_without_performance,
+            "materials_with_performance_list": (
+                result.materials_with_performance
+            ),
+            "materials_without_performance_list": (
+                result.materials_without_performance
+            ),
             "total_plots_extracted": result.num_plots,
         }
 
@@ -845,4 +877,6 @@ class SynthesisPerformancePipeline:
         with open(summary_path, "w") as f:
             json.dump(summary, f, indent=2)
 
-        logger.info(f"  Saved {len(result.results)} material files to {paper_dir}/")
+        logger.info(
+            f"  Saved {len(result.results)} material files to {paper_dir}/"
+        )

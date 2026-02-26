@@ -4,20 +4,25 @@ End-to-end pipeline: PDF/Markdown papers -> Synthesis + Performance extraction.
 This script uses the modular SynthesisPerformancePipeline and its components.
 
 Usage:
-    # From markdown files (already extracted from PDFs):
-    python extract_synthesis_with_performance.py --input-path /path/to/txt_papers --output-path results/
+    # From markdown (already extracted from PDFs):
+    python extract_synthesis_with_performance.py --input-path /path/to/papers
+        --output-path results/
 
     # From PDF files (extracts text first):
-    python extract_synthesis_with_performance.py --input-path /path/to/pdfs --output-path results/ --from-pdf
+    python extract_synthesis_with_performance.py --input-path /path/to/pdfs
+        --output-path results/ --from-pdf
 
     # Skip figure extraction (synthesis only):
-    python extract_synthesis_with_performance.py --input-path /path/to/txt_papers --output-path results/ --skip-figures
+    python extract_synthesis_with_performance.py --input-path /path/to/papers
+        --output-path results/ --skip-figures
 
-    # Use electrochemistry plot filter instead of default catalysis filter:
-    python extract_synthesis_with_performance.py --input-path /path/to/txt_papers --output-path results/ --domain electrochemistry
+    # Electrochemistry plot filter:
+    python extract_synthesis_with_performance.py --input-path /path/to/papers
+        --output-path results/ --domain electrochemistry
 
     # Disable plot filtering (link all plots):
-    python extract_synthesis_with_performance.py --input-path /path/to/txt_papers --output-path results/ --no-filter
+    python extract_synthesis_with_performance.py --input-path /path/to/papers
+        --output-path results/ --no-filter
 """
 
 import argparse
@@ -29,8 +34,6 @@ from pathlib import Path
 
 import dspy
 from dotenv import load_dotenv
-
-from llm_synthesis.utils.concurrency import get_max_concurrent_llm_calls
 
 from llm_synthesis.config.plot_filter_config import PlotFilterConfig
 from llm_synthesis.data_loader.paper_loader.fs_paper_loader import FSPaperLoader
@@ -49,17 +52,24 @@ from llm_synthesis.transformers.material_extraction.dspy_extraction import (
     DspyTextExtractor,
     make_dspy_text_extractor_signature,
 )
-from llm_synthesis.transformers.performance_linking.series_material_linker import (
-    SeriesMaterialLinker,
+from llm_synthesis.transformers.performance_linking import (
+    series_material_linker,
 )
-from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (
-    ClaudeLinePlotDataExtractor,
+from llm_synthesis.transformers.plot_extraction.claude_extraction import (
+    plot_data_extraction as claude_plot_data,
 )
-from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (
-    DspySynthesisExtractor,
-    make_dspy_synthesis_extractor_signature,
+from llm_synthesis.transformers.synthesis_extraction import (
+    dspy_synthesis_extraction,
 )
+from llm_synthesis.utils.concurrency import get_max_concurrent_llm_calls
 from llm_synthesis.utils.dspy_utils import get_llm_from_name
+
+SeriesMaterialLinker = series_material_linker.SeriesMaterialLinker
+ClaudeLinePlotDataExtractor = claude_plot_data.ClaudeLinePlotDataExtractor
+DspySynthesisExtractor = dspy_synthesis_extraction.DspySynthesisExtractor
+make_dspy_synthesis_extractor_signature = (
+    dspy_synthesis_extraction.make_dspy_synthesis_extractor_signature
+)
 
 # Silence noisy loggers
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
@@ -72,33 +82,42 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 
 # System prompt for synthesis extraction
-SYNTHESIS_SYSTEM_PROMPT = """You are a helpful assistant that extracts structured synthesis procedures from scientific papers.
+SYNTHESIS_SYSTEM_PROMPT = """
+You are a helpful assistant that extracts structured synthesis
+procedures from scientific papers.
 
-IMPORTANT: For the synthesis_method field, you MUST choose from these exact values:
-'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning',
-'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion',
-'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth',
-'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering',
-'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
-'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation',
-'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing',
-'solution-based', 'mechanochemical', 'other'
+IMPORTANT: For the synthesis_method field, you MUST choose from these values:
+'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis',
+'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation',
+'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical',
+'template-directed', 'solid-state', 'flux growth',
+'float zone & Bridgman', 'arc melting & induction melting',
+'spark plasma sintering', 'electrochemical deposition',
+'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
+'atomic layer deposition',
+'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation',
+'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation',
+'mechanical mixing', 'solution-based', 'mechanochemical', 'other'
 
 For the target_compound_type field, you MUST choose from these exact values:
 'metals & alloys', 'ceramics & glasses', 'polymers & soft matter', 'composites',
 'semiconductors & electronic', 'nanomaterials', 'two-dimensional materials',
 'framework & porous materials', 'biomaterials & biological', 'liquid materials',
-'hybrid & organic-inorganic', 'functional materials & catalysts', 'energy & sustainability',
-'smart & responsive materials', 'emerging & quantum materials', 'other'
+'hybrid & organic-inorganic', 'functional materials & catalysts',
+'energy & sustainability', 'smart & responsive materials',
+'emerging & quantum materials', 'other'
 
-If the exact method is not in the list, use the closest match or 'other'."""
+If the exact method is not in the list, use the closest match or 'other'.
+"""
 
 
-def get_plot_filter_config(domain: str | None, no_filter: bool) -> PlotFilterConfig:
+def get_plot_filter_config(
+    domain: str | None, no_filter: bool
+) -> PlotFilterConfig:
     """Get plot filter configuration based on domain or no-filter flag.
 
     Args:
-        domain: Domain name ('catalysis', 'electrochemistry', or None for default)
+        domain: Domain ('catalysis', 'electrochemistry', or None for default)
         no_filter: If True, disable all filtering
 
     Returns:
@@ -140,31 +159,38 @@ def create_pipeline(
     # Material extractor
     material_sig = make_dspy_text_extractor_signature(
         instructions=(
-            "Extract ALL distinct material compositions that were synthesized and tested in this paper. "
-            "IMPORTANT: If the paper studies multiple variants of a material (e.g., different loadings, "
-            "dopant concentrations, or preparation conditions), list EACH variant as a separate material. "
-            "For example, if a paper studies 1%Ru/CaO, 3%Ru/CaO, and 5%Ru/CaO, list all three — "
-            "do NOT merge them into a single 'Ru/CaO'. "
-            "Focus on materials that were actually synthesized, not just mentioned or referenced."
+            "Extract ALL distinct material compositions that were synthesized "
+            "and tested in this paper. "
+            "IMPORTANT: If the paper studies multiple variants of a material "
+            "(e.g., different loadings, dopant concentrations, or preparation "
+            "conditions), list EACH variant as a separate material. "
+            "For example, if a paper studies 1%Ru/CaO, 3%Ru/CaO, and 5%Ru/CaO, "
+            "list all three - do NOT merge them into a single 'Ru/CaO'. "
+            "Focus on materials that were actually synthesized, not just "
+            "mentioned or referenced."
         ),
         output_description=(
-            "ALL distinct synthesized material compositions as a comma-separated list using chemical formulas. "
+            "ALL distinct synthesized material compositions as a "
+            "comma-separated list using chemical formulas. "
             "Include loading percentages and promoters when specified "
-            "(e.g., '1%Ru-10%K/CaO, 3%Ru-10%K/CaO, 5%Ru-10%K/CaO, 3%Ru-5%K/CaO'). "
-            "Never merge variants into a single generic name."
+            "(e.g., '1%Ru-10%K/CaO, 3%Ru-10%K/CaO, 5%Ru-10%K/CaO, "
+            "3%Ru-5%K/CaO'). Never merge variants into a single generic name."
         ),
     )
     material_lm = get_llm_from_name(
         "gemini-2.5-flash-lite",
         model_kwargs={"temperature": 0.0},
     )
-    material_extractor = DspyTextExtractor(signature=material_sig, lm=material_lm)
+    material_extractor = DspyTextExtractor(
+        signature=material_sig, lm=material_lm
+    )
 
     # Synthesis extractor
     synthesis_sig = make_dspy_synthesis_extractor_signature(
         instructions=(
-            "Extract the complete structured synthesis procedure for the specified material. "
-            "Include all steps, conditions (temperature, time, atmosphere), equipment, and precursors. "
+            "Extract the complete structured synthesis procedure for the "
+            "specified material. Include all steps, conditions (temperature, "
+            "time, atmosphere), equipment, and precursors. "
             "Be thorough and preserve all quantitative details."
         ),
     )
@@ -173,7 +199,9 @@ def create_pipeline(
         model_kwargs={"temperature": 0.0, "max_tokens": 8000, "max_retries": 3},
         system_prompt=SYNTHESIS_SYSTEM_PROMPT,
     )
-    synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
+    synthesis_extractor = DspySynthesisExtractor(
+        signature=synthesis_sig, lm=synthesis_lm
+    )
 
     # Judge
     judge_lm = get_llm_from_name(
@@ -228,7 +256,7 @@ def main():
         "--input-path",
         type=str,
         required=True,
-        help="Directory containing paper text/markdown files (.txt or .md with embedded base64 images)",
+        help="Directory with paper text/markdown (.txt or .md)",
     )
     parser.add_argument(
         "--output-path",
@@ -274,13 +302,13 @@ def main():
         "--linker-model",
         type=str,
         default="gemini-3-pro-preview",
-        help="Gemini model for performance linking (series-to-material matching)",
+        help="Gemini model for performance linking (series-material matching)",
     )
     parser.add_argument(
         "--max-concurrent-llm",
         type=int,
         default=None,
-        help="Max concurrent LLM API calls (default: from env LLM_SYNTHESIS_MAX_CONCURRENT_LLM_CALLS or 10)",
+        help="Max concurrent LLM calls (default: env var or 10)",
     )
     args = parser.parse_args()
 
@@ -291,7 +319,9 @@ def main():
     # PDF extraction if needed
     input_path = args.input_path
     if args.from_pdf:
-        from llm_synthesis.transformers.pdf_extraction import DoclingPDFExtractor
+        from llm_synthesis.transformers.pdf_extraction import (
+            DoclingPDFExtractor,
+        )
 
         txt_output = os.path.join(args.output_path, "_extracted_text")
         os.makedirs(txt_output, exist_ok=True)
@@ -325,7 +355,9 @@ def main():
 
     # Get plot filter configuration
     plot_filter_config = get_plot_filter_config(args.domain, args.no_filter)
-    logger.info(f"Plot filter: domain={args.domain}, no_filter={args.no_filter}")
+    logger.info(
+        f"Plot filter: domain={args.domain}, no_filter={args.no_filter}"
+    )
 
     # Create pipeline
     pipeline = create_pipeline(

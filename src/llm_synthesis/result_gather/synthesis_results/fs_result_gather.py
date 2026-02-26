@@ -110,7 +110,8 @@ class MultiLLMResultGather(SynthesisFSResultGather):
             paper_id: Unique paper identifier (used as directory name).
             publication_text: Full paper text.
             si_text: Supplementary information text.
-            multi_llm_results: List of per-synth-LLM result dicts in the following format
+            multi_llm_results: List of per-synth-LLM result dicts in the 
+            following format
 
                 [
                     {
@@ -147,7 +148,9 @@ class MultiLLMResultGather(SynthesisFSResultGather):
 
         # Save publication_text.txt
         with self.fs.open(
-            os.path.join(paper_dir, "publication_text.txt"), "w", encoding="utf-8"
+            os.path.join(paper_dir, "publication_text.txt"),
+            "w",
+            encoding="utf-8",
         ) as f:
             f.write(publication_text)
 
@@ -162,7 +165,8 @@ class MultiLLMResultGather(SynthesisFSResultGather):
             self._save_cost_report(paper_id, cost_data)
 
     def _save_cost_report(self, paper_id: str, cost_data: list[dict]):
-        """Save cost report structured by synth_llm, with judge evaluation costs nested.
+        """Save cost report structured by synth_llm, with judge evaluation 
+        costs nested.
 
         Format:
             [
@@ -213,11 +217,13 @@ class MultiLLMResultGather(SynthesisFSResultGather):
                 }
                 for j_llm in judge_order.get(s_llm, [])
             ]
-            breakdown.append({
-                "synth_llm": s_llm,
-                "extraction_cost_usd": extraction_cost.get(s_llm, 0.0),
-                "judges": judges,
-            })
+            breakdown.append(
+                {
+                    "synth_llm": s_llm,
+                    "extraction_cost_usd": extraction_cost.get(s_llm, 0.0),
+                    "judges": judges,
+                }
+            )
 
         cost_report = {
             "timestamp": datetime.now().isoformat(),
@@ -228,8 +234,7 @@ class MultiLLMResultGather(SynthesisFSResultGather):
         }
         with self.fs.open(
             os.path.join(self.result_dir, paper_id, "cost_report.json"),
-            "w", encoding="utf-8",
+            "w",
+            encoding="utf-8",
         ) as f:
             f.write(json.dumps(cost_report, indent=2))
-
-

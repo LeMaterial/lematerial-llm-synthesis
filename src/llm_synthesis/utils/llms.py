@@ -44,16 +44,12 @@ class LLMRegistry:
 LLM_REGISTRY = LLMRegistry(
     configs={
         "gemini-2.0-flash": LLMConfig(model="gemini/gemini-2.0-flash"),
-        "gemini-2.5-flash": LLMConfig(
-            model="gemini/gemini-2.5-flash"
-        ),
+        "gemini-2.5-flash": LLMConfig(model="gemini/gemini-2.5-flash"),
         "gemini-2.5-flash-lite": LLMConfig(
             model="gemini/gemini-2.5-flash-lite",
             extra_kwargs={"thinking": {"type": "enabled"}},
         ),
-        "gemini-2.5-pro": LLMConfig(
-            model="gemini/gemini-2.5-pro"
-        ),
+        "gemini-2.5-pro": LLMConfig(model="gemini/gemini-2.5-pro"),
         "gemini-3.0-pro": LLMConfig(model="gemini/gemini-3-pro-preview"),
         "gemini-3.0-flash": LLMConfig(model="gemini/gemini-3-flash-preview"),
         "gemini-3.0-flash-lite": LLMConfig(

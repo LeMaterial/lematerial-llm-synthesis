@@ -103,9 +103,7 @@ class MistralPDFExtractor(PdfExtractorInterface):
         return self._process_pages(resp)
 
     def _get_data_uri_from_bytes(self, input):
-        return (
-            "data:application/pdf;base64," + base64.b64encode(input).decode()
-        )
+        return "data:application/pdf;base64," + base64.b64encode(input).decode()
 
     def _process_pages(self, resp) -> str:
         pages_out = []

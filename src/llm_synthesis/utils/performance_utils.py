@@ -7,7 +7,6 @@ from llm_synthesis.models.performance import (
     MaterialPerformanceData,
     MaterialPlotEntry,
     PlotMaterialMapping,
-    SeriesMapping,
 )
 from llm_synthesis.models.plot import ExtractedLinePlotData
 
@@ -122,7 +121,8 @@ def compute_linking_stats(
             {
                 "plot_index": mapping.plot_index,
                 "figure_reference": mapping.figure_reference,
-                "series_count": len(mapping.mappings) + len(mapping.unmatched_series),
+                "series_count": len(mapping.mappings)
+                + len(mapping.unmatched_series),
                 "matched_count": len(mapping.mappings),
                 "unmatched_count": len(mapping.unmatched_series),
             }

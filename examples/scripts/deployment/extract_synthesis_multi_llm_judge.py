@@ -1,6 +1,6 @@
-#This script is based on extract_synthesis_procedure_from_text.py
-#The logic from there is extended to run mxn synthesis x evalutions
-#and generates a result.json and evaluation matrix summarizing the results.
+# This script is based on extract_synthesis_procedure_from_text.py
+# The logic from there is extended to run mxn synthesis x evalutions
+# and generates a result.json and evaluation matrix summarizing the results.
 
 import asyncio
 import json
@@ -57,7 +57,7 @@ def _resolve_prompt_path(cfg_section, original_cwd: str):
 
 
 def _build_component(cfg_section, llm_name: str):
-    """Instantiate a component with a specific LLM """
+    """Instantiate a component with a specific LLM"""
     OmegaConf.set_struct(cfg_section.architecture.lm, False)
     cfg_section.architecture.lm.llm_name = llm_name
     return instantiate(cfg_section.architecture)
@@ -74,9 +74,11 @@ def _save_matrix_png(summary, synthesis_llms, judge_llms, title, output_path):
 
     masked_data = np.ma.masked_invalid(data)
     cmap = matplotlib.colormaps["RdYlGn"].copy()
-    cmap.set_bad(color="#d9d9d9")         #for n/a values
+    cmap.set_bad(color="#d9d9d9")  # for n/a values
 
-    fig = Figure(figsize=(max(5, len(judge_llms) * 2), max(4, len(synthesis_llms) * 1.5)))
+    fig = Figure(
+        figsize=(max(5, len(judge_llms) * 2), max(4, len(synthesis_llms) * 1.5))
+    )
     canvas = FigureCanvasAgg(fig)
     ax = fig.add_subplot(111)
     im = ax.imshow(masked_data, vmin=1.0, vmax=5.0, cmap=cmap, aspect="auto")
@@ -93,8 +95,16 @@ def _save_matrix_png(summary, synthesis_llms, judge_llms, title, output_path):
         for j in range(len(judge_llms)):
             val = data[i, j]
             text = f"{val:.2f}" if not np.isnan(val) else "N/A"
-            ax.text(j, i, text, ha="center", va="center", fontsize=12,
-                    fontweight="bold", color="black")
+            ax.text(
+                j,
+                i,
+                text,
+                ha="center",
+                va="center",
+                fontsize=12,
+                fontweight="bold",
+                color="black",
+            )
 
     fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="Avg Score (1-5)")
     fig.tight_layout()
@@ -121,7 +131,9 @@ def main(cfg: DictConfig) -> None:
             )
 
     # Load data
-    data_loader: PaperLoaderInterface = instantiate(cfg.data_loader.architecture)
+    data_loader: PaperLoaderInterface = instantiate(
+        cfg.data_loader.architecture
+    )
     papers = data_loader.load()
 
     # if the key cfg.data_loader.number_of_samples is set, take n random samples
@@ -139,12 +151,14 @@ def main(cfg: DictConfig) -> None:
     logging.info(f"Judge LLMs (n={len(judge_llms)}): {judge_llms}")
 
     # Build components
-    # synthesis_llms drives both material + synthesis extraction (same LLM per pair)
+    # synthesis_llms drives both material + synthesis extraction (same LLM/pair)
     mat_extractors: dict[str, MaterialExtractorInterface] = {
-        name: _build_component(cfg.material_extraction, name) for name in synthesis_llms
+        name: _build_component(cfg.material_extraction, name)
+        for name in synthesis_llms
     }
     synthesis_extractors: dict[str, SynthesisExtractorInterface] = {
-        name: _build_component(cfg.synthesis_extraction, name) for name in synthesis_llms
+        name: _build_component(cfg.synthesis_extraction, name)
+        for name in synthesis_llms
     }
     judges: dict[str, DspyGeneralSynthesisJudge] = {
         name: _build_component(cfg.judge, name) for name in judge_llms
@@ -155,19 +169,20 @@ def main(cfg: DictConfig) -> None:
     result_dir = cfg.result_save.architecture.result_dir
 
     # LM refs for per-operation cost tracking
-    mat_lms = {name: getattr(mat_extractors[name], "lm", None) for name in synthesis_llms}
-    synthesis_lms = {name: getattr(synthesis_extractors[name], "lm", None) for name in synthesis_llms}
+    synthesis_lms = {
+        name: getattr(synthesis_extractors[name], "lm", None)
+        for name in synthesis_llms
+    }
     judge_lms = {name: getattr(judges[name], "lm", None) for name in judge_llms}
     dspy_settings_lm = getattr(dspy.settings, "lm", None)
 
     # Papers to process (skip already-processed)
-    to_process = [
-        p for p in papers
-        if p.id not in os.listdir(result_dir)
-    ]
+    to_process = [p for p in papers if p.id not in os.listdir(result_dir)]
 
     if cfg.data_loader.number_of_samples:
-        to_process = random.sample(to_process, cfg.data_loader.number_of_samples)
+        to_process = random.sample(
+            to_process, cfg.data_loader.number_of_samples
+        )
 
     total_cost = 0.0
     max_concurrent_llm = get_max_concurrent_llm_calls()
@@ -175,13 +190,19 @@ def main(cfg: DictConfig) -> None:
     logging.info(f"Max concurrent LLM calls: {max_concurrent_llm}")
 
     async def process_paper_async(paper) -> tuple:
-        """Process a single paper with concurrent LLM calls. Returns (summary, cost)."""
+        """Process a single paper with concurrent LLM calls.
+
+        Returns:
+            (summary, cost).
+        """
         logging.info(f"Processing {paper.name}")
         multi_llm_results = []
         eval_matrix = {}
         cost_operations = []
 
-        initial_dspy_cost = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+        initial_dspy_cost = (
+            get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+        )
 
         try:
             # --- Material extraction: parallel across synthesis_llms ---
@@ -199,25 +220,39 @@ def main(cfg: DictConfig) -> None:
                     for synth_llm in synthesis_llms
                 ]
             )
-            for synth_llm, materials_text in zip(synthesis_llms, material_texts):
+            for synth_llm, materials_text in zip(
+                synthesis_llms, material_texts
+            ):
                 synth_lm = synthesis_lms.get(synth_llm)
-                cost_operations.append({
-                    "operation": "material_extraction",
-                    "synth_llm": synth_llm,
-                    "cost_usd": (get_lm_cost(synth_lm) or 0.0)
-                    - initial_synth_costs[synth_llm],
-                })
+                cost_operations.append(
+                    {
+                        "operation": "material_extraction",
+                        "synth_llm": synth_llm,
+                        "cost_usd": (get_lm_cost(synth_lm) or 0.0)
+                        - initial_synth_costs[synth_llm],
+                    }
+                )
 
-            _no_mat_phrases = {"no material", "none", "n/a", "not found", "no synthesis"}
+            _no_mat_phrases = {
+                "no material",
+                "none",
+                "n/a",
+                "not found",
+                "no synthesis",
+            }
             materials_per_llm = {}
-            for synth_llm, materials_text in zip(synthesis_llms, material_texts):
+            for synth_llm, materials_text in zip(
+                synthesis_llms, material_texts
+            ):
                 raw = (materials_text or "").strip()
                 if any(p in raw.lower() for p in _no_mat_phrases):
                     materials_per_llm[synth_llm] = []
                 else:
                     materials_per_llm[synth_llm] = [
                         m.strip()
-                        for m in (materials_text or "").replace("\n", ",").split(",")
+                        for m in (materials_text or "")
+                        .replace("\n", ",")
+                        .split(",")
                         if m.strip()
                     ]
 
@@ -227,13 +262,16 @@ def main(cfg: DictConfig) -> None:
 
                 if not materials:
                     logging.warning(
-                        f"No materials found for paper {paper.name} with llm {synth_llm}"
+                        f"No materials found for paper {paper.name} "
+                        f"with llm {synth_llm}"
                     )
-                    multi_llm_results.append({
-                        "synth_llm": synth_llm,
-                        "materials": [],
-                        "note": "No materials found",
-                    })
+                    multi_llm_results.append(
+                        {
+                            "synth_llm": synth_llm,
+                            "materials": [],
+                            "note": "No materials found",
+                        }
+                    )
                     continue
 
                 logging.info(f"  [{synth_llm}] Found materials: {materials}")
@@ -242,13 +280,18 @@ def main(cfg: DictConfig) -> None:
 
                 for material in materials:
                     # --- Synthesis extraction (one call) ---
-                    cost_before_synth = get_lm_cost(synth_lm) if synth_lm else 0.0
+                    cost_before_synth = (
+                        get_lm_cost(synth_lm) if synth_lm else 0.0
+                    )
                     logging.info(f"  [{synth_llm}] Synthesis -> {material}")
                     try:
                         synthesis = await run_with_semaphore(
                             llm_semaphore,
                             synthesis_extractors[synth_llm].forward,
-                            input=(clean_text(paper.publication_text), material),
+                            input=(
+                                clean_text(paper.publication_text),
+                                material,
+                            ),
                         )
                     except Exception as e:
                         logging.error(f"Synthesis failed for {material}: {e}")
@@ -262,13 +305,17 @@ def main(cfg: DictConfig) -> None:
                             notes=f"Processing failed: {e!s}",
                         )
 
-                    cost_after_synth = get_lm_cost(synth_lm) if synth_lm else 0.0
-                    cost_operations.append({
-                        "operation": "synthesis_extraction",
-                        "synth_llm": synth_llm,
-                        "material": material,
-                        "cost_usd": cost_after_synth - cost_before_synth,
-                    })
+                    cost_after_synth = (
+                        get_lm_cost(synth_lm) if synth_lm else 0.0
+                    )
+                    cost_operations.append(
+                        {
+                            "operation": "synthesis_extraction",
+                            "synth_llm": synth_llm,
+                            "material": material,
+                            "cost_usd": cost_after_synth - cost_before_synth,
+                        }
+                    )
 
                     # --- Evaluate with each judge LLM in parallel ---
                     cost_before_judges = {
@@ -302,39 +349,50 @@ def main(cfg: DictConfig) -> None:
                             eval_matrix[synth_llm][judge_llm] = {}
                         if isinstance(result, Exception):
                             logging.error(
-                                f"Evaluation failed for {material} ({judge_llm}): {result}"
+                                f"Evaluation failed for {material} "
+                                f"({judge_llm}): {result}"
                             )
                             eval_matrix[synth_llm][judge_llm][material] = None
-                            evaluations.append({
-                                "judge_llm": judge_llm,
-                                "evaluation": None,
-                                "overall_score": None,
-                            })
+                            evaluations.append(
+                                {
+                                    "judge_llm": judge_llm,
+                                    "evaluation": None,
+                                    "overall_score": None,
+                                }
+                            )
                         else:
                             score = result.scores.overall_score
-                            logging.info(f"    Score [{judge_llm}]: {score}/5.0")
+                            logging.info(
+                                f"    Score [{judge_llm}]: {score}/5.0"
+                            )
                             eval_matrix[synth_llm][judge_llm][material] = score
-                            evaluations.append({
-                                "judge_llm": judge_llm,
-                                "evaluation": result.model_dump(),
-                                "overall_score": score,
-                            })
+                            evaluations.append(
+                                {
+                                    "judge_llm": judge_llm,
+                                    "evaluation": result.model_dump(),
+                                    "overall_score": score,
+                                }
+                            )
 
                     for judge_llm in judge_llms:
-                        cost_operations.append({
-                            "operation": "evaluation",
-                            "synth_llm": synth_llm,
-                            "judge_llm": judge_llm,
-                            "material": material,
-                            "cost_usd": cost_after_judges[judge_llm]
-                            - cost_before_judges[judge_llm],
-                        })
+                        cost_operations.append(
+                            {
+                                "operation": "evaluation",
+                                "synth_llm": synth_llm,
+                                "judge_llm": judge_llm,
+                                "material": material,
+                                "cost_usd": cost_after_judges[judge_llm]
+                                - cost_before_judges[judge_llm],
+                            }
+                        )
 
-                    synth_entry["materials"].append({
-                        "material": material,
-                        "synthesis": synthesis.model_dump(),
-                        "evaluations": evaluations,
-                    })
+                    synth_entry["materials"].append(
+                        {
+                            "material": material,
+                            "synthesis": synthesis.model_dump(),
+                            "evaluations": evaluations,
+                        }
+                    )
 
                 multi_llm_results.append(synth_entry)
 
@@ -351,13 +409,17 @@ def main(cfg: DictConfig) -> None:
                         "num_materials": len(valid),
                     }
 
-            final_dspy_cost = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+            final_dspy_cost = (
+                get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
+            )
             dspy_cost = (final_dspy_cost or 0.0) - (initial_dspy_cost or 0.0)
             if dspy_cost > 0:
-                cost_operations.append({
-                    "operation": "dspy_settings_lm",
-                    "cost_usd": dspy_cost,
-                })
+                cost_operations.append(
+                    {
+                        "operation": "dspy_settings_lm",
+                        "cost_usd": dspy_cost,
+                    }
+                )
 
             paper_cost = sum(op["cost_usd"] for op in cost_operations)
 
@@ -370,9 +432,13 @@ def main(cfg: DictConfig) -> None:
             )
 
             paper_dir = os.path.join(result_dir, paper.id)
+            heatmap_data = {
+                s: {j: v.get("avg_overall_score") for j, v in jd.items()}
+                for s, jd in summary.items()
+            }
             logging.info(
                 f"  Heatmap summary for {paper.name}: "
-                f"{json.dumps({s: {j: v.get('avg_overall_score') for j, v in jd.items()} for s, jd in summary.items()})}"
+                f"{json.dumps(heatmap_data)}"
             )
             _save_matrix_png(
                 summary,
@@ -395,7 +461,7 @@ def main(cfg: DictConfig) -> None:
             logging.error(f"Failed to process paper {paper.name}: {e}")
             return None, 0.0
 
-    # Cap concurrent papers so we don't run too many at once (same as old max_workers=4)
+    # Cap concurrent papers (same as old max_workers=4)
     max_concurrent_papers = 4
     paper_semaphore = asyncio.Semaphore(max_concurrent_papers)
 
@@ -439,14 +505,26 @@ def main(cfg: DictConfig) -> None:
                     if val is not None:
                         totals[s][j].append(val)
         global_summary = {
-            s: {j: {"avg_overall_score": round(sum(v) / len(v), 2) if v else None}
-                for j, v in jd.items()}
+            s: {
+                j: {
+                    "avg_overall_score": round(sum(v) / len(v), 2)
+                    if v
+                    else None
+                }
+                for j, v in jd.items()
+            }
             for s, jd in totals.items()
         }
         _save_matrix_png(
-            global_summary, synthesis_llms, judge_llms,
-            title=f"Evaluation Matrix (avg over {len(all_paper_results)} papers)",
-            output_path=os.path.join(result_dir, "global_avg_evaluation_matrix.png"),
+            global_summary,
+            synthesis_llms,
+            judge_llms,
+            title=(
+                f"Evaluation Matrix (avg over {len(all_paper_results)} papers)"
+            ),
+            output_path=os.path.join(
+                result_dir, "global_avg_evaluation_matrix.png"
+            ),
         )
 
     logging.info(f"Total cost across all papers: ${total_cost:.6f}")
