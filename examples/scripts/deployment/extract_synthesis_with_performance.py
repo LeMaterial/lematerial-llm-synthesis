@@ -21,6 +21,7 @@ Usage:
 """
 
 import argparse
+import asyncio
 import logging
 import os
 import warnings
@@ -28,6 +29,8 @@ from pathlib import Path
 
 import dspy
 from dotenv import load_dotenv
+
+from llm_synthesis.utils.concurrency import get_max_concurrent_llm_calls
 
 from llm_synthesis.config.plot_filter_config import PlotFilterConfig
 from llm_synthesis.data_loader.paper_loader.fs_paper_loader import FSPaperLoader
@@ -273,6 +276,12 @@ def main():
         default="gemini-3-pro-preview",
         help="Gemini model for performance linking (series-to-material matching)",
     )
+    parser.add_argument(
+        "--max-concurrent-llm",
+        type=int,
+        default=None,
+        help="Max concurrent LLM API calls (default: from env LLM_SYNTHESIS_MAX_CONCURRENT_LLM_CALLS or 10)",
+    )
     args = parser.parse_args()
 
     # Load environment
@@ -327,35 +336,37 @@ def main():
         skip_figures=args.skip_figures,
     )
 
-    # Process papers
+    # Process papers (async path with semaphore for concurrent LLM calls)
     os.makedirs(args.output_path, exist_ok=True)
+    max_concurrent = args.max_concurrent_llm or get_max_concurrent_llm_calls()
+    semaphore = asyncio.Semaphore(max_concurrent)
+    logger.info(f"Max concurrent LLM calls: {max_concurrent}")
 
-    for paper in papers:
-        # Skip if already processed
-        paper_dir = os.path.join(args.output_path, paper.id)
-        if os.path.isdir(paper_dir) and any(
-            f.endswith(".json") and f != "performance_mappings.json"
-            for f in os.listdir(paper_dir)
-        ):
-            logger.info(f"Skipping {paper.name} (already processed)")
-            continue
-
-        try:
-            result = pipeline.process_paper(paper, skip_figures=args.skip_figures)
-
-            if result:
-                pipeline.save_results(result, args.output_path)
-
-                # Print summary
-                n_perf = len(result.materials_with_performance)
-                logger.info(
-                    f"  Done: {len(result.materials)} materials, "
-                    f"{result.num_plots} plots, "
-                    f"{n_perf} materials with performance data"
+    async def process_all():
+        for paper in papers:
+            paper_dir = os.path.join(args.output_path, paper.id)
+            if os.path.isdir(paper_dir) and any(
+                f.endswith(".json") and f != "performance_mappings.json"
+                for f in os.listdir(paper_dir)
+            ):
+                logger.info(f"Skipping {paper.name} (already processed)")
+                continue
+            try:
+                result = await pipeline.process_paper_async(
+                    paper, semaphore, skip_figures=args.skip_figures
                 )
-        except Exception as e:
-            logger.error(f"Failed to process {paper.name}: {e}")
+                if result:
+                    pipeline.save_results(result, args.output_path)
+                    n_perf = len(result.materials_with_performance)
+                    logger.info(
+                        f"  Done: {len(result.materials)} materials, "
+                        f"{result.num_plots} plots, "
+                        f"{n_perf} materials with performance data"
+                    )
+            except Exception as e:
+                logger.error(f"Failed to process {paper.name}: {e}")
 
+    asyncio.run(process_all())
     logger.info("Pipeline complete.")
 
 

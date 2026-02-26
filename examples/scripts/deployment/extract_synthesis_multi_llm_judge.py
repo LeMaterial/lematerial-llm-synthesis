@@ -2,31 +2,40 @@
 #The logic from there is extended to run mxn synthesis x evalutions
 #and generates a result.json and evaluation matrix summarizing the results.
 
+import asyncio
 import json
 import logging
 import os
 import random
 import warnings
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-import numpy as np
 
+matplotlib.use("Agg")
 import dspy
 import hydra
+import numpy as np
 from hydra.utils import get_original_cwd, instantiate
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from matplotlib.figure import Figure
 from omegaconf import DictConfig, OmegaConf
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
-from llm_synthesis.metrics.judge.general_synthesis_judge import DspyGeneralSynthesisJudge
+from llm_synthesis.metrics.judge.general_synthesis_judge import (
+    DspyGeneralSynthesisJudge,
+)
 from llm_synthesis.models.ontologies.general import GeneralSynthesisOntology
-from llm_synthesis.transformers.material_extraction.base import MaterialExtractorInterface
-from llm_synthesis.transformers.synthesis_extraction.base import SynthesisExtractorInterface
+from llm_synthesis.transformers.material_extraction.base import (
+    MaterialExtractorInterface,
+)
+from llm_synthesis.transformers.synthesis_extraction.base import (
+    SynthesisExtractorInterface,
+)
 from llm_synthesis.utils import clean_text
+from llm_synthesis.utils.concurrency import (
+    get_max_concurrent_llm_calls,
+    run_with_semaphore,
+)
 from llm_synthesis.utils.dspy_utils import get_lm_cost
 
 # Disable Pydantic warnings
@@ -161,9 +170,12 @@ def main(cfg: DictConfig) -> None:
         to_process = random.sample(to_process, cfg.data_loader.number_of_samples)
 
     total_cost = 0.0
+    max_concurrent_llm = get_max_concurrent_llm_calls()
+    llm_semaphore = asyncio.Semaphore(max_concurrent_llm)
+    logging.info(f"Max concurrent LLM calls: {max_concurrent_llm}")
 
-    def process_paper(paper) -> tuple:
-        """Process a single paper: extract, evaluate, save. Returns (summary, cost)."""
+    async def process_paper_async(paper) -> tuple:
+        """Process a single paper with concurrent LLM calls. Returns (summary, cost)."""
         logging.info(f"Processing {paper.name}")
         multi_llm_results = []
         eval_matrix = {}
@@ -172,37 +184,51 @@ def main(cfg: DictConfig) -> None:
         initial_dspy_cost = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
 
         try:
-            for synth_llm in synthesis_llms:
-                # --- Material extraction ---
+            # --- Material extraction: parallel across synthesis_llms ---
+            initial_synth_costs = {
+                s: get_lm_cost(synthesis_lms.get(s)) or 0.0
+                for s in synthesis_llms
+            }
+            material_texts = await asyncio.gather(
+                *[
+                    run_with_semaphore(
+                        llm_semaphore,
+                        mat_extractors[synth_llm].forward,
+                        input=clean_text(paper.publication_text),
+                    )
+                    for synth_llm in synthesis_llms
+                ]
+            )
+            for synth_llm, materials_text in zip(synthesis_llms, material_texts):
                 synth_lm = synthesis_lms.get(synth_llm)
-                cost_before = get_lm_cost(synth_lm) if synth_lm else 0.0
-
-                logging.info(f"  [{synth_llm}] Material extraction")
-                materials_text = mat_extractors[synth_llm].forward(
-                    input=clean_text(paper.publication_text)
-                )
-
-                cost_after = get_lm_cost(synth_lm) if synth_lm else 0.0
                 cost_operations.append({
                     "operation": "material_extraction",
                     "synth_llm": synth_llm,
-                    "cost_usd": cost_after - cost_before,
+                    "cost_usd": (get_lm_cost(synth_lm) or 0.0)
+                    - initial_synth_costs[synth_llm],
                 })
 
-                # Filter out LLM responses that indicate no materials found
-                _no_mat_phrases = {"no material", "none", "n/a", "not found", "no synthesis"}
+            _no_mat_phrases = {"no material", "none", "n/a", "not found", "no synthesis"}
+            materials_per_llm = {}
+            for synth_llm, materials_text in zip(synthesis_llms, material_texts):
                 raw = (materials_text or "").strip()
                 if any(p in raw.lower() for p in _no_mat_phrases):
-                    materials = []
+                    materials_per_llm[synth_llm] = []
                 else:
-                    materials = [
+                    materials_per_llm[synth_llm] = [
                         m.strip()
-                    for m in (materials_text or "").replace("\n", ",").split(",")
+                        for m in (materials_text or "").replace("\n", ",").split(",")
                         if m.strip()
                     ]
 
+            for synth_llm in synthesis_llms:
+                materials = materials_per_llm.get(synth_llm, [])
+                synth_lm = synthesis_lms.get(synth_llm)
+
                 if not materials:
-                    logging.warning(f"No materials found for paper {paper.name} with llm {synth_llm}")
+                    logging.warning(
+                        f"No materials found for paper {paper.name} with llm {synth_llm}"
+                    )
                     multi_llm_results.append({
                         "synth_llm": synth_llm,
                         "materials": [],
@@ -211,70 +237,19 @@ def main(cfg: DictConfig) -> None:
                     continue
 
                 logging.info(f"  [{synth_llm}] Found materials: {materials}")
-
                 synth_entry = {"synth_llm": synth_llm, "materials": []}
                 eval_matrix[synth_llm] = {}
 
                 for material in materials:
-                    # --- Synthesis extraction ---
-                    
-                    cost_before = get_lm_cost(synth_lm) if synth_lm else 0.0
-
+                    # --- Synthesis extraction (one call) ---
+                    cost_before_synth = get_lm_cost(synth_lm) if synth_lm else 0.0
                     logging.info(f"  [{synth_llm}] Synthesis -> {material}")
                     try:
-                        synthesis = synthesis_extractors[synth_llm].forward(
-                            input=(clean_text(paper.publication_text), material)
+                        synthesis = await run_with_semaphore(
+                            llm_semaphore,
+                            synthesis_extractors[synth_llm].forward,
+                            input=(clean_text(paper.publication_text), material),
                         )
-                    
-                        cost_after = get_lm_cost(synth_lm) if synth_lm else 0.0
-                        cost_operations.append({
-                            "operation": "synthesis_extraction",
-                            "synth_llm": synth_llm,
-                            "material": material,
-                            "cost_usd": cost_after - cost_before,
-                        })
-
-                        # --- Evaluate with each judge LLM ---
-                        evaluations = []
-                        for judge_llm in judge_llms:
-                            if judge_llm not in eval_matrix[synth_llm]:
-                                eval_matrix[synth_llm][judge_llm] = {}
-
-                            j_lm = judge_lms.get(judge_llm)
-                            cost_before = get_lm_cost(j_lm) if j_lm else 0.0
-
-                            logging.info(f"  Judge [{judge_llm}] on [{synth_llm}] -> {material}")
-                            try:
-                                evaluation = judges[judge_llm].forward((
-                                    clean_text(paper.publication_text),
-                                    json.dumps(synthesis.model_dump()),
-                                    material,
-                                ))
-                                score = evaluation.scores.overall_score
-                                logging.info(f"    Score: {score}/5.0")
-                            except Exception as e:
-                                logging.error(f"Evaluation failed for {material}: {e}")
-                                evaluation = None
-                                score = None
-
-                            cost_after = get_lm_cost(j_lm) if j_lm else 0.0
-                            cost_operations.append({
-                                "operation": "evaluation",
-                                "synth_llm": synth_llm,
-                                "judge_llm": judge_llm,
-                                "material": material,
-                                "cost_usd": cost_after - cost_before,
-                            })
-
-                            eval_matrix[synth_llm][judge_llm][material] = score
-                            evaluations.append({
-                                "judge_llm": judge_llm,
-                                "evaluation": evaluation.model_dump() if evaluation else None,
-                                "overall_score": score,
-                            })
-
-                        
-
                     except Exception as e:
                         logging.error(f"Synthesis failed for {material}: {e}")
                         synthesis = GeneralSynthesisOntology(
@@ -286,18 +261,75 @@ def main(cfg: DictConfig) -> None:
                             equipment=[],
                             notes=f"Processing failed: {e!s}",
                         )
-                        evaluations = []
-                        for judge_llm in judge_llms:
-                            if judge_llm not in eval_matrix[synth_llm]:
-                                eval_matrix[synth_llm][judge_llm] = {}
+
+                    cost_after_synth = get_lm_cost(synth_lm) if synth_lm else 0.0
+                    cost_operations.append({
+                        "operation": "synthesis_extraction",
+                        "synth_llm": synth_llm,
+                        "material": material,
+                        "cost_usd": cost_after_synth - cost_before_synth,
+                    })
+
+                    # --- Evaluate with each judge LLM in parallel ---
+                    cost_before_judges = {
+                        j: get_lm_cost(judge_lms.get(j)) or 0.0
+                        for j in judge_llms
+                    }
+                    judge_input = (
+                        clean_text(paper.publication_text),
+                        json.dumps(synthesis.model_dump()),
+                        material,
+                    )
+                    judge_results = await asyncio.gather(
+                        *[
+                            run_with_semaphore(
+                                llm_semaphore,
+                                judges[judge_llm].forward,
+                                judge_input,
+                            )
+                            for judge_llm in judge_llms
+                        ],
+                        return_exceptions=True,
+                    )
+
+                    evaluations = []
+                    cost_after_judges = {
+                        j: get_lm_cost(judge_lms.get(j)) or 0.0
+                        for j in judge_llms
+                    }
+                    for judge_llm, result in zip(judge_llms, judge_results):
+                        if judge_llm not in eval_matrix[synth_llm]:
+                            eval_matrix[synth_llm][judge_llm] = {}
+                        if isinstance(result, Exception):
+                            logging.error(
+                                f"Evaluation failed for {material} ({judge_llm}): {result}"
+                            )
                             eval_matrix[synth_llm][judge_llm][material] = None
                             evaluations.append({
                                 "judge_llm": judge_llm,
                                 "evaluation": None,
                                 "overall_score": None,
                             })
+                        else:
+                            score = result.scores.overall_score
+                            logging.info(f"    Score [{judge_llm}]: {score}/5.0")
+                            eval_matrix[synth_llm][judge_llm][material] = score
+                            evaluations.append({
+                                "judge_llm": judge_llm,
+                                "evaluation": result.model_dump(),
+                                "overall_score": score,
+                            })
 
-                    # One entry per (synth_llm, material) with all judge evaluations
+                    for judge_llm in judge_llms:
+                        cost_operations.append({
+                            "operation": "evaluation",
+                            "synth_llm": synth_llm,
+                            "judge_llm": judge_llm,
+                            "material": material,
+                            "cost_usd": cost_after_judges[judge_llm]
+                            - cost_before_judges[judge_llm],
+                        })
+
                     synth_entry["materials"].append({
                         "material": material,
                         "synthesis": synthesis.model_dump(),
@@ -306,7 +338,7 @@ def main(cfg: DictConfig) -> None:
 
                 multi_llm_results.append(synth_entry)
 
-            # Build summary for heatmap: avg overall_score per (synth_llm, judge_llm)
+            # Build summary for heatmap
             summary = {}
             for synth_llm in synthesis_llms:
                 summary[synth_llm] = {}
@@ -319,7 +351,6 @@ def main(cfg: DictConfig) -> None:
                         "num_materials": len(valid),
                     }
 
-            # Add dspy global LM cost delta (same as single LLM example script)
             final_dspy_cost = get_lm_cost(dspy_settings_lm) if dspy_settings_lm else 0.0
             dspy_cost = (final_dspy_cost or 0.0) - (initial_dspy_cost or 0.0)
             if dspy_cost > 0:
@@ -330,7 +361,6 @@ def main(cfg: DictConfig) -> None:
 
             paper_cost = sum(op["cost_usd"] for op in cost_operations)
 
-            #call result gather, which saves to result directory
             result_gather.gather(
                 paper_id=paper.id,
                 publication_text=paper.publication_text,
@@ -339,17 +369,24 @@ def main(cfg: DictConfig) -> None:
                 cost_data=cost_operations,
             )
 
-            # Save per-paper evaluation matrix PNG
             paper_dir = os.path.join(result_dir, paper.id)
-            logging.info(f"  Heatmap summary for {paper.name}: {json.dumps({s: {j: v.get('avg_overall_score') for j, v in jd.items()} for s, jd in summary.items()})}")
+            logging.info(
+                f"  Heatmap summary for {paper.name}: "
+                f"{json.dumps({s: {j: v.get('avg_overall_score') for j, v in jd.items()} for s, jd in summary.items()})}"
+            )
             _save_matrix_png(
-                summary, synthesis_llms, judge_llms,
+                summary,
+                synthesis_llms,
+                judge_llms,
                 title=f"Evaluation Matrix - {paper.name}",
                 output_path=os.path.join(paper_dir, "evaluation_matrix.png"),
             )
 
             num_materials = sum(len(e["materials"]) for e in multi_llm_results)
-            logging.info(f"Processed {num_materials} material entries across {len(multi_llm_results)} LLMs")
+            logging.info(
+                f"Processed {num_materials} material entries across "
+                f"{len(multi_llm_results)} LLMs"
+            )
             logging.info(f"Paper cost: ${paper_cost:.6f}")
 
             return summary, paper_cost
@@ -358,21 +395,39 @@ def main(cfg: DictConfig) -> None:
             logging.error(f"Failed to process paper {paper.name}: {e}")
             return None, 0.0
 
-    all_paper_results = []
-    max_workers = 4
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        logging.info(f"Processing {len(to_process)} papers")
-        futures = {executor.submit(process_paper, paper): paper for paper in to_process}
-        for future in as_completed(futures):
-            paper = futures[future]
-            try:
-                summary, cost = future.result()
-                if summary is not None:
-                    all_paper_results.append(summary)
-                    total_cost += cost
-                    logging.info(f"Finished {paper.name}: cost=${cost:.6f}")
-            except Exception as e:
-                logging.error(f"Error processing {paper.name}: {e}")
+    # Cap concurrent papers so we don't run too many at once (same as old max_workers=4)
+    max_concurrent_papers = 4
+    paper_semaphore = asyncio.Semaphore(max_concurrent_papers)
+
+    async def run_one_paper(paper):
+        async with paper_semaphore:
+            return paper, await process_paper_async(paper)
+
+    async def run_all_papers():
+        all_paper_results = []
+        nonlocal total_cost
+        if not to_process:
+            return all_paper_results
+        results = await asyncio.gather(
+            *[run_one_paper(paper) for paper in to_process],
+            return_exceptions=True,
+        )
+        for item in results:
+            if isinstance(item, Exception):
+                logging.error(f"Paper task failed: {item}")
+                continue
+            paper, (summary, cost) = item
+            if summary is not None:
+                all_paper_results.append(summary)
+                total_cost += cost
+                logging.info(f"Finished {paper.name}: cost=${cost:.6f}")
+        return all_paper_results
+
+    logging.info(
+        f"Processing {len(to_process)} papers "
+        f"(max {max_concurrent_papers} papers, {max_concurrent_llm} LLM calls)"
+    )
+    all_paper_results = asyncio.run(run_all_papers())
 
     # Save global evaluation matrix PNG
     if all_paper_results:

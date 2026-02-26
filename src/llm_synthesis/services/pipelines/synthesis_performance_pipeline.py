@@ -7,6 +7,7 @@ This pipeline combines:
 4. Performance data linking (matching plot series to materials)
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -26,11 +27,14 @@ from llm_synthesis.models.performance import (
 )
 from llm_synthesis.models.plot import ExtractedLinePlotData
 from llm_synthesis.transformers.performance_linking.base import LinkingInput
-from llm_synthesis.transformers.performance_linking.plot_filter import PlotFilter
+from llm_synthesis.transformers.performance_linking.plot_filter import (
+    PlotFilter,
+)
 from llm_synthesis.transformers.performance_linking.series_material_linker import (
     SeriesMaterialLinker,
 )
 from llm_synthesis.utils import clean_text
+from llm_synthesis.utils.concurrency import run_with_semaphore
 from llm_synthesis.utils.figure_utils import clean_text_from_images
 from llm_synthesis.utils.performance_utils import (
     aggregate_all_materials_performance,
@@ -214,6 +218,35 @@ class SynthesisPerformancePipeline:
             logger.warning(f"  Figure extraction failed: {e}")
             return []
 
+    def _extract_one_plot(
+        self,
+        fig: FigureInfo,
+        paper_text: str,
+        si_text: str,
+    ) -> tuple[ExtractedLinePlotData | None, FigureInfo]:
+        """Extract plot data for a single figure (used by async path)."""
+        if not self.plot_extractor:
+            return None, fig
+        fig_with_paper = FigureInfoWithPaper(
+            base64_data=fig.base64_data,
+            alt_text=fig.alt_text,
+            position=fig.position,
+            context_before=fig.context_before,
+            context_after=fig.context_after,
+            figure_reference=fig.figure_reference,
+            figure_class=fig.figure_class,
+            quantitative=fig.quantitative,
+            paper_text=clean_text_from_images(paper_text),
+            si_text=si_text,
+        )
+        try:
+            plot_data = self.plot_extractor.forward(fig_with_paper)
+            if plot_data and plot_data.name_to_coordinates:
+                return plot_data, fig
+        except Exception as e:
+            logger.warning(f"    {fig.figure_reference}: extraction failed - {e}")
+        return None, fig
+
     def extract_plot_data(
         self,
         figures: list[FigureInfo],
@@ -239,33 +272,54 @@ class SynthesisPerformancePipeline:
         plot_figures = []
 
         for fig in figures:
-            fig_with_paper = FigureInfoWithPaper(
-                base64_data=fig.base64_data,
-                alt_text=fig.alt_text,
-                position=fig.position,
-                context_before=fig.context_before,
-                context_after=fig.context_after,
-                figure_reference=fig.figure_reference,
-                figure_class=fig.figure_class,
-                quantitative=fig.quantitative,
-                paper_text=clean_text_from_images(paper_text),
-                si_text=si_text,
-            )
-
-            try:
-                plot_data = self.plot_extractor.forward(fig_with_paper)
-                if plot_data and plot_data.name_to_coordinates:
-                    plots.append(plot_data)
-                    plot_figures.append(fig)
-                    logger.info(
-                        f"    {fig.figure_reference}: "
-                        f"{len(plot_data.name_to_coordinates)} series extracted"
-                    )
-            except Exception as e:
-                logger.warning(f"    {fig.figure_reference}: extraction failed - {e}")
+            plot_data, _ = self._extract_one_plot(fig, paper_text, si_text)
+            if plot_data is not None:
+                plots.append(plot_data)
+                plot_figures.append(fig)
+                logger.info(
+                    f"    {fig.figure_reference}: "
+                    f"{len(plot_data.name_to_coordinates)} series extracted"
+                )
 
         logger.info(f"  Extracted data from {len(plots)} plots")
         return plots, plot_figures
+
+    def _link_one_plot(
+        self,
+        idx: int,
+        plot: ExtractedLinePlotData,
+        fig: FigureInfo,
+        materials: list[str],
+    ) -> PlotMaterialMapping | None:
+        """Link one plot to materials (used by sync and async path)."""
+        if not self.series_linker:
+            return None
+        series_names = list(plot.name_to_coordinates.keys())
+        if not series_names:
+            return None
+        context = f"{fig.context_before} {fig.context_after}"
+        plot_meta = {
+            "title": plot.title,
+            "x_axis_label": plot.x_axis_label,
+            "x_axis_unit": plot.x_axis_unit,
+            "y_left_axis_label": plot.y_left_axis_label,
+            "y_left_axis_unit": plot.y_left_axis_unit,
+        }
+        linking_input = LinkingInput(
+            materials=materials,
+            series_names=series_names,
+            context=context,
+            plot_metadata=plot_meta,
+        )
+        validated_mappings = self.series_linker.forward(linking_input)
+        matched_series = {m.series_name for m in validated_mappings}
+        unmatched = [s for s in series_names if s not in matched_series]
+        return PlotMaterialMapping(
+            plot_index=idx,
+            figure_reference=fig.figure_reference,
+            mappings=validated_mappings,
+            unmatched_series=unmatched,
+        )
 
     def link_performance(
         self,
@@ -296,48 +350,17 @@ class SynthesisPerformancePipeline:
         all_mappings = []
         for idx, plot in relevant_plots:
             fig = figures[idx]
-            series_names = list(plot.name_to_coordinates.keys())
-
-            if not series_names:
-                continue
-
-            context = f"{fig.context_before} {fig.context_after}"
-            plot_meta = {
-                "title": plot.title,
-                "x_axis_label": plot.x_axis_label,
-                "x_axis_unit": plot.x_axis_unit,
-                "y_left_axis_label": plot.y_left_axis_label,
-                "y_left_axis_unit": plot.y_left_axis_unit,
-            }
-
-            logger.info(
-                f"    Linking plot {idx} '{plot.title or 'N/A'}' "
-                f"({len(series_names)} series)"
-            )
-
-            # Call linker
-            linking_input = LinkingInput(
-                materials=materials,
-                series_names=series_names,
-                context=context,
-                plot_metadata=plot_meta,
-            )
-            validated_mappings = self.series_linker.forward(linking_input)
-
-            # Determine unmatched series
-            matched_series = {m.series_name for m in validated_mappings}
-            unmatched = [s for s in series_names if s not in matched_series]
-
-            all_mappings.append(
-                PlotMaterialMapping(
-                    plot_index=idx,
-                    figure_reference=fig.figure_reference,
-                    mappings=validated_mappings,
-                    unmatched_series=unmatched,
+            mapping = self._link_one_plot(idx, plot, fig, materials)
+            if mapping is not None:
+                all_mappings.append(mapping)
+                logger.info(
+                    f"    Linking plot {idx} '{plot.title or 'N/A'}' "
+                    f"({len(plot.name_to_coordinates)} series)"
                 )
-            )
-
-            logger.info(f"      Matched: {len(validated_mappings)}, Unmatched: {unmatched}")
+                logger.info(
+                    f"      Matched: {len(mapping.mappings)}, "
+                    f"Unmatched: {mapping.unmatched_series}"
+                )
 
         # Compute stats
         stats = compute_linking_stats(
@@ -520,6 +543,245 @@ class SynthesisPerformancePipeline:
         # Summary
         materials_with_perf = [m for m in materials if m in performance_data]
         materials_without_perf = [m for m in materials if m not in performance_data]
+
+        return PipelineResult(
+            paper_id=paper.id,
+            paper_name=paper.name,
+            materials=materials,
+            results=results,
+            plot_mappings=plot_mappings,
+            num_plots=len(extracted_plots),
+            linking_stats=linking_stats,
+            materials_with_performance=materials_with_perf,
+            materials_without_performance=materials_without_perf,
+        )
+
+    async def process_paper_async(
+        self,
+        paper: Paper,
+        semaphore: asyncio.Semaphore,
+        skip_figures: bool = False,
+    ) -> PipelineResult | None:
+        """Process a single paper with concurrent LLM calls (asyncio + semaphore).
+
+        Same as process_paper but runs independent LLM calls in parallel:
+        - Materials: one call, then synthesis+judge per material in parallel
+        - Plot extraction: one call per figure in parallel
+        - Linking: one call per plot in parallel
+
+        Args:
+            paper: Paper object with text content
+            semaphore: Cap on concurrent LLM calls (e.g. from get_max_concurrent_llm_calls)
+            skip_figures: If True, skip figure extraction and performance linking
+
+        Returns:
+            PipelineResult or None if processing failed
+        """
+        logger.info(f"Processing: {paper.name}")
+
+        # Step 1: Material extraction (one call)
+        materials_text = await run_with_semaphore(
+            semaphore,
+            self.material_extractor.forward,
+            input=clean_text(paper.publication_text),
+        )
+        if not materials_text:
+            logger.warning("  No materials found")
+            return None
+        materials = [
+            m.strip()
+            for m in materials_text.replace("\n", ",").split(",")
+            if m.strip()
+        ]
+        logger.info(f"  Found {len(materials)} materials: {materials}")
+
+        # Step 2: Synthesis + judge per material (parallel)
+        async def extract_synthesis_one(material: str) -> SynthesisEntry:
+            try:
+                synthesis = await run_with_semaphore(
+                    semaphore,
+                    self.synthesis_extractor.forward,
+                    input=(clean_text(paper.publication_text), material),
+                )
+                evaluation = None
+                if self.judge:
+                    try:
+                        evaluation = await run_with_semaphore(
+                            semaphore,
+                            self.judge.forward,
+                            (
+                                clean_text(paper.publication_text),
+                                json.dumps(synthesis.model_dump()),
+                                material,
+                            ),
+                        )
+                        logger.info(
+                            f"  [{material}] Evaluation score: "
+                            f"{evaluation.scores.overall_score}/5.0"
+                        )
+                    except Exception as e:
+                        logger.warning(f"  Judge evaluation failed: {e}")
+                return SynthesisEntry(
+                    material=material,
+                    synthesis=synthesis,
+                    evaluation=evaluation,
+                )
+            except Exception as e:
+                logger.error(f"  Synthesis extraction failed for {material}: {e}")
+                return SynthesisEntry(
+                    material=material,
+                    synthesis=GeneralSynthesisOntology(
+                        target_compound=material,
+                        target_compound_type="other",
+                        synthesis_method="other",
+                        notes=f"Extraction failed: {e}",
+                    ),
+                    evaluation=None,
+                )
+
+        all_syntheses = await asyncio.gather(
+            *[extract_synthesis_one(mat) for mat in materials]
+        )
+        all_syntheses = list(all_syntheses)
+
+        # Steps 3–5: Figures, plot extraction, linking (optional)
+        performance_data = {}
+        plot_mappings = []
+        extracted_plots = []
+        linking_stats = None
+        linking_evaluation = None
+
+        if not skip_figures:
+            # Step 3: Extract figures (sync helper, run in thread)
+            figures = await run_with_semaphore(
+                semaphore, self.extract_figures, paper.publication_text
+            )
+
+            if figures:
+                # Step 4: Extract plot data in parallel (one LLM call per figure)
+                paper_text = paper.publication_text
+                si_text = paper.si_text or ""
+                plot_results = await asyncio.gather(
+                    *[
+                        run_with_semaphore(
+                            semaphore,
+                            self._extract_one_plot,
+                            fig,
+                            paper_text,
+                            si_text,
+                        )
+                        for fig in figures
+                    ]
+                )
+                plots = []
+                plot_figures = []
+                for plot_data, fig in plot_results:
+                    if plot_data is not None:
+                        plots.append(plot_data)
+                        plot_figures.append(fig)
+                extracted_plots = plots
+                logger.info(f"  Extracted data from {len(plots)} plots")
+
+                if plots:
+                    try:
+                        # Step 5: Link each plot in parallel
+                        relevant_plots, skip_counts = self.plot_filter.filter_plots(
+                            plots
+                        )
+                        skipped_plots = []
+                        link_tasks = [
+                            run_with_semaphore(
+                                semaphore,
+                                self._link_one_plot,
+                                idx,
+                                plot,
+                                plot_figures[idx],
+                                materials,
+                            )
+                            for idx, plot in relevant_plots
+                        ]
+                        mapping_results = await asyncio.gather(*link_tasks)
+                        all_mappings = [
+                            m for m in mapping_results if m is not None
+                        ]
+                        plot_mappings = all_mappings
+                        linking_stats = compute_linking_stats(
+                            total_plots=len(plots),
+                            mappings=all_mappings,
+                            skip_counts=skip_counts,
+                            skipped_plots=skipped_plots,
+                        )
+                        performance_data = aggregate_all_materials_performance(
+                            materials, plot_mappings, plots
+                        )
+
+                        # Step 6: Linking judge (one call)
+                        if self.linking_judge and plot_mappings:
+                            synthesis_json = json.dumps(
+                                [
+                                    {
+                                        "material": e.material,
+                                        "synthesis": (
+                                            e.synthesis.model_dump()
+                                            if e.synthesis
+                                            else None
+                                        ),
+                                    }
+                                    for e in all_syntheses
+                                ],
+                                indent=2,
+                            )
+                            plot_data_json = json.dumps(
+                                [p.model_dump() for p in plots], indent=2
+                            )
+                            linking_output_json = json.dumps(
+                                {
+                                    "mappings": [
+                                        m.model_dump() for m in plot_mappings
+                                    ],
+                                    "performance_per_material": {
+                                        k: v.model_dump()
+                                        for k, v in performance_data.items()
+                                    },
+                                },
+                                indent=2,
+                            )
+                            linking_evaluation = await run_with_semaphore(
+                                semaphore,
+                                self.linking_judge.forward,
+                                (
+                                    clean_text(paper_text),
+                                    synthesis_json,
+                                    plot_data_json,
+                                    linking_output_json,
+                                ),
+                            )
+                            if linking_evaluation:
+                                logger.info(
+                                    f"  Linking evaluation score: "
+                                    f"{linking_evaluation.scores.overall_score}/5.0"
+                                )
+                    except Exception as e:
+                        logger.warning(
+                            f"  Performance linking failed: {e}. "
+                            "Synthesis results will be saved without performance."
+                        )
+
+        # Build results
+        results = [
+            SynthesisWithPerformanceEntry(
+                material=entry.material,
+                synthesis=entry.synthesis,
+                evaluation=entry.evaluation,
+                performance=performance_data.get(entry.material),
+                linking_evaluation=linking_evaluation,
+            )
+            for entry in all_syntheses
+        ]
+        materials_with_perf = [m for m in materials if m in performance_data]
+        materials_without_perf = [
+            m for m in materials if m not in performance_data
+        ]
 
         return PipelineResult(
             paper_id=paper.id,
