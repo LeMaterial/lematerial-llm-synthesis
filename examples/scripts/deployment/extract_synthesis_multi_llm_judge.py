@@ -42,6 +42,9 @@ from llm_synthesis.utils.dspy_utils import get_lm_cost
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 
 # Configure logging to reduce noise
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
+)
 logging.getLogger("pydantic").setLevel(logging.ERROR)
 logging.getLogger("LiteLLM").setLevel(logging.ERROR)
 logging.getLogger("litellm").setLevel(logging.ERROR)

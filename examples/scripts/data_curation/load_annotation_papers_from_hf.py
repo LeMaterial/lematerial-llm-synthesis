@@ -16,6 +16,11 @@ from pathlib import Path
 
 from datasets import Dataset, load_dataset
 
+from llm_synthesis.utils.paper_id_utils import (
+    folder_id_to_hf_id,
+    hf_id_to_folder_id,
+)
+
 DATASET_ID = "LeMaterial/LeMat-Synth-Papers"
 SPLIT = "sample_for_evaluation"
 
@@ -51,38 +56,43 @@ def load_papers_for_annotation_ids(
     if not paper_ids:
         return paper_ids, None
 
-    needed = set(paper_ids)
+    needed_hf = {folder_id_to_hf_id(pid) for pid in paper_ids}
     collected = {}
     try:
         dataset = load_dataset(dataset_id, split=split, streaming=True)
         for row in dataset:
-            pid = row.get("id")
-            if pid in needed:
-                collected[pid] = dict(row)
-                if len(collected) == len(needed):
+            pid_hf = row.get("id")
+            if pid_hf in needed_hf:
+                folder_id = hf_id_to_folder_id(pid_hf)
+                row_dict = dict(row)
+                row_dict["id"] = folder_id
+                collected[folder_id] = row_dict
+                if len(collected) == len(needed_hf):
                     break
     except (TypeError, ValueError):
         # Dataset may not support streaming; fall back to full load + filter
         dataset = load_dataset(dataset_id, split=split)
         id_to_idx = {row["id"]: i for i, row in enumerate(dataset)}
-        missing = [p for p in paper_ids if p not in id_to_idx]
+        found_ids = [p for p in paper_ids if folder_id_to_hf_id(p) in id_to_idx]
+        missing = [p for p in paper_ids if p not in found_ids]
         if missing:
             print(f"Missing IDs (not in {dataset_id} {split}): {missing}")
-            # raise ValueError(
-            #     f"Paper IDs not found in {dataset_id} ({split}): {missing}. "
-            #     "Annotation folder names must match the dataset id column."
-            # ) from None
-        found_ids = [p for p in paper_ids if p in id_to_idx]
-        subset = dataset.select([id_to_idx[pid] for pid in found_ids])
+        indices = [id_to_idx[folder_id_to_hf_id(pid)] for pid in found_ids]
+        subset = dataset.select(indices)
+        # Normalize id column to folder id (cond-mat.XX) for consistency
+        def _norm_id(row, idx):
+            row = dict(row)
+            row["id"] = found_ids[idx]
+            return row
+
+        subset = Dataset.from_list(
+            [_norm_id(subset[i], i) for i in range(len(subset))]
+        )
         return found_ids, subset
 
     missing = [p for p in paper_ids if p not in collected]
     if missing:
         print(f"Missing IDs (not in {dataset_id} {split}): {missing}")
-        # raise ValueError(
-        #     f"Paper IDs not found in {dataset_id} ({split}): {missing}. "
-        #     "Annotation folder names must match the dataset id column."
-        # )
 
     found_ids = [p for p in paper_ids if p in collected]
     subset = Dataset.from_list([collected[pid] for pid in found_ids])

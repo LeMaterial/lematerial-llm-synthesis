@@ -2,6 +2,7 @@ import datasets
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.models.paper import Paper
+from llm_synthesis.utils.paper_id_utils import hf_id_to_folder_id
 
 
 class HFLoader(PaperLoaderInterface):
@@ -28,12 +29,13 @@ class HFLoader(PaperLoaderInterface):
         )
         papers = []
         for paper in dataset:
+            paper_id = hf_id_to_folder_id(paper["id"])
             papers.append(
                 Paper(
                     publication_text=paper["text_paper"],
                     si_text=paper["text_si"],
                     name=paper["title"],
-                    id=paper["id"],
+                    id=paper_id,
                 )
             )
         return papers
