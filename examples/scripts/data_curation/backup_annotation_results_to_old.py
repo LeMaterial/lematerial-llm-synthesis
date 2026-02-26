@@ -13,7 +13,12 @@ from pathlib import Path
 
 FILES_TO_BACKUP = ("result.json", "result_human.json")
 SCHEMA_VERSION = "multi_llm_v1"
-EXTRACTOR_ORDER = ["claude-sonnet-4.5", "gemini-3-flash", "qwen-qwq", "kimi-k2"]
+EXTRACTOR_ORDER = [
+    "claude-sonnet-4.5",
+    "gemini-3-flash",
+    "qwen3.5-35b-a3b",
+    "kimi-k2.5",
+]
 
 EMPTY_HUMAN_RECIPE = {
     "target_compound": None,

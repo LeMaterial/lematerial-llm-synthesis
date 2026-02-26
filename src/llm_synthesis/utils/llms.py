@@ -60,6 +60,27 @@ LLM_REGISTRY = LLMRegistry(
             model="gemini/gemini-3-flash-lite",
             extra_kwargs={"thinking": {"type": "enabled"}},
         ),
+        # Multi-LLM annotation stack: reasoning/thinking models
+        "claude-sonnet-4.5": LLMConfig(
+            model="anthropic/claude-sonnet-4-5",
+            extra_kwargs={
+                "thinking": {"type": "enabled", "budget_tokens": 10000},
+            },
+        ),
+        "gemini-3-flash": LLMConfig(
+            model="gemini/gemini-3-flash-preview",
+            extra_kwargs={"thinking_level": "high"},
+        ),
+        "qwen3.5-35b-a3b": LLMConfig(
+            model="openrouter/qwen/qwen3.5-35b-a3b",
+            api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
+        ),
+        "kimi-k2.5": LLMConfig(
+            model="openrouter/moonshotai/kimi-k2.5",
+            api_key=os.getenv("OPENROUTER_KIMI_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
+        ),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),
         "gpt-o4-mini": LLMConfig(model="openai/o4-mini-2025-04-16"),
