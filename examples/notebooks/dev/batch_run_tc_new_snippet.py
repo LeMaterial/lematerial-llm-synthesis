@@ -1251,12 +1251,19 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 IMPORTANT: For the synthesis_method field, you MUST choose from these exact values:
 'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning',
 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion',
-'microwave', 'sonochemical', 'template', 'electrochemical', 'polyol', 'thermal decomposition',
-'hot injection', 'mechanical exfoliation', 'liquid exfoliation', 'ion exchange',
-'solid state reaction', 'flux method', 'Bridgman', 'Czochralski', 'float zone',
-'molecular beam epitaxy', 'pulsed laser deposition', 'sputtering',
-'metal organic decomposition', 'melt spinning', 'self-propagating high-temperature synthesis',
-'other'
+'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth',
+'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering',
+'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
+'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation',
+'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing',
+'solution-based', 'mechanochemical', 'other'
+
+For the target_compound_type field, you MUST choose from these exact values:
+'metals & alloys', 'ceramics & glasses', 'polymers & soft matter', 'composites',
+'semiconductors & electronic', 'nanomaterials', 'two-dimensional materials',
+'framework & porous materials', 'biomaterials & biological', 'liquid materials',
+'hybrid & organic-inorganic', 'functional materials & catalysts', 'energy & sustainability',
+'smart & responsive materials', 'emerging & quantum materials', 'other'
 
 If the exact method is not in the list, use the closest match or 'other'."""
 
