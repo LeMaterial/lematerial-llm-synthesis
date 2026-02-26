@@ -175,7 +175,7 @@ def create_pipeline(
     # Judge
     judge_lm = get_llm_from_name(
         gemini_model,
-        model_kwargs={"temperature": 0.1, "max_tokens": 4096},
+        model_kwargs={"temperature": 0.1, "max_tokens": 8000},
     )
     judge_sig = make_general_synthesis_judge_signature()
     judge = DspyGeneralSynthesisJudge(signature=judge_sig, lm=judge_lm)
@@ -199,7 +199,7 @@ def create_pipeline(
         # Linking judge — evaluates linking quality after performance linking
         linking_judge_lm = get_llm_from_name(
             gemini_model,
-            model_kwargs={"temperature": 0.1, "max_tokens": 4096},
+            model_kwargs={"temperature": 0.1, "max_tokens": 8000},
         )
         linking_judge_sig = make_linking_judge_signature()
         linking_judge = DspyLinkingJudge(

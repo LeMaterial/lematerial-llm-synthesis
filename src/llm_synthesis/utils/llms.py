@@ -75,11 +75,17 @@ LLM_REGISTRY = LLMRegistry(
             model="openrouter/qwen/qwen3.5-35b-a3b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
+            extra_kwargs={
+                "reasoning": {"effort": "high", "exclude": True},
+            },
         ),
         "kimi-k2.5": LLMConfig(
             model="openrouter/moonshotai/kimi-k2.5",
             api_key=os.getenv("OPENROUTER_KIMI_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
+            extra_kwargs={
+                "reasoning": {"effort": "high", "exclude": True},
+            },
         ),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),
