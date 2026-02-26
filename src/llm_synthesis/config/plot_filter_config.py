@@ -80,6 +80,16 @@ class PlotFilterConfig(BaseModel):
         description="Exact matches for conversion symbol",
     )
 
+    # Exclusion patterns for y-axis (reject if label matches any of these)
+    y_axis_exclude_patterns: list[str] = Field(
+        default=[],
+        description=(
+            "Patterns in y-axis label that indicate a derived/non-raw plot "
+            "even if a y_axis_keyword matches. Checked as substrings after "
+            "lowercasing. E.g., 'ρ-ρ' excludes difference-resistivity plots."
+        ),
+    )
+
     # Filtering behavior
     require_y_keyword_with_percentage: bool = Field(
         default=True,
@@ -98,6 +108,38 @@ class PlotFilterConfig(BaseModel):
         description="Whether to apply y-axis filtering",
     )
 
+    @staticmethod
+    def _normalize_axis_text(text: str) -> str:
+        """Normalize axis label/unit text for matching.
+
+        Strips LaTeX formatting and converts LaTeX symbols to Unicode equivalents
+        so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
+        """
+        # Strip LaTeX dollar signs
+        text = text.replace("$", "")
+        # Convert common LaTeX symbols to Unicode
+        # Use raw strings to match literal backslash sequences
+        latex_to_unicode = [
+            ("\\rho", "ρ"),
+            ("\\omega", "ω"),
+            ("\\mu", "μ"),
+            ("\\delta", "δ"),
+            ("\\sigma", "σ"),
+            ("\\alpha", "α"),
+            ("\\beta", "β"),
+            ("\\gamma", "γ"),
+            ("\\chi", "χ"),
+            ("\\lambda", "λ"),
+            ("\\cdot", "·"),
+        ]
+        for latex, uni in latex_to_unicode:
+            text = text.replace(latex, uni)
+        # Also handle case where \r was interpreted as carriage return
+        # (happens when Python string literal has \rho without raw prefix)
+        text = text.replace("\rho", "ρ")
+        text = text.replace("\mu", "μ")
+        return text
+
     def is_relevant_x_axis(self, label: str | None, unit: str | None) -> bool:
         """Check if x-axis indicates a relevant plot.
 
@@ -111,8 +153,8 @@ class PlotFilterConfig(BaseModel):
         if not self.filter_x_axis:
             return True
 
-        label_lower = (label or "").lower().strip()
-        unit_lower = (unit or "").lower().strip()
+        label_lower = self._normalize_axis_text((label or "").lower().strip())
+        unit_lower = self._normalize_axis_text((unit or "").lower().strip())
 
         # Check if label contains any configured labels (substring match)
         if any(t in label_lower for t in self.x_axis_labels):
@@ -137,11 +179,15 @@ class PlotFilterConfig(BaseModel):
         if not self.filter_y_axis:
             return True
 
-        label_lower = (label or "").lower().strip()
-        unit_lower = (unit or "").lower().strip()
+        label_lower = self._normalize_axis_text((label or "").lower().strip())
+        unit_lower = self._normalize_axis_text((unit or "").lower().strip())
 
         # If y-axis is completely empty, we can't verify — reject it
         if not label_lower and not unit_lower:
+            return False
+
+        # Check exclusion patterns first — reject derived/difference plots
+        if any(pat in label_lower for pat in self.y_axis_exclude_patterns):
             return False
 
         # Check for conversion keywords in label
@@ -180,6 +226,40 @@ class PlotFilterConfig(BaseModel):
             x_axis_units=["v", "mv", "v vs. rhe", "v vs rhe"],
             y_axis_keywords=["current", "capacitance", "capacity", "coulombic"],
             y_axis_units=["%", "percent", "ma", "a", "f/g", "mah/g"],
+            require_y_keyword_with_percentage=False,
+        )
+
+    @classmethod
+    def for_superconductivity(cls) -> "PlotFilterConfig":
+        """Factory method for superconductivity domain (R(T) plots)."""
+        return cls(
+            x_axis_labels=["temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"],
+            x_axis_units=["k", "°k", "kelvin"],
+            y_axis_keywords=[
+                "resistance", "resistivity", "r(t)", "r/r",
+                "ρ", "rho", "normalized resistance", "r (ω",
+                "r (m", "r (μ", "r [ω", "r [m", "r [μ",
+                "ρ (", "ρ [", "ρ/ρ",
+            ],
+            y_axis_units=[
+                "ω", "ohm", "mω", "μω", "ω·cm", "μω·cm", "mω·cm",
+                "ω cm", "μω cm", "mω cm", "ωcm", "μωcm", "mωcm",
+                "ω⋅cm", "μω⋅cm", "mω⋅cm",
+                "a.u.",
+            ],
+            y_axis_exclude_patterns=[
+                # Difference / subtracted quantities
+                "ρ-ρ", "r-r", "ρ−ρ", "r−r",  # minus sign variants
+                "ρ - ρ", "r - r",              # spaced minus
+                "δρ", "δr", "Δρ", "Δr",        # delta variants
+                # Derivatives
+                "dρ/dt", "dr/dt", "dρ/d", "dr/d",
+                # Ratio to residual resistivity (but NOT normalized to room temp)
+                # "ρ/ρ₀", "r/r₀", "r/r0" are residual-ratio plots (not useful)
+                # "ρ/ρ₃₀₀" or "r/r(300)" are room-temp-normalized R(T) (useful!)
+                "ρ/ρ₀", "ρ/ρ0",
+                "r/r₀", "r/r0",
+            ],
             require_y_keyword_with_percentage=False,
         )
 

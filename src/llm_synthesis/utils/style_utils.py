@@ -80,7 +80,7 @@ def set_style(style: str = "manuscript") -> None:
     # Common settings for all styles
     common_settings = {
         "pdf.fonttype": 42,
-        "font.family": "Deja Vu Sans",
+        "font.family": "DejaVu Sans",
         "mathtext.fontset": "dejavusans",
         "text.latex.preamble": (
             r"\usepackage{amsmath} \usepackage{amssymb} \usepackage{sfmath}"
