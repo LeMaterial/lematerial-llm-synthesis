@@ -1284,7 +1284,7 @@ If the exact method is not in the list, use the closest match or 'other'."""
 
     judge_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.1, "max_tokens": 16000},
+        model_kwargs={"temperature": 0.0, "max_tokens": 16000},
     )
     judge_sig = make_general_synthesis_judge_signature()
     judge = DspyGeneralSynthesisJudge(signature=judge_sig, lm=judge_lm)
