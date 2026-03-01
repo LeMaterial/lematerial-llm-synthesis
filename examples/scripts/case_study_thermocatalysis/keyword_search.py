@@ -1,3 +1,13 @@
+"""
+Keyword search for thermocatalysis papers.
+
+Pipeline:
+1. Load all three splits (arxiv, omg24, chemrxiv) from LeMat-Synth-Papers
+2. Filter by catalysis-related keywords in the abstract
+3. Deduplicate paper IDs across keywords
+4. Export matched paper IDs to a pickle file for downstream LLM filtering
+"""
+
 import pickle
 
 from datasets import load_dataset
@@ -35,21 +45,16 @@ def query_db(dataset, split_name, text_column, list_keywords):
 
     return results
 
-    # From a given subset of papers, removes redundancies
-
 
 def return_nonredundant_ids(results):
+    """From a given subset of papers, removes redundancies across keywords."""
     all_ids = []
 
     for kw, ids in results.items():
         all_ids.extend(ids)
 
-    # Convert to a set to remove duplicates
     unique_ids = set(all_ids)
-
-    # Count them
     print("Number of papers containing at least one keyword:", len(unique_ids))
-
     return unique_ids
 
 
@@ -78,8 +83,6 @@ if __name__ == "__main__":
         "efficiency",
         "activation energy",
     ]
-    """list_keywords = ["catalyst", "catalysis", "catalytic", "TOF", 
-    "activation energy"]"""
     db = {}
 
     for split_name in split_name_list:

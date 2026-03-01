@@ -86,20 +86,12 @@ if __name__ == "__main__":
         print(f"Processing split: {split_name} ({len(ds)} papers)")
         print(f"{'=' * 60}")
 
-        # if split_name == "arxiv":
-        # Step 1a: Filter by structured category
+        # Step 1: Filter by structured category
         ds_sc = filter_by_category(ds, category_filter)
         print(
             f"  Category filter {category_filter}: "
             f"{len(ds_sc)} / {len(ds)} papers"
         )
-        # else:
-        # # Step 1b: No structured categories — use keyword filter on abstract
-        # ds_sc = keyword_filter(ds, text_column, superconductor_keywords)
-        # print(
-        #     f"  Superconductor keyword filter {superconductor_keywords}: "
-        #     f"{len(ds_sc)} / {len(ds)} papers"
-        # )
 
         # Step 2: Filter by keyword "resistivity" in abstract
         ds_filtered = keyword_filter(ds_sc, text_column, include_keywords)
