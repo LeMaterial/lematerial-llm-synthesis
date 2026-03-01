@@ -131,6 +131,7 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 
 
 
+
 ### Thermocatalysis Case Study
 
 Extracts synthesis procedures and catalytic performance data (conversion/selectivity vs temperature curves) from a local corpus of heterogeneous catalysis papers (PDFs not part of the open-source LeMat-Synth-Papers corpus).
