@@ -35,10 +35,14 @@ if SRC_DIR not in sys.path:
 
 from llm_synthesis.utils.style_utils import set_style, get_palette
 
-set_style("manuscript")
+set_style("presentation")
+PAL = get_palette()
 
-# Override savefig defaults for high-quality output
-plt.rcParams.update({"savefig.dpi": 300, "savefig.bbox": "tight"})
+plt.rcParams.update({
+    "figure.dpi": 150,
+    "savefig.dpi": 300,
+    "axes.grid": False,
+})
 
 # ── Paths (DATA_DIR set from CLI, OUT_DIR defaults to figure_visualisation/) ──
 DATA_DIR: Path = None  # set in __main__ from CLI argument
@@ -135,10 +139,11 @@ _PREFERRED_SUPPORT_MARKERS = {
 
 # Overflow palettes for auto-assignment of new metals/supports
 _OVERFLOW_COLORS = [
-    "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
-    "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf",
-    "#aec7e8", "#ffbb78", "#98df8a", "#ff9896", "#c5b0d5",
-    "#c49c94", "#f7b6d2", "#c7c7c7", "#dbdb8d", "#9edae5",
+    "#0C5DA5", "#00B945", "#FF9500", "#FF2C00", "#845B97",
+    "#474747", "#9e9e9e", "#9A607F",
+    "#E0A2D3", "#7B5AEF", "#448FF2", "#A7C8F2", "#F9CB9C",
+    "#B27EDD", "#D3D3D3", "#A9A9A9",
+    "#0C5DA5", "#00B945", "#FF9500", "#FF2C00",
 ]
 _OVERFLOW_MARKERS = ["o", "s", "^", "D", "v", "P", "*", "h", "X", "p", "d", ">", "<", "8", "1", "2"]
 
@@ -218,7 +223,7 @@ def normalize_series_name(name):
     return name.translate(subs).strip().lower()
 
 
-def load_all_data(skip_dirs=frozenset(), material_cache=None):
+def load_all_data(skip_dirs=frozenset(), material_cache=None, DATA_DIR=DATA_DIR):
     """Walk all paper directories, load JSONs, return (df_curves, df_synthesis).
 
     If material_cache is provided (dict mapping material_name → {metal, support, loading}),
@@ -1005,7 +1010,7 @@ def make_fig1(df_curves):
 
         step = max(1, len(temps) // 5)
         ax.scatter(temps[::step], convs[::step], color=color, marker=marker,
-                   s=20, zorder=3, edgecolors="white", linewidth=0.3, alpha=0.8)
+                   s=20, zorder=3, edgecolors="k", linewidths=0.3, alpha=0.8)
 
         metals_present.add(metal)
         supports_present.add(support)
@@ -1015,8 +1020,8 @@ def make_fig1(df_curves):
     metal_handles = [Line2D([0], [0], color=get_metal_color(m), lw=2, label=m)
                      for m in metal_order]
     leg1 = ax.legend(handles=metal_handles, title="Active Metal",
-                     loc="lower right", frameon=True, framealpha=0.95,
-                     edgecolor="grey", fontsize=7, title_fontsize=8)
+                     loc="lower right", frameon=False,
+                     fontsize=7, title_fontsize=8)
     ax.add_artist(leg1)
 
     # Support legend (outside plot on the right)
@@ -1025,8 +1030,8 @@ def make_fig1(df_curves):
                           lw=0, markersize=5, label=s)
                    for s in sup_order]
     ax.legend(handles=sup_handles, title="Support",
-              loc="center left", frameon=True, framealpha=0.95,
-              edgecolor="grey", bbox_to_anchor=(1.02, 0.5),
+              loc="center left", frameon=False,
+              bbox_to_anchor=(1.02, 0.5),
               fontsize=7, title_fontsize=8)
 
     ax.set_xlabel("Temperature (°C)")
@@ -1036,8 +1041,8 @@ def make_fig1(df_curves):
     fig.subplots_adjust(right=0.82)
     fig.savefig(OUT_DIR / "fig1_conversion_landscape.png")
     fig.savefig(OUT_DIR / "fig1_conversion_landscape.pdf")
-    plt.close(fig)
     print(f"  ✓ Figure 1 saved ({len(df)} curves)")
+    return fig
 
 
 def make_fig2(df_curves):
@@ -1069,8 +1074,10 @@ def make_fig2(df_curves):
 
     fig, ax = plt.subplots(figsize=(max(8, len(supports) * 0.9), max(4, len(metals) * 0.55)))
 
-    cmap_heat = plt.cm.YlOrRd.copy()
-    cmap_heat.set_bad(color="#f5f5f5")
+    from matplotlib.colors import LinearSegmentedColormap
+    cmap_heat = LinearSegmentedColormap.from_list(
+        "pal_seq", [PAL[5], PAL[2], PAL[12]], N=256)
+    cmap_heat.set_bad(color=PAL[8])
 
     im = ax.imshow(data, cmap=cmap_heat, vmin=0, vmax=100, aspect="auto")
 
@@ -1098,8 +1105,9 @@ def make_fig2(df_curves):
     fig.tight_layout()
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.png")
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf")
-    plt.close(fig)
-    print(f"  ✓ Figure 2 saved ({len(metals)} metals × {len(supports)} supports)")
+    print(f"  ✓ Figure 2 saved"
+          f" ({len(metals)} metals × {len(supports)} supports)")
+    return fig
 
 
 def make_fig3(df_synthesis):
@@ -1133,7 +1141,9 @@ def make_fig3(df_synthesis):
     node_sizes = [node_counts[n] * 8 + 200 for n in G.nodes()]
     max_count = max(node_counts.values())
     norm = Normalize(vmin=1, vmax=max_count)
-    cmap_nodes = plt.cm.Blues
+    from matplotlib.colors import LinearSegmentedColormap
+    cmap_nodes = LinearSegmentedColormap.from_list(
+        "pal_blues", [PAL[3], PAL[2], PAL[12]], N=256)
 
     node_colors = [cmap_nodes(norm(node_counts[n])) for n in G.nodes()]
     edge_widths = [edge_counts[(u, v)] * 0.15 + 0.3 for u, v in G.edges()]
@@ -1145,8 +1155,8 @@ def make_fig3(df_synthesis):
                            min_source_margin=15, min_target_margin=15)
 
     nx.draw_networkx_nodes(G, pos, ax=ax, node_size=node_sizes,
-                           node_color=node_colors, edgecolors="white",
-                           linewidths=1.2)
+                           node_color=node_colors, edgecolors="k",
+                           linewidths=0.3)
 
     nx.draw_networkx_labels(G, pos, ax=ax, font_size=7, font_weight="bold")
 
@@ -1174,8 +1184,9 @@ def make_fig3(df_synthesis):
     fig.tight_layout()
     fig.savefig(OUT_DIR / "fig3_synthesis_network.png")
     fig.savefig(OUT_DIR / "fig3_synthesis_network.pdf")
-    plt.close(fig)
-    print(f"  ✓ Figure 3 saved ({len(G.nodes())} actions, {len(G.edges())} transitions)")
+    print(f"  ✓ Figure 3 saved"
+          f" ({len(G.nodes())} actions, {len(G.edges())} transitions)")
+    return fig
 
 
 def make_fig4(df_curves, df_synthesis):
@@ -1241,7 +1252,7 @@ def make_fig4(df_curves, df_synthesis):
         axes = np.array([axes])
     axes = axes.flatten()
 
-    colors = ["#0C5DA5", "#00B945", "#FF9500", "#FF2C00", "#845B97", "#9A607F"]
+    colors = [PAL[2], PAL[3], PAL[4], PAL[0], PAL[12], PAL[13]]
 
     angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
     angles += angles[:1]
@@ -1262,18 +1273,18 @@ def make_fig4(df_curves, df_synthesis):
         ax.set_yticks([0.25, 0.5, 0.75, 1.0])
         ax.set_yticklabels(["", "", "", ""], fontsize=5)
         ax.set_title(names[idx], fontsize=7, fontweight="bold", pad=15, color=c)
-        ax.grid(alpha=0.3)
-
     for idx in range(len(top), len(axes)):
         axes[idx].set_visible(False)
 
-    fig.suptitle(f"Synthesis–Performance Radar: Top Catalysts by {METRIC_NAME} at {REF_TEMP:.0f} °C",
-                  fontsize=11, y=1.01)
+    fig.suptitle(
+        f"Synthesis–Performance Radar: Top Catalysts"
+        f" by {METRIC_NAME} at {REF_TEMP:.0f} °C",
+        fontsize=11, y=1.01)
     fig.tight_layout()
     fig.savefig(OUT_DIR / "fig4_radar_charts.png")
     fig.savefig(OUT_DIR / "fig4_radar_charts.pdf")
-    plt.close(fig)
     print(f"  ✓ Figure 4 saved (top {len(top)} catalysts)")
+    return fig
 
 
 def make_fig5(df_curves, df_synthesis):
@@ -1296,14 +1307,13 @@ def make_fig5(df_curves, df_synthesis):
 
         y_pos = np.arange(len(labels))
 
-        prom_cycle = ["#0C5DA5", "#00B945", "#FF9500", "#FF2C00",
-                      "#845B97", "#474747", "#9e9e9e", "#9A607F"]
-        prom_colors = [prom_cycle[i % len(prom_cycle)] for i in range(len(labels))]
+        prom_colors = [_OVERFLOW_COLORS[i % len(_OVERFLOW_COLORS)]
+                       for i in range(len(labels))]
 
-        ax1.barh(y_pos, bases, height=0.55, color="#e0e0e0",
-                 edgecolor="white", label="Unpromoted")
+        ax1.barh(y_pos, bases, height=0.55, color=PAL[8],
+                 edgecolor="k", linewidth=0.3, label="Unpromoted")
         ax1.barh(y_pos, deltas, left=bases, height=0.55,
-                 color=prom_colors, edgecolor="white", alpha=0.85)
+                 color=prom_colors, edgecolor="k", linewidth=0.3, alpha=0.85)
 
         for i, (b, p, d) in enumerate(zip(bases, promoted, deltas)):
             sign = "+" if d >= 0 else ""
@@ -1316,13 +1326,12 @@ def make_fig5(df_curves, df_synthesis):
         x_min = max(0, min(bases) - 15)
         ax1.set_xlim(x_min, max(promoted) + 15)
         ax1.legend(["Unpromoted baseline", "Δ from promoter"],
-                   loc="lower right", fontsize=7)
+                   loc="lower right", frameon=False, fontsize=7)
     else:
         ax1.text(0.5, 0.5, "No promoter pair data found",
                  transform=ax1.transAxes, ha="center", fontsize=10, color="grey")
 
     ax1.set_title(f"(a) Promoter Effect on {METRIC_NAME.capitalize()}", fontsize=10)
-    ax1.grid(axis="x", alpha=0.15)
 
     # ── Panel B: Synthesis conditions → performance scatter ──
     df_merged = df_curves.merge(
@@ -1344,7 +1353,7 @@ def make_fig5(df_curves, df_synthesis):
         scatter = ax2.scatter(
             df_scatter["calcination_T"], df_scatter["reduction_T"],
             c=df_scatter["conv_at_500"], cmap="RdYlGn",
-            s=sizes, edgecolors="white", linewidth=0.5,
+            s=sizes, edgecolors="k", linewidths=0.3,
             vmin=0, vmax=100, alpha=0.8, zorder=3)
 
         cbar = fig.colorbar(scatter, ax=ax2, shrink=0.8, pad=0.02)
@@ -1352,9 +1361,9 @@ def make_fig5(df_curves, df_synthesis):
 
         for ml, lab in [(5, "5 wt%"), (20, "20 wt%"), (50, "50 wt%")]:
             ax2.scatter([], [], s=ml * 8 + 20, c="grey", alpha=0.5,
-                        edgecolors="white", label=lab)
+                        edgecolors="k", linewidths=0.3, label=lab)
         ax2.legend(title="Metal Loading", loc="upper left", fontsize=7,
-                   title_fontsize=8, framealpha=0.9)
+                   title_fontsize=8, frameon=False)
     else:
         ax2.text(0.5, 0.5, "No merged synth+perf data",
                  transform=ax2.transAxes, ha="center", fontsize=10, color="grey")
@@ -1362,14 +1371,12 @@ def make_fig5(df_curves, df_synthesis):
     ax2.set_xlabel("Calcination Temperature (°C)")
     ax2.set_ylabel("Reduction Temperature (°C)")
     ax2.set_title("(b) Synthesis Conditions → Performance", fontsize=10)
-    ax2.grid(alpha=0.15)
 
     fig.tight_layout()
     fig.savefig(OUT_DIR / "fig5_promoter_and_conditions.png")
     fig.savefig(OUT_DIR / "fig5_promoter_and_conditions.pdf")
-    plt.close(fig)
-    n_pairs = len(pair_data)
-    print(f"  ✓ Figure 5 saved ({n_pairs} promoter pairs auto-detected)")
+    print(f"  ✓ Figure 5 saved ({len(pair_data)} promoter pairs auto-detected)")
+    return fig
 
 
 def make_fig6(df_curves):
@@ -1407,8 +1414,8 @@ def make_fig6(df_curves):
     handles = [Line2D([0], [0], color=STRATEGY_COLORS[s], lw=2.5, label=s)
                for s in legend_order]
     ax.legend(handles=handles, title="Synthesis Strategy",
-              loc="lower right", frameon=True, framealpha=0.95,
-              edgecolor="grey", fontsize=8, title_fontsize=9)
+              loc="lower right", frameon=False,
+              fontsize=8, title_fontsize=9)
 
     ax.set_xlabel("Temperature (°C)")
     ax.set_ylabel(Y_LABEL)
@@ -1417,11 +1424,11 @@ def make_fig6(df_curves):
     fig.tight_layout()
     fig.savefig(OUT_DIR / "fig6_conversion_by_synthesis.png")
     fig.savefig(OUT_DIR / "fig6_conversion_by_synthesis.pdf")
-    plt.close(fig)
 
     strat_counts = df["strategy"].value_counts()
     detail = ", ".join(f"{s}: {strat_counts.get(s, 0)}" for s in legend_order)
     print(f"  ✓ Figure 6 saved ({len(df)} curves — {detail})")
+    return fig
 
 
 def make_fig7(df_curves):
@@ -1497,17 +1504,17 @@ def make_fig7(df_curves):
     handles = [Line2D([0], [0], color=get_metal_color(m), lw=2.5, label=m)
                for m in metal_order]
     ax.legend(handles=handles, title="Active Metal",
-              loc="upper left", frameon=True, framealpha=0.95,
-              edgecolor="grey", fontsize=7, title_fontsize=8)
+              loc="upper left", frameon=False,
+              fontsize=7, title_fontsize=8)
 
     fig.subplots_adjust(left=0.02, right=0.95, bottom=0.05, top=0.98)
     fig.savefig(OUT_DIR / "fig7_3d_waterfall.png", dpi=300)
     fig.savefig(OUT_DIR / "fig7_3d_waterfall.pdf")
-    plt.close(fig)
 
     n_supports = len(support_order)
     n_curves = sum(1 for _, r in df.iterrows() if r["support"] in support_to_y)
     print(f"  ✓ Figure 7 saved ({n_curves} curves across {n_supports} supports)")
+    return fig
 
 
 def export_landscape_csv(df_curves):
@@ -1663,13 +1670,17 @@ if __name__ == "__main__":
         print_debug(df_curves, df_synthesis)
 
     print("\nGenerating 7 publication figures...\n")
-    make_fig1(df_curves)
-    make_fig2(df_curves)
-    make_fig3(df_synthesis)
-    make_fig4(df_curves, df_synthesis)
-    make_fig5(df_curves, df_synthesis)
-    make_fig6(df_curves)
-    make_fig7(df_curves)
+    for fig in [
+        make_fig1(df_curves),
+        make_fig2(df_curves),
+        make_fig3(df_synthesis),
+        make_fig4(df_curves, df_synthesis),
+        make_fig5(df_curves, df_synthesis),
+        make_fig6(df_curves),
+        make_fig7(df_curves),
+    ]:
+        if fig is not None:
+            plt.close(fig)
 
     print("\nExporting data files...\n")
     export_landscape_csv(df_curves)
