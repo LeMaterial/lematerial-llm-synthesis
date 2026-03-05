@@ -32,6 +32,7 @@ dependencies = [
     "seaborn>=0.13.2",
     "timm>=1.0.24",
     "wordcloud>=1.9.4",
+    "prefect>=3.1",
 ]
 
 [build-system]
@@ -50,6 +51,8 @@ dev = [
     "ipython>=9.2.0",
     "ipywidgets>=8.1.7",
     "pre-commit>=4.2.0",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
 ]
 
 
@@ -76,6 +79,12 @@ unfixable = []
 quote-style = "double"
 # Indent style
 indent-style = "space"
+
+[tool.pytest.ini_options]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+]
 
 [tool.ruff.lint.per-file-ignores]
 "**/__init__.py" = ["F401"]
