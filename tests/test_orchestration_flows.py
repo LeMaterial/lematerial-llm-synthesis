@@ -171,7 +171,7 @@ def test_flow_skips_already_processed_papers(tmp_path):
 
 @pytest.mark.unit
 def test_system_prefixed_lm_cost_thread_safety():
-    """Verify threading.Lock prevents cost corruption under concurrent access."""
+    """Verify threading.Lock prevents concurrent cost corruption."""
     from llm_synthesis.utils.llms import SystemPrefixedLM
 
     lm = SystemPrefixedLM.__new__(SystemPrefixedLM)

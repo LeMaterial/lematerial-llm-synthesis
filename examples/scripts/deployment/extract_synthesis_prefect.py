@@ -16,6 +16,7 @@ import warnings
 import hydra
 from hydra.utils import get_original_cwd
 from omegaconf import DictConfig, OmegaConf
+from prefect.task_runners import ThreadPoolTaskRunner
 
 from llm_synthesis.orchestration.flows import synthesis_extraction_flow
 
@@ -73,7 +74,12 @@ def main(cfg: DictConfig) -> None:
     # Prefect cannot serialize OmegaConf DictConfig or non-picklable objects.
     config_dict = OmegaConf.to_container(cfg, resolve=True)
 
-    synthesis_extraction_flow(config_dict)
+    max_workers: int = (
+        config_dict.get("orchestration", {}).get("max_workers", 4)  # type: ignore[union-attr]
+    )
+    synthesis_extraction_flow.with_options(
+        task_runner=ThreadPoolTaskRunner(max_workers=max_workers)
+    )(config_dict)
 
 
 if __name__ == "__main__":

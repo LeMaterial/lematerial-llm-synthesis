@@ -1,10 +1,11 @@
 """Unit tests for orchestration tasks."""
 
-import pytest
 from unittest.mock import MagicMock
 
-from llm_synthesis.models.paper import Paper, PaperWithSynthesisOntologies
+import pytest
+
 from llm_synthesis.models.ontologies import GeneralSynthesisOntology
+from llm_synthesis.models.paper import Paper, PaperWithSynthesisOntologies
 
 
 @pytest.mark.unit

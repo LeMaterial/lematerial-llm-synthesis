@@ -6,7 +6,6 @@ from typing import Any
 
 import hydra.utils
 from prefect import flow, get_run_logger, task
-from prefect.task_runners import ThreadPoolTaskRunner
 
 from llm_synthesis.models.paper import (
     PaperWithSynthesisOntologies,
@@ -28,12 +27,17 @@ def _process_paper(
     synthesis_extractor,
     judge,
     result_gather,
+    retries_cfg: dict[str, int],
+    retry_delay: int,
 ) -> None:
     """Process a single paper through the full extraction pipeline."""
     logger = get_run_logger()
     logger.info(f"Processing paper: {paper.name}")
 
-    materials = extract_materials(material_extractor, paper.publication_text)
+    materials = extract_materials.with_options(
+        retries=retries_cfg["material_extraction"],
+        retry_delay_seconds=retry_delay,
+    )(material_extractor, paper.publication_text)
 
     if not materials:
         logger.warning(f"No materials found for paper {paper.name}")
@@ -41,10 +45,14 @@ def _process_paper(
 
     all_syntheses = []
     for material in materials:
-        synthesis = extract_synthesis(
-            synthesis_extractor, paper.publication_text, material
-        )
-        evaluation = evaluate_synthesis(
+        synthesis = extract_synthesis.with_options(
+            retries=retries_cfg["synthesis_extraction"],
+            retry_delay_seconds=retry_delay,
+        )(synthesis_extractor, paper.publication_text, material)
+        evaluation = evaluate_synthesis.with_options(
+            retries=retries_cfg["judge_evaluation"],
+            retry_delay_seconds=retry_delay,
+        )(
             judge,
             paper.publication_text,
             json.dumps(synthesis.model_dump()),
@@ -62,13 +70,16 @@ def _process_paper(
         **paper.model_dump(),
         all_syntheses=all_syntheses,
     )
-    save_paper_results(result_gather, paper_with_results)
+    save_paper_results.with_options(
+        retries=retries_cfg["result_save"],
+        retry_delay_seconds=retry_delay,
+    )(result_gather, paper_with_results)
     logger.info(
         f"Saved {len(all_syntheses)} syntheses for paper {paper.name}"
     )
 
 
-@flow(task_runner=ThreadPoolTaskRunner())  # type: ignore[arg-type]
+@flow
 def synthesis_extraction_flow(config: dict[str, Any]) -> None:
     """Orchestrate the full synthesis extraction pipeline.
 
@@ -100,6 +111,18 @@ def synthesis_extraction_flow(config: dict[str, Any]) -> None:
         config["result_save"]["architecture"]
     )
 
+    orch_cfg = config.get("orchestration", {})
+    retries_cfg: dict[str, int] = orch_cfg.get(
+        "retries",
+        {
+            "material_extraction": 3,
+            "synthesis_extraction": 3,
+            "judge_evaluation": 2,
+            "result_save": 1,
+        },
+    )
+    retry_delay: int = orch_cfg.get("retry_delay_seconds", 5)
+
     result_dir = config["result_save"]["architecture"].get("result_dir", "")
     already_processed: set[str] = set()
     if result_dir and os.path.isdir(str(result_dir)):
@@ -120,6 +143,8 @@ def synthesis_extraction_flow(config: dict[str, Any]) -> None:
             synthesis_extractor,
             judge,
             result_gather,
+            retries_cfg,
+            retry_delay,
         )
         for paper in to_process
     ]

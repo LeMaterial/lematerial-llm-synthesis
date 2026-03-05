@@ -103,8 +103,9 @@ class SystemPrefixedLM(dspy.LM):
 
     def reset_cost(self) -> float:
         """Reset the cumulative cost counter and return the previous value."""
-        old_cost = self._cumulative_cost_usd
-        self._cumulative_cost_usd = 0.0
+        with self._cost_lock:
+            old_cost = self._cumulative_cost_usd
+            self._cumulative_cost_usd = 0.0
         return old_cost
 
     def __call__(

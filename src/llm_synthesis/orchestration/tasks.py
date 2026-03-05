@@ -4,6 +4,7 @@ from prefect import get_run_logger, task
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.metrics.judge.base import SynthesisJudgeInterface
+from llm_synthesis.metrics.judge.evaluation_ontology import SynthesisEvaluation
 from llm_synthesis.models.ontologies import GeneralSynthesisOntology
 from llm_synthesis.models.paper import Paper, PaperWithSynthesisOntologies
 from llm_synthesis.result_gather.base import ResultGatherInterface
@@ -58,7 +59,7 @@ def evaluate_synthesis(
     paper_text: str,
     synthesis_json: str,
     material: str,
-):
+) -> SynthesisEvaluation:
     """Evaluate extracted synthesis using the judge."""
     logger = get_run_logger()
     result = judge.forward((clean_text(paper_text), synthesis_json, material))
