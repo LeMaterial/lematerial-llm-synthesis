@@ -14,10 +14,10 @@ from pathlib import Path
 FILES_TO_BACKUP = ("result.json", "result_human.json")
 SCHEMA_VERSION = "multi_llm_v1"
 EXTRACTOR_ORDER = [
-    "claude-sonnet-4.5",
+    "claude-sonnet-4.6",
     "gemini-3-flash",
-    "qwen3.5-35b-a3b",
-    "kimi-k2.5",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2",
 ]
 
 EMPTY_HUMAN_RECIPE = {
