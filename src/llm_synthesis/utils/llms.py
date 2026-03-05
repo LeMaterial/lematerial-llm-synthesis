@@ -56,32 +56,34 @@ LLM_REGISTRY = LLMRegistry(
             model="gemini/gemini-3-flash-lite",
             extra_kwargs={"thinking": {"type": "enabled"}},
         ),
-        # Multi-LLM annotation stack: reasoning/thinking models
-        "claude-sonnet-4.5": LLMConfig(
-            model="anthropic/claude-sonnet-4-5",
-            extra_kwargs={
-                "thinking": {"type": "enabled", "budget_tokens": 10000},
-            },
-        ),
+        # Multi-LLM annotation stack: no thinking, temp=0 for reproducibility
+        "claude-sonnet-4.6": LLMConfig(model="anthropic/claude-sonnet-4-6"),
         "gemini-3-flash": LLMConfig(
             model="gemini/gemini-3-flash-preview",
-            extra_kwargs={"thinking_level": "high"},
+            extra_kwargs={"reasoning_effort": "disable"},
         ),
         "qwen3.5-35b-a3b": LLMConfig(
             model="openrouter/qwen/qwen3.5-35b-a3b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={
-                "reasoning": {"effort": "high", "exclude": True},
-            },
+            extra_kwargs={"enable_thinking": False},
         ),
         "kimi-k2.5": LLMConfig(
             model="openrouter/moonshotai/kimi-k2.5",
             api_key=os.getenv("OPENROUTER_KIMI_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={
-                "reasoning": {"effort": "high", "exclude": True},
-            },
+            extra_kwargs={"enable_thinking": False},
+        ),
+        "qwen3.5-397b-a17b": LLMConfig(
+            model="openrouter/qwen/qwen3.5-397b-a17b",
+            api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
+            extra_kwargs={"enable_thinking": False},
+        ),
+        "deepseek-v3.2": LLMConfig(
+            model="openrouter/deepseek/deepseek-v3.2",
+            api_key=os.getenv("OPENROUTER_DEEPSEEK_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
         ),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),
