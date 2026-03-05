@@ -746,17 +746,18 @@ class GeneralSynthesisJudgeSignature(dspy.Signature):
             quality.
 
 CORE PRINCIPLE — ABSENCE IS NOT AN ERROR:
-The extraction system must never hallucinate. When a field is null or empty, ask yourself:
-"Is this information stated in the source text?" If no → the extraction is CORRECT.
-Only penalize when the source clearly states something the extractor missed or got wrong.
+The extraction system must never hallucinate. When a field is null or
+empty, ask: "Is this stated in the source text?" If no → CORRECT.
+Only penalize when the source clearly states something the extractor
+missed or got wrong.
 
 Examples of CORRECT behavior that must NOT be penalized:
 - Null reagent amounts/units → paper does not state quantities
 - Null equipment vendor/model → paper does not name a vendor
-- Null step duration, atmosphere, or pressure → paper does not specify these
-- Empty steps/equipment/materials → paper provides no synthesis for this material
-  (e.g. a commercial reference: "20% Pt/C was used as received")
-- Generic or absent precursor name → paper does not identify the specific compound
+- Null step duration, atmosphere, or pressure → not specified in paper
+- Empty steps/equipment/materials → no synthesis for this material
+  (e.g. commercial reference: "20% Pt/C was used as received")
+- Generic or absent precursor name → paper does not identify it
 
 EVALUATION CRITERIA:
 1. Structural Completeness (1-5): Coverage of all synthesis components
@@ -797,7 +798,8 @@ SCORING GUIDELINES:
 
 CRITICAL REQUIREMENT: You MUST populate EVERY field without exception:
 - reasoning, confidence_level
-- scores.structural_completeness_score AND scores.structural_completeness_reasoning
+- scores.structural_completeness_score AND
+  scores.structural_completeness_reasoning
 - scores.material_extraction_score AND scores.material_extraction_reasoning
 - scores.process_steps_score AND scores.process_steps_reasoning
 - scores.equipment_extraction_score AND scores.equipment_extraction_reasoning
