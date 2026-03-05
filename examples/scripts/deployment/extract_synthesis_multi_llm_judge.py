@@ -146,6 +146,7 @@ def main(cfg: DictConfig) -> None:
     # Handle system prompt paths if defined
     _resolve_prompt_path(cfg.material_extraction, original_cwd)
     _resolve_prompt_path(cfg.synthesis_extraction, original_cwd)
+    _resolve_prompt_path(cfg.judge, original_cwd)
 
     synthesis_llms = list(cfg.synthesis_extraction.llm_names)
     judge_llms = list(cfg.judge.llm_names)
@@ -259,10 +260,80 @@ def main(cfg: DictConfig) -> None:
                         if m.strip()
                     ]
 
+            # --- Synthesis extraction + judge evaluation: parallel across all pairs ---
+            async def process_pair(synth_llm: str, material: str):
+                """Run synthesis extraction then judge evaluation for one pair."""
+                synth_lm = synthesis_lms.get(synth_llm)
+                pair_cost_ops = []
+
+                cost_before_synth = get_lm_cost(synth_lm) if synth_lm else 0.0
+                logging.info(f"  [{synth_llm}] Synthesis -> {material}")
+                try:
+                    synthesis = await run_with_semaphore(
+                        llm_semaphore,
+                        synthesis_extractors[synth_llm].forward,
+                        input=(clean_text(paper.publication_text), material),
+                    )
+                except Exception as e:
+                    logging.error(f"Synthesis failed for {material}: {e}")
+                    synthesis = GeneralSynthesisOntology(
+                        target_compound=material,
+                        target_compound_type="other",
+                        synthesis_method="other",
+                        starting_materials=[],
+                        steps=[],
+                        equipment=[],
+                        notes=f"Processing failed: {e!s}",
+                    )
+                cost_after_synth = get_lm_cost(synth_lm) if synth_lm else 0.0
+                pair_cost_ops.append(
+                    {
+                        "operation": "synthesis_extraction",
+                        "synth_llm": synth_llm,
+                        "material": material,
+                        "cost_usd": cost_after_synth - cost_before_synth,
+                    }
+                )
+
+                cost_before_judges = {
+                    j: get_lm_cost(judge_lms.get(j)) or 0.0 for j in judge_llms
+                }
+                judge_input = (
+                    clean_text(paper.publication_text),
+                    json.dumps(synthesis.model_dump()),
+                    material,
+                )
+                judge_results = await asyncio.gather(
+                    *[
+                        run_with_semaphore(
+                            llm_semaphore,
+                            judges[judge_llm].forward,
+                            judge_input,
+                        )
+                        for judge_llm in judge_llms
+                    ],
+                    return_exceptions=True,
+                )
+                cost_after_judges = {
+                    j: get_lm_cost(judge_lms.get(j)) or 0.0 for j in judge_llms
+                }
+                for judge_llm in judge_llms:
+                    pair_cost_ops.append(
+                        {
+                            "operation": "evaluation",
+                            "synth_llm": synth_llm,
+                            "judge_llm": judge_llm,
+                            "material": material,
+                            "cost_usd": cost_after_judges[judge_llm]
+                            - cost_before_judges[judge_llm],
+                        }
+                    )
+
+                return synth_llm, material, synthesis, judge_results, pair_cost_ops
+
+            # Handle synth_llms with no materials; log materials found
             for synth_llm in synthesis_llms:
                 materials = materials_per_llm.get(synth_llm, [])
-                synth_lm = synthesis_lms.get(synth_llm)
-
                 if not materials:
                     logging.warning(
                         f"No materials found for paper {paper.name} "
@@ -275,79 +346,38 @@ def main(cfg: DictConfig) -> None:
                             "note": "No materials found",
                         }
                     )
-                    continue
+                else:
+                    logging.info(f"  [{synth_llm}] Found materials: {materials}")
 
-                logging.info(f"  [{synth_llm}] Found materials: {materials}")
-                synth_entry = {"synth_llm": synth_llm, "materials": []}
-                eval_matrix[synth_llm] = {}
+            all_pairs = [
+                (synth_llm, material)
+                for synth_llm in synthesis_llms
+                for material in materials_per_llm.get(synth_llm, [])
+            ]
+            if all_pairs:
+                pair_results = await asyncio.gather(
+                    *[process_pair(sl, m) for sl, m in all_pairs],
+                    return_exceptions=True,
+                )
 
-                for material in materials:
-                    # --- Synthesis extraction (one call) ---
-                    cost_before_synth = (
-                        get_lm_cost(synth_lm) if synth_lm else 0.0
-                    )
-                    logging.info(f"  [{synth_llm}] Synthesis -> {material}")
-                    try:
-                        synthesis = await run_with_semaphore(
-                            llm_semaphore,
-                            synthesis_extractors[synth_llm].forward,
-                            input=(
-                                clean_text(paper.publication_text),
-                                material,
-                            ),
-                        )
-                    except Exception as e:
-                        logging.error(f"Synthesis failed for {material}: {e}")
-                        synthesis = GeneralSynthesisOntology(
-                            target_compound=material,
-                            target_compound_type="other",
-                            synthesis_method="other",
-                            starting_materials=[],
-                            steps=[],
-                            equipment=[],
-                            notes=f"Processing failed: {e!s}",
-                        )
+                # Assemble results in synthesis_llms order
+                synth_entries: dict[str, dict] = {}
+                for item in pair_results:
+                    if isinstance(item, Exception):
+                        logging.error(f"Pair task failed: {item}")
+                        continue
+                    synth_llm, material, synthesis, jresults, pair_cost_ops = item
+                    cost_operations.extend(pair_cost_ops)
 
-                    cost_after_synth = (
-                        get_lm_cost(synth_lm) if synth_lm else 0.0
-                    )
-                    cost_operations.append(
-                        {
-                            "operation": "synthesis_extraction",
+                    if synth_llm not in synth_entries:
+                        synth_entries[synth_llm] = {
                             "synth_llm": synth_llm,
-                            "material": material,
-                            "cost_usd": cost_after_synth - cost_before_synth,
+                            "materials": [],
                         }
-                    )
-
-                    # --- Evaluate with each judge LLM in parallel ---
-                    cost_before_judges = {
-                        j: get_lm_cost(judge_lms.get(j)) or 0.0
-                        for j in judge_llms
-                    }
-                    judge_input = (
-                        clean_text(paper.publication_text),
-                        json.dumps(synthesis.model_dump()),
-                        material,
-                    )
-                    judge_results = await asyncio.gather(
-                        *[
-                            run_with_semaphore(
-                                llm_semaphore,
-                                judges[judge_llm].forward,
-                                judge_input,
-                            )
-                            for judge_llm in judge_llms
-                        ],
-                        return_exceptions=True,
-                    )
+                        eval_matrix[synth_llm] = {}
 
                     evaluations = []
-                    cost_after_judges = {
-                        j: get_lm_cost(judge_lms.get(j)) or 0.0
-                        for j in judge_llms
-                    }
-                    for judge_llm, result in zip(judge_llms, judge_results):
+                    for judge_llm, result in zip(judge_llms, jresults):
                         if judge_llm not in eval_matrix[synth_llm]:
                             eval_matrix[synth_llm][judge_llm] = {}
                         if isinstance(result, Exception):
@@ -377,19 +407,7 @@ def main(cfg: DictConfig) -> None:
                                 }
                             )
 
-                    for judge_llm in judge_llms:
-                        cost_operations.append(
-                            {
-                                "operation": "evaluation",
-                                "synth_llm": synth_llm,
-                                "judge_llm": judge_llm,
-                                "material": material,
-                                "cost_usd": cost_after_judges[judge_llm]
-                                - cost_before_judges[judge_llm],
-                            }
-                        )
-
-                    synth_entry["materials"].append(
+                    synth_entries[synth_llm]["materials"].append(
                         {
                             "material": material,
                             "synthesis": synthesis.model_dump(),
@@ -397,7 +415,9 @@ def main(cfg: DictConfig) -> None:
                         }
                     )
 
-                multi_llm_results.append(synth_entry)
+                for synth_llm in synthesis_llms:
+                    if synth_llm in synth_entries:
+                        multi_llm_results.append(synth_entries[synth_llm])
 
             # Build summary for heatmap
             summary = {}

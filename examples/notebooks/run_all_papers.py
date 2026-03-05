@@ -208,7 +208,7 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
         model_kwargs={
             "temperature": 0.0,
             "max_tokens": 80000,
-            "max_retries": 3,
+            "num_retries": 3,
         },
         system_prompt=SYNTHESIS_SYSTEM_PROMPT,
     )

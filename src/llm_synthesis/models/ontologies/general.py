@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class Material(BaseModel):
@@ -142,6 +142,11 @@ class ProcessStep(BaseModel):
     equipment: list[Equipment] = Field(
         default_factory=list, description="Equipment used in the process step."
     )
+
+    @field_validator("materials", "equipment", mode="before")
+    @classmethod
+    def coerce_none_to_list(cls, v):
+        return v if v is not None else []
     conditions: Conditions | None = Field(
         default=None, description="Conditions of the process step."
     )

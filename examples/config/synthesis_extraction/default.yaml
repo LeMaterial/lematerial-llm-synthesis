@@ -14,7 +14,7 @@ architecture:
     model_kwargs:
       temperature: 0.0
       max_tokens: 12000
-      max_retries: 3
+      num_retries: 3
     system_prompt:
       _target_: llm_synthesis.utils.read_prompt_str_from_txt
       prompt_path: "examples/system_prompts/synthesis_extraction/default.txt"

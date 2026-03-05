@@ -196,7 +196,7 @@ def create_pipeline(
     )
     synthesis_lm = get_llm_from_name(
         gemini_model,
-        model_kwargs={"temperature": 0.0, "max_tokens": 8000, "max_retries": 3},
+        model_kwargs={"temperature": 0.0, "max_tokens": 8000, "num_retries": 3},
         system_prompt=SYNTHESIS_SYSTEM_PROMPT,
     )
     synthesis_extractor = DspySynthesisExtractor(
@@ -374,15 +374,18 @@ def main():
     semaphore = asyncio.Semaphore(max_concurrent)
     logger.info(f"Max concurrent LLM calls: {max_concurrent}")
 
-    async def process_all():
-        for paper in papers:
-            paper_dir = os.path.join(args.output_path, paper.id)
-            if os.path.isdir(paper_dir) and any(
-                f.endswith(".json") and f != "performance_mappings.json"
-                for f in os.listdir(paper_dir)
-            ):
-                logger.info(f"Skipping {paper.name} (already processed)")
-                continue
+    max_concurrent_papers = 4
+    paper_semaphore = asyncio.Semaphore(max_concurrent_papers)
+
+    async def process_one_paper(paper):
+        paper_dir = os.path.join(args.output_path, paper.id)
+        if os.path.isdir(paper_dir) and any(
+            f.endswith(".json") and f != "performance_mappings.json"
+            for f in os.listdir(paper_dir)
+        ):
+            logger.info(f"Skipping {paper.name} (already processed)")
+            return
+        async with paper_semaphore:
             try:
                 result = await pipeline.process_paper_async(
                     paper, semaphore, skip_figures=args.skip_figures
@@ -397,6 +400,12 @@ def main():
                     )
             except Exception as e:
                 logger.error(f"Failed to process {paper.name}: {e}")
+
+    async def process_all():
+        await asyncio.gather(
+            *[process_one_paper(paper) for paper in papers],
+            return_exceptions=True,
+        )
 
     asyncio.run(process_all())
     logger.info("Pipeline complete.")

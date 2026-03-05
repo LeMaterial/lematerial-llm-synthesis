@@ -622,7 +622,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         instructions="Extract the complete structured synthesis procedure for the specified material.",
     )
     synthesis_lm = get_llm_from_name(GEMINI_MODEL,
-                                      model_kwargs={"temperature": 0.0, "max_tokens": 32000, "max_retries": 3},
+                                      model_kwargs={"temperature": 0.0, "max_tokens": 32000, "num_retries": 3},
                                       system_prompt=SYNTHESIS_SYSTEM_PROMPT)
     synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
     judge_lm = get_llm_from_name(GEMINI_MODEL, model_kwargs={"temperature": 0.1, "max_tokens": 16000})

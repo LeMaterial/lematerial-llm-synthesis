@@ -674,9 +674,9 @@ class SynthesisPerformancePipeline:
         linking_evaluation = None
 
         if not skip_figures:
-            # Step 3: Extract figures (sync helper, run in thread)
-            figures = await run_with_semaphore(
-                semaphore, self.extract_figures, paper.publication_text
+            # Step 3: Extract figures (CPU-bound, no LLM — run in thread directly)
+            figures = await asyncio.to_thread(
+                self.extract_figures, paper.publication_text
             )
 
             if figures:
