@@ -745,31 +745,42 @@ class GeneralSynthesisJudgeSignature(dspy.Signature):
             """Comprehensive evaluation of GeneralSynthesisOntology extraction 
             quality.
 
+CORE PRINCIPLE — ABSENCE IS NOT AN ERROR:
+The extraction system must never hallucinate. When a field is null or empty, ask yourself:
+"Is this information stated in the source text?" If no → the extraction is CORRECT.
+Only penalize when the source clearly states something the extractor missed or got wrong.
+
+Examples of CORRECT behavior that must NOT be penalized:
+- Null reagent amounts/units → paper does not state quantities
+- Null equipment vendor/model → paper does not name a vendor
+- Null step duration, atmosphere, or pressure → paper does not specify these
+- Empty steps/equipment/materials → paper provides no synthesis for this material
+  (e.g. a commercial reference: "20% Pt/C was used as received")
+- Generic or absent precursor name → paper does not identify the specific compound
+
 EVALUATION CRITERIA:
-1. Structural Completeness (1-5): Coverage of all synthesis components present 
-in the source text
-2. Material Extraction (1-5): Accuracy of materials, quantities, and units 
-extracted from the paper
-3. Process Steps (1-5): Correct sequencing and classification of synthesis 
-actions
-4. Equipment Extraction (1-5): Identification of equipment mentioned in the text
-5. Conditions Extraction (1-5): Accurate representation of synthesis conditions 
-if provided
-6. Semantic Accuracy (1-5): Faithful preservation of the scientific meaning 
+1. Structural Completeness (1-5): Coverage of all synthesis components
+EXPLICITLY PRESENT in the source text. Do not penalize for null fields
+corresponding to information absent from the paper.
+2. Material Extraction (1-5): Accuracy of materials, quantities, and units
+extracted from the paper. Null amounts/purities are correct when the paper
+does not state them — do not penalize.
+3. Process Steps (1-5): Correct sequencing and classification of synthesis
+actions present in the source. Empty steps are correct for materials with
+no described synthesis procedure.
+4. Equipment Extraction (1-5): Identification of equipment EXPLICITLY NAMED
+in the text. Do not penalize for absent vendor info or for not inferring
+equipment from implied processes (e.g. "annealed" does not require naming
+a furnace if none is mentioned).
+5. Conditions Extraction (1-5): Accurate representation of synthesis conditions
+STATED in the source. Null duration, atmosphere, or pressure are correct when
+the paper does not provide these values.
+6. Semantic Accuracy (1-5): Faithful preservation of the scientific meaning
 from the original text
 7. Format Compliance (1-5): Adherence to the specified schema and data types
 
-IMPORTANT NOTE:
-The extraction system should only be evaluated on the basis of information 
-explicitly present in the source document. 
-Do NOT penalize the extraction for missing components or fields that are not 
-present in the original paper. 
-If a component is absent in the source, and thus absent in the output, assign a 
-high score for that criterion (provided the absence is correctly handled and 
-doesn't introduce errors).
-
 EVALUATION APPROACH:
-- Compare extracted ontology against the source text carefully and 
+- Compare extracted ontology against the source text carefully and
 systematically
 - Assess accuracy, completeness (relative to the paper), and semantic fidelity
 - Identify and explain any extraction errors or misinterpretations
