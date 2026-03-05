@@ -1,4 +1,5 @@
 import os
+import threading
 from collections.abc import Mapping
 from dataclasses import dataclass
 
@@ -94,6 +95,7 @@ class SystemPrefixedLM(dspy.LM):
         super().__init__(model, **kwargs)
         self._system_prompt = system_prompt
         self._cumulative_cost_usd = 0.0
+        self._cost_lock = threading.Lock()
 
     def get_cost(self) -> float:
         """Get the current cumulative cost in USD."""
@@ -146,7 +148,8 @@ class SystemPrefixedLM(dspy.LM):
 
             cost = extract_cost_from_dspy_response(response)
             if cost is not None:
-                self._cumulative_cost_usd += cost
+                with self._cost_lock:
+                    self._cumulative_cost_usd += cost
 
         except (AttributeError, TypeError, ValueError):
             # If cost extraction fails, continue silently

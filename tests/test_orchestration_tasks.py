@@ -3,16 +3,8 @@
 import pytest
 from unittest.mock import MagicMock
 
-from prefect.testing.utilities import prefect_test_harness
-
 from llm_synthesis.models.paper import Paper, PaperWithSynthesisOntologies
 from llm_synthesis.models.ontologies import GeneralSynthesisOntology
-
-
-@pytest.fixture(autouse=True)
-def prefect_harness():
-    with prefect_test_harness():
-        yield
 
 
 @pytest.mark.unit
