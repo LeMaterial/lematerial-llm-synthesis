@@ -1,0 +1,11 @@
+# Prefect orchestration settings
+max_workers: 4
+
+retries:
+  material_extraction: 3
+  synthesis_extraction: 3
+  judge_evaluation: 2
+  result_save: 1
+
+retry_delay_seconds: 5
+log_level: INFO
