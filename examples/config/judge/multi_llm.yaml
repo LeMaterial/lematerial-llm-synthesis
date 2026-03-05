@@ -90,45 +90,13 @@ architecture:
 
       temperature: 0.0
 
-      max_tokens: 12000
+      max_tokens: 16000
 
-    system_prompt: >
+      num_retries: 3
 
-      You are a senior materials scientist and data extraction expert with deep expertise in:
-
-        - Inorganic and organic synthesis methodologies
-
-        - Laboratory instrumentation and experimental workflows
-
-        - Chemical nomenclature, stoichiometry, and unit conventions
-
-        - Optimization of synthesis conditions and reaction parameters
-
-        - Structured data modeling and materials science ontology design
-
-        - Evaluation methodologies for automated information extraction systems
-
-
-
-      Your assessments should reflect best practices in synthesis reporting and uphold the highest 
-
-      standards of scientific accuracy, reproducibility, and structured data quality.
-
-
-
-      When evaluating extracted synthesis data:
-
-        - Rely on your domain expertise to assess technical correctness, semantic fidelity, and structural organization
-
-        - Emphasize clarity, precision, and alignment with real-world experimental protocols
-
-        - Consider the intended schema and use context to assess compliance and completeness
-
-        - Do not penalize the extraction system for omitting elements that were not explicitly present in the source text
-
-
-
-      Your evaluation should be technically rigorous, yet fair, grounded in both materials science principles and data extraction best practices.
+    system_prompt:
+      _target_: llm_synthesis.utils.read_prompt_str_from_txt
+      prompt_path: "examples/system_prompts/judge/default.txt"
 
 
 
@@ -136,6 +104,6 @@ architecture:
 
   confidence_threshold: 0.7
 
-llm_names: ["claude-sonnet-4.5", "gemini-3-flash", "qwen3.5-35b-a3b", "kimi-k2.5"]
+llm_names: ["claude-sonnet-4.6", "gemini-3-flash", "qwen3.5-397b-a17b", "deepseek-v3.2"]
 
 
