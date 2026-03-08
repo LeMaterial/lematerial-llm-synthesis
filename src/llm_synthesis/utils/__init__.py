@@ -1,6 +1,11 @@
 from llm_synthesis.utils.cost_tracking import (
     extract_cost_from_dspy_response,
 )
+from llm_synthesis.utils.formula_utils import (
+    extract_condition_annotation,
+    find_best_material_match,
+    normalize_formula,
+)
 from llm_synthesis.utils.dspy_utils import (
     configure_dspy,
     get_lm_cost,

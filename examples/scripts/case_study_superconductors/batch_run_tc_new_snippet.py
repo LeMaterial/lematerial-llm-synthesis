@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-Batch Tc Extraction Script — Snippet-Enhanced, No Synthesis
+Batch Tc Extraction Script — Snippet-Enhanced + Synthesis
 =============================================================
-Runs a streamlined superconductivity Tc extraction pipeline on every PDF in a folder.
-Compared to batch_run_tc.py, this script:
-  - SKIPS synthesis extraction (much faster)
+Runs the full superconductivity Tc extraction pipeline on every PDF in a folder.
+Features:
+  - Synthesis extraction (method, steps, evaluation)
   - Supports MULTI-CONDITION Tc from text (same material at different pressures, etc.)
   - Runs DUAL VLM Tc extraction: original (single image) + snippet (full + bottom-left crop)
 
 Usage:
-    python batch_run_tc_new_snippet_no_synthesis.py /path/to/pdf_folder
-    python batch_run_tc_new_snippet_no_synthesis.py /path/to/pdf_folder --max 5
-    python batch_run_tc_new_snippet_no_synthesis.py /path/to/pdf_folder --skip-existing
-    python batch_run_tc_new_snippet_no_synthesis.py /path/to/pdf_folder --skip-figures
+    python batch_run_tc_new_snippet.py /path/to/pdf_folder
+    python batch_run_tc_new_snippet.py /path/to/pdf_folder --max 5
+    python batch_run_tc_new_snippet.py /path/to/pdf_folder --skip-existing
+    python batch_run_tc_new_snippet.py /path/to/pdf_folder --skip-figures
 
 Results are saved to <pdf_folder>/results_snippet/<paper_id>/ and appended to
 <pdf_folder>/results_snippet/tc_master_snippet.csv.
@@ -55,7 +55,7 @@ logging.getLogger("litellm").setLevel(logging.ERROR)
 
 # ── Model config ──
 GEMINI_MODEL = "gemini-3.0-flash"
-CLAUDE_MODEL = "claude-opus-4-6"
+CLAUDE_MODEL = "claude-sonnet-4-6"
 LINKER_MODEL = "gemini-3.0-flash"
 
 
@@ -116,8 +116,27 @@ def _is_axis_missing(label, unit) -> bool:
 def parse_tc_text_response_multi(raw_text: str) -> list[dict]:
     """Parse multi-condition Tc text extraction into a list of dicts.
 
-    Each dict: {material, condition, superconducting, T_onset, Tc_mid, T_zero}
+    Each dict: {material, condition, superconducting, T_onset, Tc_mid, T_zero, delta_Tc}
+
+    Handles labeled format (preferred):
+        Fe1.03Te0.63Se0.37 | condition: single-crystal | superconducting: YES | T_onset: 14.8 K | Tc: NR | T_zero: NR | delta_Tc: 1.3 K
+    And unlabeled fallback:
+        Fe1.03Te0.63Se0.37 | single-crystal | YES | 14.8 K | NR | NR | 1.3 K
+
+    Post-processing: if Tc_mid is missing but T_onset and delta_Tc are both present,
+    computes Tc_mid ≈ T_onset − delta_Tc / 2.
     """
+    # Regex to detect condition-like strings (contain x=, H=, GPa, etc.)
+    _CONDITION_RE = re.compile(
+        r"(x\s*[=:]|h\s*[=:]\s*\d|p\s*[=:]\s*\d|gpa|kbar|mpa|"
+        r"single.?crystal|poly|thin.?film|bulk|"
+        r"ambient|as.?grown|anneal|dop|optimally|undoped)",
+        re.IGNORECASE,
+    )
+
+    # All Tc-like label keys we recognise
+    _TC_LABEL_RE = r"(t_onset|tc_mid|tc|t_zero|delta_tc|δtc|Δtc)"
+
     results = []
     for line in raw_text.strip().split("\n"):
         line = line.strip()
@@ -137,39 +156,274 @@ def parse_tc_text_response_multi(raw_text: str) -> list[dict]:
             "T_onset": None,
             "Tc_mid": None,
             "T_zero": None,
+            "delta_Tc": None,
         }
-        for part in parts[1:]:
-            part_stripped = part.strip()
-            part_lower = part_stripped.lower()
-            if part_lower.startswith("condition:"):
-                entry["condition"] = part_stripped.split(":", 1)[1].strip()
-            elif "superconducting" in part_lower:
-                entry["superconducting"] = "yes" in part_lower
-            else:
-                match = re.match(
-                    r"(t_onset|tc_mid|tc|t_zero)\s*:\s*(\d+\.?\d*)\s*k?",
-                    part_lower,
-                )
-                if match:
-                    key = match.group(1)
-                    val = float(match.group(2))
-                    if key in ("tc", "tc_mid"):
-                        entry["Tc_mid"] = val
-                    elif key == "t_onset":
-                        entry["T_onset"] = val
-                    elif key == "t_zero":
-                        entry["T_zero"] = val
+
+        remaining = parts[1:]
+
+        # Detect if format is labeled (has "condition:", "superconducting:", "Tc:", etc.)
+        has_labels = any(
+            re.match(r"(condition|superconducting|t_onset|tc_mid|tc|t_zero|delta_tc|δtc|Δtc)\s*:", p.strip().lower())
+            for p in remaining
+        )
+
+        def _assign_tc_key(key: str, val: float):
+            """Assign a parsed Tc value to the right entry field."""
+            if key in ("tc", "tc_mid"):
+                entry["Tc_mid"] = val
+            elif key == "t_onset":
+                entry["T_onset"] = val
+            elif key == "t_zero":
+                entry["T_zero"] = val
+            elif key in ("delta_tc", "δtc", "Δtc"):
+                entry["delta_Tc"] = val
+
+        if has_labels:
+            # ── Labeled format ──
+            for part in remaining:
+                pl = part.strip().lower()
+                if pl.startswith("condition:"):
+                    entry["condition"] = part.strip().split(":", 1)[1].strip() or "ambient"
+                elif "superconducting" in pl:
+                    entry["superconducting"] = "yes" in pl
+                else:
+                    match = re.match(
+                        _TC_LABEL_RE + r"\s*:\s*(\d+\.?\d*)\s*k?", pl
+                    )
+                    if match:
+                        _assign_tc_key(match.group(1), float(match.group(2)))
+        else:
+            # ── Unlabeled fallback ──
+            bare_temps = []
+
+            for part in remaining:
+                ps = part.strip()
+                pl = ps.lower()
+
+                # YES/NO
+                if pl in ("yes", "no"):
+                    entry["superconducting"] = pl == "yes"
+                    continue
+
+                # NR / N/A
+                if pl in ("nr", "n/a", "none", "-", "—", ""):
+                    continue
+
+                # Inline labeled value (e.g. "Tc: 16 K", "delta_Tc: 1.3 K")
+                lm = re.match(_TC_LABEL_RE + r"\s*[:=]\s*(\d+\.?\d*)\s*k?", pl)
+                if lm:
+                    _assign_tc_key(lm.group(1), float(lm.group(2)))
+                    continue
+
+                # Condition-like string BEFORE bare number check
+                if _CONDITION_RE.search(pl):
+                    if entry["condition"] == "ambient":
+                        entry["condition"] = ps
+                    continue
+
+                # Bare number with K unit → temperature
+                vm = re.match(r"^\s*(\d+\.?\d*)\s*k\s*$", pl)
+                if vm:
+                    bare_temps.append(float(vm.group(1)))
+                    continue
+
+                # Bare number without unit
+                vm2 = re.match(r"^\s*(\d+\.?\d*)\s*$", pl)
+                if vm2:
+                    bare_temps.append(float(vm2.group(1)))
+                    continue
+
+                # Anything else → condition
+                if entry["condition"] == "ambient":
+                    entry["condition"] = ps
+
+            # Assign positional temps: T_onset, Tc_mid, T_zero
+            for i, val in enumerate(bare_temps):
+                if i == 0:
+                    entry["T_onset"] = val
+                elif i == 1:
+                    entry["Tc_mid"] = val
+                elif i == 2:
+                    entry["T_zero"] = val
+
+        # ── Post-processing: compute Tc_mid from onset + delta if missing ──
+        if entry["Tc_mid"] is None and entry["T_onset"] is not None and entry["delta_Tc"] is not None:
+            entry["Tc_mid"] = round(entry["T_onset"] - entry["delta_Tc"] / 2, 2)
+
         results.append(entry)
     return results
 
 
 def _normalize_formula(s: str) -> str:
-    base = re.sub(r'\s*\([^)]*\)\s*$', '', s).strip()
+    def _is_annotation(paren_content: str) -> bool:
+        """Return True if parenthesized content is an annotation, not formula."""
+        c = paren_content.strip()
+        # Sample labels: S1, SC1, #1, etc.
+        if re.match(r'^(?:S|SC|#)\d+$', c, re.IGNORECASE):
+            return True
+        # Annotations with keywords or doping labels
+        if re.search(r'x\s*=|sintered|single|crystal|ambient|pristine|bulk|film', c, re.IGNORECASE):
+            return True
+        # Compositional: contains element symbols and numbers, possibly commas
+        if re.match(r'^[A-Za-z0-9.,\s_\-]+$', c) and re.search(r'[A-Z][a-z]?', c):
+            return False  # looks like formula content
+        return True  # default: treat as annotation
+
+    # Strip ALL parenthesized annotations (anywhere in string, not just trailing)
+    # Process right-to-left so positions don't shift
+    base = s.strip()
+    while True:
+        changed = False
+        for m in reversed(list(re.finditer(r'\s*\(([^)]*)\)', base))):
+            if _is_annotation(m.group(1)):
+                base = base[:m.start()] + base[m.end():]
+                changed = True
+                break  # restart after modification
+        if not changed:
+            break
+    # Clean measurement annotations (ρ_ab, ρ_c, etc.)
+    base = re.sub(r'[\s_]*[ρrho]+[\s_]*(?:ab|c|xx|yy|zz)\b', '', base, flags=re.IGNORECASE)
+    base = re.sub(r'[\s_]+$', '', base)
+    # Strip compositional parentheses WITHOUT commas: Fe1.03(Te0.63Se0.37) -> Fe1.03Te0.63Se0.37
+    # Keep parentheses WITH commas: (Cu,C) stays as-is (substitution notation)
+    def _strip_simple_parens(m):
+        content = m.group(1)
+        if ',' in content:
+            return m.group(0)  # keep (Cu,C) etc.
+        return content
+    base = re.sub(r'\(([^)]+)\)', _strip_simple_parens, base)
+    # Strip LaTeX subscript/superscript braces: _{...} -> content, ^{...} -> content
+    base = re.sub(r'_\{([^}]*)\}', r'\1', base)
+    base = re.sub(r'\^\{([^}]*)\}', r'\1', base)
+    base = re.sub(r'\{([^}]*)\}', r'\1', base)
     base = base.replace('δ', 'delta').replace('Δ', 'delta')
     base = base.replace('₀', '0').replace('₁', '1').replace('₂', '2').replace('₃', '3')
     base = base.replace('₄', '4').replace('₅', '5').replace('₆', '6').replace('₇', '7')
     base = base.replace('₈', '8').replace('₉', '9').replace('₋', '-')
-    return base.lower().replace(' ', '').replace('−', '-')
+    base = base.lower().replace(' ', '').replace('−', '-')
+    # Strip trailing zeros from decimal numbers: 0.80 -> 0.8, 0.10 -> 0.1
+    base = re.sub(r'(\.\d*?)0+(?=\D|$)', r'\1', base)
+    return base
+
+
+# All element symbols for material name validation
+_ELEMENT_SYMBOLS = {
+    'He', 'Li', 'Be', 'Ne', 'Na', 'Mg', 'Al', 'Si', 'Cl', 'Ar',
+    'Ca', 'Sc', 'Ti', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn',
+    'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr', 'Rb', 'Sr', 'Zr', 'Nb',
+    'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb',
+    'Te', 'Xe', 'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm',
+    'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Yb', 'Lu', 'Hf',
+    'Ta', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg', 'Tl', 'Pb', 'Bi',
+    'Po', 'At', 'Rn', 'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'Np', 'Pu',
+    'Am', 'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr', 'Rf',
+    'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn', 'Nh', 'Fl',
+    'Mc', 'Lv', 'Ts', 'Og',
+    'W', 'U',
+    'H', 'B', 'C', 'N', 'O', 'F', 'P', 'S', 'K', 'V', 'Y', 'I',
+}
+
+
+def is_valid_material_name(name: str) -> bool:
+    """Check if a string looks like a valid chemical/material formula.
+
+    Rejects measurement parameters (fields, pressures, currents),
+    bare doping labels, irradiation doses, and color annotations.
+    Returns True only if the name contains at least one element symbol.
+    """
+    stripped = name.strip()
+    if not stripped or len(stripped) < 2:
+        return False
+
+    # --- NEGATIVE filters: reject known non-material patterns ---
+
+    # Magnetic field values: "5 T", "0.5 kOe", "100 Oe", "50 mT"
+    if re.match(r'^[\d.,\s]*\d+\.?\d*\s*(T|kOe|Oe|mT)$', stripped, re.IGNORECASE):
+        return False
+
+    # Pressure values: "P_300K = 0.65 GPa", "2.5 GPa", "10 kbar"
+    if re.search(r'(GPa|MPa|kbar)\b', stripped, re.IGNORECASE):
+        return False
+    if re.match(r'^P[\d₀₁₂₃₄₅₆₇₈₉]*K?\s*[=:]', stripped):
+        return False
+
+    # Current values: "100 µA", "5 mA", "10 nA"
+    if re.match(r'^[\d.,\s]*\d+\.?\d*\s*(µA|uA|mA|nA|A)\s*$', stripped, re.IGNORECASE):
+        return False
+
+    # Bare doping labels: "x = 0.1", "x=0.89 (blue)", "x=0.23_C"
+    if re.match(r'^x\s*[=:]\s*[\d.]', stripped, re.IGNORECASE):
+        return False
+
+    # Irradiation doses: "2*10^16 p/cm^2", "6.4 × 10¹⁶ p/cm²", "anneal"
+    if re.search(r'\d+\s*[*×x]\s*10[\^⁰¹²³⁴⁵⁶⁷⁸⁹]', stripped):
+        return False
+    if re.search(r'(p/cm|n/cm|anneal|irradiat)', stripped, re.IGNORECASE):
+        return False
+
+    # Temperature values: "300 K", "T = 4.2 K"
+    if re.match(r'^T?\s*[=:]?\s*[\d.]+\s*K\s*$', stripped, re.IGNORECASE):
+        return False
+
+    # Names that are ONLY numbers, symbols, and operators
+    if re.match(r'^[\d\s.,+\-*/^()=%]+$', stripped):
+        return False
+
+    # Labels like "pristine (x=0.107)", "as-grown", "sample A"
+    if re.match(r'^(pristine|as[- ]grown|as[- ]sintered|undoped|sample)\b', stripped, re.IGNORECASE):
+        return False
+
+    # --- POSITIVE check: must contain at least one element symbol ---
+    # Remove trailing parenthetical annotations like "(blue)", "(red circles)"
+    text_to_check = re.sub(r'\s*\([^)]*\)\s*$', '', stripped).strip()
+    if not text_to_check:
+        return False
+
+    # Check for two-letter element symbols first (avoid substring issues)
+    for symbol in sorted(_ELEMENT_SYMBOLS, key=len, reverse=True):
+        if len(symbol) == 2:
+            # Two-letter: match Xx pattern not surrounded by other letters
+            if re.search(r'(?<![a-zA-Z])' + re.escape(symbol) + r'(?![a-z])', text_to_check):
+                return True
+        else:
+            # Single-letter: must be uppercase and not part of a longer word
+            if re.search(r'(?<![a-zA-Z])' + re.escape(symbol) + r'(?![a-z])', text_to_check):
+                return True
+
+    return False
+
+
+def smart_split_materials(text: str) -> list[str]:
+    """Split a comma/newline-separated material list, respecting parentheses.
+
+    '(Cu,C)Ba2Ca2Cu3O9' will NOT be split at the internal comma.
+    """
+    text = text.replace('\n', ',')
+    materials = []
+    current = []
+    depth = 0
+
+    for char in text:
+        if char == '(':
+            depth += 1
+            current.append(char)
+        elif char == ')':
+            depth = max(0, depth - 1)
+            current.append(char)
+        elif char == ',' and depth == 0:
+            token = ''.join(current).strip()
+            if token:
+                materials.append(token)
+            current = []
+        else:
+            current.append(char)
+
+    # Don't forget the last token
+    token = ''.join(current).strip()
+    if token:
+        materials.append(token)
+
+    return [m for m in materials if m]
 
 
 def find_matching_text_tc_multi(material: str, tc_entries: list[dict]) -> list[dict]:
@@ -235,6 +489,8 @@ STEP 0.5 — EXTRACT Tc FROM SUMMARY INSETS (if any type-(ii) inset found):
 Read Tc values directly from it:
   inset_tc_<series_name>: <value> K
 These serve as a REFERENCE for Step 4 cross-check.
+
+{materials_context_block}
 
 STEP 1 — IDENTIFY SERIES:
 {series_name_instruction}
@@ -368,6 +624,8 @@ STEP 0.5 — EXTRACT Tc FROM SUMMARY INSETS (if any type-(ii) inset found):
 Read Tc values directly:
   inset_tc_<series_name>: <value> K
 These serve as a REFERENCE for Step 4 cross-check.
+
+{materials_context_block}
 
 STEP 1 — IDENTIFY SERIES:
 {series_name_instruction}
@@ -511,27 +769,80 @@ def extract_figure_caption(fig_ref: str, paper_text: str, max_chars: int = 500) 
 
 def build_tc_prompt(known_series_names: list[str] | None = None,
                     use_snippet: bool = False,
-                    figure_caption: str = "") -> str:
-    """Build the Tc extraction prompt (original or snippet)."""
+                    figure_caption: str = "",
+                    materials: list[str] | None = None) -> str:
+    """Build the Tc extraction prompt (original or snippet).
+
+    Args:
+        known_series_names: Series names from plot extraction (legend labels).
+        use_snippet: If True, use the two-image prompt.
+        figure_caption: Figure caption text from the paper.
+        materials: List of material compositions from Step 1 extraction.
+    """
     template = PROMPT_TEMPLATE_SNIPPET if use_snippet else PROMPT_TEMPLATE_ORIGINAL
+
+    # Build series naming instruction — tell VLM to map to real formulas
     if known_series_names and len(known_series_names) > 0:
         names_list = "\n".join(f"  {i+1}. {name}" for i, name in enumerate(known_series_names))
         instruction = (
-            "The following series were previously identified in this plot. "
-            "You MUST use these EXACT names in your output (in the 'Series:' lines):\n"
+            "The following series labels were found in this plot's legend:\n"
             f"{names_list}\n\n"
-            "If you see additional curves not in this list, add them with descriptive names."
+            "These are plot legend labels which may be abbreviated (e.g., 'x=0.12', "
+            "'5 T', '0 GPa'). You MUST map each curve to its actual material composition "
+            "using the MATERIALS CONTEXT below and the figure caption. Always output full "
+            "chemical formulas as series names (e.g., 'Re0.88Mo0.12'), NOT bare labels "
+            "like 'x=0.12' or condition labels like '5 T'.\n\n"
+            "If you see additional curves not in this list, add them with their full "
+            "chemical formula."
         )
     else:
-        instruction = "List every distinct curve (by legend label, color, marker)."
+        instruction = "List every distinct curve by its material composition (chemical formula)."
 
-    # First pass: preserve the inner placeholder
+    # First pass: preserve the inner placeholders
     prompt = template.format(
         series_name_instruction=instruction,
         figure_caption_block="{figure_caption_block}",
+        materials_context_block="{materials_context_block}",
     )
 
-    # Second pass: inject caption
+    # Inject materials context block
+    if materials and len(materials) > 0:
+        mat_list = "\n".join(f"  {i+1}. {m}" for i, m in enumerate(materials))
+        materials_block = (
+            f"MATERIALS CONTEXT FROM THIS PAPER:\n"
+            f"The following materials were identified in this paper:\n"
+            f"{mat_list}\n\n"
+            f"Use this list as CONTEXT to understand what compound family is being studied.\n"
+            f"When the plot legend uses abbreviated labels like 'x=0.12', 'x=0.20', etc.,\n"
+            f"you should RESOLVE these to full chemical formulas. For example:\n"
+            f"  - If the paper studies Re_{{1-x}}Mo_x and the legend says 'x=0.12',\n"
+            f"    the series name should be 'Re0.88Mo0.12'\n"
+            f"  - If the paper studies Ta2Pd_{{1-x}}S_x and the caption shows x=0.1, x=0.2,\n"
+            f"    the series names should be 'Ta2Pd0.9S0.1', 'Ta2Pd0.8S0.2'\n\n"
+            f"You are NOT restricted to only materials in this list. If the plot shows\n"
+            f"compositions not listed above (e.g., additional doping levels), resolve\n"
+            f"them to full chemical formulas using the same pattern.\n\n"
+            f"IMPORTANT — EXCLUDE NON-COMPOSITION SERIES:\n"
+            f"If multiple curves represent the SAME material under different measurement\n"
+            f"conditions (different magnetic fields like 0 T, 1 T, 5 T; different pressures\n"
+            f"like 0 GPa, 1.5 GPa; different currents like 100 uA, 10 mA), these are\n"
+            f"NOT different materials. Report ONLY the zero-field / ambient / lowest-\n"
+            f"excitation curve for Tc determination. Skip the field/pressure/current-\n"
+            f"dependent curves entirely.\n\n"
+            f"IMPORTANT — SERIES NAMING:\n"
+            f"Do NOT append measurement annotations to series names. If the plot shows\n"
+            f"resistivity in different directions (rho_ab, rho_c, ρ_ab, ρ_c) or labels\n"
+            f"like (SC1), (SC2), (#1), (#2), these describe HOW something was measured,\n"
+            f"not WHAT the material is. The series name should be ONLY the chemical\n"
+            f"formula (e.g., 'Fe1.03Te0.63Se0.37', NOT 'Fe1.03Te0.63Se0.37_ρ_ab').\n"
+            f"If the same material has multiple curves for different measurement\n"
+            f"directions, pick the one that most clearly shows the Tc transition."
+        )
+    else:
+        materials_block = ""
+    prompt = prompt.replace("{materials_context_block}", materials_block)
+
+    # Inject caption block
     if figure_caption:
         caption_block = (
             f"FIGURE CAPTION (from the paper):\n"
@@ -658,25 +969,109 @@ def sanity_check_delta_tc(vlm_results: dict) -> dict:
     return corrected
 
 
+# ── VLM series name cleanup ──
+
+def clean_vlm_series_name(name: str) -> str:
+    """Strip measurement annotations from VLM series names.
+
+    Removes suffixes like _ρ_ab, _ρ_c, (SC1), (SC2), ρ_ab, ρ_c, (#1), (#2)
+    that describe HOW something was measured, not WHAT the material is.
+    """
+    # Remove parenthesized sample labels: (SC1), (SC2), (#1), (#2), (S1), etc.
+    name = re.sub(r'\s*\((?:SC|S|#)\d+\)\s*', ' ', name)
+    # Remove resistivity direction suffixes: _ρ_ab, _ρ_c, ρ_ab, ρ_c, _rho_ab, etc.
+    name = re.sub(r'[\s_]*[ρrho]+[\s_]*(?:ab|c|xx|yy|zz)\b', '', name, flags=re.IGNORECASE)
+    # Remove trailing underscores and whitespace
+    name = re.sub(r'[\s_]+$', '', name)
+    return name.strip()
+
+
+def clean_vlm_tc_results(vlm_results: dict) -> dict:
+    """Clean all VLM Tc result keys and merge duplicates created by cleanup.
+
+    When cleanup makes two keys identical (e.g., 'Fe1.03Te0.63Se0.37_ρ_ab' and
+    'Fe1.03Te0.63Se0.37_ρ_c' both become 'Fe1.03Te0.63Se0.37'), keep the entry
+    with the highest Tc (most clearly shows transition).
+    """
+    cleaned = {}
+    for key, val in vlm_results.items():
+        clean_key = clean_vlm_series_name(key)
+        if clean_key in cleaned:
+            # Keep the one with higher tc_mid (clearest transition)
+            existing_tc = cleaned[clean_key].get("tc_mid")
+            new_tc = val.get("tc_mid")
+            if new_tc is not None and (existing_tc is None or new_tc > existing_tc):
+                cleaned[clean_key] = val
+        else:
+            cleaned[clean_key] = val
+    return cleaned
+
+
 # ── Fuzzy matching helpers ──
 
-def _find_vlm_tc_for_series(series_name: str, vlm_results: dict) -> dict:
+def _find_vlm_tc_for_series(series_name: str, vlm_results: dict,
+                             material_name: str | None = None) -> dict:
+    """Find VLM Tc data for a series, trying multiple matching strategies.
+
+    Args:
+        series_name: The plot-extraction series name (e.g., 'x = 0.12')
+        vlm_results: Dict mapping VLM series names to Tc data
+        material_name: Optional linked material name (e.g., 'NdO0.88F0.12FeAs')
+    """
+    # 1. Exact match on series_name
     if series_name in vlm_results:
         return vlm_results[series_name]
+    # 2. Exact match on material_name (VLM now often returns full formulas)
+    if material_name and material_name in vlm_results:
+        return vlm_results[material_name]
+
     def _norm(s):
         s = s.replace('₂', '2').replace('₄', '4').replace('₇', '7').replace('₁', '1')
         s = s.replace('₃', '3').replace('₅', '5').replace('₆', '6').replace('₈', '8')
         s = s.replace('₉', '9').replace('₀', '0').replace('₋', '-').replace('δ', 'delta')
+        s = re.sub(r'_\{([^}]*)\}', r'\1', s)
+        s = re.sub(r'\^\{([^}]*)\}', r'\1', s)
+        s = re.sub(r'\{([^}]*)\}', r'\1', s)
         return s.lower().replace(' ', '')
+
     sn = _norm(series_name)
+    mn = _norm(material_name) if material_name else None
+
     for vlm_key, vlm_val in vlm_results.items():
         vk = _norm(vlm_key)
+        # 3. Normalized substring match on series_name
         if sn in vk or vk in sn:
             return vlm_val
+        # 4. Normalized match on material_name (handles LaTeX differences)
+        if mn and (mn == vk or mn in vk or vk in mn):
+            return vlm_val
+        # 5. First-token match
         sn_parts = re.split(r'[\s_-]+', series_name.lower())
         vk_parts = re.split(r'[\s_-]+', vlm_key.lower())
         if len(sn_parts) >= 1 and len(vk_parts) >= 1 and sn_parts[0] == vk_parts[0]:
             return vlm_val
+
+    # 6. Doping-value match: extract numbers after 'x=' or 'x =' from series_name
+    #    and find VLM key containing the same doping value in the formula
+    doping_match = re.search(r'x\s*=\s*([\d.]+)', series_name)
+    if doping_match:
+        x_val = doping_match.group(1)  # e.g., "0.12"
+        for vlm_key, vlm_val in vlm_results.items():
+            vk = _norm(vlm_key)
+            # Check if this VLM key contains the doping value AND the
+            # material_name's base formula (if available)
+            if x_val in vk:
+                # If we have a material name, verify same compound family
+                if mn:
+                    # Extract element letters from material_name to verify family
+                    mn_letters = re.sub(r'[^a-z]', '', mn)
+                    vk_letters = re.sub(r'[^a-z]', '', vk)
+                    if mn_letters == vk_letters:
+                        return vlm_val
+                else:
+                    return vlm_val
+
+    # 7. Single-result fallback
     if len(vlm_results) == 1:
         return next(iter(vlm_results.values()))
     return {}
@@ -691,10 +1086,17 @@ def _vlm_data_has_tc(vlm_data: dict) -> bool:
 def extract_year_from_arxiv_id(paper_id: str) -> int | None:
     clean = paper_id.split("_")[0]
     clean = re.sub(r'v\d+$', '', clean)
+    # New-style arXiv ID: YYMM.NNNNN (e.g., 2301.12345)
     match = re.match(r'^(\d{2})(\d{2})\.\d+$', clean)
     if match:
         yy = int(match.group(1))
         return 2000 + yy if yy < 50 else 1900 + yy
+    # Old-style arXiv ID: YYMMNNN or YYMMNNNN (7-8 digits, no dot)
+    match = re.match(r'^(\d{2})(\d{2})\d{3,4}$', clean)
+    if match:
+        yy = int(match.group(1))
+        return 2000 + yy if yy < 50 else 1900 + yy
+    # Fallback: interpret first 4 digits as year
     match = re.match(r'^(\d{4})', clean)
     if match:
         return int(match.group(1))
@@ -702,6 +1104,10 @@ def extract_year_from_arxiv_id(paper_id: str) -> int | None:
 
 
 def normalize_formula_for_csv(s: str) -> str:
+    # Strip LaTeX subscript/superscript braces: _{...} -> content, ^{...} -> content
+    s = re.sub(r'_\{([^}]*)\}', r'\1', s)
+    s = re.sub(r'\^\{([^}]*)\}', r'\1', s)
+    s = re.sub(r'\{([^}]*)\}', r'\1', s)
     s = s.replace('₀', '0').replace('₁', '1').replace('₂', '2').replace('₃', '3')
     s = s.replace('₄', '4').replace('₅', '5').replace('₆', '6').replace('₇', '7')
     s = s.replace('₈', '8').replace('₉', '9').replace('₋', '-').replace('δ', 'delta')
@@ -719,6 +1125,21 @@ def pick_best_tc(text_tc, vlm_tc_orig, vlm_tc_snip, text_onset=None):
     if text_onset is not None:
         return text_onset, "text_onset"
     return None, "none"
+
+
+def derive_is_superconductor(tc_text=None, tc_text_onset=None, tc_text_zero=None,
+                              vlm_orig_tc=None, vlm_snip_tc=None) -> bool | None:
+    """Derive is_superconductor from actual Tc measurements.
+
+    Returns True if ANY valid Tc measurement (Tc_mid, T_onset, T_zero) exists and > 0.
+    Returns False if all values are 0 or absent.
+    Returns None only if there is no data at all.
+    """
+    values = [tc_text, tc_text_onset, tc_text_zero, vlm_orig_tc, vlm_snip_tc]
+    non_none = [v for v in values if v is not None]
+    if not non_none:
+        return None  # no data at all
+    return any(v > 0 for v in non_none)
 
 
 # =============================================================================
@@ -739,6 +1160,8 @@ CSV_COLUMNS = [
     # Best Tc
     "tc_best", "tc_best_source",
     "has_text_tc", "has_vlm_tc_orig", "has_vlm_tc_snip",
+    # Synthesis
+    "has_synthesis", "synthesis_method", "synthesis_score",
 ]
 
 
@@ -747,7 +1170,7 @@ CSV_COLUMNS = [
 # =============================================================================
 
 def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = False):
-    """Run the Tc extraction pipeline (no synthesis) on a single PDF."""
+    """Run the full Tc extraction pipeline (with synthesis) on a single PDF."""
     from llm_synthesis.models.paper import Paper
     from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
     from llm_synthesis.transformers.material_extraction.dspy_extraction import (
@@ -808,29 +1231,150 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     material_extractor = DspyTextExtractor(signature=material_sig, lm=material_lm)
     text_for_llm = clean_text(paper.publication_text)
     materials_text = material_extractor.forward(input=text_for_llm)
-    materials = [m.strip() for m in materials_text.replace("\n", ",").split(",") if m.strip()]
+    materials = smart_split_materials(materials_text)
     print(f"  Found {len(materials)} materials: {materials[:5]}{'...' if len(materials) > 5 else ''}")
 
-    # ── Step 2: Extract Tc from text (multi-condition) ──
-    print("[Step 2] Extracting Tc from text (multi-condition)...")
+    # ── Step 2: Extract synthesis ──
+    print("[Step 2] Extracting synthesis procedures...")
+    from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (
+        DspySynthesisExtractor,
+        make_dspy_synthesis_extractor_signature,
+    )
+    from llm_synthesis.metrics.judge.general_synthesis_judge import (
+        DspyGeneralSynthesisJudge,
+        make_general_synthesis_judge_signature,
+    )
+    from llm_synthesis.models.paper import SynthesisEntry
+
+    SYNTHESIS_SYSTEM_PROMPT = """You are a helpful assistant that extracts structured synthesis procedures from scientific papers.
+
+IMPORTANT: For the synthesis_method field, you MUST choose from these exact values:
+'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning',
+'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion',
+'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth',
+'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering',
+'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
+'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation',
+'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing',
+'solution-based', 'mechanochemical', 'other'
+
+For the target_compound_type field, you MUST choose from these exact values:
+'metals & alloys', 'ceramics & glasses', 'polymers & soft matter', 'composites',
+'semiconductors & electronic', 'nanomaterials', 'two-dimensional materials',
+'framework & porous materials', 'biomaterials & biological', 'liquid materials',
+'hybrid & organic-inorganic', 'functional materials & catalysts', 'energy & sustainability',
+'smart & responsive materials', 'emerging & quantum materials', 'other'
+
+If the exact method is not in the list, use the closest match or 'other'."""
+
+    synthesis_sig = make_dspy_synthesis_extractor_signature(
+        instructions=(
+            "Extract the complete structured synthesis procedure for the specified material. "
+            "Include all steps, conditions (temperature, time, atmosphere), equipment, and precursors. "
+            "If a step is not explicitly mentioned in the text, do not hallucinate details."
+        ),
+    )
+
+    synthesis_lm = get_llm_from_name(
+        GEMINI_MODEL,
+        model_kwargs={"temperature": 0.0, "max_tokens": 32000, "max_retries": 3},
+        system_prompt=SYNTHESIS_SYSTEM_PROMPT,
+    )
+    synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
+
+    judge_lm = get_llm_from_name(
+        GEMINI_MODEL,
+        model_kwargs={"temperature": 0.0, "max_tokens": 16000},
+    )
+    judge_sig = make_general_synthesis_judge_signature()
+    judge = DspyGeneralSynthesisJudge(signature=judge_sig, lm=judge_lm)
+
+    all_syntheses = []
+    for i, material in enumerate(materials, 1):
+        print(f"  [{i}/{len(materials)}] {material}")
+        try:
+            synthesis = synthesis_extractor.forward(input=(text_for_llm, material))
+            try:
+                evaluation = judge.forward(
+                    (text_for_llm, json.dumps(synthesis.model_dump()), material)
+                )
+            except Exception as e:
+                print(f"    [WARN] Judge failed: {e}")
+                evaluation = None
+            all_syntheses.append(SynthesisEntry(
+                material=material, synthesis=synthesis, evaluation=evaluation,
+            ))
+            print(f"    Method: {synthesis.synthesis_method}, Steps: {len(synthesis.steps)}")
+        except Exception as e:
+            print(f"    [ERROR] {e}")
+            all_syntheses.append(SynthesisEntry(
+                material=material, synthesis=None, evaluation=None,
+            ))
+    n_synth = sum(1 for e in all_syntheses if e.synthesis is not None)
+    print(f"  Extracted synthesis for {n_synth}/{len(materials)} materials")
+
+    # ── Step 3: Extract Tc from text (multi-condition) ──
+    print("[Step 3] Extracting Tc from text (multi-condition)...")
+
+    # Build materials context for Tc extraction
+    mat_list_str = ", ".join(materials[:30])  # cap at 30 to avoid bloating prompt
+    materials_context = (
+        f"\n\n5. MATERIALS IN THIS PAPER (from prior extraction):\n"
+        f"   {mat_list_str}\n"
+        f"   You MUST report a Tc line for EACH of these materials.\n"
+        f"   If a material has no Tc mentioned anywhere in the text, report it with\n"
+        f"   superconducting: NO and all Tc fields as NR.\n"
+        f"   If additional materials with Tc values appear in the text but are not in\n"
+        f"   this list, include them too."
+    )
+
     tc_text_sig = make_dspy_text_extractor_signature(
         signature_name="TextToTcMulti",
         instructions=(
-            "Extract ALL critical temperature (Tc) values reported in this superconductivity paper. "
-            "For EACH material, report ALL Tc values found — one line per (material, condition) "
-            "combination. Conditions include: pressure (e.g., '2.5 GPa'), magnetic field "
-            "(e.g., '9 T'), doping level (e.g., 'x=0.15'), sample type (e.g., 'single-crystal', "
-            "'thin-film', 'polycrystalline'), or any other experimental condition.\n\n"
-            "If no specific condition is mentioned, use 'ambient' as the condition.\n"
-            "Only extract values explicitly stated. Use 'NR' for values not reported."
+            "Extract ALL superconducting critical temperature (Tc) values from this paper.\n\n"
+            "RULES:\n"
+            "1. NO HALLUCINATION: Only extract Tc values that appear as explicit numbers in\n"
+            "   this paper's own results. Never use general knowledge. Never extract values\n"
+            "   cited from other references. If no number is stated, report NR.\n\n"
+            "2. Tc NOTATIONS — look for all of these:\n"
+            "   onset: Tc_onset, Tconset, Tc,onset, Tc(onset), T_c^onset\n"
+            "   midpoint: Tc, Tc_mid, Tc,mid, T_c^mid\n"
+            "   zero-resistance: Tc_zero, Tc,zero, Tc(0), T_c^zero\n"
+            "   transition width: ΔTc, delta_Tc — report this as delta_Tc, NOT as a Tc value.\n\n"
+            "3. WHERE TO FIND Tc — check ALL of these locations in the paper:\n"
+            "   - Abstract (often states the main Tc result)\n"
+            "   - Results / Discussion sections (detailed Tc values per sample)\n"
+            "   - Tables (Tc columns, summary tables of properties)\n"
+            "   - Figure captions (e.g., 'Tc = 39 K as shown in Fig. 3')\n"
+            "   - Conclusions (often restates key Tc findings)\n"
+            "   Also look for INDIRECT phrasings:\n"
+            "   - 'superconductivity emerges below 39 K'\n"
+            "   - 'becomes superconducting at 23 K'\n"
+            "   - 'critical temperature of 92 K'\n"
+            "   - 'superconducting transition at 7.2 K'\n"
+            "   - 'zero resistance below 25 K'\n"
+            "   - 'onset of superconductivity near 30 K'\n\n"
+            "4. MATERIAL NAME = fully resolved chemical formula.\n"
+            "   Substitute all variables with their numeric values.\n"
+            "   e.g. A(B1-xCx) with x=0.3 → AB0.7C0.3\n"
+            "   Each distinct composition gets its own row.\n"
+            "   Use the chemical formula, not sample labels (S1, SC2, etc.).\n\n"
+            "5. CONDITION = only external factors NOT encoded in the formula:\n"
+            "   pressure, magnetic field, sample form (single-crystal, thin-film, etc.).\n"
+            "   If none apply, use 'ambient'."
+            + materials_context
         ),
         input_description="The full publication text from a superconductivity paper.",
         output_name="tc_values",
         output_description=(
-            "For each (material, condition) pair, one line in the format:\n"
-            "material_formula | condition: <description or 'ambient'> | superconducting: YES/NO "
-            "| T_onset: <value> K | Tc: <value> K | T_zero: <value> K\n"
-            "Use 'NR' for values not reported. Report ALL conditions for each material."
+            "One line per (material, condition) pair in this pipe-delimited format:\n"
+            "formula | condition: <value or ambient> | superconducting: YES/NO "
+            "| T_onset: <number> K | Tc: <number> K | T_zero: <number> K | delta_Tc: <number> K\n\n"
+            "Use NR for any value not explicitly reported in the text.\n\n"
+            "Example lines:\n"
+            "YBa2Cu3O7 | condition: ambient | superconducting: YES | T_onset: 93 K | Tc: 92 K | T_zero: 91 K | delta_Tc: NR\n"
+            "Nb3Sn | condition: 12 GPa | superconducting: YES | T_onset: NR | Tc: 23 K | T_zero: NR | delta_Tc: NR\n"
+            "SrTiO3 | condition: ambient | superconducting: NO | T_onset: NR | Tc: NR | T_zero: NR | delta_Tc: NR"
         ),
     )
     tc_text_lm = get_llm_from_name(GEMINI_MODEL, model_kwargs={"temperature": 0.0, "max_tokens": 16384})
@@ -858,7 +1402,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 
     if not skip_figures:
         # Step 3: Extract figures
-        print("[Step 3] Extracting figures (Florence-2)...")
+        print("[Step 4] Extracting figures (Florence-2)...")
         from llm_synthesis.transformers.figure_extraction import FigureExtractorMarkdown
         extractor = FigureExtractorMarkdown(
             segmenter="florence",
@@ -869,7 +1413,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 
         if figures:
             # Step 4: Extract plot data
-            print("[Step 4] Extracting plot data (Claude VLM)...")
+            print("[Step 5] Extracting plot data (Claude VLM)...")
             from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (
                 ClaudeLinePlotDataExtractor,
             )
@@ -896,7 +1440,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             print(f"  Extracted data from {len(plots)} plots (cost: ${plot_extractor.get_cost():.4f})")
 
             # Step 5: Filter R(T) plots
-            print("[Step 5] Filtering for R(T) plots...")
+            print("[Step 6] Filtering for R(T) plots...")
             # Reload filter config in case source was updated
             import importlib
             import llm_synthesis.config.plot_filter_config as _pfc_mod
@@ -931,7 +1475,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 
             # Step 6: VLM Tc extraction — DUAL (original + snippet)
             if relevant_plots:
-                print("[Step 6] Extracting Tc from R(T) plots — DUAL (original + snippet)...")
+                print("[Step 7] Extracting Tc from R(T) plots — DUAL (original + snippet)...")
                 _anthropic_client = anthropic.Anthropic()
                 _cost_original = 0.0
                 _cost_snippet = 0.0
@@ -971,12 +1515,14 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 
                     # ── A) ORIGINAL (single image) ──
                     prompt_orig = build_tc_prompt(
-                        known_series_names=known_series, use_snippet=False, figure_caption=caption,
+                        known_series_names=known_series, use_snippet=False,
+                        figure_caption=caption, materials=materials,
                     )
                     try:
                         resp, cost = _call_vlm(fig.base64_data, prompt_orig)
                         _cost_original += cost
                         parsed = sanity_check_delta_tc(parse_direct_tc_response(resp))
+                        parsed = clean_vlm_tc_results(parsed)
                         tc_from_vlm_original[idx] = parsed
                         for sn, v in parsed.items():
                             sc = "Y" if v.get("superconducting") else "N"
@@ -988,12 +1534,14 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                     # ── B) SNIPPET (full + crop) ──
                     crop_b64 = crop_bottom_left_quadrant(fig.base64_data)
                     prompt_snip = build_tc_prompt(
-                        known_series_names=known_series, use_snippet=True, figure_caption=caption,
+                        known_series_names=known_series, use_snippet=True,
+                        figure_caption=caption, materials=materials,
                     )
                     try:
                         resp, cost = _call_vlm(fig.base64_data, prompt_snip, crop_b64=crop_b64)
                         _cost_snippet += cost
                         parsed = sanity_check_delta_tc(parse_direct_tc_response(resp))
+                        parsed = clean_vlm_tc_results(parsed)
                         tc_from_vlm_snippet[idx] = parsed
                         for sn, v in parsed.items():
                             sc = "Y" if v.get("superconducting") else "N"
@@ -1007,7 +1555,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 
             # Step 7: Link series to materials
             if relevant_plots:
-                print("[Step 7] Linking series to materials...")
+                print("[Step 8] Linking series to materials...")
                 import dspy
                 from llm_synthesis.transformers.performance_linking.series_material_linker import (
                     SeriesMaterialLinker,
@@ -1016,7 +1564,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                 from llm_synthesis.models.performance import PlotMaterialMapping
 
                 linker_lm = get_llm_from_name(LINKER_MODEL,
-                                               model_kwargs={"temperature": 0.0, "max_tokens": 16000})
+                                               model_kwargs={"temperature": 0.0, "max_tokens": 32000})
                 series_linker = SeriesMaterialLinker(lm=linker_lm)
                 for idx, plot in relevant_plots:
                     fig = plot_figures[idx]
@@ -1040,10 +1588,10 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                     for m in validated:
                         print(f"    '{m.series_name}' -> '{m.material_name}'")
     else:
-        print("[Steps 3-7] Skipped (--skip-figures)")
+        print("[Steps 4-8] Skipped (--skip-figures)")
 
     # ── Step 8: Aggregate + save per-paper JSON ──
-    print("[Step 8] Aggregating and saving results...")
+    print("[Step 9] Aggregating and saving results...")
     performance_data = {}
     if plot_mappings and plots:
         performance_data = aggregate_all_materials_performance(materials, plot_mappings, plots)
@@ -1056,14 +1604,18 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         for sm in mapping.mappings:
             # Original
             if plot_idx in tc_from_vlm_original:
-                vlm_data = _find_vlm_tc_for_series(sm.series_name, tc_from_vlm_original[plot_idx])
+                vlm_data = _find_vlm_tc_for_series(
+                    sm.series_name, tc_from_vlm_original[plot_idx],
+                    material_name=sm.material_name)
                 if vlm_data:
                     existing = vlm_tc_per_material_orig.get(sm.material_name)
                     if existing is None or (_vlm_data_has_tc(vlm_data) and not _vlm_data_has_tc(existing)):
                         vlm_tc_per_material_orig[sm.material_name] = vlm_data
             # Snippet
             if plot_idx in tc_from_vlm_snippet:
-                vlm_data = _find_vlm_tc_for_series(sm.series_name, tc_from_vlm_snippet[plot_idx])
+                vlm_data = _find_vlm_tc_for_series(
+                    sm.series_name, tc_from_vlm_snippet[plot_idx],
+                    material_name=sm.material_name)
                 if vlm_data:
                     existing = vlm_tc_per_material_snip.get(sm.material_name)
                     if existing is None or (_vlm_data_has_tc(vlm_data) and not _vlm_data_has_tc(existing)):
@@ -1095,6 +1647,9 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             has_tc = _vlm_data_has_tc(orig_data) or _vlm_data_has_tc(snip_data)
             if not has_tc:
                 continue  # no Tc, skip
+            # Validate that the series name looks like a real material formula
+            if not is_valid_material_name(series_name):
+                continue  # skip garbage names like "5 T", "x = 0.1", etc.
             # Check if already covered by normalized name
             norm = _normalize_formula(series_name)
             if norm in all_vlm_material_norms or norm in vlm_only_materials_set:
@@ -1125,6 +1680,8 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             matched_text_materials.add(_normalize_formula(e["material"]))
     text_only_materials = []
     for entry in tc_from_text:
+        if not is_valid_material_name(entry["material"]):
+            continue  # skip garbage names from text extraction
         norm = _normalize_formula(entry["material"])
         if norm not in matched_text_materials:
             matched_text_materials.add(norm)
@@ -1154,13 +1711,52 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             deduped_text_only.append(m)
     all_materials = materials + deduped_vlm_only + deduped_text_only
 
+    # ── Merge materials with duplicate normalized forms ──
+    # Prefer Step 1 names as canonical, merge VLM/text data into them
+    norm_to_canonical = {}
+    merged_materials = []
+    for m in all_materials:
+        norm = _normalize_formula(m)
+        if norm in norm_to_canonical:
+            canonical = norm_to_canonical[norm]
+            # Merge VLM data from duplicate into canonical name
+            if m in vlm_tc_per_material_orig and canonical not in vlm_tc_per_material_orig:
+                vlm_tc_per_material_orig[canonical] = vlm_tc_per_material_orig[m]
+            if m in vlm_tc_per_material_snip and canonical not in vlm_tc_per_material_snip:
+                vlm_tc_per_material_snip[canonical] = vlm_tc_per_material_snip[m]
+            if m in text_tc_per_material:
+                if canonical not in text_tc_per_material:
+                    text_tc_per_material[canonical] = text_tc_per_material[m]
+                else:
+                    existing_keys = {(_normalize_formula(e["material"]), e.get("condition"))
+                                     for e in text_tc_per_material[canonical]}
+                    for e in text_tc_per_material[m]:
+                        key = (_normalize_formula(e["material"]), e.get("condition"))
+                        if key not in existing_keys:
+                            text_tc_per_material[canonical].append(e)
+            print(f"  Merged duplicate: '{m}' -> '{canonical}'")
+        else:
+            norm_to_canonical[norm] = m
+            merged_materials.append(m)
+    if len(merged_materials) < len(all_materials):
+        print(f"  Deduplicated materials: {len(all_materials)} -> {len(merged_materials)}")
+    all_materials = merged_materials
+
+    # Build synthesis lookup by material
+    synth_by_material = {}
+    for entry in all_syntheses:
+        synth_by_material[entry.material] = entry
+
     # Save per-material JSON
     for material in all_materials:
         text_entries = text_tc_per_material.get(material, [])
         vlm_orig = vlm_tc_per_material_orig.get(material, {})
         vlm_snip = vlm_tc_per_material_snip.get(material, {})
+        synth_entry = synth_by_material.get(material)
         result = {
             "material": material,
+            "synthesis": synth_entry.synthesis.model_dump() if synth_entry and synth_entry.synthesis else None,
+            "evaluation": synth_entry.evaluation.model_dump() if synth_entry and synth_entry.evaluation else None,
             "tc_from_text": text_entries if text_entries else None,
             "tc_from_vlm_original": {
                 "superconducting": vlm_orig.get("superconducting"),
@@ -1189,6 +1785,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         "materials_list": all_materials,
         "materials_from_step1": len(materials),
         "materials_from_text_only": len(text_only_materials),
+        "materials_with_synthesis": sum(1 for e in all_syntheses if e.synthesis is not None),
         "total_plots_extracted": len(plots),
         "rt_plots_found": len(relevant_plots),
         "materials_with_text_tc": sum(
@@ -1202,7 +1799,7 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     with open(paper_dir / "summary.json", "w") as f:
         json.dump(summary, f, indent=2)
 
-    # ── Step 9: Build flat records ──
+    # ── Step 10: Build flat records ──
     year = extract_year_from_arxiv_id(paper.id)
     flat_records = []
 
@@ -1210,6 +1807,15 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         text_entries = text_tc_per_material.get(material, [])
         vlm_orig = vlm_tc_per_material_orig.get(material, {})
         vlm_snip = vlm_tc_per_material_snip.get(material, {})
+
+        # Synthesis info
+        synth_entry = synth_by_material.get(material)
+        synth_method = (synth_entry.synthesis.synthesis_method
+                        if synth_entry and synth_entry.synthesis else None)
+        synth_score = (synth_entry.evaluation.scores.overall_score
+                       if synth_entry and synth_entry.evaluation
+                       and synth_entry.evaluation.scores else None)
+        has_synth = synth_entry is not None and synth_entry.synthesis is not None
 
         # VLM values (shared across conditions — VLM doesn't know about conditions)
         vlm_orig_tc = vlm_orig.get("tc_mid")
@@ -1242,15 +1848,11 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                 text_sc = te.get("superconducting")
                 condition = te.get("condition", "ambient")
 
-                # Determine is_superconductor
-                if text_sc is not None:
-                    is_sc = text_sc
-                elif vlm_snip_sc is not None:
-                    is_sc = vlm_snip_sc
-                elif vlm_orig_sc is not None:
-                    is_sc = vlm_orig_sc
-                else:
-                    is_sc = None
+                # Derive is_superconductor from actual Tc values
+                is_sc = derive_is_superconductor(
+                    tc_text=text_tc, tc_text_onset=text_onset, tc_text_zero=text_zero,
+                    vlm_orig_tc=vlm_orig_tc, vlm_snip_tc=vlm_snip_tc,
+                )
 
                 tc_best, tc_best_source = pick_best_tc(text_tc, vlm_orig_tc, vlm_snip_tc, text_onset)
 
@@ -1271,15 +1873,15 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                     "has_text_tc": text_tc is not None,
                     "has_vlm_tc_orig": vlm_orig_tc is not None,
                     "has_vlm_tc_snip": vlm_snip_tc is not None,
+                    "has_synthesis": has_synth,
+                    "synthesis_method": synth_method,
+                    "synthesis_score": synth_score,
                 })
         else:
             # No text Tc — still create a row with VLM data
-            if vlm_snip_sc is not None:
-                is_sc = vlm_snip_sc
-            elif vlm_orig_sc is not None:
-                is_sc = vlm_orig_sc
-            else:
-                is_sc = None
+            is_sc = derive_is_superconductor(
+                vlm_orig_tc=vlm_orig_tc, vlm_snip_tc=vlm_snip_tc,
+            )
 
             tc_best, tc_best_source = pick_best_tc(None, vlm_orig_tc, vlm_snip_tc)
 
@@ -1300,7 +1902,42 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                 "has_text_tc": False,
                 "has_vlm_tc_orig": vlm_orig_tc is not None,
                 "has_vlm_tc_snip": vlm_snip_tc is not None,
+                "has_synthesis": has_synth,
+                "synthesis_method": synth_method,
+                "synthesis_score": synth_score,
             })
+
+    # ── Deduplicate flat_records by (material_normalized, condition) ──
+    seen_records = {}  # key -> index into deduped list
+    deduped_records = []
+    for rec in flat_records:
+        key = (rec["material_normalized"], rec.get("condition", "ambient"))
+        if key in seen_records:
+            existing_idx = seen_records[key]
+            existing = deduped_records[existing_idx]
+            # Keep the record with the most non-None Tc fields
+            def _tc_count(r):
+                return sum(1 for f in ["tc_text", "tc_text_onset", "tc_text_zero",
+                                        "tc_vlm_orig", "tc_vlm_snip", "tc_best"]
+                           if r.get(f) is not None)
+            if _tc_count(rec) > _tc_count(existing):
+                deduped_records[existing_idx] = rec
+        else:
+            seen_records[key] = len(deduped_records)
+            deduped_records.append(rec)
+    if len(deduped_records) < len(flat_records):
+        print(f"  Deduplicated records: {len(flat_records)} -> {len(deduped_records)}")
+    flat_records = deduped_records
+
+    # ── Drop rows with no Tc data at all ──
+    _TC_FIELDS = ["tc_text", "tc_text_onset", "tc_text_zero",
+                  "tc_vlm_orig", "tc_vlm_orig_onset", "tc_vlm_orig_zero",
+                  "tc_vlm_snip", "tc_vlm_snip_onset", "tc_vlm_snip_zero"]
+    before_drop = len(flat_records)
+    flat_records = [r for r in flat_records
+                    if any(r.get(f) is not None for f in _TC_FIELDS)]
+    if len(flat_records) < before_drop:
+        print(f"  Dropped {before_drop - len(flat_records)} rows with no Tc data")
 
     # Save JSONL
     with open(paper_dir / "tc_flat_records.jsonl", "w") as f:
@@ -1308,8 +1945,8 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             f.write(json.dumps(rec, default=str, indent=2) + "\n")
 
     # Print summary table
-    print(f"\n  {'Material':<30} {'Cond.':<15} {'SC?':<5} {'Tc_txt':>7} {'Tc_orig':>8} {'Tc_snip':>8} {'Tc_best':>8} {'Source':<12}")
-    print(f"  {'-' * 100}")
+    print(f"\n  {'Material':<30} {'Cond.':<15} {'SC?':<5} {'Tc_txt':>7} {'Tc_orig':>8} {'Tc_snip':>8} {'Tc_best':>8} {'Source':<12} {'Synth?':<7} {'Method':<15}")
+    print(f"  {'-' * 130}")
     for rec in flat_records:
         sc = "YES" if rec["is_superconductor"] else ("NO" if rec["is_superconductor"] is False else "?")
         tc_t = f"{rec['tc_text']:.1f}" if rec["tc_text"] else "—"
@@ -1317,7 +1954,9 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         tc_s = f"{rec['tc_vlm_snip']:.1f}" if rec["tc_vlm_snip"] else "—"
         tc_b = f"{rec['tc_best']:.1f}" if rec["tc_best"] else "—"
         cond = rec["condition"][:14]
-        print(f"  {rec['material']:<30} {cond:<15} {sc:<5} {tc_t:>7} {tc_o:>8} {tc_s:>8} {tc_b:>8} {rec['tc_best_source']:<12}")
+        has_s = "YES" if rec.get("has_synthesis") else "NO"
+        s_meth = (rec.get("synthesis_method") or "—")[:14]
+        print(f"  {rec['material']:<30} {cond:<15} {sc:<5} {tc_t:>7} {tc_o:>8} {tc_s:>8} {tc_b:>8} {rec['tc_best_source']:<12} {has_s:<7} {s_meth:<15}")
 
     return flat_records
 
@@ -1350,13 +1989,13 @@ def append_to_master_csv(flat_records: list[dict], master_path: Path):
         all_rows.extend({k: (str(v) if v is not None else "") for k, v in r.items()}
                         for r in flat_records)
         with open(master_path, "w", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS)
+            writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS, quoting=csv.QUOTE_ALL)
             writer.writeheader()
             writer.writerows(all_rows)
     else:
         write_header = not master_path.exists() or master_path.stat().st_size == 0
         with open(master_path, "a", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS)
+            writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS, quoting=csv.QUOTE_ALL)
             if write_header:
                 writer.writeheader()
             for rec in flat_records:
@@ -1369,12 +2008,14 @@ def append_to_master_csv(flat_records: list[dict], master_path: Path):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Batch Tc extraction (snippet-enhanced, no synthesis).",
+        description="Batch Tc extraction (snippet-enhanced + synthesis).",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
     parser.add_argument("folder", type=str,
                         help="Path to folder containing PDF papers")
+    parser.add_argument("--output", "-o", type=str, default=None,
+                        help="Output directory (default: <folder>/results_snippet)")
     parser.add_argument("--max", type=int, default=None,
                         help="Max number of papers to process (randomly sampled)")
     parser.add_argument("--skip-existing", action="store_true",
@@ -1390,8 +2031,11 @@ def main():
         print(f"ERROR: {folder} is not a directory")
         sys.exit(1)
 
-    output_dir = folder / "results_snippet"
-    output_dir.mkdir(exist_ok=True)
+    if args.output:
+        output_dir = Path(args.output).resolve()
+    else:
+        output_dir = folder / "results_snippet"
+    output_dir.mkdir(parents=True, exist_ok=True)
     master_csv = output_dir / "tc_master_snippet.csv"
 
     # Discover PDFs
@@ -1415,7 +2059,7 @@ def main():
         pdfs.sort(key=lambda p: p.name)  # sort for readable output
 
     print(f"{'=' * 70}")
-    print(f"BATCH Tc EXTRACTION (snippet-enhanced, no synthesis)")
+    print(f"BATCH Tc EXTRACTION (snippet-enhanced + synthesis)")
     print(f"{'=' * 70}")
     print(f"  Folder:       {folder}")
     print(f"  Output:       {output_dir}")

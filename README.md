@@ -129,25 +129,51 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 
 *Work in Progress*
 
-### Customize LeMat-Synth
-*Work in Progress*
+
 
 ### Thermocatalysis Case Study
 
 *Work in Progress*
+take pdf of catalysis papers (not part of open source corpus)
 
+```bash
+uv run python run_all_papers.py \​
+  /path/to/data/pdf_papers/catalysis_corpus \​
+  /path/to/data/results_catalysis/ \​
+  --skip-existing​
+```
+
+this extracts ... <deascribe extracted data>
+
+Visualize results: noteboioks shows
+
+### Superconductor Case Study
 Filter down:
 ```bash
+
 uv run examples/scripts/case_study_thermocatalysis/keyword_search.py
 uv run examples/scripts/case_study_thermocatalysis/downsample_with_llm.py --prompt default
 uv run examples/scripts/case_study_thermocatalysis/downsample_with_llm.py --prompt long
 ```
+
+### Customize LeMat-Synth
+*Work in Progress*
+EXAMPLES HOW TO GENERALIZE/ABSTRACT EXTRACTION PIPELINE}
 
 ---
 
 ## 📝 Citation
 
 Cite us:
+
+```bibtex
+@article{lederbauer2026mapping,
+  title={Mapping Materials Science: a multi-modal toolbox to curate broad synthesis procedure databases from scientific literature},
+  author={WIP},
+  journal={WIP},
+  year={2026}
+}
+```
 
 ```bibtex
 @article{lederbauer2025lemat,
