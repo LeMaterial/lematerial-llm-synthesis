@@ -1,0 +1,7 @@
+architecture:
+  _target_: llm_synthesis.data_loader.paper_loader.annotation_hf_paper_loader.AnnotationHFLoader
+  annotations_dir: "annotations"
+  dataset_uri: "LeMaterial/LeMat-Synth-Papers"
+  split: "sample_for_evaluation"
+
+number_of_samples: null

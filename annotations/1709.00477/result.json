@@ -1,39 +1,873 @@
 [
   {
-    "material": "No materials synthesized",
-    "synthesis": {
-      "target_compound": "No materials synthesized",
-      "target_compound_type": "other",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [],
-      "equipment": [],
-      "notes": null
-    },
-    "evaluation": {
-      "reasoning": "The provided text is a theoretical and experimental study of the indentation of floating elastic sheets. It does not describe the synthesis of any new materials. Therefore, the extracted ontology correctly identifies that no materials were synthesized.",
-      "scores": {
-        "structural_completeness_score": 5.0,
-        "structural_completeness_reasoning": "The ontology accurately reflects the absence of synthesis details, achieving perfect structural completeness for this type of document.",
-        "material_extraction_score": 5.0,
-        "material_extraction_reasoning": "Correctly identifies that no materials are synthesized, thus no material extraction is needed. The absence of material information is accurately represented.",
-        "process_steps_score": 5.0,
-        "process_steps_reasoning": "Since no synthesis occurs, the process steps are correctly identified as empty. This accurately reflects the content of the document.",
-        "equipment_extraction_score": 5.0,
-        "equipment_extraction_reasoning": "The equipment list is correctly empty, as no synthesis is described. This is an accurate representation of the document's content.",
-        "conditions_extraction_score": 5.0,
-        "conditions_extraction_reasoning": "The conditions are correctly not extracted, as no synthesis is described. This accurately reflects the content of the document.",
-        "semantic_accuracy_score": 5.0,
-        "semantic_accuracy_reasoning": "The ontology accurately captures the semantic meaning of the text, which is the absence of any synthesis procedure.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The ontology adheres perfectly to the schema, correctly representing the absence of synthesis information with empty lists and null values where appropriate.",
-        "overall_score": 5.0,
-        "overall_reasoning": "The ontology extraction is perfect because it correctly identifies and represents the absence of synthesis information in the provided text. All fields are appropriately empty or null, adhering to the schema and accurately reflecting the document's content."
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [],
+    "note": "No materials found"
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [],
+    "note": "No materials found"
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [],
+    "note": "No materials found"
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "C2H6OSi",
+        "synthesis": {
+          "target_compound": "C2H6OSi",
+          "target_compound_type": "polymers & soft matter",
+          "synthesis_method": "other",
+          "starting_materials": [
+            {
+              "vendor": "Dow Corning, UK",
+              "name": "Sylgard 184",
+              "amount": null,
+              "unit": null,
+              "purity": "commercial"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Spreading a commercial silicone elastomer (Sylgard 184) on a carefully levelled table.",
+              "materials": [
+                {
+                  "vendor": "Dow Corning, UK",
+                  "name": "Sylgard 184",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "levelled table",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "age",
+              "description": "Curing the sample for one week in a temperature-controlled room.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 42.5,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "week",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Instron 3345",
+              "instrument_vendor": "Instron, UK",
+              "settings": "compressive tests"
+            }
+          ],
+          "notes": "The material is Polydimethylsiloxane (PDMS), which has the chemical formula (C2H6OSi)n. The curing temperature was maintained in the range 40-45°C."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes a physics/mechanics paper about the indentation of floating elastic sheets. The synthesis content is limited to the preparation of PDMS (Polydimethylsiloxane) sheets using Sylgard 184 silicone elastomer. The extraction captures the core synthesis steps (spreading and curing), the starting material (Sylgard 184 from Dow Corning), and the curing conditions (40-45°C for one week). However, the extraction misses several additional materials used in the study (PVS elastomers Elite 8 and Elite 22 from Zhermack, Polyimide sheets from Goodfellow, Polycarbonate sheets from Goodfellow), and some equipment explicitly mentioned in the text (Drop Shape Analyser DSA100 from Krüss GmbH, Leica DMIL microscope, Instron 3345 for tensile tests on PVS, linear actuator M228 from Physik Instrumente, stepper motor Mercury Step C663, Pioneer PA64C microbalance, Nikon D5000 camera). The extraction focuses only on the PDMS synthesis, which is the primary synthesis described, but the paper also describes preparation of PVS sheets via spin coating. The target compound is identified as C2H6OSi (PDMS monomer unit), which is reasonable. The curing temperature is represented as 42.5°C (midpoint of 40-45°C range), which is an acceptable approximation. The extraction is structurally sound but incomplete in terms of materials and equipment coverage.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the primary PDMS synthesis procedure with two steps (spreading and curing), the main starting material, and one piece of characterization equipment. However, it misses the spin-coating synthesis of PVS sheets (Elite 8 and Elite 22 from Zhermack), the Polyimide and Polycarbonate sheets (from Goodfellow), and numerous pieces of equipment explicitly mentioned in the text. The extraction focuses narrowly on the PDMS synthesis, which is the most detailed synthesis described, but the paper clearly describes additional material preparations. The overall structure is present but incomplete relative to the full scope of materials described.",
+                "material_extraction_score": 2.5,
+                "material_extraction_reasoning": "The extraction correctly identifies Sylgard 184 from Dow Corning as the primary starting material for PDMS synthesis. However, it omits the PVS elastomers (Elite 8 Double and Elite 22 Double from Zhermack, Italy), the Polyimide sheet (h=8.5±2.0 µm, E=3.7±0.7 GPa from Goodfellow, Cambridge), and the Polycarbonate sheet (h=2.2 µm, E=2.73 GPa from Goodfellow, Cambridge). No amounts or purities are given for Sylgard 184, which is correct since the source text does not specify quantities. The target compound C2H6OSi is the PDMS repeat unit formula, which is technically correct though the polymer is more precisely (C2H6OSi)n. The purity field is set to 'commercial' which is a reasonable inference.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The two steps for PDMS synthesis are correctly identified: spreading on a levelled table (step 1) and curing for one week at 40-45°C (step 2). The action classification of 'mix' for step 1 is slightly inaccurate — 'spread' or 'cast' would be more appropriate than 'mix' since the text says 'spreading a commercial silicone elastomer on a carefully levelled table.' The action 'age' for step 2 is acceptable for a curing/crosslinking process, though 'cure' would be more precise. The curing temperature is represented as 42.5°C (midpoint of 40-45°C range), which is a reasonable approximation but loses the range information. The spin-coating process for PVS sheets is entirely absent. The step sequence is logical and the descriptions are accurate for what is captured.",
+                "equipment_extraction_score": 2.0,
+                "equipment_extraction_reasoning": "The extraction captures the Instron 3345 for compressive tests, which is correct. However, it misses numerous pieces of equipment explicitly named in the source text: the Drop Shape Analyser (DSA100, Krüss GmbH, Germany) for surface tension measurement, the Leica DMIL microscope (Leitz Wetzlar, Germany) for measuring PVS sheet thickness, the Instron 3345 for tensile tests on PVS (mentioned separately from compressive tests), the Pioneer PA64C Analytic Balance (Ohaus, Switzerland), the linear actuator M228 (Physik Instrumente, Germany), the Mercury Step C663 stepper motor (Physik Instrumente, Germany), and the Nikon D5000 camera. The levelled table in step 1 is a minor equipment item. The extraction is significantly incomplete in equipment coverage.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "The curing conditions are correctly captured: temperature of 42.5°C (midpoint of the stated 40-45°C range) and duration of 1 week. The temperature range representation as a single midpoint value loses the range information (40-45°C), which is a minor inaccuracy. The time unit 'week' is correct. Pressure, atmosphere, stirring, and pH are correctly left null as they are not specified in the source. The conditions for the PVS spin-coating process are not captured, but this is partly because those steps are not extracted at all. The PDMS curing conditions are the most explicitly stated in the text and are reasonably well captured.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The extraction correctly identifies the material as PDMS (Polydimethylsiloxane) with the chemical formula C2H6OSi, and correctly notes in the notes field that the curing temperature range was 40-45°C. The synthesis method is classified as 'other', which is acceptable given that PDMS preparation by spreading and curing doesn't fit neatly into standard categories. The note about the chemical formula being (C2H6OSi)n is scientifically accurate. The action 'mix' for spreading is semantically imprecise — the text describes spreading, not mixing. The 'age' action for curing is semantically acceptable. The overall scientific meaning of the PDMS preparation is preserved, though the broader context of the paper (mechanical testing of floating elastic sheets) is not captured, which is appropriate since the ontology focuses on synthesis.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure adheres well to the expected ontology schema. Fields such as target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes are all present and properly formatted. Each step contains step_number, action, description, materials, equipment, and conditions fields. The conditions object in step 2 includes temperature, temp_unit, duration, time_unit, and correctly null fields for pressure, pressure_unit, atmosphere, stirring, stirring_speed, and ph. Data types appear correct throughout. The null values for amount and unit in starting materials are appropriate. Minor issues include the conditions field being null in step 1 (acceptable) and the equipment list in step 2 being empty (acceptable since no equipment is mentioned for the curing step beyond the temperature-controlled room, which could have been captured).",
+                "overall_score": 3.1,
+                "overall_reasoning": "The extraction provides a reasonable but incomplete capture of the synthesis information in this paper. The primary PDMS synthesis procedure is correctly identified and structured, with appropriate starting materials, process steps, and curing conditions. The two-step process (spreading and curing) is logically sequenced, and the curing conditions (temperature range midpoint and duration) are captured. However, the extraction is significantly incomplete in several areas: (1) it misses the PVS spin-coating synthesis entirely, (2) it omits multiple explicitly named pieces of equipment (DSA100, Leica DMIL, Pioneer PA64C balance, M228 linear actuator, Mercury Step C663 stepper motor, Nikon D5000), (3) the action classification for step 1 ('mix' instead of 'spread/cast') is semantically imprecise, and (4) the temperature range is collapsed to a single midpoint value. The format compliance is good, with proper schema adherence and appropriate null values for unspecified fields. Overall, the extraction captures the most prominent synthesis procedure (PDMS) adequately but fails to comprehensively cover all materials and equipment described in the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "PVS elastomer synthesis via spin coating (Elite 8 Double and Elite 22 Double, Zhermack, Italy)",
+                "Polyimide sheet material properties and source (Goodfellow, Cambridge)",
+                "Polycarbonate sheet material properties and source (Goodfellow, Cambridge)",
+                "Drop Shape Analyser DSA100 used for surface tension measurement",
+                "Leica DMIL microscope used for measuring PVS sheet thickness",
+                "Pioneer PA64C Analytic Balance (Ohaus, Switzerland) used for force measurement",
+                "Linear actuator M228 (Physik Instrumente, Germany) used for indentation",
+                "Mercury Step C663 stepper motor (Physik Instrumente, Germany)",
+                "Nikon D5000 camera used for imaging sheet deflection",
+                "Temperature-controlled room as equipment for curing step",
+                "Indenter specifications (length 300 mm, diameter 6.0±0.05 mm, hemispherical end cap) used in experiments",
+                "Surfactant (washing-up liquid) used to modify surface tension in experiments",
+                "Young's modulus and Poisson ratio measured values for PDMS (E=2.06±0.03 MPa, ν=0.50±0.01)"
+              ],
+              "extraction_errors": [
+                "Step 1 action classified as 'mix' instead of a more accurate term like 'spread' or 'cast' — the text says 'spreading a commercial silicone elastomer on a carefully levelled table'",
+                "Curing temperature represented as single value 42.5°C (midpoint) instead of the stated range 40-45°C",
+                "PVS spin-coating synthesis (Elite 8 Double and Elite 22 Double from Zhermack, Italy) is entirely absent",
+                "Polyimide (PI) sheet from Goodfellow (h=8.5±2.0 µm, E=3.7±0.7 GPa) not captured as a material",
+                "Polycarbonate (PC) sheet from Goodfellow (h=2.2 µm, E=2.73 GPa) not captured as a material",
+                "Drop Shape Analyser DSA100 (Krüss GmbH, Germany) not captured in equipment",
+                "Leica DMIL microscope (Leitz Wetzlar, Germany) not captured in equipment",
+                "Pioneer PA64C Analytic Balance (Ohaus, Switzerland) not captured in equipment",
+                "Linear actuator M228 (Physik Instrumente, Germany) not captured in equipment",
+                "Mercury Step C663 stepper motor (Physik Instrumente, Germany) not captured in equipment",
+                "Nikon D5000 camera not captured in equipment"
+              ],
+              "improvement_suggestions": [
+                "Change step 1 action from 'mix' to 'spread' or 'cast' to better reflect the described operation of spreading elastomer on a table",
+                "Represent the curing temperature as a range (40-45°C) rather than a single midpoint value, or add a note about the range",
+                "Add a separate synthesis entry or steps for the PVS spin-coating procedure (Elite 8 Double and Elite 22 Double from Zhermack)",
+                "Include the Polyimide and Polycarbonate sheets as additional materials with their properties",
+                "Add the Drop Shape Analyser DSA100 (Krüss GmbH, Germany) to the equipment list",
+                "Add the Leica DMIL microscope (Leitz Wetzlar, Germany) to the equipment list",
+                "Add the Pioneer PA64C Analytic Balance (Ohaus, Switzerland) to the equipment list",
+                "Add the linear actuator M228 and stepper motor Mercury Step C663 (Physik Instrumente, Germany) to the equipment list",
+                "Add the Nikon D5000 camera to the equipment list",
+                "Include measured material properties (E=2.06±0.03 MPa, ν=0.50±0.01 for PDMS) in the notes or as characterization data",
+                "Consider adding the temperature-controlled room as equipment for the curing step",
+                "Use 'cure' as the action for step 2 instead of 'age' to better reflect the crosslinking/curing process of silicone elastomer"
+              ]
+            },
+            "overall_score": 3.1
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system successfully identified the synthesis of PDMS (Polydimethylsiloxane) from the source text, which describes the preparation of elastic sheets for mechanical testing. It correctly identified the commercial precursor (Sylgard 184), the spreading process, and the curing conditions. The system also correctly handled the temperature range (40-45°C) by providing a mean value (42.5°C) and captured the duration accurately. It appropriately identified the mechanical testing equipment mentioned in the text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant synthesis components mentioned in the text: the starting material, the spreading step, and the curing step with its associated conditions.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The system correctly identified Sylgard 184 as the starting material and accurately captured the vendor (Dow Corning, UK). It correctly noted that specific amounts were not provided in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps follow the logical sequence described in the paper: spreading followed by curing. The action classifications ('mix' for spreading/preparation and 'age' for curing) are appropriate within the schema's context.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly identified the 'levelled table' used for spreading and the 'Instron 3345' used for characterization, including the vendor specified in the text.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The temperature (42.5°C as a mean of 40-45°C) and duration (1 week) were extracted accurately. The absence of pressure or atmosphere data is correct as they were not specified in the source.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, correctly identifying that the 'synthesis' in this context is the preparation of PDMS sheets from a commercial elastomer kit.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid, parseable JSON that adheres to the required schema and data types.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This paper is primarily a mechanics study on floating elastic sheets rather than a synthesis paper. The extraction appropriately focuses on the PDMS sheet preparation described in Section 3.1, which is the only synthesis-related content in the source. The PDMS preparation (spreading Sylgard 184 and curing) is captured with correct vendor information, temperature range (40-45°C represented as 42.5°C average), and duration (1 week). However, the extraction misses other materials mentioned (PVS elastomers, PI, PC sheets) and their preparation methods (spin coating for PVS). Equipment extraction is notably incomplete—only Instron 3345 is captured while the source mentions multiple instruments (Drop Shape Analyser, Nikon camera, microbalance, linear actuator, stepper motor, microscope). The extraction does not hallucinate information and correctly represents what is present in the source text for PDMS preparation.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the PDMS sheet preparation process which is the primary synthesis-related content in this mechanics paper. Two preparation steps are documented (spreading and curing) with appropriate structure. However, significant synthesis-related information is missing: PVS elastomer preparation via spin coating is not captured, and PI/PC sheet sources are not documented. Given that this is not primarily a synthesis paper, the extraction covers the available synthesis content reasonably but incompletely. The structure follows the ontology schema appropriately for what is captured.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "PDMS/Sylgard 184 is correctly identified with accurate vendor (Dow Corning, UK) and purity designation (commercial). The curing temperature range (40-45°C) is reasonably represented as 42.5°C average. However, PVS elastomers (Elite 8 Double, Elite 22 Double from Zhermack), PI sheet, and PC sheet (both from Goodfellow) mentioned in the source are not extracted. For the PDMS material that is captured, the extraction is accurate without hallucination.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "Two PDMS preparation steps are correctly sequenced (spreading then curing) with appropriate action classifications (mix, age). The curing conditions are properly captured. However, the PVS spin coating process described in Section 3.2 is completely missing. The extraction captures the PDMS workflow accurately but represents only a portion of the material preparation procedures described in the source text.",
+                "equipment_extraction_score": 2.0,
+                "equipment_extraction_reasoning": "Only one equipment item (Instron 3345) is extracted from a source that explicitly mentions numerous instruments: Drop Shape Analyser (DSA100, Krüss GmbH), Nikon D5000 camera, Pioneer PA64C microbalance (Ohaus), M228 linear actuator (Physik Instrumente), Mercury Step C663 stepper motor (Physik Instrumente), Leica DMIL microscope, tank, and petri dish. This represents significant under-extraction of explicitly stated equipment information.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "For the PDMS curing step, temperature (42.5°C representing 40-45°C range) and duration (1 week) are accurately captured. The temperature averaging is reasonable given the range provided. Pressure, atmosphere, and other conditions are correctly left null as they are not specified in the source. The conditions that are present in the source are extracted with good accuracy.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction preserves scientific meaning without misinterpretation or hallucination. PDMS preparation is accurately represented. The chemical formula C2H6OSi is a reasonable monomer representation for PDMS polymer. The synthesis_method classification as 'other' is appropriate given this is sheet preparation rather than chemical synthesis. No information is misrepresented, though coverage is incomplete.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema with proper field organization, data types, and required fields populated. All score fields, reasoning fields, and evaluation structure are correctly formatted. Minor consideration: the target_compound representation for a polymer could be more explicit about the repeating unit nature, but this is acceptable.",
+                "overall_score": 3.4,
+                "overall_reasoning": "This extraction demonstrates accurate capture of the PDMS sheet preparation content present in this mechanics-focused paper, with correct vendor information, conditions, and process sequencing. The extraction does not hallucinate and properly represents what is stated in the source for PDMS. However, significant gaps exist: PVS elastomer preparation is completely missing, PI and PC sheet sources are not documented, and equipment extraction is notably incomplete (only 1 of 10+ instruments captured). The scores reflect that while the extraction is accurate for what it covers, it misses substantial synthesis-relevant information explicitly present in the source text. Format compliance and semantic accuracy are strong, but structural completeness and equipment extraction need improvement."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "PVS elastomer grades (Elite 8 Double, Elite 22 Double) and vendor (Zhermack, Italy)",
+                "Spin coating process for PVS sheets",
+                "Polyimide (PI) sheet from Goodfellow, Cambridge",
+                "Polycarbonate (PC) sheet from Goodfellow, Cambridge",
+                "Drop Shape Analyser (DSA100, Krüss GmbH, Germany)",
+                "Nikon D5000 camera specifications",
+                "Microbalance (Pioneer PA64C, Ohaus, Switzerland)",
+                "Linear actuator (M228, Physik Instrumente, Germany)",
+                "Stepper motor (Mercury Step C663, Physik Instrumente, Germany)",
+                "Microscope (Leica DMIL, Leitz Wetzlar, Germany)",
+                "Tank dimensions (50² cm² or 1 m²)",
+                "Petri dish dimensions (91 ± 0.5 mm inner diameter)"
+              ],
+              "extraction_errors": [
+                "PVS elastomer preparation (spin coating) not extracted despite being described in Section 3.2",
+                "Multiple equipment items mentioned in source not captured (DSA100, Nikon D5000, microbalance, linear actuator, stepper motor, microscope)",
+                "PI and PC sheet sources not documented in starting materials"
+              ],
+              "improvement_suggestions": [
+                "Include PVS elastomer preparation steps (Elite 8 Double and Elite 22 Double from Zhermack, Italy) with spin coating process",
+                "Extract all equipment mentioned across experimental sections with vendor information",
+                "Add PI and PC sheets as starting materials with Goodfellow as vendor",
+                "Consider adding notes about the commercial nature of PI and PC sheets (not synthesized in-house)",
+                "Capture the tank and petri dish specifications used in experiments"
+              ]
+            },
+            "overall_score": 3.4
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a theoretical and experimental physics paper on the indentation mechanics of floating elastic sheets, not a synthesis procedure. The extracted ontology attempts to extract synthesis information from a brief mention of PDMS sheet fabrication in the experimental methods section. This creates a fundamental mismatch: the extraction system has incorrectly identified a materials preparation description as a synthesis procedure for the target material C2H6OSi (PDMS). The core evaluation principle is that absence is not an error, but here the system has hallucinated a synthesis procedure where none exists for the specified target. The extraction is technically accurate for the small snippet it focused on but is semantically and contextually incorrect for the overall task.",
+              "scores": {
+                "structural_completeness_score": 1.5,
+                "structural_completeness_reasoning": "The extraction captures the basic structure of a synthesis procedure (materials, steps, equipment) from a specific paragraph. However, it completely misses the broader context: the source is not a synthesis paper for PDMS. The 'synthesis' described is merely a sample preparation step for experimental substrates. The ontology fails to capture the vast majority of the paper's content, which is theoretical modeling, experimental mechanics, and data analysis. The structure is present but applied to the wrong type of document.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "For the specific text snippet about PDMS sheet fabrication, material extraction is accurate. The commercial name 'Sylgard 184' and its vendor 'Dow Corning, UK' are correctly identified. The system correctly leaves amount and unit as null, as they are not specified. The purity is correctly noted as 'commercial'. No other materials (like water for the bath, other elastomers) are extracted, which is correct as they were not part of the described fabrication step for the PDMS sheets. The score is high for fidelity to the extracted text but is undermined by the overall miscontextualization.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The two extracted steps ('mix' and 'age') logically sequence the described fabrication process: spreading and then curing. The action classifications are reasonable. The descriptions are paraphrased but accurate. However, the process is overly simplified. The 'mix' action is a stretch for 'spreading'. More critically, this step extraction ignores that this is a sample prep, not the synthesis of the polymer itself. The polymer Sylgard 184 is a pre-formulated, commercially cured material; the described process is curing a pre-polymer mixture into a sheet, not synthesizing the PDMS polymer from monomers.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "The equipment 'levelled table' and 'Instron 3345' are correctly identified from the text. The vendor for the Instron is correctly noted. The settings for the Instron are vaguely described as 'compressive tests', which matches the text. However, the 'levelled table' is not a piece of synthesis equipment in a standard sense. More importantly, the extraction misses other equipment mentioned in the experimental sections (e.g., tanks, indenters, actuators, balances, cameras, microscopes) because it incorrectly focused on a synthesis narrative. For the narrow fabrication description, it's acceptable.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions extraction is excellent for the curing step. The temperature (42.5 C) is correctly calculated as the midpoint of the stated range (40-45 C), and the unit is correct. The duration (1 week) and time unit are perfectly extracted. Other conditions (pressure, atmosphere, stirring) are correctly left as null, as they are not specified. The system did not hallucinate any unspecified conditions. This is a high-quality extraction of the limited condition information present.",
+                "semantic_accuracy_score": 1.0,
+                "semantic_accuracy_reasoning": "This is the critical failure. The semantic accuracy is poor. The system has fundamentally misinterpreted the document's purpose. The source text is a mechanics paper, not a synthesis paper for PDMS. The target material 'C2H6OSi' implies the synthesis of the PDMS polymer, but the paper uses commercially available PDMS. The extracted 'synthesis' is actually the fabrication of experimental test specimens from a pre-polymer. The notes field compounds the error by stating 'The material is Polydimethylsiloxane (PDMS)', which, while true, reinforces the incorrect context that this procedure synthesizes it. The scientific meaning and intent of the source are not preserved.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON perfectly complies with the expected GeneralSynthesisOntology schema. All required fields are present and populated with the correct data types (strings, numbers, arrays, nulls). The structure of starting_materials, steps, and equipment arrays is correct. There are no format errors. The system successfully generated a well-formed ontology object from the text it processed.",
+                "overall_score": 3.2,
+                "overall_reasoning": "The extraction demonstrates technical competence in parsing a procedural description and mapping it to the ontology schema, earning high scores in format compliance and decent scores in material and conditions extraction. However, it catastrophically fails at the core task of semantic understanding. It treated a materials processing footnote in an experimental physics paper as a primary synthesis procedure for a target compound. The overall score is heavily penalized by the low semantic accuracy and structural completeness scores, reflecting that the extraction, while formally correct, is contextually invalid. The system hallucinated a synthesis context where none existed for the given target."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The synthesis of the PDMS polymer itself (Sylgard 184) is not described in the paper; it is a commercial product.",
+                "The paper's actual subject: the theoretical and experimental study of indentation mechanics of floating sheets."
+              ],
+              "extraction_errors": [
+                "Fundamental semantic error: Extracted a materials preparation procedure as a chemical synthesis for target compound C2H6OSi. The source document is a physics/mechanics paper, not a synthesis paper.",
+                "Incorrect 'synthesis_method' classification: 'other' is vague; the described process is 'curing' or 'sample fabrication'.",
+                "The 'target_compound' is listed as C2H6OSi (monomer unit), but the procedure describes processing a pre-polymer (Sylgard 184) into a sheet, not synthesizing the polymer from its monomers.",
+                "The notes field incorrectly reinforces the idea that the procedure synthesizes PDMS, rather than processes it."
+              ],
+              "improvement_suggestions": [
+                "Implement document classification to distinguish synthesis papers from theoretical, experimental, or analytical papers.",
+                "Improve context understanding: the target material should be cross-referenced with the paper's abstract and introduction to see if its synthesis is the primary subject.",
+                "Add a validation step: if the extracted 'synthesis' is a minor sample prep step in an otherwise non-synthesis paper, flag it as a potential mis-extraction.",
+                "Refine the 'synthesis_method' ontology to include categories like 'sample preparation', 'curing', or 'specimen fabrication' for materials science contexts."
+              ]
+            },
+            "overall_score": 3.2
+          }
+        ]
       },
-      "confidence_level": "high",
-      "missing_information": [],
-      "extraction_errors": [],
-      "improvement_suggestions": []
-    }
+      {
+        "material": "C2H6OSi",
+        "synthesis": {
+          "target_compound": "C2H6OSi",
+          "target_compound_type": "polymers & soft matter",
+          "synthesis_method": "other",
+          "starting_materials": [
+            {
+              "vendor": "Dow Corning, UK",
+              "name": "Sylgard 184",
+              "amount": null,
+              "unit": null,
+              "purity": "commercial"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Spreading a commercial silicone elastomer (Sylgard 184) on a carefully levelled table.",
+              "materials": [
+                {
+                  "vendor": "Dow Corning, UK",
+                  "name": "Sylgard 184",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "levelled table",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "age",
+              "description": "Curing the sample for one week in a temperature-controlled room.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 42.5,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "week",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Instron 3345",
+              "instrument_vendor": "Instron, UK",
+              "settings": "compressive tests"
+            }
+          ],
+          "notes": "The material is Polydimethylsiloxane (PDMS), which has the chemical formula (C2H6OSi)n. The curing temperature was maintained in the range 40-45°C."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes a physics/mechanics paper about the indentation of floating elastic sheets. The synthesis procedure described is for PDMS (Polydimethylsiloxane) sheets used as experimental specimens. The extraction attempts to capture this synthesis, identifying Sylgard 184 as the starting material, spreading on a levelled table, and curing for one week at 40-45°C. The target compound C2H6OSi is the repeating unit formula for PDMS, which is technically correct. The extraction captures the core synthesis steps but misses several details present in the source text, including the characterization steps (compressive testing with Instron 3345 for Young's modulus and Poisson ratio), the spin-coating procedure for PVS sheets, and the additional materials (PVS elastomers, PI sheets, PC sheets). However, since the target material is specifically C2H6OSi (PDMS/Sylgard 184), the focus on PDMS synthesis is appropriate. The extraction is reasonably complete for the PDMS synthesis but has some inaccuracies and omissions.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the two main synthesis steps for PDMS (spreading and curing) and identifies the primary starting material (Sylgard 184). It also includes the Instron 3345 for mechanical characterization. However, it misses several important elements present in the source: (1) the characterization step using the Instron 3345 for compressive testing to measure E and ν is not represented as a process step; (2) the Drop Shape Analyser (DSA100, Krüss GmbH) used for surface tension measurement is not captured; (3) the specific sheet dimensions (diameter D ≥ 0.5 m, thickness h ≥ 1.5 mm) are not captured in the materials section; (4) the water bath/tank setup is not mentioned. The overall structure is present but incomplete relative to what the source provides.",
+                "material_extraction_score": 3.0,
+                "material_extraction_reasoning": "The extraction correctly identifies Sylgard 184 (Dow Corning, UK) as the primary starting material with vendor information. The target compound C2H6OSi is the correct repeating unit formula for PDMS. However, the extraction misses: (1) water as a substrate material (density ρ = 998 kg/m³ at 20°C); (2) the surfactant (washing-up liquid) used in experiments; (3) the measured material properties (E = 2.06 ± 0.03 MPa, ν = 0.50 ± 0.01) which could be captured as notes or conditions; (4) the purity field for Sylgard 184 is listed as 'commercial' which is reasonable given no purity is stated. Amounts are correctly left null since the source does not specify quantities. The extraction is partially complete for materials.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The two main synthesis steps are correctly identified and sequenced: (1) spreading the elastomer on a levelled table, and (2) curing for one week. The action classification 'mix' for step 1 is somewhat inaccurate — 'spread' or 'cast' would be more appropriate for spreading a viscous elastomer on a table. The action 'age' for the curing step is acceptable, though 'cure' or 'anneal' would be more precise. The curing conditions (temperature range 40-45°C, duration 1 week) are captured, with the temperature represented as the midpoint (42.5°C) which is a reasonable approximation. A missing step is the mechanical characterization (compressive testing) which is part of the experimental workflow described. The step descriptions are accurate and informative.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "The extraction captures the Instron 3345 (Instron, UK) used for compressive testing, which is correctly identified. The levelled table is captured as equipment in step 1. However, several pieces of equipment explicitly mentioned in the source are missing: (1) Drop Shape Analyser (DSA100, Krüss GmbH, Germany) for surface tension measurement; (2) Nikon D5000 camera for imaging deflections; (3) blue-light LED lamp for illumination; (4) the indenter (300 mm length, 6.0 mm diameter, hemispherical end cap); (5) the water tank (50² cm² or 1 m²); (6) the microscope (Leica DMIL, Leitz Wetzlar) used for PVS sheet thickness measurement; (7) the microbalance (Pioneer PA64C, Ohaus); (8) the linear actuator (M228, Physik Instrumente) and stepper motor (Mercury Step C663, Physik Instrumente). While some of these are experimental rather than synthesis equipment, the Instron and DSA100 are directly relevant to material characterization.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "The curing conditions are well-captured: temperature represented as 42.5°C (midpoint of the 40-45°C range stated in the source) and duration of 1 week. The temperature representation as a single value rather than a range is a minor inaccuracy — the source states '40-45°C' and the extraction uses 42.5°C as an approximation. The time unit 'week' with value 1.0 is correct. Pressure, atmosphere, stirring, and pH are correctly left null as they are not specified in the source. The temperature-controlled room condition is implicitly captured. Missing conditions include the room temperature for floating experiments (20°C for water density reference) and the surface tension values (γlv = 72.8 N/m and 24.9 N/m after surfactant addition), though these are experimental rather than synthesis conditions.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The extraction correctly identifies the synthesis method as 'other' which is appropriate for a casting/curing process not fitting standard categories. The target compound type 'polymers & soft matter' is semantically accurate for PDMS. The description of step 1 as 'Spreading a commercial silicone elastomer (Sylgard 184) on a carefully levelled table' faithfully preserves the source text meaning. The curing step description is accurate. The note about PDMS chemical formula is helpful and correct. However, the action 'mix' for step 1 is semantically inaccurate — the process described is spreading/casting, not mixing. The synthesis_method 'other' is acceptable but 'casting' or 'molding' would be more precise. The overall scientific meaning is preserved reasonably well.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure follows the expected ontology schema well. Fields are properly typed: amounts are null (correct for unspecified quantities), temperature is a float (42.5), duration is a float (1.0), time_unit is a string ('week'). The starting_materials array, steps array, equipment array, and conditions object are all properly structured. The vendor information is correctly placed. The notes field is used appropriately to provide additional context. Minor issues: the conditions object in step 2 has null fields for unspecified parameters which is correct behavior. The equipment list at the top level contains the Instron 3345 which is also referenced in the synthesis context. Overall, the format compliance is good with proper use of null values for absent information.",
+                "overall_score": 3.4,
+                "overall_reasoning": "The extraction provides a reasonable but incomplete capture of the PDMS synthesis procedure described in the source text. The core synthesis workflow (spreading Sylgard 184 on a levelled table and curing for one week at 40-45°C) is correctly identified and sequenced. The target compound identification (C2H6OSi for PDMS) and compound type ('polymers & soft matter') are accurate. Key strengths include: correct vendor attribution for Sylgard 184, appropriate use of null values for unspecified quantities, and reasonable temperature representation. Key weaknesses include: (1) the action classification 'mix' for the spreading step is semantically inaccurate; (2) multiple pieces of equipment explicitly mentioned in the source are not captured (DSA100, Nikon D5000, Leica DMIL microscope, microbalance, linear actuator, indenter); (3) the mechanical characterization step (compressive testing) is represented only as equipment rather than as a process step; (4) the temperature range (40-45°C) is approximated as a single midpoint value rather than preserved as a range. The extraction is focused appropriately on the PDMS synthesis given the target material, and correctly omits synthesis details for PVS and PI/PC sheets which are different materials. Overall, this is a competent but incomplete extraction that captures the essential synthesis information while missing several explicitly stated details."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sheet dimensions (diameter D ≥ 0.5 m, thickness h ≥ 1.5 mm) for PDMS sheets",
+                "Measured material properties: E = 2.06 ± 0.03 MPa and ν = 0.50 ± 0.01",
+                "Water as substrate material with density ρ = 998 kg/m³ at 20°C",
+                "Surfactant (washing-up liquid) used in surface tension experiments",
+                "Surface tension values (γlv = 72.8 N/m and 24.9 N/m after surfactant)",
+                "Temperature range representation (40-45°C) rather than midpoint approximation",
+                "Characterization step for measuring Young's modulus and Poisson ratio"
+              ],
+              "extraction_errors": [
+                "Action classification 'mix' for step 1 is inaccurate; the process described is spreading/casting, not mixing",
+                "Temperature represented as single midpoint value (42.5°C) rather than the stated range (40-45°C)",
+                "Mechanical characterization step (compressive testing with Instron 3345) not represented as a process step",
+                "Drop Shape Analyser (DSA100, Krüss GmbH, Germany) not captured in equipment list",
+                "Nikon D5000 camera not captured in equipment list",
+                "Leica DMIL microscope not captured in equipment list",
+                "Microbalance (Pioneer PA64C, Ohaus) not captured in equipment list",
+                "Linear actuator (M228, Physik Instrumente) and stepper motor not captured"
+              ],
+              "improvement_suggestions": [
+                "Change action for step 1 from 'mix' to 'cast' or 'spread' to better reflect the spreading/casting process",
+                "Represent the curing temperature as a range (40-45°C) rather than a single midpoint value, or add a note about the range",
+                "Add a step 3 for mechanical characterization (compressive testing) with the Instron 3345 to capture the full experimental workflow",
+                "Add the Drop Shape Analyser (DSA100, Krüss GmbH) to the equipment list",
+                "Include measured material properties (E, ν) as conditions or notes in the characterization step",
+                "Consider adding sheet geometry (diameter, thickness) as material properties or notes",
+                "Add water as a process material in the experimental steps where the sheet is floated"
+              ]
+            },
+            "overall_score": 3.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system successfully identified the synthesis of PDMS (Polydimethylsiloxane) from the source text, which describes the preparation of elastic sheets for mechanical testing. It correctly identified the commercial precursor (Sylgard 184), the spreading process, and the curing conditions. The system also correctly handled the temperature range (40-45°C) by providing a mean value (42.5°C) and captured the duration accurately. It appropriately identified the mechanical testing equipment mentioned in the text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant synthesis components mentioned in the text: the starting material, the spreading step, and the curing step with its associated conditions.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The system correctly identified Sylgard 184 as the starting material and accurately captured the vendor (Dow Corning, UK). It correctly noted that specific amounts were not provided in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps follow the logical sequence described in the paper: spreading followed by curing. The action classifications ('mix' for spreading/preparation and 'age' for curing) are appropriate within the schema's context.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly identified the 'levelled table' used for spreading and the 'Instron 3345' used for characterization, including the vendor specified in the text.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The temperature (42.5°C as a mean of 40-45°C) and duration (1 week) were extracted accurately. The absence of pressure or atmosphere data is correct as they were not specified in the source.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, correctly identifying that the 'synthesis' in this context is the preparation of PDMS sheets from a commercial elastomer kit.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid, parseable JSON that adheres to the required schema and data types.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses an ontology extraction from a physics/mechanics paper about floating elastic sheets, which contains limited synthesis information. The extraction focuses on PDMS sheet preparation described in Section 3.1. The system correctly identified the starting material (Sylgard 184, Dow Corning), captured the two main preparation steps (spreading and curing), and extracted relevant conditions. However, several equipment items mentioned in the source were not captured, and the target compound formula appears to be inferred rather than explicitly stated in the text. Given that this is primarily a mechanics paper rather than a synthesis paper, the extraction performed reasonably well with the limited synthesis-relevant content available.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main preparation steps available in the source (spreading and curing PDMS sheets). Given that this is a physics/mechanics paper with minimal synthesis content, the structural coverage is reasonable. The two-step process is logically organized. However, some contextual information about sheet dimensions and experimental setup that relates to material preparation was not captured. Score reflects good coverage of available synthesis information with room for improvement in capturing preparative context.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting material (Sylgard 184) and vendor (Dow Corning, UK) are correctly extracted. The target compound identification as PDMS is accurate based on the source text. However, the chemical formula C2H6OSi is not explicitly stated in the paper - this is inferred domain knowledge about PDMS monomer units. No quantities are stated in the source for starting materials, and the extraction correctly leaves these null. Purity marked as 'commercial' is appropriate given the source describes it as 'commercial silicone elastomer'.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The two main preparation steps are correctly identified and sequenced: (1) spreading the elastomer on a levelled table, (2) curing in temperature-controlled room. Step actions (mix/spread and age/cure) are appropriately classified. Duration (1 week) and temperature conditions are captured for the curing step. The extraction maintains logical flow consistent with the source description. Minor issue: temperature is represented as average rather than range.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "Only one equipment item (Instron 3345) is captured, but the source explicitly mentions multiple instruments: Nikon D5000 camera, Drop Shape Analyser DSA100 (Krüss GmbH), microbalance Pioneer PA64C (Ohaus), linear actuator M228 (Physik Instrumente), stepper motor Mercury Step C663 (Physik Instrumente), and microscope Leica DMIL. While some of these are for characterization rather than synthesis, they are part of the experimental workflow described. This represents a significant omission of explicitly stated equipment. Vendor information is captured for Instron but not systematically for other equipment.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "Temperature (42.5°C) and duration (1 week) for curing are captured. However, the source states a temperature range (40-45°C) which is represented as a single average value in the extraction - this loses precision. Pressure, atmosphere, and stirring conditions are correctly left null as they are not specified in the source. The temperature representation issue prevents a higher score, though the core conditions are captured.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning is generally preserved. The extraction correctly identifies this as PDMS sheet preparation from commercial elastomer. The curing process is accurately described. The main semantic issue is the target compound formula which is inferred rather than stated, and the temperature range converted to average. No major misinterpretations of the synthesis procedure itself. The notes field appropriately captures additional context about PDMS and the curing temperature range.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure follows the expected ontology schema with appropriate field types. All required fields appear to be populated. Data types are consistent (strings for names, numbers for conditions, arrays for lists). The structure is well-organized with steps properly numbered and nested materials/equipment/conditions within each step. Minor deduction for the temperature being a single number rather than potentially representing a range if the schema supports it.",
+                "overall_score": 3.7,
+                "overall_reasoning": "This extraction demonstrates competent handling of limited synthesis information in a physics/mechanics paper. Strengths include correct identification of starting materials with vendor information, logical step sequencing, and appropriate null values for unstated parameters. Weaknesses include incomplete equipment capture (only 1 of 7+ mentioned instruments), temperature range converted to average, and inferred compound formula. Given the source is not primarily a synthesis paper, the extraction performed reasonably well with available content. Overall quality is good but would benefit from more comprehensive equipment extraction and preservation of parameter ranges as stated in source."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sheet dimensions (diameter D ≈ 0.5 m, thickness h ≈ 1.5 mm) mentioned in preparation context",
+                "Water bath specifications (tank cross-section 50² cm² or 1 m²)",
+                "Surfactant information (washing-up liquid used to modify surface tension)",
+                "Multiple measurement instruments used in experiments"
+              ],
+              "extraction_errors": [
+                "Target compound formula C2H6OSi is not explicitly stated in the source text - this appears to be inferred domain knowledge",
+                "Temperature represented as single value (42.5°C) rather than the stated range (40-45°C)",
+                "Multiple equipment items mentioned in source (Nikon D5000 camera, Drop Shape Analyser DSA100, microbalance Pioneer PA64C, linear actuator M228, stepper motor Mercury Step C663, microscope Leica DMIL) were not captured in equipment list"
+              ],
+              "improvement_suggestions": [
+                "Preserve temperature ranges as stated in source rather than computing averages",
+                "Capture all explicitly mentioned laboratory equipment, not just characterization instruments",
+                "Distinguish between synthesis equipment and measurement/characterization equipment in the ontology structure",
+                "Add flag or metadata indicating when compound formulas are inferred rather than explicitly stated in source"
+              ]
+            },
+            "overall_score": 3.7
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a comprehensive theoretical and experimental physics paper on the indentation of floating elastic sheets, with a brief mention of PDMS sheet fabrication in Section 3.1. The extracted ontology focuses exclusively on this minor synthesis detail, attempting to create a full synthesis procedure for PDMS (C2H6OSi). This creates a fundamental mismatch: the paper's primary content is physical modeling and analysis, not a detailed synthesis protocol. The extraction incorrectly treats a passing experimental detail as the core synthesis, leading to severe omissions of the paper's actual scientific content and hallucination of a structured synthesis that isn't present.",
+              "scores": {
+                "structural_completeness_score": 1.0,
+                "structural_completeness_reasoning": "The extraction captures a tiny fraction of the source text's information. The paper is dominated by theoretical modeling, dimensionless analysis, experimental force-displacement measurements, and wrinkling instability studies. The extraction only captures one incidental detail about PDMS sheet preparation from Section 3.1, missing the entire synthesis context for other materials (PVS, PI, PC), all experimental procedures for indentation and measurement, and the core physical theory. The structural representation is therefore grossly incomplete relative to the source.",
+                "material_extraction_score": 2.0,
+                "material_extraction_reasoning": "The extraction correctly identifies 'Sylgard 184' as a starting material and associates it with PDMS/C2H6OSi. However, it fails to extract the numerous other materials used in the study (PVS22, PVS8, Polyimide, Polycarbonate) detailed in Tables 2 and 3. The amount and unit fields are correctly left null as the source does not specify quantities for the silicone elastomer. The purity field for the starting material is incorrectly set to 'commercial'; the source states it is a 'commercial silicone elastomer' but does not use the term 'commercial' as a purity specification. A more accurate extraction would leave purity null or use a description field.",
+                "process_steps_score": 1.5,
+                "process_steps_reasoning": "The extraction invents a two-step synthesis procedure ('mix', 'age') from a single descriptive sentence. The source text states: 'These sheets were produced by spreading a commercial silicone elastomer (Sylgard 184, Dow Corning, UK) on a carefully levelled table, and then curing the sample for one week in a temperature-controlled room that maintained the temperature in the range 40 − 45◦ C.' This is a high-level description of a sample preparation method, not a detailed stepwise synthesis protocol. The extraction artificially segments this into discrete steps and assigns specific actions. The 'mix' action is not mentioned; 'spreading' is not equivalent to mixing. The extraction also completely omits all other critical process steps described in the paper, such as the indentation procedure, force measurement, profile imaging, and wrinkling observation.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "The extraction correctly identifies 'Instron 3345' used for compressive tests and notes its vendor. It also lists 'levelled table' from the PDMS preparation description. However, it misses a vast array of equipment explicitly mentioned in the experimental sections: tanks, petri dishes, indenters (with hemispherical end caps, needles, linear actuators), guiding tubes, microbalances (Ohaus Pioneer PA64C), imaging equipment (Nikon D5000 camera, blue-light LED, high-pass filter, Leica DMIL microscope), Drop Shape Analyser (DSA100, Krüss GmbH), and the temperature-controlled room itself. The extraction is therefore very incomplete.",
+                "conditions_extraction_score": 3.0,
+                "conditions_extraction_reasoning": "For the single curing condition described, the extraction correctly captures the temperature range (represented as an average of 42.5°C) and the duration of one week. The temperature unit is correctly given as 'C'. This is accurate for the limited information present. However, the source does not specify that the atmosphere, pressure, or stirring were controlled, so leaving those null is correct. The major issue is that this represents a minuscule fraction of the experimental conditions detailed in the paper, such as indentation forces (0.34-20.76 N), indentation depths, liquid bath densities, surface tensions, and the environmental conditions of other experiments.",
+                "semantic_accuracy_score": 1.5,
+                "semantic_accuracy_reasoning": "The extraction fundamentally misrepresents the semantic content of the paper. It presents the work as a synthesis procedure for PDMS, while the paper's primary goal is to study the indentation mechanics of floating elastic sheets. The extraction loses all theoretical context, physical models, dimensionless parameters (τ, δ), and the comparative study of different materials. The connection between the fabricated PDMS sheets and their use in indentation experiments is severed. The notes field correctly identifies PDMS but does not mitigate the overall loss of scientific meaning.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The extracted JSON object structurally adheres to the expected schema: it contains the required top-level fields (target_compound, synthesis_method, starting_materials, steps, equipment, notes). The nested objects for materials, steps, and equipment have the correct fields. Data types appear appropriate (strings, numbers, nulls). There are no obvious schema violations. The primary compliance issue is semantic, not structural: the schema is populated with data that misrepresents the source.",
+                "overall_score": 2.2,
+                "overall_reasoning": "The extraction performs poorly because it attempts to force a physics/mechanics paper into a materials synthesis ontology. It successfully captures a few accurate details from one sentence about PDMS sample prep (vendor, curing time/temp) but misses >99% of the paper's relevant content, including the synthesis and use of other materials, the experimental apparatus, the measurement procedures, and the core scientific findings. The extraction creates a false narrative of a PDMS synthesis protocol. Scores are low for structural completeness, process steps, and semantic accuracy due to this fundamental mismatch. Material and equipment extraction scores are low due to omission of most materials and tools. Conditions extraction is relatively accurate for the one condition described. Format compliance is good. The overall quality is low because the extraction does not meaningfully represent the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Synthesis and preparation details for PVS sheets (spin-coating).",
+                "Properties and source of Polyimide and Polycarbonate sheets.",
+                "Detailed indentation experimental setup (tanks, indenters, actuators, force application methods).",
+                "Measurement instrumentation (cameras, microscopes, microbalances, Drop Shape Analyser).",
+                "Experimental conditions for indentation tests (applied forces, indentation depths, bath properties).",
+                "Procedures for measuring sheet profiles and detecting wrinkles.",
+                "The entire theoretical framework and analysis presented in the paper."
+              ],
+              "extraction_errors": [
+                "Misinterprets the entire paper as a synthesis procedure for PDMS (C2H6OSi).",
+                "Hallucinates a stepwise synthesis protocol ('mix', 'age') from a single descriptive sentence.",
+                "Omits all other synthesized/tested materials: PVS22, PVS8, Polyimide (PI), Polycarbonate (PC).",
+                "Omits the vast majority of experimental equipment used for indentation and measurement.",
+                "Fails to extract any information about the core experimental procedures (indentation, force measurement, imaging, wrinkling detection).",
+                "Sets starting material purity to 'commercial' which is an interpretation, not a direct extraction.",
+                "Loses all theoretical context, dimensionless parameters, and physical models."
+              ],
+              "improvement_suggestions": [
+                "The extraction system should distinguish between papers focused on synthesis and papers focused on property measurement/analysis that mention material preparation in passing.",
+                "For papers where synthesis is not the primary focus, consider a different ontology or a flag indicating 'material_preparation_note' rather than a full synthesis procedure.",
+                "Improve recognition of experimental sections describing sample fabrication for physical testing versus chemical synthesis for compound production.",
+                "When a 'target_material' is given, the system should verify that the paper's primary subject is the synthesis of that material, not just its use as a test specimen."
+              ]
+            },
+            "overall_score": 2.2
+          }
+        ]
+      },
+      {
+        "material": "C22H10N2O5",
+        "synthesis": {
+          "target_compound": "C22H10N2O5",
+          "target_compound_type": "polymers & soft matter",
+          "synthesis_method": "other",
+          "starting_materials": [
+            {
+              "vendor": "Goodfellow, Cambridge",
+              "name": "Polyimide (PI) sheet",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "other",
+              "description": "The material is a commercially supplied Polyimide (PI) sheet used for experimental indentation studies. The paper describes its physical properties rather than its chemical synthesis.",
+              "materials": [
+                {
+                  "vendor": "Goodfellow, Cambridge",
+                  "name": "Polyimide (PI) sheet",
+                  "amount": 8.5,
+                  "unit": "µm",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [],
+          "notes": "The paper focuses on the mechanical indentation of floating elastic sheets. C22H10N2O5 (Polyimide) is used as a pre-manufactured test material. The thickness is 8.5 ± 2.0 µm, Young's modulus E = 3.7 ± 0.7 GPa, and Poisson ratio ν = 0.34."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text is a theoretical and experimental physics/mechanics paper about the indentation of floating elastic sheets. It is NOT a synthesis paper — it describes mechanical experiments on pre-manufactured commercial materials (PDMS, PVS, PI, PC sheets). The target material C22H10N2O5 corresponds to Polyimide (PI), which is explicitly stated as 'supplied by Goodfellow, Cambridge' and used as-received. There is no chemical synthesis procedure described for PI in this paper. The extraction correctly identifies this as a commercially supplied material with no synthesis steps. The extractor has made a reasonable attempt to capture the available information about the PI sheet (thickness, vendor, Young's modulus, Poisson ratio in notes). However, there are some issues: (1) The target compound formula C22H10N2O5 is assigned as the target_compound, which is a reasonable chemical formula for a polyimide repeat unit, though the paper does not provide this formula explicitly. (2) The synthesis_method is 'other', which is appropriate since there is no synthesis. (3) The step described is essentially a placeholder noting the commercial nature of the material. (4) The equipment list is empty, which is correct since no synthesis equipment is described for PI. (5) The notes field captures key material properties. Overall, the extraction is appropriate for a paper that contains no synthesis procedure for the target material.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction correctly identifies that there is no synthesis procedure for the PI sheet — it is a commercially supplied material used as-received. The structure includes a starting material entry with vendor information, a single descriptive step noting the commercial nature, empty equipment list, and null conditions. This is appropriate and complete given the source. The notes field captures key physical properties (thickness 8.5 ± 2.0 µm, E = 3.7 ± 0.7 GPa, ν = 0.34). A minor deduction is warranted because the diameter (D = 200 ± 0.5 mm for axisymmetric experiments, and D = 200 ± 0.5 mm for wrinkling experiments) is mentioned in the source but not captured in the structured fields. Also, the paper mentions the PI sheet was used in two different experimental contexts (axisymmetric deformation and wrinkling onset), which could have been noted more explicitly.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "The PI sheet is correctly identified with vendor 'Goodfellow, Cambridge'. The thickness of 8.5 µm is captured in the step materials field (amount: 8.5, unit: µm), which is a reasonable way to encode thickness. The starting_materials entry correctly has null for amount/unit/purity since these are physical dimensions rather than chemical quantities. The notes correctly record E = 3.7 ± 0.7 GPa and ν = 0.34. The chemical formula C22H10N2O5 is assigned as target_compound — this is a plausible polyimide repeat unit formula but is not explicitly stated in the source text; however, this is a reasonable inference for the target_material field. The purity is correctly null as not stated. The diameter information (200 ± 0.5 mm) is present in the source but not captured in the structured material fields, which is a minor omission.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Since there is no synthesis procedure for the PI sheet in the source text, the correct behavior is to have minimal or no process steps. The extractor has included a single step with action 'other' and a descriptive note explaining that this is a commercially supplied material used for experimental purposes. This is the correct approach — it avoids hallucinating synthesis steps while still providing context. The step correctly has empty equipment and null conditions. This is essentially ideal behavior for a paper with no synthesis procedure for the target material.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The equipment list is empty at the top level and within the step, which is correct for the PI sheet specifically — no synthesis equipment is described for PI. The paper does mention various pieces of equipment (Instron 3345, microbalance, linear actuator, microscope Leica DMIL, etc.) but these are experimental characterization/testing instruments, not synthesis equipment for PI. Since PI is used as-received, having no equipment listed is the correct behavior. A very minor deduction is made because the Leica DMIL microscope used to measure PI sheet thickness could arguably be included as characterization equipment, but this is borderline and not penalized significantly.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "All conditions fields (temperature, duration, pressure, atmosphere, stirring, pH) are correctly null, as no synthesis conditions are described for the PI sheet. The paper does not describe any synthesis process for PI — it is a commercial material. The null values are entirely appropriate and represent correct extraction behavior. No conditions were stated in the source for PI synthesis, so none should appear in the extraction.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction correctly conveys that the PI sheet is a commercially supplied material used for mechanical indentation experiments, not a synthesized compound. The description in the step accurately reflects the paper's intent. The target_compound_type 'polymers & soft matter' is semantically appropriate for polyimide. The synthesis_method 'other' is reasonable given the absence of a synthesis procedure. The notes field accurately summarizes the key physical properties. The chemical formula C22H10N2O5 is a reasonable assignment for polyimide (specifically PMDA-ODA type), though the paper does not explicitly provide this formula — this is an inference that is scientifically reasonable but slightly beyond what the source states.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure is well-formed and adheres to the GeneralSynthesisOntology schema. Fields are properly typed: amounts are numeric, units are strings, null values are used appropriately for missing information. The starting_materials array, steps array, equipment array, and conditions object all follow the expected schema structure. The step includes materials, equipment, and conditions sub-objects as required. The notes field is used appropriately for supplementary information. Minor observation: encoding the sheet thickness (8.5 µm) as 'amount' in the step materials is a slight semantic stretch (thickness is a physical dimension, not a reagent quantity), but this is a reasonable workaround given schema constraints.",
+                "overall_score": 4.3,
+                "overall_reasoning": "This extraction is evaluated in the context of a mechanics/physics paper that contains no chemical synthesis procedure for the target material (Polyimide, C22H10N2O5). The PI sheet is explicitly described as a commercially supplied material from Goodfellow, Cambridge, used as-received for mechanical indentation experiments. The extraction correctly handles this situation by: (1) identifying the material with its vendor, (2) using a single descriptive step with 'other' action to note the commercial nature, (3) leaving all synthesis conditions null, (4) leaving equipment lists empty, and (5) capturing key physical properties in the notes field. The overall quality is high given the constraints of the source material. The main areas for potential improvement are: capturing the sheet diameter (200 ± 0.5 mm) in the structured fields, and noting that the chemical formula C22H10N2O5 is an inference not explicitly stated in the source. The extraction demonstrates good judgment in not hallucinating synthesis steps or conditions that are not present in the source text. The average score across all criteria is approximately 4.3/5.0, reflecting a high-quality extraction that correctly handles a non-synthesis paper."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sheet diameter D = 200 ± 0.5 mm for the PI sheet (mentioned in Tables 2 and 3 of the source).",
+                "The PI sheet was used in two experimental contexts: axisymmetric deformation (Table 2) and wrinkling onset (Table 3), with slightly different τ values — this distinction is not captured.",
+                "The bending stiffness B = 2.14 × 10⁻⁷ Pa·m³ and elasto-gravitational length ℓg = 2.16 mm for the PI sheet are mentioned in the source but not in the structured extraction."
+              ],
+              "extraction_errors": [
+                "The chemical formula C22H10N2O5 is assigned as target_compound but is not explicitly stated in the source text — it is an inference about polyimide composition.",
+                "The sheet diameter (D = 200 ± 0.5 mm) mentioned in the source for the PI sheet is not captured in the structured material fields."
+              ],
+              "improvement_suggestions": [
+                "Include the sheet diameter as a material property or in the notes field.",
+                "Add a note clarifying that the chemical formula C22H10N2O5 is inferred and not explicitly stated in the source.",
+                "Consider capturing derived physical properties (bending stiffness B, elasto-gravitational length ℓg, mechanical bendability τ) in the notes or a dedicated properties field.",
+                "Distinguish between the two experimental uses of the PI sheet (axisymmetric deformation vs. wrinkling onset) if the schema supports multiple experimental contexts."
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The source text is a mechanical physics paper focusing on the indentation and wrinkling of floating elastic sheets. It does not describe the chemical synthesis of Polyimide (C22H10N2O5); rather, it specifies that the material was purchased as a pre-manufactured sheet from a commercial vendor (Goodfellow). The extraction correctly identifies that the material was used 'as-received' for experimental studies and captures the relevant physical dimensions and vendor information provided in the text. Since no chemical synthesis steps exist in the source, the extraction correctly avoids hallucinating a reaction procedure.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant information present in the text regarding the target material: its source (vendor), its form (sheet), and its physical properties. It correctly identifies that there is no synthesis procedure to extract.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The material name, vendor, and thickness (8.5 µm) are accurately extracted. The chemical formula C22H10N2O5 is correctly mapped to the Polyimide mentioned in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The extraction correctly identifies that the 'step' is the acquisition and preparation of a commercial material for testing. It does not invent chemical steps that are not in the text.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No chemical synthesis equipment is mentioned in the text for the target material (only testing equipment like actuators and balances, which are not part of the material's synthesis), so the empty list is correct.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, pressure, etc.) are provided in the text for the production of the PI sheet, so null values are appropriate and correct.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction accurately reflects the scientific context: that the PI sheet is a test specimen in a mechanics study, not a product of a described chemical reaction.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid, parseable JSON that adheres to the required schema and data types.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses an ontology extraction from a mechanics/physics paper about floating elastic sheet indentation, NOT a chemical synthesis paper. The extraction shows mixed quality: it correctly identifies the commercial nature of materials and captures some PI sheet properties accurately. However, there are critical errors including a hallucinated chemical formula (C22H10N2O5 is not stated in the source - Polyimide is a polymer class without a single formula) and complete omission of explicitly mentioned equipment (Instron 3345, Nikon D5000, DSA100, microbalance, linear actuator, etc.). The extraction appropriately recognizes this is not a synthesis procedure, but the forced fit into a synthesis ontology framework led to significant inaccuracies.",
+              "scores": {
+                "structural_completeness_score": 2.5,
+                "structural_completeness_reasoning": "The extraction captures the basic structure (target compound, starting materials, steps, notes) but misses significant elements present in the source. All equipment explicitly mentioned in the paper is absent. Multiple materials (PDMS, PVS, PC) used in experiments are not captured. Experimental conditions are not structured appropriately. The extraction correctly identifies this is not a synthesis procedure, which is appropriate given the source text nature.",
+                "material_extraction_score": 2.5,
+                "material_extraction_reasoning": "The PI sheet vendor (Goodfellow, Cambridge) and thickness (8.5 µm) are accurately captured from the source. However, the chemical formula C22H10N2O5 is hallucinated - this formula does not appear in the source text and Polyimide is a polymer class without a single molecular formula. Young's modulus and Poisson ratio are correctly noted in the notes field but not in structured material fields. Other materials (PDMS, PVS, PC) mentioned in the paper are completely missing from the extraction.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "The extraction correctly identifies that this is not a chemical synthesis procedure and appropriately describes the material as commercially supplied. The step description accurately reflects that the paper describes physical properties rather than chemical synthesis. However, the experimental procedures (sheet preparation, curing, indentation, imaging) described in sections 3.1 and 3.2 are not captured as process steps, which could improve completeness for experimental reproducibility.",
+                "equipment_extraction_score": 1.5,
+                "equipment_extraction_reasoning": "This is a major failure area. The source text explicitly names multiple pieces of equipment with vendor and model information: Instron 3345, Nikon D5000, Drop Shape Analyser DSA100 (Krüss GmbH), Pioneer PA64C Analytic Balance (Ohaus), M228 linear actuator (Physik Instrumente), Mercury Step C663 stepper motor (Physik Instrumente), and Leica DMIL microscope. All of these are completely absent from the equipment field, representing a significant extraction failure for information that is clearly present in the source.",
+                "conditions_extraction_score": 2.5,
+                "conditions_extraction_reasoning": "Some experimental conditions are mentioned in the notes field (thickness, modulus, Poisson ratio) but not in structured conditions fields. The source explicitly states curing temperature (40-45°C), curing duration (one week), force ranges (0.34-20.76 N), surface tension values (72.8 and 24.9 Nm⁻¹), and measurement accuracies. These are not captured in the structured conditions fields (temperature, duration, pressure, atmosphere all null). Some condition information in notes partially compensates but structured fields should contain this data.",
+                "semantic_accuracy_score": 2.0,
+                "semantic_accuracy_reasoning": "The hallucinated chemical formula C22H10N2O5 is a critical semantic error - this misrepresents the scientific content as Polyimide does not have a single molecular formula and this formula is not stated in the source. The extraction correctly preserves the meaning that this is experimental testing of commercial materials rather than synthesis. The notes field accurately summarizes the paper's focus on mechanical indentation. However, the chemical formula hallucination significantly undermines semantic fidelity and could mislead downstream users about the material's chemical identity.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure follows the expected ontology schema with all required fields present (target_compound, starting_materials, steps, equipment, notes). Data types appear correct (strings, arrays, null values where appropriate). The structure is valid and parseable. The extraction demonstrates good schema adherence even though the content quality varies. Field naming and organization align with the GeneralSynthesisOntology expectations.",
+                "overall_score": 2.6,
+                "overall_reasoning": "This extraction shows fundamental challenges in applying a synthesis ontology to a mechanics/physics experimental paper. Strengths include correct identification of commercial material sourcing, accurate capture of PI sheet properties in notes, and valid JSON schema compliance. Critical weaknesses include: (1) hallucinated chemical formula not present in source - a serious scientific accuracy error, (2) complete omission of all explicitly mentioned equipment with vendor/model information, (3) missing multiple materials used in experiments, and (4) experimental conditions not structured appropriately. The extraction correctly recognizes this is not a synthesis procedure, which is appropriate. However, the hallucination of chemical formulas and omission of clearly stated equipment represent significant failures that would impact reproducibility and data quality. For non-synthesis papers, the extraction system should either adapt the ontology or clearly indicate when synthesis fields are not applicable rather than hallucinating content."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Equipment: Instron 3345 (compressive/tensile testing)",
+                "Equipment: Nikon D5000 camera (4288 × 2848 pixels)",
+                "Equipment: Drop Shape Analyser DSA100 (Krüss GmbH, Germany)",
+                "Equipment: Pioneer PA64C Analytic Balance (Ohaus, Switzerland)",
+                "Equipment: M228 linear actuator (Physik Instrumente, Germany)",
+                "Equipment: Mercury Step C663 stepper motor (Physik Instrumente, Germany)",
+                "Equipment: Leica DMIL microscope (Leitz Wetzlar, Germany)",
+                "Materials: PDMS (Sylgard 184, Dow Corning)",
+                "Materials: PVS (Elite 8 Double and Elite 22 Double, Zhermack)",
+                "Materials: Polycarbonate (PC) sheet",
+                "Experimental conditions: curing temperature 40-45°C for one week",
+                "Experimental conditions: force range 0.34-20.76 N",
+                "Experimental conditions: surface tension measurements (72.8 and 24.9 Nm⁻¹)"
+              ],
+              "extraction_errors": [
+                "Hallucinated chemical formula C22H10N2O5 for Polyimide - this formula is not in the source text and Polyimide is a polymer class without a single molecular formula",
+                "All explicitly mentioned equipment omitted (Instron 3345, Nikon D5000, Drop Shape Analyser DSA100, Pioneer PA64C microbalance, M228 linear actuator, Mercury Step C663 stepper motor, Leica DMIL microscope)",
+                "Other materials mentioned in the paper (PDMS, PVS, PC) not captured in starting_materials",
+                "Experimental conditions (temperatures, forces, measurement accuracies) not structured in conditions fields"
+              ],
+              "improvement_suggestions": [
+                "Do not hallucinate chemical formulas when not explicitly stated in source - use null for unknown molecular formulas",
+                "Extract all explicitly mentioned equipment with vendor and model information as stated in the paper",
+                "Consider whether synthesis ontology is appropriate for mechanics/physics experimental papers",
+                "Capture all materials mentioned in experimental sections, not just the target material",
+                "Structure experimental conditions (temperature ranges, force ranges, measurement accuracies) in appropriate fields"
+              ]
+            },
+            "overall_score": 2.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a theoretical and experimental physics paper on the indentation mechanics of floating elastic sheets. It does NOT contain any chemical synthesis procedure for the target material C22H10N2O5 (Polyimide). The paper uses pre-manufactured Polyimide (PI) sheets as a test material, describing their physical properties (thickness, modulus) but not their chemical synthesis. The extracted ontology correctly identifies that the material is a commercial product and that the described 'steps' pertain to its use in experiments, not its synthesis. The extraction system correctly avoided hallucinating a synthesis procedure and appropriately left many fields null where information was absent. The primary evaluation challenge is assessing an extraction where the source lacks the core information (synthesis) the ontology is designed to capture.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction correctly captures the only synthesis-relevant structural component present: a starting material (commercial Polyimide sheet) with its vendor. It correctly omits a detailed synthesis process, equipment, and conditions because none are described. The 'steps' array contains a single entry that accurately describes the context (material use, not synthesis). However, the 'synthesis_method' is listed as 'other' which, while not incorrect, is vague; a more precise classification like 'commercial material' or 'N/A' might better reflect the absence of synthesis. The structure is complete relative to the available information.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is accurate for the information provided. The starting material name ('Polyimide (PI) sheet') and vendor ('Goodfellow, Cambridge') are correctly captured from Table 2 and text. The amount (8.5) and unit (µm) for thickness are correctly extracted from the material properties table. The system correctly did not assign a chemical amount (e.g., moles, grams) as none is stated. Purity is correctly left null. The target compound is correctly identified from the user input. A minor point: the extracted amount in the step's materials list (8.5 µm) is a physical dimension, not a synthesis quantity, but it is factually correct as presented.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The single process step is accurately classified as 'other' with a description stating the material is commercially supplied and used for experiments, not synthesized. This is a faithful representation of the text's content. The step sequencing is logical (a single step). The action 'other' is appropriate given the context. The extraction correctly does not invent synthesis steps like mixing, heating, or purification. The description is clear and semantically accurate.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment list is correctly empty. The source text describes experimental apparatus (indenters, balances, actuators) used for mechanical testing, but this is part of the characterization/experimental methodology, not the synthesis of the Polyimide material itself. The extraction system correctly distinguished between synthesis equipment and experimental equipment, omitting the latter as it is not relevant to the material's synthesis. This is correct behavior and receives a high score.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All condition fields (temperature, duration, pressure, atmosphere, etc.) are correctly null. The paper provides no synthesis conditions (temperature, time, etc.) for producing C22H10N2O5 because it does not describe its synthesis. The conditions field in the single step is appropriately empty. The extraction correctly avoided inferring or hallucinating any conditions.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction semantically preserves the key fact from the source: C22H10N2O5 (Polyimide) is a pre-existing, commercially obtained material used as a test subject in a physics experiment. The description in the step and notes accurately reflects this context. The classification of the target compound type as 'polymers & soft matter' is appropriate. The extraction does not misrepresent the paper's content by implying a synthesis occurred. The only minor semantic quibble is that 'synthesis_method: other' could be misinterpreted; the reality is there is no synthesis method described.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully complies with the expected GeneralSynthesisOntology schema. All required fields are present (target_compound, steps, starting_materials, etc.). Data types are correct (strings, numbers, arrays, objects). The structure is well-organized. There are no format errors.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction is of high quality given the source material. The system correctly identified that the paper does not describe a chemical synthesis for the target compound C22H10N2O5. Instead, it accurately captured the available information: the compound is a commercial material with specified physical properties used in an experimental study. All scores are high (4.0-5.0), reflecting accurate extraction, correct omission of absent information, and good schema compliance. The system demonstrated excellent judgment by not hallucinating a synthesis process. The overall score reflects the average of the criterion scores."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a specific 'synthesis_method' value such as 'commercial' or 'pre-manufactured' to more precisely indicate cases where no laboratory synthesis is described, rather than the generic 'other'.",
+                "The 'amount' field in the step's materials list contains a thickness (8.5 µm). While factually correct from the table, it might be clearer to note this is a physical property, not a reagent quantity, perhaps in the 'notes' field."
+              ]
+            },
+            "overall_score": 4.6
+          }
+        ]
+      },
+      {
+        "material": "C16H14O3",
+        "synthesis": {
+          "target_compound": "C16H14O3",
+          "target_compound_type": "other",
+          "synthesis_method": "other",
+          "starting_materials": [],
+          "steps": [],
+          "equipment": [],
+          "notes": "The provided text describes the mechanical indentation and wrinkling of floating elastic sheets (PDMS, PVS, PI, PC) and does not contain a synthesis procedure for the chemical formula C16H14O3."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text is a physics/mechanics paper about the indentation and wrinkling behavior of floating elastic sheets (PDMS, PVS, PI, PC materials). It describes experimental setups, theoretical models, and mechanical characterization — it is NOT a chemical synthesis paper and contains NO synthesis procedure for C16H14O3 (which appears to be an arbitrary chemical formula, possibly ibuprofen or a similar organic compound, that has no relevance to the source text). The extraction system correctly identified that the source text does not contain a synthesis procedure for C16H14O3 and appropriately left starting_materials, steps, and equipment as empty lists. The note field accurately explains the mismatch. This is a case where the target material is completely absent from the source text, and the extractor correctly handled this by producing a minimal, honest extraction rather than hallucinating content.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction correctly identifies that there is no synthesis procedure in the source text for the target compound C16H14O3. All major structural fields (starting_materials, steps, equipment) are appropriately left empty, and a descriptive note explains why. The target_compound and target_compound_type fields are populated. The only minor issue is that the target_compound_type is listed as 'other' which is reasonable given the mismatch, and synthesis_method is 'other' which is also appropriate. The structure is complete given the absence of relevant content in the source.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Since the source text contains no synthesis information for C16H14O3, leaving starting_materials empty is the correct behavior. The extractor did not hallucinate any materials or reagents. The target_compound field is populated with the formula C16H14O3 as provided. No penalization is warranted for empty fields when the source genuinely contains no relevant synthesis information for this compound.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The steps list is correctly left empty because the source text describes mechanical experiments on floating elastic sheets and contains no chemical synthesis steps for C16H14O3. The extractor correctly avoided fabricating process steps from the experimental procedures described (which involve floating sheets on water, indenting with indenters, measuring deflections, etc. — none of which constitute synthesis steps for the target compound).",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The equipment list is correctly left empty. While the source text does mention various pieces of equipment (Instron 3345, Nikon D5000, Drop Shape Analyser DSA100, microbalance Pioneer PA64C, linear actuator M228, Leica DMIL microscope, etc.), none of these are relevant to the synthesis of C16H14O3. The extractor correctly recognized that extracting this equipment would be inappropriate for the target compound context. Not penalizing for the absence of equipment extraction since the source contains no synthesis procedure for the target material.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, pressure, duration, atmosphere) for C16H14O3 are present in the source text. The source does mention some conditions (e.g., curing temperature 40-45°C for PDMS, water density at 20°C, surface tension values), but these are experimental/characterization conditions for mechanical testing of elastic sheets, not synthesis conditions for C16H14O3. Leaving conditions empty is the correct behavior.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction is semantically accurate in its assessment. The note field correctly and concisely explains that the source text describes mechanical indentation and wrinkling of floating elastic sheets and does not contain a synthesis procedure for C16H14O3. This is an accurate characterization of the source text content. No scientific meaning has been misrepresented or distorted.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extracted JSON adheres to the GeneralSynthesisOntology schema with all required fields present: target_compound, target_compound_type, synthesis_method, starting_materials (empty array), steps (empty array), equipment (empty array), and notes. The data types are correct (arrays for lists, strings for text fields). The use of 'other' for both target_compound_type and synthesis_method is appropriate given the mismatch between the target material and source text. Minor deduction for not providing more structured metadata where possible, but overall format compliance is high.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This evaluation concerns a case where the target material (C16H14O3) is entirely absent from the source text, which is a mechanics/physics paper about floating elastic sheet indentation and wrinkling. The extraction system performed correctly by: (1) recognizing the fundamental mismatch between the target compound and the source text content, (2) leaving all synthesis-specific fields (starting_materials, steps, equipment) as empty arrays rather than hallucinating content, (3) providing an accurate and informative note explaining the mismatch, and (4) maintaining proper schema compliance throughout. The extraction demonstrates good judgment in avoiding false positives — it did not attempt to map the mechanical experimental procedures (PDMS sheet preparation, indentation experiments) onto a synthesis procedure for C16H14O3. The overall quality of the extraction is high given the constraints of the input. The primary limitation is that the target_compound field contains only the molecular formula without a common name, but this is a minor issue. All scores are in the 4.5 range reflecting correct absence handling rather than penalizing for empty fields that are appropriately empty."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding the common name or IUPAC name for C16H14O3 in the target_compound field if known, to improve human readability.",
+                "The notes field could additionally mention that the source text does contain material preparation information for PDMS, PVS, PI, and PC sheets (elastic sheet fabrication), which might be relevant if the target material were one of these — clarifying this distinction would improve the note's informativeness.",
+                "Consider adding a confidence or relevance score field to indicate how well the source text matches the target compound, which would help downstream users understand why the extraction is minimal."
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The source text is a physics paper focused on the mechanics of elastic sheets (PDMS, PVS, PI, PC) floating on liquid. It contains no mention of the target material C16H14O3 (which is the chemical formula for several organic compounds like Ketoprofen or certain flavanones). The extraction system correctly identified that the text does not contain a synthesis procedure for the target material and left the specific synthesis fields (materials, steps, equipment) empty/null. This is the correct behavior according to the 'Absence is not an error' principle.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The system correctly recognized that no synthesis information for C16H14O3 exists in the text. It did not attempt to force the mechanical testing data into a synthesis schema.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "No materials were extracted because no reagents for the synthesis of C16H14O3 are present in the text. The mention of PDMS, PVS, etc., pertains to mechanical testing, not chemical synthesis of the target.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The system correctly identified that there are no synthesis steps to extract for the target compound.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment mentioned in the text (microbalance, linear actuator, etc.) is for mechanical indentation, not chemical synthesis. The system correctly omitted these from a synthesis ontology.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions were extracted as none were present for the target material.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The system accurately stated in the notes that the text describes mechanical indentation and wrinkling, preserving the scientific context while acknowledging the mismatch with the target material.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output follows the requested JSON structure and uses null/empty lists appropriately for absent data.",
+                "overall_score": 5.0,
+                "overall_reasoning": "The extraction system performed perfectly by identifying that the source text is irrelevant to the synthesis of the target material C16H14O3. It avoided hallucinations and provided a clear explanation in the notes field."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses an ontology extraction from a mechanics/physics paper about floating elastic sheet indentation. The target material (C16H14O3) is not mentioned in the source text, and the paper describes mechanical testing experiments rather than chemical synthesis. The extraction system correctly identified this mismatch and left synthesis-related fields empty rather than hallucinating information. This is the appropriate behavior for a synthesis ontology extractor when faced with non-synthesis content.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction correctly captures all available synthesis-relevant information from the source, which is none. All fields that should be empty (starting_materials, steps, equipment, conditions) are appropriately null/empty. The notes field provides clear explanation of why synthesis data is absent. This represents ideal handling of a non-synthesis document.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "No chemical synthesis materials are present in the source text. The paper discusses PDMS, PVS, PI, and PC as mechanical test specimens, not as synthesis products or reagents. The extraction correctly leaves starting_materials empty rather than incorrectly extracting these polymer materials as synthesis inputs. The target_compound C16H14O3 is not mentioned in the source, which is accurately reflected.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The source text contains no chemical synthesis procedure - it describes mechanical indentation experiments and theoretical analysis. The extraction correctly leaves the steps array empty rather than attempting to convert experimental procedures into synthesis steps. This is the correct behavior per the evaluation guidelines.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The source text does mention laboratory equipment (Instron 3345, Nikon D5000, Pioneer PA64C Analytic Balance, linear actuator, Drop Shape Analyser DSA100, microscope Leica DMIL), but these are for mechanical testing and characterization, not chemical synthesis. The extraction correctly leaves equipment empty for synthesis purposes. A minor deduction because the system could optionally note these instruments exist while clarifying they're not synthesis equipment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, pressure, atmosphere, duration for chemical reactions) are present in the source text. The paper mentions some experimental conditions (curing temperature 40-45°C for PDMS, water bath at 20°C) but these are for material preparation and mechanical testing, not chemical synthesis. Correctly left empty.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning by not misrepresenting mechanical testing procedures as chemical synthesis. The notes field clearly explains that the text describes mechanical indentation and wrinkling of elastic sheets, not synthesis of C16H14O3. This demonstrates excellent semantic fidelity and avoids hallucination.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON follows the GeneralSynthesisOntology schema correctly. All required fields are present with appropriate data types. Empty arrays are used for missing information rather than null values where arrays are expected. The structure is valid and compliant with the ontology format requirements.",
+                "overall_score": 4.9,
+                "overall_reasoning": "This extraction demonstrates excellent handling of an edge case where the source text is not a chemical synthesis paper. The system correctly identified that no synthesis information exists for the target material C16H14O3 and appropriately left all synthesis-related fields empty rather than hallucinating data. The notes field provides clear explanation of the mismatch. This is the ideal behavior for a synthesis ontology extractor - never invent information that isn't present. Scores are uniformly high (4-5) across all criteria, with only a minor consideration for equipment extraction where testing instruments were mentioned but correctly not classified as synthesis equipment. The extraction system shows strong adherence to the core principle that absence of information in the source should result in empty fields, not fabricated content."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a field to explicitly flag when source text is not a synthesis procedure",
+                "Could optionally capture the mechanical testing equipment mentioned (Instron, microbalance, camera) in a separate non-synthesis equipment field for completeness",
+                "The target_compound field shows C16H14O3 but this wasn't in the source - consider making this null when no match exists"
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a physics/mechanics paper studying the indentation and wrinkling of floating elastic sheets (PDMS, PVS, PI, PC) under a point load. It contains detailed experimental procedures for preparing and characterizing the elastic sheets, applying forces, and measuring deformations. However, the target material 'C16H14O3' is a specific chemical formula unrelated to the content of the paper. The extracted ontology correctly identifies that the source text does not contain a synthesis procedure for C16H14O3 and appropriately leaves the synthesis-related fields (starting_materials, steps, equipment) empty. The extraction demonstrates accurate semantic understanding by not hallucinating a synthesis process and providing a clear note explaining the mismatch.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction perfectly captures the structural reality of the source text. The source describes physical experiments on pre-fabricated elastic sheets, not a chemical synthesis. The ontology correctly has empty lists for starting_materials, steps, and equipment, as there is no synthesis procedure to extract. The 'notes' field accurately summarizes the content mismatch. No synthesis information present in the source is missing from the extraction.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The material extraction is perfectly accurate given the context. The source text mentions materials like PDMS, PVS, PI, and PC as the objects of study, but these are not 'starting materials' in a chemical synthesis context; they are pre-formed sheets used in mechanical experiments. The extraction correctly does not list them as starting_materials, avoiding a fundamental semantic error. The target_compound field is populated with the provided C16H14O3, and the note correctly states the source does not describe its synthesis. No quantities, units, or purities related to a synthesis are present to be extracted.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The process steps extraction is correct. The source text details experimental steps for indentation and measurement (e.g., applying force, imaging deflection), but these are steps in a mechanical characterization experiment, not steps in a chemical synthesis process. The extraction correctly leaves the 'steps' list empty, as no synthesis steps are described. The system accurately distinguishes between experimental methodology and synthesis procedure.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment extraction is correct. The source mentions equipment like Instron machines, linear actuators, microbalances, and cameras. However, this equipment is used for mechanical testing and measurement, not for conducting a chemical synthesis. The extraction correctly leaves the 'equipment' list empty, as no synthesis-specific equipment (e.g., reactors, furnaces) is described or relevant to the target material. The system correctly avoids extracting apparatus from an unrelated experimental domain.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The conditions extraction is correct. The source discusses parameters like force, indentation depth, temperature (for curing), and tension (τ). However, these are conditions for mechanical deformation and material characterization, not synthesis conditions (e.g., reaction temperature, pressure, atmosphere). The extraction correctly has no synthesis conditions to report, as none are present in the source text for the target material.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "Semantic accuracy is excellent. The extraction demonstrates a high-level understanding that the source text is a physics/mechanics paper, not a chemistry synthesis paper. It correctly identifies the mismatch between the target material (C16H14O3) and the paper's content. The note ('The provided text describes the mechanical indentation and wrinkling...') precisely captures the scientific context and explains the absence of extracted data. No scientific meaning is misinterpreted.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output fully complies with the expected JSON schema. All required fields are present and populated with appropriate data types: strings for target_compound, target_compound_type, synthesis_method, and notes; empty arrays for starting_materials, steps, and equipment. The structure is valid and adheres to the ontology's design for representing synthesis data (or the lack thereof).",
+                "overall_score": 5.0,
+                "overall_reasoning": "The extraction system performed flawlessly in a challenging scenario. Faced with a source text completely unrelated to the target material's synthesis, the system correctly identified the absence of relevant information and did not hallucinate. It produced a minimal but perfectly accurate ontology: the target material is noted, synthesis-related fields are correctly left empty, and a clear explanatory note is provided. This demonstrates robust semantic understanding, strict adherence to the principle of not inferring missing data, and perfect schema compliance. All scores are 5.0, reflecting an ideal extraction given the input constraints."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          }
+        ]
+      }
+    ]
   }
 ]

@@ -133,6 +133,12 @@ def main(cfg: DictConfig) -> None:
                 original_cwd, cfg.data_loader.architecture.data_dir
             )
 
+    if hasattr(cfg.data_loader.architecture, "annotations_dir"):
+        if not cfg.data_loader.architecture.annotations_dir.startswith("/"):
+            cfg.data_loader.architecture.annotations_dir = os.path.join(
+                original_cwd, cfg.data_loader.architecture.annotations_dir
+            )
+
     # Load data
     data_loader: PaperLoaderInterface = instantiate(
         cfg.data_loader.architecture
@@ -260,9 +266,11 @@ def main(cfg: DictConfig) -> None:
                         if m.strip()
                     ]
 
-            # --- Synthesis extraction + judge evaluation: parallel across all pairs ---
+            # --- Synthesis extraction + judge evaluation: across all pairs ---
             async def process_pair(synth_llm: str, material: str):
-                """Run synthesis extraction then judge evaluation for one pair."""
+                """
+                Run synthesis extraction then judge evaluation for one pair.
+                """
                 synth_lm = synthesis_lms.get(synth_llm)
                 pair_cost_ops = []
 
@@ -329,7 +337,9 @@ def main(cfg: DictConfig) -> None:
                         }
                     )
 
-                return synth_llm, material, synthesis, judge_results, pair_cost_ops
+                return (
+                    synth_llm, material, synthesis, judge_results, pair_cost_ops
+                )
 
             # Handle synth_llms with no materials; log materials found
             for synth_llm in synthesis_llms:
@@ -347,7 +357,7 @@ def main(cfg: DictConfig) -> None:
                         }
                     )
                 else:
-                    logging.info(f"  [{synth_llm}] Found materials: {materials}")
+                    logging.info(f"[{synth_llm}] Found materials: {materials}")
 
             all_pairs = [
                 (synth_llm, material)
@@ -366,7 +376,9 @@ def main(cfg: DictConfig) -> None:
                     if isinstance(item, Exception):
                         logging.error(f"Pair task failed: {item}")
                         continue
-                    synth_llm, material, synthesis, jresults, pair_cost_ops = item
+                    (
+                        synth_llm, material, synthesis, jresults, pair_cost_ops
+                    ) = item
                     cost_operations.extend(pair_cost_ops)
 
                     if synth_llm not in synth_entries:

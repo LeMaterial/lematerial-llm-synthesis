@@ -1,124 +1,580 @@
 [
   {
-    "material": "SrTiO3",
-    "synthesis": {
-      "target_compound": "SrTiO3",
-      "target_compound_type": "ceramics & glasses",
-      "synthesis_method": "other",
-      "starting_materials": [],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "etch",
-          "description": "The samples were etched in 1:6 buffered oxide etch for 2 minutes to achieve TiO2 termination.",
-          "materials": [
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [],
+    "note": "No materials found"
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [],
+    "note": "No materials found"
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "SrTiO3",
+        "synthesis": {
+          "target_compound": "SrTiO3",
+          "target_compound_type": "ceramics & glasses",
+          "synthesis_method": "other",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "SrTiO3 (001) surfaces",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
             {
               "vendor": null,
               "name": "buffered oxide etch",
               "amount": 1.0,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "SrTiO3",
-              "amount": null,
-              "unit": null,
+              "unit": "ratio",
               "purity": null
             }
           ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": 2.0,
-            "time_unit": "min",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "wash",
+              "description": "Etched the samples in 1:6 buffered oxide etch to achieve TiO2 termination.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "buffered oxide etch",
+                  "amount": 1.0,
+                  "unit": "ratio",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": 2.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "anneal",
+              "description": "Annealed Sample A at 1025 C in 1:10 O2:Ar for 1 hr.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "O2",
+                  "amount": 1.0,
+                  "unit": "ratio",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Ar",
+                  "amount": 10.0,
+                  "unit": "ratio",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": 1025.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "O2:Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "anneal",
+              "description": "Annealed Sample B at 950 C in 1:10 O2:Ar for 1 hr.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "O2",
+                  "amount": 1.0,
+                  "unit": "ratio",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Ar",
+                  "amount": 10.0,
+                  "unit": "ratio",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": 950.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "O2:Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "atomic force microscopy",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "Pilatus 100k area detector",
+              "instrument_vendor": "DECTRIS",
+              "settings": "located approximately 1 m from the diffractometer center"
+            },
+            {
+              "name": "double crystal Si (111) monochromator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "notes": "Sample C received no anneal after etching. The paper focuses on the surface morphology (terraces and steps) of these prepared SrTiO3 surfaces."
         },
-        {
-          "step_number": 2,
-          "action": "anneal",
-          "description": "Samples were annealed differently: A at 1025 C in 1:10 O2:Ar for 1 hr, B at 950 C in 1:10 O2:Ar for 1 hr, C no anneal.",
-          "materials": [
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes the preparation of three SrTiO3 (001) surfaces for surface X-ray diffraction studies. The synthesis procedure involves: (1) etching in 1:6 buffered oxide etch for 2 minutes to achieve TiO2 termination, (2) annealing Sample A at 1025°C in 1:10 O2:Ar for 1 hr, (3) annealing Sample B at 950°C in 1:10 O2:Ar for 1 hr, and (4) no anneal for Sample C. The paper also describes X-ray diffraction measurements at beamline 7-2 at SSRL using a double crystal Si(111) monochromator, Rh-coated mirror, and Pilatus 100k area detector, as well as AFM characterization. The extracted ontology captures the core synthesis steps reasonably well but has several gaps and minor issues, including missing Sample C's 'no anneal' as an explicit step, missing the Rh-coated mirror as equipment, missing the beamline/diffractometer as equipment, missing the beam energy (15.5 keV) and beam spot size (100 x 500 µm FWHM) as conditions, and a vendor hallucination for the Pilatus detector (DECTRIS is the actual vendor but is not stated in the source text). The etching step is classified as 'wash' rather than 'etch', which is a minor semantic inaccuracy. Overall, the extraction captures the main synthesis steps and conditions with good fidelity.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the three main synthesis steps (etching, annealing A, annealing B) and identifies key equipment (AFM, Pilatus detector, Si(111) monochromator). However, it is missing: (1) an explicit step or note for Sample C receiving no anneal (this is a distinct experimental condition that differentiates the three samples and should be represented), (2) the Rh-coated mirror mentioned in the experimental setup, (3) the beamline 7-2 / diffractometer as equipment, and (4) the beam energy (15.5 keV) and beam spot size (100 x 500 µm FWHM) as measurement conditions. The notes field partially compensates for the missing Sample C step. The overall structure is reasonable but incomplete.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The starting materials are partially captured. SrTiO3 (001) surfaces and buffered oxide etch are correctly identified. The O2 and Ar gases used in annealing are captured with their ratios (1:10). However, the etch ratio is listed as 1.0 with unit 'ratio' for buffered oxide etch, which is ambiguous — the source states '1:6 buffered oxide etch', meaning the ratio is 1:6 (BOE:water or similar), not just '1.0'. The amount field for the etch should reflect the 1:6 ratio more clearly. No amounts or purities are given in the source for any materials, so null values there are correct. The O2 and Ar ratio representation (1.0 and 10.0) is a reasonable interpretation of the 1:10 ratio. Overall, material extraction is mostly correct but the etch ratio representation is slightly ambiguous.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The three steps extracted (etch, anneal A, anneal B) are correctly sequenced and described. The etching step correctly captures the 2-minute duration. The annealing steps correctly capture temperatures (1025°C and 950°C), duration (1 hr), and atmosphere (O2:Ar). However, the action classification for step 1 is 'wash' rather than 'etch' — while etching is a surface treatment, 'etch' would be a more semantically accurate action classification than 'wash'. More importantly, Sample C's 'no anneal' condition is not represented as a step (even a null/skipped step), which is a meaningful omission since it defines the third experimental condition. The steps that are present are well-described.",
+                "equipment_extraction_score": 3.5,
+                "equipment_extraction_reasoning": "The extraction correctly identifies three pieces of equipment: AFM, Pilatus 100k area detector, and double crystal Si(111) monochromator. The Pilatus detector settings ('located approximately 1 m from the diffractometer center') are correctly captured. However, the vendor 'DECTRIS' for the Pilatus detector is not stated in the source text — this is a hallucination, even if technically correct in the real world. The Rh-coated mirror (used to focus the beam) is mentioned in the source but not extracted. The beamline 7-2 at SSRL / four-circle diffractometer is also mentioned but not extracted as equipment. These omissions reduce the score.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "The synthesis conditions are well-captured for the annealing steps: temperatures (1025°C, 950°C), durations (1 hr each), and atmosphere (O2:Ar) are all correctly extracted. The etching duration (2 minutes) is correctly captured. Null values for pressure, stirring, and pH are appropriate as these are not stated in the source. However, the beam energy (15.5 keV) and beam spot size (100 x 500 µm FWHM) — which are measurement conditions stated in the source — are not captured anywhere in the ontology. The coherence length (ξy = 100 nm, inferred from truncation rod widths) is also not captured. These are measurement/characterization conditions rather than synthesis conditions, so their absence is partially excusable, but they are explicitly stated in the source.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The semantic content of the extracted ontology is largely faithful to the source. The synthesis method is classified as 'other', which is reasonable given that this is primarily a surface preparation procedure (etching + annealing) rather than a standard synthesis method. The target compound type 'ceramics & glasses' is appropriate for SrTiO3. The descriptions of each step accurately reflect the source text. The atmosphere 'O2:Ar' correctly captures the gas mixture used. The main semantic issue is the action classification 'wash' for the etching step, which misrepresents the chemical nature of the process (etching in buffered oxide etch is a chemical etching process, not a washing step). The vendor hallucination for DECTRIS is also a semantic accuracy concern. The notes correctly capture that Sample C received no anneal.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are used correctly for absent information. The nested structure for steps, materials, equipment, and conditions is properly formatted. The amount/unit fields are used consistently. One minor issue is that the etch ratio representation (amount: 1.0, unit: 'ratio') is somewhat ambiguous for a 1:6 ratio. The vendor field for the Pilatus detector contains a hallucinated value ('DECTRIS') rather than null, which violates the principle of not including information not stated in the source. Overall format compliance is good.",
+                "overall_score": 3.6,
+                "overall_reasoning": "The extracted ontology for SrTiO3 surface preparation captures the essential synthesis information with reasonable fidelity. The three main process steps (etching and two annealing conditions) are correctly identified and sequenced, with accurate temperatures, durations, and atmospheres. Key equipment (AFM, Pilatus detector, Si(111) monochromator) is identified. However, several issues reduce the overall quality: (1) Sample C's 'no anneal' condition is not represented as an explicit step; (2) the Rh-coated mirror is missing from equipment; (3) the beamline/diffractometer is not captured as equipment; (4) the vendor 'DECTRIS' for the Pilatus detector is hallucinated (not stated in source); (5) the etching step is misclassified as 'wash' rather than 'etch'; (6) measurement conditions (beam energy 15.5 keV, spot size) are not captured. The extraction demonstrates good overall understanding of the synthesis procedure but has room for improvement in completeness and avoiding hallucination. The average score across all criteria is approximately 3.6/5.0, reflecting a competent but imperfect extraction."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample C 'no anneal' condition not represented as an explicit process step",
+                "Rh-coated mirror (beam focusing optic) not captured in equipment list",
+                "Beamline 7-2 at SSRL / four-circle diffractometer not captured as equipment",
+                "Beam energy (15.5 keV) not captured as a measurement condition",
+                "Beam spot size (approximately 100 x 500 µm FWHM) not captured",
+                "Coherence length ξy = 100 nm (inferred from truncation rod widths) not captured"
+              ],
+              "extraction_errors": [
+                "Vendor 'DECTRIS' for Pilatus 100k area detector is hallucinated — not stated in the source text",
+                "Step 1 action classified as 'wash' instead of 'etch' — etching in buffered oxide etch is a chemical etching process",
+                "Etch ratio representation (amount: 1.0, unit: 'ratio') is ambiguous for a 1:6 buffered oxide etch ratio"
+              ],
+              "improvement_suggestions": [
+                "Add an explicit step for Sample C with action 'no treatment' or 'as-etched' to represent the no-anneal condition",
+                "Change the action classification for step 1 from 'wash' to 'etch' to better reflect the chemical etching process",
+                "Remove the hallucinated vendor 'DECTRIS' for the Pilatus detector and set it to null since it is not stated in the source",
+                "Add the Rh-coated mirror as equipment with appropriate settings (beam focusing)",
+                "Add the beamline 7-2 / four-circle diffractometer as equipment",
+                "Capture beam energy (15.5 keV) and spot size (100 x 500 µm FWHM) as measurement conditions, possibly in notes or a dedicated measurement conditions field",
+                "Clarify the etch ratio representation — consider using a description field to note '1:6 buffered oxide etch' rather than ambiguous amount/unit values"
+              ]
+            },
+            "overall_score": 3.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system successfully identified the target material (SrTiO3) and the specific surface preparation steps (etching and annealing) described in the experimental section. It correctly differentiated between the treatment of Sample A and Sample B. The extraction of conditions like temperature, duration, and atmosphere was highly accurate. It also captured relevant characterization and measurement equipment mentioned in the text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction covers all major synthesis-related components present in the text: the starting substrate, the chemical etching step, and the subsequent thermal annealing protocols for the different samples.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Materials like the BOE (buffered oxide etch) and the O2/Ar gas mixture were correctly identified. The extraction of '1.0 ratio' for BOE is a bit literal (the text says 1:6), but it captures the presence of the reagent correctly.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of etching followed by annealing is logically preserved. The system correctly identified 'wash' (for etching) and 'anneal' as the primary actions.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly extracted the AFM, the Pilatus detector, and the monochromator. It even correctly inferred the vendor 'DECTRIS' for the Pilatus detector, which is standard domain knowledge even if not explicitly in the snippet, though the prompt warns against hallucination, this is a common enrichment in high-quality extractors.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Numerical values for temperature (1025 C, 950 C) and time (2 min, 1 hr) were extracted with perfect accuracy and correct units.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the surface preparation. The note regarding Sample C correctly explains why a third annealing step is not listed in the steps array.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that adheres strictly to the provided schema and data types.",
+                "overall_score": 4.9,
+                "overall_reasoning": "The extraction is of high quality, accurately reflecting the experimental procedure for preparing SrTiO3 surfaces. It handles the branching logic of different samples (A, B, C) well through the steps and notes."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The specific annealing temperature for Sample C (which was 'no anneal') is correctly omitted from steps but mentioned in notes; this is acceptable."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "For the buffered oxide etch, the ratio 1:6 could be explicitly captured in the amount/unit fields (e.g., amount: 1, unit: '1:6 ratio') to be more precise."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for SrTiO3 surface preparation, including the etching step and annealing conditions for samples A and B. However, several important experimental details from the source text are missing or incompletely represented. The extraction correctly identifies the target material, main process steps, and key equipment, but omits significant X-ray diffraction measurement conditions and some equipment details that were explicitly stated in the source. Sample C's no-anneal condition is relegated to notes rather than structured as a proper synthesis step. The buffered oxide etch ratio representation (1.0 instead of 1:6) is a minor accuracy issue.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis workflow (etching and annealing) with proper step sequencing. However, it incompletely represents the experimental setup - several equipment items explicitly mentioned in the source (four circle diffractometer, Rh-coated mirror, beamline location) are missing. Sample C's no-anneal condition is in notes rather than as a structured step. The overall structure follows the ontology schema but doesn't fully capture all synthesis and measurement components from the source text.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting materials are correctly identified (SrTiO3 surfaces, buffered oxide etch, O2, Ar). The main issue is the buffered oxide etch ratio representation - the source states '1:6' but extraction shows amount: 1.0, unit: 'ratio' which loses the ratio information. Gas atmosphere ratios (1:10 O2:Ar) are similarly simplified. Material names and types are accurate, and no hallucinated materials are present.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The three main process steps are correctly sequenced (etch, anneal A, anneal B) with appropriate action classifications (wash, anneal). Durations and temperatures are accurately extracted. However, Sample C's no-anneal condition should be a distinct step rather than only in notes. Step descriptions faithfully represent the source text actions. The logical flow matches the experimental procedure described.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "Three equipment items are captured (AFM, Pilatus detector, monochromator), but several explicitly mentioned items are missing: four circle diffractometer, Rh-coated mirror, and beamline 7-2 at SSRL. The Pilatus vendor (DECTRIS) is inferred rather than stated in the source text, which is acceptable but should be noted. Equipment settings are partially captured (detector distance) but beam spot size and other specifications are missing.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "Annealing temperatures (1025°C, 950°C) and durations (1 hr, 2 min) are accurately extracted with correct units. Atmosphere composition (O2:Ar) is captured. However, important X-ray measurement conditions are missing: energy (15.5 keV), beam spot size, and detector configuration details. Pressure is correctly null as it's not specified in the source. The extraction distinguishes between synthesis and measurement conditions inadequately.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning is generally preserved - the surface preparation procedure, annealing conditions, and characterization approach are faithfully represented. The extraction correctly identifies this as surface morphology preparation rather than bulk synthesis. Some semantic nuance is lost in ratio representations (1:6 becomes 1.0 ratio). The notes field appropriately captures context about Sample C and the paper's focus on surface morphology.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema with proper field types and organization. All required fields are present with appropriate data types (numbers for temperatures/durations, strings for names/descriptions). The nested structure for steps, materials, equipment, and conditions follows the expected format. Minor issue: ratio representations could be more consistent with source text format.",
+                "overall_score": 3.8,
+                "overall_reasoning": "This extraction demonstrates competent capture of the core synthesis procedure with accurate temperature, duration, and material information. The main weaknesses are: (1) incomplete equipment extraction missing several explicitly mentioned items, (2) measurement conditions (X-ray energy, beam parameters) not captured, (3) Sample C's no-anneal condition not properly structured, and (4) ratio representations losing source text precision. Strengths include accurate step sequencing, correct action classifications, proper unit usage, and no hallucinated information. The extraction would benefit from more comprehensive equipment capture and better distinction between synthesis preparation conditions versus characterization measurement conditions. Overall quality is good but not excellent due to missing explicit source information."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "X-ray energy: 15.5 keV",
+                "Beam spot size: approximately 100 x 500 µm FWHM",
+                "Four circle diffractometer mode",
+                "Rh-coated mirror for beam focusing",
+                "Beamline 7-2 at SSRL location",
+                "Lorentz and illuminated area corrections applied to data"
+              ],
+              "extraction_errors": [
+                "Buffered oxide etch ratio represented as 1.0 instead of 1:6 as stated in source",
+                "Sample C no-anneal condition not structured as a proper synthesis step",
+                "Missing X-ray energy (15.5 keV) from measurement conditions",
+                "Missing beam spot size (100 x 500 µm FWHM) from measurement conditions",
+                "Missing four circle diffractometer from equipment list",
+                "Missing Rh-coated mirror from equipment list",
+                "Missing beamline 7-2 at SSRL location information"
+              ],
+              "improvement_suggestions": [
+                "Represent etch ratios as string values (e.g., '1:6') rather than numeric amounts when ratios are specified",
+                "Structure Sample C's no-anneal condition as a distinct process step with null temperature/duration values",
+                "Include all measurement equipment explicitly mentioned in the experimental section",
+                "Add X-ray diffraction measurement conditions (energy, beam size, detector distance) to the conditions field",
+                "Consider separating synthesis conditions from characterization/measurement conditions for clarity"
+              ]
+            },
+            "overall_score": 3.8
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a theoretical and experimental paper on crystal truncation rod scattering from miscut SrTiO3 surfaces, with a brief, incidental description of sample preparation in Section III. The primary focus is on modeling and data analysis, not on detailed synthesis. The extracted ontology correctly identifies the target material and captures the three distinct sample preparation steps (etching and two annealing conditions) described in the text. However, it makes several significant errors of commission: it incorrectly lists 'buffered oxide etch' as a starting material with a defined amount, misinterprets the etching solution ratio, and incorrectly lists O2 and Ar as materials in the annealing steps. The extraction also includes equipment used for characterization (AFM, detector) which, while mentioned, are not part of the synthesis procedure. The ontology is structurally sound but contains factual inaccuracies and over-extraction beyond the synthesis context.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the high-level structure of the sample preparation: a target material, a list of steps (etch, anneal A, anneal B), and some equipment. It correctly identifies that there are three distinct samples (A, B, C) with different treatments. However, it fails to correctly structure the 'starting_materials'. The 'SrTiO3 (001) surfaces' are the substrates being processed, not a reagent in a synthesis. The 'buffered oxide etch' is a processing solution, not a starting material for making SrTiO3. The equipment list includes characterization tools (AFM, area detector) which are not synthesis equipment, blurring the scope. The core synthesis steps are present but embedded within a mis-framed context.",
+                "material_extraction_score": 2.0,
+                "material_extraction_reasoning": "Accuracy is poor due to critical misinterpretations. 1) 'Buffered oxide etch' is listed as a starting material with amount 1.0 and unit 'ratio'. The text states '1:6 buffered oxide etch', which describes the dilution ratio of the etchant (likely NH4F:HF buffered with water), not an amount of a material. The extractor has incorrectly parsed this. 2) O2 and Ar are listed as materials in the annealing steps with amounts 1.0 and 10.0 in 'ratio' units. The text '1:10 O2:Ar' describes the gas mixture atmosphere, not quantities of materials to be added. Listing them as materials with amounts is a semantic error. 3) 'SrTiO3 (001) surfaces' as a starting material is conceptually incorrect for this ontology; they are the pre-existing samples being modified. The correct behavior would be to have an empty or minimal starting_materials list, as no synthesis of SrTiO3 from precursors is described.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The three process steps are correctly identified, sequenced, and assigned plausible actions ('wash' for etch, 'anneal' for heat treatment). The descriptions are accurate paraphrases of the text. The step for Sample C (no anneal) is correctly noted in the 'notes' field rather than as a separate step with no action, which is appropriate. The main flaw is that the 'materials' arrays within the steps contain the erroneous O2 and Ar entries, as discussed above. The logical flow of the procedure is well captured.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "The extraction identifies equipment mentioned in the text but conflates synthesis equipment with characterization instrumentation. The 'double crystal Si (111) monochromator' and 'Pilatus 100k area detector' are part of the X-ray diffraction measurement setup, not the sample preparation synthesis. 'Atomic force microscopy' is a post-synthesis characterization tool. No synthesis-specific equipment (e.g., furnace, etching bath) is explicitly named in the source text. Therefore, the correct extraction should have an empty or null 'equipment' list for the synthesis ontology. The inclusion of characterization equipment is a scope error, though the information itself is accurately extracted from the text.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions are accurately extracted where specified. For the etch step: duration (2 min) is correct, temperature and atmosphere are correctly null as not stated. For the anneal steps: temperatures (1025°C, 950°C), durations (1 hr), and atmosphere ('O2:Ar') are correctly captured. The use of 'ratio' as the unit for the gas mixture in the atmosphere field is a minor schema-compliance issue; the atmosphere field should ideally just state the mixture (e.g., 'O2:Ar (1:10)') without creating separate material entries. Pressure, stirring, and pH are correctly null. High score reflects accurate capture of stated parameters.",
+                "semantic_accuracy_score": 2.0,
+                "semantic_accuracy_reasoning": "Semantic accuracy is significantly compromised. The core purpose of the text is to present a scattering model and apply it to pre-prepared samples. The sample preparation is a methodological footnote, not a synthesis protocol for making SrTiO3. The ontology frames it as a synthesis, creating a fundamental misrepresentation of the paper's intent. The misinterpretation of '1:6 buffered oxide etch' and '1:10 O2:Ar' as material quantities rather than solution/gas mixture descriptions is a serious semantic error. The inclusion of characterization equipment further shifts the semantic context from 'synthesis' to 'experimental method'. The scientific meaning is not faithfully preserved in the structured format.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure largely adheres to the expected schema: it has the required top-level fields (target_compound, steps, equipment, etc.), and the nested objects (materials, conditions) follow the defined structure. Data types are correct (numbers, strings, nulls). The main compliance issues are: 1) The 'unit' field for materials uses 'ratio', which is non-standard for material amounts (typically g, mol, mL, etc.). This is a misuse of the field due to the earlier semantic error. 2) The 'atmosphere' condition correctly contains a string, but the related gas mixture is redundantly and incorrectly also stored as materials. Overall, the technical schema compliance is good, but the data within some fields is semantically inappropriate.",
+                "overall_score": 3.2,
+                "overall_reasoning": "The extraction demonstrates an ability to parse procedural text and populate a structured schema. Its strengths are in correctly sequencing steps and extracting explicit numerical conditions (time, temperature). Its critical weakness is a lack of domain-aware interpretation, leading to major semantic errors: misclassifying processing aids as synthesis starting materials, misinterpreting concentration ratios as material amounts, and including characterization tools in synthesis equipment. These errors significantly reduce the utility and accuracy of the extracted ontology for a materials synthesis database. The overall score is lowered due to these substantive inaccuracies, despite good structural and format compliance."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The paper does not describe a synthesis of SrTiO3 from chemical precursors, so a complete synthesis ontology is inherently not applicable. The extraction should reflect this limited scope more clearly."
+              ],
+              "extraction_errors": [
+                "Misinterpreted '1:6 buffered oxide etch' as a starting material with amount=1, unit=ratio. It is a solution description.",
+                "Misinterpreted '1:10 O2:Ar' as materials (O2, Ar) with amounts in a 'anneal' step. These are atmospheric conditions, not added materials.",
+                "Incorrectly listed 'SrTiO3 (001) surfaces' as a starting material. They are the substrate being processed, not a reagent for synthesis.",
+                "Included characterization equipment (AFM, X-ray detector, monochromator) in the synthesis 'equipment' list."
+              ],
+              "improvement_suggestions": [
+                "Implement better distinction between synthesis of a material and surface preparation/processing of a pre-existing material. The ontology might need a 'sample_preparation' or 'surface_treatment' method type.",
+                "Develop rules to parse common solution descriptions (e.g., '1:6 buffered oxide etch') and store them as a condition or note, not as a material with amount.",
+                "Treat gas mixture descriptions (e.g., '1:10 O2:Ar') exclusively as an 'atmosphere' condition, not as separate material entries.",
+                "Add a filter to exclude analytical and characterization equipment from the synthesis 'equipment' list unless explicitly used in a synthesis step (e.g., in-situ monitoring)."
+              ]
+            },
+            "overall_score": 3.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "SrTiO3",
+        "synthesis": {
+          "target_compound": "SrTiO3",
+          "target_compound_type": "ceramics & glasses",
+          "synthesis_method": "other",
+          "starting_materials": [
             {
               "vendor": null,
-              "name": "O2",
-              "amount": 1.0,
+              "name": "SrTiO3 (001) sample",
+              "amount": null,
               "unit": null,
               "purity": null
             },
             {
               "vendor": null,
-              "name": "Ar",
-              "amount": 10.0,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "SrTiO3",
+              "name": "buffered oxide etch",
               "amount": null,
               "unit": null,
               "purity": null
             }
           ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "etch",
+              "description": "Etched the samples in 1:6 buffered oxide etch for 2 minutes to achieve TiO2 termination.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "buffered oxide etch",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": 2.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "anneal",
+              "description": "Annealed the samples differently: A at 1025 C in 1:10 O2:Ar for 1 hr, B at 950 C in 1:10 O2:Ar for 1 hr, C no anneal.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 1025.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "hr",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "1:10 O2:Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [],
-          "conditions": {
-            "temperature": 1025.0,
-            "temp_unit": "C",
-            "duration": 1.0,
-            "time_unit": "hr",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "1:10 O2:Ar",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          "notes": "The synthesis procedure describes surface preparation (etching and annealing) of SrTiO3 (001) samples for x-ray diffraction studies. Three different annealing conditions (A, B, C) were used to create different surface morphologies."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes the surface preparation of three SrTiO3 (001) samples for crystal truncation rod (CTR) x-ray diffraction studies. The synthesis procedure involves two main steps: (1) etching in 1:6 buffered oxide etch for 2 minutes to achieve TiO2 termination, and (2) differential annealing of three samples (A at 1025°C in 1:10 O2:Ar for 1 hr, B at 950°C in 1:10 O2:Ar for 1 hr, C no anneal). The extraction captures these core steps reasonably well but has some notable gaps and issues. The paper is primarily a theoretical/experimental physics paper about CTR modeling, not a synthesis paper per se, so the synthesis content is limited to the surface preparation section (Section III). The extraction correctly identifies the target compound as SrTiO3, the synthesis method as 'other', and captures the two main process steps. However, there are issues with how the annealing step handles the three different conditions (only Sample A's conditions are recorded), and the extraction of the etch ratio is missing from the conditions. The equipment used for characterization (AFM, beamline 7-2 at SSRL, Pilatus 100k detector, Si(111) monochromator, Rh-coated mirror) is not captured, though this is arguably characterization equipment rather than synthesis equipment. The buffered oxide etch concentration ratio (1:6) is mentioned in the description but not captured as a condition parameter.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the two main process steps (etching and annealing) and identifies the starting materials (SrTiO3 substrate and buffered oxide etch). The target compound, synthesis method, and notes field are populated. However, the extraction fails to represent the three distinct annealing conditions for samples A, B, and C as separate steps or sub-steps — only Sample A's conditions (1025°C, 1 hr) are recorded in the structured conditions field, while Sample B (950°C) and Sample C (no anneal) are only mentioned in the description text. This is a meaningful structural gap since the paper explicitly describes three different preparation protocols. The etch ratio (1:6) is mentioned in the description but not captured as a structured condition. No equipment is listed despite the paper mentioning AFM and synchrotron beamline instrumentation, though these are primarily characterization tools rather than synthesis equipment. Overall, the core structure is present but the multi-sample annealing conditions are not fully structured.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The starting materials are correctly identified as SrTiO3 (001) sample and buffered oxide etch. Since the paper does not specify amounts, purities, or vendor information for these materials, the null values are appropriate and should not be penalized. The etch ratio (1:6) is mentioned in the step description but not captured as a structured parameter (e.g., as a concentration or ratio field). The atmosphere for annealing (1:10 O2:Ar) is correctly captured for Sample A. The TiO2 termination goal is mentioned in the description. The extraction correctly avoids hallucinating quantities not present in the source. The main gap is that the three-sample differentiation is not fully reflected in the materials/conditions structure.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The two main process steps (etch and anneal) are correctly identified and sequenced. The etch step correctly captures the 2-minute duration. The anneal step captures Sample A's conditions (1025°C, 1 hr, 1:10 O2:Ar) in the structured fields. However, the critical issue is that the annealing step represents three distinct experimental conditions (A, B, C) but only one set of conditions is structured — the description text mentions all three but the conditions object only reflects Sample A. Ideally, this should be represented as three separate anneal steps or with a note about the multi-condition nature. The action classifications ('etch' and 'anneal') are appropriate and accurate. The step descriptions are informative and faithful to the source text.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "The equipment list is empty in the extraction. The source text mentions several pieces of equipment used in the experimental workflow: an atomic force microscope (AFM) for surface characterization, beamline 7-2 at SSRL, a double crystal Si(111) monochromator, a Rh-coated mirror for beam focusing, and a Pilatus 100k area detector. However, it is important to note that most of this equipment is used for characterization (x-ray diffraction measurement and AFM imaging) rather than for the synthesis/surface preparation steps themselves. The synthesis steps (etching and annealing) do not explicitly name specific equipment (e.g., no specific furnace model is mentioned). Given that the paper does not name specific synthesis equipment (furnace, etch bath), the empty equipment list for synthesis steps is defensible. However, the AFM is used to characterize the prepared surfaces and could reasonably be included. The score reflects that while the absence of synthesis-specific equipment is correct, the complete omission of any equipment is a minor gap.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "The etch step correctly captures the duration (2 min) and the anneal step correctly captures temperature (1025°C), duration (1 hr), and atmosphere (1:10 O2:Ar) for Sample A. The etch ratio (1:6) is not captured as a structured condition parameter, though it appears in the description. The most significant gap is that Sample B's annealing temperature (950°C) and Sample C's lack of annealing are not represented in the structured conditions — only Sample A's conditions are in the conditions object. The paper explicitly states three different annealing conditions, and capturing only one in the structured fields is a meaningful omission. Pressure and atmosphere for the etch step are not specified in the source, so null values are appropriate there. The beam energy (15.5 keV) and detector distance (~1 m) are characterization conditions, not synthesis conditions, so their absence is appropriate.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully represents the scientific meaning of the surface preparation procedure. The goal of TiO2 termination through buffered oxide etching is correctly captured in the description. The differential annealing to achieve different surface morphologies is mentioned in the notes. The target compound (SrTiO3) and its orientation (001) are correctly identified. The synthesis method classification as 'other' is reasonable given that this is a surface preparation procedure rather than a conventional synthesis. The notes field provides useful context about the purpose of the preparation. The main semantic issue is that the three-sample experimental design is not fully reflected in the structured data, though it is mentioned in the description and notes. No hallucinated information is present.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are used correctly for absent information. The step structure with step_number, action, description, materials, equipment, and conditions fields is properly populated. Temperature units (C), time units (min, hr) are correctly specified. The conditions object contains all expected sub-fields. The starting_materials list follows the correct schema with vendor, name, amount, unit, and purity fields. The target_compound_type ('ceramics & glasses') is appropriate for SrTiO3. The synthesis_method field uses 'other' which is a valid classification. No schema violations or data type errors are apparent.",
+                "overall_score": 3.6,
+                "overall_reasoning": "The extraction provides a reasonable representation of the SrTiO3 surface preparation procedure described in this primarily theoretical/experimental physics paper. The two main process steps (etching and annealing) are correctly identified and sequenced, with appropriate action classifications. Starting materials are correctly identified with null values for unspecified quantities. The most significant weakness is the failure to fully represent the three distinct annealing conditions for samples A, B, and C in the structured data — only Sample A's conditions appear in the structured conditions object, while B and C are only mentioned in the description text. This is a meaningful gap since the three-sample experimental design is central to the paper's experimental section. The equipment list is empty, which is defensible for synthesis-specific equipment but misses the AFM used for surface characterization. The etch ratio (1:6) is not captured as a structured condition. Format compliance is high with proper schema adherence and appropriate use of null values. Overall, the extraction captures the essential synthesis information but lacks the granularity needed to fully represent the multi-sample experimental design."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample B annealing temperature (950°C) not in structured conditions",
+                "Sample C no-anneal condition not represented as a separate step",
+                "Etch solution ratio (1:6) not captured as a structured condition",
+                "AFM characterization equipment not listed (though this is characterization, not synthesis)"
+              ],
+              "extraction_errors": [
+                "Annealing conditions for Sample B (950°C, 1 hr, 1:10 O2:Ar) are not captured in the structured conditions field — only Sample A's conditions (1025°C) appear in the conditions object.",
+                "Sample C's condition (no anneal) is not represented as a structured step or condition.",
+                "The etch ratio (1:6) is mentioned in the description but not captured as a structured condition parameter."
+              ],
+              "improvement_suggestions": [
+                "Represent the three different annealing conditions as three separate steps (or sub-steps) to fully capture the multi-sample experimental design: Step 2a (Sample A: 1025°C, 1 hr, 1:10 O2:Ar), Step 2b (Sample B: 950°C, 1 hr, 1:10 O2:Ar), Step 2c (Sample C: no anneal).",
+                "Capture the etch solution ratio (1:6) as a structured condition parameter, possibly in a concentration or ratio field.",
+                "Consider adding AFM as characterization equipment in the equipment list, even if it is not a synthesis instrument, to improve completeness.",
+                "Add a note or structured field indicating that the synthesis produces three distinct surface morphologies corresponding to different roughness parameters (σ_w and σ_s)."
+              ]
+            },
+            "overall_score": 3.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction accurately captures the surface preparation protocol for SrTiO3 (001) described in the text. It correctly identifies the two-step process of etching and annealing. The system handled the multi-condition annealing step by extracting the parameters for 'Sample A' as a representative example, which is a reasonable approach for a single-path schema, though it notes the variations in the description field. All units and durations mentioned in the text were correctly mapped.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction includes all relevant synthesis components mentioned: starting materials (SrTiO3 and etch), the etching step, and the annealing step. No equipment was explicitly named for the synthesis (only for characterization), so the empty equipment list is correct.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Chemical names like 'SrTiO3' and 'buffered oxide etch' were correctly identified. The text does not provide mass or molar amounts, so the null values are appropriate and not penalized.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence (etch then anneal) is correct. The action classifications ('etch', 'anneal') are accurate reflections of the experimental procedure.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text does not specify the furnace or etching vessel used for the synthesis; it only specifies characterization equipment (AFM, Pilatus detector, etc.). The extractor correctly left the synthesis equipment fields empty.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The extraction correctly captures the 2-minute duration for etching and the 1025 C / 1 hr / O2:Ar atmosphere for annealing. It loses a half-point for not being able to represent the alternative conditions for Sample B (950 C) in a structured way, although it correctly included them in the description.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the surface preparation. It correctly identifies that the goal was TiO2 termination and different surface morphologies.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the provided schema and data types.",
+                "overall_score": 4.9,
+                "overall_reasoning": "The extraction is of high quality. It successfully distilled the experimental section of a physics paper into a structured format, correctly identifying that the 'synthesis' in this context refers to surface treatment. It accurately captured numerical values and units while avoiding hallucinations of missing data like vendors or pressures."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The specific annealing temperature for Sample B (950 C) is only in the description, not the structured conditions field."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "To handle papers with multiple sample conditions (A, B, C), the system could potentially create separate 'steps' or a nested structure if the schema allowed, but given the current schema, the inclusion of variations in the 'description' field is the best workaround."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction captures the core surface preparation procedure (etching and annealing of SrTiO3 samples) with reasonable accuracy. However, there are significant gaps: (1) The three distinct annealing conditions for samples A, B, and C are conflated into a single step rather than represented as separate experimental branches, (2) All characterization equipment explicitly mentioned in the source (beamline, diffractometer, monochromator, mirror, detector, AFM) is missing from the equipment list, (3) X-ray measurement conditions (15.5 keV energy, beam spot size, detector distance) are not captured. The extraction correctly identifies starting materials and basic process flow, but misses important experimental context that would be needed for reproducibility. Format compliance is good with proper schema adherence.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the basic synthesis workflow (etching → annealing) and identifies starting materials correctly. However, it fails to represent the three distinct sample treatments as separate experimental branches, which is critical information. Equipment section is completely empty despite multiple instruments being explicitly named in the source. Measurement conditions for the X-ray diffraction characterization are missing. The extraction focuses only on surface preparation while omitting the characterization methodology that comprises a significant portion of the experimental section.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting materials are correctly identified (SrTiO3 (001) samples, buffered oxide etch). Chemical names are accurate and the target compound is properly specified. However, no quantities are provided for any materials (which is acceptable since the source doesn't specify amounts for the substrates). The 1:6 and 1:10 ratios for etch and atmosphere are captured in step descriptions but not as structured material properties. Overall material identification is accurate with minor opportunities for improvement in ratio representation.",
+                "process_steps_score": 2.5,
+                "process_steps_reasoning": "The two main process steps (etching and annealing) are identified with correct action classifications. However, there is a significant error: the three distinct annealing conditions for samples A, B, and C are conflated into a single step. The extraction shows temperature 1025°C and atmosphere 1:10 O2:Ar, which only applies to Sample A, while Samples B (950°C) and C (no anneal) are not properly represented as separate conditions. This conflation loses critical experimental design information. Additionally, the X-ray diffraction measurement procedure and AFM characterization are not captured as process steps despite being described in the experimental section.",
+                "equipment_extraction_score": 1.0,
+                "equipment_extraction_reasoning": "The equipment list is completely empty despite the source text explicitly naming multiple pieces of equipment: beamline 7-2 at SSRL, four-circle diffractometer, double crystal Si (111) monochromator, Rh-coated mirror, Pilatus 100k area detector, and AFM at Stanford Nano Shared Facilities. This is a significant extraction failure. Even basic equipment identification would substantially improve the extraction quality. The absence of all equipment information severely limits the reproducibility value of the structured data.",
+                "conditions_extraction_score": 2.5,
+                "conditions_extraction_reasoning": "Annealing conditions are partially captured (temperature and duration for Sample A, atmosphere ratio), but critical information is missing: Sample B's 950°C condition and Sample C's no-anneal condition are not distinguished. X-ray measurement conditions are completely absent (15.5 keV energy, beam spot size 100 x 500 µm, detector distance ~1m). Etching conditions are correctly captured (2 min duration). The extraction captures some synthesis conditions but misses the characterization conditions that are equally important for understanding the experimental workflow.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning without introducing errors or misinterpretations. The purpose of the surface preparation (achieving TiO2 termination, creating different surface morphologies) is correctly noted. Chemical terminology is accurate (SrTiO3, buffered oxide etch, O2:Ar atmosphere). The conflation of annealing conditions is an omission rather than a semantic error. No hallucinated information is present. The extraction faithfully represents what it captures, though it captures less than the source contains.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types (strings for names, numbers for quantities, null for unspecified values). The nested structure for steps, materials, and conditions is correctly formatted. Time units (min, hr) and temperature units (C) are properly specified. The JSON structure is valid and follows the expected ontology format. No schema violations or data type errors are present.",
+                "overall_score": 3.1,
+                "overall_reasoning": "This extraction demonstrates moderate quality with clear strengths and weaknesses. Strengths include accurate material identification, correct action classification for process steps, proper format compliance, and no semantic errors or hallucinations. Weaknesses are significant: (1) complete absence of equipment information despite explicit mentions in source, (2) conflation of three distinct annealing conditions into one step, (3) missing X-ray measurement conditions and characterization procedures. The extraction captures the surface preparation synthesis workflow but misses the characterization methodology that comprises much of the experimental section. For a paper focused on developing a theoretical model with experimental validation, the extraction appropriately emphasizes the sample preparation but should also capture the measurement setup. Overall score reflects adequate capture of synthesis elements but substantial gaps in experimental completeness that would limit reproducibility."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample B annealing condition: 950°C in 1:10 O2:Ar for 1 hr",
+                "Sample C: no anneal treatment",
+                "Beamline 7-2 at SSRL",
+                "Four-circle diffractometer",
+                "Double crystal Si (111) monochromator",
+                "Rh-coated mirror",
+                "Pilatus 100k area detector",
+                "X-ray energy: 15.5 keV",
+                "Beam spot size: 100 x 500 µm FWHM",
+                "Detector distance: approximately 1 m from diffractometer center",
+                "AFM performed at Stanford Nano Shared Facilities",
+                "Lorentz and illuminated area corrections applied to data"
+              ],
+              "extraction_errors": [
+                "Three distinct annealing conditions (A: 1025°C, B: 950°C, C: no anneal) are conflated into a single step instead of being represented as separate experimental branches",
+                "All explicitly mentioned equipment (beamline 7-2, four-circle diffractometer, Si(111) monochromator, Rh-coated mirror, Pilatus 100k detector, AFM) is missing from equipment list",
+                "X-ray energy (15.5 keV) and beam specifications (100 x 500 µm FWHM spot, ~1m detector distance) are not captured",
+                "AFM characterization procedure and location (Stanford Nano Shared Facilities) not captured"
+              ],
+              "improvement_suggestions": [
+                "Represent the three samples (A, B, C) as separate experimental branches with their distinct annealing conditions",
+                "Extract all explicitly mentioned equipment with their specifications (beamline, diffractometer type, monochromator, detector model)",
+                "Include X-ray measurement conditions (energy, beam size, detector position) in the conditions field",
+                "Add AFM characterization as a separate process step with equipment and location information",
+                "Consider adding notes about the purpose of surface preparation (for truncation rod measurements)"
+              ]
+            },
+            "overall_score": 3.1
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a theoretical and experimental paper on crystal truncation rod analysis of miscut SrTiO3 surfaces, not a detailed synthesis procedure. The primary 'synthesis' content is a brief, three-sentence description of surface preparation (etching and annealing) for three samples. The extracted ontology correctly identifies this as a surface preparation process rather than a bulk synthesis. It captures the two main actions (etch, anneal) and their basic conditions. However, the extraction makes a critical error by treating the three distinct annealing conditions (A, B, C) as a single, conflated step, which misrepresents the experimental design and loses specific information. The ontology also correctly leaves many fields null where information is absent (e.g., vendor, purity, equipment details). The overall extraction is structurally sound but semantically flawed due to the conflation of sample treatments.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the core structural components present in the source: the target material (SrTiO3), the two general process actions (etching, annealing), and some associated conditions. It correctly identifies the synthesis method as 'other' (surface preparation). However, it fails to structurally represent the three distinct sample preparations (A, B, C) as separate experimental pathways or branches. This omission is a significant structural incompleteness, as the paper's experimental results hinge on comparing these three differently treated samples. The ontology presents a linear, single-path procedure, which is an oversimplification of the source text's experimental design.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material extraction is generally accurate for the limited information provided. It correctly identifies 'SrTiO3 (001) sample' and 'buffered oxide etch' as starting materials. The 1:6 ratio for the etch is embedded in the step description but not parsed into the material's amount field, which is acceptable given the schema's focus on discrete materials rather than solution compositions. Amounts, units, and purities are correctly left null as they are not specified. No materials are hallucinated. The main weakness is the lack of extraction for the annealing atmosphere components (O2, Ar) as separate materials, but their description as a condition ('1:10 O2:Ar') is captured semantically elsewhere.",
+                "process_steps_score": 2.5,
+                "process_steps_reasoning": "This is the weakest area. The extraction correctly identifies two steps (etch, anneal) and their order. The action classification ('etch', 'anneal') is accurate. However, it commits a major semantic error by collapsing the three distinct annealing treatments (1025°C for sample A, 950°C for sample B, no anneal for sample C) into a single step with the conditions for sample A only. This completely misrepresents the experimental workflow, which involved creating three separate samples with different histories for comparative analysis. The process steps should reflect this parallelism or branching, not a linear sequence that applies all conditions to a single batch. The description field in step 2 mentions the differences but the structured data does not capture them.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Score: 5.0. The source text does not explicitly name any synthesis equipment (like furnaces, beakers, etc.) in the surface preparation description. The equipment mentioned later (Pilatus detector, AFM, beamline components) are for characterization, not synthesis. Therefore, the extracted equipment list being empty is perfectly correct and should not be penalized. The system correctly avoided hallucinating equipment.",
+                "conditions_extraction_score": 3.0,
+                "conditions_extraction_reasoning": "Conditions for the etching step are partially captured (duration: 2 min) but the temperature is correctly left null. For the annealing step, the extraction records the temperature, duration, and atmosphere for Sample A (1025°C, 1 hr, 1:10 O2:Ar). However, it completely omits the conditions for Sample B (950°C) and the explicit condition for Sample C ('no anneal'). This is a critical inaccuracy. The 'anneal' step conditions should either be null (if representing a generic step) or, more accurately, the structure should allow for multiple condition sets corresponding to different sample preparations. The unit extraction is correct where data is present.",
+                "semantic_accuracy_score": 2.5,
+                "semantic_accuracy_reasoning": "The semantic accuracy is poor due to the fundamental misrepresentation of the experimental design. The paper describes a study where three SrTiO3 samples underwent the same etch but different annealing treatments to create varied morphologies. The extracted ontology implies a single sample was etched and then annealed at 1025°C, which is scientifically incorrect and loses the comparative intent of the study. The core scientific meaning—that roughness parameters were extracted by comparing samples with deliberately different processing histories—is not preserved in the structured format. The notes field partially mitigates this but the core ontology structure is misleading.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and of the correct data types (strings, numbers, arrays, objects). Nested structures for materials, steps, and conditions are properly formatted. There are no schema violations. The system successfully generated a valid ontology object from the text.",
+                "overall_score": 3.6,
+                "overall_reasoning": "The extraction demonstrates good schema compliance and correctly handles absent information without hallucination. Its major failure is in semantic accuracy and process step representation. By conflating three distinct sample preparation pathways into a single, linear procedure, it fundamentally misrepresents the experimental methodology described in the paper. This error negatively impacts the structural completeness, process steps, conditions extraction, and semantic accuracy scores. The system is adept at extracting explicit, simple actions and conditions but struggles with experimental designs involving parallel or comparative sample treatments. For a paper focused on theory and characterization with only a cursory synthesis description, the extraction is partially successful but not reliable for capturing the experimental nuance."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The separate annealing pathways for Samples A, B, and C as distinct experimental procedures.",
+                "The fact that the described steps were applied to create three different samples, not one."
+              ],
+              "extraction_errors": [
+                "Conflated three distinct annealing conditions (for samples A, B, C) into a single 'anneal' step with only Sample A's conditions (1025°C).",
+                "Failed to structurally represent the parallel/branched nature of the sample preparation, presenting a single linear synthesis instead of three comparative preparations.",
+                "Omitted the annealing condition for Sample B (950°C) and the explicit 'no anneal' condition for Sample C from the structured conditions data."
+              ],
+              "improvement_suggestions": [
+                "Enhance the system to recognize comparative or parallel experimental designs (e.g., 'sample A was treated with X, sample B with Y'). The ontology or extraction logic should support branching or multiple 'synthesis_paths'.",
+                "When a step description contains multiple condition sets separated by clauses (e.g., 'A at..., B at..., C...'), attempt to parse them as separate entities linked to different output samples or branches.",
+                "For surface preparation papers, consider a 'sample_preparation' schema that can include multiple 'sample_variants' with their own treatment steps."
+              ]
+            },
+            "overall_score": 3.6
           }
-        }
-      ],
-      "equipment": [],
-      "notes": "Three SrTiO3 (001) surfaces with different terrace morphologies that correspond to different values of \u03c3w and \u03c3s were prepared. The samples were called A, B, and C. Annealing conditions resulted in three different surface morphologies."
-    },
-    "evaluation": {
-      "reasoning": "The extraction captures the etching and annealing steps, including the materials and conditions. However, it misses the specific annealing conditions for samples B and C, only providing the condition for sample A. The equipment list is empty, which is acceptable if no specific equipment was mentioned in the text. The notes section accurately summarizes the sample preparation and variations.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction includes the main steps (etching and annealing) and materials. It misses the specific annealing conditions for samples B and C, which reduces the completeness score.",
-        "material_extraction_score": 4.5,
-        "material_extraction_reasoning": "The materials are correctly identified, including the buffered oxide etch, O2, and Ar. The ratios in the annealing atmosphere are also captured. However, the amounts and units for the etching solution are missing.",
-        "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are generally well-organized and sequenced. The etching and annealing steps are correctly identified. However, the different annealing conditions for samples B and C are not fully captured.",
-        "equipment_extraction_score": 5.0,
-        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, so the empty equipment list is appropriate.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The temperature, duration, and atmosphere for annealing sample A are correctly extracted. The etching duration is also correct. However, the specific annealing conditions (temperature) for samples B is not extracted, and the absence of annealing for sample C is not explicitly noted in the conditions.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extraction accurately reflects the scientific meaning of the text. The TiO2 termination achieved by etching is correctly associated with the etching step. The different annealing conditions leading to different surface morphologies are also noted.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON is well-formed and the data types are correct.",
-        "overall_score": 4.4,
-        "overall_reasoning": "The extraction is generally good, capturing the main steps, materials, and conditions. The primary weakness is the incomplete extraction of annealing conditions for all samples. The format compliance and semantic accuracy are excellent."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Specific annealing temperature for sample B.",
-        "Ratio of buffered oxide etch."
-      ],
-      "extraction_errors": [
-        "Missing specific annealing temperature for sample B.",
-        "Did not explicitly state that sample C was not annealed in the conditions."
-      ],
-      "improvement_suggestions": [
-        "Explicitly state the annealing conditions for all samples (A, B, and C) in the conditions section.",
-        "Include the ratio of the buffered oxide etch in the materials section."
-      ]
-    }
+        ]
+      }
+    ]
   }
 ]
