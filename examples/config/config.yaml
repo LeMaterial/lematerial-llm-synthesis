@@ -6,6 +6,11 @@ defaults:
   - material_extraction: default
   - judge: default
   - result_save: default
+  - plot_extraction: multi_vlm
+
+# Plot extraction flags
+from_plot_images: false
+figure_dir: examples/data/figure_labeling
 
 # Dir handling
 hydra:

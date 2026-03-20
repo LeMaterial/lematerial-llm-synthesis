@@ -5,16 +5,17 @@
 # Usage - from papers — uses Florence-2 for figure classification followed by vlm extraction:
 #   uv run examples/scripts/deployment/extract_plot_data_multi_vlm.py \
 #     data_loader=default \
-#     result_save=multi_llm \
-#     +plot_extraction=multi_vlm
+#     result_save=multi_llm
 #
 # Usage (from local PNGs — skips Florence, runs VLM directly on images):
 #   uv run examples/scripts/deployment/extract_plot_data_multi_vlm.py \
-#     +plot_extraction=multi_vlm \
-#     +from_plot_images=true
+#     from_plot_images=true
 #
 #   # Optionally specify a custom figure directory:
-#   ... +figure_dir=path/to/pngs
+#   ... figure_dir=path/to/pngs
+#
+#   # Optionally change the ranking metric:
+#   ... plot_extraction.rank_by=mean_rmse_norm
 
 import asyncio
 import base64
@@ -216,6 +217,52 @@ class MetricsEvaluator:
             }
         return agg
 
+    # -- ranking --
+
+    RANK_METRICS = {
+        "mean_rmse_norm": ("RMSE (norm)", True),   # lower is better
+        "mean_mae_norm": ("MAE (norm)", True),     # lower is better
+        "mean_pearson_r": ("Pearson r", False),     # higher is better
+        "mean_spearman_rho": ("Spearman rho", False),  # higher is better
+        "mean_icc": ("ICC", False),                 # higher is better
+    }
+
+    def rank_vlms(
+        self, aggregate: dict[str, dict], rank_by: str = "mean_pearson_r",
+    ) -> list[dict]:
+        """Rank VLMs by the chosen metric.
+
+        Args:
+            aggregate: Output of :meth:`aggregate_metrics`.
+            rank_by: Key in ``RANK_METRICS`` to sort by.
+
+        Returns:
+            Sorted list of ``{rank, vlm, <all aggregate fields>}``.
+        """
+        if rank_by not in self.RANK_METRICS:
+            logging.warning(
+                f"Unknown rank_by='{rank_by}', falling back to 'mean_pearson_r'"
+            )
+            rank_by = "mean_pearson_r"
+
+        _label, lower_is_better = self.RANK_METRICS[rank_by]
+        entries = []
+        for vlm, metrics in aggregate.items():
+            val = metrics.get(rank_by)
+            entries.append({"vlm": vlm, **metrics, "_sort_val": val})
+
+        # Put None values at the end
+        entries.sort(
+            key=lambda e: (
+                e["_sort_val"] is None,
+                (e["_sort_val"] or 0) if lower_is_better else -(e["_sort_val"] or 0),
+            )
+        )
+        for i, entry in enumerate(entries, 1):
+            entry["rank"] = i
+            del entry["_sort_val"]
+        return entries
+
     # -- console table --
 
     def log_table(self, aggregate: dict[str, dict]) -> None:
@@ -245,16 +292,113 @@ class MetricsEvaluator:
             )
         logging.info("=" * w)
 
+    def log_ranking_table(
+        self, ranked: list[dict], rank_by: str = "mean_pearson_r",
+    ) -> None:
+        """Log VLM ranking as a formatted table."""
+        label, _lower = self.RANK_METRICS.get(rank_by, (rank_by, False))
+        w = 105
+        logging.info("")
+        logging.info("=" * w)
+        logging.info("VLM RANKING (by %s)", label)
+        logging.info("=" * w)
+        logging.info(
+            f"{'Rank':>4}  {'VLM':<25} {label:>12} "
+            f"{'RMSE':>8} {'MAE':>8} {'Pearson':>8} {'Spearman':>9} {'ICC':>8} {'OK':>4}"
+        )
+        logging.info("-" * w)
+        for entry in ranked:
+            val = entry.get(rank_by)
+            logging.info(
+                f"{entry['rank']:>4}  {entry['vlm']:<25} "
+                f"{(val if val is not None else float('nan')):>12.4f} "
+                f"{(entry.get('mean_rmse_norm') or 0):>8.4f} "
+                f"{(entry.get('mean_mae_norm') or 0):>8.4f} "
+                f"{(entry.get('mean_pearson_r') or 0):>8.4f} "
+                f"{(entry.get('mean_spearman_rho') or 0):>9.4f} "
+                f"{(entry.get('mean_icc') or 0):>8.4f} "
+                f"{entry.get('num_successful', 0):>4}"
+            )
+        logging.info("=" * w)
+
+    def _save_ranking_png(
+        self, ranked: list[dict], rank_by: str = "mean_pearson_r",
+    ) -> str:
+        """Render a PNG table showing VLM ranking."""
+        import matplotlib.pyplot as plt  # pylint: disable=import-outside-toplevel
+
+        label, _lower = self.RANK_METRICS.get(rank_by, (rank_by, False))
+        headers = [
+            "Rank", "VLM", label, "RMSE", "MAE", "Pearson", "Spearman", "ICC", "OK",
+        ]
+        table_data = []
+        for entry in ranked:
+            table_data.append([
+                str(entry["rank"]),
+                entry["vlm"],
+                f"{entry.get(rank_by, 0) or 0:.4f}",
+                f"{entry.get('mean_rmse_norm', 0) or 0:.4f}",
+                f"{entry.get('mean_mae_norm', 0) or 0:.4f}",
+                f"{entry.get('mean_pearson_r', 0) or 0:.4f}",
+                f"{entry.get('mean_spearman_rho', 0) or 0:.4f}",
+                f"{entry.get('mean_icc', 0) or 0:.4f}",
+                str(entry.get("num_successful", 0)),
+            ])
+
+        fig, ax = plt.subplots(
+            figsize=(16, len(ranked) * 1.2 + 2),
+        )
+        ax.axis("off")
+        tbl = ax.table(
+            cellText=table_data, colLabels=headers,
+            cellLoc="center", loc="center", bbox=[0, 0, 1, 1],
+        )
+        tbl.auto_set_font_size(False)
+        tbl.set_fontsize(10)
+        tbl.scale(1, 2.5)
+
+        for col_idx in range(len(headers)):
+            tbl[(0, col_idx)].set_facecolor("#4472C4")
+            tbl[(0, col_idx)].set_text_props(weight="bold", color="white")
+        for row_idx in range(1, len(table_data) + 1):
+            for col_idx in range(len(headers)):
+                if row_idx == 1:
+                    tbl[(row_idx, col_idx)].set_facecolor("#D4EDDA")
+                elif row_idx % 2 == 0:
+                    tbl[(row_idx, col_idx)].set_facecolor("#E7E6E6")
+
+        plt.title(
+            f"VLM Ranking — Plot Data Extraction\nRanked by: {label}",
+            fontsize=14, fontweight="bold", pad=20,
+        )
+        out_png = os.path.join(self.figure_dir, "vlm_ranking.png")
+        plt.savefig(out_png, dpi=300, bbox_inches="tight", facecolor="white")
+        plt.close()
+        logging.info("Saved ranking PNG to %s", out_png)
+        return out_png
+
     # -- convenience: full evaluate + save + log --
 
-    def run(self, all_results: dict[str, dict]) -> None:
-        """Full pipeline: compute per-figure metrics, aggregate, save JSONs, and log."""
+    def run(
+        self, all_results: dict[str, dict], rank_by: str = "mean_pearson_r",
+    ) -> None:
+        """Full pipeline: compute per-figure metrics, aggregate, rank, save JSONs, and log."""
         logging.info("Computing metrics against ground-truth CSVs …")
         all_metrics = self.compute_metrics(all_results)
         aggregate = self.aggregate_metrics(all_metrics)
         self._save_json(aggregate, os.path.join(self.figure_dir, "vlm_aggregate_metrics.json"))
         self._save_json(all_metrics, os.path.join(self.figure_dir, "vlm_detailed_metrics.json"))
         self.log_table(aggregate)
+
+        # Rank VLMs and save ranking
+        ranked = self.rank_vlms(aggregate, rank_by=rank_by)
+        self.log_ranking_table(ranked, rank_by=rank_by)
+        out_json = os.path.join(self.figure_dir, "vlm_ranking.json")
+        self._save_json(
+            [{"rank_by": rank_by, **e} for e in ranked], out_json,
+        )
+        self._save_ranking_png(ranked, rank_by=rank_by)
+        logging.info("Saved VLM ranking to %s", out_json)
 
     @staticmethod
     def _save_json(data, path: str) -> None:
@@ -284,6 +428,7 @@ class BaseVLMRunner:
             original_cwd: Original working directory (before Hydra changes it).
             prompt: Optional custom prompt forwarded to every extractor.
         """
+        self.cfg = cfg
         self.original_cwd = original_cwd
         self.pool = VLMExtractorPool(cfg, prompt=prompt)
         self.max_concurrent = get_max_concurrent_llm_calls()
@@ -372,7 +517,7 @@ class ImageBenchmarkRunner(BaseVLMRunner):
             original_cwd: Original working directory (before Hydra changes it).
         """
         super().__init__(cfg, original_cwd, prompt=resources.LINE_CHART_PROMPT)
-        figure_dir = cfg.get("figure_dir", "figure_labeling/figure_labeling")
+        figure_dir = cfg.get("figure_dir", "examples/data/figure_labeling")
         if not os.path.isabs(figure_dir):
             figure_dir = os.path.join(original_cwd, figure_dir)
         self.figure_dir = figure_dir
@@ -463,8 +608,9 @@ class ImageBenchmarkRunner(BaseVLMRunner):
         logging.info(f"Total cost: ${total_cost:.6f}")
 
         # Evaluate against ground truth
+        rank_by = self.cfg.plot_extraction.get("rank_by", "mean_pearson_r")
         evaluator = MetricsEvaluator(self.figure_dir, vlm_names)
-        evaluator.run(all_results)
+        evaluator.run(all_results, rank_by=rank_by)
         logging.info("Success")
 
 
@@ -487,7 +633,6 @@ class PaperExtractionRunner(BaseVLMRunner):
             original_cwd: Original working directory (before Hydra changes it).
         """
         super().__init__(cfg, original_cwd)
-        self.cfg = cfg
 
     def _resolve_paths(self) -> None:
         """Make relative data/annotation paths absolute using *original_cwd*."""
