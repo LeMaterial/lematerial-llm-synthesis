@@ -59,6 +59,7 @@ class AnnotationHFLoader(PaperLoaderInterface):
                         si_text=row.get("text_si") or "",
                         name=row.get("title") or folder_id,
                         id=folder_id,
+                        pdf_url=row.get("pdf_url"),
                     )
                     if len(collected) == len(needed_hf):
                         break
@@ -73,6 +74,7 @@ class AnnotationHFLoader(PaperLoaderInterface):
                         si_text=row.get("text_si") or "",
                         name=row.get("title") or folder_id,
                         id=folder_id,
+                        pdf_url=row.get("pdf_url"),
                     )
 
         missing = [pid for pid in folder_ids if pid not in collected]

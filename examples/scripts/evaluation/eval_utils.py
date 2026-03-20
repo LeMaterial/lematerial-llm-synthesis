@@ -10,16 +10,21 @@ compare_multi_llm_results_*.py:
 - Fuzzy matching: calculate_string_similarity, find_best_matches
 - DataFrame helpers: merge_on_material_id, col_label, aggregate_human_scores_df
 - Agreement metrics: compute_agreement_metrics, evaluate_agreement_by_criterion
+
+Plot extraction metrics:
+- parse_ground_truth_csv, match_series, series_coord_metrics, compare_extraction_to_gt
 """
 
+import csv
 import logging
 import re
 from difflib import SequenceMatcher
+from typing import Tuple
 
 import numpy as np
 import pandas as pd
 import pingouin as pg
-from scipy.stats import spearmanr
+from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import cohen_kappa_score
 from scipy.stats import permutation_test  
 
@@ -343,3 +348,158 @@ def evaluate_agreement_by_criterion(
             random_state=random_state,
         )
     return results
+
+
+# =============================================================================
+# Plot Extraction Metrics
+# =============================================================================
+
+def parse_ground_truth_csv(csv_path):
+    """Parse ground-truth CSV into {series_name: [(x, y), ...]}."""
+    with open(csv_path, newline="") as f:
+        rows = list(csv.reader(f))
+    if len(rows) < 3:
+        return {}
+    header = rows[0]
+    series_cols = []
+    for i in range(0, len(header), 2):
+        name = header[i].strip()
+        if name:
+            series_cols.append((name, i))
+    result = {}
+    for name, x_col in series_cols:
+        y_col = x_col + 1
+        coords = []
+        for row in rows[2:]:
+            if x_col < len(row) and y_col < len(row):
+                xs, ys = row[x_col].strip(), row[y_col].strip()
+                if xs and ys:
+                    try:
+                        coords.append((float(xs), float(ys)))
+                    except ValueError:
+                        pass
+        if coords:
+            result[name] = coords
+    return result
+
+
+def series_coord_metrics(ext_pts, gt_pts):
+    """Nearest-neighbour RMSE/MAE and correlation between extracted and GT series.
+
+    Distances normalized by GT axis ranges (0-1 scale).
+    Pearson r, Spearman rho, and ICC are computed on the raw y-values
+    paired via nearest-neighbour matching.
+    """
+    _empty = {"rmse_norm": None, "mae_norm": None,
+              "pearson_r": None, "spearman_rho": None, "icc": None,
+              "n_extracted": len(ext_pts), "n_gt": len(gt_pts)}
+    if not ext_pts or not gt_pts:
+        return _empty
+
+    from scipy.spatial.distance import cdist
+
+    ext = np.asarray(ext_pts)
+    gt = np.asarray(gt_pts)
+
+    # Normalize to 0-1 using GT axis ranges
+    gt_min = gt.min(axis=0)
+    gt_range = np.maximum(np.ptp(gt, axis=0), 1e-9)
+    ext_n = (ext - gt_min) / gt_range
+    gt_n = (gt - gt_min) / gt_range
+
+    # Nearest-neighbour distances (GT → EXT)
+    D = cdist(gt_n, ext_n)
+    nn = D.min(axis=1)
+    nn_idx = D.argmin(axis=1)
+
+    # Correlation / ICC on paired raw y-values
+    agreement = compute_agreement_metrics(gt[:, 1], ext[nn_idx, 1])
+    if agreement is not None:
+        sr = round(agreement["rho"], 4) if not np.isnan(agreement["rho"]) else None
+        icc_val = round(agreement["icc2"], 4) if not np.isnan(agreement["icc2"]) else None
+    else:
+        sr, icc_val = None, None
+
+    # Pearson r (not in compute_agreement_metrics)
+    gt_y, ext_y = gt[:, 1], ext[nn_idx, 1]
+    _enough = len(gt_y) >= 3 and np.unique(gt_y).size >= 2 and np.unique(ext_y).size >= 2
+    pr = round(float(pearsonr(gt_y, ext_y).statistic), 4) if _enough else None
+
+    return {
+        "rmse_norm": round(float(np.sqrt(np.mean(nn ** 2))), 4),
+        "mae_norm": round(float(np.mean(nn)), 4),
+        "pearson_r": pr,
+        "spearman_rho": sr,
+        "icc": icc_val,
+        "n_extracted": len(ext_pts),
+        "n_gt": len(gt_pts),
+    }
+
+
+def compare_extraction_to_gt(extraction, gt_series, similarity_threshold=0.5):
+    """Compare VLM extraction to ground truth.
+
+    Uses ``find_best_matches`` and ``calculate_string_similarity`` for series
+    name matching (reuses existing eval_utils fuzzy matching).
+
+    Returns dict with status, num_series_*, mean_*_norm, matched_series[].
+    """
+    if not gt_series:
+        return {"status": "no_gt"}
+    if extraction is None:
+        return {
+            "status": "failed",
+            "num_series_gt": len(gt_series),
+            "num_series_extracted": 0,
+            "num_series_matched": 0,
+            "mean_rmse_norm": None,
+            "mean_mae_norm": None,
+            "mean_pearson_r": None,
+            "mean_spearman_rho": None,
+            "mean_icc": None,
+            "matched_series": [],
+        }
+    ntc = extraction.get("name_to_coordinates", {})
+    ext_names = list(ntc.keys())
+    gt_names = list(gt_series.keys())
+
+    # Reuse existing greedy fuzzy matcher (gt -> ext mapping)
+    matches = find_best_matches(
+        gt_names, ext_names, similarity_threshold=similarity_threshold,
+    )
+    # matches: {gt_name: ext_name}
+    n_ext, n_gt, n_match = len(ext_names), len(gt_names), len(matches)
+
+    series_detail, rmses, maes, prs, srs, iccs = [], [], [], [], [], []
+    for gt_name, ext_name in matches.items():
+        score = calculate_string_similarity(gt_name, ext_name)
+        ext_coords = [(c[0], c[1]) for c in ntc[ext_name]]
+        m = series_coord_metrics(ext_coords, gt_series[gt_name])
+        series_detail.append({
+            "extracted_name": ext_name,
+            "gt_name": gt_name,
+            "name_match_score": round(score * 100),
+            **m,
+        })
+        if m["rmse_norm"] is not None:
+            rmses.append(m["rmse_norm"])
+            maes.append(m["mae_norm"])
+        if m["pearson_r"] is not None:
+            prs.append(m["pearson_r"])
+        if m["spearman_rho"] is not None:
+            srs.append(m["spearman_rho"])
+        if m["icc"] is not None:
+            iccs.append(m["icc"])
+
+    return {
+        "status": "ok",
+        "num_series_gt": n_gt,
+        "num_series_extracted": n_ext,
+        "num_series_matched": n_match,
+        "mean_rmse_norm": round(float(np.mean(rmses)), 4) if rmses else None,
+        "mean_mae_norm": round(float(np.mean(maes)), 4) if maes else None,
+        "mean_pearson_r": round(float(np.mean(prs)), 4) if prs else None,
+        "mean_spearman_rho": round(float(np.mean(srs)), 4) if srs else None,
+        "mean_icc": round(float(np.mean(iccs)), 4) if iccs else None,
+        "matched_series": series_detail,
+    }

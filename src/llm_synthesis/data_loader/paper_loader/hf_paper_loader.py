@@ -33,9 +33,10 @@ class HFLoader(PaperLoaderInterface):
             papers.append(
                 Paper(
                     publication_text=paper["text_paper"],
-                    si_text=paper["text_si"],
-                    name=paper["title"],
+                    si_text=paper.get("text_si", ""),
+                    name=paper.get("title", paper_id),
                     id=paper_id,
+                    pdf_url=paper.get("pdf_url"),
                 )
             )
         return papers
