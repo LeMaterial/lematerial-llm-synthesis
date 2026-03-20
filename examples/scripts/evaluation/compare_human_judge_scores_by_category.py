@@ -1,381 +1,24 @@
+"""Compare human vs LLM judge scores -- breakdown by material category."""
+
 import json
 import logging
 import os
-import re
-from difflib import SequenceMatcher
+import sys
 
 import numpy as np
 import pandas as pd
-import pingouin as pg
-from scipy.stats import permutation_test, spearmanr
-from sklearn.metrics import cohen_kappa_score
 
-# log into file results/human_judge_by_category.log
-logging.basicConfig(
-    filename="results/human_judge_by_category.log", level=logging.INFO
+from eval_utils import ( 
+    SCORE_COLUMNS,
+    aggregate_human_scores_df,
+    col_label,
+    evaluate_agreement_by_criterion,
+    find_best_matches,
+    merge_on_material_id,
 )
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-def normalize_material_name(name: str) -> str:
-    """
-    Normalize material name for better matching by:
-    - Converting to lowercase
-    - Removing extra whitespace
-    - Standardizing common separators
-    - Removing common suffixes/prefixes
-    """
-    if not name:
-        return ""
-
-    # Convert to lowercase and strip whitespace
-    normalized = name.lower().strip()
-
-    # Standardize separators (replace various dashes and slashes)
-    normalized = re.sub(r"[-—−/−\\]", "-", normalized)  # noqa: RUF001
-
-    # Remove common suffixes that don't affect matching
-    suffixes_to_remove = [
-        " single crystals",
-        " crystals",
-        " nanostructures",
-        " nanoparticles",
-        " nanorods",
-        " nanowires",
-        " nanoneedles",
-        " nanocombs",
-        " composite",
-        " ceramics",
-        " powders",
-        " films",
-        " layers",
-        " samples",
-        " materials",
-        " compounds",
-        " structures",
-    ]
-
-    for suffix in suffixes_to_remove:
-        if normalized.endswith(suffix):
-            normalized = normalized[: -len(suffix)]
-
-    # Remove common prefixes
-    prefixes_to_remove = [
-        "synthesis of ",
-        "preparation of ",
-        "fabrication of ",
-        "formation of ",
-    ]
-
-    for prefix in prefixes_to_remove:
-        if normalized.startswith(prefix):
-            normalized = normalized[len(prefix) :]
-
-    # Clean up multiple spaces
-    normalized = re.sub(r"\s+", " ", normalized)
-
-    return normalized.strip()
-
-
-def calculate_string_similarity(str1: str, str2: str) -> float:
-    """
-    Calculate similarity between two strings using multiple methods.
-    Returns a score between 0 and 1, where 1 is identical.
-    """
-    if not str1 or not str2:
-        return 0.0
-
-    # Normalize both strings
-    norm1 = normalize_material_name(str1)
-    norm2 = normalize_material_name(str2)
-
-    # If normalized strings are identical, return 1.0
-    if norm1 == norm2:
-        return 1.0
-
-    # Calculate sequence matcher similarity
-    sequence_similarity = SequenceMatcher(None, norm1, norm2).ratio()
-
-    # Calculate word overlap similarity
-    words1 = set(norm1.split())
-    words2 = set(norm2.split())
-
-    if not words1 or not words2:
-        word_similarity = 0.0
-    else:
-        intersection = words1.intersection(words2)
-        union = words1.union(words2)
-        word_similarity = len(intersection) / len(union) if union else 0.0
-
-    # Calculate substring similarity (for cases like "R3B" vs "Rhodamine 3B")
-    substring_similarity = 0.0
-    if len(norm1) > 3 and len(norm2) > 3:
-        # Check if one is a substring of the other
-        if norm1 in norm2 or norm2 in norm1:
-            substring_similarity = 0.8
-        else:
-            # Check for significant substring matches
-            for i in range(len(norm1) - 2):
-                for j in range(i + 3, len(norm1) + 1):
-                    substr = norm1[i:j]
-                    if len(substr) >= 3 and substr in norm2:
-                        max_len = max(len(norm1), len(norm2))
-                        substring_similarity = max(
-                            substring_similarity, len(substr) / max_len
-                        )
-
-    # Weighted combination of different similarity measures
-    final_similarity = (
-        0.4 * sequence_similarity
-        + 0.4 * word_similarity
-        + 0.2 * substring_similarity
-    )
-
-    return final_similarity
-
-
-def find_best_matches(
-    human_materials: list[str],
-    llm_materials: list[str],
-    similarity_threshold: float = 0.7,
-) -> dict[str, str]:
-    """
-    Find the best matching pairs between human and LLM materials.
-    Returns a dictionary mapping human material names to LLM material names.
-    """
-    matches = {}
-    used_llm_materials = set()
-
-    # Sort by similarity to prioritize better matches
-    all_pairs = []
-    for human_mat in human_materials:
-        for llm_mat in llm_materials:
-            similarity = calculate_string_similarity(human_mat, llm_mat)
-            if similarity >= similarity_threshold:
-                all_pairs.append((similarity, human_mat, llm_mat))
-
-    # Sort by similarity (highest first)
-    all_pairs.sort(reverse=True)
-
-    # Assign matches greedily
-    for similarity, human_mat, llm_mat in all_pairs:
-        if human_mat not in matches and llm_mat not in used_llm_materials:
-            matches[human_mat] = llm_mat
-            used_llm_materials.add(llm_mat)
-
-    return matches
-
-
-def calculate_icc_absolute_agreement(scores1, scores2):
-    """ICC(2,1): two-way random, absolute agreement, single measure (Shrout &
-    Fleiss)."""
-    # Check if we have enough data for ICC calculation
-    if len(scores1) < 5:
-        return np.nan
-
-    df = pd.DataFrame(
-        {
-            "subject": np.arange(len(scores1)),
-            "rater1": scores1,
-            "rater2": scores2,
-        }
-    )
-    long = pd.melt(df, id_vars="subject", var_name="rater", value_name="rating")
-
-    try:
-        icc_tbl = pg.intraclass_corr(
-            data=long, targets="subject", raters="rater", ratings="rating"
-        )
-        # Absolute agreement, single measure → ICC2
-        row = icc_tbl[icc_tbl["Type"] == "ICC2"]
-        return float(row["ICC"].iloc[0]) if not row.empty else np.nan
-    except (AssertionError, ValueError):
-        return np.nan
-
-
-def calculate_icc_consistency(scores1, scores2):
-    """
-    ICC(3,1): two-way mixed, consistency, single measure (Shrout & Fleiss).
-    """
-    # Check if we have enough data for ICC calculation
-    if len(scores1) < 5:
-        return np.nan
-
-    df = pd.DataFrame(
-        {
-            "subject": np.arange(len(scores1)),
-            "rater1": scores1,
-            "rater2": scores2,
-        }
-    )
-    long = pd.melt(df, id_vars="subject", var_name="rater", value_name="rating")
-
-    try:
-        icc_tbl = pg.intraclass_corr(
-            data=long, targets="subject", raters="rater", ratings="rating"
-        )
-        row = icc_tbl[icc_tbl["Type"] == "ICC3"]
-        return float(row["ICC"].iloc[0]) if not row.empty else np.nan
-    except (AssertionError, ValueError):
-        return np.nan
-
-
-def aggregate_human_scores_df(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Aggregates scores from multiple human experts into a single
-    consensus DataFrame.
-    """
-    human_evals = df[df["evaluator_type"] == "human"]
-    # Group by material and calculate the mean for all score columns
-    human_consensus = human_evals.groupby("material_id").mean(numeric_only=True)
-    return human_consensus
-
-
-def evaluate_agreement_by_criterion_df(
-    human_df: pd.DataFrame,
-    llm_df: pd.DataFrame,
-    score_columns: list[str],
-    *,
-    small_n_threshold: int = 500,
-    n_resamples: int = 10_000,
-    random_state: int | None = 42,
-    verbose: bool = False,
-) -> dict[
-    str,
-    tuple[
-        float,  # rho
-        float,  # p
-        float,  # kappa
-        float,  # human_mean
-        float,  # human_median
-        float,  # human_std
-        float,  # llm_mean
-        float,  # llm_median
-        float,  # llm_std
-    ],
-]:
-    """
-    Calculates Spearman rho (effect size) and uses a permutation-based p-value
-    for small samples; otherwise uses the asymptotic p-value.
-    Also computes quadratic-weighted Cohen's kappa and summary stats.
-    """
-    # Guard: only keep columns present in both frames
-    score_columns = [
-        c
-        for c in score_columns
-        if c in human_df.columns and c in llm_df.columns
-    ]
-
-    # Merge once on material_id
-    merged = pd.merge(
-        human_df[["material_id", *score_columns]],
-        llm_df[["material_id", *score_columns]],
-        on="material_id",
-        suffixes=("_human", "_llm"),
-    )
-
-    def categorize_score(v: float) -> int:
-        if v <= 1:
-            return 0
-        elif v <= 2:
-            return 1
-        elif v <= 3:
-            return 2
-        elif v <= 4:
-            return 3
-        else:
-            return 4
-
-    results: dict[
-        str,
-        tuple[float, float, float, float, float, float, float, float, float],
-    ] = {}
-
-    for col in score_columns:
-        valid = merged[[f"{col}_human", f"{col}_llm"]].dropna()
-        if len(valid) < 2:
-            results[col] = (
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-                np.nan,
-            )
-            continue
-
-        # Arrays + finite mask
-        x = valid[f"{col}_human"].to_numpy()
-        y = valid[f"{col}_llm"].to_numpy()
-        m = np.isfinite(x) & np.isfinite(y)
-        x, y = x[m], y[m]
-
-        # Spearman (permit NaN when either side constant)
-        if x.size < 2 or np.unique(x).size < 2 or np.unique(y).size < 2:
-            rho, p = np.nan, np.nan
-        else:
-            # Effect size from asymptotic spearman
-            res_asym = spearmanr(
-                x, y, nan_policy="omit", alternative="two-sided"
-            )
-            rho_asym, p_asym = float(res_asym.statistic), float(res_asym.pvalue)
-
-            # Permutation p-value for small n
-            if x.size < small_n_threshold:
-
-                def stat(x_perm):
-                    result = spearmanr(
-                        x_perm, y, nan_policy="omit", alternative="two-sided"
-                    )
-                    return result.statistic
-
-                res_perm = permutation_test(
-                    (x,),
-                    stat,
-                    permutation_type="pairings",
-                    n_resamples=n_resamples,
-                    alternative="two-sided",
-                    random_state=random_state,
-                )
-                rho, p = rho_asym, float(res_perm.pvalue)
-                if verbose:
-                    logging.info(
-                        f"{col}: n={x.size}, permutation p={p:.6g}, "
-                        f"asymptotic p={p_asym:.6g}, rho={rho:.4f}"
-                    )
-            else:
-                rho, p = rho_asym, p_asym
-
-        # Quadratic-weighted κ on binned scores
-        human_categories = valid[f"{col}_human"].apply(categorize_score)
-        llm_categories = valid[f"{col}_llm"].apply(categorize_score)
-        kappa = cohen_kappa_score(
-            human_categories, llm_categories, weights="quadratic"
-        )
-
-        # Summary stats
-        human_mean = float(valid[f"{col}_human"].mean())
-        human_median = float(valid[f"{col}_human"].median())
-        human_std = float(valid[f"{col}_human"].std())
-        llm_mean = float(valid[f"{col}_llm"].mean())
-        llm_median = float(valid[f"{col}_llm"].median())
-        llm_std = float(valid[f"{col}_llm"].std())
-
-        results[col] = (
-            rho,
-            p,
-            kappa,
-            human_mean,
-            human_median,
-            human_std,
-            llm_mean,
-            llm_median,
-            llm_std,
-        )
-
-    return results
 
 
 def read_score_data_with_categories(
@@ -407,8 +50,8 @@ def read_score_data_with_categories(
             skipped_papers.append(f"{paper_id} (manually skipped)")
             continue
 
-        human_file = os.path.join(paper_dir, "result_human.json")
-        llm_file = os.path.join(paper_dir, "result.json")
+        human_file = os.path.join(paper_dir, "old", "result_human.json")
+        llm_file = os.path.join(paper_dir, "old", "result.json")
 
         # Only process if BOTH files exist
         if not (os.path.exists(human_file) and os.path.exists(llm_file)):
@@ -419,9 +62,9 @@ def read_score_data_with_categories(
 
         # Load both files to check for extraction failures
         try:
-            with open(human_file) as f:
+            with open(human_file, encoding="utf-8") as f:
                 human_evaluations = json.load(f)
-            with open(llm_file) as f:
+            with open(llm_file, encoding="utf-8") as f:
                 llm_evaluations = json.load(f)
         except (json.JSONDecodeError, KeyError) as e:
             logging.info(f"Error reading files for {paper_id}: {e}")
@@ -580,26 +223,13 @@ def create_score_comparison_csv(
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
-    # Merge human and LLM data on material_id
-    merged = pd.merge(
-        human_df,
-        llm_df,
-        on="material_id",
-        suffixes=("_human", "_llm"),
-        how="inner",
+    # Merge human and LLM data on material_id (include category columns)
+    merge_cols = SCORE_COLUMNS + ["target_compound_type", "synthesis_method"]
+    merged = merge_on_material_id(
+        human_df, llm_df, merge_cols, suffixes=("_human", "_llm"),
     )
 
-    # Define the score columns we want to compare
-    score_columns = [
-        "structural_completeness_score",
-        "material_extraction_score",
-        "process_steps_score",
-        "equipment_extraction_score",
-        "conditions_extraction_score",
-        "semantic_accuracy_score",
-        "format_compliance_score",
-        "overall_score",
-    ]
+    score_columns = SCORE_COLUMNS
 
     # Create the comparison DataFrame
     comparison_data = []
@@ -649,8 +279,7 @@ def analyze_by_category(
     # Get unique categories
     categories = human_df[category_column].unique()
 
-    # Define score columns
-    score_cols = [col for col in human_df.columns if "_score" in col]
+    score_cols = SCORE_COLUMNS
 
     # Store results for all categories
     all_results = []
@@ -675,42 +304,28 @@ def analyze_by_category(
         logging.info(f"  Materials in category: {len(human_category)}")
 
         # Calculate agreement statistics
-        results = evaluate_agreement_by_criterion_df(
-            human_category, llm_category, score_cols
+        results = evaluate_agreement_by_criterion(
+            human_category, llm_category, score_cols, use_permutation=True,
         )
 
         # Store results
-        for criterion, (
-            corr,
-            pval,
-            kappa,
-            human_mean,
-            human_median,
-            human_std,
-            llm_mean,
-            llm_median,
-            llm_std,
-        ) in results.items():
-            criterion_name = (
-                criterion.replace("_score", "").replace("_", " ").title()
-            )
-
-            all_results.append(
-                {
-                    "category": category,
-                    "criterion": criterion_name,
-                    "spearman": corr,
-                    "p_value": pval,
-                    "cohen_kappa": kappa,
-                    "human_mean": human_mean,
-                    "human_median": human_median,
-                    "human_std": human_std,
-                    "llm_mean": llm_mean,
-                    "llm_median": llm_median,
-                    "llm_std": llm_std,
-                    "sample_size": len(human_category),
-                }
-            )
+        for criterion, metrics in results.items():
+            if metrics is None:
+                continue
+            all_results.append({
+                "category": category,
+                "criterion": col_label(criterion),
+                "spearman": metrics["rho"],
+                "p_value": metrics["p"],
+                "cohen_kappa": metrics["kappa"],
+                "human_mean": metrics["h_mean"],
+                "human_median": metrics["h_median"],
+                "human_std": metrics["h_std"],
+                "llm_mean": metrics["l_mean"],
+                "llm_median": metrics["l_median"],
+                "llm_std": metrics["l_std"],
+                "sample_size": metrics["n"],
+            })
 
     # Create DataFrame and save to CSV
     results_df = pd.DataFrame(all_results)
