@@ -423,9 +423,8 @@ def _save_ranking_png(ranked, rank_by):
     return out_png
 
 
-# ---------------------------------------------------------------------------
-# main
-# ---------------------------------------------------------------------------
+
+
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     logging.basicConfig(

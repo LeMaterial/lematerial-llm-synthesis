@@ -59,9 +59,8 @@ for _lg in ("pydantic", "litellm"):
     logging.getLogger(_lg).setLevel(logging.ERROR)
 
 
-# ---------------------------------------------------------------------------
-# VLMExtractorPool — builds and manages VLM extractors from Hydra config
-# ---------------------------------------------------------------------------
+
+
 
 
 class VLMExtractorPool:
@@ -115,9 +114,8 @@ class VLMExtractorPool:
         return self.extractors[vlm_name]
 
 
-# ---------------------------------------------------------------------------
-# MetricsEvaluator — GT comparison, aggregation, and console logging
-# ---------------------------------------------------------------------------
+
+
 
 
 class MetricsEvaluator:
@@ -408,9 +406,8 @@ class MetricsEvaluator:
             json.dump(data, f, indent=2)
 
 
-# ---------------------------------------------------------------------------
-# BaseVLMRunner — shared VLM extraction logic
-# ---------------------------------------------------------------------------
+
+
 
 
 class BaseVLMRunner:
@@ -501,9 +498,8 @@ class BaseVLMRunner:
         raise NotImplementedError
 
 
-# ---------------------------------------------------------------------------
-# ImageBenchmarkRunner — from_plot_images mode
-# ---------------------------------------------------------------------------
+
+
 
 
 class ImageBenchmarkRunner(BaseVLMRunner):
@@ -614,9 +610,7 @@ class ImageBenchmarkRunner(BaseVLMRunner):
         logging.info("Success")
 
 
-# ---------------------------------------------------------------------------
-# PaperExtractionRunner — papers mode (PDF extraction+Florence-2 figure detection + VLM extraction)
-# ---------------------------------------------------------------------------
+
 
 
 class PaperExtractionRunner(BaseVLMRunner):
@@ -821,9 +815,8 @@ class PaperExtractionRunner(BaseVLMRunner):
         logging.info("Success")
 
 
-# ---------------------------------------------------------------------------
-# Hydra entry point
-# ---------------------------------------------------------------------------
+
+
 
 
 @hydra.main(

@@ -32,9 +32,8 @@ COMPACT_HEADER = (
 )
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
+
+
 def _section(title):
     """Log a section divider."""
     logging.info("\n%s\n%s\n%s", "=" * 120, title, "=" * 120)
@@ -62,9 +61,8 @@ def _log_compact_row(label, metrics):
     )
 
 
-# ---------------------------------------------------------------------------
-# 1. Agreement by score category (all judges pooled)
-# ---------------------------------------------------------------------------
+
+
 def analysis_by_score_category(human_df, llm_df, score_cols):
     """Log agreement metrics for each score column across all judges."""
     _section("AGREEMENT BY SCORE CATEGORY (all judges pooled)")
@@ -76,9 +74,8 @@ def analysis_by_score_category(human_df, llm_df, score_cols):
             _log_full_row(col_label(col), metrics)
 
 
-# ---------------------------------------------------------------------------
-# 2. Agreement by synthesis LLM / judge LLM (overall_score)
-# ---------------------------------------------------------------------------
+
+
 def analysis_by_group(human_df, llm_df, score_cols, group_col, group_label):
     """Log compact agreement for each unique value in *group_col*."""
     if OVERALL_COL not in score_cols:
@@ -106,9 +103,8 @@ def analysis_by_group(human_df, llm_df, score_cols, group_col, group_label):
             _log_compact_row(value, metrics)
 
 
-# ---------------------------------------------------------------------------
-# 3. Per judge x per score category breakdown
-# ---------------------------------------------------------------------------
+
+
 def per_score_per_judge(human_df, llm_df, score_cols):
     """Log compact metrics for every (judge, score column) pair."""
     _section("PER JUDGE x PER SCORE CATEGORY BREAKDOWN")
@@ -122,9 +118,8 @@ def per_score_per_judge(human_df, llm_df, score_cols):
                 _log_compact_row(col_label(col), metrics)
 
 
-# ---------------------------------------------------------------------------
-# 4. Stratified analysis by material category (compound type / synthesis method)
-# ---------------------------------------------------------------------------
+
+
 def analyze_by_material_category(human_df, llm_df, score_cols, cat_col, cat_label):
     """Per-judge agreement within each value of *cat_col*.
 
@@ -264,9 +259,8 @@ def _make_category_heatmap(grid, cat_values, judge_names, cat_label):
     logging.info("\nSaved %s heatmap to %s", cat_label, out_png)
 
 
-# ---------------------------------------------------------------------------
-# main
-# ---------------------------------------------------------------------------
+
+
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     logging.basicConfig(
