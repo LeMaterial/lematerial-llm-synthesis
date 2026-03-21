@@ -513,7 +513,9 @@ class ImageBenchmarkRunner(BaseVLMRunner):
             original_cwd: Original working directory (before Hydra changes it).
         """
         super().__init__(cfg, original_cwd, prompt=resources.LINE_CHART_PROMPT)
-        figure_dir = cfg.get("figure_dir", "examples/data/figure_labeling")
+        figure_dir = cfg.plot_extraction.get(
+            "figure_dir", "examples/data/figure_labeling"
+        )
         if not os.path.isabs(figure_dir):
             figure_dir = os.path.join(original_cwd, figure_dir)
         self.figure_dir = figure_dir
@@ -825,7 +827,7 @@ class PaperExtractionRunner(BaseVLMRunner):
 def main(cfg: DictConfig) -> None:
     """Hydra entry point — dispatches to ImageBenchmarkRunner or PaperExtractionRunner."""
     original_cwd = get_original_cwd()
-    if cfg.get("from_plot_images", False):
+    if cfg.plot_extraction.get("from_plot_images", False):
         ImageBenchmarkRunner(cfg, original_cwd).run()
     else:
         PaperExtractionRunner(cfg, original_cwd).run()
