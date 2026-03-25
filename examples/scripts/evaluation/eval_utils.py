@@ -12,23 +12,20 @@ compare_multi_llm_results_*.py:
 - Agreement metrics: compute_agreement_metrics, evaluate_agreement_by_criterion
 
 Plot extraction metrics:
-- parse_ground_truth_csv, match_series, series_coord_metrics, compare_extraction_to_gt
+- parse_ground_truth_csv, match_series, series_coord_metrics, 
+compare_extraction_to_gt
 """
 
 import csv
 import logging
 import re
 from difflib import SequenceMatcher
-from typing import Tuple
 
 import numpy as np
 import pandas as pd
 import pingouin as pg
-from scipy.stats import pearsonr, spearmanr
+from scipy.stats import pearsonr, permutation_test, spearmanr
 from sklearn.metrics import cohen_kappa_score
-from scipy.stats import permutation_test  
-
-
 
 # =============================================================================
 # Constants
@@ -123,14 +120,15 @@ def normalize_material_name(name):
     normalized = str(name).lower().strip()
 
     # Standardize separators (replace various dashes and slashes)
-    normalized = re.sub(r"[-—−/−\\]", "-", normalized)  # noqa: RUF001
+    normalized = re.sub(r"[-—−/−\\]", "-", normalized)
 
     # Remove common suffixes
     for suffix in [
         " single crystals", " crystals", " nanostructures", " nanoparticles",
-        " nanorods", " nanowires", " nanoneedles", " nanocombs", " nanocrystals",
-        " composite", " ceramics", " powders", " powder", " films", " thin films",
-        " layers", " samples", " materials", " compounds", " structures",
+        " nanorods", " nanowires", " nanoneedles", " nanocombs", 
+        " nanocrystals", " composite", " ceramics", " powders", " powder", 
+        " films", " thin films", " layers", " samples", " materials", 
+        " compounds", " structures",
     ]:
         if normalized.endswith(suffix):
             normalized = normalized[: -len(suffix)]
@@ -265,22 +263,22 @@ def compute_agreement_metrics(
         return None
 
     h = paired["h"].to_numpy(float)
-    l = paired["l"].to_numpy(float)
-    finite = np.isfinite(h) & np.isfinite(l)
-    h, l = h[finite], l[finite]
+    llm = paired["l"].to_numpy(float)
+    finite = np.isfinite(h) & np.isfinite(llm)
+    h, llm = h[finite], llm[finite]
 
     # Spearman
-    if h.size < 2 or np.unique(h).size < 2 or np.unique(l).size < 2:
+    if h.size < 2 or np.unique(h).size < 2 or np.unique(llm).size < 2:
         rho, p = np.nan, np.nan
     else:
-        res = spearmanr(h, l, nan_policy="omit", alternative="two-sided")
+        res = spearmanr(h, llm, nan_policy="omit", alternative="two-sided")
         rho, p = float(res.statistic), float(res.pvalue)
 
         if use_permutation and h.size < 500:
 
             def _stat(x_perm):
                 return spearmanr(
-                    x_perm, l, nan_policy="omit", alternative="two-sided"
+                    x_perm, llm, nan_policy="omit", alternative="two-sided"
                 ).statistic
 
             res_perm = permutation_test(
@@ -384,7 +382,8 @@ def parse_ground_truth_csv(csv_path):
 
 
 def series_coord_metrics(ext_pts, gt_pts):
-    """Nearest-neighbour RMSE/MAE and correlation between extracted and GT series.
+    """Nearest-neighbour RMSE/MAE and correlation between extracted and GT 
+    series.
 
     Distances normalized by GT axis ranges (0-1 scale).
     Pearson r, Spearman rho, and ICC are computed on the raw y-values
@@ -408,21 +407,27 @@ def series_coord_metrics(ext_pts, gt_pts):
     gt_n = (gt - gt_min) / gt_range
 
     # Nearest-neighbour distances (GT → EXT)
-    D = cdist(gt_n, ext_n)
-    nn = D.min(axis=1)
-    nn_idx = D.argmin(axis=1)
+    dist = cdist(gt_n, ext_n)
+    nn = dist.min(axis=1)
+    nn_idx = dist.argmin(axis=1)
 
     # Correlation / ICC on paired raw y-values
     agreement = compute_agreement_metrics(gt[:, 1], ext[nn_idx, 1])
     if agreement is not None:
-        sr = round(agreement["rho"], 4) if not np.isnan(agreement["rho"]) else None
-        icc_val = round(agreement["icc2"], 4) if not np.isnan(agreement["icc2"]) else None
+        rho = agreement["rho"]
+        sr = round(rho, 4) if not np.isnan(rho) else None
+        icc2 = agreement["icc2"]
+        icc_val = round(icc2, 4) if not np.isnan(icc2) else None
     else:
         sr, icc_val = None, None
 
     # Pearson r (not in compute_agreement_metrics)
     gt_y, ext_y = gt[:, 1], ext[nn_idx, 1]
-    _enough = len(gt_y) >= 3 and np.unique(gt_y).size >= 2 and np.unique(ext_y).size >= 2
+    _enough = (
+        len(gt_y) >= 3
+        and np.unique(gt_y).size >= 2
+        and np.unique(ext_y).size >= 2
+    )
     pr = round(float(pearsonr(gt_y, ext_y).statistic), 4) if _enough else None
 
     return {

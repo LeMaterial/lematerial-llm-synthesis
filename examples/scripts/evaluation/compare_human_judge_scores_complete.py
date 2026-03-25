@@ -6,7 +6,6 @@ import os
 import sys
 
 import pandas as pd
-
 from eval_utils import (
     SCORE_COLUMNS,
     aggregate_human_scores_df,
@@ -22,22 +21,29 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 def print_individual_scores(human_df, llm_df, score_columns):
     """Log side-by-side human vs LLM scores for every matched material."""
     merged = merge_on_material_id(
-        human_df, llm_df, score_columns, suffixes=("_human", "_llm"),
+        human_df,
+        llm_df,
+        score_columns,
+        suffixes=("_human", "_llm"),
     )
     logging.info("\n%s\nINDIVIDUAL SCORE COMPARISONS\n%s", "=" * 100, "=" * 100)
     for _, row in merged.iterrows():
         logging.info(
             "\nMaterial: %s (%s) | Paper: %s",
-            row.get("material", ""), row["material_id"],
+            row.get("material", ""),
+            row["material_id"],
             row.get("paper_id", ""),
         )
         logging.info("-" * 60)
         for c in score_columns:
-            h, l = row.get(f"{c}_human"), row.get(f"{c}_llm")
-            if h is not None and l is not None:
+            h, llm = row.get(f"{c}_human"), row.get(f"{c}_llm")
+            if h is not None and llm is not None:
                 logging.info(
                     "  %-28s Human: %5.1f | LLM: %5.1f | Diff: %+5.1f",
-                    col_label(c), h, l, l - h,
+                    col_label(c),
+                    h,
+                    llm,
+                    llm - h,
                 )
 
 
@@ -260,12 +266,12 @@ def read_score_data(
 if __name__ == "__main__":
     logging.basicConfig(
         filename="results/human_judge_complete.log",
-        level=logging.INFO, filemode="w",
+        level=logging.INFO,
+        filemode="w",
     )
 
     skip_folders = [
         # ### Remove deliberately bad ones
-
         "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
         "2883daff26f16a13134a26ca5d366549a14fcc9c",
         "90233593a9aa72b4bacfdeadc20050ae6d4b88e1",
@@ -289,7 +295,10 @@ if __name__ == "__main__":
     print_individual_scores(data_human, data_llm_judge, score_cols)
 
     results = evaluate_agreement_by_criterion(
-        data_human, data_llm_judge, score_cols, use_permutation=True,
+        data_human,
+        data_llm_judge,
+        score_cols,
+        use_permutation=True,
     )
 
     logging.info("\nLLM-as-a-Judge Agreement Analysis\n")
@@ -304,9 +313,18 @@ if __name__ == "__main__":
         if metrics is None:
             continue
         logging.info(
-            "%-24s %9.4f %9.4f %8.4f %8.4f %8.4f %7.2f %6.2f %6.2f %7.2f %6.2f %6.2f",
+            "%-24s %9.4f %9.4f %8.4f %8.4f %8.4f"
+            " %7.2f %6.2f %6.2f %7.2f %6.2f %6.2f",
             col_label(criterion),
-            metrics["rho"], metrics["p"], metrics["kappa"], metrics["icc2"], metrics["icc3"],
-            metrics["h_mean"], metrics["h_median"], metrics["h_std"],
-            metrics["l_mean"], metrics["l_median"], metrics["l_std"],
+            metrics["rho"],
+            metrics["p"],
+            metrics["kappa"],
+            metrics["icc2"],
+            metrics["icc3"],
+            metrics["h_mean"],
+            metrics["h_median"],
+            metrics["h_std"],
+            metrics["l_mean"],
+            metrics["l_median"],
+            metrics["l_std"],
         )

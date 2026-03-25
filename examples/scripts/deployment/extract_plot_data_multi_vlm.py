@@ -2,7 +2,8 @@
 # The logic from there is extended to run N VLMs on plot/figure extraction
 # and generates a result.json summarizing the results per VLM.
 #
-# Usage - from papers — uses Florence-2 for figure classification followed by vlm extraction:
+# Usage - from papers — uses Florence-2 for figure classification followed by
+# vlm extraction:
 #   uv run examples/scripts/deployment/extract_plot_data_multi_vlm.py \
 #     data_loader=default \
 #     result_save=multi_llm
@@ -25,9 +26,13 @@ import os
 import random
 import sys
 import warnings
+from typing import ClassVar
 
 # Ensure the project root is on sys.path so sibling scripts are importable.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")),
+)
 
 import hydra
 import numpy as np
@@ -43,9 +48,9 @@ from llm_synthesis.models.figure import FigureInfoWithPaper
 from llm_synthesis.services.pipelines.plot_extraction_pipeline import (
     PlotExtractionPipeline,
 )
-from llm_synthesis.transformers.plot_extraction.claude_extraction import resources
-from llm_synthesis.transformers.plot_extraction.litellm_plot_data_extraction import (
-    LiteLLMPlotDataExtractor,
+from llm_synthesis.transformers.plot_extraction import LiteLLMPlotDataExtractor
+from llm_synthesis.transformers.plot_extraction.claude_extraction import (
+    resources,
 )
 from llm_synthesis.utils.concurrency import (
     get_max_concurrent_llm_calls,
@@ -54,13 +59,11 @@ from llm_synthesis.utils.concurrency import (
 from llm_synthesis.utils.llms import LLM_REGISTRY
 
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
+)
 for _lg in ("pydantic", "litellm"):
     logging.getLogger(_lg).setLevel(logging.ERROR)
-
-
-
-
 
 
 class VLMExtractorPool:
@@ -86,7 +89,9 @@ class VLMExtractorPool:
         }
 
     def _build(
-        self, vlm_name: str, prompt: str | None = None,
+        self,
+        vlm_name: str,
+        prompt: str | None = None,
     ) -> LiteLLMPlotDataExtractor:
         """Build a single ``LiteLLMPlotDataExtractor`` for *vlm_name*."""
         if vlm_name in LLM_REGISTRY.configs:
@@ -114,10 +119,6 @@ class VLMExtractorPool:
         return self.extractors[vlm_name]
 
 
-
-
-
-
 class MetricsEvaluator:
     """Compares VLM extractions to ground-truth CSVs and reports metrics."""
 
@@ -135,8 +136,8 @@ class MetricsEvaluator:
     def _find_csv(figure_dir: str, subfolder: str) -> str | None:
         """Locate the ground-truth CSV for *subfolder*.
 
-        Tries to find ``<subfolder>/<subfolder>.csv``; falls back to any ``.csv``
-        in the subfolder.  Returns ``None`` when no CSV is found.
+        Tries to find ``<subfolder>/<subfolder>.csv``; falls back to any
+        ``.csv``in the subfolder.  Returns ``None`` when no CSV is found.
         """
         sub_path = os.path.join(figure_dir, subfolder)
         exact = os.path.join(sub_path, f"{subfolder}.csv")
@@ -147,12 +148,12 @@ class MetricsEvaluator:
                 return os.path.join(sub_path, fname)
         return None
 
-
     def compute_metrics(self, all_results: dict[str, dict]):
         """Compare every (VLM, figure) extraction to its ground-truth CSV.
 
         Args:
-            all_results: ``{subfolder: {"png": path, "vlms": {vlm: extraction}}}``.
+            all_results:
+            ``{subfolder: {"png": path, "vlms": {vlm: extraction}}}``.
 
         Returns:
             ``{subfolder: {vlm_name: metrics_dict, ...}, ...}``.
@@ -166,7 +167,9 @@ class MetricsEvaluator:
                 continue
             gt_series = parse_ground_truth_csv(csv_path)
             if not gt_series:
-                logging.warning(f"  Empty CSV for {subfolder} — skipping metrics")
+                logging.warning(
+                    f"  Empty CSV for {subfolder} — skipping metrics"
+                )
                 continue
 
             fig_metrics = {
@@ -183,7 +186,8 @@ class MetricsEvaluator:
     # -- aggregate --
 
     def aggregate_metrics(
-        self, all_metrics: dict[str, dict[str, dict]],
+        self,
+        all_metrics: dict[str, dict[str, dict]],
     ) -> dict[str, dict]:
         """Aggregate per-figure metrics into a single dict per VLM.
 
@@ -193,40 +197,67 @@ class MetricsEvaluator:
         agg: dict[str, dict] = {}
         for vlm in self.vlm_names:
             ok = [
-                all_metrics[s][vlm] for s in all_metrics
+                all_metrics[s][vlm]
+                for s in all_metrics
                 if all_metrics[s][vlm].get("status") == "ok"
             ]
-            rmses = [m["mean_rmse_norm"] for m in ok if m["mean_rmse_norm"] is not None]
-            maes = [m["mean_mae_norm"] for m in ok if m["mean_mae_norm"] is not None]
-            prs = [m["mean_pearson_r"] for m in ok if m.get("mean_pearson_r") is not None]
-            srs = [m["mean_spearman_rho"] for m in ok if m.get("mean_spearman_rho") is not None]
+            rmses = [
+                m["mean_rmse_norm"]
+                for m in ok
+                if m["mean_rmse_norm"] is not None
+            ]
+            maes = [
+                m["mean_mae_norm"] for m in ok if m["mean_mae_norm"] is not None
+            ]
+            prs = [
+                m["mean_pearson_r"]
+                for m in ok
+                if m.get("mean_pearson_r") is not None
+            ]
+            srs = [
+                m["mean_spearman_rho"]
+                for m in ok
+                if m.get("mean_spearman_rho") is not None
+            ]
             iccs = [m["mean_icc"] for m in ok if m.get("mean_icc") is not None]
             agg[vlm] = {
                 "num_figures_with_gt": len(all_metrics),
                 "num_successful": len(ok),
                 "num_failed": len(all_metrics) - len(ok),
-                "mean_rmse_norm": round(float(np.mean(rmses)), 4) if rmses else None,
-                "mean_mae_norm": round(float(np.mean(maes)), 4) if maes else None,
-                "mean_pearson_r": round(float(np.mean(prs)), 4) if prs else None,
-                "mean_spearman_rho": round(float(np.mean(srs)), 4) if srs else None,
+                "mean_rmse_norm": round(float(np.mean(rmses)), 4)
+                if rmses
+                else None,
+                "mean_mae_norm": round(float(np.mean(maes)), 4)
+                if maes
+                else None,
+                "mean_pearson_r": round(float(np.mean(prs)), 4)
+                if prs
+                else None,
+                "mean_spearman_rho": round(float(np.mean(srs)), 4)
+                if srs
+                else None,
                 "mean_icc": round(float(np.mean(iccs)), 4) if iccs else None,
-                "total_series_matched": sum(m["num_series_matched"] for m in ok),
+                "total_series_matched": sum(
+                    m["num_series_matched"] for m in ok
+                ),
                 "total_series_gt": sum(m["num_series_gt"] for m in ok),
             }
         return agg
 
     # -- ranking --
 
-    RANK_METRICS = {
-        "mean_rmse_norm": ("RMSE (norm)", True),   # lower is better
-        "mean_mae_norm": ("MAE (norm)", True),     # lower is better
-        "mean_pearson_r": ("Pearson r", False),     # higher is better
+    RANK_METRICS: ClassVar[dict] = {
+        "mean_rmse_norm": ("RMSE (norm)", True),  # lower is better
+        "mean_mae_norm": ("MAE (norm)", True),  # lower is better
+        "mean_pearson_r": ("Pearson r", False),  # higher is better
         "mean_spearman_rho": ("Spearman rho", False),  # higher is better
-        "mean_icc": ("ICC", False),                 # higher is better
+        "mean_icc": ("ICC", False),  # higher is better
     }
 
     def rank_vlms(
-        self, aggregate: dict[str, dict], rank_by: str = "mean_pearson_r",
+        self,
+        aggregate: dict[str, dict],
+        rank_by: str = "mean_pearson_r",
     ) -> list[dict]:
         """Rank VLMs by the chosen metric.
 
@@ -253,7 +284,9 @@ class MetricsEvaluator:
         entries.sort(
             key=lambda e: (
                 e["_sort_val"] is None,
-                (e["_sort_val"] or 0) if lower_is_better else -(e["_sort_val"] or 0),
+                (e["_sort_val"] or 0)
+                if lower_is_better
+                else -(e["_sort_val"] or 0),
             )
         )
         for i, entry in enumerate(entries, 1):
@@ -291,7 +324,9 @@ class MetricsEvaluator:
         logging.info("=" * w)
 
     def log_ranking_table(
-        self, ranked: list[dict], rank_by: str = "mean_pearson_r",
+        self,
+        ranked: list[dict],
+        rank_by: str = "mean_pearson_r",
     ) -> None:
         """Log VLM ranking as a formatted table."""
         label, _lower = self.RANK_METRICS.get(rank_by, (rank_by, False))
@@ -302,7 +337,8 @@ class MetricsEvaluator:
         logging.info("=" * w)
         logging.info(
             f"{'Rank':>4}  {'VLM':<25} {label:>12} "
-            f"{'RMSE':>8} {'MAE':>8} {'Pearson':>8} {'Spearman':>9} {'ICC':>8} {'OK':>4}"
+            f"{'RMSE':>8} {'MAE':>8} {'Pearson':>8}"
+            f" {'Spearman':>9} {'ICC':>8} {'OK':>4}"
         )
         logging.info("-" * w)
         for entry in ranked:
@@ -320,36 +356,51 @@ class MetricsEvaluator:
         logging.info("=" * w)
 
     def _save_ranking_png(
-        self, ranked: list[dict], rank_by: str = "mean_pearson_r",
+        self,
+        ranked: list[dict],
+        rank_by: str = "mean_pearson_r",
     ) -> str:
         """Render a PNG table showing VLM ranking."""
         import matplotlib.pyplot as plt  # pylint: disable=import-outside-toplevel
 
         label, _lower = self.RANK_METRICS.get(rank_by, (rank_by, False))
         headers = [
-            "Rank", "VLM", label, "RMSE", "MAE", "Pearson", "Spearman", "ICC", "OK",
+            "Rank",
+            "VLM",
+            label,
+            "RMSE",
+            "MAE",
+            "Pearson",
+            "Spearman",
+            "ICC",
+            "OK",
         ]
         table_data = []
         for entry in ranked:
-            table_data.append([
-                str(entry["rank"]),
-                entry["vlm"],
-                f"{entry.get(rank_by, 0) or 0:.4f}",
-                f"{entry.get('mean_rmse_norm', 0) or 0:.4f}",
-                f"{entry.get('mean_mae_norm', 0) or 0:.4f}",
-                f"{entry.get('mean_pearson_r', 0) or 0:.4f}",
-                f"{entry.get('mean_spearman_rho', 0) or 0:.4f}",
-                f"{entry.get('mean_icc', 0) or 0:.4f}",
-                str(entry.get("num_successful", 0)),
-            ])
+            table_data.append(
+                [
+                    str(entry["rank"]),
+                    entry["vlm"],
+                    f"{entry.get(rank_by, 0) or 0:.4f}",
+                    f"{entry.get('mean_rmse_norm', 0) or 0:.4f}",
+                    f"{entry.get('mean_mae_norm', 0) or 0:.4f}",
+                    f"{entry.get('mean_pearson_r', 0) or 0:.4f}",
+                    f"{entry.get('mean_spearman_rho', 0) or 0:.4f}",
+                    f"{entry.get('mean_icc', 0) or 0:.4f}",
+                    str(entry.get("num_successful", 0)),
+                ]
+            )
 
         fig, ax = plt.subplots(
             figsize=(16, len(ranked) * 1.2 + 2),
         )
         ax.axis("off")
         tbl = ax.table(
-            cellText=table_data, colLabels=headers,
-            cellLoc="center", loc="center", bbox=[0, 0, 1, 1],
+            cellText=table_data,
+            colLabels=headers,
+            cellLoc="center",
+            loc="center",
+            bbox=[0, 0, 1, 1],
         )
         tbl.auto_set_font_size(False)
         tbl.set_fontsize(10)
@@ -367,7 +418,9 @@ class MetricsEvaluator:
 
         plt.title(
             f"VLM Ranking — Plot Data Extraction\nRanked by: {label}",
-            fontsize=14, fontweight="bold", pad=20,
+            fontsize=14,
+            fontweight="bold",
+            pad=20,
         )
         out_png = os.path.join(self.figure_dir, "vlm_ranking.png")
         plt.savefig(out_png, dpi=300, bbox_inches="tight", facecolor="white")
@@ -378,14 +431,25 @@ class MetricsEvaluator:
     # -- convenience: full evaluate + save + log --
 
     def run(
-        self, all_results: dict[str, dict], rank_by: str = "mean_pearson_r",
+        self,
+        all_results: dict[str, dict],
+        rank_by: str = "mean_pearson_r",
     ) -> None:
-        """Full pipeline: compute per-figure metrics, aggregate, rank, save JSONs, and log."""
+        """
+        Full pipeline: compute per-figure metrics, aggregate, rank, 
+        save JSONs, and log.
+        """
         logging.info("Computing metrics against ground-truth CSVs …")
         all_metrics = self.compute_metrics(all_results)
         aggregate = self.aggregate_metrics(all_metrics)
-        self._save_json(aggregate, os.path.join(self.figure_dir, "vlm_aggregate_metrics.json"))
-        self._save_json(all_metrics, os.path.join(self.figure_dir, "vlm_detailed_metrics.json"))
+        self._save_json(
+            aggregate,
+            os.path.join(self.figure_dir, "vlm_aggregate_metrics.json"),
+        )
+        self._save_json(
+            all_metrics,
+            os.path.join(self.figure_dir, "vlm_detailed_metrics.json"),
+        )
         self.log_table(aggregate)
 
         # Rank VLMs and save ranking
@@ -393,21 +457,20 @@ class MetricsEvaluator:
         self.log_ranking_table(ranked, rank_by=rank_by)
         out_json = os.path.join(self.figure_dir, "vlm_ranking.json")
         self._save_json(
-            [{"rank_by": rank_by, **e} for e in ranked], out_json,
+            [{"rank_by": rank_by, **e} for e in ranked],
+            out_json,
         )
         self._save_ranking_png(ranked, rank_by=rank_by)
         logging.info("Saved VLM ranking to %s", out_json)
 
     @staticmethod
     def _save_json(data, path: str) -> None:
-        """Write *data* as pretty-printed JSON to *path*, creating dirs as needed."""
+        """
+        Write *data* as pretty-printed JSON to *path*, creating dirs as needed.
+        """
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w") as f:
             json.dump(data, f, indent=2)
-
-
-
-
 
 
 class BaseVLMRunner:
@@ -417,7 +480,9 @@ class BaseVLMRunner:
     The VLM execution is handled by ``_extract_figure`` and ``_batch_extract``.
     """
 
-    def __init__(self, cfg: DictConfig, original_cwd: str, prompt: str | None = None):
+    def __init__(
+        self, cfg: DictConfig, original_cwd: str, prompt: str | None = None
+    ):
         """Initialise pool and concurrency settings.
 
         Args:
@@ -451,7 +516,9 @@ class BaseVLMRunner:
         extractor = self.pool[vlm_name]
         logging.info(f"  [{vlm_name}] -> {label}")
         try:
-            result = await run_with_semaphore(semaphore, extractor.forward, figure)
+            result = await run_with_semaphore(
+                semaphore, extractor.forward, figure
+            )
             cost = extractor.get_cost()
             extractor.reset_cost()
             logging.info(
@@ -498,10 +565,6 @@ class BaseVLMRunner:
         raise NotImplementedError
 
 
-
-
-
-
 class ImageBenchmarkRunner(BaseVLMRunner):
     """Extract plot data from local PNGs and benchmark against ground truth."""
 
@@ -540,17 +603,27 @@ class ImageBenchmarkRunner(BaseVLMRunner):
         return pngs
 
     def _make_figure(self, png_path: str, name: str) -> FigureInfoWithPaper:
-        """Wrap a local PNG into a minimal ``FigureInfoWithPaper`` (no paper context)."""
+        """
+        Wrap a local PNG into a minimal ``FigureInfoWithPaper`` 
+        (no paper context).
+        """
         return FigureInfoWithPaper(
             base64_data=self._png_to_base64(png_path),
-            alt_text=name, position=0,
-            context_before="", context_after="",
-            figure_reference=name, figure_class="Graph plots",
-            quantitative=True, paper_text="", si_text="",
+            alt_text=name,
+            position=0,
+            context_before="",
+            context_after="",
+            figure_reference=name,
+            figure_class="Graph plots",
+            quantitative=True,
+            paper_text="",
+            si_text="",
         )
 
     def run(self) -> None:
-        """Run VLM extraction on all PNGs, save results, and evaluate metrics."""
+        """
+        Run VLM extraction on all PNGs, save results, and evaluate metrics.
+        """
         pngs = self._collect_pngs(self.figure_dir)
         if not pngs:
             logging.error(f"No PNGs found in {self.figure_dir}")
@@ -579,7 +652,8 @@ class ImageBenchmarkRunner(BaseVLMRunner):
         all_results: dict[str, dict] = {}
         for vlm_name, subfolder, extraction, _cost in results:
             all_results.setdefault(
-                subfolder, {"png": png_lookup[subfolder], "vlms": {}},
+                subfolder,
+                {"png": png_lookup[subfolder], "vlms": {}},
             )
             all_results[subfolder]["vlms"][vlm_name] = extraction
 
@@ -592,16 +666,21 @@ class ImageBenchmarkRunner(BaseVLMRunner):
         # Save extraction summary
         summary = {}
         for vlm in vlm_names:
-            ok = [d["vlms"][vlm] for d in all_results.values()
-                  if d["vlms"].get(vlm) is not None]
+            ok = [
+                d["vlms"][vlm]
+                for d in all_results.values()
+                if d["vlms"].get(vlm) is not None
+            ]
             n = sum(len(e.get("name_to_coordinates", {})) for e in ok)
             summary[vlm] = {
-                "num_figures": len(pngs), "num_successful": len(ok),
+                "num_figures": len(pngs),
+                "num_successful": len(ok),
                 "total_series": n,
                 "avg_series_per_figure": round(n / len(ok), 2) if ok else 0.0,
             }
         MetricsEvaluator._save_json(
-            summary, os.path.join(self.figure_dir, "vlm_extraction_summary.json"),
+            summary,
+            os.path.join(self.figure_dir, "vlm_extraction_summary.json"),
         )
         logging.info(f"Total cost: ${total_cost:.6f}")
 
@@ -610,9 +689,6 @@ class ImageBenchmarkRunner(BaseVLMRunner):
         evaluator = MetricsEvaluator(self.figure_dir, vlm_names)
         evaluator.run(all_results, rank_by=rank_by)
         logging.info("Success")
-
-
-
 
 
 class PaperExtractionRunner(BaseVLMRunner):
@@ -624,8 +700,8 @@ class PaperExtractionRunner(BaseVLMRunner):
         """Initialise the runner.
 
         Args:
-            cfg: Full Hydra config (must include ``data_loader``, ``result_save``,
-                 and ``plot_extraction`` sections).
+            cfg: Full Hydra config (must include ``data_loader``, 
+            ``result_save``, and ``plot_extraction`` sections).
             original_cwd: Original working directory (before Hydra changes it).
         """
         super().__init__(cfg, original_cwd)
@@ -635,7 +711,11 @@ class PaperExtractionRunner(BaseVLMRunner):
         arch = self.cfg.data_loader.architecture
         if hasattr(arch, "data_dir"):
             d = arch.data_dir
-            if not (d.startswith("s3://") or d.startswith("gs://") or d.startswith("/")):
+            if not (
+                d.startswith("s3://")
+                or d.startswith("gs://")
+                or d.startswith("/")
+            ):
                 arch.data_dir = os.path.join(self.original_cwd, d)
         if hasattr(arch, "annotations_dir"):
             if not arch.annotations_dir.startswith("/"):
@@ -644,7 +724,10 @@ class PaperExtractionRunner(BaseVLMRunner):
                 )
 
     async def _get_text_and_figures(self, paper) -> tuple[str, list]:
-        """Get paper text (downloading/converting the PDF if needed) and extract figures."""
+        """
+        Get paper text (downloading/converting the PDF if needed) and extract 
+        figures.
+        """
         paper_text = paper.publication_text
         has_images = "data:image/" in (paper_text or "")
         if paper.pdf_url and (
@@ -653,13 +736,16 @@ class PaperExtractionRunner(BaseVLMRunner):
             logging.info(f"  Converting PDF from {paper.pdf_url}...")
             try:
                 paper_text = await asyncio.to_thread(
-                    self._pipeline.convert_pdf_from_url, paper.pdf_url,
+                    self._pipeline.convert_pdf_from_url,
+                    paper.pdf_url,
                 )
                 logging.info(f"  Converted: {len(paper_text)} chars")
             except Exception as e:
                 logging.error(f"  PDF conversion failed: {e}")
                 return paper_text, []
-        figures = await asyncio.to_thread(self._pipeline.extract_figures, paper_text)
+        figures = await asyncio.to_thread(
+            self._pipeline.extract_figures, paper_text
+        )
         return paper_text, figures
 
     def run(self) -> None:
@@ -671,7 +757,9 @@ class PaperExtractionRunner(BaseVLMRunner):
         )
         papers = data_loader.load()
         if self.cfg.data_loader.number_of_samples:
-            papers = random.sample(papers, self.cfg.data_loader.number_of_samples)
+            papers = random.sample(
+                papers, self.cfg.data_loader.number_of_samples
+            )
 
         vlm_names = self.pool.vlm_names
         logging.info(f"VLMs (n={len(vlm_names)}): {vlm_names}")
@@ -682,7 +770,8 @@ class PaperExtractionRunner(BaseVLMRunner):
         to_process = [p for p in papers if p.id not in os.listdir(result_dir)]
         if self.cfg.data_loader.number_of_samples:
             to_process = random.sample(
-                to_process, self.cfg.data_loader.number_of_samples,
+                to_process,
+                self.cfg.data_loader.number_of_samples,
             )
 
         total_cost = 0.0
@@ -691,12 +780,17 @@ class PaperExtractionRunner(BaseVLMRunner):
         paper_semaphore = asyncio.Semaphore(max_concurrent_papers)
 
         async def process_paper(paper) -> tuple:
-            """Process a single paper: get figures, run VLMs via _batch_extract, save."""
+            """
+            Process a single paper: get figures, run VLMs via _batch_extract,
+            save.
+             """
             logging.info(f"Processing {paper.name}")
             try:
                 paper_text, figures = await self._get_text_and_figures(paper)
                 if not figures:
-                    logging.warning(f"  No quantitative figures in {paper.name}")
+                    logging.warning(
+                        f"  No quantitative figures in {paper.name}"
+                    )
                     return None, 0.0
 
                 # Build labeled figures for the shared _batch_extract
@@ -712,7 +806,8 @@ class PaperExtractionRunner(BaseVLMRunner):
                     fig_lookup[fig.figure_reference] = fig
 
                 results, paper_cost = await self._batch_extract(
-                    llm_semaphore, labeled_figures,
+                    llm_semaphore,
+                    labeled_figures,
                 )
 
                 # Assemble results by VLM
@@ -723,16 +818,23 @@ class PaperExtractionRunner(BaseVLMRunner):
                         if r_vlm == vlm:
                             vlm_cost += cost
                             orig_fig = fig_lookup[label]
-                            vlm_figs.append({
-                                "figure_reference": orig_fig.figure_reference,
-                                "figure_class": orig_fig.figure_class,
-                                "extraction": extraction,
-                            })
+                            vlm_figs.append(
+                                {
+                                    "figure_reference": (
+                                        orig_fig.figure_reference
+                                    ),
+                                    "figure_class": orig_fig.figure_class,
+                                    "extraction": extraction,
+                                }
+                            )
                     multi_vlm_results.append({"vlm": vlm, "figures": vlm_figs})
-                    cost_operations.append({
-                        "operation": "plot_extraction", "vlm": vlm,
-                        "cost_usd": vlm_cost,
-                    })
+                    cost_operations.append(
+                        {
+                            "operation": "plot_extraction",
+                            "vlm": vlm,
+                            "cost_usd": vlm_cost,
+                        }
+                    )
                     ok = [f for f in vlm_figs if f["extraction"]]
                     n_series = sum(
                         len(f["extraction"].get("name_to_coordinates", {}))
@@ -747,14 +849,16 @@ class PaperExtractionRunner(BaseVLMRunner):
                     }
 
                 result_gather.gather(
-                    paper_id=paper.id, publication_text=paper_text,
+                    paper_id=paper.id,
+                    publication_text=paper_text,
                     si_text=paper.si_text,
                     multi_llm_results=multi_vlm_results,
                     cost_data=cost_operations,
                 )
                 paper_dir = os.path.join(result_dir, paper.id)
                 MetricsEvaluator._save_json(
-                    summary, os.path.join(paper_dir, "vlm_summary.json"),
+                    summary,
+                    os.path.join(paper_dir, "vlm_summary.json"),
                 )
                 logging.info(f"  Done: {paper.name} (${paper_cost:.4f})")
                 return summary, paper_cost
@@ -773,7 +877,8 @@ class PaperExtractionRunner(BaseVLMRunner):
 
             all_paper_results = []
             for item in await asyncio.gather(
-                *[run_one(p) for p in to_process], return_exceptions=True,
+                *[run_one(p) for p in to_process],
+                return_exceptions=True,
             ):
                 if isinstance(item, Exception):
                     logging.error(f"Paper task failed: {item}")
@@ -817,15 +922,16 @@ class PaperExtractionRunner(BaseVLMRunner):
         logging.info("Success")
 
 
-
-
-
-
 @hydra.main(
-    config_path="../../config", config_name="config.yaml", version_base=None,
+    config_path="../../config",
+    config_name="config.yaml",
+    version_base=None,
 )
 def main(cfg: DictConfig) -> None:
-    """Hydra entry point — dispatches to ImageBenchmarkRunner or PaperExtractionRunner."""
+    """
+    Hydra entry point — dispatches to ImageBenchmarkRunner or
+    PaperExtractionRunner.
+    """
     original_cwd = get_original_cwd()
     if cfg.plot_extraction.get("from_plot_images", False):
         ImageBenchmarkRunner(cfg, original_cwd).run()

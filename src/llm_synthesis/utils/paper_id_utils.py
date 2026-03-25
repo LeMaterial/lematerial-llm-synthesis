@@ -1,4 +1,6 @@
-"""Paper ID normalization for cond-mat: HF uses slash, filesystem uses period."""
+"""
+Paper ID normalization for cond-mat: HF uses slash, filesystem uses period.
+"""
 
 
 def hf_id_to_folder_id(hf_id: str) -> str:

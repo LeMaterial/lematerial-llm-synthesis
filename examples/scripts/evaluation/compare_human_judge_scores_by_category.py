@@ -7,8 +7,7 @@ import sys
 
 import numpy as np
 import pandas as pd
-
-from eval_utils import ( 
+from eval_utils import (
     SCORE_COLUMNS,
     aggregate_human_scores_df,
     col_label,
@@ -224,7 +223,7 @@ def create_score_comparison_csv(
     os.makedirs(output_dir, exist_ok=True)
 
     # Merge human and LLM data on material_id (include category columns)
-    merge_cols = SCORE_COLUMNS + ["target_compound_type", "synthesis_method"]
+    merge_cols = [*SCORE_COLUMNS, "target_compound_type", "synthesis_method"]
     merged = merge_on_material_id(
         human_df, llm_df, merge_cols, suffixes=("_human", "_llm"),
     )

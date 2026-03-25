@@ -20,7 +20,10 @@ class PlotExtractionPipeline(SynthesisPerformancePipeline):
     """
 
     def __init__(self):
-        """Initialize with only plot-related components, skipping parent __init__."""
+        """
+        Initialize with only plot-related components, 
+        skipping parent __init__.
+        """
         self.pdf_extractor = MistralPDFExtractor()
         self.plot_extractor = None  # VLM plot extractor, not needed here
         self.plot_filter = None

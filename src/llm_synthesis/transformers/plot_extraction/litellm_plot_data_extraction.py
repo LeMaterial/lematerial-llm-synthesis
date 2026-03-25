@@ -63,7 +63,10 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": f"data:image/{image_type};base64,{figure_base64}"
+                                "url": (
+                                    f"data:image/{image_type}"
+                                    f";base64,{figure_base64}"
+                                )
                             },
                         },
                         {"type": "text", "text": prompt},

@@ -7,8 +7,8 @@ Runs the full superconductivity Tc extraction pipeline on every PDF in a folder.
 Usage:
     python batch_run_tc.py /path/to/pdf_folder
     python batch_run_tc.py /path/to/pdf_folder --max 5          # first 5 only
-    python batch_run_tc.py /path/to/pdf_folder --skip-existing  # skip already-processed
-    python batch_run_tc.py /path/to/pdf_folder --skip-figures   # text-only (no VLM)
+    python batch_run_tc.py /path/to/pdf_folder --skip-existing  # skip processed
+    python batch_run_tc.py /path/to/pdf_folder --skip-figures   # no VLM
 
 Results are saved to <pdf_folder>/results/<paper_id>/ and appended to
 <pdf_folder>/results/tc_master.csv.
@@ -37,11 +37,16 @@ SRC_PATH = Path(__file__).resolve().parent.parent.parent / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from dotenv import load_dotenv
-load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env", override=True)
+from dotenv import load_dotenv  # noqa: E402
+
+load_dotenv(
+    Path(__file__).resolve().parent.parent.parent / ".env",
+    override=True,
+)
 
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
-import logging
+import logging  # noqa: E402
+
 logging.getLogger("pydantic").setLevel(logging.ERROR)
 logging.getLogger("LiteLLM").setLevel(logging.ERROR)
 logging.getLogger("litellm").setLevel(logging.ERROR)
@@ -75,19 +80,25 @@ def load_file_text(path: Path, pdf_extractor=None) -> str:
     suffix = path.suffix.lower()
     if suffix == ".pdf":
         if pdf_extractor is None:
-            from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
+            from llm_synthesis.transformers.pdf_extraction import (
+                MistralPDFExtractor,
+            )
             pdf_extractor = MistralPDFExtractor(structured=False)
         with open(path, "rb") as f:
             return pdf_extractor.forward(f.read())
     elif suffix in [".md", ".txt"]:
-        with open(path, "r", errors="replace") as f:
+        with open(path, errors="replace") as f:
             return f.read()
     else:
         raise ValueError(f"Unsupported file type: {suffix}")
 
 
 def fallback_check_rt_plot(plot, fig) -> bool:
-    context = f"{fig.context_before or ''} {fig.context_after or ''} {fig.alt_text or ''}".lower()
+    context = (
+        f"{fig.context_before or ''} "
+        f"{fig.context_after or ''} "
+        f"{fig.alt_text or ''}"
+    ).lower()
     rt_context_hints = [
         "resistivity", "resistance", "ρ(t)", "ρ vs", "r(t)", "r vs t",
         "t (k)", "t [k]", "temperature dependence of ρ",
@@ -114,13 +125,21 @@ def parse_tc_text_response(raw_text: str) -> dict:
         if len(parts) < 2:
             continue
         material = parts[0].strip()
-        entry = {"superconducting": False, "T_onset": None, "Tc_mid": None, "T_zero": None}
+        entry = {
+            "superconducting": False,
+            "T_onset": None,
+            "Tc_mid": None,
+            "T_zero": None,
+        }
         for part in parts[1:]:
             part_lower = part.lower().strip()
             if "superconducting" in part_lower:
                 entry["superconducting"] = "yes" in part_lower
             else:
-                match = re.match(r"(t_onset|tc_mid|tc|t_zero)\s*:\s*(\d+\.?\d*)\s*k?", part_lower)
+                match = re.match(
+                    r"(t_onset|tc_mid|tc|t_zero)\s*:\s*(\d+\.?\d*)\s*k?",
+                    part_lower,
+                )
                 if match:
                     key = match.group(1)
                     val = float(match.group(2))
@@ -150,7 +169,8 @@ scattering reduction, etc.) and is NOT a superconducting transition.
 The superconducting transition has these characteristics:
   - It is a SHARP, near-vertical drop in resistance
   - It occurs over a NARROW temperature range (typically 0.1 to 3 K wide)
-  - Resistance drops from a finite value all the way to ZERO (or very close to zero)
+  - Resistance drops from a finite value all the way to ZERO
+    (or very close to zero)
   - It looks like a cliff or step function, not a gradual slope
 
 If you see a curve that gradually decreases over 10-50 K, that is NOT
@@ -159,7 +179,8 @@ superconductivity — it is normal metallic/Kondo behavior.
 STEP 0 — EXAMINE THE FULL FIGURE (main plot + any insets/panels):
 a) Identify ALL panels in the figure: the main plot and any insets, secondary
    panels, or embedded sub-plots. For each one, describe:
-     - What quantity is on each axis (e.g., ρ vs T, Tc vs x, phase diagram, etc.)
+     - What quantity is on each axis (e.g., ρ vs T, Tc vs x,
+       phase diagram, etc.)
      - The axis ranges and tick marks
      - Whether it contains information relevant to determining Tc
 
@@ -168,10 +189,12 @@ b) CATEGORIZE each inset/panel into one of these types:
            R(T) data as the main plot. Has the same axes (R vs T) but a narrower
            temperature range. → Use this PREFERENTIALLY for geometric Tc
            construction (much better spatial resolution).
-     (ii)  Tc SUMMARY: Shows Tc (or T_onset, T_zero) as a function of composition,
-           pressure, doping, field, etc. (e.g., "Tc vs x" or a phase diagram with
+     (ii)  Tc SUMMARY: Shows Tc (or T_onset, T_zero) as a function
+            of composition, pressure, doping, field, etc.
+            (e.g., "Tc vs x" or a phase diagram with
            a Tc boundary). → Read Tc values DIRECTLY from this panel for each
-           series/composition. These are typically the most accurate values available.
+           series/composition. These are typically the most
+            accurate values available.
      (iii) OTHER: Any panel not directly useful for Tc (e.g., Hall coefficient,
            magnetization, dR/dT, crystal structure). → Note it but do not use it
            for Tc determination.
@@ -279,7 +302,8 @@ inset_detected: <yes/no>
 inset_type: <"zoomed_rt" | "tc_summary" | "other" | "none">
 inset_description: <brief description of what the inset shows, or "N/A">
 inset_axes: <tick marks of inset if present, otherwise "N/A">
-inset_tc_values: <series: value K, series: value K, ... (if tc_summary type), otherwise "N/A">
+inset_tc_values: <series: value K, series: value K, ... (if
+    tc_summary type), otherwise "N/A">
 main_x_axis_ticks: <list>
 main_y_axis_ticks: <list>
 
@@ -306,15 +330,22 @@ Do not output any other text.
 
 def build_tc_prompt(known_series_names: list[str] | None = None) -> str:
     if known_series_names and len(known_series_names) > 0:
-        names_list = "\n".join(f"  {i+1}. {name}" for i, name in enumerate(known_series_names))
+        names_list = "\n".join(
+            f"  {i+1}. {name}"
+            for i, name in enumerate(known_series_names)
+        )
         instruction = (
             "The following series were previously identified in this plot. "
-            "You MUST use these EXACT names in your output (in the 'Series:' lines):\n"
+            "You MUST use these EXACT names in your output "
+            "(in the 'Series:' lines):\n"
             f"{names_list}\n\n"
-            "If you see additional curves not in this list, add them with descriptive names."
+            "If you see additional curves not in this list, "
+            "add them with descriptive names."
         )
     else:
-        instruction = "List every distinct curve (by legend label, color, marker)."
+        instruction = (
+            "List every distinct curve (by legend label, color, marker)."
+        )
     return DIRECT_TC_PROMPT_TEMPLATE.format(series_name_instruction=instruction)
 
 
@@ -375,7 +406,11 @@ def _parse_inset_tc_values(raw: str, known_series: dict) -> dict:
                 np_lower = name_part.lower().replace(" ", "")
                 for ks in known_series:
                     ks_lower = ks.lower().replace(" ", "")
-                    if np_lower == ks_lower or np_lower in ks_lower or ks_lower in np_lower:
+                    if (
+                        np_lower == ks_lower
+                        or np_lower in ks_lower
+                        or ks_lower in np_lower
+                    ):
                         result[ks] = tc_val
                         break
     return result
@@ -393,7 +428,8 @@ def sanity_check_delta_tc(vlm_results: dict) -> dict:
                 corrected[series_name]["tc_mid"] = inset_tc
                 corrected[series_name]["source"] = "inset"
                 corrected[series_name]["_inset_override"] = (
-                    f"VLM said SC=NO, but inset Tc={inset_tc:.1f} K found. Using inset value."
+                    f"VLM said SC=NO, but inset Tc={inset_tc:.1f} K "
+                    f"found. Using inset value."
                 )
             continue
         delta = vals.get("delta_tc")
@@ -403,7 +439,8 @@ def sanity_check_delta_tc(vlm_results: dict) -> dict:
                 corrected[series_name]["tc_mid"] = inset_tc
                 corrected[series_name]["source"] = "inset"
                 corrected[series_name]["_sanity_override"] = (
-                    f"Delta_Tc={delta:.1f} K too wide (>10 K). Using inset Tc={inset_tc:.1f} K instead."
+                    f"Delta_Tc={delta:.1f} K too wide (>10 K). "
+                    f"Using inset Tc={inset_tc:.1f} K instead."
                 )
                 for k in ("t_onset", "t_zero", "delta_tc"):
                     corrected[series_name].pop(k, None)
@@ -424,7 +461,8 @@ def sanity_check_delta_tc(vlm_results: dict) -> dict:
                 corrected[series_name]["tc_mid"] = inset_tc
                 corrected[series_name]["source"] = "inset"
                 corrected[series_name]["_inset_override"] = (
-                    f"Geometric Tc_mid={tc_mid:.1f} K differs from inset Tc={inset_tc:.1f} K "
+                    f"Geometric Tc_mid={tc_mid:.1f} K differs "
+                    f"from inset Tc={inset_tc:.1f} K "
                     f"by {relative_diff*100:.0f}% (>20%). Using inset value."
                 )
     return corrected
@@ -435,9 +473,14 @@ def sanity_check_delta_tc(vlm_results: dict) -> dict:
 def _normalize_formula(s: str) -> str:
     base = re.sub(r'\s*\([^)]*\)\s*$', '', s).strip()
     base = base.replace('δ', 'delta').replace('Δ', 'delta')
-    base = base.replace('₀', '0').replace('₁', '1').replace('₂', '2').replace('₃', '3')
-    base = base.replace('₄', '4').replace('₅', '5').replace('₆', '6').replace('₇', '7')
-    base = base.replace('₈', '8').replace('₉', '9').replace('₋', '-')
+    base = (
+        base.replace('₀', '0').replace('₁', '1')
+        .replace('₂', '2').replace('₃', '3')
+        .replace('₄', '4').replace('₅', '5')
+        .replace('₆', '6').replace('₇', '7')
+        .replace('₈', '8').replace('₉', '9')
+        .replace('₋', '-')
+    )
     return base.lower().replace(' ', '').replace('−', '-')
 
 
@@ -448,7 +491,12 @@ def _find_matching_text_tc(material: str, tc_from_text: dict) -> list:
         key_norm = _normalize_formula(tc_key)
         if key_norm == mat_norm:
             matches.append((tc_key, tc_entry))
-    matches.sort(key=lambda x: (not x[1].get("superconducting", False), -(x[1].get("Tc_mid") or 0)))
+    matches.sort(
+        key=lambda x: (
+            not x[1].get("superconducting", False),
+            -(x[1].get("Tc_mid") or 0),
+        )
+    )
     return matches
 
 
@@ -456,9 +504,18 @@ def _find_vlm_tc_for_series(series_name: str, vlm_results: dict) -> dict:
     if series_name in vlm_results:
         return vlm_results[series_name]
     def _norm(s):
-        s = s.replace('₂', '2').replace('₄', '4').replace('₇', '7').replace('₁', '1')
-        s = s.replace('₃', '3').replace('₅', '5').replace('₆', '6').replace('₈', '8')
-        s = s.replace('₉', '9').replace('₀', '0').replace('₋', '-').replace('δ', 'delta')
+        s = (
+            s.replace('₂', '2').replace('₄', '4')
+            .replace('₇', '7').replace('₁', '1')
+        )
+        s = (
+            s.replace('₃', '3').replace('₅', '5')
+            .replace('₆', '6').replace('₈', '8')
+        )
+        s = (
+            s.replace('₉', '9').replace('₀', '0')
+            .replace('₋', '-').replace('δ', 'delta')
+        )
         return s.lower().replace(' ', '')
     sn = _norm(series_name)
     for vlm_key, vlm_val in vlm_results.items():
@@ -467,7 +524,11 @@ def _find_vlm_tc_for_series(series_name: str, vlm_results: dict) -> dict:
             return vlm_val
         sn_parts = re.split(r'[\s_-]+', series_name.lower())
         vk_parts = re.split(r'[\s_-]+', vlm_key.lower())
-        if len(sn_parts) >= 1 and len(vk_parts) >= 1 and sn_parts[0] == vk_parts[0]:
+        if (
+            len(sn_parts) >= 1
+            and len(vk_parts) >= 1
+            and sn_parts[0] == vk_parts[0]
+        ):
             return vlm_val
     if len(vlm_results) == 1:
         return next(iter(vlm_results.values()))
@@ -475,7 +536,10 @@ def _find_vlm_tc_for_series(series_name: str, vlm_results: dict) -> dict:
 
 
 def _vlm_data_has_tc(vlm_data: dict) -> bool:
-    return bool(vlm_data.get("superconducting") and vlm_data.get("tc_mid") is not None)
+    return bool(
+        vlm_data.get("superconducting")
+        and vlm_data.get("tc_mid") is not None
+    )
 
 
 # ── CSV helpers ──
@@ -528,26 +592,39 @@ CSV_COLUMNS = [
 # PIPELINE — one paper
 # =============================================================================
 
-def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = False):
-    """Run the full Tc extraction pipeline on a single PDF. Returns flat records."""
+def process_one_paper(
+    pdf_path: Path, output_dir: Path, skip_figures: bool = False
+):
+    """Run the full Tc extraction pipeline on a single PDF.
+
+    Returns flat records.
+    """
+    from llm_synthesis.config.plot_filter_config import PlotFilterConfig
+    from llm_synthesis.metrics.judge.general_synthesis_judge import (
+        DspyGeneralSynthesisJudge,
+        make_general_synthesis_judge_signature,
+    )
     from llm_synthesis.models.paper import Paper, SynthesisEntry
-    from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
+    from llm_synthesis.services.llm_api.claude import ClaudeAPIClient
     from llm_synthesis.transformers.material_extraction.dspy_extraction import (
-        DspyTextExtractor, make_dspy_text_extractor_signature,
+        DspyTextExtractor,
+        make_dspy_text_extractor_signature,
+    )
+    from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
+    from llm_synthesis.transformers.performance_linking.plot_filter import (
+        PlotFilter,
+    )
+    from llm_synthesis.transformers.synthesis_extraction import (
+        dspy_synthesis_extraction as _dse,
+    )
+    make_dspy_synthesis_extractor_signature = (
+        _dse.make_dspy_synthesis_extractor_signature
     )
     from llm_synthesis.utils.dspy_utils import get_llm_from_name
     from llm_synthesis.utils.markdown_utils import clean_text
-    from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (
-        DspySynthesisExtractor, make_dspy_synthesis_extractor_signature,
-    )
-    from llm_synthesis.metrics.judge.general_synthesis_judge import (
-        DspyGeneralSynthesisJudge, make_general_synthesis_judge_signature,
-    )
-    from llm_synthesis.config.plot_filter_config import PlotFilterConfig
-    from llm_synthesis.transformers.performance_linking.plot_filter import PlotFilter
-    from llm_synthesis.services.llm_api.claude import ClaudeAPIClient
     from llm_synthesis.utils.performance_utils import (
-        aggregate_all_materials_performance, sanitize_filename,
+        aggregate_all_materials_performance,
+        sanitize_filename,
     )
 
     paper_id = pdf_path.stem
@@ -579,53 +656,98 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     print("[Step 1] Extracting materials...")
     material_sig = make_dspy_text_extractor_signature(
         instructions=(
-            "Extract ALL distinct superconducting material compositions that were synthesized "
+            "Extract ALL distinct superconducting material "
+            "compositions that were synthesized "
             "and tested in this paper. If the paper studies multiple variants "
-            "(e.g., different doping levels x=0.1, x=0.2, x=0.3), list EACH variant "
+            "(e.g., different doping levels x=0.1, x=0.2, x=0.3), "
+            "list EACH variant "
             "as a separate material."
         ),
         output_name="materials",
         output_description=(
-            "ALL distinct synthesized material compositions as a comma-separated list "
+            "ALL distinct synthesized material compositions "
+            "as a comma-separated list "
             "using chemical formulas. Include doping levels and stoichiometry."
         ),
     )
-    material_lm = get_llm_from_name("gemini-3.0-pro",
-                                     model_kwargs={"temperature": 0.0, "max_tokens": 16000})
-    material_extractor = DspyTextExtractor(signature=material_sig, lm=material_lm)
+    material_lm = get_llm_from_name(
+        "gemini-3.0-pro",
+        model_kwargs={"temperature": 0.0, "max_tokens": 16000},
+    )
+    material_extractor = DspyTextExtractor(
+        signature=material_sig, lm=material_lm
+    )
     text_for_llm = clean_text(paper.publication_text)
     materials_text = material_extractor.forward(input=text_for_llm)
-    materials = [m.strip() for m in materials_text.replace("\n", ",").split(",") if m.strip()]
-    print(f"  Found {len(materials)} materials: {materials[:5]}{'...' if len(materials) > 5 else ''}")
+    materials = [
+        m.strip()
+        for m in materials_text.replace("\n", ",").split(",")
+        if m.strip()
+    ]
+    extra = "..." if len(materials) > 5 else ""
+    print(
+        f"  Found {len(materials)} materials: "
+        f"{materials[:5]}{extra}"
+    )
 
     # ── Step 2: Extract synthesis ──
     print("[Step 2] Extracting synthesis...")
-    SYNTHESIS_SYSTEM_PROMPT = (
-        "You are a helpful assistant that extracts structured synthesis procedures from scientific papers.\n\n"
-        "IMPORTANT: For the synthesis_method field, you MUST choose from these exact values:\n"
-        "'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning',\n"
-        "'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion',\n"
-        "'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth',\n"
-        "'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering',\n"
-        "'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',\n"
-        "'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation',\n"
-        "'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing',\n"
+    synthesis_system_prompt = (
+        "You are a helpful assistant that extracts structured "
+        "synthesis procedures from scientific papers.\n\n"
+        "IMPORTANT: For the synthesis_method field, you MUST choose "
+        "from these exact values:\n"
+        "'PVD', 'CVD', 'arc discharge', 'ball milling', "
+        "'spray pyrolysis', 'electrospinning',\n"
+        "'sol-gel', 'hydrothermal', 'solvothermal', "
+        "'precipitation', 'coprecipitation', 'combustion',\n"
+        "'microwave-assisted', 'sonochemical', 'template-directed', "
+        "'solid-state', 'flux growth',\n"
+        "'float zone & Bridgman', 'arc melting & induction melting', "
+        "'spark plasma sintering',\n"
+        "'electrochemical deposition', 'chemical bath deposition', "
+        "'liquid-phase epitaxy', 'self-assembly',\n"
+        "'atomic layer deposition', 'molecular beam epitaxy', "
+        "'pulsed laser deposition', 'ion implantation',\n"
+        "'lithographic patterning', 'wet impregnation', "
+        "'incipient wetness impregnation', 'mechanical mixing',\n"
         "'solution-based', 'mechanochemical', 'other'\n\n"
-        "For the target_compound_type field, you MUST choose from these exact values:\n"
-        "'metals & alloys', 'ceramics & glasses', 'polymers & soft matter', 'composites',\n"
-        "'semiconductors & electronic', 'nanomaterials', 'two-dimensional materials',\n"
-        "'framework & porous materials', 'biomaterials & biological', 'liquid materials',\n"
-        "'hybrid & organic-inorganic', 'functional materials & catalysts', 'energy & sustainability',\n"
-        "'smart & responsive materials', 'emerging & quantum materials', 'other'"
+        "For the target_compound_type field, you MUST choose "
+        "from these exact values:\n"
+        "'metals & alloys', 'ceramics & glasses', "
+        "'polymers & soft matter', 'composites',\n"
+        "'semiconductors & electronic', 'nanomaterials', "
+        "'two-dimensional materials',\n"
+        "'framework & porous materials', "
+        "'biomaterials & biological', 'liquid materials',\n"
+        "'hybrid & organic-inorganic', "
+        "'functional materials & catalysts', "
+        "'energy & sustainability',\n"
+        "'smart & responsive materials', "
+        "'emerging & quantum materials', 'other'"
     )
     synthesis_sig = make_dspy_synthesis_extractor_signature(
-        instructions="Extract the complete structured synthesis procedure for the specified material.",
+        instructions=(
+            "Extract the complete structured synthesis "
+            "procedure for the specified material."
+        ),
     )
-    synthesis_lm = get_llm_from_name(GEMINI_MODEL,
-                                      model_kwargs={"temperature": 0.0, "max_tokens": 32000, "num_retries": 3},
-                                      system_prompt=SYNTHESIS_SYSTEM_PROMPT)
-    synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
-    judge_lm = get_llm_from_name(GEMINI_MODEL, model_kwargs={"temperature": 0.1, "max_tokens": 16000})
+    synthesis_lm = get_llm_from_name(
+        GEMINI_MODEL,
+        model_kwargs={
+            "temperature": 0.0,
+            "max_tokens": 32000,
+            "num_retries": 3,
+        },
+        system_prompt=synthesis_system_prompt,
+    )
+    synthesis_extractor = _dse.DspySynthesisExtractor(
+        signature=synthesis_sig, lm=synthesis_lm
+    )
+    judge_lm = get_llm_from_name(
+        GEMINI_MODEL,
+        model_kwargs={"temperature": 0.1, "max_tokens": 16000},
+    )
     judge_sig = make_general_synthesis_judge_signature()
     judge = DspyGeneralSynthesisJudge(signature=judge_sig, lm=judge_lm)
 
@@ -633,51 +755,80 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     for i, material in enumerate(materials, 1):
         print(f"  [{i}/{len(materials)}] {material}...", end=" ", flush=True)
         try:
-            synthesis = synthesis_extractor.forward(input=(text_for_llm, material))
+            synthesis = synthesis_extractor.forward(
+                input=(text_for_llm, material)
+            )
             try:
-                evaluation = judge.forward((text_for_llm, json.dumps(synthesis.model_dump()), material))
+                evaluation = judge.forward((
+                    text_for_llm,
+                    json.dumps(synthesis.model_dump()),
+                    material,
+                ))
                 print(f"OK (score={evaluation.scores.overall_score:.1f})")
             except Exception:
                 evaluation = None
                 print("OK (judge failed)")
-            all_syntheses.append(SynthesisEntry(material=material, synthesis=synthesis, evaluation=evaluation))
+            all_syntheses.append(SynthesisEntry(
+                material=material,
+                synthesis=synthesis,
+                evaluation=evaluation,
+            ))
         except Exception as e:
             print(f"ERROR: {e}")
-            all_syntheses.append(SynthesisEntry(material=material, synthesis=None, evaluation=None))
+            all_syntheses.append(SynthesisEntry(
+                material=material, synthesis=None, evaluation=None
+            ))
 
     # ── Step 3: Extract Tc from text ──
     print("[Step 3] Extracting Tc from text...")
     tc_text_sig = make_dspy_text_extractor_signature(
         signature_name="TextToTc",
         instructions=(
-            "Extract ALL critical temperature (Tc) values reported in this superconductivity paper. "
-            "For EACH material that has a Tc value mentioned in the text, report:\n"
+            "Extract ALL critical temperature (Tc) values "
+            "reported in this superconductivity paper. "
+            "For EACH material that has a Tc value mentioned "
+            "in the text, report:\n"
             "  - The material formula\n"
             "  - T_onset (if explicitly reported)\n"
             "  - Tc: the critical temperature\n"
             "  - T_zero (if explicitly reported)\n"
             "  - Whether the material is superconducting (YES/NO)\n\n"
-            "Only extract values explicitly stated. Use 'NR' for values not reported."
+            "Only extract values explicitly stated. "
+            "Use 'NR' for values not reported."
         ),
-        input_description="The full publication text from a superconductivity paper.",
+        input_description=(
+            "The full publication text from a superconductivity paper."
+        ),
         output_name="tc_values",
         output_description=(
             "For each material, one line in the format:\n"
-            "material_formula | superconducting: YES/NO | T_onset: <value> K | Tc: <value> K | T_zero: <value> K\n"
+            "material_formula | superconducting: YES/NO | "
+            "T_onset: <value> K | Tc: <value> K | "
+            "T_zero: <value> K\n"
             "Use 'NR' for values not reported."
         ),
     )
-    tc_text_lm = get_llm_from_name(GEMINI_MODEL, model_kwargs={"temperature": 0.0, "max_tokens": 16384})
+    tc_text_lm = get_llm_from_name(
+        GEMINI_MODEL,
+        model_kwargs={"temperature": 0.0, "max_tokens": 16384},
+    )
     tc_text_extractor = DspyTextExtractor(signature=tc_text_sig, lm=tc_text_lm)
-    MAX_TEXT_CHARS = 60_000
-    tc_input_text = text_for_llm[:MAX_TEXT_CHARS] if len(text_for_llm) > MAX_TEXT_CHARS else text_for_llm
+    max_text_chars = 60_000
+    tc_input_text = (
+        text_for_llm[:max_text_chars]
+        if len(text_for_llm) > max_text_chars
+        else text_for_llm
+    )
     try:
         tc_text_raw = tc_text_extractor.forward(input=tc_input_text)
     except Exception as e:
         print(f"  [WARN] Tc text extraction failed: {e}")
         tc_text_raw = ""
     tc_from_text = parse_tc_text_response(tc_text_raw)
-    n_text_tc = sum(1 for v in tc_from_text.values() if v.get("Tc_mid") is not None)
+    n_text_tc = sum(
+        1 for v in tc_from_text.values()
+        if v.get("Tc_mid") is not None
+    )
     print(f"  Found Tc for {n_text_tc}/{len(tc_from_text)} materials from text")
 
     # ── Steps 4-7: Figures + Plot data + Filtering + VLM Tc ──
@@ -691,7 +842,9 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     if not skip_figures:
         # Step 4: Extract figures
         print("[Step 4] Extracting figures (Florence-2)...")
-        from llm_synthesis.transformers.figure_extraction import FigureExtractorMarkdown
+        from llm_synthesis.transformers.figure_extraction import (
+            FigureExtractorMarkdown,
+        )
         extractor = FigureExtractorMarkdown(
             segmenter="florence",
             florence_repo_id="amayuelas/plot-visualization-florence-2-lora-32",
@@ -702,21 +855,31 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         if figures:
             # Step 5: Extract plot data
             print("[Step 5] Extracting plot data (Claude VLM)...")
-            from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (
-                ClaudeLinePlotDataExtractor,
-            )
             from llm_synthesis.models.figure import FigureInfoWithPaper
+            from llm_synthesis.transformers.plot_extraction import (
+                claude_extraction as _ce,
+            )
             from llm_synthesis.utils.figure_utils import clean_text_from_images
 
-            plot_extractor = ClaudeLinePlotDataExtractor(model_name=CLAUDE_MODEL, max_tokens=8000)
+            plot_extractor = (
+                _ce.plot_data_extraction.ClaudeLinePlotDataExtractor(
+                    model_name=CLAUDE_MODEL, max_tokens=8000
+                )
+            )
             for i, fig in enumerate(figures):
                 try:
                     fig_with_paper = FigureInfoWithPaper(
-                        base64_data=fig.base64_data, alt_text=fig.alt_text,
-                        position=fig.position, context_before=fig.context_before,
-                        context_after=fig.context_after, figure_reference=fig.figure_reference,
-                        figure_class=fig.figure_class, quantitative=fig.quantitative,
-                        paper_text=clean_text_from_images(paper.publication_text),
+                        base64_data=fig.base64_data,
+                        alt_text=fig.alt_text,
+                        position=fig.position,
+                        context_before=fig.context_before,
+                        context_after=fig.context_after,
+                        figure_reference=fig.figure_reference,
+                        figure_class=fig.figure_class,
+                        quantitative=fig.quantitative,
+                        paper_text=clean_text_from_images(
+                            paper.publication_text
+                        ),
                         si_text=paper.si_text,
                     )
                     plot_data = plot_extractor.forward(fig_with_paper)
@@ -725,22 +888,36 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                         plot_figures.append(fig)
                 except Exception as e:
                     print(f"    [ERROR] Figure {i}: {e}")
-            print(f"  Extracted data from {len(plots)} plots (cost: ${plot_extractor.get_cost():.4f})")
+            print(
+                f"  Extracted data from {len(plots)} plots "
+                f"(cost: ${plot_extractor.get_cost():.4f})"
+            )
 
             # Step 6: Filter R(T) plots
             print("[Step 6] Filtering for R(T) plots...")
             filter_config = PlotFilterConfig.for_superconductivity()
             plot_filter = PlotFilter(filter_config)
-            relevant_plots, skip_counts = plot_filter.filter_plots(plots, log_skipped=False)
+            relevant_plots, skip_counts = plot_filter.filter_plots(
+                plots, log_skipped=False
+            )
 
             # Fallback for missing axis metadata
-            rejected_indices = {i for i in range(len(plots))} - {idx for idx, _ in relevant_plots}
+            rejected_indices = (
+                {i for i in range(len(plots))}
+                - {idx for idx, _ in relevant_plots}
+            )
             for i in sorted(rejected_indices):
                 plot = plots[i]
                 fig = plot_figures[i]
-                x_missing = _is_axis_missing(plot.x_axis_label, plot.x_axis_unit)
-                y_missing = _is_axis_missing(plot.y_left_axis_label, plot.y_left_axis_unit)
-                if (x_missing or y_missing) and fallback_check_rt_plot(plot, fig):
+                x_missing = _is_axis_missing(
+                    plot.x_axis_label, plot.x_axis_unit
+                )
+                y_missing = _is_axis_missing(
+                    plot.y_left_axis_label, plot.y_left_axis_unit
+                )
+                if (x_missing or y_missing) and fallback_check_rt_plot(
+                    plot, fig
+                ):
                     relevant_plots.append((i, plot))
             relevant_plots.sort(key=lambda x: x[0])
             print(f"  R(T) plots: {len(relevant_plots)} / {len(plots)} total")
@@ -773,16 +950,21 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             # Step 8: Link series to materials
             if relevant_plots:
                 print("[Step 8] Linking series to materials...")
-                import dspy
-                from llm_synthesis.transformers.performance_linking.series_material_linker import (
-                    SeriesMaterialLinker,
+                from llm_synthesis.models.performance import (
+                    PlotMaterialMapping,
                 )
-                from llm_synthesis.transformers.performance_linking.base import LinkingInput
-                from llm_synthesis.models.performance import PlotMaterialMapping
+                from llm_synthesis.transformers.performance_linking import (
+                    base as _plbase,
+                )
+                from llm_synthesis.transformers.performance_linking import (
+                    series_material_linker as _sml,
+                )
 
-                linker_lm = get_llm_from_name(LINKER_MODEL,
-                                               model_kwargs={"temperature": 0.0, "max_tokens": 16000})
-                series_linker = SeriesMaterialLinker(lm=linker_lm)
+                linker_lm = get_llm_from_name(
+                    LINKER_MODEL,
+                    model_kwargs={"temperature": 0.0, "max_tokens": 16000},
+                )
+                series_linker = _sml.SeriesMaterialLinker(lm=linker_lm)
                 for idx, plot in relevant_plots:
                     fig = plot_figures[idx]
                     series_names = list(plot.name_to_coordinates.keys())
@@ -793,8 +975,12 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                         "y_left_axis_label": plot.y_left_axis_label,
                         "y_left_axis_unit": plot.y_left_axis_unit,
                     }
-                    linking_input = LinkingInput(materials=materials, series_names=series_names,
-                                                 context=context, plot_metadata=plot_meta)
+                    linking_input = _plbase.LinkingInput(
+                        materials=materials,
+                        series_names=series_names,
+                        context=context,
+                        plot_metadata=plot_meta,
+                    )
                     validated = series_linker.forward(linking_input)
                     matched = {m.series_name for m in validated}
                     unmatched = [s for s in series_names if s not in matched]
@@ -811,7 +997,9 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     print("[Step 9] Aggregating results...")
     performance_data = {}
     if plot_mappings and plots:
-        performance_data = aggregate_all_materials_performance(materials, plot_mappings, plots)
+        performance_data = aggregate_all_materials_performance(
+            materials, plot_mappings, plots
+        )
 
     # Build VLM Tc lookup
     vlm_tc_per_material = {}
@@ -821,12 +1009,17 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             continue
         vlm_results_for_plot = tc_from_vlm[plot_idx]
         for sm in mapping.mappings:
-            vlm_data = _find_vlm_tc_for_series(sm.series_name, vlm_results_for_plot)
+            vlm_data = _find_vlm_tc_for_series(
+                sm.series_name, vlm_results_for_plot
+            )
             if vlm_data:
                 existing = vlm_tc_per_material.get(sm.material_name)
                 if existing is None:
                     vlm_tc_per_material[sm.material_name] = vlm_data
-                elif _vlm_data_has_tc(vlm_data) and not _vlm_data_has_tc(existing):
+                elif (
+                    _vlm_data_has_tc(vlm_data)
+                    and not _vlm_data_has_tc(existing)
+                ):
                     vlm_tc_per_material[sm.material_name] = vlm_data
 
     # Fuzzy-match text Tc
@@ -845,12 +1038,19 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
     for entry in all_syntheses:
         mat = entry.material
         text_tc_entry = text_tc_per_material.get(mat, {})
-        text_tc_clean = {k: v for k, v in text_tc_entry.items() if not k.startswith("_")}
+        text_tc_clean = {
+            k: v for k, v in text_tc_entry.items()
+            if not k.startswith("_")
+        }
         vlm_tc_entry = vlm_tc_per_material.get(mat, {})
         result = {
             "material": mat,
-            "synthesis": entry.synthesis.model_dump() if entry.synthesis else None,
-            "evaluation": entry.evaluation.model_dump() if entry.evaluation else None,
+            "synthesis": (
+                entry.synthesis.model_dump() if entry.synthesis else None
+            ),
+            "evaluation": (
+                entry.evaluation.model_dump() if entry.evaluation else None
+            ),
             "tc_from_text": text_tc_clean if text_tc_clean else None,
             "tc_from_vlm": {
                 "superconducting": vlm_tc_entry.get("superconducting"),
@@ -859,7 +1059,10 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
                 "T_zero": vlm_tc_entry.get("t_zero"),
                 "Delta_Tc": vlm_tc_entry.get("delta_tc"),
             } if vlm_tc_entry else None,
-            "performance": performance_data[mat].model_dump() if mat in performance_data else None,
+            "performance": (
+                performance_data[mat].model_dump()
+                if mat in performance_data else None
+            ),
         }
         mat_name = sanitize_filename(mat)
         with open(paper_dir / f"{mat_name}.json", "w") as f:
@@ -871,8 +1074,14 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
         "materials_list": materials,
         "total_plots_extracted": len(plots),
         "rt_plots_found": len(relevant_plots),
-        "materials_with_text_tc": sum(1 for v in text_tc_per_material.values() if v.get("Tc_mid") is not None),
-        "materials_with_vlm_tc": sum(1 for v in vlm_tc_per_material.values() if _vlm_data_has_tc(v)),
+        "materials_with_text_tc": sum(
+            1 for v in text_tc_per_material.values()
+            if v.get("Tc_mid") is not None
+        ),
+        "materials_with_vlm_tc": sum(
+            1 for v in vlm_tc_per_material.values()
+            if _vlm_data_has_tc(v)
+        ),
     }
     with open(paper_dir / "summary.json", "w") as f:
         json.dump(summary, f, indent=2)
@@ -911,20 +1120,32 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             is_sc = None
 
         tc_best, tc_best_source = pick_best_tc(text_tc, vlm_tc, text_onset)
-        synth_method = entry.synthesis.synthesis_method if entry.synthesis else None
-        synth_score = (entry.evaluation.scores.overall_score
-                       if entry.evaluation and entry.evaluation.scores else None)
+        synth_method = (
+            entry.synthesis.synthesis_method if entry.synthesis else None
+        )
+        synth_score = (
+            entry.evaluation.scores.overall_score
+            if entry.evaluation and entry.evaluation.scores
+            else None
+        )
 
         flat_records.append({
             "paper_id": paper.id, "year": year, "material": mat,
             "material_normalized": normalize_formula_for_csv(mat),
             "is_superconductor": is_sc,
-            "tc_text": text_tc, "tc_text_onset": text_onset, "tc_text_zero": text_zero,
+            "tc_text": text_tc,
+            "tc_text_onset": text_onset,
+            "tc_text_zero": text_zero,
             "tc_text_source": None,
-            "tc_vlm": vlm_tc, "tc_vlm_onset": vlm_onset, "tc_vlm_zero": vlm_zero,
-            "tc_vlm_source": vlm_source, "tc_vlm_source_plot": vlm_source_plot,
-            "tc_best": tc_best, "tc_best_source": tc_best_source,
-            "has_text_tc": text_tc is not None, "has_vlm_tc": vlm_tc is not None,
+            "tc_vlm": vlm_tc,
+            "tc_vlm_onset": vlm_onset,
+            "tc_vlm_zero": vlm_zero,
+            "tc_vlm_source": vlm_source,
+            "tc_vlm_source_plot": vlm_source_plot,
+            "tc_best": tc_best,
+            "tc_best_source": tc_best_source,
+            "has_text_tc": text_tc is not None,
+            "has_vlm_tc": vlm_tc is not None,
             "synthesis_method": synth_method, "synthesis_score": synth_score,
         })
 
@@ -934,14 +1155,25 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
             f.write(json.dumps(rec, default=str, indent=2) + "\n")
 
     # Print summary table
-    print(f"\n  {'Material':<35} {'SC?':<5} {'Tc_text':>8} {'Tc_VLM':>8} {'Tc_best':>8} {'Source':<12}")
+    hdr = (
+        f"  {'Material':<35} {'SC?':<5} "
+        f"{'Tc_text':>8} {'Tc_VLM':>8} {'Tc_best':>8} {'Source':<12}"
+    )
+    print(hdr)
     print(f"  {'-'*85}")
     for rec in flat_records:
-        sc = "YES" if rec["is_superconductor"] else ("NO" if rec["is_superconductor"] is False else "?")
+        sc = (
+            "YES" if rec["is_superconductor"]
+            else ("NO" if rec["is_superconductor"] is False else "?")
+        )
         tc_t = f"{rec['tc_text']:.1f}" if rec["tc_text"] else "—"
         tc_v = f"{rec['tc_vlm']:.1f}" if rec["tc_vlm"] else "—"
         tc_b = f"{rec['tc_best']:.1f}" if rec["tc_best"] else "—"
-        print(f"  {rec['material']:<35} {sc:<5} {tc_t:>8} {tc_v:>8} {tc_b:>8} {rec['tc_best_source']:<12}")
+        print(
+            f"  {rec['material']:<35} {sc:<5} "
+            f"{tc_t:>8} {tc_v:>8} {tc_b:>8} "
+            f"{rec['tc_best_source']:<12}"
+        )
 
     return flat_records
 
@@ -951,15 +1183,18 @@ def process_one_paper(pdf_path: Path, output_dir: Path, skip_figures: bool = Fal
 # =============================================================================
 
 def append_to_master_csv(flat_records: list[dict], master_path: Path):
-    """Append records to master CSV, replacing existing rows for the same paper."""
+    """Append records to master CSV, replacing existing rows for the same
+    paper."""
     master_path.parent.mkdir(parents=True, exist_ok=True)
 
     existing_keys = set()
     if master_path.exists() and master_path.stat().st_size > 0:
-        with open(master_path, "r", newline="") as f:
+        with open(master_path, newline="") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                existing_keys.add((row.get("paper_id", ""), row.get("material", "")))
+                existing_keys.add(
+                    (row.get("paper_id", ""), row.get("material", ""))
+                )
 
     new_keys = {(r["paper_id"], r["material"]) for r in flat_records}
     replace_keys = existing_keys & new_keys
@@ -967,24 +1202,36 @@ def append_to_master_csv(flat_records: list[dict], master_path: Path):
     if replace_keys:
         all_rows = []
         if master_path.exists():
-            with open(master_path, "r", newline="") as f:
+            with open(master_path, newline="") as f:
                 reader = csv.DictReader(f)
-                all_rows = [row for row in reader
-                            if (row.get("paper_id", ""), row.get("material", "")) not in replace_keys]
-        all_rows.extend({k: (str(v) if v is not None else "") for k, v in r.items()}
-                        for r in flat_records)
+                all_rows = [
+                    row for row in reader
+                    if (
+                        row.get("paper_id", ""),
+                        row.get("material", ""),
+                    ) not in replace_keys
+                ]
+        all_rows.extend(
+            {k: (str(v) if v is not None else "") for k, v in r.items()}
+            for r in flat_records
+        )
         with open(master_path, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS)
             writer.writeheader()
             writer.writerows(all_rows)
     else:
-        write_header = not master_path.exists() or master_path.stat().st_size == 0
+        write_header = (
+            not master_path.exists() or master_path.stat().st_size == 0
+        )
         with open(master_path, "a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS)
             if write_header:
                 writer.writeheader()
             for rec in flat_records:
-                writer.writerow({k: (str(v) if v is not None else "") for k, v in rec.items()})
+                writer.writerow(
+                    {k: (str(v) if v is not None else "")
+                     for k, v in rec.items()}
+                )
 
 
 # =============================================================================
@@ -993,7 +1240,10 @@ def append_to_master_csv(flat_records: list[dict], master_path: Path):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Batch Tc extraction: run the full pipeline on all PDFs in a folder.",
+        description=(
+            "Batch Tc extraction: run the full pipeline "
+            "on all PDFs in a folder."
+        ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
@@ -1024,10 +1274,16 @@ def main():
 
     # Skip existing if requested
     if args.skip_existing:
-        already_done = {d.name for d in output_dir.iterdir() if d.is_dir() and (d / "summary.json").exists()}
+        already_done = {
+            d.name for d in output_dir.iterdir()
+            if d.is_dir() and (d / "summary.json").exists()
+        }
         pdfs = [p for p in pdfs if p.stem not in already_done]
         if not pdfs:
-            print("All papers already processed. Use without --skip-existing to re-run.")
+            print(
+                "All papers already processed. "
+                "Use without --skip-existing to re-run."
+            )
             sys.exit(0)
 
     # Limit
@@ -1035,7 +1291,7 @@ def main():
         pdfs = pdfs[:args.max]
 
     print(f"{'=' * 70}")
-    print(f"BATCH Tc EXTRACTION")
+    print("BATCH Tc EXTRACTION")
     print(f"{'=' * 70}")
     print(f"  Folder:       {folder}")
     print(f"  Output:       {output_dir}")
@@ -1050,7 +1306,10 @@ def main():
         from transformers import CLIPImageProcessor  # noqa: F401
     except (ImportError, ModuleNotFoundError):
         if not args.skip_figures:
-            errors.append("transformers.CLIPImageProcessor not found. Fix: pip install --upgrade transformers")
+            errors.append(
+                "transformers.CLIPImageProcessor not found. "
+                "Fix: pip install --upgrade transformers"
+            )
     try:
         import anthropic  # noqa: F401
     except ImportError:
@@ -1077,7 +1336,9 @@ def main():
 
         t_start = time.time()
         try:
-            flat_records = process_one_paper(pdf_path, output_dir, skip_figures=args.skip_figures)
+            flat_records = process_one_paper(
+                pdf_path, output_dir, skip_figures=args.skip_figures
+            )
             elapsed = time.time() - t_start
 
             # Append to master CSV
@@ -1111,7 +1372,10 @@ def main():
     print(f"{'-' * 70}")
     for r in results_log:
         status = r["status"][:8]
-        print(f"{r['paper']:<45} {status:<10} {r['materials']:>5} {r['with_tc']:>5} {r['time_s']:>5}s")
+        print(
+            f"{r['paper']:<45} {status:<10} "
+            f"{r['materials']:>5} {r['with_tc']:>5} {r['time_s']:>5}s"
+        )
 
     total_mats = sum(r["materials"] for r in results_log)
     total_tc = sum(r["with_tc"] for r in results_log)

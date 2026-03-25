@@ -674,7 +674,8 @@ class SynthesisPerformancePipeline:
         linking_evaluation = None
 
         if not skip_figures:
-            # Step 3: Extract figures (CPU-bound, no LLM — run in thread directly)
+            # Step 3: 
+            # Extract figures (CPU-bound, no LLM — run in thread directly)
             figures = await asyncio.to_thread(
                 self.extract_figures, paper.publication_text
             )

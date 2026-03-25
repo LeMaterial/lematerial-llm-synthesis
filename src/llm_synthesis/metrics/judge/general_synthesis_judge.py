@@ -250,7 +250,7 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
     quality against source synthesis text.
 
     Implements a two-level fallback chain for robust structured output:
-      1. Strict json_schema (native for Claude/Gemini; extra_body for OpenRouter)
+      1. Strict json_schema(native for Claude/Gemini; extra_body for OpenRouter)
       2. json_object mode (valid JSON, prompt-guided schema compliance)
 
     Within each strategy, temperature is escalated on validation failures.
@@ -417,7 +417,9 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
         if "openrouter/" in model:
             # LiteLLM's OpenRouter adapter strips response_format; inject via
             # extra_body to bypass the broken detection layer.
-            strict_strategy = {"extra_body": {"response_format": json_schema_fmt}}
+            strict_strategy = {
+                "extra_body": {"response_format": json_schema_fmt}
+            }
         else:
             # Claude (anthropic/) and Gemini (gemini/) both support json_schema
             # natively; LiteLLM translates response_format automatically.
@@ -485,7 +487,7 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
             import litellm
 
             if isinstance(
-                exc, (litellm.BadRequestError, litellm.UnsupportedParamsError)
+                exc, litellm.BadRequestError | litellm.UnsupportedParamsError
             ):
                 return True
         except ImportError:

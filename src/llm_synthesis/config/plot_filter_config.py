@@ -112,8 +112,8 @@ class PlotFilterConfig(BaseModel):
     def _normalize_axis_text(text: str) -> str:
         """Normalize axis label/unit text for matching.
 
-        Strips LaTeX formatting and converts LaTeX symbols to Unicode equivalents
-        so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
+        Strips LaTeX formatting and converts LaTeX symbols to Unicode 
+        equivalents so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
         """
         # Strip LaTeX dollar signs
         text = text.replace("$", "")
@@ -233,7 +233,9 @@ class PlotFilterConfig(BaseModel):
     def for_superconductivity(cls) -> "PlotFilterConfig":
         """Factory method for superconductivity domain (R(T) plots)."""
         return cls(
-            x_axis_labels=["temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"],
+            x_axis_labels=[
+                "temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"
+            ],
             x_axis_units=["k", "°k", "kelvin"],
             y_axis_keywords=[
                 "resistance", "resistivity", "r(t)", "r/r",
@@ -254,7 +256,8 @@ class PlotFilterConfig(BaseModel):
                 "δρ", "δr", "Δρ", "Δr",        # delta variants
                 # Derivatives
                 "dρ/dt", "dr/dt", "dρ/d", "dr/d",
-                # Ratio to residual resistivity (but NOT normalized to room temp)
+                # Ratio to residual resistivity (but NOT normalized to room 
+                # temp)
                 # "ρ/ρ₀", "r/r₀", "r/r0" are residual-ratio plots (not useful)
                 # "ρ/ρ₃₀₀" or "r/r(300)" are room-temp-normalized R(T) (useful!)
                 "ρ/ρ₀", "ρ/ρ0",
