@@ -13,27 +13,27 @@
       "material_name": "SSNi-0",
       "human_recipe": {
         "target_compound": "SSNi-0",
-        "target_compound_type": "hybrid & organic-inorganic",
+        "target_compound_type": null,
         "synthesis_method": "mechanochemical",
         "starting_materials": [
           {
-            "vendor": "Degussa, Germany",
             "name": "Sipernat 50",
+            "vendor": "Degussa, Germany",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Superior, Poland",
             "name": "potato starch",
+            "vendor": "Superior, Poland",
             "amount": 0.3,
             "unit": "mol",
             "purity": null
           },
           {
-            "vendor": "POCh, Poland",
             "name": "Ni(NO3)2-6H2O",
-            "amount": 0.0,
+            "vendor": "POCh, Poland",
+            "amount": null,
             "unit": "mol",
             "purity": null
           }
@@ -45,22 +45,22 @@
             "description": "Pre-grinding for 15 min, grinding Ni(NO3)2-6H2O and homogenization of the mixture",
             "materials": [
               {
-                "vendor": null,
                 "name": "Ni(NO3)2-6H2O",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "Sipernat 50",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "potato starch",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -75,15 +75,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": 15.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": 500.0,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -92,22 +92,22 @@
             "description": "Grinding for 30 min (2 x 15 min), heating of the system, resulting starch gelation and better homogenization of the sample",
             "materials": [
               {
-                "vendor": null,
                 "name": "Sipernat 50",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "potato starch",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "Ni(NO3)2-6H2O",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -122,15 +122,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": 30.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": 750.0,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -139,8 +139,8 @@
             "description": "Pyrolysis process",
             "materials": [
               {
-                "vendor": null,
                 "name": "SSNi-0 mixture",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -155,15 +155,15 @@
             ],
             "conditions": {
               "temperature": 500.0,
-              "temp_unit": "C",
               "duration": 3.0,
-              "time_unit": "h",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "nitrogen",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -184,110 +184,135 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "only the method is not populated ( as mechanochemical). material is grouped into the set  C/SiO2 (carbosil - carbon-silica adsorbent)  -common target defined for SSni0 and AsNi0, and is clearly mentioned in the notes.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "method is not populated ( as mechanochemical), amount and units missing for the materials, but later covered in steps",
+              "material_extraction_score": 4.75,
+              "material_extraction_reasoning": "amount and units missing for the  materials, but later covered in step 1",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "all temperature,durations, units and atmosphere correcctly extracted in each step",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "method is not populated ( as mechanochemical). amounts and units  missing for material, but later covered in step 1",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.5,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "method is not populated ( as mechanochemical)."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "populate correct method"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2.One common  Ni/C/SiO2 material detected.  In the case of SSNi-0 the molar ratio should be 0 which is wrongly mentioned as 0.1-0.5\n3.steps are complete and in the right order,  additional steps -annealing, cooling missing\n4.some of the steps have  missing materials.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials. ",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned in notes. however in the case of SSNi-0 the molar ratio should be 0 which is wrongly mentioned as 0.1-0.5",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps  missing materials.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.0,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
+            "extraction_errors": [
+              "1.One common  Ni/C/SiO2 material detected.  In the case of SSNi-0 the molar ratio should be 0 which is wrongly mentioned as 0.1-0.5",
+              "2.additional steps - annealing,cooling missing"
+            ],
+            "improvement_suggestions": [
+              "seperately identify that there is sample without ni doping being generated (SSNi0) and that it has different starting materials than  the ones with Ni doping"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during the steps. however in the case of SSNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.. Amount of nitrate  is  wrong",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps. however in the case of SSNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials missing in most of the steps",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps."
+            ],
+            "extraction_errors": [
+              "however in the case of SSNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5"
+            ],
+            "improvement_suggestions": [
+              "seperately identify that there is sample without ni doping being generated (SSNi0) and that it has different starting materials than  the ones with Ni doping"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n2.however in the case of SSNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. Amount of nitrate  is  wrong",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps. however in the case of SSNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during the steps. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
+            "extraction_errors": [
+              "in the case of SSNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5"
+            ],
+            "improvement_suggestions": [
+              "seperately identify that there is sample without ni doping being generated (SSNi0) and that it has different starting materials than  the ones with Ni doping"
+            ]
           }
         }
       ]
@@ -296,26 +321,26 @@
       "material_name": "SSNi-0.1",
       "human_recipe": {
         "target_compound": "SSNi-0.1",
-        "target_compound_type": "hybrid & organic-inorganic",
+        "target_compound_type": null,
         "synthesis_method": "mechanochemical",
         "starting_materials": [
           {
-            "vendor": "Degussa, Germany",
             "name": "Sipernat 50 (porous silica gel, S-50)",
+            "vendor": "Degussa, Germany",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Superior, Poland",
             "name": "potato starch",
+            "vendor": "Superior, Poland",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "POCh, Poland",
             "name": "Ni(NO3)2-6H2O",
+            "vendor": "POCh, Poland",
             "amount": null,
             "unit": null,
             "purity": null
@@ -328,22 +353,22 @@
             "description": "Preparation of the mixtures takes place using mechanochemistry as a method of carbonaceous matter and catalyst application. The molar ratio of SiO2/starch/Ni2+ was 1:0.3:0.1",
             "materials": [
               {
-                "vendor": "Degussa, Germany",
-                "name": "Sipernat 50 (porous silica gel, S-50)",
+                "name": "Sipernat 50 (porous silica gel, S-50) [vendor: Degussa, Germany]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Superior, Poland",
-                "name": "potato starch",
+                "name": "potato starch [vendor: Superior, Poland]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "POCh, Poland",
-                "name": "Ni(NO3)2-6H2O",
+                "name": "Ni(NO3)2-6H2O [vendor: POCh, Poland]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -356,7 +381,18 @@
                 "settings": null
               }
             ],
-            "conditions": null
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
           },
           {
             "step_number": 2,
@@ -364,8 +400,8 @@
             "description": "Mechanochemical treatment of prepared mixtures",
             "materials": [
               {
-                "vendor": null,
                 "name": "Ni(NO3)2-6H2O",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -378,7 +414,18 @@
                 "settings": "pre-grinding for 15 min, 500 rpm [grinding Ni(NO3)2-6H2O and homogenization of the mixture], followed by grinding for 30 min (2 × 15 min), 750 rpm (heating of the system, resulting starch gelation and better homogenization of the sample)"
               }
             ],
-            "conditions": null
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
           },
           {
             "step_number": 3,
@@ -386,8 +433,8 @@
             "description": "All the silica/starch/Ni(NO3)2 mixtures obtained mechanochemically were subjected to the pyrolysis process.",
             "materials": [
               {
-                "vendor": null,
                 "name": "silica/starch/Ni(NO3)2 mixture",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -402,15 +449,15 @@
             ],
             "conditions": {
               "temperature": 500.0,
-              "temp_unit": "C",
               "duration": 3.0,
-              "time_unit": "h",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "nitrogen",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -427,15 +474,15 @@
             ],
             "conditions": {
               "temperature": 20.0,
-              "temp_unit": "C",
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "nitrogen",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -452,15 +499,15 @@
             ],
             "conditions": {
               "temperature": 500.0,
-              "temp_unit": "C",
               "duration": 3.0,
-              "time_unit": "h",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "nitrogen",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -477,15 +524,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "nitrogen",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -506,110 +553,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect ssni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.1 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.1 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.1 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         }
       ]
@@ -769,110 +832,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect ssni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.2 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.2 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.2 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         }
       ]
@@ -1016,110 +1095,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect ssni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.3 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.3 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.3 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         }
       ]
@@ -1318,110 +1413,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect ssni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.4 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.4 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.4 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         }
       ]
@@ -1620,110 +1731,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect ssni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.5 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.5 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as ssni0.5 insted of grouping all together and then mentioning ssni-x in notes"
+            ]
           }
         }
       ]
@@ -1881,110 +2008,135 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "only the method is not populated ( as mechanochemical). material is grouped into the set  C/SiO2 (carbosil - carbon-silica adsorbent)  -common target defined for SSni0 and AsNi0, and is clearly mentioned in the notes.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "method is not populated ( as mechanochemical), amount and units missing for the materials, but later covered in steps",
+              "material_extraction_score": 4.75,
+              "material_extraction_reasoning": "amount and units missing for the  materials, but later covered in step 1",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "all temperature,durations, units and atmosphere correcctly extracted in each step",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "method is not populated ( as mechanochemical). amounts and units  missing for material, but later covered in step 1",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.5,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "method is not populated ( as mechanochemical)."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "populate correct method"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2.One common  Ni/C/SiO2 material detected.  In the case of ASNi-0 the molar ratio should be 0 which is wrongly mentioned as 0.1-0.5\n3.steps are complete and in the right order,  additional steps -annealing, cooling missing\n4.some of the steps have  missing materials.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials. ",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned in notes. however in the case of ASNi-0 the molar ratio should be 0 which is wrongly mentioned as 0.1-0.5",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps  missing materials.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.0,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
+            "extraction_errors": [
+              "1.One common  Ni/C/SiO2 material detected.  In the case of ASNi-0 the molar ratio should be 0 which is wrongly mentioned as 0.1-0.5",
+              "2.additional steps - annealing,cooling missing"
+            ],
+            "improvement_suggestions": [
+              "seperately identify that there is sample without ni doping being generated (ASNi0) and that it has different starting materials than  the ones with Ni doping"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during the steps. however in the case of ASNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.. Amount of nitrate  is  wrong",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps. however in the case of ASNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials missing in most of the steps",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps."
+            ],
+            "extraction_errors": [
+              "however in the case of ASNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5"
+            ],
+            "improvement_suggestions": [
+              "seperately identify that there is sample without ni doping being generated (ASNi0) and that it has different starting materials than  the ones with Ni doping"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n2.however in the case of ASNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. Amount of nitrate  is  wrong",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps. however in the case of ASNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during the steps. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
+            "extraction_errors": [
+              "in the case of ASNi-0 the molar ratio of nitrate should be 0 which is wrongly mentioned as 0.1-0.5"
+            ],
+            "improvement_suggestions": [
+              "seperately identify that there is sample without ni doping being generated (ASNi0) and that it has different starting materials than  the ones with Ni doping"
+            ]
           }
         }
       ]
@@ -2164,110 +2316,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect asni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.1 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.1 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.1 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         }
       ]
@@ -2466,110 +2634,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect asni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.2 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.2 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.2 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         }
       ]
@@ -2749,110 +2933,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect asni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.3 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.3 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.3 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         }
       ]
@@ -3102,110 +3302,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect asni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.4 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.4 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.4 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         }
       ]
@@ -3384,110 +3600,126 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "material inital amounts not mentioned but later covered in notes. materials in subsequent steps missing, but present in notes",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "same reason as in structural completeness section",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 4,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "Ni/C/SiO2 (Ni-doped carbosil) is the extracted material, perhaps could detect asni-x seperately as a material"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1.amounts and units absent. Later mentioned in notes. \n2. some of the steps have  missing materials.\n3.additional steps - annealing,cooling missing\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "materials amounts and units absent, some steps missing materials though present in notes. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. later mentioned in notes.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "steps are complete and in the right order,  additional steps -annealing, cooling missing",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "heating rate , flow rate of nitrogen not mentioned in conditions , but mentioend in notes",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "some of the steps missing materials field, though present in notes",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 3.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1.amounts and units absent. Later mentioned in notes.",
+              "2.some of the steps have  missing materials.",
+              "3.additional steps - annealing,cooling missing"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.5 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "material amounts and units absent. Later mentioned during step 1.  other steps missing materials field",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 3.75,
+              "structural_completeness_reasoning": "material -amounts and units not mentioned . later mentioned ,but only in firrst step, materials missing in most of the steps.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during the steps.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.75,
+              "semantic_accuracy_reasoning": "amounts and units missing in material extracton. materials  field missing in most of the steps, though present in notes,",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "material amounts and units absent.  Later mentioned during the steps. other steps missing materials field"
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.5 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.\n",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "inital material -amounts and units not mentioned, later mentioned during the step 1 , materials missing in most of text. ",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "amounts and units absent. Later mentioned during step 1. materials missing in subsequent steps",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.25,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 4,
+            "missing_information": [
+              "1, initial materials amounts and units absent. Later mentioned during step 1. materials missing in most of the steps."
+            ],
             "extraction_errors": [],
-            "improvement_suggestions": []
+            "improvement_suggestions": [
+              "seperately identify material name as asni0.5 insted of grouping all together and then mentioning asni-x in notes"
+            ]
           }
         }
       ]
