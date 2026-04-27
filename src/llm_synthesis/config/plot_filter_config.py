@@ -1,7 +1,8 @@
 """Configuration for plot filtering in performance linking.
 
 This module provides configurable filtering criteria for determining which plots
-are relevant for performance data extraction, allowing domain-specific customization.
+are relevant for performance data extraction, allowing domain-specific 
+customization.
 
 Example usage:
     # Default catalysis configuration
@@ -38,10 +39,24 @@ class PlotFilterConfig(BaseModel):
     # X-axis configuration (default: temperature for catalysis)
     x_axis_labels: list[str] = Field(
         default=["temperature", "temp"],
-        description="X-axis labels that indicate relevance (substring match, case-insensitive)",
+        description=(
+            "X-axis labels that indicate relevance "
+            "(substring match, case-insensitive)"
+        ),
     )
     x_axis_units: list[str] = Field(
-        default=["°c", "°k", "°f", "ºc", "ºk", "k", "c", "f", "kelvin", "celsius"],
+        default=[
+            "°c",
+            "°k",
+            "°f",
+            "ºc",
+            "ºk",
+            "k",
+            "c",
+            "f",
+            "kelvin",
+            "celsius",
+        ],
         description="X-axis units that indicate relevance (case-insensitive)",
     )
 
@@ -97,8 +112,8 @@ class PlotFilterConfig(BaseModel):
     def _normalize_axis_text(text: str) -> str:
         """Normalize axis label/unit text for matching.
 
-        Strips LaTeX formatting and converts LaTeX symbols to Unicode equivalents
-        so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
+        Strips LaTeX formatting and converts LaTeX symbols to Unicode 
+        equivalents so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
         """
         # Strip LaTeX dollar signs
         text = text.replace("$", "")
@@ -179,9 +194,8 @@ class PlotFilterConfig(BaseModel):
         has_keyword = any(kw in label_lower for kw in self.y_axis_keywords)
 
         # Check for conversion symbol (e.g., "X" for conversion)
-        is_x_symbol = (
-            label_lower in self.x_symbol_exact
-            or any(label_lower.startswith(p) for p in self.x_symbol_prefixes)
+        is_x_symbol = label_lower in self.x_symbol_exact or any(
+            label_lower.startswith(p) for p in self.x_symbol_prefixes
         )
 
         # Check for percentage unit
@@ -219,7 +233,9 @@ class PlotFilterConfig(BaseModel):
     def for_superconductivity(cls) -> "PlotFilterConfig":
         """Factory method for superconductivity domain (R(T) plots)."""
         return cls(
-            x_axis_labels=["temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"],
+            x_axis_labels=[
+                "temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"
+            ],
             x_axis_units=["k", "°k", "kelvin"],
             y_axis_keywords=[
                 "resistance", "resistivity", "r(t)", "r/r",
@@ -240,7 +256,8 @@ class PlotFilterConfig(BaseModel):
                 "δρ", "δr", "Δρ", "Δr",        # delta variants
                 # Derivatives
                 "dρ/dt", "dr/dt", "dρ/d", "dr/d",
-                # Ratio to residual resistivity (but NOT normalized to room temp)
+                # Ratio to residual resistivity (but NOT normalized to room 
+                # temp)
                 # "ρ/ρ₀", "r/r₀", "r/r0" are residual-ratio plots (not useful)
                 # "ρ/ρ₃₀₀" or "r/r(300)" are room-temp-normalized R(T) (useful!)
                 "ρ/ρ₀", "ρ/ρ0",

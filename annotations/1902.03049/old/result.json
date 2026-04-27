@@ -1,0 +1,460 @@
+[
+  {
+    "material": "5-AGNR",
+    "synthesis": {
+      "target_compound": "5-AGNR",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3,9 (10)-dibromoperylene (DBP)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Annealing of 3,9 (10)-dibromoperylene (DBP) monomer",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 350.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "Annealing of 5-AGNR to induce lateral fusion into wider GNRs",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cover",
+          "description": "Cover the GNRs with a poly(methyl methacrylate) (PMMA) film to supply mechanical support and protect the GNRs.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "poly(methyl methacrylate) (PMMA)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "detach",
+          "description": "Detach the mica from the substrate in a bath of hydrofluoric acid (40 wt.%) solution.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "hydrofluoric acid",
+              "amount": 40.0,
+              "unit": "wt.%",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "remove",
+          "description": "Remove the gold below the GNRs by a commercial gold etchant (Sigma-Aldrich) and cleaned in ultra-pure water several times.",
+          "materials": [
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "gold etchant",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "ultra-pure water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "transfer",
+          "description": "Transfer the GNR/PMMA film on the target device with the pre-fabricated graphene electrodes.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "wash",
+          "description": "Remove the PMMA by hot acetone washing.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 8,
+          "action": "anneal",
+          "description": "Anneal the graphene/GNRs devices in the probe-station.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": 375.0,
+            "temp_unit": "K",
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "vacuum",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "probe-station",
+          "instrument_vendor": "LakeShore",
+          "settings": null
+        }
+      ],
+      "notes": "By increasing the annealing temperature, 5-AGNR can undergo lateral fusion into wider GNRs. Fixing the annealing temperature at 600 \u00b0C, the resulting GNRs are a mixture of 10-AGNR and non-negligible amounts of 5-AGNR, 15-AGNR and 20-AGNR."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the synthesis of 5-AGNR via CVD method, including the monomer, annealing temperatures, gas atmosphere, and subsequent transfer process. The steps are generally well-organized and the key conditions are extracted. However, there are some minor inaccuracies and omissions that affect the overall score. The extraction includes the lateral fusion of 5-AGNR into wider GNRs at 600\u00b0C, which is relevant but could be clarified as a separate, subsequent process rather than part of the primary 5-AGNR synthesis. The equipment is correctly identified. The format compliance is good, but there are opportunities to improve the completeness and accuracy of the extracted information.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the relevant synthesis components, including materials, steps, equipment, and conditions. However, the description of the lateral fusion process could be improved for clarity. The level of detail is adequate, but some minor aspects are missing.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The extraction correctly identifies the starting material (DBP) and other materials used in the process (PMMA, hydrofluoric acid, gold etchant, acetone). However, the amounts and purities are not specified in the source text, so their absence in the extraction is acceptable. The vendor information for gold etchant is correctly captured.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally accurate and in the correct order. The actions are appropriately classified. However, the description of the lateral fusion as a separate step could be emphasized more clearly.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment (tube furnace, probe-station) is correctly identified.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction accurately captures the annealing temperatures (350\u00b0C and 600\u00b0C), gas atmosphere (Ar and H2), and pressure (1.5 mbar). The units are correctly identified. However, the duration of the annealing steps is not specified in the source text, so its absence in the extraction is acceptable.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning and intent of the source text. However, the description of the lateral fusion process could be improved for clarity to avoid potential misinterpretations.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The structure is well-organized and the data is presented in a consistent manner.",
+        "overall_score": 4.3,
+        "overall_reasoning": "The extraction is generally well-done, capturing most of the relevant synthesis information accurately. The main areas for improvement are related to the clarity of the lateral fusion process description and ensuring that all relevant details are included in the extraction."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Clarify the description of the lateral fusion process as a separate, subsequent step.",
+        "Ensure that all relevant details, such as the duration of the annealing steps (if available in the source text), are included in the extraction."
+      ]
+    }
+  },
+  {
+    "material": "9-AGNR",
+    "synthesis": {
+      "target_compound": "9-AGNR",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3',6'-dibromo-1,1':2',1''-terphenyl",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Annealing of 3',6'-dibromo-1,1':2',1''-terphenyl (DBTP) monomer",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "3',6'-dibromo-1,1':2',1''-terphenyl",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 400.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar and H2",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the CVD synthesis of 9-AGNR from 3',6'-dibromo-1,1':2',1''-terphenyl. The key synthesis steps, equipment, and conditions are represented. However, the material extraction could be improved by including the gas flow rates and the specific ratio of Ar and H2. The format compliance is good, and the semantic accuracy is maintained.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes the starting material, target material, synthesis method, process steps, equipment, and conditions. However, some details like gas flow rates are missing.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "The starting material (3',6'-dibromo-1,1':2',1''-terphenyl) is correctly identified. The target material (9-AGNR) is also correctly identified. However, the amounts and purities of the starting materials are not specified in the text and therefore not extracted, which is acceptable. The gas flow rates (Ar and H2) are not extracted as materials.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process step (annealing) is correctly identified and classified. The description is accurate. The association of materials to the step is also correct.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment (tube furnace) is correctly identified.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The temperature (400 \u00b0C) and pressure (1.5 mbar) are accurately extracted with correct units. The atmosphere (Ar and H2) is also correctly identified. The duration is missing, but it was not explicitly stated in the text.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is accurately preserved in the structured format. There are no misinterpretations.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 4.6,
+        "overall_reasoning": "The extraction is generally accurate and complete, capturing the key aspects of the synthesis. The format compliance is excellent. The main area for improvement is to include more specific details about the gas flow rates if available in the text."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Gas flow rates for Ar and H2"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Consider extracting gas flow rates as materials with corresponding amounts and units if present in the text."
+      ]
+    }
+  },
+  {
+    "material": "5n-AGNR",
+    "synthesis": {
+      "target_compound": "5n-AGNR",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3,9 (10)-dibromoperylene",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "5-AGNR was prepared from 3,9 (10)-dibromoperylene (DBP) by setting the annealing temperature at 350 \u00b0C.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "3,9 (10)-dibromoperylene",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 350.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "By increasing the annealing temperature, 5-AGNR can undergo lateral fusion into wider GNRs. Fixing the annealing temperature at 600 \u00b0C, the resulting GNRs are a mixture of 10-AGNR and non-negligible amounts of 5-AGNR, 15-AGNR and 20-AGNR",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "5-AGNR",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The sample labelled 5n-AGNR is a mixture containing mainly 10-AGNR and also some amounts of 5-, 15-, and 20-AGNRs."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the synthesis of 5n-AGNR using CVD, including the starting material, equipment, and conditions. The process steps are well-defined, and the note provides additional context about the composition of the 5n-AGNR sample. The extraction accurately reflects the information presented in the source text.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "All relevant synthesis components (materials, steps, equipment, conditions) are extracted from the source text.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The starting material name is accurately extracted. While amounts and purities are not specified in the text, their absence in the extraction is appropriate.",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "The process steps are accurately ordered and the actions are correctly classified (heating at different temperatures).",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment (tube furnace) is correctly identified.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The temperature, atmosphere, and pressure are accurately extracted with correct units. The values are numerically accurate and unit consistent.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved without misinterpretation.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema, data types, and field structure.",
+        "overall_score": 5.0,
+        "overall_reasoning": "The extraction is complete, accurate, and well-structured, reflecting a high-quality representation of the synthesis information."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  }
+]

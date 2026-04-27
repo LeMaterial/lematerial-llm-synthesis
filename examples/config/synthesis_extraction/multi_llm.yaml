@@ -1,0 +1,21 @@
+architecture:
+  _target_: llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction.DspySynthesisExtractor
+  signature:
+    _target_: llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction.make_dspy_synthesis_extractor_signature
+    signature_name: "SynthesisSignature"
+    instructions: "Extract the structured synthesis for a specific material from the paper text."
+    paper_text_description: "The complete paper text to search for the material's synthesis procedure."
+    material_name_description: "The name of the specific material to extract synthesis for."
+    output_name: "structured_synthesis"
+    output_description: "The extracted structured synthesis for the specific material."
+  lm:
+    _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
+    model_kwargs:
+      temperature: 0.0
+      max_tokens: 12000
+      num_retries: 3
+    system_prompt:
+      _target_: llm_synthesis.utils.read_prompt_str_from_txt
+      prompt_path: "examples/system_prompts/synthesis_extraction/default.txt"
+
+llm_names: ["claude-sonnet-4.6", "gemini-3-flash", "qwen3.5-397b-a17b", "deepseek-v3.2"]

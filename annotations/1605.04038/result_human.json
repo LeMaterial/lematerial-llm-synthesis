@@ -1,216 +1,396 @@
-[
-  {
-    "material": "LaAlO3/SrTiO3",
-    "synthesis": {
-      "target_compound": "LaAlO3/SrTiO3",
-      "target_compound_type": "functional materials",
-      "synthesis_method": "pulsed laser deposition",
-      "starting_materials": [
+{
+  "schema_version": "multi_llm_v1",
+  "paper_id": "1605.04038",
+  "paper_url": "http://arxiv.org/pdf/1605.04038v1",
+  "extractor_order": [
+    "claude-sonnet-4.6",
+    "gemini-3-flash",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2"
+  ],
+  "materials": [
+    {
+      "material_name": "LaAlO3/SrTiO3",
+      "human_recipe": {
+        "target_compound": "LaAlO3/SrTiO3",
+        "target_compound_type": "functional materials",
+        "synthesis_method": "pulsed laser deposition",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "TiO2-terminated STO (001)",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "LaAlO3 single crystal",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "heat",
+            "description": "26 unit cells (uc) of LAO layers were deposited onto a TiO2‐terminated STO (001) substrates by pulsed laser deposition using a KrF laser (λ= 248nm).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "LaAlO3",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "TiO2-terminated SrTiO3 (001)",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "KrF laser",
+                "instrument_vendor": null,
+                "settings": "λ= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
+              }
+            ],
+            "conditions": {
+              "temperature": 760.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": 0.05,
+              "pressure_unit": "mTorr",
+              "atmosphere": "O2",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "KrF laser",
+            "instrument_vendor": null,
+            "settings": "λ= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
+          }
+        ],
+        "notes": "During the deposition, the laser repetition is kept at 1 Hz, laser fluence at 1.8 J/cm2 , growth temperature at 760 ○ C, and *P*O2 varies from 0.05 to 100 mTorr. The deposition is monitored by *in‐situ* reflection high energy electron diffraction (RHEED), from which the growth rate of 22‐24 seconds per unit cell can be seen."
+      },
+      "evaluations": [
         {
-          "vendor": null,
-          "name": "TiO2-terminated STO (001)",
-          "amount": null,
-          "unit": null,
-          "purity": null
+          "evaluation": {
+            "reasoning": "Good extraction. Correct target, materials, and equipment. Action 'mix' for PLD deposition is not ideal but acceptable.",
+            "scores": {
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "pressure_unit='mTorr' set in step 2 without a pressure value",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "Action 'mix' for PLD not ideal; 2-step structure acceptable",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "PO2 range in description but not in structured pressure field; pressure_unit set without value",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "'mix' action slightly misrepresents PLD deposition",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "pressure_unit='mTorr' in step 2 without pressure value",
+              "overall_score": 4.5,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
         },
         {
-          "vendor": null,
-          "name": "LaAlO3 single crystal",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "heat",
-          "description": "26 unit cells (uc) of LAO layers were deposited onto a TiO2\u2010terminated STO (001) substrates by pulsed laser deposition using a KrF laser (\u03bb= 248nm).",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "LaAlO3",
-              "amount": null,
-              "unit": null,
-              "purity": null
+          "evaluation": {
+            "reasoning": "Correct target but type 'two-dimensional materials' is imprecise. Action 'impregnate' for PLD is wrong. Duration 624s is inferred.",
+            "scores": {
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "step 1 conditions=null (absent object) instead of object with null fields",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Correct materials. Type 'two-dimensional materials' is imprecise for oxide heterointerface.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "Action 'impregnate' wrong for PLD; pressure fixed at 5 mTorr vs range; duration 624s inferred",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "PLD and RHEED captured",
+              "conditions_extraction_score": 3.5,
+              "conditions_extraction_reasoning": "Pressure single value 5 mTorr instead of range; duration calculated from growth rate, not stated",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "'impregnate' semantically wrong for vapor deposition; type 'two-dimensional materials' imprecise",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "conditions=null in step 1 instead of object with null fields",
+              "overall_score": 4.0,
+              "overall_reasoning": ""
             },
-            {
-              "vendor": null,
-              "name": "TiO2-terminated SrTiO3 (001)",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [
-            {
-              "name": "KrF laser",
-              "instrument_vendor": null,
-              "settings": "\u03bb= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
-            }
-          ],
-          "conditions": {
-            "temperature": 760.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": 0.05,
-            "pressure_unit": "mTorr",
-            "atmosphere": "O2",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "Action 'impregnate' is wrong for pulsed laser deposition",
+              "Duration 624s is inferred (26 uc x 24 s/uc), not stated in paper",
+              "Pressure fixed at 5 mTorr instead of representing range"
+            ],
+            "improvement_suggestions": []
           }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "KrF laser",
-          "instrument_vendor": null,
-          "settings": "\u03bb= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
-        }
-      ],
-      "notes": "During the deposition, the laser repetition is kept at 1 Hz, laser fluence at 1.8 J/cm2 , growth temperature at 760 \u25cb C, and *P*O2 varies from 0.05 to 100 mTorr. The deposition is monitored by *in\u2010situ* reflection high energy electron diffraction (RHEED), from which the growth rate of 22\u201024 seconds per unit cell can be seen."
-    },
-    "evaluation": {
-      "reasoning": "The extracted ontology captures the synthesis of LaAlO3/SrTiO3 using pulsed laser deposition. The extraction includes materials, equipment, and conditions. However, there are some inaccuracies and omissions. The overall structure is good, but improvements are needed in the accuracy of the extracted values and the completeness of the information.",
-      "scores": {
-        "structural_completeness_score": 4.5,
-        "structural_completeness_reasoning": "Everything that is in the paper is included (with the exception of STO material in process step and some equipment settings), logical structuring is just wrong, but it is complete.",
-        "material_extraction_score": 4.5,
-        "material_extraction_reasoning": "Material extraction is mostly accurate. Names slightly wrong (substrate and target included).",
-        "process_steps_score": 3.0,
-        "process_steps_reasoning": "Some materials missing (STO); equipment - deposition is no equipment; conditions wrong, varying pressure, multiple materials synthesized.",
-        "equipment_extraction_score": 3.0,
-        "equipment_extraction_reasoning": "PLD is not an equipment, the laser is.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Conditions extraction is mostly accurate, including temperature, pressure, and atmosphere. However, the pressure range is not fully captured (only the lower bound is extracted for the pressure variation mentioned in the notes).",
-        "semantic_accuracy_score": 3.5,
-        "semantic_accuracy_reasoning": "The semantic accuracy is high, preserving the scientific meaning of the synthesis procedure. The relationships between materials, steps, equipment, and conditions are correctly represented, but PLD is wrongly taken as equipment.",
-        "format_compliance_score": 3.0,
-        "format_compliance_reasoning": "Deposit and 'uc' (unit cell) is not a step defined in the ontology.",
-        "overall_score": 3.6,
-        "overall_reasoning": "Extracted synthesis lacks logic of equipment and thus in the process steps."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Full pressure range during deposition.",
-        "Material in process step missing"
-      ],
-      "extraction_errors": [
-        "PLD is not an equipment.",
-        "Incomplete pressure range extraction (only the lower bound is captured)."
-      ],
-      "improvement_suggestions": [
-        "Ensure that the full range of synthesis conditions is captured, including pressure variations.",
-        "Don't wrongly structure the equipment settings."
-      ]
-    }
-  },
-  {
-    "material": "(La0.3Sr0.7)(Al0.65Ta0.35)O3/SrTiO3",
-    "synthesis": {
-      "target_compound": "(La0.3Sr0.7)(Al0.65Ta0.35)O3/SrTiO3",
-      "target_compound_type": "functional materials",
-      "synthesis_method": "pulsed laser deposition",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "TiO2-terminated STO (001)",
-          "amount": null,
-          "unit": null,
-          "purity": null
         },
         {
-          "vendor": null,
-          "name": "(La0.3Sr0.7)(Al0.65Ta0.35)O3 single crystal",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "heat",
-          "description": "Deposit (La0.3Sr0.7)(Al0.65Ta0.35)O3 layers onto TiO2-terminated STO (001) substrates",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "(La0.3Sr0.7)(Al0.65Ta0.35)O3",
-              "amount": null,
-              "unit": null,
-              "purity": null
+          "evaluation": {
+            "reasoning": "Target 'LaAlO3' misses heterostructure context. pressure_unit set without value.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "Target 'LaAlO3' misses the heterostructure context",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Action 'heat' acceptable for PLD; pressure_unit set without value",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "KrF laser and RHEED captured with settings",
+              "conditions_extraction_score": 3.5,
+              "conditions_extraction_reasoning": "pressure_unit='mTorr' set but pressure=null",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Correct method and action; target naming misses interface",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "pressure_unit without pressure value",
+              "overall_score": 4.0,
+              "overall_reasoning": ""
             },
-            {
-              "vendor": null,
-              "name": "TiO2-terminated STO (001)",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [
-            {
-              "name": "KrF laser",
-              "instrument_vendor": null,
-              "settings": "\u03bb= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
-            }
-          ],
-          "conditions": {
-            "temperature": 760.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": 0.05,
-            "pressure_unit": "mTorr",
-            "atmosphere": "O2",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+            "confidence_level": 5,
+            "missing_information": [
+              "No exact LaAlO3/SrTiO3 entry; scored against LaAlO3 fallback"
+            ],
+            "extraction_errors": [
+              "pressure_unit set without pressure value"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Target 'LaAlO3' misses heterostructure. Best action verb 'deposit' of all extractors. PO2 range as text in atmosphere field.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "Target 'LaAlO3' misses the heterostructure context",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "Action 'deposit' is the most accurate verb for PLD among all extractors; single coherent step",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "PLD system and RHEED with correct settings",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "PO2 range in atmosphere text field rather than structured pressure field",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Best action verb 'deposit'; target naming could be more specific",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "PO2 range as text in atmosphere field is unconventional",
+              "overall_score": 4.5,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "No exact LaAlO3/SrTiO3 entry; scored against LaAlO3 fallback"
+            ],
+            "extraction_errors": [],
+            "improvement_suggestions": []
           }
         }
-      ],
-      "equipment": [
-        {
-          "name": "KrF laser",
-          "instrument_vendor": null,
-          "settings": "\u03bb= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
-        }
-      ],
-      "notes": "Laser repetition is kept at 1 Hz, laser fluence at 1.8 J/cm2, growth temperature at 760 \u25cb C, and PO2 varies from 0.05 to 100 mTorr. The deposition is monitored by in\u2010situ reflection high energy electron diffraction (RHEED), from which the growth rate of 22\u201024 seconds per unit cell can be seen."
+      ]
     },
-    "evaluation": {
-      "reasoning": "The extraction captures the key aspects of the synthesis, including materials, method, equipment, and conditions. The structural completeness is good, covering most of the relevant information. Material extraction is generally accurate, although some details like vendor information are missing. The process steps are well-defined. Equipment and conditions are extracted with reasonable accuracy. Semantic accuracy is maintained, and the format generally complies with the schema. However, there are some inconsistencies in unit usage and missing details that could be improved.",
-      "scores": {
-        "structural_completeness_score": 4.5,
-        "structural_completeness_reasoning": "The ontology captures most of the key synthesis information, including materials, steps, equipment, and conditions. However, equipment setting and material ",
-        "material_extraction_score": 4.5,
-        "material_extraction_reasoning": "Material extraction is mostly accurate. Names slightly wrong (substrate and target included).",
-        "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are well-defined and logically sequenced. Equipment settings and one material is missing, also deposit not in ontology.",
-        "equipment_extraction_score": 4.5,
-        "equipment_extraction_reasoning": "Some minor settings missing.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Synthesis conditions such as temperature, pressure, and atmosphere are extracted with good accuracy. The numerical values and units are generally correct, pressure is a range which could be incidated.",
-        "semantic_accuracy_score": 5.0,
-        "semantic_accuracy_reasoning": "The semantic meaning of the synthesis procedure is well-preserved in the structured format. The relationships between materials, steps, and conditions are accurately represented.",
-        "format_compliance_score": 3.0,
-        "format_compliance_reasoning": "Deposit and 'uc' (unit cell) is not a step defined in the ontology.",
-        "overall_score": 4.2,
-        "overall_reasoning": "Mostly correct, some ontology mistakes and few details missing."
+    {
+      "material_name": "(La0.3Sr0.7)(Al0.65Ta0.35)O3/SrTiO3",
+      "human_recipe": {
+        "target_compound": "(La0.3Sr0.7)(Al0.65Ta0.35)O3/SrTiO3",
+        "target_compound_type": null,
+        "synthesis_method": "pulsed laser deposition",
+        "starting_materials": [
+          {
+            "name": "TiO2-terminated STO (001)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "(La0.3Sr0.7)(Al0.65Ta0.35)O3 single crystal",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "heat",
+            "description": "Deposit (La0.3Sr0.7)(Al0.65Ta0.35)O3 layers onto TiO2-terminated STO (001) substrates",
+            "materials": [
+              {
+                "name": "(La0.3Sr0.7)(Al0.65Ta0.35)O3",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "TiO2-terminated STO (001)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "KrF laser",
+                "instrument_vendor": null,
+                "settings": "λ= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
+              }
+            ],
+            "conditions": {
+              "temperature": 760.0,
+              "duration": null,
+              "pressure": 0.05,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": null,
+              "pressure_unit": "mTorr",
+              "atmosphere": "O2",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "KrF laser",
+            "instrument_vendor": null,
+            "settings": "λ= 248nm; repetition at 1Hz, laser fluence at 1 J/cm^2"
+          }
+        ],
+        "notes": "Laser repetition is kept at 1 Hz, laser fluence at 1.8 J/cm2, growth temperature at 760 ○ C, and PO2 varies from 0.05 to 100 mTorr. The deposition is monitored by in‐situ reflection high energy electron diffraction (RHEED), from which the growth rate of 22‐24 seconds per unit cell can be seen."
       },
-      "confidence_level": "high",
-      "missing_information": [
-        "Some details for equipment settings."
-      ],
-      "extraction_errors": [
-        "Names of materials"
-      ],
-      "improvement_suggestions": [
-        "Include all information from the manuscript.",
-        "Stick to the ontology."
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "Same PLD conditions as LAO/STO. Good coverage of equipment and conditions. Action 'mix' not ideal.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "LSAT target and STO substrate correctly identified",
+              "process_steps_score": 4.75,
+              "process_steps_reasoning": "Action 'mix' for PLD not ideal; 3-step structure acceptable",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "PLD + KrF + RHEED captured with correct settings",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "pressure=null in deposition step despite PO2 range stated; pressure_unit without value",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Correct target and method; 'mix' action slightly wrong for PLD",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "pressure_unit='mTorr' in step 3 without pressure value",
+              "overall_score": 4.5,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Same issues as LAO/STO: type 'two-dimensional materials' imprecise, duration inferred, step 1 conditions absent.",
+            "scores": {
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "step 1 conditions=null (absent object) instead of object with null fields",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "Correct materials. Type 'two-dimensional materials' imprecise.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Action 'other' for deposition imprecise; pressure 0.05 mTorr is lower bound only; duration 624s inferred",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "PLD and RHEED captured",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "Pressure lower bound only; duration calculated from growth rate, not stated",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Type 'two-dimensional materials' imprecise for oxide heterointerface",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "conditions=null in step 1 instead of object with null fields",
+              "overall_score": 4.0,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "Duration 624s inferred, not stated in paper",
+              "Pressure 0.05 mTorr is only lower bound of range"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Target as film rather than interface. Action 'add' for deposition step is wrong.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Correct materials identified; target misses heterostructure context",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Action 'heat' acceptable; action 'add' for deposition step is wrong",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "KrF laser and RHEED captured with settings",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Pressure 0.05 mTorr is lower bound of range only",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Target as just the film rather than interface; 'add' for deposition is wrong",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.0,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "No exact (La0.3Sr0.7)(Al0.65Ta0.35)O3/SrTiO3 entry; scored against film-only fallback"
+            ],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Target as film rather than interface. PO2 range correctly in notes.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": " ",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": " ",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": " ",
+              "conditions_extraction_score": 4.75,
+              "conditions_extraction_reasoning": "PO2 in notes only; pressure=null in step conditions",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": " ",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.75,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        }
       ]
     }
-  }
-]
+  ]
+}

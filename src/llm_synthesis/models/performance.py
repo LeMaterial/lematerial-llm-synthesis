@@ -6,12 +6,15 @@ from pydantic import BaseModel, Field
 class SeriesMapping(BaseModel):
     """A single mapping from a plot series name to a material name."""
 
-    series_name: str = Field(description="Series/line name from the plot legend")
+    series_name: str = Field(
+        description="Series/line name from the plot legend"
+    )
     material_name: str = Field(
         description="Matched material name from synthesis extraction"
     )
     confidence: str = Field(
-        default="medium", description="Confidence level: 'high', 'medium', or 'low'"
+        default="medium",
+        description="Confidence level: 'high', 'medium', or 'low'",
     )
     reasoning: str = Field(default="", description="Explanation for this match")
 
@@ -19,12 +22,16 @@ class SeriesMapping(BaseModel):
 class PlotMaterialMapping(BaseModel):
     """All series-to-material mappings for a single plot."""
 
-    plot_index: int = Field(description="Index of the plot in the paper's plot list")
+    plot_index: int = Field(
+        description="Index of the plot in the paper's plot list"
+    )
     figure_reference: str = Field(default="", description="e.g. 'Fig. 3a'")
     mappings: list[SeriesMapping] = Field(default_factory=list)
     unmatched_series: list[str] = Field(
         default_factory=list,
-        description="Series that could not be matched (baselines, references, etc.)",
+        description=(
+            "Series that could not be matched (baselines, references, etc.)"
+        ),
     )
 
 

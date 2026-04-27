@@ -1,0 +1,605 @@
+[
+  {
+    "material": "Cs3Bi2I9",
+    "synthesis": {
+      "target_compound": "Cs3Bi2I9",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "solution-based",
+      "starting_materials": [
+        {
+          "vendor": "Alfa Aesar",
+          "name": "CsI",
+          "amount": 390.0,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": "Alfa Aesar",
+          "name": "BiI3",
+          "amount": 590.0,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": 20.0,
+          "unit": "mL",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "methanol",
+          "amount": 20.0,
+          "unit": "mL",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "The mixture of CsI solution in deionized water and BiI3 solution in methanol was vigorously stirred by magnetic bars.",
+          "materials": [
+            {
+              "vendor": "Alfa Aesar",
+              "name": "CsI",
+              "amount": 390.0,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": "Alfa Aesar",
+              "name": "BiI3",
+              "amount": 590.0,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "methanol",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "centrifuge",
+          "description": "The solution was centrifuged.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 5.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": 2000.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "filter",
+          "description": "The supernatant was poured off.",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "dry",
+          "description": "The remaining precipitates were dried in a centrifuge tube in a vacuum oven overnight.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "vacuum oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 80.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "vacuum",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stirrer",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "centrifuge",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "vacuum oven",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the key aspects of the Cs3Bi2I9 synthesis, including materials, steps, equipment, and conditions. The extraction is generally accurate and follows the structure of the text. Some minor improvements could be made in capturing specific details and ensuring consistency in unit usage.",
+      "scores": {
+        "structural_completeness_score": 4.5,
+        "structural_completeness_reasoning": "The extraction includes all major components of the synthesis procedure: starting materials, reaction steps, equipment, and conditions. The overall structure is well-represented.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material names, amounts, and vendors are generally extracted correctly. The units are consistent. Purity is not specified in the text, so its absence is not penalized. The association of materials with specific steps is accurate.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are extracted in the correct order and the actions are classified appropriately. The descriptions are concise and reflect the source text. The centrifuge speed is captured, but the lack of duration for the drying step is a minor omission.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "All major equipment items (magnetic stirrer, centrifuge, vacuum oven) are identified. However, specific settings or models are not provided in the text, so their absence is not penalized.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Temperature and duration are extracted where specified. The atmosphere (vacuum) is also correctly identified. The stirring condition is marked as true, which is appropriate. The temperature unit is missing for the mixing step.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis procedure. There are no major misinterpretations or distortions of the information.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON is well-formed and valid.",
+        "overall_score": 4.4,
+        "overall_reasoning": "The extraction is of high quality, capturing the essential details of the Cs3Bi2I9 synthesis procedure. Minor improvements could be made in capturing all specific conditions and ensuring consistent unit usage, but overall the extraction is accurate and complete."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Ensure temperature units are consistently captured for all steps where temperature is relevant.",
+        "Consider adding more detail to the descriptions of each step where possible, without adding information not present in the source text."
+      ]
+    }
+  },
+  {
+    "material": "HA",
+    "synthesis": {
+      "target_compound": "HA",
+      "target_compound_type": "ceramics & glasses",
+      "synthesis_method": "precipitation",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "calcium hydroxide",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "phosphoric acid",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "deionized water",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "disperse",
+          "description": "Calcium hydroxide was first dispersed into the deionized water.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "calcium hydroxide",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "deionized water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Phosphoric acid was poured into the suspension.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "phosphoric acid",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "mix",
+          "description": "Aggressive agitation was carried out on a magnetic stir-plate.",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "magnetic stir-plate",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 10.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": 300.0,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "precipitate",
+          "description": "The HA powders were precipitated out in the beaker.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "HA powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "The HA powders were dried in a digitally-controlled oven.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "HA powders",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "digitally-controlled oven",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "magnetic stir-plate",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "digitally-controlled oven",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the wet chemical deposition synthesis of hydroxyapatite (HA) from the provided text. The structural completeness is good, covering materials, steps, equipment, and conditions. Material extraction is accurate, identifying calcium hydroxide, phosphoric acid, and deionized water as starting materials. The process steps are logically sequenced and the actions are correctly classified (disperse, add, mix, precipitate, dry). Equipment extraction identifies the magnetic stir-plate and digitally-controlled oven. Conditions extraction captures the stirring speed and duration. Semantic accuracy is maintained, and the extraction adheres to the ontology schema. Overall, the extraction is well-performed, but could benefit from including the drying temperature if available in the text.",
+      "scores": {
+        "structural_completeness_score": 4.5,
+        "structural_completeness_reasoning": "The extraction includes all major components of the HA synthesis: materials, steps, equipment, and conditions. It accurately represents the overall process.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The extraction correctly identifies and lists all the starting materials (calcium hydroxide, phosphoric acid, and deionized water) and the final product (HA powders).",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "The process steps are accurately sequenced and the actions are correctly classified (disperse, add, mix, precipitate, dry). The description for each step is clear and concise.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The extraction correctly identifies the magnetic stir-plate and digitally-controlled oven used in the synthesis.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The extraction captures the stirring speed (300 r\u00b7min\u22121) and duration (10 min). The drying temperature is missing, but it is not explicitly stated in the text.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning and context of the synthesis procedure. There are no misinterpretations or distortions of the information.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
+        "overall_score": 4.9,
+        "overall_reasoning": "The extraction is well-performed, capturing the key aspects of the HA synthesis procedure. The structural organization is logical, and the information is presented accurately. The only minor issue is the missing drying temperature, but this is not explicitly stated in the text."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  },
+  {
+    "material": "Cs3Bi2I9\u2013hydroxyapatite composite",
+    "synthesis": {
+      "target_compound": "Cs3Bi2I9\u2013hydroxyapatite composite",
+      "target_compound_type": "composites",
+      "synthesis_method": "spark plasma sintering",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "Cs3Bi2I9",
+          "amount": null,
+          "unit": "g",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "HA",
+          "amount": null,
+          "unit": "g",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Cs3Bi2I9 with HA in a mortar and pestle",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Cs3Bi2I9",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "HA",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "mortar and pestle",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "SPS consolidation",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Cs3Bi2I9",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "HA",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Model 10-3 SPS system",
+              "instrument_vendor": "Thermal Tech. LLC.",
+              "settings": "current pattern of 25 ms on and 3 ms off"
+            }
+          ],
+          "conditions": {
+            "temperature": 500.0,
+            "temp_unit": "\u2103",
+            "duration": 5.0,
+            "time_unit": "min",
+            "pressure": 400.0,
+            "pressure_unit": "MPa",
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "cool",
+          "description": "air cool in Ar atmosphere",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "wash",
+          "description": "mechanically polished in anhydrous ethanol with a 1200 grit sandpaper, and then stored in a vacuum desiccator",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "anhydrous ethanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": null
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Model 10-3 SPS system",
+          "instrument_vendor": "Thermal Tech. LLC.",
+          "settings": "current pattern of 25 ms on and 3 ms off"
+        },
+        {
+          "name": "graphite die",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "tungsten carbide die",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The Cs3Bi2I9 + HA composite pellets were synthesized by first mixing equal masses of Cs3Bi2I9 with HA in a mortar and pestle followed by SPS consolidation. A similar consolidation procedure was applied with a peak consolidation temperature of 500 \u2103 and a maximum pressure of 400 MPa. Instead of using a graphite die, a tungsten carbide die was used to hold the mixing powders."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the key aspects of the Cs3Bi2I9-hydroxyapatite composite synthesis, including the starting materials, mixing, spark plasma sintering (SPS) conditions, and post-synthesis processing. The steps are logically sequenced, and the equipment and conditions are generally well-extracted. However, there are some areas for improvement, particularly in specifying material amounts and consolidating the equipment list.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction includes the major components of the synthesis: materials, steps, equipment, and conditions. However, the lack of specific quantities for the starting materials slightly reduces the completeness score.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The materials are correctly identified, but the amounts are missing. Ideally, the extraction should include the 'equal masses' detail mentioned in the text. The vendors are not specified, which is acceptable as they are not explicitly stated in this section of the text.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are accurately extracted and logically ordered. The actions (mix, heat, cool, wash) are correctly classified. The descriptions are clear and concise.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment is mostly well-extracted, including the SPS system and the mortar and pestle. The graphite and tungsten carbide dies are mentioned in the notes but could be explicitly included as equipment. Consolidating the equipment list would improve the score.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The SPS conditions (temperature, duration, pressure, atmosphere) are accurately extracted with correct values and units. The heating rate is mentioned earlier in the text but not explicitly in the procedure, so its absence here is not penalized.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis procedure. There are no significant misinterpretations or distortions of the information.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON is valid and well-structured.",
+        "overall_score": 4.3,
+        "overall_reasoning": "Overall, the extraction is of high quality, capturing the essential details of the synthesis procedure. The main areas for improvement are the inclusion of material amounts and the consolidation of the equipment list. The semantic accuracy and format compliance are excellent."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Include the 'equal masses' detail for the starting materials (Cs3Bi2I9 and HA).",
+        "Explicitly include the graphite and tungsten carbide dies as equipment.",
+        "Consolidate the equipment list to avoid redundancy."
+      ]
+    }
+  }
+]

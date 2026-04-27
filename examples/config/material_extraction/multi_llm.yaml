@@ -1,0 +1,21 @@
+architecture:
+  _target_: llm_synthesis.transformers.material_extraction.dspy_extraction.DspyTextExtractor
+  signature:
+    _target_: llm_synthesis.transformers.material_extraction.dspy_extraction.make_dspy_text_extractor_signature
+    signature_name: "TextToMaterials"
+    instructions: "Extract ONLY the final synthesized materials from the publication text."
+    input_description: "The publication text to extract the final synthesized materials from."
+    output_name: "materials"
+    output_description: "The final synthesized materials as a comma-separated list using ONLY chemical formulas (e.g., 'Sr3(P3O9)2·7H2O, LiH2PO3'). Never use common names."
+  lm:
+    _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
+    model_kwargs:
+      temperature: 0.0
+      max_tokens: 4096
+      num_retries: 3
+    system_prompt:
+      _target_: llm_synthesis.utils.read_prompt_str_from_txt
+      prompt_path: "examples/system_prompts/material_extraction/default.txt"
+
+llm_names: ["claude-sonnet-4.6", "gemini-3-flash", "qwen3.5-397b-a17b", "deepseek-v3.2"]
+

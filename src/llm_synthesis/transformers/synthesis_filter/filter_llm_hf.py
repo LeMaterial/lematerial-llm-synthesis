@@ -5,8 +5,9 @@ from pathlib import Path
 # import tiktoken
 import transformers
 from datasets import load_dataset
-from llm import LLM  # your local wrapper
 from tqdm import tqdm
+
+from llm_synthesis.transformers.synthesis_filter.llm import LLM
 
 ################################################################################
 # ---------------------------  Helper utilities  ----------------------------- #
@@ -16,7 +17,10 @@ from tqdm import tqdm
 def split_text_into_chunks(
     text: str, max_tokens: int, tokenizer: transformers.AutoTokenizer
 ) -> list[str]:
-    """Split text into chunks based on token count, trying to break at sentence boundaries."""
+    """
+    Split text into chunks based on token count, trying to break at sentence
+    boundaries.
+    """
     sentences = text.split(". ")
     chunks = []
     current_chunk = []
@@ -55,25 +59,30 @@ def split_text_into_chunks(
 
 def _call_llm(chunk: str, client: LLM) -> dict:
     """Send *chunk* to the LLM and parse its JSON answer."""
-    prompt = f"""Analyze the following text and answer the questions in JSON format:
-
-
-{chunk}
-
-Questions:
-1. Does it contain a material synthesis recipe? (Answer with true or false)
-2. If yes, what is the material name? (Answer with the material name or "N/A" if no recipe)
-3. If yes, which category of materials does it belong to? (Answer with the specific material type or "N/A" if no recipe)
-    List of material categories:
-    Metals, Ceramics, Semiconductors, Superconductors, Composites, Biomaterials, Nanomaterials, Polymers, Magnetic, Textiles, Chemicals, Other
-
-Format your response as a JSON object with the following structure:
-{{
-    "contains_recipe": true/false,
-    "material_name": "material name or N/A",
-    "material_category": "material category or N/A"
-}}
-"""
+    prompt = (
+        "Analyze the following text and answer the questions in JSON format:\n"
+        "\n\n"
+        f"{chunk}\n"
+        "\n"
+        "Questions:\n"
+        "1. Does it contain a material synthesis recipe? "
+        "(Answer with true or false)\n"
+        "2. If yes, what is the material name? "
+        '(Answer with the material name or "N/A" if no recipe)\n'
+        "3. If yes, which category of materials does it belong to? "
+        '(Answer with the specific material type or "N/A" if no recipe)\n'
+        "    List of material categories:\n"
+        "    Metals, Ceramics, Semiconductors, Superconductors, Composites,\n"
+        "    Biomaterials, Nanomaterials, Polymers, Magnetic, Textiles,\n"
+        "    Chemicals, Other\n"
+        "\n"
+        "Format your response as a JSON object with the following structure:\n"
+        "{\n"
+        '    "contains_recipe": true/false,\n'
+        '    "material_name": "material name or N/A",\n'
+        '    "material_category": "material category or N/A"\n'
+        "}\n"
+    )
 
     response = client.generate_text(
         prompt, response_format={"type": "json_object"}
@@ -121,7 +130,7 @@ def analyze_article(
         "material_category": "N/A",
     }
     for ans in answers:
-        if ans.get("contains_recipe") == True:
+        if ans.get("contains_recipe"):
             print("--> material_name", ans.get("material_name"))
             print("--> material_category", ans.get("material_category"))
             result["contains_recipe"] = True
@@ -154,7 +163,7 @@ def process_hf_dataset(
     max_tokens: int = 120000,
     model: str = "mistralai/Mistral-Small-3.1-24B-Instruct-2503",
 ) -> Path:
-    """Load a 🤗 dataset, append three new columns, and save with `save_to_disk()`."""
+    """Load a 🤗 dataset, append three new columns, save with save_to_disk()."""
     print(f"Loading dataset '{dataset_id}' ({split} split)…")
     ds = (
         load_dataset(
@@ -207,7 +216,8 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
         description=(
-            "Add recipe-detection columns to a 🤗 dataset with a live progress bar."
+            "Add recipe-detection columns to a 🤗 dataset "
+            "with a live progress bar."
         )
     )
     parser.add_argument(

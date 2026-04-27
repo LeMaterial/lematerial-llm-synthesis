@@ -1,39 +1,1127 @@
 [
   {
-    "material": "MoSe2",
-    "synthesis": {
-      "target_compound": "MoSe2",
-      "target_compound_type": "two-dimensional materials",
-      "synthesis_method": "MBE",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "sapphire substrate",
-          "amount": null,
-          "unit": null,
-          "purity": null
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "MoSe2",
+        "synthesis": {
+          "target_compound": "MoSe2",
+          "target_compound_type": "two-dimensional materials",
+          "synthesis_method": "molecular beam epitaxy",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Selenium",
+              "amount": null,
+              "unit": null,
+              "purity": "99.9999%"
+            },
+            {
+              "vendor": null,
+              "name": "Molybdenum",
+              "amount": null,
+              "unit": null,
+              "purity": "99.995%"
+            },
+            {
+              "vendor": null,
+              "name": "Sapphire substrate (0001) with 2-degree off-cut",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "heat",
+              "description": "Heat the (0001) sapphire substrate with a 2-degree off-cut in ultra-high vacuum to 700°C.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Sapphire substrate (0001) with 2-degree off-cut",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "heat",
+              "description": "Grow MoSe2 at 300°C with a very small growth rate of about 1 monolayer (0.7 nm) per hour. Selenium is deposited from a standard low-temperature effusion cell and molybdenum is deposited using an e-beam with a rod (1/4 inch diameter, 35 mm length).",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Selenium",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.9999%"
+                },
+                {
+                  "vendor": null,
+                  "name": "Molybdenum",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.995%"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                },
+                {
+                  "name": "Low-temperature effusion cell (for Se)",
+                  "instrument_vendor": null,
+                  "settings": null
+                },
+                {
+                  "name": "E-beam evaporator with rod (for Mo)",
+                  "instrument_vendor": null,
+                  "settings": "1/4 inch diameter, 35 mm length rod"
+                },
+                {
+                  "name": "RHEED",
+                  "instrument_vendor": null,
+                  "settings": "surface roughness control"
+                }
+              ],
+              "conditions": {
+                "temperature": 300.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "anneal",
+              "description": "Every 20 h (14 nm of MoSe2), the sample is annealed at 700°C for 1 h to avoid vertical growth and keep the surface flat.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "mix",
+              "description": "After growth, the samples are manually polished using silk in the environment of ethylene glycol to improve surface quality and remove nanopillars.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ethylene glycol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Silk tissue",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE chamber",
+              "instrument_vendor": "SVT Associates",
+              "settings": null
+            },
+            {
+              "name": "RHEED",
+              "instrument_vendor": null,
+              "settings": "surface roughness control"
+            },
+            {
+              "name": "Low-temperature effusion cell (for Se)",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "E-beam evaporator (for Mo)",
+              "instrument_vendor": null,
+              "settings": "1/4 inch diameter, 35 mm length rod"
+            }
+          ],
+          "notes": "Total thickness of MoSe2 layer is 42 nm. Growth rate is ~1 monolayer (0.7 nm) per hour. Annealing is performed every 20 h (every 14 nm) at 700°C for 1 h to suppress vertical growth. After growth, mechanical polishing with silk in ethylene glycol reduces surface roughness from Sq=14.6 nm to Sq=2.0 nm. Large (few cm2) homogeneous layers are produced."
         },
-        {
-          "vendor": null,
-          "name": "Selenium",
-          "amount": null,
-          "unit": null,
-          "purity": "99.9999%"
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the MBE synthesis of MoSe2 layers from the source text with high fidelity. The extraction correctly identifies the target compound, synthesis method, starting materials (Se, Mo, sapphire substrate), and the key process steps including substrate heating, MoSe2 growth, periodic annealing, and post-growth polishing. The equipment list is well-populated with the MBE chamber (SVT Associates), RHEED, effusion cell, and e-beam evaporator. Conditions such as temperatures (700°C for heating/annealing, 300°C for growth), growth rate (~1 ML/hr), annealing interval (every 20h/14nm), annealing duration (1h), and atmosphere (ultra-high vacuum) are accurately captured. The polishing step is correctly identified with ethylene glycol and silk tissue. Minor issues include: the polishing step is labeled 'mix' rather than a more appropriate action like 'polish' or 'mechanical treatment'; the growth duration is not captured (though it can be inferred from total thickness and growth rate, it is not explicitly stated as a single number in the source); the annealing atmosphere is correctly inferred as ultra-high vacuum (consistent with MBE context). The extraction does not include the grating fabrication steps (e-beam lithography, RIE etching), but these are part of sample processing rather than the core MoSe2 synthesis, and the target material is MoSe2 layer growth. Overall, the extraction is thorough and accurate for the MBE synthesis portion.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound, synthesis method, starting materials (Se with 6N purity, Mo with 4N5 purity, sapphire substrate with correct orientation and off-cut), four process steps (substrate heating, MoSe2 growth, periodic annealing, post-growth polishing), equipment list, and synthesis conditions. The notes field captures important quantitative details like total thickness (42 nm), growth rate, annealing frequency, and surface roughness improvement. The only minor gap is that the grating fabrication steps (photoresist deposition, e-beam lithography, RIE etching) are not included, but these are arguably post-synthesis processing steps rather than core MoSe2 layer synthesis steps, and the target material is the MoSe2 layer itself. The ellipsometry characterization step is also not included, but this is a characterization rather than synthesis step. Overall structural completeness is excellent for the MBE synthesis scope.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All three starting materials are correctly identified: Selenium (99.9999% / 6N purity), Molybdenum (99.995% / 4N5 purity), and the sapphire substrate with correct (0001) orientation and 2-degree off-cut specification. The polishing step correctly identifies ethylene glycol and silk tissue as materials. Amounts and units are correctly left null since the source text does not specify quantities for these materials. The vendor for Se and Mo is not stated in the source, so null is appropriate. The only minor issue is that the purity of Mo is listed as '99.995%' which is correct (4N5 = 99.995%), and Se as '99.9999%' (6N) which is also correct. No hallucinated values are present.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The four process steps are logically sequenced and accurately described: (1) substrate heating to 700°C in UHV, (2) MoSe2 growth at 300°C, (3) periodic annealing at 700°C for 1h every 20h, and (4) post-growth polishing. The step descriptions are accurate and include key details from the source. The main issue is that step 4 (polishing) is labeled with action 'mix', which is semantically incorrect - 'polish' or 'mechanical treatment' would be more appropriate. The growth step correctly notes the deposition sources (effusion cell for Se, e-beam for Mo) and growth rate. The annealing step correctly captures the 700°C/1h conditions and the purpose (avoiding vertical growth). The periodic nature of annealing (every 20h/14nm) is captured in the description. Step sequencing is correct.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The equipment list is comprehensive and accurate. The MBE chamber is correctly attributed to SVT Associates (the only vendor explicitly named in the source). RHEED is correctly identified for surface roughness control. The low-temperature effusion cell for Se and e-beam evaporator for Mo are correctly identified with appropriate specifications (1/4 inch diameter, 35 mm length rod for Mo). Equipment is also correctly associated with the relevant process steps. The only minor omission is that the AFM (Atomic Force Microscopy) instrument used for surface characterization is mentioned in the source but not included in the equipment list - however, AFM is a characterization tool rather than synthesis equipment, so this omission is reasonable. No hallucinated equipment is present.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately captured: substrate heating temperature (700°C), MoSe2 growth temperature (300°C), annealing temperature (700°C), annealing duration (1h), and atmosphere (ultra-high vacuum for heating and annealing steps). The growth rate (~1 ML/hr = 0.7 nm/hr) is captured in the step description and notes. The annealing interval (every 20h/14nm) is captured in the description. Pressure values are correctly left null as specific pressure values are not stated in the source (only 'ultra-high vacuum' is mentioned). The polishing step conditions are correctly left null as no specific conditions are stated. The growth step atmosphere is left null, which is a minor issue since MBE inherently operates in ultra-high vacuum - however, since the source doesn't explicitly state this for the growth step (only for the heating step), leaving it null is defensible. Overall conditions extraction is excellent.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved throughout the extraction. The MBE growth mechanism, the role of periodic annealing in suppressing vertical growth of multilayer TMDs, the purpose of mechanical polishing for surface quality improvement, and the significance of the growth rate for optical quality are all accurately represented. The target compound type 'two-dimensional materials' is appropriate for MoSe2 as a TMD. The synthesis method 'molecular beam epitaxy' is correctly identified. The only semantic issue is the 'mix' action label for the polishing step, which misrepresents the mechanical polishing process. The notes field accurately summarizes key quantitative outcomes (surface roughness reduction from Sq=14.6 nm to Sq=2.0 nm, total thickness of 42 nm, large area few cm2). No scientific misinterpretations are present.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are populated appropriately: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity fields), steps (with step_number, action, description, materials, equipment, conditions), equipment list, and notes. Data types are correct: temperatures as floats, durations as floats, null values for absent information. The conditions sub-schema is properly structured with temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, and ph fields. The equipment sub-schema includes name, instrument_vendor, and settings. The only minor format issue is the 'mix' action label which doesn't best represent the polishing operation, but this is a semantic rather than format issue. Overall schema compliance is excellent.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of the MoSe2 MBE synthesis ontology is of high quality, accurately capturing the essential synthesis information from the source text. Strengths include: correct identification of all starting materials with accurate purities, proper sequencing of the four main synthesis steps, accurate temperature and duration conditions, correct equipment identification with the SVT Associates MBE chamber vendor attribution, and faithful preservation of scientific meaning. The notes field effectively captures important quantitative synthesis outcomes. The main weakness is the semantic mislabeling of the polishing step as 'mix' rather than a more appropriate action descriptor. Minor omissions include the growth step atmosphere (implicitly UHV in MBE) and the absence of grating fabrication steps (though these are post-synthesis processing steps for the target MoSe2 layer). No hallucinated information is present, and all null values are appropriate where source information is absent. The extraction demonstrates excellent understanding of MBE synthesis protocols and TMD material science. Overall score: 4.4/5.0."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The grating fabrication steps (photoresist deposition, e-beam lithography with CSAR 62 resist at 4000 rpm/60s/150°C, Electra 92 conducting polymer coating, 30 keV/50 pA exposure, RIE with O2/SF6 plasma at 300W/5mTorr, resist removal with AR 600-71) are not captured - though these are post-synthesis processing steps rather than core MoSe2 synthesis.",
+                "The total growth duration (approximately 60 hours for 42 nm at 0.7 nm/hr) is not explicitly captured as a condition, though it can be inferred from the growth rate and total thickness stated in the notes."
+              ],
+              "extraction_errors": [
+                "Step 4 (polishing) is labeled with action 'mix' which is semantically incorrect; 'polish' or 'mechanical_treatment' would be more appropriate for manual mechanical polishing with silk tissue.",
+                "The growth step (step 2) atmosphere is left null, though MBE growth inherently occurs in ultra-high vacuum as established in step 1."
+              ],
+              "improvement_suggestions": [
+                "Change the action label for step 4 from 'mix' to 'polish' or 'mechanical_treatment' to accurately reflect the mechanical polishing process.",
+                "Consider adding 'ultra-high vacuum' as the atmosphere for the MoSe2 growth step (step 2), as MBE inherently operates under UHV conditions and this is consistent with the substrate heating step.",
+                "Consider adding the grating fabrication as additional process steps if the scope of the ontology is intended to cover the complete sample preparation workflow, not just the MBE layer growth.",
+                "The periodic nature of annealing (every 20h) could be captured as a condition parameter (e.g., annealing_interval) rather than only in the description text, for better machine-readability.",
+                "Consider adding the total growth duration as a derived condition in the notes or as a calculated parameter based on growth rate and total thickness."
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system has performed a high-quality extraction of the MoSe2 synthesis procedure. It correctly identified the Molecular Beam Epitaxy (MBE) method and the specific precursors (Se and Mo) along with their high-purity specifications. The multi-step process, including the critical in-situ annealing steps and the post-growth polishing, was captured with high fidelity. The extraction of equipment (MBE chamber, RHEED, e-beam) and conditions (temperatures, durations, vacuum atmosphere) is accurate and aligns perfectly with the 'Sample growth' section of the source text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant synthesis components: starting materials, the sequential steps of heating, growth, and annealing, and the post-processing polishing step. It also includes the specific equipment and conditions mentioned in the text.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Chemical names (Selenium, Molybdenum, Sapphire, Ethylene glycol) are correctly identified. Purities (6N and 4N5) were accurately converted to percentage values (99.9999% and 99.995%). The absence of specific mass/volume amounts is correct as they were not provided in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of steps (substrate heating -> growth -> periodic annealing -> polishing) is logically ordered and reflects the experimental workflow described in the 'Methods' section.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly identified the MBE vendor (SVT Associates) and specific components like the effusion cell and e-beam evaporator, including technical settings like the rod dimensions.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperatures (700°C, 300°C), durations (1h), and atmospheres (ultra-high vacuum) were extracted accurately with correct units.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, particularly the nuance of the periodic annealing every 20 hours to prevent vertical growth.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid, parseable JSON that strictly adheres to the provided schema and data types.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is an excellent extraction. It successfully navigates a complex MBE growth procedure that involves repetitive steps and specific hardware configurations. It correctly handles the absence of certain data (like reagent amounts) while capturing high-precision data (like purity and rod dimensions) that are present in the text. The inclusion of the polishing step as a 'mix' action (in the context of silk/ethylene glycol) is a reasonable classification for a manual surface treatment step."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While 'mix' was used for the polishing step, a more specific action like 'polish' or 'clean' could be used if the ontology supports it, though 'mix' is acceptable given the use of ethylene glycol."
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the MBE growth process for MoSe2 layers with good accuracy, including starting materials, purities, temperatures, and annealing conditions. However, there is a significant gap: the extraction completely omits the grating fabrication process (e-beam lithography, resist processing, and reactive ion etching) described in Methods Section C. Since the target material is MoSe2 subwavelength gratings (not just MoSe2 layers), this represents a substantial incompleteness. What is captured is semantically accurate with no hallucinations, and the format complies with the expected schema. The extraction correctly leaves fields null when information is not present in the source.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the MBE growth pathway well (4 steps for substrate heating, growth, annealing, and polishing) but completely omits the grating fabrication process described in Methods Section C. Since the target material is MoSe2 subwavelength gratings, not just MoSe2 layers, the missing lithography and etching steps represent a significant structural gap. The extraction covers approximately 50-60% of the complete synthesis workflow. What is captured is well-organized with proper step sequencing.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting materials for MBE growth are correctly identified (Selenium 99.9999%, Molybdenum 99.995%, sapphire substrate) with accurate purities. Polishing materials (ethylene glycol, silk tissue) are captured. However, processing materials are missing: CSAR 62 resist, Electra 92 conducting polymer, O2 and SF6 etching gases, and AR 600-71 resist remover. Amounts are correctly null as they are not specified in the source. Chemical names and purities where captured are accurate.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "Four process steps are captured for the MBE growth and polishing (heat substrate, grow MoSe2, anneal, polish), all with accurate descriptions and proper sequencing. However, the complete grating fabrication requires 5+ additional steps: resist deposition, conducting polymer coating, e-beam exposure, RIE etching, and resist removal. These are entirely missing from the extraction. The steps that are present have correct action classifications and logical flow.",
+                "equipment_extraction_score": 3.5,
+                "equipment_extraction_reasoning": "MBE growth equipment is well captured: MBE chamber (SVT Associates vendor), RHEED, low-temperature effusion cell, and e-beam evaporator with rod specifications. However, fabrication equipment is missing: Oxford Instrument PlasmaPro 100 (RIE), e-beam lithography system, spin coater, and hotplate. Measurement equipment (ellipsometer, AFM, spectrometer) is appropriately excluded as it's characterization rather than synthesis. Equipment that is captured has accurate vendor information where available.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Growth conditions are accurately captured: substrate heating at 700°C, MoSe2 growth at 300°C, annealing at 700°C for 1 h, ultra-high vacuum atmosphere. Growth rate (1 monolayer/0.7 nm per hour) is noted. However, fabrication conditions are missing: lithography baking (150°C/15 min, 105°C/5 min), exposure parameters (30 keV, 50 pA), and etching conditions (300 W, 5 mTorr, O2 2 sccm, SF6 20 sccm, 20 seconds). Temperature and duration values where captured are numerically accurate with correct units.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the captured content. No hallucinations are present - all extracted information can be traced to the source text. The extraction correctly leaves fields null when information is not specified (e.g., material amounts, some equipment vendors). Step descriptions accurately reflect the source text without misinterpretation. The distinction between growth and polishing processes is maintained correctly.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres to the expected GeneralSynthesisOntology schema with proper field names and data types. Temperatures are numeric with unit strings, step numbers are integers, materials and equipment are properly nested arrays. The structure is valid and parseable. Minor improvement could be made in consistency of equipment naming conventions, but overall format compliance is excellent.",
+                "overall_score": 3.9,
+                "overall_reasoning": "This extraction demonstrates strong accuracy for what it captures but significant incompleteness for the full synthesis workflow. The MBE growth process is well-documented with accurate materials, conditions, and equipment. However, the critical grating fabrication steps (lithography and etching) are entirely missing, which is a substantial gap since the target material is MoSe2 subwavelength gratings. Scores reflect this: structural completeness (3.5) and process steps (3.5) are penalized for missing fabrication, while semantic accuracy (4.5) and format compliance (4.5) are high due to no hallucinations and proper schema adherence. Material (4.0), equipment (3.5), and conditions (4.0) extraction scores reflect partial capture. The extraction would benefit from including the complete Methods Section C processing workflow to fully represent the grating synthesis."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "E-beam lithography process details (resist spinning, baking, exposure parameters)",
+                "Conducting polymer coating process (Electra 92 application and baking)",
+                "Reactive ion etching parameters (power, pressure, gas flows, duration)",
+                "Resist removal process (CSAR 62 remover AR 600-71)",
+                "Grating dimensions and pattern specifications (100 µm × 100 µm)",
+                "Fabrication equipment (PlasmaPro 100, e-beam lithography system)"
+              ],
+              "extraction_errors": [
+                "Missing entire grating fabrication process (e-beam lithography, RIE etching)",
+                "Missing processing materials (CSAR 62 resist, Electra 92 conducting polymer, O2, SF6 gases, resist remover)",
+                "Missing fabrication equipment (Oxford Instrument PlasmaPro 100, e-beam lithography system, spin coater, hotplate)",
+                "Missing lithography conditions (30 keV acceleration voltage, 50 pA beam current, baking temperatures and times)",
+                "Missing etching conditions (300 W power, 5 mTorr pressure, gas flow rates, 20 second duration)"
+              ],
+              "improvement_suggestions": [
+                "Include the complete sample processing section (Methods C) with lithography and etching steps",
+                "Add processing materials including resists, conducting polymers, and etching gases",
+                "Capture fabrication equipment with vendor information where available (e.g., Oxford Instrument PlasmaPro 100)",
+                "Include all process parameters for lithography (voltage, current, spin speeds, bake conditions) and etching (power, pressure, gas flows, duration)",
+                "Consider adding a separate synthesis pathway for the grating structure vs. the base MoSe2 layer growth"
+              ]
+            },
+            "overall_score": 3.9
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a detailed synthesis procedure for MoSe2 thin films via molecular beam epitaxy (MBE) and subsequent processing steps. The extracted ontology captures the core MBE growth process, including substrate preparation, deposition conditions, and post-growth polishing, with high accuracy and structural completeness. It correctly identifies the synthesis method, starting materials with purities, and key equipment. The extraction demonstrates excellent semantic fidelity, avoiding hallucination for unspecified parameters like material amounts and equipment settings. Minor omissions include the lack of explicit extraction for the 'every 20 h' periodicity in the annealing step and the specific growth duration to achieve 42 nm thickness, though these are partially implied. The format compliance is strong, with proper JSON structure and field usage.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components from the source: target material (MoSe2), method (MBE), starting materials (Se, Mo, sapphire substrate), key process steps (heating, growth, annealing, polishing), and primary equipment (MBE chamber, effusion cell, e-beam, RHEED). It includes relevant conditions (temperatures, atmosphere, growth rate). The only minor structural omission is the explicit representation of the cyclic nature of the growth/annealing process (repeated every 20 hours) as a distinct step or condition; it is described but not fully structured. All other elements are well-covered.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Material extraction is excellent. All starting materials (Selenium, Molybdenum, Sapphire substrate) are correctly identified with their stated purities (99.9999% and 99.995%). The polishing materials (ethylene glycol, silk tissue) are also captured. The system correctly leaves amount and unit fields null, as these are not specified in the source text. No hallucination or misrepresentation is present.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Process steps are accurately sequenced and classified: heating substrate, growth, annealing, and polishing. Descriptions are detailed and faithful to the source. The 'anneal' step correctly includes duration (1 h) and temperature. A minor weakness is that the growth step description could more explicitly link the 'every 20 h' annealing cycle to the overall growth duration needed to reach 42 nm (implied but not structured). The action classification ('heat', 'anneal', 'mix') is appropriate. The logical flow is correct.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "Equipment extraction is highly accurate. The MBE chamber (vendor SVT Associates), RHEED, low-temperature effusion cell, and e-beam evaporator are correctly identified from the text. Settings for the e-beam rod dimensions are captured. The system correctly leaves vendor fields null for equipment where no vendor is named. No hallucinated equipment is present. A minor point: the RHEED is used for surface roughness control, which is captured in settings.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions are accurately extracted: substrate heating temperature (700°C), growth temperature (300°C), growth rate (~1 monolayer/hour), annealing temperature (700°C) and duration (1 h), and atmosphere (ultra-high vacuum). The system correctly omits pressure, stirring, etc., as they are not specified. The growth rate is captured in the description but not as a structured condition field (e.g., 'rate'), which is acceptable given the schema. The cyclic annealing condition (every 20 h) is in the description but not explicitly in a duration field for the growth step.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "Semantic accuracy is outstanding. The extraction preserves the precise scientific meaning: MBE growth with precise temperature control, use of high-purity sources, the role of annealing to suppress vertical growth, and mechanical polishing to improve surface quality. Key technical details like the growth rate (1 monolayer/hour), total thickness (42 nm), and surface roughness improvement are correctly captured. No misinterpretation or loss of scientific context is observed.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and correctly typed (strings, numbers, arrays, objects). Nested structures for materials, steps, equipment, and conditions are properly formatted. No schema violations are present. The use of null values for unspecified information is appropriate and consistent.",
+                "overall_score": 4.7,
+                "overall_reasoning": "The extraction demonstrates high-quality, accurate, and comprehensive capture of the MoSe2 MBE synthesis procedure. Strengths include precise material and condition extraction, excellent semantic fidelity, and full schema compliance. Minor areas for improvement are the more explicit structuring of the periodic annealing cycle and the total growth duration. The system correctly avoids hallucination, leaving unspecified fields null. Overall, this is a robust and reliable extraction suitable for materials science databases."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a field or note to explicitly capture periodic or cyclic process conditions (e.g., 'repeat_every' with duration and unit) to better represent steps like 'Every 20 h... anneal'.",
+                "The growth step duration could be calculated from the total thickness (42 nm) and growth rate (0.7 nm/h) and optionally added as a derived field or note, though leaving it null is also correct as it's not explicitly stated."
+              ]
+            },
+            "overall_score": 4.7
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "MoSe2",
+        "synthesis": {
+          "target_compound": "MoSe2",
+          "target_compound_type": "two-dimensional materials",
+          "synthesis_method": "molecular beam epitaxy",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Selenium",
+              "amount": null,
+              "unit": null,
+              "purity": "99.9999%"
+            },
+            {
+              "vendor": null,
+              "name": "Molybdenum",
+              "amount": null,
+              "unit": null,
+              "purity": "99.995%"
+            },
+            {
+              "vendor": null,
+              "name": "Sapphire substrate (0001)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "heat",
+              "description": "Heating the (0001) sapphire substrate with a 2-degree off-cut in an ultra-high vacuum.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Sapphire substrate (0001)",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "Growth of MoSe2 performed at a very small growth rate of approximately 1 monolayer per hour.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Selenium",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "6N"
+                },
+                {
+                  "vendor": null,
+                  "name": "Molybdenum",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "4N5"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "low-temperature effusion cell",
+                  "instrument_vendor": null,
+                  "settings": "for Selenium deposition"
+                },
+                {
+                  "name": "e-beam with a rod",
+                  "instrument_vendor": null,
+                  "settings": "for Molybdenum deposition"
+                }
+              ],
+              "conditions": {
+                "temperature": 300.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "anneal",
+              "description": "Periodic annealing every 20 hours (14 nm of growth) to avoid vertical growth and keep the surface flat.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "other",
+              "description": "Mechanical polishing of the as-grown layer using silk tissue in an ethylene glycol environment to remove nanopillars and reduce surface roughness.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "ethylene glycol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "silk tissue",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE chamber",
+              "instrument_vendor": "SVT Associates",
+              "settings": null
+            },
+            {
+              "name": "RHEED",
+              "instrument_vendor": null,
+              "settings": "for surface roughness control"
+            }
+          ],
+          "notes": "The total thickness of the MoSe2 layer produced was 42 nm. The growth rate was optimized at 1 monolayer (0.7 nm) per hour."
         },
-        {
-          "vendor": null,
-          "name": "molybdenum",
-          "amount": null,
-          "unit": null,
-          "purity": "99.995%"
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "heat",
-          "description": null,
-          "materials": [
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core MBE synthesis procedure for MoSe2 layers from the source text with reasonable fidelity. The extraction correctly identifies the synthesis method (MBE), starting materials (Se, Mo, sapphire substrate) with purities, and the four main process steps: substrate heating, MoSe2 growth, periodic annealing, and mechanical polishing. Equipment such as the MBE chamber (SVT Associates), RHEED, effusion cell, and e-beam rod are captured. Key conditions like temperatures (700°C for heating/annealing, 300°C for growth), annealing duration (1 h every 20 h), and growth rate (~1 ML/hr) are recorded. The extraction appropriately focuses on the MBE growth section (Section B: Sample growth) and the polishing step, which constitute the actual synthesis of the target material MoSe2. The subsequent grating fabrication steps (e-beam lithography, RIE etching) are not included, which is a minor omission since those steps relate to device processing rather than the synthesis of MoSe2 itself. Overall, the extraction is well-structured, accurate, and faithful to the source text.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures all four major synthesis steps for MoSe2 layer production: substrate heating, MoSe2 growth, periodic annealing, and mechanical polishing. Starting materials, equipment, and conditions are populated for each step. The extraction correctly focuses on the MBE growth procedure. Minor omissions include: (1) the grating fabrication steps (e-beam lithography, RIE etching with CSAR 62 resist, Electra 92 conducting polymer, SF6/O2 plasma) are not captured — though these are arguably post-synthesis processing steps for the device rather than synthesis of MoSe2 itself; (2) the RHEED instrument is listed in the top-level equipment but not associated with a specific step; (3) the annealing frequency context (every 20 h / 14 nm) is mentioned in the description but not formalized as a condition parameter. Overall structural coverage of the MoSe2 synthesis is good.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials are correctly identified: Selenium (99.9999% / 6N purity), Molybdenum (99.995% / 4N5 purity), and sapphire substrate (0001). Purities are accurately captured and cross-referenced between the starting_materials list and the step-level materials. The ethylene glycol used in the polishing step is correctly included. Amounts and units are null throughout, which is correct since the source text does not specify quantities. The sapphire substrate's 2-degree off-cut detail is captured in the step description. The total MoSe2 layer thickness of 42 nm is noted in the notes field. No hallucinated values are present. The only minor gap is that the molybdenum rod dimensions (1/4\" diameter, 35 mm length) mentioned in the source are not captured, but these are equipment specifications rather than material properties.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The four process steps are logically sequenced and correctly classified: (1) heat — substrate heating to 700°C in UHV; (2) add — MoSe2 growth at 300°C; (3) anneal — periodic annealing at 700°C for 1 h; (4) other — mechanical polishing. The action classifications are appropriate. Step descriptions are informative and accurate. The growth rate of ~1 ML/hr is mentioned in the notes. One issue is that step 2 uses 'add' as the action, which is somewhat imprecise for an MBE deposition/growth process — 'deposit' or 'grow' would be more semantically accurate, but 'add' is an acceptable approximation within the schema constraints. The annealing step correctly captures the 1-hour duration. The polishing step correctly identifies ethylene glycol as the medium. The grating fabrication steps are absent, but as noted, these are device processing steps rather than MoSe2 synthesis steps.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Key equipment is correctly identified: MBE chamber (SVT Associates vendor correctly attributed), RHEED for surface roughness control, low-temperature effusion cell for Se deposition, and e-beam with rod for Mo deposition. The silk tissue used for polishing is captured as equipment in step 4. The MBE chamber vendor (SVT Associates) is correctly extracted from the source. RHEED is listed at the top level but not assigned to a specific step, which is a minor structural issue. Equipment from the grating fabrication section (Oxford Instrument PlasmaPro 100 RIE machine, spin coater, hotplate) is not captured, but these relate to device processing rather than MoSe2 synthesis. The ellipsometry instrument (RC2 by J.A. Woollam Co.) used for characterization is not included, but characterization equipment is typically outside the synthesis ontology scope.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Synthesis conditions are accurately extracted: substrate heating temperature (700°C), growth temperature (300°C), annealing temperature (700°C), annealing duration (1 h), and UHV atmosphere for the heating step. Temperature units are correctly specified as Celsius. The growth rate (~1 ML/hr = 0.7 nm/hr) is captured in the notes. The annealing frequency (every 20 h / 14 nm of growth) is described in the step description. Pressure values are null throughout, which is correct since specific pressure values are not stated in the source (only 'ultra-high vacuum' is mentioned for the heating step, which is captured as atmosphere). The polishing conditions have null conditions, which is appropriate since no specific temperature, pressure, or duration is given for that step. No incorrect values are present.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The MBE growth mechanism, the challenge of vertical growth in TMD multilayers, the role of periodic annealing to maintain surface flatness, and the purpose of mechanical polishing to remove nanopillars are all accurately represented. The purity designations (6N for Se, 4N5 for Mo) are correctly interpreted and cross-referenced. The growth rate optimization for high optical quality is noted. The target compound type 'two-dimensional materials' is semantically appropriate for MoSe2 as a van der Waals layered material. The synthesis method 'molecular beam epitaxy' is correctly identified. No scientific misinterpretations or hallucinations are detected.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Each step contains step_number, action, description, materials, equipment, and conditions sub-fields. Conditions objects include temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, and ph fields. Null values are used appropriately for absent information rather than empty strings or placeholder values. The step 4 conditions field is set to null rather than an empty conditions object, which is a minor schema deviation but acceptable. Numeric values (temperatures, duration) are correctly typed as floats. The overall structure is clean and well-organized.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction of the MoSe2 MBE synthesis ontology is of high quality, accurately capturing the essential synthesis procedure from the source text. Strengths include: correct identification of all starting materials with purities, accurate temperature and duration conditions, proper equipment attribution (including SVT Associates for the MBE chamber), logical step sequencing, and appropriate use of null values for absent information. The extraction correctly focuses on the MBE growth section as the primary synthesis procedure for the target material MoSe2. Minor weaknesses include: the 'add' action classification for the MBE growth step is slightly imprecise, RHEED is not step-associated, the grating fabrication steps are absent (though arguably out of scope for MoSe2 synthesis), and the molybdenum rod dimensions are not captured. No hallucinations or factual errors are detected. The extraction demonstrates good scientific understanding and schema compliance, making it a reliable structured representation of the synthesis procedure."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Grating fabrication steps (e-beam lithography with CSAR 62 resist, Electra 92 conducting polymer coating, RIE etching with SF6/O2 plasma in Oxford Instrument PlasmaPro 100) are not captured — though these are device processing steps",
+                "Molybdenum rod dimensions (1/4 inch diameter, 35 mm length) not captured",
+                "Annealing frequency (every 20 h / every 14 nm of growth) not formalized as a structured condition parameter",
+                "Resist baking conditions (150°C for 15 min for CSAR 62; 105°C for 5 min for Electra 92) not captured — device processing scope"
+              ],
+              "extraction_errors": [
+                "Step 2 action classified as 'add' rather than a more precise term like 'deposit' or 'grow' for MBE deposition",
+                "RHEED equipment is listed at top level but not associated with a specific process step"
+              ],
+              "improvement_suggestions": [
+                "Use a more precise action verb for MBE deposition in step 2, such as 'deposit' or 'grow' instead of 'add'",
+                "Associate RHEED equipment with the growth step (step 2) where surface roughness monitoring occurs",
+                "Consider adding a structured 'frequency' or 'interval' condition field to capture the periodic annealing schedule (every 20 h)",
+                "If the schema scope includes device processing, add grating fabrication steps with the RIE parameters (300 W power, 5 mTorr pressure, 2 sccm O2, 20 sccm SF6, 20 s duration)",
+                "Capture the growth rate (0.7 nm/hr or 1 ML/hr) as a structured condition parameter in step 2 rather than only in the notes field"
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the specific details of the MBE growth and post-processing of MoSe2. It correctly identifies the starting materials, the multi-step growth/annealing cycle, and the mechanical polishing step. The extraction of numerical parameters (temperatures, durations, purities) is precise and aligns perfectly with the 'Sample growth' section of the source text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The ontology captures all relevant synthesis components: starting materials (Se, Mo, substrate), the specific MBE process steps, the periodic annealing, and the polishing post-treatment. It also includes the specific equipment mentioned.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Material names and purities (99.9999%/6N and 99.995%/4N5) are correctly extracted. The substrate and the polishing medium (ethylene glycol) are also included. The absence of specific mass amounts is correct as they are not provided in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of heating, growth, periodic annealing, and polishing is logically ordered and reflects the experimental workflow described in the 'Sample growth' and 'Methods' sections.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The extraction correctly identifies the MBE chamber vendor (SVT Associates), the RHEED system, the effusion cell, and the e-beam rod, including their specific roles in the synthesis.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All critical conditions are captured: the 700°C substrate heating, the 300°C growth temperature, the 700°C/1h annealing parameters, and the ultra-high vacuum atmosphere.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, particularly the distinction between the continuous growth and the periodic annealing steps required for TMD epitaxy.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the provided schema, using correct data types and field structures.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology accurately captures the MBE synthesis of MoSe2 layers with correct temperatures, durations, material purities, and equipment. However, it completely omits the grating fabrication process (e-beam lithography, resist coating, reactive ion etching) which constitutes a significant portion of the experimental work described in the source text. The MBE growth steps are well-documented with proper sequencing and conditions, but the extraction appears to focus only on layer synthesis rather than the complete workflow for creating the subwavelength gratings that are the paper's main contribution.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the MBE synthesis workflow well with 4 distinct steps covering substrate heating, MoSe2 growth, annealing, and polishing. However, it completely omits the grating fabrication process (e-beam lithography and reactive ion etching) which is a major part of the experimental procedure described in the source. The extraction covers approximately 50-60% of the complete synthesis and processing workflow, warranting a moderate score.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All materials mentioned in the MBE synthesis section are correctly extracted with accurate names and purities (Selenium 99.9999%/6N, Molybdenum 99.995%/4N5, Sapphire substrate). The extraction correctly notes that amounts are not specified in the source. Ethylene glycol for polishing is included. Materials from the grating fabrication (CSAR 62 resist, Electra 92 conducting polymer, O2, SF6) are missing because those steps were not extracted.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The 4 MBE synthesis steps are correctly sequenced with appropriate action classifications (heat, add, anneal, other). Step descriptions accurately reflect the source text. However, the extraction completely misses the grating fabrication workflow which includes resist spinning, baking, e-beam exposure, etching, and resist removal. This represents a significant gap in the complete process documentation.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "MBE chamber (SVT Associates), RHEED, effusion cell, and e-beam rod are correctly extracted. However, significant equipment is missing: e-beam lithography system, Oxford Instrument PlasmaPro 100 for RIE, hotplate for baking, spectrometer, ellipsometer (J.A. Woollam Co. RC2), and AFM. The extraction captures MBE-specific equipment but omits lithography and etching equipment entirely.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "MBE conditions are accurately captured: substrate heating at 700°C, growth at 300°C, annealing at 700°C for 1 hour, ultra-high vacuum atmosphere. Growth rate (1 monolayer/hour) is noted. However, all grating fabrication conditions are missing: resist baking temperatures (150°C, 105°C), etching parameters (300W power, 5 mTorr pressure, 20s duration, gas flow rates), and e-beam lithography parameters (30 keV, 50 pA).",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "All extracted information accurately reflects the source text without misinterpretation or hallucination. Temperatures, durations, purities, and equipment names match the source. The extraction correctly leaves null values for information not specified in the source (e.g., material amounts). No semantic errors in the captured content, though significant portions of the procedure are not captured at all.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON follows the GeneralSynthesisOntology schema correctly with proper field names, data types, and structure. All required fields are present, numerical values have appropriate types, and the hierarchical organization of steps, materials, equipment, and conditions is correct. No format violations detected.",
+                "overall_score": 4.0,
+                "overall_reasoning": "The extraction demonstrates strong accuracy for the MBE synthesis portion with correct temperatures, durations, material purities, and equipment identification. Format compliance is excellent. However, the extraction captures only the MoSe2 layer growth and omits the grating fabrication process (lithography and etching) which represents approximately 40-50% of the complete experimental workflow. This significantly impacts structural completeness, process steps, equipment, and conditions scores. For a complete synthesis ontology, both layer growth and grating patterning should be included. Overall quality is good for what was extracted but incomplete for the full experimental procedure."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "E-beam lithography process steps",
+                "Reactive ion etching parameters and conditions",
+                "Resist coating and baking procedures",
+                "Etching equipment (Oxford Instrument PlasmaPro 100)",
+                "Gas flow rates for etching (O2: 2 sccm, SF6: 20 sccm)",
+                "Etching duration (20 seconds)",
+                "E-beam lithography acceleration voltage (30 keV) and beam current (50 pA)"
+              ],
+              "extraction_errors": [
+                "Missing e-beam lithography step with resist coating and baking parameters",
+                "Missing reactive ion etching (RIE) step with plasma conditions",
+                "Missing Oxford Instrument PlasmaPro 100 equipment for etching",
+                "Missing hotplate equipment for resist baking",
+                "Missing etching parameters (300W power, 5 mTorr pressure, O2/SF6 flow rates, 20s duration)",
+                "Missing e-beam lithography parameters (30 keV acceleration voltage, 50 pA beam current)"
+              ],
+              "improvement_suggestions": [
+                "Include the complete grating fabrication workflow (lithography and etching steps)",
+                "Add all equipment mentioned in the Sample Processing section",
+                "Capture etching conditions including power, pressure, gas flow rates, and duration",
+                "Include resist coating and baking parameters from the lithography process",
+                "Consider extracting characterization equipment (ellipsometer, spectrometer, AFM) if relevant to synthesis documentation"
+              ]
+            },
+            "overall_score": 4.0
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a detailed synthesis procedure for MoSe2 thin films via molecular beam epitaxy (MBE) and subsequent processing for grating fabrication. The extracted ontology successfully captures the core MBE growth steps, materials, and key conditions. However, it omits the detailed grating fabrication process (e-beam lithography and reactive ion etching) described in the 'Sample processing' section, which is a critical part of the overall material synthesis workflow for the final structured device. The extraction correctly avoids hallucinating unspecified details like material amounts and durations but misses the explicit connection to the target material's final form (a patterned grating).",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the MBE growth procedure well, including substrate preparation, deposition, and annealing. However, it completely omits the subsequent 'Sample processing' steps (photoresist deposition, e-beam lithography, reactive ion etching) that transform the as-grown MoSe2 layer into the final subwavelength grating structure. Since the target material context is the fabricated grating, this omission represents a significant gap in structural completeness. The ontology includes a polishing step but misses the core patterning process.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is accurate for the MBE growth: selenium (99.9999%), molybdenum (99.995%), and sapphire substrate are correctly identified with their purities where stated. The extraction correctly leaves amounts and units null as they are not specified. Ethylene glycol for polishing is also captured. No materials from the grating fabrication process (e.g., CSAR 62 resist, Electra 92 polymer, O2, SF6 gases) are included, which is a minor omission relative to the primary synthesis but relevant for the full process.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The sequence and description of MBE growth steps (heat, add, anneal) are logically ordered and accurately reflect the source text. The 'other' action for mechanical polishing is appropriate. However, the process steps lack the critical fabrication sequence for creating the grating (resist spin-coating, baking, e-beam exposure, RIE etching, resist removal). The action classifications for the present steps are correct, but the overall process flow is incomplete for the target material synthesis.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Equipment explicitly mentioned in the growth section is well-extracted: MBE chamber (vendor SVT Associates), RHEED, low-temperature effusion cell, and e-beam source. The silk tissue for polishing is also noted. The extraction correctly does not hallucinate vendors for unspecified equipment. However, equipment from the grating fabrication (e-beam lithography system, Oxford Instrument PlasmaPro 100 RIE machine, hotplate, spin coater) is missing, which limits the completeness for the full synthesis workflow.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key conditions from the growth procedure are accurately captured: temperatures (700°C for substrate heating and annealing, 300°C for growth), annealing duration (1 h), and ultra-high vacuum atmosphere. The growth rate (1 monolayer/hour) is correctly noted in the description. Conditions correctly left null (pressure, stirring) align with the source. The extraction misses the specific RIE conditions (power: 300 W, pressure: 5 mTorr, gas flows: O2 2 sccm, SF6 20 sccm, time: 20 s) and lithography parameters (baking temperatures, spin speeds, acceleration voltage), but these belong to the omitted fabrication steps.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the extracted MBE procedure is well-preserved. Terms like 'ultra-high vacuum,' 'growth rate of ~1 monolayer per hour,' and periodic annealing to 'avoid vertical growth' are accurately represented. The relationship between steps maintains the intended experimental logic. The polishing step description correctly captures its purpose. The primary semantic inaccuracy is the omission of the grating fabrication, which changes the context from a uniform film to a functional photonic device.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields (target_compound, synthesis_method, starting_materials, steps, equipment, notes) are present and correctly typed. Nested objects for materials, equipment, and conditions follow the prescribed format. Data types (strings, numbers, nulls) are appropriate. No schema violations are present.",
+                "overall_score": 4.1,
+                "overall_reasoning": "The extraction demonstrates strong capabilities in capturing detailed thin-film growth procedures via MBE, with accurate material, condition, and equipment extraction for that segment. It correctly avoids hallucination for unspecified parameters. The major shortcoming is the incomplete coverage of the synthesis workflow: the critical grating fabrication process (lithography and etching) described in the 'Sample processing' section is entirely missing from the ontology. This limits the extraction's utility for the full material synthesis context, which aims to produce a structured MoSe2 grating, not just a uniform film. Format compliance is excellent. Improvements should focus on extracting multi-stage synthesis processes that include post-growth patterning."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Fabrication of subwavelength gratings via e-beam lithography and reactive ion etching.",
+                "Specific parameters for the etching process (power, pressure, gas flow rates, duration).",
+                "Lithography steps including resist spin-coating, baking, exposure, and development.",
+                "The final product is a patterned grating, not just a uniform MoSe2 layer."
+              ],
+              "extraction_errors": [
+                "Omission of the entire 'Sample processing' fabrication steps (photoresist deposition, e-beam lithography, reactive ion etching) required to create the MoSe2 subwavelength grating.",
+                "Missing equipment from the fabrication process: e-beam lithography system, Oxford Instrument PlasmaPro 100 RIE machine, hotplate, spin coater.",
+                "Missing materials from the fabrication process: CSAR 62 resist, Electra 92 polymer, O2, SF6 gases, AR 600-71 remover.",
+                "Missing conditions from the fabrication process: RIE parameters (power 300 W, pressure 5 mTorr, gas flows, time 20 s) and lithography parameters (bake temperatures, spin speeds)."
+              ],
+              "improvement_suggestions": [
+                "Extend extraction to cover post-growth material processing steps (lithography, etching) when described in the source text, as they are integral to the final material synthesis.",
+                "Include fabrication-specific equipment and conditions even if they are not part of the core 'growth' procedure.",
+                "Consider the target material context (MoSe2 grating) and ensure the extraction encompasses all steps needed to achieve that specific form.",
+                "Maintain the current strength in accurately capturing detailed growth parameters and avoiding hallucination."
+              ]
+            },
+            "overall_score": 4.1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "MoSe2",
+        "synthesis": {
+          "target_compound": "MoSe2",
+          "target_compound_type": "two-dimensional materials",
+          "synthesis_method": "molecular beam epitaxy",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Selenium",
+              "amount": null,
+              "unit": null,
+              "purity": "99.9999% (6N)"
+            },
+            {
+              "vendor": null,
+              "name": "Molybdenum",
+              "amount": null,
+              "unit": null,
+              "purity": "99.995% (4N5)"
+            },
+            {
+              "vendor": null,
+              "name": "(0001) sapphire substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Ethylene glycol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "heat",
+              "description": "Heat the (0001) sapphire substrate with 2-degree off-cut in ultra-high vacuum",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "(0001) sapphire substrate",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": "ultra-high vacuum"
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "Grow MoSe2 by depositing Selenium from low-temperature effusion cell and Molybdenum using e-beam evaporator",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Selenium",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.9999% (6N)"
+                },
+                {
+                  "vendor": null,
+                  "name": "Molybdenum",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.995% (4N5)"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                },
+                {
+                  "name": "low-temperature effusion cell",
+                  "instrument_vendor": null,
+                  "settings": null
+                },
+                {
+                  "name": "e-beam evaporator",
+                  "instrument_vendor": null,
+                  "settings": "rod 1/4 inch diameter, 35 mm length"
+                },
+                {
+                  "name": "RHEED",
+                  "instrument_vendor": null,
+                  "settings": "surface roughness control"
+                }
+              ],
+              "conditions": {
+                "temperature": 300.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "anneal",
+              "description": "Anneal the sample every 20 h (14 nm of MoSe2) to avoid vertical growth and keep surface flat",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "add",
+              "description": "Continue growth until total thickness of 42 nm is achieved",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 300.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "mix",
+              "description": "Manually polish the samples using silk tissue in ethylene glycol environment to improve surface quality",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ethylene glycol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "silk tissue",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "MBE chamber",
+              "instrument_vendor": "SVT Associates",
+              "settings": null
+            },
+            {
+              "name": "RHEED",
+              "instrument_vendor": null,
+              "settings": "surface roughness control"
+            },
+            {
+              "name": "low-temperature effusion cell",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "e-beam evaporator",
+              "instrument_vendor": null,
+              "settings": "rod 1/4 inch diameter, 35 mm length"
+            }
+          ],
+          "notes": "Growth rate is approximately 1 monolayer (0.7 nm) per hour. Annealing is performed every 20 h (14 nm of MoSe2) at 700°C for 1 h to avoid vertical growth. Total thickness achieved is 42 nm. Surface roughness is reduced from Sq = 14.6 nm (as-grown) to Sq = 2.0 nm (after polishing)."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the MBE growth of MoSe2 on a (0001) sapphire substrate with good overall fidelity to the source text. The synthesis method (molecular beam epitaxy), starting materials (Se at 6N purity, Mo at 4N5 purity, sapphire substrate, ethylene glycol for polishing), key process steps (substrate heating, MoSe2 growth, periodic annealing, polishing), and major equipment (MBE chamber by SVT Associates, RHEED, low-temperature effusion cell, e-beam evaporator) are all correctly identified. Conditions such as growth temperature (300°C), annealing temperature (700°C), annealing duration (1 h), and atmosphere (ultra-high vacuum) are accurately captured. The notes field consolidates important quantitative details like growth rate (~1 ML/hr = 0.7 nm/hr), annealing interval (every 20 h / 14 nm), total thickness (42 nm), and surface roughness improvement (Sq from 14.6 nm to 2.0 nm). Minor issues include: the action label 'mix' for the polishing step is semantically imprecise (should be 'polish' or 'grind'), the action label 'add' for the growth step is somewhat imprecise (should be 'deposit' or 'grow'), step 4 is somewhat redundant with step 2, and the sapphire substrate's 2-degree off-cut detail is mentioned in the step description but not in the substrate material entry. The e-beam source for Mo is described as 'e-beam with a rod' in the source, and the extraction correctly notes the rod dimensions. The sample processing steps (e-beam lithography, RIE etching) are not included, but these are for grating fabrication, not MoSe2 synthesis per se, so their omission is acceptable given the target material context. Overall, the extraction is thorough and accurate for the MBE synthesis of MoSe2.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound, synthesis method, starting materials (Se, Mo, sapphire substrate, ethylene glycol), five process steps covering substrate heating, MoSe2 growth, periodic annealing, continued growth to target thickness, and polishing. Equipment is comprehensively listed. The notes field captures important quantitative details not easily placed in structured fields. Minor gaps include: the 2-degree off-cut of the sapphire substrate is mentioned in the step description but not in the material entry; the grating fabrication steps (e-beam lithography, RIE) are omitted, which is acceptable since the target material is MoSe2 layer growth. The silk tissue used for polishing is listed as a material in step 5, which is appropriate. Overall structural coverage is excellent.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All key starting materials are correctly identified: Selenium (99.9999%, 6N), Molybdenum (99.995%, 4N5), (0001) sapphire substrate, and ethylene glycol. Purities are accurately transcribed from the source. Amounts and units are correctly left null since the source does not specify quantities. Vendor information is correctly left null for all materials since the source does not name vendors for the raw materials. The silk tissue used in polishing is captured as a material in step 5. The sapphire substrate's 2-degree off-cut specification is mentioned in the step description but not in the material entry itself — a minor omission. No hallucinated values are present.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The five process steps are logically sequenced and cover the main synthesis workflow: (1) substrate heating to 700°C in UHV, (2) MoSe2 growth at 300°C, (3) periodic annealing at 700°C for 1h every 20h, (4) continuation of growth to 42 nm total thickness, (5) mechanical polishing. The sequencing is correct and the descriptions are accurate. However, there are semantic issues with action labels: 'add' for the growth step (step 2) is imprecise — 'deposit' or 'grow' would be more appropriate for MBE deposition; 'mix' for the polishing step (step 5) is incorrect — 'polish' or 'grind' would be semantically accurate. Step 4 ('Continue growth until total thickness of 42 nm') is somewhat redundant with step 2 and could be considered an artifact of the extraction rather than a distinct process step. The growth rate (~1 ML/hr) is captured in the notes rather than in the step conditions, which is acceptable.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "All explicitly named equipment is correctly identified: MBE chamber (SVT Associates), RHEED (for surface roughness control), low-temperature effusion cell (for Se deposition), and e-beam evaporator (for Mo deposition with rod dimensions 1/4 inch diameter, 35 mm length). The SVT Associates vendor attribution for the MBE chamber is correctly extracted from the source. RHEED settings ('surface roughness control') accurately reflect its stated purpose. The e-beam evaporator settings correctly note the rod dimensions. No equipment is hallucinated. The AFM used for surface characterization and the ellipsometer (RC2 by J.A. Woollam) are not included in the equipment list, but these are characterization instruments rather than synthesis equipment, so their omission is appropriate for a synthesis ontology.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately captured: substrate heating temperature (700°C), MoSe2 growth temperature (300°C), annealing temperature (700°C), annealing duration (1 h), and atmosphere (ultra-high vacuum) for all relevant steps. The growth rate (~1 ML/hr = 0.7 nm/hr) and total thickness (42 nm) are captured in the notes. Pressure values are correctly left null since the source does not specify numerical pressure values (only 'ultra-high vacuum' is stated). Duration for the growth steps is correctly left null since the total growth time is not explicitly stated as a single duration (it can be inferred as ~60 h for 42 nm at 0.7 nm/hr, but this is not stated in the source). The annealing interval (every 20 h / 14 nm) is captured in the step description and notes. No conditions are hallucinated.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is largely preserved. The MBE growth mechanism, the rationale for periodic annealing (to avoid vertical growth of multilayer TMDs), the polishing step for surface quality improvement, and the growth rate optimization for high optical quality are all faithfully represented. The notes field effectively captures the scientific context. However, the action label 'mix' for the polishing step is semantically incorrect — polishing is a mechanical abrasion process, not mixing. Similarly, 'add' for the deposition step does not capture the epitaxial deposition nature of MBE. The description of step 2 correctly identifies both Se (from effusion cell) and Mo (from e-beam) deposition sources. The target compound type 'two-dimensional materials' is appropriate for MoSe2 as a van der Waals layered material.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity fields), steps (with step_number, action, description, materials, equipment, conditions), equipment list, and notes. Data types are correct throughout — temperatures as floats, durations as floats or null, strings for names and descriptions. Null values are appropriately used for absent information rather than empty strings or placeholder values. The conditions sub-object consistently includes all expected fields (temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, ph). The equipment sub-objects include name, instrument_vendor, and settings fields. Minor issue: 'mix' is not an ideal action type for polishing, suggesting the action vocabulary could be expanded.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of the MoSe2 MBE synthesis ontology is of high quality overall. Structural completeness is excellent, capturing all major synthesis components including starting materials with correct purities, five logically sequenced process steps, comprehensive equipment identification with vendor information where available, and accurate synthesis conditions. The notes field effectively consolidates important quantitative details. The primary weaknesses are semantic: the action labels 'add' for MBE deposition and 'mix' for mechanical polishing are imprecise and do not accurately reflect the nature of these operations. Step 4 is somewhat redundant. The sapphire substrate's 2-degree off-cut is not captured in the material entry. These are minor issues that do not significantly detract from the overall quality of the extraction. No hallucinated information is present, and all null values are appropriately used for information not stated in the source. The extraction successfully focuses on the MoSe2 layer growth synthesis rather than the subsequent grating fabrication, which is appropriate given the target material specification."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The 2-degree off-cut specification of the sapphire substrate is mentioned in the step description but not captured in the starting material entry for the sapphire substrate",
+                "The growth rate (~1 ML/hr = 0.7 nm/hr) is captured in notes but not in the step 2 conditions, where it could be represented as a rate parameter"
+              ],
+              "extraction_errors": [
+                "Action label 'mix' for step 5 (polishing) is semantically incorrect; should be 'polish' or 'grind'",
+                "Action label 'add' for step 2 (MBE deposition) is imprecise; 'deposit' or 'grow' would be more accurate for epitaxial deposition",
+                "Step 4 ('Continue growth until total thickness of 42 nm') is redundant with step 2 and does not represent a distinct process step in the source text"
+              ],
+              "improvement_suggestions": [
+                "Use more precise action labels: replace 'mix' with 'polish' for the mechanical polishing step, and replace 'add' with 'deposit' or 'grow' for the MBE deposition step",
+                "Consolidate steps 2 and 4 into a single growth step with the total thickness (42 nm) as a condition parameter, since step 4 does not represent a distinct action",
+                "Add the 2-degree off-cut specification to the sapphire substrate material entry (e.g., as a note or in the name field: '(0001) sapphire substrate with 2-degree off-cut')",
+                "Consider including the growth rate (0.7 nm/hr or ~1 ML/hr) as a condition parameter in the growth step rather than only in the notes field",
+                "Consider adding the AFM characterization step and ellipsometry as post-synthesis characterization steps, or note them separately, to provide a complete picture of the sample preparation workflow"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the core MBE synthesis process for MoSe2. It correctly identifies the starting materials, their purities, and the specific growth/annealing cycle described in the text. The transition from growth to post-processing (polishing) is well-documented. The extraction correctly omits the lithography and etching steps, which are part of device fabrication rather than the material synthesis itself, though including them as a separate process would also have been valid.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant synthesis components: starting materials, substrate, growth conditions, cyclic annealing, and post-growth polishing. It correctly identifies the vendor for the MBE system and the specific purities of the precursors.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Chemical names (Mo, Se) and the substrate are correctly extracted. Purities (6N and 4N5) are accurately captured. The use of ethylene glycol and silk for polishing is also included.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of heating, growth, and periodic annealing is logically structured. The extraction correctly interprets the 'every 20h' instruction as a recurring step in the process flow.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The MBE chamber vendor (SVT Associates) and specific components like the effusion cell and e-beam evaporator are correctly identified. RHEED is appropriately listed as monitoring equipment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperatures (700C and 300C) and durations (1h for annealing) are perfectly extracted. The atmosphere (ultra-high vacuum) is correctly assigned to the MBE steps.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, particularly the distinction between the growth temperature and the annealing temperature.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the provided schema, with correct data types for all fields.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is an excellent extraction that demonstrates a high level of precision in capturing experimental details. It successfully handles complex instructions like periodic annealing and maintains high fidelity to the source text's technical specifications."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the synthesis of the MoSe2 layer is perfectly captured, the subsequent nanostructuring (lithography and RIE etching) could be included as a second process block if the target was the 'MoSe2 grating' rather than just the 'MoSe2 material'."
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the MoSe2 MBE synthesis procedure from the source text. Key synthesis components including starting materials with purities, equipment with vendor information where available, process steps with temperatures and conditions, and important notes are all represented. The extraction correctly identifies the five main synthesis stages: substrate heating, MoSe2 growth, periodic annealing, growth continuation, and mechanical polishing. Equipment identification is accurate with the MBE chamber vendor (SVT Associates) properly captured. Temperature conditions (700°C for heating/annealing, 300°C for growth) and atmosphere (ultra-high vacuum) are correctly extracted. Some minor inconsistencies exist, such as null duration paired with time_unit in Step 2, and the e-beam evaporator rod specifications could be more clearly categorized. Overall, the extraction faithfully represents the synthesis information present in the source without hallucination.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components present in the source text: target compound (MoSe2), synthesis method (MBE), starting materials with purities, five process steps with appropriate actions, equipment list with vendor information where available, and comprehensive notes. All key synthesis information from the Methods section B (Sample growth) is represented. The structure follows a logical flow from substrate preparation through growth to post-processing. Minor deduction for the substrate off-cut specification not being explicitly captured in starting materials and some field inconsistencies.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials are accurately extracted with correct chemical names (Selenium, Molybdenum, sapphire substrate, ethylene glycol) and purities where specified in the source (Se: 99.9999%/6N, Mo: 99.995%/4N5). The extraction correctly leaves amount and unit as null since these are not specified in the source text. Silk tissue is appropriately included as a material for the polishing step. The substrate's 2-degree off-cut specification from the source could have been captured in the purity or notes field for completeness.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Five process steps are correctly identified and sequenced: (1) substrate heating, (2) MoSe2 growth initiation, (3) periodic annealing, (4) growth continuation, (5) mechanical polishing. Action classifications (heat, add, anneal, add, mix) are appropriate for each step. Temperatures and atmosphere conditions are accurately captured. Step 4 is somewhat redundant with Step 2 as both describe the growth process, and these could potentially be consolidated. The growth rate information (1 monolayer/0.7 nm per hour) is captured in notes but could be included in step conditions.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Key equipment is correctly identified: MBE chamber with vendor (SVT Associates), RHEED for surface roughness control, low-temperature effusion cell for Se deposition, and e-beam evaporator for Mo. The MBE chamber vendor is accurately extracted from the source. Some equipment lacks vendor information (effusion cell, e-beam evaporator, RHEED) but this reflects the source text which doesn't specify these vendors. The rod specifications for the e-beam evaporator (1/4 inch diameter, 35 mm length) are captured in settings. Silk tissue for polishing is not listed as equipment but as a material, which is acceptable.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Temperature conditions are accurately extracted: 700°C for substrate heating and annealing, 300°C for MoSe2 growth. Atmosphere (ultra-high vacuum) is correctly captured for all relevant steps. Annealing duration (1 hour) is properly recorded in Step 3. Some steps have null duration which is appropriate since the source doesn't specify exact durations for heating or total growth time. The growth rate (1 monolayer/0.7 nm per hour) and total thickness (42 nm) are captured in notes. Minor inconsistency in Step 2 where time_unit is 'h' but duration is null.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning and intent of the source text. All technical parameters are accurately represented without misinterpretation. The synthesis workflow is correctly understood and structured. No hallucinated information is present - all extracted data can be traced to the source text. The relationship between steps (heating before growth, annealing during growth, polishing after growth) is correctly maintained. Purity specifications, temperature values, and equipment descriptions all match the source accurately.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the expected ontology schema with proper field names, data types, and organization. All required fields are present. Temperature values are numeric with appropriate unit strings. The nested structure for steps, materials, equipment, and conditions is consistent. Minor format issue: Step 2 has time_unit: 'h' with duration: null which creates a slight inconsistency (both should be null or both populated). Equipment and materials arrays are properly structured. Notes field effectively captures additional synthesis details not fitting other categories.",
+                "overall_score": 4.5,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures the MoSe2 MBE synthesis procedure from the source text. Strengths include: accurate material identification with purities, correct equipment vendor information where available, proper temperature and atmosphere conditions, logical step sequencing, and faithful semantic preservation without hallucination. The extraction correctly leaves fields null when information is not present in the source (amounts, some durations, some vendors). Areas for improvement: resolve the duration/time_unit inconsistency in Step 2, consider consolidating redundant growth steps, and capture the substrate off-cut specification more explicitly. Overall scores reflect strong performance across all evaluation criteria with minor deductions for structural inconsistencies rather than factual errors. The extraction demonstrates good understanding of synthesis workflows and appropriate handling of incomplete source information."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Substrate 2-degree off-cut specification is mentioned in source but not captured in starting materials",
+                "Silk tissue for polishing is listed as a material but could be categorized as equipment/consumable"
+              ],
+              "extraction_errors": [
+                "Step 2 has duration: null but time_unit: 'h' which is inconsistent",
+                "E-beam evaporator rod specifications (1/4 inch diameter, 35 mm length) are in settings field but could be better structured",
+                "Step 4 is somewhat redundant with Step 2 as both describe the growth process"
+              ],
+              "improvement_suggestions": [
+                "Ensure duration and time_unit fields are both populated or both null for consistency",
+                "Consider separating equipment specifications (like rod dimensions) into dedicated fields rather than settings",
+                "Could consolidate Steps 2 and 4 into a single growth step with total duration if calculable from the source",
+                "Add growth rate information (1 monolayer/0.7 nm per hour) to the notes or as a condition parameter"
+              ]
+            },
+            "overall_score": 4.5
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a detailed synthesis procedure for MoSe2 thin films via molecular beam epitaxy (MBE) and subsequent processing into subwavelength gratings. The extracted ontology correctly captures the core MBE growth steps, materials, and key conditions. However, it completely omits the extensive fabrication process for the subwavelength gratings (photoresist deposition, e-beam lithography, reactive ion etching), which is a critical part of the overall synthesis workflow described in the 'Sample processing' section. This omission significantly impacts the completeness and accuracy of the extraction for the stated target material, which in the context of the paper is the nanostructured MoSe2 grating, not just the epitaxial layer.",
+              "scores": {
+                "structural_completeness_score": 2.5,
+                "structural_completeness_reasoning": "The extraction captures the MBE growth procedure well but fails entirely to structure the subsequent grating fabrication process. The source text's 'Sample processing' section details a multi-step lithography and etching procedure involving specific resists, polymers, etching gases, and equipment. None of this is represented in the extracted steps, materials, or equipment. The ontology is therefore structurally incomplete for the full synthesis of the target material (nanostructured MoSe2).",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "For the MBE growth segment, material extraction is accurate and complete. It correctly identifies the source materials (Se, Mo, sapphire substrate) with their stated purities. The polishing material (ethylene glycol, silk tissue) is also captured. No quantities are given in the source, so their absence is correct. However, all materials used in the grating fabrication (CSAR 62 resist, Electra 92 polymer, O2, SF6 gases, AR 600-71 remover) are missing.",
+                "process_steps_score": 2.0,
+                "process_steps_reasoning": "The sequence of MBE steps (heating, growth, intermittent annealing, polishing) is correctly ordered and classified. The actions ('heat', 'add', 'anneal', 'mix') are semantically appropriate. However, the process steps are grossly incomplete. The critical fabrication steps—spin-coating resist, e-beam lithography exposure, reactive ion etching, and resist removal—are entirely absent. This makes the process flow fundamentally inaccurate for producing the final nanostructured material.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "Equipment for the MBE growth (chamber, effusion cell, e-beam evaporator, RHEED) is correctly identified, including the vendor for the MBE chamber. The extraction correctly does not hallucinate vendors for unspecified equipment. However, all equipment from the grating fabrication process is missing: spin coater, hotplate, e-beam lithography system, Oxford Instrument PlasmaPro 100 RIE machine, etc. This represents a major omission.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "For the conditions that are extracted, accuracy is high. Key temperatures (700°C for heating/annealing, 300°C for growth), atmosphere (ultra-high vacuum), and the annealing duration (1 h) are correctly captured. The growth rate (~1 monolayer/hour) is appropriately placed in notes. The source does not specify pressures or precise growth durations, so their absence is correct. Conditions for the missing fabrication steps (e.g., spin speed, bake temperatures, etching power/pressure/gas flows, etch time) are, by extension, also missing.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The semantic meaning of the extracted MBE procedure is well-preserved. The description of the growth process, including the purpose of intermittent annealing to suppress vertical growth, is accurately reflected in the steps and notes. The relationship between materials, equipment, and conditions is logically sound. The critical error is one of omission (the entire fabrication process) rather than misinterpretation of the presented content.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and populated with correct data types (objects, arrays, strings, numbers, nulls). The nesting of materials, equipment, and conditions within steps is proper. There are no format errors.",
+                "overall_score": 3.6,
+                "overall_reasoning": "The extraction demonstrates competence in parsing and structuring the MBE synthesis of a MoSe2 epitaxial layer, with good scores in material extraction, condition accuracy, semantic fidelity, and format compliance. The fatal flaw is the complete omission of the subsequent nanostructuring process, which is described in equal detail in the source text and is integral to the creation of the final target material (MoSe2 subwavelength grating). This omission drastically reduces the scores for structural completeness, process steps, and equipment extraction. The overall extraction is therefore a partially correct but critically incomplete representation of the synthesis described in the paper."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The entire 'Sample processing' section detailing grating fabrication.",
+                "Specific etching conditions: power (300 W), pressure (5 mTorr), gas flows (O2 2 sccm, SF6 20 sccm), duration (20 s).",
+                "Lithography parameters: resist thickness (200 nm), spin speed (4000 rpm), bake conditions (150°C, 15 min; 105°C, 5 min), exposure settings (30 keV, 50 pA).",
+                "The final product is not just a MoSe2 layer but a patterned subwavelength grating."
+              ],
+              "extraction_errors": [
+                "Complete omission of the subwavelength grating fabrication process (photoresist deposition, e-beam lithography, reactive ion etching).",
+                "Missing starting materials for grating fabrication: CSAR 62 resist, Electra 92 polymer, O2 gas, SF6 gas, AR 600-71 remover.",
+                "Missing equipment for grating fabrication: spin coater, hotplate, e-beam lithography system, Oxford Instrument PlasmaPro 100 RIE machine.",
+                "Missing process steps: resist spin-coating and baking, conductive polymer coating, e-beam exposure, plasma etching, resist removal."
+              ],
+              "improvement_suggestions": [
+                "The extraction system must be trained or configured to identify and extract multi-stage synthesis procedures, especially when a material is first synthesized and then processed into a device or nanostructure.",
+                "Pay closer attention to section headers (e.g., 'Sample processing') and procedural verbs (e.g., 'fabricated through', 'patterned with', 'etched in') that signal a new, distinct phase of the synthesis workflow.",
+                "When the target material is implied to be a nanostructured or processed form (like a 'grating'), the extraction should prioritize the steps that create that specific structure, not just the bulk material synthesis."
+              ]
+            },
+            "overall_score": 3.6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "MoSe2",
+        "synthesis": {
+          "target_compound": "MoSe2",
+          "target_compound_type": "two-dimensional materials",
+          "synthesis_method": "molecular beam epitaxy",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Selenium",
+              "amount": null,
+              "unit": null,
+              "purity": "99.9999% (6N)"
+            },
+            {
+              "vendor": null,
+              "name": "Molybdenum",
+              "amount": null,
+              "unit": null,
+              "purity": "99.995% (4N5)"
+            },
             {
               "vendor": null,
               "name": "sapphire substrate",
@@ -42,155 +1130,352 @@
               "purity": null
             }
           ],
-          "equipment": [],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 2,
-          "action": "deposition",
-          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
-          "materials": [
+          "steps": [
             {
-              "vendor": null,
-              "name": "Selenium",
-              "amount": null,
-              "unit": null,
-              "purity": null
+              "step_number": 1,
+              "action": "heat",
+              "description": "Heat the (0001) sapphire substrate with a 2-degree off-cut in an ultra-high vacuum.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "sapphire substrate",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
             },
             {
-              "vendor": null,
-              "name": "molybdenum",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": 300.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "anneal",
-          "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700\u25e6C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
-          "materials": [
+              "step_number": 2,
+              "action": "heat",
+              "description": "Grow MoSe2 at 300°C with a very small growth rate, about 1 monolayer (0.7 nm) per hour.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Selenium",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.9999% (6N)"
+                },
+                {
+                  "vendor": null,
+                  "name": "Molybdenum",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.995% (4N5)"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": "growth rate ~1 monolayer per hour"
+                },
+                {
+                  "name": "effusion cell",
+                  "instrument_vendor": null,
+                  "settings": "low-temperature for Se"
+                },
+                {
+                  "name": "e-beam evaporator",
+                  "instrument_vendor": null,
+                  "settings": "for Mo deposition"
+                }
+              ],
+              "conditions": {
+                "temperature": 300.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
             {
-              "vendor": null,
-              "name": "MoSe2",
-              "amount": 14.0,
-              "unit": "nm",
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": 1.0,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 4,
-          "action": "polish",
-          "description": "after the growth, the samples are manually polished using silk in the environment of ethylene glycol for improving the surface quality.",
-          "materials": [
+              "step_number": 3,
+              "action": "anneal",
+              "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700°C for 1 h to avoid vertical growth and keep the surface flat.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "MBE chamber",
+                  "instrument_vendor": "SVT Associates",
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 700.0,
+                "temp_unit": "C",
+                "duration": 1.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ultra-high vacuum",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
             {
-              "vendor": null,
-              "name": "ethylene glycol",
-              "amount": null,
-              "unit": null,
-              "purity": null
+              "step_number": 4,
+              "action": "dry",
+              "description": "After growth, the samples are manually polished using silk in the environment of ethylene glycol for improving the surface quality.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "ethylene glycol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "silk tissue",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
             }
           ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "MBE chamber",
-          "instrument_vendor": "SVT Associates",
-          "settings": null
+          "equipment": [
+            {
+              "name": "MBE chamber",
+              "instrument_vendor": "SVT Associates",
+              "settings": null
+            },
+            {
+              "name": "effusion cell",
+              "instrument_vendor": null,
+              "settings": "low-temperature for Se"
+            },
+            {
+              "name": "e-beam evaporator",
+              "instrument_vendor": null,
+              "settings": "for Mo deposition"
+            },
+            {
+              "name": "Reflection High Energy Electron Diffraction (RHEED) system",
+              "instrument_vendor": null,
+              "settings": "for surface roughness control"
+            }
+          ],
+          "notes": "Total thickness of the MoSe2 layer is 42 nm. The growth procedure includes periodic annealing to maintain surface flatness and prevent vertical island growth."
         },
-        {
-          "name": "Reflection High Energy Electron Diffraction (RHEED)",
-          "instrument_vendor": null,
-          "settings": null
-        }
-      ],
-      "notes": "The total thickness of MoSe2 layer is 42 nm."
-    },
-    "evaluation": {
-      "reasoning": "The extracted ontology captures the MBE synthesis of MoSe2. The structural completeness is good, covering materials, steps, equipment, and conditions. Material extraction is generally accurate, though some quantities are missing. Process steps are well-organized and logically sequenced. Equipment extraction is adequate, identifying key instruments. Conditions extraction is mostly accurate, but some parameters are missing. Semantic accuracy is maintained, preserving the scientific meaning. Format compliance is satisfactory, adhering to the schema. Overall, the extraction is of good quality, with some areas for improvement.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology includes materials, steps, equipment, and conditions, providing a comprehensive overview of the synthesis process. However, some details are missing, such as specific flow rates or chamber pressures.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material names are accurately extracted, and purities are noted where available. However, specific amounts and units for the starting materials (Selenium and Molybdenum) are missing, which reduces the score.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are logically sequenced and clearly described, including heating, deposition, annealing, and polishing. The descriptions are adequate, and the actions are correctly classified.",
-        "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The key equipment, such as the MBE chamber and RHEED, are identified, along with the vendor for the MBE chamber. However, specific settings or configurations for the equipment are not extracted, limiting the score.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted for the heating and annealing steps. The atmosphere is noted for the initial heating step. However, pressure values and stirring details are missing, which affects the completeness.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extracted ontology accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented, ensuring that the information is scientifically valid.",
-        "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "The extracted ontology generally adheres to the GeneralSynthesisOntology schema and data type requirements. The structure is well-organized, and the data types are appropriate. Minor adjustments may be needed for full compliance.",
-        "overall_score": 4.2,
-        "overall_reasoning": "The extraction is of good quality, accurately capturing the key aspects of the MoSe2 synthesis via MBE. The structural completeness, material extraction, process steps, equipment, and conditions are generally well-represented. Semantic accuracy is maintained, and format compliance is satisfactory. Areas for improvement include adding specific quantities for starting materials and including additional equipment settings."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Specific quantities and units for Selenium and Molybdenum starting materials.",
-        "Pressure values for the heating, deposition, and annealing steps.",
-        "Stirring details for any of the steps."
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Include specific quantities and units for all starting materials.",
-        "Extract additional equipment settings and configurations where available.",
-        "Add pressure values and stirring details to the conditions, if specified in the text."
-      ]
-    }
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core MBE synthesis procedure for MoSe2 layers with reasonable fidelity. The source text describes a multi-step process: substrate heating, MoSe2 growth, periodic annealing, and post-growth polishing. The extraction correctly identifies the synthesis method (MBE), starting materials (Se, Mo, sapphire substrate) with purities, and the main process steps. However, there are some notable issues: Step 4 is mislabeled as 'dry' when it should be 'polish' or 'mechanical polishing'; the growth step lacks the total thickness (42 nm) as a condition; the annealing periodicity (every 20 h / 14 nm) is described in text but not captured as a structured condition; and the sample processing steps (e-beam lithography, RIE etching) are entirely absent from the extraction, though these are part of the grating fabrication rather than the MoSe2 layer synthesis per se. The equipment list is largely complete for the MBE growth phase. Format compliance is generally good with proper use of null for absent values.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the primary MBE synthesis components: starting materials with purities, four process steps (substrate heating, growth, annealing, polishing), and key equipment. However, it omits the grating fabrication steps (photoresist deposition, e-beam lithography, RIE etching) which are explicitly described in the 'Sample processing' section of the source. While these could be considered a separate process for the grating rather than the MoSe2 layer itself, the target material context is MoSe2 gratings. The total thickness (42 nm) is mentioned in notes but not as a structured condition in the growth step. The annealing periodicity (every 20 h per 14 nm) is captured in the description but not as a structured parameter. The polishing medium (ethylene glycol) and tool (silk tissue) are captured as materials, which is a reasonable approach.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "The three starting materials are correctly identified: Selenium (99.9999%, 6N purity), Molybdenum (99.995%, 4N5 purity), and sapphire substrate. Purities are accurately extracted from the source text. Amounts and units are correctly left null since the source does not specify quantities. Ethylene glycol and silk tissue are correctly included as polishing materials in step 4. Vendor information is correctly left null for all materials as none is specified in the source. The sapphire substrate is correctly identified as a (0001) orientation with 2-degree off-cut, though this detail is only in the step description rather than as a structured attribute. No hallucinated values are present.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The four steps are logically sequenced and cover the main synthesis workflow: substrate heating (700°C, UHV), MoSe2 growth (300°C), periodic annealing (700°C, 1h), and polishing. However, Step 4 is incorrectly labeled as 'dry' — the source clearly describes mechanical polishing, not drying. The correct action should be 'polish' or 'grind'. The growth step (Step 2) correctly captures the temperature and growth rate but does not include the total duration or the total thickness as a condition. The annealing step correctly captures temperature (700°C) and duration (1h). The periodicity of annealing (every 20h/14nm) is mentioned in the description but not as a structured condition field. The grating fabrication steps (resist spinning, e-beam lithography, RIE etching) are entirely absent, which is a significant omission if the target is the complete MoSe2 grating synthesis.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The equipment list correctly identifies the MBE chamber (SVT Associates), effusion cell (for Se), e-beam evaporator (for Mo), and RHEED system for surface roughness control. The MBE chamber vendor (SVT Associates) is accurately extracted from the source. The RHEED system is correctly included as it is explicitly mentioned in the Methods section. Equipment for the grating fabrication (Oxford Instrument PlasmaPro 100 RIE machine) is absent, which is a notable omission since it is explicitly named in the source. The ellipsometer (RC2 by J.A. Woollam Co.) used for characterization is also absent, though this is characterization rather than synthesis equipment. The hotplate used for resist baking is also not captured.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Key synthesis conditions are well captured: substrate heating at 700°C in UHV, MoSe2 growth at 300°C in UHV with ~1 ML/hr growth rate, and annealing at 700°C for 1h. The atmosphere (ultra-high vacuum) is correctly assigned to the relevant steps. The annealing periodicity (every 20h) is described in text but not captured as a structured duration or frequency field. The growth step duration is left null, which is acceptable since the source does not give a single total growth time explicitly (though it can be inferred: 42nm / 0.7nm per hour ≈ 60h). The polishing step has all conditions as null, which is correct since no specific conditions are given. The RIE etching conditions (300W power, 5 mTorr pressure, 2 sccm O2, 20 sccm SF6, 20 seconds) are entirely absent from the extraction.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning is largely preserved. The MBE growth mechanism, the role of periodic annealing to prevent vertical island growth, and the polishing step for surface quality improvement are all correctly represented. The growth rate (~1 ML/hr = 0.7 nm/hr) is correctly noted in the equipment settings. The action label 'dry' for the polishing step is semantically incorrect — this is a mechanical polishing operation, not a drying step, which could mislead downstream users. The description text for step 4 correctly says 'polished using silk' but the action field contradicts this. The annealing purpose (to avoid vertical growth and keep surface flat) is correctly captured in the description. The total MoSe2 thickness (42 nm) is correctly noted in the notes field.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are correctly used for absent information rather than empty strings or placeholder values. Numeric values (temperatures, duration) are correctly typed as floats. The nested structure for materials, equipment, and conditions within each step is properly maintained. The equipment list at the top level correctly mirrors the equipment used across steps. The notes field is used appropriately for supplementary information. The only minor format issue is the 'dry' action label which is semantically incorrect but structurally valid within the schema.",
+                "overall_score": 3.9,
+                "overall_reasoning": "The extraction demonstrates good overall quality for the MBE synthesis of MoSe2 layers. Strengths include: accurate identification of starting materials with correct purities, proper use of null for absent values (no hallucination), correct temperature and atmosphere conditions for the main synthesis steps, and good equipment identification including the vendor for the MBE chamber. Key weaknesses include: the mislabeling of the polishing step as 'dry' (semantic error), absence of the grating fabrication steps (e-beam lithography, RIE etching with Oxford Instrument PlasmaPro 100, specific gas flows and power settings), and missing RIE conditions (300W, 5 mTorr, 2 sccm O2, 20 sccm SF6, 20s). The extraction appears focused on the MoSe2 layer growth rather than the complete grating fabrication workflow. For a target material of 'MoSe2 grating', the processing steps are an important omission. The format compliance is high with proper schema adherence throughout."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Grating fabrication steps: photoresist (CSAR 62 9%) deposition by spinning at 4000 rpm for 60s, baking at 150°C for 15 min",
+                "Conducting polymer (Electra 92, AR-PC 5090.02 by AllResist) coating at 4000 rpm for 60s, baked at 105°C for 5 min",
+                "E-beam lithography exposure: 30 keV acceleration voltage, 50 pA beam current, 100 µm × 100 µm pattern area",
+                "RIE etching conditions: O2 (2 sccm) and SF6 (20 sccm) plasma, 300W power, 5 mTorr pressure, 20 seconds duration",
+                "Resist removal using standard CSAR 62 remover AR 600-71",
+                "Annealing periodicity as a structured condition (every 20h / per 14 nm of MoSe2 grown)",
+                "Total MoSe2 growth thickness (42 nm) as a structured condition in the growth step"
+              ],
+              "extraction_errors": [
+                "Step 4 action is labeled 'dry' but the source clearly describes mechanical polishing using silk tissue in ethylene glycol — should be 'polish' or 'mechanical polishing'",
+                "RIE etching step is entirely absent: the source explicitly describes reactive ion etching with O2/SF6 plasma in Oxford Instrument PlasmaPro 100 at 300W, 5 mTorr, 2 sccm O2, 20 sccm SF6, lasting 20 seconds",
+                "E-beam lithography step is absent: the source describes CSAR 62 resist spinning at 4000 rpm for 60s, baking at 150°C for 15 min, Electra 92 conducting polymer coating, and 30 keV / 50 pA exposure",
+                "Oxford Instrument PlasmaPro 100 RIE machine is not included in the equipment list despite being explicitly named in the source",
+                "Resist removal step (AR 600-71 remover) is not captured"
+              ],
+              "improvement_suggestions": [
+                "Correct the action label for Step 4 from 'dry' to 'polish' to accurately reflect the mechanical polishing operation described in the source",
+                "Add grating fabrication as additional process steps: resist spinning, e-beam lithography exposure, RIE etching, and resist removal",
+                "Include Oxford Instrument PlasmaPro 100 in the equipment list with settings (300W, 5 mTorr)",
+                "Add RIE etching conditions: atmosphere (O2/SF6), pressure (5 mTorr), power (300W), gas flow rates (2 sccm O2, 20 sccm SF6), duration (20s)",
+                "Add total thickness (42 nm) as a structured condition or parameter in the growth step rather than only in notes",
+                "Capture annealing periodicity (every 20h or every 14 nm) as a structured condition field",
+                "Consider adding the RC2 ellipsometer (J.A. Woollam Co.) to equipment if characterization tools are within scope"
+              ]
+            },
+            "overall_score": 3.9
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system has performed a high-quality extraction of the MoSe2 synthesis procedure. It correctly identified the Molecular Beam Epitaxy (MBE) method, the specific precursors with their high-purity grades, and the complex multi-step thermal profile including the periodic annealing steps. The extraction of equipment, including the vendor for the MBE chamber and the specific deposition tools (effusion cell and e-beam), is accurate. The system also correctly captured the post-growth polishing step, which is critical for the material's final state in this specific study.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all major phases of the synthesis: substrate preparation, growth, periodic annealing, and post-processing (polishing). It includes materials, equipment, and conditions for each phase.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Precursors (Se, Mo) and their specific purity levels (6N, 4N5) were extracted perfectly. The substrate and polishing agents (silk, ethylene glycol) were also correctly identified. No quantities were provided in the text, so null values are correct.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of steps (heating substrate -> growth -> periodic annealing -> polishing) accurately reflects the experimental narrative. The logic of the periodic annealing (every 20h) is well-captured in the descriptions.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly identified the MBE chamber vendor (SVT Associates) and the specific components like the effusion cell and e-beam evaporator. It also noted the RHEED system used for monitoring.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperatures (700C, 300C), durations (1h), and atmospheres (UHV) are accurately extracted and assigned to the correct steps. The growth rate was correctly placed in the settings field.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, particularly the distinction between the growth phase and the annealing phase used to control morphology.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the GeneralSynthesisOntology schema, using correct data types for all fields.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is an excellent extraction. It successfully navigates a technical MBE procedure, capturing specific purity grades, vendor information, and complex conditional steps (periodic annealing) without hallucination or omission of stated facts."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the MBE growth process for MoSe2 with reasonable accuracy, including starting materials, purities, temperatures, and key equipment. However, it significantly omits the sample processing section (Section C) which describes the complete grating fabrication workflow including e-beam lithography, resist coating, baking, plasma etching, and resist removal. This represents a substantial portion of the synthesis procedure. The extraction correctly identifies MBE chamber vendor (SVT Associates), material purities, and growth conditions, but misses critical processing equipment (Oxford Instrument PlasmaPro 100, spin coater, hotplate), processing chemicals (CSAR 62 resist, Electra 92 polymer, O2, SF6, AR 600-71 remover), and numerous processing parameters (acceleration voltage, beam current, etching power, pressure, gas flow rates, spin speeds, bake temperatures and times).",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the MBE growth phase well (Section B of Methods) but completely omits the sample processing phase (Section C) which includes e-beam lithography, resist coating, baking, plasma etching, and resist removal. This represents approximately half of the complete synthesis workflow. The extraction includes 4 growth steps but misses 6+ processing steps. Starting materials for growth are captured, but processing materials (resists, polymers, etching gases, removers) are absent. Equipment for growth is identified, but processing equipment is missing. This partial coverage warrants a score of 3.0.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "For the materials that were extracted (Se, Mo, sapphire substrate, ethylene glycol, silk tissue), the information is accurate. Selenium purity (99.9999%/6N) and Molybdenum purity (99.995%/4N5) are correctly captured. However, significant processing materials are missing: CSAR 62 9% positive resist, Electra 92 conducting polymer (AR-PC 5090.02 by AllResist), oxygen, sulfur hexafluoride, and CSAR 62 remover AR 600-71. The extraction correctly notes null for amounts where not specified in source. Score of 4.0 reflects accurate extraction of present materials but incomplete material coverage.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "The 4 growth steps are correctly sequenced (substrate heating → MoSe2 growth → periodic annealing → polishing) with appropriate action classifications (heat, heat, anneal, dry). Temperatures and durations are accurately captured for growth steps. However, the entire sample processing workflow is missing: resist spinning, polymer coating, baking steps, e-beam exposure, plasma etching, and resist removal. These represent critical fabrication steps for creating the subwavelength grating structures. The extraction captures approximately 40% of the complete process workflow, warranting a score of 3.0.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "Growth equipment is well captured: MBE chamber (SVT Associates), effusion cell, e-beam evaporator, and RHEED system. However, processing equipment is completely missing: e-beam lithography system, spin coater, hotplate, Oxford Instrument PlasmaPro 100 (RIE machine), and spectrometer setups. Vendor information is correctly captured where available (SVT Associates for MBE), but many processing equipment vendors are absent (Oxford Instrument, AllResist products). The extraction captures growth equipment comprehensively but misses all fabrication equipment, warranting a score of 3.0.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "Growth conditions are accurately extracted: substrate heating at 700°C, MoSe2 growth at 300°C, annealing at 700°C for 1 h, ultra-high vacuum atmosphere. Growth rate (~1 monolayer/0.7 nm per hour) and periodic annealing interval (every 20 h/14 nm) are captured. However, numerous processing conditions are missing: spin speeds (4000 rpm), bake temperatures and times (150°C/15 min, 105°C/5 min), e-beam parameters (30 keV, 50 pA), etching conditions (300 W, 5 mTorr, 20 s, gas flow rates). The extraction is accurate for what it captures but incomplete overall, warranting 3.5.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The information that was extracted maintains scientific accuracy and proper context. Action classifications are appropriate (heat for substrate heating and growth, anneal for annealing steps, dry for polishing). The description text accurately reflects the source without misinterpretation. Material purities and equipment vendors are correctly represented. No hallucinated information is present. The main issue is incompleteness rather than inaccuracy. Score of 4.0 reflects high accuracy of extracted content despite incomplete coverage.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the expected ontology schema. All required fields are present with appropriate data types (numbers for temperatures and durations, strings for names and descriptions, arrays for materials and equipment lists). Null values are correctly used where information is not available in the source. The nested structure for steps, materials, equipment, and conditions follows the expected format. Minor improvement could be made in consistency of equipment settings representation. Score of 4.5 reflects strong schema compliance.",
+                "overall_score": 3.6,
+                "overall_reasoning": "The extraction demonstrates competent capture of the MBE growth process with accurate temperatures, purities, equipment vendors, and step sequencing. However, it represents only partial synthesis coverage, completely omitting the sample processing section which details the grating fabrication workflow (lithography, etching, resist removal). This is a significant gap since the complete synthesis includes both material growth AND device fabrication. The extraction scores well on accuracy (4.0 semantic, 4.5 format) but suffers on completeness (3.0 structural, 3.0 process steps, 3.0 equipment). For a complete synthesis ontology, both growth and processing phases should be captured. The extraction would benefit from including all Methods sections (B and C) rather than focusing primarily on growth. Overall score of 3.4 reflects this balance between accurate partial extraction and significant omissions."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "E-beam lithography system specifications and parameters",
+                "Spin coating parameters for resist and polymer layers",
+                "Hotplate baking temperatures and durations for resist processing",
+                "Reactive ion etching machine (Oxford Instrument PlasmaPro 100) details",
+                "Etching gas composition and flow rates (O2: 2 sccm, SF6: 20 sccm)",
+                "Etching power (300 W), pressure (5 mTorr), and duration (20 seconds)",
+                "Resist remover (CSAR 62 remover AR 600-71 by AllResist)",
+                "Final grating pattern dimensions (100 µm × 100 µm)"
+              ],
+              "extraction_errors": [
+                "Missing entire sample processing section (e-beam lithography, RIE etching, resist removal)",
+                "Missing processing equipment: Oxford Instrument PlasmaPro 100, spin coater, hotplate",
+                "Missing processing chemicals: CSAR 62 resist, Electra 92 polymer, O2, SF6, AR 600-71 remover",
+                "Missing lithography parameters: 30 keV acceleration voltage, 50 pA beam current, 100 µm × 100 µm pattern",
+                "Missing etching parameters: 300 W power, 5 mTorr pressure, 20 seconds duration, 2 sccm O2, 20 sccm SF6",
+                "Missing resist coating parameters: 200 nm thickness, 4000 rpm spin speed, 60 s duration, 150°C/15 min bake, 105°C/5 min bake"
+              ],
+              "improvement_suggestions": [
+                "Include complete sample processing workflow from Section C of Methods",
+                "Add all processing equipment with vendor information where available (Oxford Instrument PlasmaPro 100, AllResist products)",
+                "Capture all processing chemicals including resists, polymers, etching gases, and removers",
+                "Extract all numerical processing parameters (voltages, currents, powers, pressures, flow rates, times, temperatures)",
+                "Consider separating growth and processing into distinct synthesis phases for better organization",
+                "Include pattern dimensions (100 µm × 100 µm) and final grating specifications"
+              ]
+            },
+            "overall_score": 3.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a detailed synthesis procedure for MoSe2 thin films via molecular beam epitaxy (MBE) and subsequent processing into subwavelength gratings. The extracted ontology correctly identifies the core MBE growth steps, materials, and key equipment. However, it fails to capture the extensive fabrication process (e-beam lithography and reactive ion etching) described in the 'Sample processing' section, which is a critical part of the overall synthesis of the final structured material (MoSe2 gratings). The extraction is accurate for the information it includes but is structurally incomplete, omitting a major synthesis phase.",
+              "scores": {
+                "structural_completeness_score": 2.5,
+                "structural_completeness_reasoning": "The extraction captures the MBE growth steps well but completely omits the entire 'Sample processing' section (C), which details the fabrication of the subwavelength gratings via e-beam lithography and reactive ion etching (RIE). This includes steps like resist spinning, baking, exposure, etching with specific gas flows and power, and resist removal. The final target material is the MoSe2 grating, not just the epitaxial layer. Missing this entire process chain is a major omission, significantly reducing structural completeness.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction for the MBE process is excellent. It correctly identifies the starting materials (Se, Mo, sapphire substrate) with their stated purities (6N, 4N5). It also correctly extracts the polishing materials (silk, ethylene glycol) mentioned. No quantities are stated in the source for these materials, so leaving amounts/units null is correct. The target compound and its final thickness (42 nm) are also correctly noted.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "The steps extracted for the MBE growth (heating substrate, growth, periodic annealing, polishing) are accurate, well-sequenced, and correctly classified (heat, anneal, dry). However, the process steps are severely incomplete as they stop after polishing. The critical steps for patterning the grating—photoresist deposition, e-beam lithography, and dry etching with specific parameters—are entirely missing. This breaks the logical flow from material synthesis to device fabrication.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Equipment extraction for the MBE process is very good. It correctly identifies the MBE chamber (with vendor SVT Associates), effusion cell, e-beam evaporator, and RHEED system. For the omitted fabrication process, equipment like the spin coater, hotplate, e-beam lithography system, and Oxford Instrument PlasmaPro 100 RIE machine are not captured, which is a significant miss given they are explicitly named. The extraction correctly does not hallucinate vendors for equipment where none are given.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Conditions for the MBE steps are accurately extracted: temperatures (700°C, 300°C), atmosphere (ultra-high vacuum), and the annealing duration (1 h). The growth rate (~1 monolayer/hour) is correctly captured in the equipment settings. The source does not specify pressures or detailed times for the main growth, so leaving those null is correct. However, the specific conditions for the RIE process (power: 300 W, pressure: 5 mTorr, gas flows: O2 2 sccm, SF6 20 sccm, duration: 20 s) are completely missing.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The semantic meaning of the extracted information is highly accurate and preserves the scientific context. The description of the MBE process, the purpose of periodic annealing to prevent vertical growth, the use of polishing, and the note on total thickness are all faithful to the source. The major error is one of omission (the fabrication process) rather than misinterpretation of the content that was extracted.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON perfectly adheres to the expected GeneralSynthesisOntology schema. All fields are present and correctly typed (objects, arrays, strings, numbers, nulls). The structure of steps, materials, equipment, and conditions is logically organized and complies with the required format.",
+                "overall_score": 3.9,
+                "overall_reasoning": "The extraction demonstrates high accuracy and excellent format compliance for the information it captured, particularly the MBE growth procedure. The critical flaw is a major omission: the entire 'Sample processing' section detailing the fabrication of the subwavelength gratings was not extracted. This makes the ontology structurally incomplete for the full synthesis of the target material (MoSe2 gratings). The system correctly avoided hallucination for missing details but failed to identify a substantial, explicitly described synthesis phase. Improvements should focus on ensuring end-to-end extraction of multi-stage processes described in separate manuscript sections (e.g., 'Sample growth' and 'Sample processing')."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Fabrication process steps: photoresist (CSAR 62) spin coating and baking, conductive polymer (Electra 92) coating, e-beam exposure (30 keV, 50 pA), reactive ion etching in O2/SF6 plasma, resist removal.",
+                "Detailed parameters for the etching step (power, pressure, gas flows, time).",
+                "Equipment used in the fabrication process (specific lithography and etching tools).",
+                "The fact that the final product is a patterned subwavelength grating, not just a flat MoSe2 layer."
+              ],
+              "extraction_errors": [
+                "Complete omission of the 'Sample processing' synthesis steps (e-beam lithography and reactive ion etching) used to fabricate the MoSe2 subwavelength gratings.",
+                "Missing equipment from the fabrication process: spin coater, hotplate, e-beam lithography system, Oxford Instrument PlasmaPro 100 RIE machine.",
+                "Missing synthesis conditions for the RIE process: power (300 W), pressure (5 mTorr), gas flows (O2 2 sccm, SF6 20 sccm), duration (20 s)."
+              ],
+              "improvement_suggestions": [
+                "Implement cross-section parsing to link procedures described in different parts of a paper (e.g., 'Methods' subsections B and C) into a single, coherent synthesis workflow.",
+                "Enhance recognition of multi-stage processes where the target material undergoes significant post-growth modification (e.g., patterning, etching).",
+                "Ensure extraction captures all explicitly named equipment, even if spread across different sections.",
+                "Maintain the current strength of accurate material and condition extraction without hallucination."
+              ]
+            },
+            "overall_score": 3.9
+          }
+        ]
+      }
+    ]
   }
 ]

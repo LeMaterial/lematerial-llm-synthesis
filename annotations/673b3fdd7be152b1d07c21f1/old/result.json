@@ -1,0 +1,444 @@
+[
+  {
+    "material": "carboxylate-functionalized cellulose nanospheres",
+    "synthesis": {
+      "target_compound": "carboxylate-functionalized cellulose nanospheres",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "ball milling",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "lignocellulosic biomass (corncob or softwood pine)",
+          "amount": null,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "(Et4N)2[Fe-(Ph,Me)bTAML] (1)",
+          "amount": 0.833,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Na2CO3.1.5H2O2 (SPC)",
+          "amount": null,
+          "unit": "eqv",
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Mixing (Et4N)2[Fe-(Ph,Me)bTAML] (1) and biomass (corncob/ softwood pine powder)",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "(Et4N)2[Fe-(Ph,Me)bTAML] (1)",
+              "amount": 0.833,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "biomass (corncob/ softwood pine powder)",
+              "amount": 20.0,
+              "unit": "mg",
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "ball milling",
+          "description": "Oxidant (Na2CO3.1.5H2O2) was added iteratively with continuous milling",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Na2CO3.1.5H2O2 (SPC)",
+              "amount": 5.0,
+              "unit": "eqv",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Retsch mixer mill MM 400",
+              "instrument_vendor": "Retsch",
+              "settings": "frequency of 30 Hz, 10 min cycle"
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.5,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "dissolve",
+          "description": "Dissolving the reaction mixture in water",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "filter",
+          "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "dry",
+          "description": "Lyophilizing the water",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "mortar and pestle",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "Retsch mixer mill MM 400",
+          "instrument_vendor": "Retsch",
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core elements of the synthesis, including materials, steps, and conditions. The use of ball milling and the iterative addition of the oxidant are well-represented. However, there are some inaccuracies in the amounts and units, particularly with the oxidant, and some missing details regarding the atmosphere and stirring during the reaction. The description of the materials is generally accurate, but could benefit from more specific details where available. The overall flow of the synthesis is captured adequately.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the key aspects of the synthesis, including materials, equipment, process steps, and some conditions. However, some details are missing, such as the specific atmosphere during the ball milling and more precise quantities for some materials.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material names are generally accurate. The amounts and units are mostly correct, but there are inconsistencies, especially with the oxidant (SPC). The purity of the starting materials is not specified, which is a common omission.",
+        "process_steps_score": 4.5,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are generally clear. The iterative addition of the oxidant is captured, which is important.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The equipment used is identified, including the ball mill and mortar and pestle. The vendor for the ball mill is also provided. However, specific settings for the mortar and pestle are not applicable, and more details about the dialysis membrane could be included.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "The temperature is not specified (assumed to be room temperature), and the atmosphere during ball milling is not explicitly mentioned. The duration of the ball milling is provided. The iterative addition of the oxidant is noted, but the exact timing and method could be more detailed.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis. The key reactions and transformations are accurately represented. However, some nuances might be lost due to the lack of complete details in the conditions and material specifications.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extracted data adheres well to the GeneralSynthesisOntology schema. The data types are generally correct, and the structure is consistent with the schema requirements. Minor adjustments might be needed to fully comply with all constraints.",
+        "overall_score": 4.1,
+        "overall_reasoning": "The extraction is generally good, capturing the main aspects of the synthesis. However, there are some inconsistencies in the material quantities and missing details regarding the reaction conditions. Addressing these issues would improve the overall quality of the extraction."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Atmosphere during ball milling.",
+        "Purity of starting materials.",
+        "Temperature of the reaction."
+      ],
+      "extraction_errors": [
+        "Inaccurate amount and unit for Na2CO3.1.5H2O2 (SPC).",
+        "Missing specification of atmosphere during ball milling.",
+        "Lack of purity information for starting materials."
+      ],
+      "improvement_suggestions": [
+        "Verify and correct the amount and unit for Na2CO3.1.5H2O2 (SPC).",
+        "Specify the atmosphere during ball milling (e.g., air, nitrogen).",
+        "Include purity information for all starting materials if available.",
+        "Add more details about the dialysis membrane (e.g., pore size, material)."
+      ]
+    }
+  },
+  {
+    "material": "cellulose nanospheres",
+    "synthesis": {
+      "target_compound": "cellulose nanospheres",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "ball milling",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "corncob",
+          "amount": null,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "softwood pine",
+          "amount": null,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+          "amount": 0.833,
+          "unit": "mg",
+          "purity": null
+        },
+        {
+          "vendor": null,
+          "name": "Na2CO3.1.5H2O2",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "To a 1.5 ml stainless steel jar equipped with a 5 mm stainless steel ball in a Retsch mixer mill MM 400, (Et4N)2[Fe-(Ph,Me)bTAML] and biomass (corncob/ softwood pine powder) were added.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+              "amount": 0.833,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "corncob",
+              "amount": 20.0,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "softwood pine powder",
+              "amount": 20.0,
+              "unit": "mg",
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "Retsch mixer mill MM 400",
+              "instrument_vendor": "Retsch",
+              "settings": null
+            },
+            {
+              "name": "stainless steel jar",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "stainless steel ball",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": null
+        },
+        {
+          "step_number": 2,
+          "action": "add",
+          "description": "Na2CO3.1.5H2O2 (SPC) as the oxidant (each time 5 eqv.) was added in equal portions over a period of 1.5 h .",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Na2CO3.1.5H2O2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 1.5,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "air",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "milling",
+          "description": "Each cycle was continued for 10 min with a frequency of 30 Hz .",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "Retsch mixer mill MM 400",
+              "instrument_vendor": "Retsch",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": 10.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "dissolve",
+          "description": "After completion of the reaction, the reaction mixture was dissolved in water",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 5,
+          "action": "filter",
+          "description": "dialyzed through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities.",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        },
+        {
+          "step_number": 6,
+          "action": "dry",
+          "description": "The water was lyophilized, and the product obtained was further analyzed.",
+          "materials": [],
+          "equipment": [],
+          "conditions": null
+        }
+      ],
+      "equipment": [
+        {
+          "name": "ball mill",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "mortar and pestle",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the key aspects of the synthesis, including materials, equipment, and conditions. The process steps are well-defined and follow a logical sequence. However, there are some inaccuracies in the material amounts and units, particularly with the oxidant. The description of the milling step could be more precise regarding the atmosphere. Overall, the extraction is reasonably complete and accurate, but some improvements are needed to enhance its precision and adherence to the schema.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the relevant synthesis information, including materials, steps, equipment, and conditions. However, some details, such as the specific atmosphere during milling, are missing.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "Material extraction is generally accurate, but there are inconsistencies in the amounts and units. For example, the amount of 'Na2CO3.1.5H2O2' is not specified with a numerical value and unit in the starting materials. The purity of the starting materials is also not specified.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are well-organized and logically sequenced. The actions are correctly classified, and the descriptions are generally clear. However, more detail could be added to some steps, such as specifying the type of membrane used for dialysis.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Equipment extraction is mostly complete and accurate. The names and vendors of the equipment are identified. However, specific settings for the equipment, such as the ball mill speed, are not always included.",
+        "conditions_extraction_score": 3.5,
+        "conditions_extraction_reasoning": "Conditions extraction is reasonably accurate, but some parameters are missing or incomplete. For example, the temperature and pressure are not specified for most steps. The atmosphere is only specified as 'air' in one step, but it is likely relevant to other steps as well.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented. However, some details could be added to improve the clarity and precision of the extracted information.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The extraction mostly adheres to the GeneralSynthesisOntology schema and data type requirements. However, there are some instances where the data types are not correctly specified, such as the missing numerical value for the amount of 'Na2CO3.1.5H2O2'.",
+        "overall_score": 3.9,
+        "overall_reasoning": "The ontology extraction is generally good, capturing most of the key synthesis information. However, there are some inaccuracies and omissions that need to be addressed to improve its completeness and accuracy. The material extraction and conditions extraction scores are slightly lower due to inconsistencies in amounts, units, and missing parameters."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Numerical value and unit for the amount of 'Na2CO3.1.5H2O2'.",
+        "Purity of starting materials.",
+        "Atmosphere during milling in all steps.",
+        "Type of membrane used for dialysis.",
+        "Temperature and pressure conditions."
+      ],
+      "extraction_errors": [
+        "Missing numerical value and unit for the amount of 'Na2CO3.1.5H2O2' in the starting materials.",
+        "Purity of starting materials not specified.",
+        "Atmosphere during milling not specified in all steps.",
+        "Specific type of membrane used for dialysis not specified."
+      ],
+      "improvement_suggestions": [
+        "Ensure that all material amounts are specified with numerical values and appropriate units.",
+        "Include the purity of all starting materials.",
+        "Specify the atmosphere during milling in all relevant steps.",
+        "Provide more details about the equipment settings, such as ball mill speed.",
+        "Include the type of membrane used for dialysis.",
+        "Add temperature and pressure conditions where applicable."
+      ]
+    }
+  }
+]

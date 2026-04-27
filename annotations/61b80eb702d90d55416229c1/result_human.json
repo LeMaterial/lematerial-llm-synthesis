@@ -1,479 +1,676 @@
-[
-  {
-    "material": "Li metal electrodeposits",
-    "synthesis": {
-      "target_compound": "Li metal electrodeposits",
-      "target_compound_type": "metals & alloys",
-      "synthesis_method": "electrochemical deposition",
-      "starting_materials": [
-        {
-          "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-          "name": "LiTFSA",
-          "amount": 0.5,
-          "unit": "mol",
-          "purity": "99.5%"
-        },
-        {
-          "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-          "name": "NaTFSA",
-          "amount": 0.5,
-          "unit": "mol",
-          "purity": "99.5%"
-        },
-        {
-          "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-          "name": "CaTFSA2",
-          "amount": 0.5,
-          "unit": "mol",
-          "purity": "99.5%"
-        },
-        {
-          "vendor": "Tokyo Chemical Industry Co., Ltd.",
-          "name": "G3",
-          "amount": null,
-          "unit": "L",
-          "purity": ">99.0%"
-        },
-        {
-          "vendor": "Takeuchi Metal Foil & Powder",
-          "name": "Cu foil",
-          "amount": "20",
-          "unit": "um",
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "prepare",
-          "description": "The electrolytes were prepared by using alkali-metal-TFSA (LiTFSA, CaTFSA2) salts as the solutes (TFSA- : bis(trifluoromethanesulfon)imide, [N(SO2CF3)2]- ) and a chain-like ether G3 as the solvent (G3: triethylene glycol dimethyl ether, C8H18O4).",
-          "materials": [
-            {
-              "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-              "name": "LiTFSA",
-              "amount": 0.5,
-              "unit": "mol",
-              "purity": "99.5%"
-            },
-            {
-              "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-              "name": "CaTFSA2",
-              "amount": 0.5,
-              "unit": "mol",
-              "purity": "99.5%"
-            },
-            {
-              "vendor": "Tokyo Chemical Industry Co., Ltd.",
-              "name": "G3",
-              "amount": 1,
-              "unit": "L",
-              "purity": ">99.0%"
-            }
-          ],
-          "equipment": [
-            {
-              "name": "gloveboxes",
-              "instrument_vendor": "Miwa Mfg Co., Ltd. and UNICO Ltd.",
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "high purity argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+{
+  "schema_version": "multi_llm_v1",
+  "paper_id": "61b80eb702d90d55416229c1",
+  "paper_url": "https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/61b80eb702d90d55416229c1/original/dendrite-free-alkali-metal-electrodeposition-from-contact-ion-pair-state-induced-by-mixing-alkaline-earth-cation.pdf",
+  "extractor_order": [
+    "claude-sonnet-4.6",
+    "gemini-3-flash",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2"
+  ],
+  "materials": [
+    {
+      "material_name": "Li metal electrodeposits",
+      "human_recipe": {
+        "target_compound": "Li metal electrodeposits",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "electrochemical deposition",
+        "starting_materials": [
+          {
+            "name": "LiTFSA",
+            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": "99.5%"
+          },
+          {
+            "name": "NaTFSA",
+            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": "99.5%"
+          },
+          {
+            "name": "CaTFSA2",
+            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": "99.5%"
+          },
+          {
+            "name": "G3",
+            "vendor": "Tokyo Chemical Industry Co., Ltd.",
+            "amount": null,
+            "unit": "L",
+            "purity": ">99.0%"
+          },
+          {
+            "name": "Cu foil",
+            "vendor": "Takeuchi Metal Foil & Powder",
+            "amount": 20.0,
+            "unit": "um",
+            "purity": null
+          },
+          {
+            "name": "Li ",
+            "vendor": "Honjo Metal Co., Ltd.",
+            "amount": null,
+            "unit": null,
+            "purity": null
           }
-        },
-        {
-          "step_number": 2,
-          "action": "electrodeposition",
-          "description": "Constant potential (chronoamperometry) electrodeposition experiments in the Li, Li-Ca single-cation and dual-cation electrolytes.",
-          "materials": [
-            {
-              "vendor": "Takeuchi Metal Foil and Powder Co., Ltd.",
-              "name": "Cu foil",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": "Honjo Metal Co., Ltd.",
-              "name": "Li metal",
-              "amount": null,
-              "unit": null,
-              "purity": null
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "prepare",
+            "description": "The electrolytes were prepared by using alkali-metal-TFSA (LiTFSA, CaTFSA2) salts as the solutes (TFSA- : bis(trifluoromethanesulfon)imide, [N(SO2CF3)2]- ) and a chain-like ether G3 as the solvent (G3: triethylene glycol dimethyl ether, C8H18O4).",
+            "materials": [
+              {
+                "name": "LiTFSA (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "CaTFSA2 (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "G3 (1 L) [vendor: Tokyo Chemical Industry Co., Ltd.] [purity: >99.0%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "gloveboxes",
+                "instrument_vendor": "Miwa Mfg Co., Ltd. and UNICO Ltd.",
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "high purity argon",
+              "stirring": null,
+              "stirring_speed": null
             }
-          ],
-          "equipment": [
-            {
-              "name": "potentiostat",
-              "instrument_vendor": "Bio-Logic SAS",
-              "settings": null
-            },
-            {
-              "name": "three-electrode beaker cells",
-              "instrument_vendor": "EC-frontier Co., Ltd",
-              "settings": null
+          },
+          {
+            "step_number": 2,
+            "action": "electrodeposition",
+            "description": "Constant potential (chronoamperometry) electrodeposition experiments in the Li, Li-Ca single-cation and dual-cation electrolytes.",
+            "materials": [
+              {
+                "name": "Cu foil [vendor: Takeuchi Metal Foil and Powder Co., Ltd.]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "Li metal [vendor: Honjo Metal Co., Ltd.]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "potentiostat",
+                "instrument_vendor": "Bio-Logic SAS",
+                "settings": null
+              },
+              {
+                "name": "three-electrode beaker cells",
+                "instrument_vendor": "EC-frontier Co., Ltd",
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "high purity argon",
+              "stirring": null,
+              "stirring_speed": null
             }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "high purity argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          },
+          {
+            "step_number": 3,
+            "action": "wash",
+            "description": "Electrodeposits were washed by dropping tetrahydrofuran (99.5%, FUJIFILM Wako Pure Chemical Corporation) and subsequently dried in argon atmosphere.",
+            "materials": [
+              {
+                "name": "tetrahydrofuran (THF) [vendor: FUJIFILM Wako Pure Chemical Corporation] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null
+            }
           }
-        },
-        {
-          "step_number": 3,
-          "action": "wash",
-          "description": "Electrodeposits were washed by dropping tetrahydrofuran (99.5%, FUJIFILM Wako Pure Chemical Corporation) and subsequently dried in argon atmosphere.",
-          "materials": [
-            {
-              "vendor": "FUJIFILM Wako Pure Chemical Corporation",
-              "name": "tetrahydrofuran (THF)",
-              "amount": null,
-              "unit": null,
-              "purity": "99.5%"
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+        ],
+        "equipment": [
+          {
+            "name": "Gloveboxes",
+            "instrument_vendor": "Miwa Mfg Co.; UNICO Ltd",
+            "settings": "high-purity Ar atmosphere"
+          },
+          {
+            "name": "Three-electrode beaker cell VM2A",
+            "instrument_vendor": "EC-frontier Co.",
+            "settings": "1 cm2"
+          },
+          {
+            "name": "Potentiostat",
+            "instrument_vendor": "Bio-Logic SAS",
+            "settings": "0.5 V"
+          },
+          {
+            "name": "Field Emission Scanning Electron Microscope (FE-SEM)",
+            "instrument_vendor": "JEOL Ltd.",
+            "settings": null
+          },
+          {
+            "name": "X-ray diffractometer",
+            "instrument_vendor": "Rigaku Corporation",
+            "settings": null
+          },
+          {
+            "name": "Soft X-ray emission spectroscopy (SXES)",
+            "instrument_vendor": "JEOL Ltd.",
+            "settings": null
+          },
+          {
+            "name": "Inductively coupled plasma optical emission spectroscopy (ICP-OES)",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "Raman spectrometer",
+            "instrument_vendor": "JASCO corporation",
+            "settings": null
           }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "Gloveboxes",
-          "instrument_vendor": "Miwa Mfg Co.; UNICO Ltd",
-          "settings": "high-purity Ar atmosphere"
-        },
-        {
-          "name": "Three-electrode beaker cell VM2A",
-          "instrument_vendor": "EC-frontier Co.",
-          "settings": "1 cm2"
-        },
-        {
-          "name": "Potentiostat",
-          "instrument_vendor": "Bio-Logic SAS",
-          "settings": "0.5 V"
-        },
-        {
-          "name": "Field Emission Scanning Electron Microscope (FE-SEM)",
-          "instrument_vendor": "JEOL Ltd.",
-          "settings": null
-        },
-        {
-          "name": "X-ray diffractometer",
-          "instrument_vendor": "Rigaku Corporation",
-          "settings": null
-        },
-        {
-          "name": "Soft X-ray emission spectroscopy (SXES)",
-          "instrument_vendor": "JEOL Ltd.",
-          "settings": null
-        },
-        {
-          "name": "Inductively coupled plasma optical emission spectroscopy (ICP-OES)",
-          "instrument_vendor": null,
-          "settings": null
-        },
-        {
-          "name": "Raman spectrometer",
-          "instrument_vendor": "JASCO corporation",
-          "settings": null
-        }
-      ],
-      "notes": null
-    },
-    "evaluation": {
-      "reasoning": "The extracted ontology captures the core synthesis steps and materials effectively. The structural completeness is good, covering most aspects of the synthesis. Material extraction is generally accurate, although some quantities are missing. Process steps are well-organized and logically sequenced. Equipment extraction is comprehensive, and conditions are adequately captured. Semantic accuracy is maintained, and the format compliance is high. However, there are opportunities to improve the completeness of material quantities and units, as well as to include specific equipment settings.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis, including materials, steps, equipment, and conditions. Some finer details, such as specific settings for instruments, could be added for improved completeness.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material extraction is accurate in terms of names and vendors. However, some quantities and units are missing for certain materials, which reduces the overall score.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are well-organized and logically sequenced, with clear actions described for each step. The flow of the synthesis is easy to follow.",
-        "equipment_extraction_score": 4.5,
-        "equipment_extraction_reasoning": "Equipment extraction is comprehensive, including names and vendors. Adding specific settings used during the synthesis would further improve the score.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The main synthesis conditions, such as atmosphere and electrodeposition potential, are captured. However, temperature and duration are missing, which affects the score.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The semantic accuracy is high, with the scientific meaning of the synthesis steps and materials well-preserved in the structured format.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements, ensuring high format compliance.",
-        "overall_score": 4.4,
-        "overall_reasoning": "The ontology extraction is of good quality, with high scores in format compliance, semantic accuracy, and process steps. Areas for improvement include adding missing material quantities and units, as well as specific equipment settings and synthesis durations."
+        ],
+        "notes": null
       },
-      "confidence_level": "medium",
-      "missing_information": [
-        "Quantities and units for some materials (e.g., G3 solvent)",
-        "Specific settings for equipment (e.g., potentiostat settings)",
-        "Temperature and duration of synthesis steps"
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Include quantities and units for all materials used in the synthesis.",
-        "Add specific settings for each piece of equipment used.",
-        "Specify the temperature and duration for each synthesis step, if available in the source text."
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "Single-cation Li only, missing CaTFSA2 entirely. ",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "Missing CaTFSA2",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Extracted single-cation control experiment instead of dual-cation Li-Ca system. Paper's innovation is the Ca additive.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Extracted single-cation control experiment instead of dual-cation Li-Ca system. Paper's innovation is the Ca additive.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.0,
+              "overall_reasoning": "Good extraction of a single-cation Li system but human recipe is dual-cation Li-Ca. Missing CaTFSA2 is the main gap."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "CaTFSA2 as starting material and in electrolyte prep step"
+            ],
+            "extraction_errors": [
+              "Extracted single-cation Li system instead of dual-cation Li-Ca"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Dual-cation Li-Ca correctly includes CaTFSA2. 3  Missing Cu foil and Li metal from starting materials.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Cu foil only in step 2 materials. ",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": " missing electrode materials from starting materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Cu foil and Li metal in starting materials"
+            ],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Single-cation Li only, CaTFSA2 only mentioned in notes. 5 steps with separate dry step (good granularity). All electrode materials (Cu foil, Li metal) captured with vendors. ",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "CaTFSA2 missing from starting materials. 'unit: solvent' for G3 is non-standard.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "Single-cation Li extraction. CaTFSA2 only in notes. Paper's focus is dual-cation.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Minor: G3 unit='solvent', Cu foil unit='20 μm thickness'.",
+              "overall_score": 4.0,
+              "overall_reasoning": "Good structure with 5 steps and all electrode materials. But missing CaTFSA2 from structured data, only in notes"
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "CaTFSA2 as starting material"
+            ],
+            "extraction_errors": [
+              "Extracted single-cation Li system; CaTFSA2 only in notes"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Dual-cation Li-Ca, CaTFSA2 correctly included. Only 2 steps, missing wash/dry. Cu foil and Li metal in step 2 but not in starting materials. -0.5V in notes only. Clean but sparse.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "LiTFSA, CaTFSA2, G3 correct. Cu foil and Li metal in step but not starting materials. Missing THF.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "mi->electrodeposit. Missing wash/dry step (explicitly described in paper). Too simplified.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "-0.5V in notes only, not in conditions.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Correctly captures dual-cation system. CIP mechanism noted. Good context.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.0,
+              "overall_reasoning": "Correct dual-cation focus with CaTFSA2. Too sparse, only 2 steps, missing wash/dry and electrode materials in starting materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Wash/dry step",
+              "Cu foil and Li metal in starting materials",
+              "THF"
+            ],
+            "extraction_errors": [
+              "Missing wash/dry step described in paper"
+            ],
+            "improvement_suggestions": []
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Na metal electrodeposits",
+      "human_recipe": {
+        "target_compound": "Na metal electrodeposits",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "electrochemical deposition",
+        "starting_materials": [
+          {
+            "name": "NaTFSA",
+            "vendor": null,
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": null
+          },
+          {
+            "name": "CaTFSA2",
+            "vendor": null,
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": null
+          },
+          {
+            "name": "G3",
+            "vendor": "Tokyo Chemical Industry Co., Ltd.",
+            "amount": 1.0,
+            "unit": "L",
+            "purity": ">99.0%"
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "prepare",
+            "description": "Prepare the Na-Ca electrolyte by mixing NaTFSA and CaTFSA2 salts in G3 solvent.",
+            "materials": [
+              {
+                "name": "NaTFSA (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "CaTFSA2 (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "G3 (1.0 L) [vendor: Tokyo Chemical Industry Co., Ltd.] [purity: >99.0%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "electrodeposition",
+            "description": "Conduct constant potential electrodeposition experiments in the Na-Ca dual-cation electrolytes using a three-electrode beaker cell.",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "potentiostat",
+                "instrument_vendor": "Bio-Logic SAS",
+                "settings": null
+              },
+              {
+                "name": "three-electrode beaker cell",
+                "instrument_vendor": "EC-frontier Co., Ltd",
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "electrodeposition",
+            "description": "Set the electrodeposition potential to -0.5 V vs. Na.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "electrodeposition",
+            "description": "Stop the electrodeposition when the areal capacity reaches 5 mAh cm-2.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "wash",
+            "description": "Wash the electrodeposits by dropping tetrahydrofuran and subsequently dry in argon atmosphere.",
+            "materials": [
+              {
+                "name": "tetrahydrofuran [vendor: FUJIFILM Wako Pure Chemical Corporation] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "gloveboxes",
+            "instrument_vendor": "Miwa Mfg Co., Ltd. and UNICO Ltd.",
+            "settings": "high purity argon atmosphere"
+          },
+          {
+            "name": "Field Emission Scanning Electron Microscope",
+            "instrument_vendor": "JEOL Ltd.",
+            "settings": null
+          },
+          {
+            "name": "X-ray diffractometer",
+            "instrument_vendor": "Rigaku Corporation",
+            "settings": null
+          },
+          {
+            "name": "spectrometers",
+            "instrument_vendor": "JEOL Ltd.",
+            "settings": null
+          },
+          {
+            "name": "Raman spectrometer",
+            "instrument_vendor": "JASCO corporation",
+            "settings": null
+          }
+        ],
+        "notes": "The electrolytes were prepared in gloveboxes filled with high purity argon atmosphere. Cu foil was used as the working electrode. Na metal was used for the reference electrode and the counter electrode."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "Single-cation Na only, missing CaTFSA2 entirely. Human recipe is dual-cation Na-Ca. 4 steps. Good equipment and vendors but fundamentally wrong electrolyte system.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 3.5,
+              "material_extraction_reasoning": "CaTFSA2 missing entirely",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "Potentiostat, beaker cell, glovebox, FE-SEM all correct with vendors and models.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "Extracted single-cation control experiment. Human recipe is dual-cation Na-Ca. ",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 3.5,
+              "overall_reasoning": "Clean single-cation Na extraction but synthesis in paper is dual-cation Na-Ca. Missing CaTFSA2 is critical."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "CaTFSA2 as starting material and in electrolyte prep"
+            ],
+            "extraction_errors": [
+              "Extracted single-cation Na instead of dual-cation Na-Ca"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Dual-cation Na-Ca, CaTFSA2 correctly included. 4 steps. Voltage -0.5V placed in pressure field (schema error).",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Cu foil/Na metal in steps only, not starting materials.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "-0.5V placed in pressure field.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "Voltage in pressure field.",
+              "overall_score": 4.5,
+              "overall_reasoning": "Good dual-cation extraction. Main issue: voltage in pressure field."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Cu foil/Na metal in starting materials"
+            ],
+            "extraction_errors": [
+              "Voltage (-0.5V) placed in pressure field"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Most complete extraction. 6 starting materials, 5 steps, CaTFSA2 included. All vendors and purities captured.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Minor: Cu foil thickness in unit field, G3 unit='solvent'.",
+              "overall_score": 5.0,
+              "overall_reasoning": "Best extraction. Dual-cation, all materials, 5 steps. Minor schema quirks."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Dual-cation Na-Ca, CaTFSA2 included. Only 2 steps, missing wash/dry. Wrong target_compound_type ('energy & sustainability').",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Missing THF.",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "Missing wash/dry step.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "Wrong compound type ('energy & sustainability' instead of 'metals & alloys').",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "Wrong target_compound_type.",
+              "overall_score": 3.5,
+              "overall_reasoning": "Dual-cation but too sparse (2 steps), wrong compound type, missing wash/dry."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Wash/dry step",
+              "THF"
+            ],
+            "extraction_errors": [
+              "Wrong target_compound_type",
+              "Missing wash/dry step"
+            ],
+            "improvement_suggestions": []
+          }
+        }
       ]
     }
-  },
-  {
-    "material": "Na metal electrodeposits",
-    "synthesis": {
-      "target_compound": "Na metal electrodeposits",
-      "target_compound_type": "metals & alloys",
-      "synthesis_method": "electrochemical deposition",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "NaTFSA",
-          "amount": 0.5,
-          "unit": "mol",
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "CaTFSA2",
-          "amount": 0.5,
-          "unit": "mol",
-          "purity": null
-        },
-        {
-          "vendor": "Tokyo Chemical Industry Co., Ltd.",
-          "name": "G3",
-          "amount": 1.0,
-          "unit": "L",
-          "purity": ">99.0%"
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "prepare",
-          "description": "Prepare the Na-Ca electrolyte by mixing NaTFSA and CaTFSA2 salts in G3 solvent.",
-          "materials": [
-            {
-              "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-              "name": "NaTFSA",
-              "amount": 0.5,
-              "unit": "mol",
-              "purity": "99.5%"
-            },
-            {
-              "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-              "name": "CaTFSA2",
-              "amount": 0.5,
-              "unit": "mol",
-              "purity": "99.5%"
-            },
-            {
-              "vendor": "Tokyo Chemical Industry Co., Ltd.",
-              "name": "G3",
-              "amount": 1.0,
-              "unit": "L",
-              "purity": ">99.0%"
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 2,
-          "action": "electrodeposition",
-          "description": "Conduct constant potential electrodeposition experiments in the Na-Ca dual-cation electrolytes using a three-electrode beaker cell.",
-          "materials": [],
-          "equipment": [
-            {
-              "name": "potentiostat",
-              "instrument_vendor": "Bio-Logic SAS",
-              "settings": null
-            },
-            {
-              "name": "three-electrode beaker cell",
-              "instrument_vendor": "EC-frontier Co., Ltd",
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "electrodeposition",
-          "description": "Set the electrodeposition potential to -0.5 V vs. Na.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 4,
-          "action": "electrodeposition",
-          "description": "Stop the electrodeposition when the areal capacity reaches 5 mAh cm-2.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 5,
-          "action": "wash",
-          "description": "Wash the electrodeposits by dropping tetrahydrofuran and subsequently dry in argon atmosphere.",
-          "materials": [
-            {
-              "vendor": "FUJIFILM Wako Pure Chemical Corporation",
-              "name": "tetrahydrofuran",
-              "amount": null,
-              "unit": null,
-              "purity": "99.5%"
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "argon",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "gloveboxes",
-          "instrument_vendor": "Miwa Mfg Co., Ltd. and UNICO Ltd.",
-          "settings": "high purity argon atmosphere"
-        },
-        {
-          "name": "Field Emission Scanning Electron Microscope",
-          "instrument_vendor": "JEOL Ltd.",
-          "settings": null
-        },
-        {
-          "name": "X-ray diffractometer",
-          "instrument_vendor": "Rigaku Corporation",
-          "settings": null
-        },
-        {
-          "name": "spectrometers",
-          "instrument_vendor": "JEOL Ltd.",
-          "settings": null
-        },
-        {
-          "name": "Raman spectrometer",
-          "instrument_vendor": "JASCO corporation",
-          "settings": null
-        }
-      ],
-      "notes": "The electrolytes were prepared in gloveboxes filled with high purity argon atmosphere. Cu foil was used as the working electrode. Na metal was used for the reference electrode and the counter electrode."
-    },
-    "evaluation": {
-      "reasoning": "The extracted ontology captures the key aspects of the Na metal electrodeposition synthesis, including materials, steps, equipment, and conditions. The use of dual-cation electrolytes (NaTFSA and CaTFSA2) to achieve dendrite-free morphology is well-represented. The steps are logically sequenced, and the equipment is adequately identified. However, there are some areas for improvement, particularly in specifying more detailed conditions and linking the equipment to specific steps more explicitly. The semantic accuracy is generally good, but some nuances of the original text could be better preserved. Overall, the extraction is reasonably complete and accurate, but with potential for enhancement.",
-      "scores": {
-        "structural_completeness_score": 4.5,
-        "structural_completeness_reasoning": "The ontology covers most of the essential elements: materials, steps, equipment, and conditions. However, some details are missing, such as the specific type of Cu foil used as the working electrode and more precise settings for the electrochemical experiments. The relationships between equipment and steps could be more explicit.",
-        "material_extraction_score": 5.0,
-        "material_extraction_reasoning": "Material extraction is generally accurate, with correct names, amounts, and units. The purity of the starting materials is also captured. However, the vendor information for all materials could be more consistently included, and the role of each material in the process could be more clearly defined.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are logically organized and generally accurate. The actions are correctly classified. However, the descriptions could be more detailed, and the connection between each step and the overall goal could be strengthened. For example, specifying the purpose of the washing step more explicitly.",
-        "equipment_extraction_score": 4.5,
-        "equipment_extraction_reasoning": "Equipment extraction is reasonably complete, with the identification of key instruments like the potentiostat, SEM, and XRD. However, the settings for these instruments are not specified, and the link between specific equipment and process steps could be more explicit. For example, indicating which equipment is used for morphology observation.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Conditions extraction is one of the weaker areas. While the electrodeposition potential and atmosphere are captured, other important conditions like temperature, pressure, and stirring are missing. The duration of the electrodeposition is only specified indirectly through the areal capacity. More precise numerical values and units are needed for a complete representation of the synthesis conditions.",
-        "semantic_accuracy_score": 4.0,
-        "semantic_accuracy_reasoning": "The semantic accuracy is generally good, with the preservation of the scientific meaning of the synthesis procedure. However, some nuances of the original text could be better captured. For example, the significance of using a dual-cation electrolyte system could be more explicitly stated.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted, and the structure is valid.",
-        "overall_score": 4.0,
-        "overall_reasoning": "The ontology extraction is reasonably complete and accurate, capturing the key aspects of the Na metal electrodeposition synthesis. The process steps are logically sequenced, and the equipment is adequately identified. However, there are areas for improvement, particularly in specifying more detailed conditions, linking the equipment to specific steps more explicitly, and including vendor information for all materials. The semantic accuracy is generally good, but some nuances of the original text could be better preserved."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Temperature of the electrodeposition process.",
-        "Pressure of the electrodeposition process.",
-        "Stirring conditions during the electrodeposition process.",
-        "Specific type of Cu foil used as the working electrode.",
-        "Settings for the Field Emission Scanning Electron Microscope, X-ray diffractometer, and spectrometers."
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Specify more detailed conditions, including temperature, pressure, and stirring, with appropriate numerical values and units.",
-        "Link the equipment to specific process steps more explicitly, indicating which equipment is used for each step.",
-        "Include vendor information for all materials consistently.",
-        "Provide more detailed descriptions of the process steps, clarifying the purpose of each step and its connection to the overall goal.",
-        "Capture more nuances of the original text, such as the significance of using a dual-cation electrolyte system.",
-        "Include the type of Cu foil used as the working electrode."
-      ]
-    }
-  }
-]
+  ]
+}

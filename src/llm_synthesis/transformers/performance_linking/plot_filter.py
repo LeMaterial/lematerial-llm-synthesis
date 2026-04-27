@@ -1,4 +1,4 @@
-"""Plot filter for determining which plots are relevant for performance linking."""
+"""Plot filter for which plots are relevant for performance linking."""
 
 import logging
 from typing import NamedTuple
@@ -36,7 +36,7 @@ class PlotFilter:
         """Initialize the filter.
 
         Args:
-            config: PlotFilterConfig instance. If None, uses default catalysis config.
+            config: PlotFilterConfig. If None, uses default catalysis config.
         """
         self.config = config or PlotFilterConfig()
 
@@ -58,7 +58,9 @@ class PlotFilter:
 
         # Check x-axis
         if self.config.filter_x_axis:
-            if not self.config.is_relevant_x_axis(plot.x_axis_label, plot.x_axis_unit):
+            if not self.config.is_relevant_x_axis(
+                plot.x_axis_label, plot.x_axis_unit
+            ):
                 return FilterResult(
                     is_relevant=False,
                     skip_reason="not_relevant_x",
@@ -115,7 +117,8 @@ class PlotFilter:
                         f"  Skipping plot {idx} '{plot.title or 'N/A'}' "
                         f"(reason: {result.skip_reason}, "
                         f"x-axis: '{plot.x_axis_label}' [{plot.x_axis_unit}], "
-                        f"y-axis: '{plot.y_left_axis_label}' [{plot.y_left_axis_unit}])"
+                        f"y-axis: '{plot.y_left_axis_label}' "
+                        f"[{plot.y_left_axis_unit}])"
                     )
 
         return relevant_plots, skip_counts

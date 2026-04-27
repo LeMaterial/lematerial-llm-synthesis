@@ -1,317 +1,426 @@
-[
-  {
-    "material": "MoSe2",
-    "synthesis": {
-      "target_compound": "MoSe2",
-      "target_compound_type": "two-dimensional materials",
-      "synthesis_method": "molecular beam epitaxy (MBE)",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "sapphire substrate",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Selenium",
-          "amount": null,
-          "unit": null,
-          "purity": "99.9999%"
-        },
-        {
-          "vendor": null,
-          "name": "Molybdenum",
-          "amount": null,
-          "unit": null,
-          "purity": "99.995%"
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "heat",
-          "description": null,
-          "materials": [
-            {
-              "vendor": null,
-              "name": "sapphire substrate",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+{
+  "schema_version": "multi_llm_v1",
+  "paper_id": "2502.03121",
+  "paper_url": "http://arxiv.org/pdf/2502.03121v1",
+  "extractor_order": [
+    "claude-sonnet-4.6",
+    "gemini-3-flash",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2"
+  ],
+  "materials": [
+    {
+      "material_name": "MoSe2",
+      "human_recipe": {
+        "target_compound": "MoSe2",
+        "target_compound_type": null,
+        "synthesis_method": "molecular beam epitaxy (MBE)",
+        "starting_materials": [
+          {
+            "name": "sapphire substrate",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "Selenium",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": "99.9999%"
+          },
+          {
+            "name": "Molybdenum",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": "99.995%"
           }
-        },
-        {
-          "step_number": 2,
-          "action": "deposition",
-          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "Selenium",
-              "amount": 0.7,
-              "unit": "nm/h",
-              "purity": "99.9999%"
-            },
-            {
-              "vendor": null,
-              "name": "Molybdenum",
-              "amount": 0.7,
-              "unit": "nm/h",
-              "purity": "99.995%"
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "heat",
+            "description": null,
+            "materials": [
+              {
+                "name": "sapphire substrate",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 700.0,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
             }
-          ],
-          "conditions": {
-            "temperature": 300.0,
-            "temp_unit": "C",
-            "duration": 20,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          },
+          {
+            "step_number": 2,
+            "action": "deposition",
+            "description": "Growth of MoSe2 is performed at 300◦C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
+            "materials": [
+              {
+                "name": "Selenium (0.7 nm/h) [purity: 99.9999%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "Molybdenum (0.7 nm/h) [purity: 99.995%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 300.0,
+              "duration": 20.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "anneal",
+            "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700◦C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
+            "materials": [
+              {
+                "name": "MoSe2",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 700.0,
+              "duration": 1.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "deposition",
+            "description": "Growth of MoSe2 is performed at 300◦C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
+            "materials": [
+              {
+                "name": "Selenium (0.7 nm/h) [purity: 99.9999%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "Molybdenum (0.7 nm/h) [purity: 99.995%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 300.0,
+              "duration": 20.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "anneal",
+            "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700◦C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
+            "materials": [
+              {
+                "name": "MoSe2",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 700.0,
+              "duration": 1.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 6,
+            "action": "deposition",
+            "description": "Growth of MoSe2 is performed at 300◦C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
+            "materials": [
+              {
+                "name": "Selenium (0.7 nm/h) [purity: 99.9999%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "Molybdenum (0.7 nm/h) [purity: 99.995%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 300.0,
+              "duration": 20.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 7,
+            "action": "anneal",
+            "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700◦C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
+            "materials": [
+              {
+                "name": "MoSe2",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 700.0,
+              "duration": 1.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ultra-high vacuum",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 8,
+            "action": "polish",
+            "description": "after the growth, the samples are manually polished using silk in the environment of ethylene glycol for improving the surface quality.",
+            "materials": [
+              {
+                "name": "ethylene glycol",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "silk",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
           }
-        },
-        {
-          "step_number": 3,
-          "action": "anneal",
-          "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700\u25e6C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "MoSe2",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": 1.0,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+        ],
+        "equipment": [
+          {
+            "name": "molecular beam epitaxy (MBE) chamber",
+            "instrument_vendor": "SVT Associates",
+            "settings": null
+          },
+          {
+            "name": "Reflection High Energy Electron Diffraction (RHEED)",
+            "instrument_vendor": null,
+            "settings": null
           }
-        },
-        {
-          "step_number": 4,
-          "action": "deposition",
-          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "Selenium",
-              "amount": 0.7,
-              "unit": "nm/h",
-              "purity": "99.9999%"
-            },
-            {
-              "vendor": null,
-              "name": "Molybdenum",
-              "amount": 0.7,
-              "unit": "nm/h",
-              "purity": "99.995%"
-            }
-          ],
-          "conditions": {
-            "temperature": 300.0,
-            "temp_unit": "C",
-            "duration": 20,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 5,
-          "action": "anneal",
-          "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700\u25e6C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "MoSe2",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": 1.0,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 6,
-          "action": "deposition",
-          "description": "Growth of MoSe2 is performed at 300\u25e6C with a very small growth rate, about 1 monolayer (0.7 nm) per hour, optimized previously for the production of high optical-quality MoSe2 monolayers.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "Selenium",
-              "amount": 0.7,
-              "unit": "nm/h",
-              "purity": "99.9999%"
-            },
-            {
-              "vendor": null,
-              "name": "Molybdenum",
-              "amount": 0.7,
-              "unit": "nm/h",
-              "purity": "99.995%"
-            }
-          ],
-          "conditions": {
-            "temperature": 300.0,
-            "temp_unit": "C",
-            "duration": 20,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 7,
-          "action": "anneal",
-          "description": "Every 20 h (14 nm of MoSe2) the sample is additionally annealed at 700\u25e6C for 1 h to avoid the vertical growth the main challenge in the epitaxy of MoSe2 layers and to keep its surface flat.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "MoSe2",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": 1.0,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "ultra-high vacuum",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 8,
-          "action": "polish",
-          "description": "after the growth, the samples are manually polished using silk in the environment of ethylene glycol for improving the surface quality.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "ethylene glycol",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [
-            {
-              "name": "silk",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "molecular beam epitaxy (MBE) chamber",
-          "instrument_vendor": "SVT Associates",
-          "settings": null
-        },
-        {
-          "name": "Reflection High Energy Electron Diffraction (RHEED)",
-          "instrument_vendor": null,
-          "settings": null
-        }
-      ],
-      "notes": "The total thickness of MoSe2 layer is 42 nm."
-    },
-    "evaluation": {
-      "reasoning": "The extracted ontology captures the MBE synthesis of MoSe2. The structural completeness is good, covering materials, steps, equipment, and conditions. Material extraction is generally accurate. Process steps are well-organized but certain repetitions of steps and conditions were missed, which reduces the score. Equipment extraction is mostly adequate, identifying key instruments. Conditions extraction is overall accurate, but some parameters from previous steps are missing. Semantic accuracy is maintained and the scientific meaning perserved, although the logic behind thickness and method duration/repetition (non-trivial) was missed. Format compliance is satisfactory, adhering to the schema. Overall, the extraction is of good quality, with some areas for improvement.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology includes materials, steps, equipment, and most conditions. However, some details are missing (e.g. silk) or were just mentioned once (e.g. ultra-high vacuum).",
-        "material_extraction_score": 4.5,
-        "material_extraction_reasoning": "Material names are accurately extracted, and purities are noted where available. Specific material amounts were stated by the authors only indirectly with non-trivial units (nm/h instead of absolute mass or volume), which made the condition extraction hard for the LLM.",
-        "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are clearly described, including heating, deposition, annealing, and polishing. The sequencing was logical but did not include repetitions, which was non-trivially reported by referring to the thickness and the duration. The descriptions are adequate, and the actions are correctly classified.",
-        "equipment_extraction_score": 4.5,
-        "equipment_extraction_reasoning": "The key equipment, such as the MBE chamber and RHEED, are identified, along with the vendor for the MBE chamber. As a minor issue, the silk was missed in the polishing step.",
-        "conditions_extraction_score": 4.5,
-        "conditions_extraction_reasoning": "Temperature and duration are accurately extracted for the heating and annealing steps. The atmosphere is noted for the initial heating step only. Pressure values and stirring details are missing, but were not mentioned in the paper either.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extracted ontology overall preserves the scientific meaning of the synthesis procedure, except for the missed repetition in steps. The relationships between materials, steps, and conditions are properly represented.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted ontology fully adheres to the GeneralSynthesisOntology schema and data type requirements. The structure is well-organized, and the data types are appropriate.",
-        "overall_score": 4.4,
-        "overall_reasoning": "The extraction is of good quality, accurately capturing the key aspects of the MoSe2 synthesis via MBE. The structural completeness, material extraction, process steps, equipment, and conditions are generally well-represented. Semantic accuracy is maintained, and format compliance is satisfactory. Areas for improvement include adding specific quantities for starting materials and including additional equipment settings."
+        ],
+        "notes": "The total thickness of MoSe2 layer is 42 nm."
       },
-      "confidence_level": "high",
-      "missing_information": [
-        "Conditions of subsequent steps (e.g. ultra-high vacuum).",
-        "Repetition of similar steps with similar conditions (crucial).",
-        "Polishing details (use of silk)."
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Keep conditions for similar methods unless they are explicitly changed.",
-        "More reasoning on conditions and sequential logic, focus on correlations (e.g. thickness and duration) to preserve semantic accuracy.",
-        "In general, add all details to the conditions, if available and specified in the text."
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "All key MBE steps, materials with purities, equipment captured. 'heat' for growth and 'mix' for polishing are wrong. 20h deposition duration and atmosphere missing from growth step.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "'mix' for polishing is wrong.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "20h deposition duration and atmosphere missing from growth step.",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "'heat' for growth step and 'mix' for polishing are both semantically wrong.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.0,
+              "overall_reasoning": "20h deposition duration and atmosphere missing. 'heat' for growth and 'mix' for polish are wrong action verbs."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "'mix' action for polishing step",
+              "'heat' action for growth/deposition step",
+              "Missing 20h deposition duration and atmosphere in growth step"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Good extraction. Correct temperatures and purities. 20h deposition duration missing; atmosphere missing from growth and anneal steps. Step 4 null conditions.",
+            "scores": {
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "Step 4 conditions is null object instead of populated schema object.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "20h deposition duration missing; atmosphere missing from growth and anneal steps.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "'add' for growth is minor.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Conditions partly missing: 20h duration and atmosphere in growth and anneal steps."
+            },
+            "confidence_level": 4,
+            "missing_information": [],
+            "extraction_errors": [
+              "Missing 20h deposition duration",
+              "Atmosphere missing from growth and anneal steps"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Good extraction with comprehensive notes. Ethylene glycol in starting materials is debatable. Step 4 (continue growth) redundant with step 2.  ",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Ethylene glycol in starting materials is debatable.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Step 4 redundant with step 2. 'mix' for polishing wrong.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": " ",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "20h deposition duration missing from growth steps.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "'mix' for polishing minor.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": " ",
+              "overall_score": 4.5,
+              "overall_reasoning": "Good extraction with best notes. Minor redundancy, action verb issues, and missing 20h duration."
+            },
+            "confidence_level": 4,
+            "missing_information": [],
+            "extraction_errors": [
+              "Redundant step 4",
+              "'mix' action for polishing",
+              "Missing 20h deposition duration"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Solid extraction. Correct temperatures, purities, equipment. 'dry' for polishing is misleading, describes mechanical polishing. 'heat' for growth less precise than 'deposition'.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "'dry' for polishing misleading.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "20h deposition duration missing from growth step.",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "'dry' for polishing and 'heat' for growth are semantically wrong.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Good extraction. 'dry' action for polishing is the main weakness."
+            },
+            "confidence_level": 4,
+            "missing_information": [],
+            "extraction_errors": [
+              "'dry' action for polishing step, should be 'polish'",
+              "Missing 20h deposition duration"
+            ],
+            "improvement_suggestions": []
+          }
+        }
       ]
     }
-  }
-]
+  ]
+}

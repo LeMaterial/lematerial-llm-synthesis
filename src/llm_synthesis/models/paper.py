@@ -17,6 +17,7 @@ class Paper(BaseModel):
     id: str
     publication_text: str
     si_text: str = ""
+    pdf_url: str | None = None
 
 
 class PaperWithSynthesisOntologies(Paper):

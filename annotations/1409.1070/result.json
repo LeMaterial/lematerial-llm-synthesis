@@ -1,32 +1,300 @@
 [
   {
-    "material": "Cu3Nb2O8",
-    "synthesis": {
-      "target_compound": "Cu3Nb2O8",
-      "target_compound_type": "ceramics & glasses",
-      "synthesis_method": "solid-state",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "CuO",
-          "amount": null,
-          "unit": null,
-          "purity": null
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "Cu3Nb2O8",
+        "synthesis": {
+          "target_compound": "Cu3Nb2O8",
+          "target_compound_type": "functional materials & catalysts",
+          "synthesis_method": "solid-state",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "CuO",
+              "amount": null,
+              "unit": "stoichiometric",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Nb2O5",
+              "amount": null,
+              "unit": "stoichiometric",
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "CuO and Nb2O5 were taken in stoichiometric ratio and ground together.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "CuO",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Nb2O5",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "The ground mixture was pelletized by applying hydrostatic pressure of 5 tonnes.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "hydraulic press",
+                  "instrument_vendor": null,
+                  "settings": "5 tonnes hydrostatic pressure"
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": 5.0,
+                "pressure_unit": "tonnes",
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "First sintering was done at 800°C for 36 hours.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "furnace",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 800.0,
+                "temp_unit": "C",
+                "duration": 36.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "air",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "heat",
+              "description": "Second sintering was done at 950°C for 40 hours.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "furnace",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 950.0,
+                "temp_unit": "C",
+                "duration": 40.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "air",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "hydraulic press",
+              "instrument_vendor": null,
+              "settings": "5 tonnes hydrostatic pressure"
+            },
+            {
+              "name": "furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "notes": "Polycrystalline samples were prepared by solid state reaction method. Starting materials CuO and Nb2O5 were taken in stoichiometric ratio. Phase purity was confirmed by powder X-ray diffraction (PANalytical X'Pert PRO) and neutron diffraction with Rietveld refinement (GSAS and FULLPROF software). The triclinic structure (space group P-1) was confirmed with cell parameters a=5.1859 Å, b=5.4871 Å, c=6.0178 Å, α=72.542°, β=83.498°, γ=65.701° from neutron diffraction data."
         },
-        {
-          "vendor": null,
-          "name": "Nb2O5",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "mix",
-          "description": "The starting materials CuO and Nb2O5 were taken in stoichiometric ratio and ground.",
-          "materials": [
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology for Cu3Nb2O8 synthesis captures the core solid-state reaction procedure described in the source text. The source describes a straightforward solid-state synthesis: stoichiometric mixing of CuO and Nb2O5, grinding, pelletizing under 5 tonnes hydrostatic pressure, first sintering at 800°C for 36 hours, and second sintering at 950°C for 40 hours. The extraction correctly identifies all four main process steps, the two starting materials, the synthesis method, and the key conditions. The characterization equipment (PANalytical X'Pert PRO, GSAS, FULLPROF, QUADTech LCR meter, Keithley electrometer, CFM system, PPMS, MPMS) is appropriately relegated to notes rather than synthesis equipment, since these are characterization instruments rather than synthesis equipment. The atmosphere for sintering steps is inferred as 'air' — the source does not explicitly state the atmosphere, which is a minor hallucination. Overall, the extraction is highly faithful to the source text with only minor issues.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all four key synthesis steps (mixing/grinding, pelletizing, first sintering, second sintering), both starting materials, the synthesis method (solid-state), and the target compound. The notes section appropriately captures characterization details including XRD, neutron diffraction, cell parameters, and space group. The only minor gap is that the grinding step and pelletizing step could be considered separate actions (grinding is listed as part of step 1 mixing, which is reasonable), and the notes capture characterization context well. No significant synthesis information from the source is missing.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Both starting materials (CuO and Nb2O5) are correctly identified. The source states they were taken in 'stoichiometric ratio' but provides no specific masses or molar amounts, so null amounts are correct. The unit field is set to 'stoichiometric' in the starting_materials list, which is a reasonable representation of the qualitative description. Purity and vendor information are correctly left null as the source does not specify these. The representation is accurate and faithful to the source.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "All four process steps are correctly identified and sequenced: (1) mixing/grinding, (2) pelletizing under pressure, (3) first sintering at 800°C/36h, (4) second sintering at 950°C/40h. The action classifications are appropriate — 'mix' for grinding/mixing and 'heat' for sintering steps. The pelletizing step correctly uses 'mix' as the closest available action (though 'press' or 'pelletize' might be more precise). Temperature and duration values for both sintering steps are accurately extracted. The step descriptions are clear and faithful to the source text.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The synthesis equipment is correctly identified: a hydraulic press (for pelletizing) and a furnace (for sintering). Vendor information is correctly left null as the source does not specify furnace vendor or model. The hydraulic press settings (5 tonnes hydrostatic pressure) are correctly captured. Characterization equipment (PANalytical X'Pert PRO, QUADTech LCR meter, Keithley 6514 electrometer, CFM system, Cryogenic PPMS, Quantum Design MPMS) is appropriately placed in notes rather than the synthesis equipment list, which is correct since these are characterization instruments. The equipment extraction for synthesis purposes is complete.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Temperature and duration conditions for both sintering steps are accurately extracted (800°C/36h and 950°C/40h). The hydrostatic pressure of 5 tonnes for pelletizing is correctly captured. The atmosphere is listed as 'air' for both sintering steps — this is a minor issue since the source text does not explicitly state the sintering atmosphere. This represents a small inference/hallucination. However, air atmosphere is a reasonable default assumption for solid-state synthesis of oxide materials, and the impact is minimal. All other conditions (stirring, pH, etc.) are correctly left null.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The solid-state reaction method is correctly identified. The sequential nature of the two sintering steps (first at lower temperature, then at higher temperature) is correctly represented. The notes section accurately captures the phase confirmation by XRD and neutron diffraction, the triclinic structure (space group P-1), and the cell parameters from neutron diffraction data. The target compound type as 'functional materials & catalysts' is reasonable for a multiferroic material, though 'functional materials' alone might be more precise. No significant semantic distortions are present.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Each step contains step_number, action, description, materials, equipment, and conditions fields. The conditions object contains all expected sub-fields. Data types are appropriate (floats for numerical values, strings for text, nulls for absent information). The unit field in starting_materials is set to 'stoichiometric' rather than null, which is a minor schema deviation (unit should typically be a measurement unit like 'g' or 'mol', not a qualitative descriptor), but this is a reasonable choice given the source text.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of Cu3Nb2O8 synthesis ontology is of high quality overall. The solid-state synthesis procedure is completely and accurately captured across four well-sequenced steps. Starting materials are correctly identified with appropriate null values for unspecified quantities. Equipment is properly identified for synthesis steps, with characterization instruments appropriately placed in notes. Conditions are accurately extracted with the minor caveat that 'air' atmosphere for sintering is inferred rather than explicitly stated in the source. The notes section effectively captures important characterization context including structural parameters. The main minor issues are: (1) atmosphere inference for sintering steps not explicitly stated in source, (2) 'stoichiometric' used as a unit value rather than null, and (3) the action 'mix' for pelletizing could be more precisely labeled. These are minor issues that do not significantly detract from the overall quality of the extraction. The extraction demonstrates strong fidelity to the source text and appropriate handling of absent information."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The grinding step is combined with the mixing step (step 1) rather than being listed as a separate action — the source mentions 'it was ground' as a distinct action before pelletizing.",
+                "The poling field of ~200 kV/m used for electrical measurements is not captured, though this is characterization rather than synthesis information."
+              ],
+              "extraction_errors": [
+                "Atmosphere listed as 'air' for sintering steps (steps 3 and 4) — the source text does not explicitly state the sintering atmosphere, making this an inference/hallucination.",
+                "Unit field in starting_materials set to 'stoichiometric' rather than null — 'stoichiometric' is a qualitative descriptor, not a measurement unit, which is a minor schema deviation."
+              ],
+              "improvement_suggestions": [
+                "Separate the grinding action from the mixing step to more accurately represent the sequential nature of the procedure (mix → grind → pelletize).",
+                "Set atmosphere to null for sintering steps rather than inferring 'air', since the source text does not explicitly state the sintering atmosphere.",
+                "Set the unit field to null in starting_materials rather than 'stoichiometric', and instead capture the stoichiometric ratio information in the description field.",
+                "Consider adding a more specific action type for the pelletizing step (e.g., 'press' or 'pelletize') if the schema supports it, rather than using 'mix'."
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system has performed a high-quality extraction of the solid-state synthesis of Cu3Nb2O8. It correctly identified the starting materials, the mechanical processing (grinding and pelletizing), and the two-stage sintering process. The numerical values for temperature, time, and pressure were accurately captured. The system also correctly inferred 'air' as the atmosphere, which is standard for this type of oxide synthesis in a furnace unless otherwise specified. The characterization details were appropriately relegated to the notes section.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All synthesis components mentioned in the 'Experiments' section (materials, grinding, pelletizing, and two sintering steps) were fully captured.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Starting materials (CuO, Nb2O5) were correctly identified. The 'stoichiometric' ratio was noted. No specific masses were in the text, so null values are correct.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of grinding, pelletizing, first sintering, and second sintering is logically ordered and matches the source text exactly.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The system correctly identified the hydraulic press and furnace. While 'hydraulic press' is an inference from 'hydrostatic pressure', it is a technically sound one in this context.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperatures (800C, 950C), durations (36h, 40h), and pressure (5 tonnes) were extracted with perfect accuracy.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the solid-state reaction protocol without hallucinating details or misinterpreting the sintering stages.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output adheres strictly to the JSON schema, using correct data types and nesting structures.",
+                "overall_score": 4.9,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While 'tonnes' is a unit of mass/force, in the context of pelletizing, it refers to the load applied to the die; the extraction is correct, but mapping this to a standard pressure unit (like MPa) if the die diameter were known would be a future enhancement."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology successfully captures the core synthesis procedure for Cu3Nb2O8 from the source text. The solid-state reaction method, starting materials (CuO and Nb2O5), stoichiometric ratio, and all four processing steps (grinding, pelletizing at 5 tonnes, first sintering at 800°C/36h, second sintering at 950°C/40h) are accurately represented. The extraction correctly focuses on synthesis equipment (hydraulic press, furnace) while appropriately excluding characterization instruments. However, the atmosphere field is populated as 'air' when the source text does not explicitly state this condition—this represents a reasonable scientific inference but technically goes beyond the stated information. Overall, the extraction demonstrates strong fidelity to the source material with proper schema compliance and logical step sequencing.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound (Cu3Nb2O8), synthesis method (solid-state), starting materials (CuO, Nb2O5 with stoichiometric ratio), four processing steps in logical sequence, relevant equipment (hydraulic press, furnace), and synthesis conditions (temperature, duration, pressure). The structure appropriately excludes characterization equipment as these are not synthesis-related. Only minor deduction for the atmosphere inference not present in source.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials CuO and Nb2O5 are correctly identified with accurate chemical formulas. The stoichiometric ratio is properly captured in the unit field. No quantities were stated in the source text, and the extraction correctly leaves amount fields null rather than hallucinating values. Purity information is appropriately null as it was not specified. Material names and classifications are semantically accurate.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Four steps are correctly sequenced: (1) mixing/grinding, (2) pelletizing under pressure, (3) first sintering, (4) second sintering. Action classifications (mix, heat) are appropriate. Temperature and duration values are accurately extracted (800°C/36h and 950°C/40h). The pressure value of 5 tonnes is correctly captured in step 2. Step descriptions faithfully represent the source text without significant omissions or misinterpretations.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Synthesis-relevant equipment (hydraulic press with 5 tonnes setting, furnace) is correctly identified. The extraction appropriately excludes characterization instruments (PANalytical X'Pert PRO, FCD, QUADTech 1920, Keithley 6514, PPMS, MPMS) as these are not part of the synthesis procedure. Vendor information is correctly null as not specified for synthesis equipment. Minor deduction because equipment settings could be more detailed for the furnace.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Temperature values (800°C, 950°C), durations (36h, 40h), and pressure (5 tonnes) are accurately extracted with correct units. However, the atmosphere field is populated as 'air' in steps 3 and 4 when the source text does not explicitly state the sintering atmosphere. While this is a reasonable scientific assumption for solid-state reactions, it represents an inference beyond the stated information. All other condition fields are appropriately null when not specified.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning and intent of the synthesis procedure is faithfully preserved. The solid-state reaction method is correctly classified. Step sequencing matches the experimental workflow. The only semantic concern is the atmosphere inference ('air'), which while scientifically reasonable, is not explicitly stated. All numerical values, units, and chemical nomenclature are accurate. The extraction maintains proper context without misrepresenting the synthesis approach.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully adheres to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types (numbers for temperatures/durations/pressure, strings for names/descriptions, arrays for materials/steps/equipment). Null values are correctly used for unspecified information. The structure is well-organized with proper nesting of step objects, condition objects, and material objects. No schema violations detected.",
+                "overall_score": 4.4,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures the Cu3Nb2O8 synthesis procedure from the source text. Strengths include: correct identification of all starting materials, accurate extraction of all numerical parameters (temperatures, times, pressure), proper step sequencing, appropriate equipment identification, and excellent schema compliance. The primary weakness is the inference of 'air' atmosphere for sintering steps when not explicitly stated in the source—while scientifically reasonable, extraction systems should avoid such inferences to maintain strict fidelity to source text. Overall scores range from 4.0-5.0 across criteria, reflecting strong performance with minor room for improvement in avoiding unstated inferences. The extraction would enable reliable reproduction of the synthesis procedure."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "Atmosphere field populated as 'air' in steps 3 and 4, but the source text does not explicitly specify the sintering atmosphere"
+              ],
+              "improvement_suggestions": [
+                "Leave atmosphere field null when not explicitly stated in source text rather than inferring 'air'",
+                "Consider adding a 'notes' field to capture that phase purity was confirmed by XRD and neutron diffraction",
+                "Could include pelletization step number clarification (whether grinding and pelletizing are separate or combined steps)"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text describes a solid-state synthesis of polycrystalline Cu3Nb2O8. The extracted ontology successfully captures the core synthesis procedure: the starting materials (CuO and Nb2O5), the key process steps (mixing/grinding, pelletizing, and two sintering stages), and the primary conditions (temperatures, durations, and pelletizing pressure). The extraction correctly identifies the synthesis method as 'solid-state' and does not hallucinate missing information. However, there are several minor inaccuracies and omissions. The 'unit' for starting materials is incorrectly set to 'stoichiometric' instead of being null, as the text states they were taken 'in stoichiometric ratio' but does not provide specific amounts or units. The extraction also incorrectly assumes an 'air' atmosphere for the sintering steps, which is not explicitly stated in the source text. The equipment list is correctly minimal, and the notes section effectively captures additional characterization details from the paper.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major structural components of the synthesis from the source text: the target compound, synthesis method, starting materials, a logical sequence of process steps, and the primary equipment used. It also includes relevant notes on characterization. The only minor omission is the lack of explicit mention of a 'grinding' equipment (like a mortar and pestle) in the equipment list, though the action is described in a step. Overall, the structure is highly complete.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "The starting material names (CuO, Nb2O5) are correctly identified. However, there is a significant error: the 'unit' field for both materials is set to 'stoichiometric'. This is incorrect according to the ontology schema; the 'unit' field should be for physical measurement units (e.g., 'g', 'mol'). Since the source text does not provide specific amounts or units, both the 'amount' and 'unit' fields should be null. The 'purity' field is correctly null. This misassignment reduces the score.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The four process steps are correctly sequenced and their actions ('mix', 'mix', 'heat', 'heat') are generally appropriate. The descriptions accurately paraphrase the source text. A minor improvement would be to distinguish the first 'mix' step as 'grind' for greater precision, as grinding is the primary action described. The linkage of materials and equipment to each step is logically done.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The explicitly mentioned equipment ('hydraulic press' for pelletizing and 'furnace' for sintering) are correctly extracted. No vendor information is provided in the source, so those fields are correctly null. The settings for the hydraulic press ('5 tonnes hydrostatic pressure') are accurately captured. The extraction correctly does not hallucinate equipment for grinding/mixing, as none is specified. The score is high, reflecting accurate and conservative extraction.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Key conditions are accurately extracted: pelletizing pressure (5 tonnes), first sintering (800 C, 36 h), and second sintering (950 C, 40 h). The time units are correctly standardized to 'h'. However, the extraction incorrectly assumes an 'air' atmosphere for the sintering steps. The source text does not specify the sintering atmosphere; therefore, this field should be null. This is a case of hallucination, not a correct inference, and is penalized. Other unspecified conditions (e.g., pressure for sintering, stirring) are correctly left null.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning and intent of the synthesis procedure. The relationship between steps, the purpose of pelletizing, and the sequential heat treatments are clear. The notes section correctly summarizes the characterization results without conflating them with the synthesis steps. The main semantic inaccuracy is the assumption of an 'air' atmosphere, which introduces an unsupported detail. The mislabeling of the material 'unit' also slightly impacts semantic precision.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The overall JSON structure adheres to the expected schema. Data types are correct. The primary compliance issue is the incorrect use of the 'unit' field for starting materials ('stoichiometric' is not a valid unit of measurement like 'g' or 'mol'). According to the schema and the principle of not hallucinating, this field should be null. The 'action' and 'conditions' objects are otherwise well-formed.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction demonstrates a strong understanding of the synthesis procedure, capturing the essential workflow, materials, and conditions with high structural completeness and semantic fidelity. Its strengths are accurate equipment identification, correct sequencing of steps, and conservative handling of unspecified details. The two main weaknesses are: 1) incorrectly populating the starting material 'unit' field with 'stoichiometric' instead of leaving it null, and 2) hallucinating an 'air' atmosphere for the sintering steps. These errors, while not catastrophic, prevent a perfect score. The overall quality is very good, suitable for database ingestion with minor corrections."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "Starting material 'unit' field incorrectly set to 'stoichiometric' for both CuO and Nb2O5. Should be null as no specific amount or unit is provided.",
+                "Sintering conditions incorrectly specify 'atmosphere': 'air'. The source text does not state the atmosphere, so this field should be null."
+              ],
+              "improvement_suggestions": [
+                "For starting materials, if the source only states 'stoichiometric ratio', leave the 'amount' and 'unit' fields as null. Do not use 'stoichiometric' as a unit.",
+                "Only specify conditions like 'atmosphere' if explicitly mentioned in the source text. Avoid inferring common conditions like 'air' unless stated.",
+                "Consider using a more specific action like 'grind' for the first step where grinding is the described activity, though 'mix' is acceptable."
+              ]
+            },
+            "overall_score": 4.3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "Cu3Nb2O8",
+        "synthesis": {
+          "target_compound": "Cu3Nb2O8",
+          "target_compound_type": "functional materials & catalysts",
+          "synthesis_method": "solid-state",
+          "starting_materials": [
             {
               "vendor": null,
               "name": "CuO",
@@ -42,105 +310,782 @@
               "purity": null
             }
           ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "The starting materials CuO and Nb2O5 were taken in stoichiometric ratio and ground.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "CuO",
+                  "amount": null,
+                  "unit": "stoichiometric",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Nb2O5",
+                  "amount": null,
+                  "unit": "stoichiometric",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "The mixture was pelletized by applying hydrostatic pressure.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": 5.0,
+                "pressure_unit": "tonnes",
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "calcine",
+              "description": "First sintering was performed.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 800.0,
+                "temp_unit": "C",
+                "duration": 36.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "calcine",
+              "description": "Second sintering was performed.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 950.0,
+                "temp_unit": "C",
+                "duration": 40.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "notes": "The sample was prepared as a polycrystalline pellet for characterization including XRD, ND, and dielectric measurements."
         },
-        {
-          "step_number": 2,
-          "action": "pelletize",
-          "description": "The mixture was pelletized by applying hydrostatic pressure of 5 tonnes.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core solid-state synthesis procedure for Cu3Nb2O8 from the source text. The source describes a straightforward solid-state reaction: mixing CuO and Nb2O5 in stoichiometric ratio, grinding, pelletizing under 5 tonnes hydrostatic pressure, first sintering at 800°C for 36 hours, and second sintering at 950°C for 40 hours. The extraction correctly identifies all four main process steps, the two starting materials, the synthesis method, and the key conditions. However, there are some notable gaps: the grinding step is merged with the mixing step rather than being a separate action, the pelletizing step uses 'add' as the action (which is semantically incorrect — 'press' or 'pelletize' would be more appropriate), the equipment list is entirely empty despite several instruments being explicitly named in the source (PANalytical X'Pert PRO, GSAS software, FCD diffractometer, QUADTech 1920 LCR meter, Keithley 6514 electrometer, cryogen-free magnet system, Cryogenic PPMS, Quantum Design MPMS), and the 'unit' field for stoichiometric amounts is misused (placing 'stoichiometric' in the unit field rather than as a note). The notes field provides useful context. Overall, the synthesis procedure is well-captured but equipment extraction is a significant weakness.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the four main synthesis steps (mixing/grinding, pelletizing, first sintering, second sintering), the two starting materials, the synthesis method (solid-state), and the target compound. However, the equipment list is completely empty despite the source explicitly naming multiple instruments (PANalytical X'Pert PRO diffractometer, GSAS software, FULLPROF program, FCD diffractometer, QUADTech 1920 LCR meter, Keithley 6514 electrometer, cryogen-free magnet system, Cryogenic PPMS, Quantum Design MPMS). The grinding action is subsumed into the mixing step rather than being a distinct step. The silver paste coating step for capacitance measurements and the poling procedure (200 kV/m electric field) are also absent, though these are characterization rather than synthesis steps. The core synthesis procedure is structurally represented, but the missing equipment section is a notable gap.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Both starting materials (CuO and Nb2O5) are correctly identified. The source does not specify amounts or purities for these materials, so null values are appropriate and correct. The use of 'stoichiometric' in the unit field is technically a schema misuse — stoichiometric ratio is a description of the relationship between materials, not a unit of measurement. It would be better placed in a notes field or description. The target compound Cu3Nb2O8 is correctly identified. No vendor information is provided in the source, so null vendor fields are correct. Overall, material extraction is good with only a minor schema misuse for the unit field.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The four main synthesis steps are captured in correct sequence: mixing/grinding (step 1), pelletizing (step 2), first sintering at 800°C/36h (step 3), second sintering at 950°C/40h (step 4). The sintering steps correctly use 'calcine' as the action and have accurate temperature and duration values. However, the pelletizing step uses 'add' as the action, which is semantically incorrect — 'press', 'pelletize', or 'compact' would be more appropriate. The grinding is merged with mixing in step 1 rather than being a separate 'grind' action. The conditions for step 1 are null (correct, as no conditions are specified for mixing/grinding). The descriptions are accurate and informative. The step for applying silver paste for electrode contacts is absent, but this is arguably a characterization preparation step rather than a synthesis step.",
+                "equipment_extraction_score": 1.0,
+                "equipment_extraction_reasoning": "The equipment list in the extracted ontology is completely empty. The source text explicitly names multiple pieces of equipment: PANalytical X'Pert PRO (for XRD), GSAS software (for Rietveld refinement), Focussing Crystal Diffractometer (FCD) at NFNBR/Dhruva reactor (for neutron diffraction), FULLPROF program (for ND data analysis), QUADTech 1920 Precision LCR meter (for capacitance measurements), Keithley 6514 electrometer (for pyroelectric current), cryogen-free magnet (CFM) system (for dielectric and pyroelectric measurements), Cryogenic PPMS (for heat capacity), and Quantum Design MPMS (for magnetic measurements). While some of these are characterization instruments rather than synthesis equipment, the complete absence of any equipment entry is a significant failure. At minimum, the pelletizing press should have been captured.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The synthesis conditions are accurately extracted. The pelletizing pressure of 5 tonnes is correctly captured. The first sintering at 800°C for 36 hours and the second sintering at 950°C for 40 hours are all correctly recorded with appropriate units (°C and hours). The source does not specify atmosphere for the sintering steps, so null atmosphere values are correct. No stirring or pH conditions are relevant here. The temperature units are correctly recorded as 'C' (Celsius). The pressure unit 'tonnes' is technically a force/mass unit rather than a pressure unit, but this reflects the source text's own terminology ('hydrostatic pressure of 5 tonnes'). The conditions extraction is nearly complete and accurate for the synthesis steps described.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The semantic content of the synthesis procedure is largely preserved. The solid-state reaction method is correctly identified. The sequential nature of the two sintering steps is maintained. The description of the pelletizing step correctly notes hydrostatic pressure application. The notes field accurately summarizes the polycrystalline nature of the sample and the characterization methods used. The main semantic issue is the use of 'add' for the pelletizing action, which misrepresents the physical process of pressing/compacting powder into a pellet. The 'stoichiometric' value in the unit field is a minor semantic misplacement. The target compound type 'functional materials & catalysts' is a reasonable classification for a multiferroic material, though 'functional materials' alone would be more precise. Overall, the scientific meaning is well-preserved.",
+                "format_compliance_score": 3.5,
+                "format_compliance_reasoning": "The JSON structure generally adheres to the GeneralSynthesisOntology schema. The target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes fields are all present. Conditions objects within steps follow the expected schema with temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, and ph fields. However, there are format compliance issues: (1) 'stoichiometric' is placed in the 'unit' field of starting materials, which should be a measurement unit (e.g., 'g', 'mol'), not a description of ratio; (2) the equipment list at the top level is empty when it should contain at least some of the explicitly named instruments; (3) the equipment lists within individual steps are also empty. The step conditions for step 1 are null rather than an empty conditions object, which may or may not be schema-compliant depending on the schema definition. The action 'add' for pelletizing is a valid enum value but semantically incorrect for this operation.",
+                "overall_score": 3.4,
+                "overall_reasoning": "The extraction of Cu3Nb2O8 synthesis ontology demonstrates good coverage of the core synthesis procedure with accurate conditions for the sintering steps. The starting materials are correctly identified with appropriate null values for unspecified quantities. The four-step synthesis sequence is logically organized and the key numerical parameters (800°C/36h, 950°C/40h, 5 tonnes pressure) are accurately captured. The primary weakness is the complete absence of equipment extraction — the source text names at least 9 distinct instruments/software tools, none of which appear in the equipment list. The pelletizing action is misclassified as 'add' rather than a more appropriate term like 'press' or 'pelletize'. The use of 'stoichiometric' as a unit value is a minor schema compliance issue. The synthesis method classification as 'solid-state' is correct. Overall, the extraction is adequate for the synthesis procedure itself but falls short in equipment identification, which is a significant component of the ontology schema. The overall score reflects good synthesis step and conditions extraction offset by poor equipment extraction."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "All equipment items explicitly named in the source text are absent from the equipment list",
+                "Grinding as a separate step (the source mentions 'ground and pelletized' as distinct operations)",
+                "Neutron diffraction wavelength of 1.48 Å used during characterization",
+                "Silver paste electrode preparation step (though this is characterization preparation)",
+                "Poling electric field of 200 kV/m used during pyroelectric measurements",
+                "Vanadium can used as sample holder for neutron diffraction"
+              ],
+              "extraction_errors": [
+                "Equipment list is completely empty despite multiple instruments explicitly named in the source (PANalytical X'Pert PRO, QUADTech 1920 LCR meter, Keithley 6514 electrometer, Cryogenic PPMS, Quantum Design MPMS, cryogen-free magnet system, FCD diffractometer)",
+                "Pelletizing step uses action 'add' which is semantically incorrect; should be 'press', 'pelletize', or 'compact'",
+                "'stoichiometric' is placed in the 'unit' field of starting materials, which is a schema misuse — unit should be a measurement unit (g, mol, etc.)"
+              ],
+              "improvement_suggestions": [
+                "Populate the equipment list with all explicitly named instruments: PANalytical X'Pert PRO (XRD), QUADTech 1920 Precision LCR meter, Keithley 6514 electrometer, Cryogenic PPMS, Quantum Design MPMS, FCD diffractometer",
+                "Change the action for step 2 (pelletizing) from 'add' to 'press' or 'pelletize' to accurately reflect the physical operation",
+                "Separate the grinding operation from the mixing step to create a distinct 'grind' step",
+                "Move 'stoichiometric' from the unit field to a description or notes field; leave unit as null since no specific mass/molar amounts are given",
+                "Add equipment entries within individual steps where applicable (e.g., pellet press for step 2)",
+                "Consider adding GSAS and FULLPROF as software tools in the equipment or notes section"
+              ]
+            },
+            "overall_score": 3.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system performed very well in capturing the core synthesis protocol for Cu3Nb2O8. It correctly identified the starting materials, the stoichiometric ratio, and the specific two-step sintering process with accurate temperatures and durations. The extraction of the pelletization pressure (5 tonnes) was also accurate. The system correctly left fields null where information was absent in the source text (e.g., vendors, purities, specific equipment names like the type of furnace).",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All synthesis components mentioned in the 'Experiments' section (mixing, pelletizing, and two sintering steps) were captured. No significant synthesis information was omitted.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Starting materials (CuO, Nb2O5) were correctly identified. The use of 'stoichiometric' in the unit field for materials is a reasonable interpretation of the text's description of the ratio.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of grinding, pelletizing, and two-stage sintering is logically ordered and matches the experimental narrative.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text does not explicitly name the equipment used for synthesis (e.g., specific furnace models or grinders), only for characterization. The extractor correctly left the synthesis equipment list empty rather than hallucinating.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperatures (800C, 950C), durations (36h, 40h), and the pelletization pressure (5 tonnes) were extracted with perfect numerical and unit accuracy.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully represents the solid-state reaction method described in the paper without misinterpreting the scientific context.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output adheres strictly to the provided JSON schema, using correct data types and maintaining the required structure.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction successfully captures the core synthesis information for Cu3Nb2O8 from the source text. The starting materials (CuO, Nb2O5), synthesis method (solid-state reaction), and key process parameters (temperatures, durations, pressure) are accurately represented. The extraction correctly leaves fields null when information is not present in the source (e.g., specific amounts, purities, atmosphere conditions). However, there are opportunities for improvement in action classification precision and generic equipment identification. The extraction demonstrates good fidelity to the source without hallucinating information not present in the original text.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components present in the source: target compound, synthesis method, starting materials, process steps, and conditions. The structure follows a logical workflow from materials through processing steps. The only gap is the equipment list which is empty - while the source doesn't name specific vendors, generic equipment types (press, furnace) could have been noted. Overall, the extraction comprehensively represents the synthesis information available in the source text.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials (CuO, Nb2O5) are correctly identified with appropriate null values for amounts, units, and purities since the source only specifies 'stoichiometric ratio' without exact quantities. The extraction correctly represents this limitation. Chemical names are accurate and properly formatted. No hallucination of quantities or purities that aren't in the source. The stoichiometric unit notation in step materials is a reasonable representation of the source information.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "Four synthesis steps are captured in logical sequence: mixing/grinding, pelletizing, first sintering, second sintering. The step ordering correctly reflects the source workflow. However, action classifications could be more precise - 'mix' instead of 'grind', 'add' instead of 'press/pelletize'. The calcine actions for sintering steps are appropriate. Step descriptions accurately summarize the source text. The two-stage sintering process is correctly represented as separate steps.",
+                "equipment_extraction_score": 3.5,
+                "equipment_extraction_reasoning": "The equipment list is empty in the extraction. While the source text does not specify vendor names or models for synthesis equipment, it does describe equipment usage (hydrostatic pressure application for pelletizing, high-temperature sintering). Generic equipment types (hydraulic press, furnace/muffle furnace) could have been extracted even without specific vendor information. The extraction correctly avoids hallucinating vendor details but could be more complete by noting equipment types. Characterization equipment is extensively described in the source but appropriately excluded as it's not synthesis equipment.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Temperature values (800°C, 950°C), durations (36h, 40h), and pressure (5 tonnes) are accurately extracted with correct units. The extraction correctly leaves atmosphere, stirring, and pH as null since these are not specified in the source. Temperature units are properly converted to 'C' from the source's '°C'. Time units are correctly standardized to 'h' from 'hour'. The pressure unit 'tonnes' is preserved as stated. All numerical values match the source exactly.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the synthesis procedure without misinterpretation. The solid-state reaction method is correctly identified. The two-stage sintering process is accurately represented. The stoichiometric nature of starting materials is maintained. No information is distorted or misrepresented. Minor semantic improvements could include more precise action verbs that better match the described operations. The notes field appropriately captures the polycrystalline nature and characterization context.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres to the GeneralSynthesisOntology schema with all required fields present. Data types are correct (numbers for temperatures/durations/pressure, strings for names/descriptions, arrays for materials/steps). Null values are properly used for unspecified information. The structure is valid and parseable. Field naming follows the expected ontology conventions. The extraction demonstrates good schema compliance with minor opportunities for enhanced detail in equipment and action classification fields.",
+                "overall_score": 4.2,
+                "overall_reasoning": "This extraction demonstrates strong performance in capturing the synthesis information for Cu3Nb2O8 from the source text. Key strengths include accurate material identification, correct condition extraction with proper units, logical step sequencing, and appropriate use of null values for unspecified information. The extraction avoids hallucination and maintains fidelity to the source. Primary areas for improvement include: (1) more precise action classifications that match the described operations, (2) inclusion of generic equipment types even without vendor information, and (3) enhanced detail in step descriptions. Overall, this is a high-quality extraction that would support reproducibility and data integration efforts, scoring 4.2/5.0 on average across all criteria."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Generic synthesis equipment types (hydraulic press, furnace/muffle furnace) not captured",
+                "Sample form (pellet) could be noted in materials or notes section",
+                "Cooling method between sintering steps not specified (though also not in source)"
+              ],
+              "extraction_errors": [
+                "Step 1 action 'mix' could be more precisely classified as 'grind' based on source text",
+                "Step 2 action 'add' is imprecise for pelletizing under pressure - 'press' or 'pelletize' would be more accurate",
+                "Equipment list is empty when generic synthesis equipment (hydraulic press, furnace) could be noted even without vendor information"
+              ],
+              "improvement_suggestions": [
+                "Use more specific action classifications that match the described operations (grind, press, pelletize, sinter)",
+                "Include generic equipment types for synthesis steps even when vendor/model information is not available",
+                "Consider adding a note about the polycrystalline nature of the final product in the target compound type",
+                "Could capture the two-step sintering process more explicitly as a single multi-stage calcination step"
+              ]
+            },
+            "overall_score": 4.2
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a concise but complete solid-state synthesis procedure for polycrystalline Cu3Nb2O8. The extracted ontology correctly identifies the synthesis method, starting materials, and the sequence of key process steps (mixing, pelletizing, and two sintering steps). It accurately captures the specified conditions: pressure for pelletizing (5 tonnes) and temperatures/durations for sintering (800°C/36h, 950°C/40h). The extraction correctly leaves fields null where information is absent from the source (e.g., vendor, purity, specific equipment models). The main shortcomings are minor: the 'unit' for starting materials is incorrectly set to 'stoichiometric' (should be null as no unit is given for a ratio), and the pelletizing step's 'action' classification could be more precise. Overall, the extraction demonstrates high semantic fidelity and structural completeness relative to the information provided.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components present in the source: target compound, method, starting materials, and a logical sequence of four process steps. It includes the key conditions (pressure, temperatures, times). No significant synthesis information from the 'Experiments' section is omitted. A perfect score is not given because the equipment list is empty, which is technically correct as no synthesis-specific equipment (e.g., furnace name, grinder) is named, but a generic 'furnace' could be inferred for the sintering steps. The structure is well-organized and complete.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting material names (CuO, Nb2O5) are correctly identified. The extraction correctly leaves amount, unit, purity, and vendor as null, as these are not specified. However, a minor error is present: in step 1, the 'unit' for both materials is incorrectly set to the string 'stoichiometric'. The source states 'taken in stoichiometric ratio', which is a qualitative description, not a unit. The correct extraction should have 'unit': null. This is a semantic inaccuracy that slightly impacts the score.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The four-step sequence is correctly extracted and ordered. Actions are mostly accurate: 'mix' and 'calcine' are appropriate. The description for step 2 ('pelletized by applying hydrostatic pressure') is good, but the assigned action 'add' is incorrect. 'Add' implies introducing a new material. A more precise action would be 'pelletize', 'press', or 'shape'. The descriptions faithfully paraphrase the source text. The logical flow from mixing to pelletizing to sintering is perfectly captured.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text does not explicitly name any equipment used in the synthesis procedure (e.g., type of grinder, press, or furnace model). The extraction correctly returns an empty list for 'equipment'. This is the proper behavior—not hallucinating unspecified details. Therefore, the score is excellent for accuracy and adherence to the 'absence is not an error' principle.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Extraction of conditions is highly accurate. The pelletizing pressure (5.0, 'tonnes') and the two sintering temperatures and durations (800°C/36h, 950°C/40h) are correctly captured with proper units. All other condition fields (atmosphere, stirring, etc.) are correctly left null, as they are not specified. The only minor issue is the pressure unit 'tonnes'—while extracted verbatim, it is a unit of force/mass, not pressure (which would be, e.g., tonnes per square cm). However, since the source uses 'tonnes' colloquially, the extraction's fidelity is correct. A perfect score is reserved for cases where all units are standard and unambiguous.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the synthesis procedure exceptionally well. The intent of using stoichiometric ratios, the purpose of pelletizing, and the two-stage sintering are clear. The minor issues are the misclassification of the pelletizing action ('add' vs. 'press') and the incorrect assignment of 'stoichiometric' as a unit. These do not fundamentally distort the procedure but represent small semantic slips. The overall context and purpose of the synthesis are faithfully maintained.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and correctly typed (objects, arrays, numbers, strings, nulls). Nesting of materials within steps is correct. The data is well-formed and would validate against the schema. No format violations are observed.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction is of high quality, successfully transforming a paragraph of synthesis text into a structured ontology with great accuracy. Strengths include correct identification of the method, materials, and critical conditions, along with strict adherence to the principle of not hallucinating missing information (e.g., equipment, vendors). Weaknesses are minor: an incorrect action label for pelletizing and an improper assignment of 'stoichiometric' as a material unit. These are easily correctable errors. The overall score reflects a robust extraction that would be highly useful for database population or analysis, requiring only minimal refinement."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "In step 1, material 'unit' incorrectly set to 'stoichiometric' (a descriptive term) instead of null.",
+                "Step 2 action misclassified as 'add'; should be 'press' or 'pelletize' to accurately reflect the operation."
+              ],
+              "improvement_suggestions": [
+                "Refine action classification: 'pelletize' or 'press' should be a recognized action for steps involving applying pressure to form a pellet.",
+                "Improve handling of qualitative descriptions like 'stoichiometric ratio'—these should not be mapped to a material 'unit' field. Consider a separate 'ratio_description' field or leave unit null.",
+                "Consider inferring generic equipment like 'furnace' for calcination steps, though leaving it empty is currently the safer, more accurate choice."
+              ]
+            },
+            "overall_score": 4.6
           }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "Cu3Nb2O8",
+        "synthesis": {
+          "target_compound": "Cu3Nb2O8",
+          "target_compound_type": "ceramics & glasses",
+          "synthesis_method": "solid-state",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "CuO",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Nb2O5",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Starting materials taken in stoichiometric ratio, ground and pelletized by applying hydrostatic pressure of 5 tonnes.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "CuO",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Nb2O5",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "hydraulic press",
+                  "instrument_vendor": null,
+                  "settings": "5 tonnes pressure"
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "heat",
+              "description": "First sintering.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "furnace",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 800.0,
+                "temp_unit": "C",
+                "duration": 36.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "Second sintering.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "furnace",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 950.0,
+                "temp_unit": "C",
+                "duration": 40.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "hydraulic press",
+              "instrument_vendor": null,
+              "settings": "5 tonnes pressure"
+            },
+            {
+              "name": "furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "notes": "Polycrystalline samples were prepared. Stoichiometric ratio of starting materials was used."
         },
-        {
-          "step_number": 3,
-          "action": "heat",
-          "description": "First sintering was done at 800\u00b0C for 36 hour.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": 800.0,
-            "temp_unit": "C",
-            "duration": 36.0,
-            "time_unit": "hour",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "air",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for polycrystalline Cu3Nb2O8 via solid-state reaction. The source text describes a straightforward synthesis: stoichiometric mixing of CuO and Nb2O5, grinding, pelletizing under 5 tonnes hydrostatic pressure, followed by two sintering steps (800°C/36h and 950°C/40h). The extraction correctly identifies the target compound, synthesis method, starting materials, and the three main process steps. Vendor and purity information are absent from the source, so their omission is correct. The extraction does not capture characterization equipment (XRD, neutron diffraction, LCR meter, electrometer, PPMS, MPMS, CFM system), but these are characterization instruments rather than synthesis equipment, so their omission from the synthesis ontology is largely appropriate. The notes field correctly summarizes key synthesis context. Overall, the extraction is accurate, well-structured, and faithful to the source text for the synthesis portion.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all three synthesis steps (mixing/grinding/pelletizing, first sintering, second sintering), both starting materials, and the relevant equipment (hydraulic press, furnace). The target compound, synthesis method, and notes are all correctly populated. The only minor gap is that the silver paste painting step for pellet preparation (for measurements) is not included, but this is a sample preparation step for characterization rather than synthesis, so its omission is acceptable. The stoichiometric ratio is noted but specific amounts are correctly left null since the source does not provide them.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Both starting materials (CuO and Nb2O5) are correctly identified with their proper chemical names. Vendor, amount, unit, and purity fields are all null, which is correct since the source text does not specify these values — only 'stoichiometric ratio' is mentioned without absolute quantities. The target compound Cu3Nb2O8 is correctly identified. No hallucinated values are present.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The three process steps are logically sequenced and accurately described: (1) mixing, grinding, and pelletizing under 5 tonnes hydrostatic pressure; (2) first sintering at 800°C for 36 hours; (3) second sintering at 950°C for 40 hours. The action classifications ('mix' and 'heat') are appropriate. The description for step 1 correctly combines the grinding and pelletizing actions. The materials list for steps 2 and 3 is empty, which is reasonable since the intermediate product is implied. A minor improvement would be to separate grinding and pelletizing into distinct steps, but combining them is a defensible choice given the source text's presentation.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The two synthesis-relevant equipment items (hydraulic press with 5 tonnes setting, and furnace) are correctly identified. The hydraulic press settings are properly captured. Vendor information is correctly left null as not specified in the source. Characterization equipment (PANalytical X'Pert PRO, FCD neutron diffractometer, QUADTech 1920 LCR meter, Keithley 6514 electrometer, CFM system, Cryogenic PPMS, Quantum Design MPMS) is not included in the synthesis equipment list, which is appropriate for a synthesis ontology. The furnace settings (temperature/duration) are captured in the step conditions rather than equipment settings, which is the correct schema approach.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions explicitly stated in the source are accurately captured: 5 tonnes hydrostatic pressure for pelletizing (step 1), 800°C for 36 hours (step 2), and 950°C for 40 hours (step 3). Temperature units (C) and time units (h) are correctly assigned. Atmosphere, pressure (for sintering), stirring, and pH are all null, which is correct since the source does not specify these parameters for the synthesis steps. No values are misrepresented or hallucinated.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The solid-state reaction method is correctly identified. The sequential nature of the two sintering steps is maintained. The description of step 1 accurately conveys that materials were taken in stoichiometric ratio, ground, and pelletized. The notes correctly summarize that polycrystalline samples were prepared with stoichiometric ratios. The distinction between 'first sintering' and 'second sintering' (with progressively higher temperatures) is semantically accurate and reflects the typical solid-state synthesis approach for complex oxides.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Each step contains step_number, action, description, materials, equipment, and conditions sub-fields. Equipment entries have name, instrument_vendor, and settings fields. Conditions entries include all expected sub-fields (temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, ph). Data types are correct (floats for numerical values, strings for text, nulls for absent data). The overall structure is clean and well-formed.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction of the Cu3Nb2O8 synthesis ontology is of high quality. The solid-state synthesis procedure is accurately and completely captured across three well-defined steps. Starting materials are correctly identified without hallucinated quantities or purities. Synthesis conditions (temperatures, durations, pressure for pelletizing) are precisely extracted. Equipment relevant to synthesis is properly identified. The schema is correctly followed with appropriate null values for absent information. The extraction correctly focuses on synthesis steps rather than characterization procedures, maintaining appropriate scope. Minor improvements could include separating the grinding and pelletizing sub-steps, but the current representation is scientifically valid. Overall, this is a strong extraction that faithfully represents the synthesis information in the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The intermediate regrinding step between the two sintering cycles is not explicitly mentioned in the source text, so its absence is not an error."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider separating the 'mix' step into distinct 'grind' and 'pelletize' sub-steps for finer granularity.",
+                "The notes field could mention that the pellet was painted with silver paste for electrical measurements, though this is a characterization preparation step rather than synthesis.",
+                "Could add a note about the triclinic crystal structure (space group P-1) as a synthesis outcome/verification detail."
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system performed exceptionally well in capturing the synthesis of Cu3Nb2O8 from the provided text. It correctly identified the solid-state reaction method, the stoichiometric starting materials, and the specific two-step sintering process. The extraction of numerical values for temperature, duration, and pressure was accurate, and the logical flow of the synthesis steps matches the experimental description.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant synthesis components mentioned in the 'Experiments' section, including starting materials, pelletization, and both sintering stages.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The starting materials (CuO and Nb2O5) were correctly identified. The absence of specific amounts or purities is correct as they were not provided in the source text (only 'stoichiometric ratio' was mentioned).",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of grinding/pelletizing followed by two distinct sintering steps is accurately represented and logically ordered.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The hydraulic press and furnace were correctly identified. The pressure setting of 5 tonnes was appropriately captured in the equipment settings.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All numerical conditions (800°C for 36h and 950°C for 40h) were extracted with perfect accuracy and correct units.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, correctly distinguishing between the first and second sintering events.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output adheres strictly to the GeneralSynthesisOntology schema, using correct data types and field structures.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction successfully captures the synthesis information from the source text, which is relatively brief as this paper focuses primarily on characterization rather than synthesis methodology. All explicitly stated synthesis parameters (starting materials, temperatures, durations, pressure) are accurately extracted. The extraction correctly leaves fields null when information is not provided in the source (vendor, purity, atmosphere), which is appropriate behavior. The three-step process (mixing/grinding/pelletizing, first sintering, second sintering) is logically sequenced. Equipment identification is accurate though generic (furnace vs. specific furnace type). The extraction demonstrates good fidelity to the source without hallucination.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "All synthesis components explicitly stated in the source text are captured: starting materials (CuO, Nb2O5), synthesis method (solid-state), process steps (3 steps covering mixing, pelletizing, and two sintering stages), equipment (hydraulic press, furnace), and conditions (temperatures, durations, pressure). The extraction is complete relative to what the source provides. Minor deduction because the 'grinding' action could be more explicitly represented as a separate action type rather than embedded in the description.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials (CuO, Nb2O5) are correctly identified with accurate chemical formulas. The extraction appropriately leaves amount, unit, purity, and vendor as null since these are not specified in the source text. The target compound (Cu3Nb2O8) is correctly identified. No hallucination of quantities that weren't provided. The stoichiometric ratio mention is captured in notes. Minor deduction for not explicitly noting the stoichiometric relationship in the material fields themselves.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Three steps are correctly sequenced: (1) mixing/grinding/pelletizing, (2) first sintering at 800°C/36h, (3) second sintering at 950°C/40h. Action classifications (mix, heat, heat) are appropriate. Step descriptions accurately reflect the source text. The logical flow matches the experimental procedure. Minor deduction because 'grinding' could be classified as a separate 'grind' action rather than combined with 'mix' in the description.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Equipment explicitly mentioned in the synthesis section is captured: hydraulic press (with 5 tonnes pressure setting) and furnace (for sintering). The pressure setting for the hydraulic press is correctly extracted. Vendor information is appropriately null as not specified in source. The equipment list is complete for what the source provides. Deduction because 'furnace' is generic - the source doesn't specify furnace type, but the extraction could note this limitation or use more descriptive naming convention.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All numerical conditions are accurately extracted with correct values and units: 800°C for 36 hours (first sintering), 950°C for 40 hours (second sintering), 5 tonnes pressure (pelletizing). Temperature units (C), time units (h), and pressure values are consistent and accurate. Atmosphere is correctly null as not specified in source. No conditions are missing from what the source explicitly states. Perfect accuracy on all extractable condition parameters.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved. The solid-state reaction method is correctly classified. The two-stage sintering process is accurately represented. The relationship between starting materials and target compound is clear. No misinterpretation of the synthesis procedure. The notes field appropriately captures contextual information (polycrystalline samples, stoichiometric ratio). Minor deduction because the description could more explicitly distinguish between the grinding and pelletizing operations mentioned in the source.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction fully adheres to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types (numbers for temperatures/durations, strings for names/descriptions, null for unspecified values). The nested structure for steps, materials, equipment, and conditions is correctly formatted. JSON structure is valid. Field naming conventions are consistent. No schema violations detected.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures all synthesis information present in the source text. The extraction demonstrates appropriate restraint by not hallucinating information not provided in the source (vendor, purity, atmosphere, exact amounts). All numerical values (temperatures, times, pressure) are correctly extracted with proper units. The three-step process flow is logical and complete. Equipment identification is accurate though could be more specific. The main limitation is that the source text itself provides limited synthesis detail (this paper focuses on characterization), and the extraction faithfully reflects this limitation. Scores range from 4.0-5.0 across criteria, with an average of approximately 4.6, indicating excellent extraction quality. The extraction would benefit from slightly more granular action classification (separating grinding from mixing) but otherwise represents best practices in synthesis data extraction."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding 'grinding' as a distinct action in step 1, as the source explicitly states 'ground and pelletized'",
+                "Equipment names could be more specific if inferable from context (e.g., 'tube furnace' or 'muffle furnace' for sintering)",
+                "Consider capturing the 'polycrystalline' product type in the target_compound_type field more explicitly"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a concise but complete solid-state synthesis procedure for polycrystalline Cu3Nb2O8. The extracted ontology correctly identifies the synthesis method, starting materials, and the three key process steps (mixing/pelletizing, first sintering, second sintering). It accurately captures the specified temperatures, durations, and pressure. The extraction correctly leaves fields null where information is absent from the source (e.g., vendor, material amounts, purity, atmosphere). The structure is logical and adheres to the expected schema. The primary limitation is a minor semantic inaccuracy in the equipment naming for the press and a missed opportunity to note the 'solid state reaction method' as the overarching synthesis method.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major structural components present in the source: target compound, synthesis method, starting materials, process steps, equipment, and conditions. The three-step sequence is correctly identified. No major synthesis components from the text are missing. A slight deduction is made because the overarching 'solid state reaction method' is noted in the JSON but not explicitly linked as a high-level descriptor in the steps; however, the core information is present.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Perfect score. The starting materials (CuO, Nb2O5) are correctly identified. The source text explicitly states they were taken 'in stoichiometric ratio' but does not provide numerical amounts, units, or purities. The extraction correctly reflects this by setting amount, unit, and purity fields to null. This is the correct behavior—not hallucinating missing data.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The three-step sequence is accurately extracted and logically ordered. Actions ('mix', 'heat', 'heat') are appropriately classified. Descriptions are concise and faithful. The 'mix' step correctly incorporates the pelletizing action and pressure condition. A minor deduction is because the description for step 1 could be more precisely parsed into 'grind' and 'pelletize' as separate sub-actions, but the combined description is acceptable and captures the essence.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Equipment is correctly identified in principle ('hydraulic press', 'furnace'). The press setting ('5 tonnes pressure') is accurately captured. However, the source text does not name a 'hydraulic press' explicitly; it states 'applying hydrostatic pressure of 5 tonnes.' The extraction infers the equipment type, which is reasonable but a slight interpretation. The furnace vendor/model is not stated, correctly left null. No other equipment is mentioned in the synthesis procedure itself.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Excellent extraction of explicitly stated conditions. Temperatures (800°C, 950°C), durations (36 h, 40 h), and pressure (5 tonnes) are captured with correct units. All other condition fields (atmosphere, stirring, pH) are correctly left null as they are not specified in the source text. This demonstrates perfect adherence to the 'absence is not an error' principle.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is well preserved. The relationship between steps, the use of stoichiometric ratios, and the sintering conditions are accurately represented. The only minor semantic issue is the equipment naming for the press, as noted. The note about 'Polycrystalline samples were prepared' correctly captures the product form mentioned in the text.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure perfectly adheres to the expected GeneralSynthesisOntology schema. All required fields are present. Data types are correct (numbers for temperatures/durations, strings for units, null for absent values). The nesting of materials, equipment, and conditions within steps is properly implemented.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction is of high quality, demonstrating a strong understanding of the source text and the ontology schema. It successfully captures all explicit synthesis information without hallucination. Strengths include accurate condition extraction, correct handling of absent data, and good structural completeness. The main area for slight improvement is in the precision of equipment naming and potentially refining action descriptions. The overall performance is excellent, suitable for reliable data ingestion into a materials database."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "The equipment for applying pressure is inferred as 'hydraulic press'. The source text only states 'applying hydrostatic pressure of 5 tonnes.' While a reasonable inference, it is a minor interpretation beyond the explicit text."
+              ],
+              "improvement_suggestions": [
+                "For the first step, consider separating the 'grind' and 'pelletize' actions if the schema supports sub-steps, or use a compound action like 'mix_and_pelletize' for greater precision.",
+                "The equipment name for pressure application could be kept more generic (e.g., 'press') or the description field could be used to note the source text's exact phrasing ('hydrostatic pressure of 5 tonnes')."
+              ]
+            },
+            "overall_score": 4.6
           }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "Cu3Nb2O8",
+        "synthesis": {
+          "target_compound": "Cu3Nb2O8",
+          "target_compound_type": "ceramics & glasses",
+          "synthesis_method": "solid-state",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "CuO",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Nb2O5",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "The starting materials CuO and Nb2O5 were taken in stoichiometric ratio. It was ground and pelletized by applying hydrostatic pressure of 5 tonnes.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "CuO",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Nb2O5",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "pellet press",
+                  "instrument_vendor": null,
+                  "settings": "hydrostatic pressure of 5 tonnes"
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": 5.0,
+                "pressure_unit": "tonnes",
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "heat",
+              "description": "First sintering was done at 800°C for 36 hour.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "furnace",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 800.0,
+                "temp_unit": "C",
+                "duration": 36.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "Next was done at 950°C for 40 hour.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "furnace",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 950.0,
+                "temp_unit": "C",
+                "duration": 40.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "pellet press",
+              "instrument_vendor": null,
+              "settings": "hydrostatic pressure of 5 tonnes"
+            },
+            {
+              "name": "furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "notes": "Polycrystalline samples were prepared by solid state reaction method."
         },
-        {
-          "step_number": 4,
-          "action": "heat",
-          "description": "Next sintering was done at 950\u00b0C for 40 hour.",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": 950.0,
-            "temp_unit": "C",
-            "duration": 40.0,
-            "time_unit": "hour",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "air",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extraction targets Cu3Nb2O8 synthesis via solid-state reaction. The source text provides a concise but complete synthesis procedure: stoichiometric mixing of CuO and Nb2O5, grinding, pelletizing at 5 tonnes hydrostatic pressure, first sintering at 800°C for 36 hours, and second sintering at 950°C for 40 hours. The extracted ontology captures all three core synthesis steps accurately, identifies both starting materials, and records the key conditions (temperatures, durations, pressure). No quantities or purities are given in the source, so null values are appropriate. The extraction is well-structured and faithful to the source text, with only minor issues such as the absence of a grinding step as a distinct action and the characterization equipment (XRD, neutron diffraction, LCR meter, electrometer, PPMS, MPMS) not being included — though these are characterization instruments rather than synthesis equipment, so their omission is largely appropriate. Overall, the extraction is of high quality for the synthesis portion of the paper.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all three major synthesis steps (mixing/grinding/pelletizing, first sintering, second sintering), both starting materials, and the key synthesis equipment. The target compound, synthesis method, and compound type are all correctly identified. A minor gap is that the grinding action is bundled into the mixing/pelletizing step rather than being a separate step, but this is a minor organizational issue. The characterization equipment and procedures are not included, which is appropriate since the schema focuses on synthesis. No significant synthesis information from the source is missing.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Both starting materials (CuO and Nb2O5) are correctly identified with their proper chemical names. The source text does not specify amounts, units, or purities for the starting materials — only that they were taken in 'stoichiometric ratio' — so null values for amount, unit, and purity are entirely correct and should not be penalized. Vendor information is also absent from the source, so null vendor fields are appropriate. The stoichiometric ratio note is captured in the step description. The extraction is accurate and complete for what the source provides.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The three steps are logically sequenced and correctly classified: step 1 as 'mix' (covering grinding and pelletizing), step 2 as 'heat' (first sintering at 800°C/36h), and step 3 as 'heat' (second sintering at 950°C/40h). The descriptions are faithful to the source text. A minor improvement would be to separate the grinding and pelletizing into distinct steps (e.g., 'grind' and 'press/pelletize') before the sintering steps, as these are distinct physical operations. However, combining them into a single preparatory step is a reasonable simplification. All critical synthesis parameters are captured in the correct steps.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The two synthesis-relevant equipment items are correctly identified: a pellet press (for the hydrostatic pressing step) and a furnace (for both sintering steps). Vendor and model information are not provided in the source for synthesis equipment, so null values are appropriate. The characterization instruments (PANalytical X'Pert PRO, QUADTech 1920 LCR meter, Keithley 6514 electrometer, cryogen-free magnet system, Cryogenic PPMS, Quantum Design MPMS, FULLPROF, GSAS software) are not included in the synthesis equipment list, which is correct since they are characterization tools. The furnace is listed once in the equipment list even though it appears in two steps, which is acceptable. No synthesis equipment mentioned in the source is missing.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions explicitly stated in the source are accurately captured: hydrostatic pressure of 5 tonnes for pelletizing (step 1), 800°C for 36 hours for first sintering (step 2), and 950°C for 40 hours for second sintering (step 3). Temperature units (°C → 'C') and time units (hours → 'h') are correctly assigned. The pressure unit 'tonnes' is correctly recorded. Atmosphere is not specified in the source for any step, so null atmosphere values are appropriate. No conditions stated in the source are missing or misrepresented.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The solid-state reaction method is correctly identified. The sequential nature of the two sintering steps (first at lower temperature, then at higher temperature) is maintained. The description of pelletizing under hydrostatic pressure is accurately captured. The note about polycrystalline sample preparation is included. The compound type 'ceramics & glasses' is appropriate for an oxide ceramic prepared by solid-state reaction. No scientific misinterpretations or distortions are present.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity fields), steps (with step_number, action, description, materials, equipment, conditions), equipment list, and notes. Data types are correct: numeric values for temperature, duration, and pressure; string values for units and descriptions; null for absent information. The conditions object within each step contains all expected fields. The equipment objects contain name, instrument_vendor, and settings fields. The overall structure is clean and well-formed.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction of Cu3Nb2O8 synthesis information is of high quality overall. The solid-state synthesis procedure is accurately and completely captured across three well-organized steps. Both starting materials are correctly identified with appropriate null values for unspecified quantities. All synthesis conditions (temperatures, durations, pressure) are accurately recorded with correct units. Equipment is properly identified for synthesis purposes. The semantic meaning of the synthesis is faithfully preserved, and the JSON structure complies with the ontology schema. Minor improvements could include separating the grinding step from the pelletizing step for finer granularity, but this is a minor organizational preference rather than an error. The extraction correctly avoids hallucinating information not present in the source (no fabricated amounts, purities, vendors, or atmospheres). This is a strong, reliable extraction of a straightforward solid-state synthesis procedure."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Grinding as a separate step before pelletizing could be explicitly captured as a distinct 'grind' action step"
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider separating the grinding and pelletizing into two distinct steps (e.g., step 1: 'grind' with description of mixing CuO and Nb2O5 in stoichiometric ratio; step 2: 'press' with description of pelletizing under 5 tonnes hydrostatic pressure) for finer process granularity.",
+                "The stoichiometric ratio information could be captured in a structured field (e.g., molar_ratio) rather than only in the step description text.",
+                "For completeness, a regrinding step between the two sintering cycles is common in solid-state synthesis and may have been performed but not explicitly stated — this could be noted as a potential implicit step in the notes field."
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system performed exceptionally well in capturing the synthesis of Cu3Nb2O8. It correctly identified the solid-state method, the stoichiometric precursors, and the specific two-stage sintering process. The extraction of numerical values for temperature, time, and pressure was accurate, and the logical flow of the synthesis steps matches the source text perfectly. The system correctly left fields null where information was absent in the text (e.g., vendors, purities, specific atmosphere).",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All relevant synthesis components mentioned in the 'Experiments' section—starting materials, grinding/pelletizing, and the two sintering steps—were fully captured.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Precursors (CuO and Nb2O5) were correctly identified. The absence of specific amounts/purities in the extraction is correct as they were not provided in the source text beyond the term 'stoichiometric ratio'.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of mixing/pelletizing followed by two distinct heating steps is accurately represented with appropriate action classifications ('mix', 'heat').",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly inferred the use of a pellet press and furnace based on the actions described (hydrostatic pressure and sintering), which is standard practice in materials science extraction.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All numerical parameters (800°C/36h, 950°C/40h, and 5 tonnes) were extracted accurately with their respective units.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the solid-state reaction described in the paper without any hallucinations or misinterpretations.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output strictly adheres to the GeneralSynthesisOntology schema, using correct data types and field structures.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is a high-quality extraction that demonstrates a precise understanding of the experimental section. It successfully distinguishes between explicit data and information that is standardly omitted in such papers, resulting in a clean and accurate structured representation."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While 'tonnes' is a unit of mass/force, in the context of pelletizing it refers to the load applied; the extraction is correct, but future versions could potentially normalize this to pressure units (Pa) if the pellet die diameter were known, though 'tonnes' is the literal value from the text."
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the Cu3Nb2O8 synthesis procedure from the source text. All key synthesis components are identified: starting materials (CuO, Nb2O5), synthesis method (solid-state reaction), process steps (mixing/grinding/pelletizing, two sintering stages), equipment (pellet press, furnace), and conditions (temperatures, durations, pressure). The extraction correctly leaves amounts and purities as null since the source only specifies 'stoichiometric ratio' without quantitative values. Characterization equipment (XRD, neutron diffractometer, PPMS, MPMS, etc.) is appropriately excluded as these are not synthesis equipment. The step sequencing and action classifications are accurate and reflect the experimental workflow described in the paper.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "All synthesis-relevant information from the source text is captured in the extraction. The starting materials, synthesis method, three process steps, equipment, and conditions are all represented. The only minor consideration is that grinding and pelletizing are combined into one step, which is reasonable but could be separated for more granular process tracking. No synthesis information from the source is missing from the extraction.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Starting materials (CuO and Nb2O5) are correctly identified with proper chemical names. The extraction correctly leaves amount, unit, and purity as null since the source text only states 'stoichiometric ratio' without specifying quantitative values. This is correct behavior - the extractor should not hallucinate values not present in the source. The target compound Cu3Nb2O8 is accurately identified.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Three process steps are correctly identified and sequenced: (1) mixing/grinding/pelletizing, (2) first sintering at 800°C for 36 hours, (3) second sintering at 950°C for 40 hours. Action classifications (mix, heat, heat) are appropriate. The step descriptions accurately reflect the source text. One minor improvement would be separating grinding from pelletizing as distinct actions, but the current grouping is scientifically reasonable.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "Synthesis equipment is correctly identified: pellet press (with pressure setting of 5 tonnes) and furnace (for sintering). The extraction appropriately excludes characterization equipment (XRD, neutron diffractometer, LCR meter, electrometer, PPMS, MPMS) since these are not part of the synthesis procedure. Vendor information is correctly left null as no vendors are specified for synthesis equipment in the source. The equipment list accurately reflects what is needed for the synthesis workflow.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions are accurately extracted: pressure (5 tonnes) for pelletizing, first sintering temperature (800°C) and duration (36 hours), second sintering temperature (950°C) and duration (40 hours). Temperature units (C) and time units (h) are correctly specified. The extraction correctly leaves atmosphere as null since the source does not specify the sintering atmosphere. All numerical values match the source text exactly.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The scientific meaning and intent of the synthesis procedure is faithfully preserved. The extraction correctly interprets 'solid state reaction method' as 'solid-state' synthesis method. The step descriptions maintain the context and relationships from the source text. No misinterpretations or semantic distortions are present. The classification of Cu3Nb2O8 as 'ceramics & glasses' is appropriate for a polycrystalline oxide material prepared by solid-state reaction.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON adheres to the GeneralSynthesisOntology schema structure. All required fields are present with appropriate data types (strings for names, numbers for quantities, null for unspecified values). The nested structure for steps, materials, equipment, and conditions follows the expected format. Field names are consistent and the overall organization is logical and machine-readable.",
+                "overall_score": 4.8,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures all synthesis information from the source text. The extraction demonstrates excellent understanding of what constitutes synthesis vs. characterization information, correctly including only synthesis-relevant equipment and conditions. All numerical values are accurate, null values are appropriately used where the source lacks specification, and the step sequencing reflects the actual experimental workflow. The minor areas for improvement (potentially separating grinding from pelletizing) do not detract from the overall quality. This extraction would enable reliable reproduction of the synthesis procedure and is suitable for database integration and comparative analysis."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider separating 'grinding' and 'pelletizing' into distinct steps for finer granularity",
+                "Could add a note field indicating that stoichiometric ratio was used (though amounts unspecified)",
+                "Step descriptions could be more concise while maintaining key information"
+              ]
+            },
+            "overall_score": 4.8
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text provides a concise but complete solid-state synthesis procedure for polycrystalline Cu3Nb2O8. The extracted ontology successfully captures the core synthesis information: the target compound, the solid-state method, the two starting materials (CuO and Nb2O5), the three main process steps (mixing/pelletizing, first sintering, second sintering), and the key conditions (pressure, temperatures, durations). The extraction correctly avoids hallucinating details not present in the source, such as reagent amounts, purities, or specific furnace atmospheres. The structure is logical and aligns well with the source description.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major structural components of the synthesis from the source text: the target compound, synthesis method, starting materials, process steps, equipment, and key conditions. The only minor omission is the explicit mention of 'grinding' as a separate action, though it is included in the description of step 1. The overall structure is comprehensive and well-organized.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Material extraction is accurate and complete according to the source. The two starting materials, CuO and Nb2O5, are correctly identified. The source text states they were taken 'in stoichiometric ratio' but does not provide specific masses or purities. The extraction correctly leaves the amount, unit, and purity fields as null, which is the appropriate behavior. No hallucination or misidentification occurred.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The three process steps are correctly sequenced and their actions ('mix', 'heat', 'heat') are appropriately classified. The descriptions accurately paraphrase the source. A minor point is that step 1 combines 'grinding' and 'pelletizing' into a single 'mix' action. While 'mix' is acceptable, distinguishing 'grind' as a preparatory step might add granularity. However, the logical flow and completeness are excellent.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The extraction correctly identifies the two main pieces of equipment: a 'pellet press' (with the specified pressure setting) and a 'furnace'. The source does not name specific vendors or models, so those fields are correctly null. The score is slightly reduced because the equipment list in the ontology root contains duplicates of the equipment listed within the steps, which is structurally redundant but not incorrect. The 'pellet press' setting is accurately captured.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Conditions extraction is highly accurate. All explicitly stated parameters are captured: the pelletizing pressure (5 tonnes), the first sintering temperature (800 C) and duration (36 h), and the second sintering temperature (950 C) and duration (40 h). The units are correctly parsed. Conditions not specified in the source (atmosphere, stirring, etc.) are correctly left as null, adhering to the core principle of not hallucinating.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The semantic meaning of the synthesis procedure is perfectly preserved. The relationship between steps, the purpose of pelletizing before sintering, and the sequential heating profile are all correctly represented. The scientific context of a solid-state reaction for polycrystalline ceramic synthesis is maintained. No misinterpretation of the source text is present.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and populated with correct data types (strings, numbers, arrays, nulls). The nesting of materials and equipment within steps is correct. The structure is valid and well-formed.",
+                "overall_score": 4.7,
+                "overall_reasoning": "The extraction demonstrates a high-quality, accurate capture of the solid-state synthesis procedure for Cu3Nb2O8. It excels in material and conditions extraction by correctly reporting only what is stated in the source. The process flow is logical and complete. Minor points include the combination of grinding and pelletizing into one step and redundant equipment listing, but these do not detract significantly from the overall utility and accuracy. The system successfully avoided hallucination, which is a critical strength. The overall score reflects a robust and reliable extraction."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider separating 'grinding' and 'pelletizing' into distinct sub-actions or steps for finer granularity, though the current grouping is acceptable.",
+                "The root-level 'equipment' array contains duplicates of equipment already listed within steps. While not an error, ensuring a unique list or referencing step-level equipment could improve data cleanliness."
+              ]
+            },
+            "overall_score": 4.7
           }
-        }
-      ],
-      "equipment": [],
-      "notes": null
-    },
-    "evaluation": {
-      "reasoning": "The extraction accurately captures the solid-state synthesis of Cu3Nb2O8. The starting materials, CuO and Nb2O5, are correctly identified, and the high-temperature sintering steps are well-represented with accurate temperatures and durations. The initial mixing and pelletizing steps are also included, providing a comprehensive overview of the synthesis procedure. The absence of vendor and purity information for the starting materials is acceptable, as this information was not provided in the source text. The equipment list is empty, which is correct as no specific equipment was mentioned other than generally pelletizing. The format compliance is excellent, and the semantic accuracy is maintained throughout the extraction.",
-      "scores": {
-        "structural_completeness_score": 5.0,
-        "structural_completeness_reasoning": "All key components of the synthesis (materials, mixing, pelletizing, sintering steps, and conditions) are extracted, providing a complete representation of the procedure.",
-        "material_extraction_score": 5.0,
-        "material_extraction_reasoning": "The starting materials (CuO and Nb2O5) are correctly identified with their chemical names. The stoichiometric ratio is mentioned in the description, although the exact amounts are not specified (which is acceptable as the source text doesn't provide them).",
-        "process_steps_score": 5.0,
-        "process_steps_reasoning": "The process steps are accurately sequenced and classified (mixing, pelletizing, heating). The descriptions are consistent with the source text, and the logical flow of the synthesis is well-preserved.",
-        "equipment_extraction_score": 5.0,
-        "equipment_extraction_reasoning": "No specific equipment is mentioned in the text, and the extraction correctly reflects this by leaving the equipment list empty.",
-        "conditions_extraction_score": 5.0,
-        "conditions_extraction_reasoning": "The sintering temperatures (800\u00b0C and 950\u00b0C) and durations (36 hours and 40 hours) are accurately extracted with correct units. The sintering atmosphere is implicitly air, which is a reasonable default assumption for solid-state reactions unless otherwise specified.",
-        "semantic_accuracy_score": 5.0,
-        "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved. The extraction accurately reflects the experimental procedure described in the source text without introducing any misinterpretations.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema. All data types are correctly assigned, and the structure is well-organized.",
-        "overall_score": 5.0,
-        "overall_reasoning": "The extraction is highly accurate, complete, and well-structured, demonstrating excellent performance in capturing the synthesis information from the source text. All scores are at the maximum level, reflecting the high quality of the extraction."
-      },
-      "confidence_level": "high",
-      "missing_information": [],
-      "extraction_errors": [],
-      "improvement_suggestions": []
-    }
+        ]
+      }
+    ]
   }
 ]

@@ -25,12 +25,16 @@ class FSPaperLoader(PaperLoaderInterface):
             if file.endswith("SI.txt"):
                 continue
 
-            with self.fs.open(file, "r", encoding="utf-8", errors="replace") as f:
+            with self.fs.open(
+                file, "r", encoding="utf-8", errors="replace"
+            ) as f:
                 publication_text = f.read()
 
             si_file = file.replace(".txt", "_SI.txt")
             if self.fs.exists(si_file):
-                with self.fs.open(si_file, "r", encoding="utf-8", errors="replace") as f:
+                with self.fs.open(
+                    si_file, "r", encoding="utf-8", errors="replace"
+                ) as f:
                     si_text = f.read()
             else:
                 si_text = ""

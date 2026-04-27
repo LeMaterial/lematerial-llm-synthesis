@@ -93,8 +93,7 @@ class SynthesisEvaluationScore(BaseModel):
     characterization_appropriateness_reasoning: str = Field(
         ...,
         description=(
-            "Detailed reasoning for the characterization appropriateness "
-            "score."
+            "Detailed reasoning for the characterization appropriateness score."
         ),
     )
 
@@ -117,8 +116,7 @@ class SynthesisEvaluationScore(BaseModel):
     overall_score: float = Field(
         ...,
         description=(
-            "The average of all other scores, representing the overall "
-            "quality."
+            "The average of all other scores, representing the overall quality."
         ),
         ge=1.0,
         le=5.0,
@@ -126,8 +124,7 @@ class SynthesisEvaluationScore(BaseModel):
     overall_reasoning: str = Field(
         ...,
         description=(
-            "Overall reasoning summarizing the evaluation and final "
-            "assessment."
+            "Overall reasoning summarizing the evaluation and final assessment."
         ),
     )
 

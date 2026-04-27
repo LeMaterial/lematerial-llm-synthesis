@@ -1,32 +1,14 @@
 [
   {
-    "material": "ErTe3 single crystals",
-    "synthesis": {
-      "target_compound": "ErTe3 single crystals",
-      "target_compound_type": "semiconductors & electronic",
-      "synthesis_method": "flux growth",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "Er",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Te",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "synthesize",
-          "description": "Single crystals of ErTe3 were synthesized via a self-flux method as described in (*1,2*).",
-          "materials": [
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "ErTe3",
+        "synthesis": {
+          "target_compound": "ErTe3",
+          "target_compound_type": "functional materials & catalysts",
+          "synthesis_method": "flux growth",
+          "starting_materials": [
             {
               "vendor": null,
               "name": "Er",
@@ -42,58 +24,789 @@
               "purity": null
             }
           ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Single crystals of ErTe3 were synthesized via a self-flux method as described in references (1,2). Typical crystals had a surface area between 1-2 mm² and were 0.5 mm thick.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Er",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Te (self-flux)",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          "notes": "Single crystals of ErTe3 were synthesized via a self-flux method as described in references (N. Ru and I. R. Fisher, Phys. Rev. B 73, 033101 (2006) and N. Ru, Ph.D. thesis, Stanford University (2008)). Typical crystals had a surface area between 1-2 mm² and were 0.5 mm thick. The crystals are very micaceous and exfoliate easily due to weak van der Waals bonding between the tellurium sheets. The material belongs to the orthorhombic space group Cmcm (no. 63) with in-plane lattice parameters a ≈ 0.999c at room temperature."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes the synthesis of ErTe3 single crystals via a self-flux method, with explicit reference to prior publications (Ru & Fisher, 2006; Ru, 2008 PhD thesis) for full synthesis details. The paper itself provides only minimal synthesis information: the method (self-flux), typical crystal dimensions (surface area 1-2 mm², thickness 0.5 mm), and qualitative notes about crystal properties (micaceous, easy exfoliation). No reagent amounts, temperatures, durations, pressures, or specific equipment are mentioned in the source text for the synthesis procedure itself. The extracted ontology correctly identifies ErTe3 as the target compound, identifies the self-flux method, lists Er and Te as starting materials (with null quantities, which is correct since none are given), and captures the single synthesis step with appropriate null conditions. The extraction is faithful to the source and does not hallucinate missing information.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-relevant information present in the source text: target compound (ErTe3), synthesis method (self-flux/flux growth), starting materials (Er and Te), a single synthesis step, and relevant notes about crystal dimensions and properties. The source text itself is extremely sparse on synthesis details, explicitly deferring to prior references. The extraction correctly leaves conditions, equipment, and reagent quantities as null since they are not stated. The only minor gap is that the step action 'mix' is a reasonable but somewhat imprecise characterization of a self-flux growth process (which involves mixing, heating, and slow cooling), though the description field compensates for this. Overall, the structural completeness is excellent given the limited information in the source.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "The extraction correctly identifies Er and Te as the starting materials for the self-flux synthesis of ErTe3. Since the source text provides no amounts, purities, or vendor information, all these fields are correctly left null. The self-flux nature is captured by labeling Te as 'Te (self-flux)' in the step materials, which is a useful semantic annotation. The target compound is correctly identified as ErTe3. No hallucinated quantities or purities are present. The only minor issue is that the starting materials list uses plain 'Er' and 'Te' at the top level but 'Te (self-flux)' in the step, creating a slight inconsistency, though this is a minor formatting concern rather than a factual error.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The extraction captures a single synthesis step, which is appropriate given the minimal synthesis description in the source. The action 'mix' is a reasonable starting point but is somewhat reductive for a self-flux crystal growth process, which typically involves mixing, heating to high temperature, slow cooling, and decanting/centrifuging. However, since the source text provides no procedural details beyond 'synthesized via a self-flux method as described in references (1,2)', the extractor cannot be penalized for not capturing steps that are not described. The description field accurately quotes the relevant source text. The step count of 1 is appropriate given the information available. A slightly more accurate action label such as 'grow' or 'crystallize' might better reflect the self-flux process, but 'mix' is not incorrect given the context.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The source text does not mention any specific equipment for the ErTe3 synthesis procedure itself (the self-flux growth details are deferred to references). The extraction correctly returns an empty equipment list, which is the appropriate response when no equipment is explicitly named in the source. This is correct behavior and should not be penalized. The equipment mentioned in the paper (Razorbill strain cell, FIB, COMSOL, synchrotron XRD) pertains to characterization and measurement, not synthesis, so their absence from the synthesis equipment list is correct.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The source text provides no synthesis conditions (temperature, duration, pressure, atmosphere) for the self-flux growth of ErTe3, as these details are deferred to the referenced publications. The extraction correctly leaves all condition fields as null. This is the appropriate behavior and should not be penalized. The crystal dimensions (1-2 mm² surface area, 0.5 mm thick) are captured in the step description and notes, which is the correct place for such information since they are product characteristics rather than synthesis conditions.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the source text. The self-flux method is correctly identified and labeled as 'flux growth'. The notes field provides excellent contextual information including the space group (Cmcm, no. 63), lattice parameter relationship (a ≈ 0.999c), and crystal properties (micaceous, van der Waals bonding). The reference to prior publications is correctly noted. The target compound type 'functional materials & catalysts' is a reasonable classification for a CDW material, though 'quantum materials' or 'electronic materials' might be more precise. No scientific meaning is distorted or misrepresented.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are used correctly for absent information rather than placeholder strings. The steps array contains a properly structured step object with all required sub-fields. The notes field is used appropriately for contextual information. The starting_materials array is properly structured. The only minor issue is the slight inconsistency between 'Te' in the top-level starting materials and 'Te (self-flux)' in the step materials, but this does not constitute a schema violation.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of ErTe3 synthesis information is of high quality given the extremely limited synthesis details provided in the source text. The paper explicitly defers synthesis details to prior references, providing only the method name (self-flux), crystal dimensions, and qualitative crystal properties. The extractor correctly identifies all available information, appropriately leaves all unspecified fields as null, and does not hallucinate any synthesis conditions, equipment, or reagent quantities. The notes field is particularly well-populated with relevant contextual information from the paper. The main areas for potential improvement are: (1) using a more precise action label than 'mix' for the self-flux growth step, and (2) ensuring consistency between top-level starting materials and step-level materials. Overall, this is a faithful, accurate, and schema-compliant extraction that correctly handles the challenge of a synthesis procedure that is largely described by reference to external publications."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "No synthesis conditions are missing from the extraction — the source text does not provide them, correctly deferring to references (1,2).",
+                "No equipment is missing — the source text does not name any synthesis equipment."
+              ],
+              "extraction_errors": [
+                "Minor inconsistency: starting material listed as 'Te' at top level but 'Te (self-flux)' within the step materials list.",
+                "Action label 'mix' is somewhat imprecise for a self-flux crystal growth process; 'grow' or 'crystallize' would be more semantically accurate."
+              ],
+              "improvement_suggestions": [
+                "Use a more semantically precise action label for the self-flux growth step, such as 'crystallize' or 'grow', rather than 'mix'.",
+                "Ensure consistency between the top-level starting_materials list and the materials listed within each step.",
+                "Consider adding a note that full synthesis details are available in the referenced publications (Ru & Fisher, Phys. Rev. B 73, 033101 (2006) and Ru, PhD thesis, Stanford 2008) to aid reproducibility.",
+                "The target_compound_type 'functional materials & catalysts' could be refined to 'quantum materials' or 'correlated electron materials' to better reflect the CDW nature of ErTe3."
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system correctly identified the target material (ErTe3) and the synthesis method (self-flux growth). It accurately captured the starting materials (Er and Te) based on the 'self-flux' description in the text. The extraction correctly reflects that specific quantities, temperatures, and durations for the synthesis were not provided in the source text, as the paper refers to external citations for the growth protocol. The system also correctly identified the physical characteristics of the resulting crystals and the space group information in the notes section.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant synthesis information provided in the text. It correctly identifies the starting materials, the method, and the resulting material properties. It does not penalize for the lack of specific process parameters (time, temperature) which are absent in the source text.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The materials Er and Te are correctly identified. The use of 'Te (self-flux)' in the steps accurately reflects the chemical context of the synthesis method described.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The single step 'mix' (representing the flux growth preparation) is appropriate given the limited procedural detail in the text. The description field contains the relevant context from the 'Crystal Growth' section.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No specific synthesis equipment (e.g., furnace type, crucible material) was mentioned in the source text for the growth of ErTe3; therefore, the empty list is correct.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The source text does not provide numerical values for temperature, pressure, or duration for the synthesis. Leaving these fields null is the correct behavior.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the meaning of the text, correctly identifying that the synthesis is a self-flux method and capturing the physical dimensions of the resulting crystals.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid, parseable JSON that adheres strictly to the provided schema and data types.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses the extraction of synthesis ontology from a materials characterization paper focused on ErTe3. The source text is primarily about strain-tuned CDW properties and elastoresistivity measurements, with minimal synthesis information provided in the Supplementary Materials section. The extraction correctly identifies the self-flux synthesis method and appropriately leaves quantitative fields null where the source does not specify them. The extraction demonstrates good judgment in not hallucinating information that isn't present in the source text, which is the correct behavior for an extraction system. However, the synthesis information is inherently limited in the source since this is a characterization paper rather than a synthesis protocol paper.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-relevant information present in the source text. The source itself contains minimal synthesis details (only stating 'self-flux method as described in references 1,2'), so the extraction is appropriately complete for what exists. The structure includes target compound, synthesis method, starting materials, and one process step. The limitation is inherent to the source document being a characterization paper rather than a synthesis protocol. No synthesis information from the source was missed.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting materials (Er and Te) are correctly inferred from the compound name ErTe3, though not explicitly stated in the synthesis section. The extraction correctly uses null values for amount, unit, and purity since these are not specified in the source text. This is correct behavior - the extraction should not hallucinate quantities that aren't present. The Te self-flux designation is appropriate given the self-flux method description. One minor point: the source doesn't explicitly list starting materials, so this is a reasonable inference rather than direct extraction.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "One process step is captured describing the self-flux synthesis method with appropriate reference to the literature. The step description accurately reflects the source text ('Single crystals of ErTe3 were synthesized via a self-flux method as described in references (1,2)'). The action classification as 'mix' is reasonable for a flux growth method. The step correctly has null conditions since no temperature, duration, or atmosphere is specified in the source. Given the minimal synthesis protocol in the source, this extraction is appropriate.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment list is correctly empty. The source text does not mention any specific synthesis equipment for the ErTe3 crystal growth - it only references other papers for the synthesis method details. The extraction correctly does not hallucinate equipment that isn't mentioned. Note that equipment mentioned in the paper (CS-130 Razorbill strain cell, titanium bowtie platform, XRD at Advanced Photon Source, FIB for sample geometry) are for characterization and strain measurements, NOT for synthesis, so correctly excluding them from the synthesis equipment list demonstrates good extraction judgment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All condition fields (temperature, duration, pressure, atmosphere, stirring, pH) are correctly set to null because the source text does not specify these parameters for the synthesis. The source only states 'self-flux method as described in (1,2)' without providing specific synthesis conditions. This is exemplary extraction behavior - not inventing values that aren't present in the source. The extraction correctly distinguishes between synthesis conditions (not provided) and measurement conditions (cryogenic temperatures for XRD, various strain values for transport) which belong to characterization, not synthesis.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning from the source text. The synthesis method is correctly identified as flux growth (from 'self-flux method'). The notes section accurately captures relevant context about crystal properties, space group, and micaceous nature. No information is misrepresented or hallucinated. The target_compound_type classification as 'functional materials & catalysts' is somewhat generic - ErTe3 is more specifically a quantum material/charge density wave system, but this is a minor semantic imprecision rather than an error. The extraction maintains scientific accuracy throughout.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure follows the expected GeneralSynthesisOntology schema with all required fields present. Data types are correct (strings for names, null for unspecified values, numbers where applicable). The structure is well-organized with logical grouping of materials, steps, equipment, and conditions. The notes field appropriately captures additional context. One minor consideration: some schemas might benefit from explicit citation fields for the referenced synthesis protocols (references 1,2), but the current approach of including this in notes is acceptable.",
+                "overall_score": 4.4,
+                "overall_reasoning": "This extraction demonstrates strong performance given the constraints of the source material. The source text is a characterization paper with minimal synthesis information (only stating the method and referencing other work), and the extraction correctly handles this by: (1) capturing the available synthesis method accurately, (2) using null values appropriately for unspecified quantities and conditions, (3) not hallucinating equipment or parameters that aren't mentioned, and (4) correctly distinguishing synthesis information from characterization/measurement information. The scores reflect that the extraction is as complete and accurate as possible given the limited synthesis content in the source. The main limitation is not the extraction quality but the source document's focus on characterization rather than synthesis protocol. Key strengths include proper null handling, accurate method identification, and correct exclusion of characterization equipment from synthesis equipment. The extraction would benefit slightly from more specific material classification and potentially capturing crystal dimensions in a dedicated field if the schema supports it."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a field to indicate that synthesis details are referenced to external publications rather than described in detail",
+                "The target_compound_type classification could be more specific (e.g., 'quantum materials' or 'charge density wave materials' rather than generic 'functional materials & catalysts')",
+                "Consider capturing the crystal dimension information (1-2 mm² surface area, 0.5 mm thickness) in a dedicated crystal_properties field if the schema supports it"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a comprehensive research article focused on the physical properties, phase transitions, and strain-tuning experiments of ErTe3, not a detailed synthesis procedure. The only synthesis information is a brief mention in the Supplementary Materials: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2).' The extracted ontology correctly identifies this method and the target compound. It does not hallucinate details absent from the text (e.g., amounts, temperatures, equipment). However, it makes a minor error in material classification ('functional materials & catalysts' is not specified) and includes a verbose, non-action step description. The extraction is largely correct in its sparseness, as the source provides no detailed synthesis protocol.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction correctly captures the core synthesis components present in the source: the target material (ErTe3) and the synthesis method (self-flux). It correctly leaves most fields (starting material amounts, equipment, conditions) null, as they are not provided. The structure includes a 'steps' list, which is appropriate. It loses one point because the 'target_compound_type' field is populated with an inferred, non-source classification ('functional materials & catalysts'), whereas the paper describes it as a rare-earth tritelluride CDW material. A more accurate field would be null or a generic 'inorganic crystal'.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is accurate for the limited information given. The starting materials are correctly listed as 'Er' and 'Te' (with 'Te' also listed as 'Te (self-flux)' in the step, which is a reasonable interpretation). All quantity, unit, and purity fields are correctly left null, as none are specified in the source text. The score is not a perfect 5 because the 'Te (self-flux)' entry in the step materials, while logical, slightly rephrases the source, which simply states 'self-flux method' without explicitly labeling Te as the flux. A more conservative extraction might list only 'Te'.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "A single step is created with the action 'mix'. The description is a verbatim copy of the source sentence, which is acceptable but not a structured action. The step is correctly minimal, as no procedural details are given. However, the action 'mix' is a weak inference; the source only states 'synthesized via a self-flux method.' A more precise action might be 'flux_growth' or 'synthesize', or the step could be left with a generic 'synthesize' action. The step also includes materials already listed in starting_materials, which is redundant but not incorrect. The score reflects the correct avoidance of hallucination but the imperfect action classification.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Perfect score. The source text provides no explicit mention of synthesis equipment (e.g., furnaces, crucibles). The extracted 'equipment' list is correctly empty, both at the top level and within the process step. This is the correct behavior: not hallucinating equipment is a critical aspect of faithful extraction.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Perfect score. The source text provides no temperature, duration, pressure, or atmosphere details for the crystal growth process. All condition fields within the step are correctly set to null. This accurately reflects the absence of information and is the ideal extraction outcome.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The core scientific meaning is preserved: ErTe3 crystals are made by a self-flux method. However, there are two minor semantic inaccuracies. First, the 'target_compound_type' is assigned as 'functional materials & catalysts', which is an interpretation not supported by the text; the paper's context is fundamental condensed matter physics. Second, the step description, while accurate, is copied as a narrative rather than distilled into a concise action. The overall scientific intent of the synthesis statement is correctly captured without distortion.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure largely adheres to the expected schema. All required fields are present and of the correct data types (strings, arrays, objects, nulls). The 'notes' field is appropriately used for additional contextual information from the paper. A minor deduction is for the 'target_compound_type' value, which, while a valid string, is not a precise match to the source's description, suggesting a potential schema interpretation issue. Otherwise, compliance is excellent.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction demonstrates a strong understanding of the core principle: do not hallucinate. It correctly captures the minimal synthesis information present in a physics paper focused on properties, not synthesis. Strengths include accurate null handling for missing details, correct identification of the method and materials, and proper schema structure. The main weaknesses are the slightly imprecise 'target_compound_type' and the somewhat vague process step action. The overall quality is high because it faithfully represents the sparse source data. The average score is 4.36, reflecting a very good extraction that is cautious and accurate."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Note: The source text intentionally lacks detailed synthesis information (amounts, temperatures, equipment). Therefore, there is no 'missing information' in the extraction; the null fields are correct."
+              ],
+              "extraction_errors": [
+                "The 'target_compound_type' is listed as 'functional materials & catalysts', which is an interpretation not found in the source text. The paper describes ErTe3 as a rare-earth tritelluride charge density wave material."
+              ],
+              "improvement_suggestions": [
+                "For sparse synthesis descriptions, consider using a more generic 'target_compound_type' (e.g., 'inorganic crystal', 'intermetallic') or leaving it null if the source does not specify an application.",
+                "When the source only cites a method without procedural steps, consider using a more precise action like 'flux_growth' or 'synthesize' instead of 'mix', or document the step with a description-focused action like 'prepare_via_reference_method'.",
+                "The 'notes' field is well-utilized. To avoid redundancy, the step description could be more concise (e.g., 'Synthesis via self-flux method per references.') rather than a full copy of the text, as the details are already in notes."
+              ]
+            },
+            "overall_score": 4.4
           }
-        }
-      ],
-      "equipment": [],
-      "notes": "Typical crystals had a surface area between 1 -2 mm2 and were 0.5 mm thick. Prior to mounting the sample for strain measurement, the crystal's in-plane axes must be distinguished to select the strain axis. This is accomplished via x-ray diffraction by utilizing the forbidden extinctions of the Cmcm space group. (0, K, L) peaks are permitted for even values of K, while (H, K, 0) peaks are only permitted if both H and K are even. Hence by comparing amplitudes of the (0, 6, 1), an allowed reflection, with (1, 6, 0), its forbidden counterpart, the a and c axes can be distinguished. No intensity was observed at the forbidden reflection, within the resolution of our measurement, indicating samples measured do not exhibit any stacking faults in which the a and c crystal axes are reversed."
-    },
-    "evaluation": {
-      "reasoning": "The extraction provides a basic outline of the ErTe3 single crystal synthesis using a self-flux method. The structural completeness is limited as the specific details of the synthesis procedure (temperature, duration, ratios of starting materials) are not available in the text. Material extraction is incomplete due to missing quantities and units. The process steps are rudimentary, consisting of only a single 'synthesize' action. Equipment is not specified. Conditions are entirely missing. Semantic accuracy is maintained at a high level, but the lack of detail impacts the overall utility. Format compliance is good, but the limited information reduces the score. Overall, the extraction captures the high-level concept but lacks the granular details needed for reproducibility.",
-      "scores": {
-        "structural_completeness_score": 5.0,
-        "structural_completeness_reasoning": "The extraction identifies the starting materials and the synthesis method but misses crucial details about the experimental setup, specific conditions, and post-synthesis processing steps. The description is too general to be considered complete.",
-        "material_extraction_score": 5.0,
-        "material_extraction_reasoning": "The materials (Er and Te) are identified, but the quantities, units, and purities are missing. While the names are correct, the lack of quantitative information significantly reduces the score.",
-        "process_steps_score": 5.0,
-        "process_steps_reasoning": "The extraction only includes a single, generic 'synthesize' step. The actual experimental procedure likely involves multiple steps (e.g., mixing, heating, cooling, washing), which are not captured.",
-        "equipment_extraction_score": 5.0,
-        "equipment_extraction_reasoning": "No equipment is extracted as none are available in the text. The synthesis likely involves furnaces, crucibles, and other standard lab equipment, none of which are mentioned.",
-        "conditions_extraction_score": 5.0,
-        "conditions_extraction_reasoning": "No synthesis conditions (temperature, duration, atmosphere, etc.) are extracted. These are critical for reproducing the synthesis.",
-        "semantic_accuracy_score": 4.0,
-        "semantic_accuracy_reasoning": "The extracted information is factually correct and does not misrepresent the source text. However, the lack of detail limits the overall semantic value.",
-        "format_compliance_score": 4.0,
-        "format_compliance_reasoning": "The extracted data adheres to the GeneralSynthesisOntology schema and data types. The structure is valid, but the content is incomplete.",
-        "overall_score": 4.8,
-        "overall_reasoning": "The extraction provides a basic outline but lacks the granular details needed for reproducibility. Key areas for improvement include extracting specific synthesis conditions, equipment used, and a more detailed breakdown of the process steps."
-      },
-      "confidence_level": "low",
-      "missing_information": [
-        "Specific synthesis conditions (temperature, duration, atmosphere)",
-        "Equipment used in the synthesis",
-        "Detailed process steps",
-        "Quantities, units, and purities for starting materials"
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Extract specific synthesis conditions (temperature, duration, atmosphere).",
-        "Identify and extract the equipment used in the synthesis.",
-        "Provide a more detailed breakdown of the process steps.",
-        "Include quantities, units, and purities for all starting materials."
-      ]
-    }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "ErTe3",
+        "synthesis": {
+          "target_compound": "ErTe3",
+          "target_compound_type": "two-dimensional materials",
+          "synthesis_method": "flux growth",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Erbium",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Tellurium",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Single crystals of ErTe3 were synthesized via a self-flux method.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Er",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Te",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "other",
+              "description": "Crystals were cleaved to thin dimensions (less than 50um) due to weak van der Waals bonding.",
+              "materials": [],
+              "equipment": [],
+              "conditions": null
+            }
+          ],
+          "equipment": [],
+          "notes": "Typical crystals had a surface area between 1-2 mm2 and were 0.5 mm thick. The material belongs to the orthorhombic space group Cmcm. For strain measurements, samples were cleaved to 1-20 um and bonded to a titanium platform using Angstrom Bond epoxy."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extraction targets ErTe3, a rare-earth tritelluride synthesized via a self-flux method. The source text provides minimal synthesis detail — it states only that 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2)' with references to prior publications, and provides some sample preparation details (crystal dimensions, cleaving, mounting with Angstrom Bond epoxy). The extraction correctly identifies the synthesis method as flux growth, lists Er and Te as starting materials (reasonable inference), and captures two process steps. The bulk of the paper is about physical measurements (XRD, elastoresistivity) rather than synthesis, so the limited extraction is largely appropriate. Key evaluation points: the synthesis procedure is deliberately brief and deferred to references, so absence of detailed conditions, equipment, and quantities is correct behavior. The extraction captures what is available but makes some minor errors and misclassifications.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the core synthesis method (self-flux), the two elemental starting materials (Er and Te), and two process steps. It also includes a useful notes field with crystal dimensions and mounting details. However, the equipment list is empty despite the paper mentioning a Razorbill CS-130 strain cell, FIB (focused ion beam), and titanium 'bowtie' platform — though these are sample preparation/measurement tools rather than synthesis equipment. The synthesis itself is referenced to prior publications with no detailed procedure given, so the limited structural content is largely appropriate. The step for cleaving is correctly captured. The notes field compensates somewhat for missing structured fields. Overall, the structure is reasonable given the sparse synthesis information in the source.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The starting materials (Erbium and Tellurium) are correctly identified as the components of a self-flux synthesis of ErTe3. No amounts, purities, or vendor information are provided in the source text, so null values are correct and should not be penalized. The step-level materials (Er and Te) are consistent with the top-level starting materials. One minor issue: the paper refers to a 'self-flux method' which typically means one of the components (Te in this case) serves as the flux — this nuance is not captured but is not explicitly stated in the source either. The Angstrom Bond epoxy used for sample mounting is mentioned in the notes but not as a structured material entry, which is acceptable since it is a mounting adhesive rather than a synthesis reagent. Overall material extraction is adequate given the source constraints.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "Two steps are extracted: (1) mixing/synthesis via self-flux method, and (2) cleaving to thin dimensions. Step 1 uses action 'mix' which is a reasonable but imprecise classification for a flux growth process — 'heat' or 'crystallize' might be more accurate, but 'mix' is not wrong as an initial step. Step 2 uses action 'other' for cleaving, which is acceptable since cleaving is not a standard synthesis action. The sequencing is logical. However, the source also mentions heating the titanium platform to create an insulating oxide layer, and the use of Angstrom Bond epoxy for bonding — these are sample preparation steps that could have been included. The synthesis procedure itself is extremely brief in the source (one sentence referring to prior work), so the two-step extraction is a reasonable representation of what is available.",
+                "equipment_extraction_score": 2.0,
+                "equipment_extraction_reasoning": "The equipment list is empty in the extraction. While the synthesis procedure itself mentions no specific synthesis equipment (it defers to references), the source text does mention several pieces of equipment relevant to sample preparation and measurement: a CS-130 Razorbill strain cell, a focused ion beam (FIB) for device geometry definition, a titanium 'bowtie' platform, COMSOL Multiphysics for finite element simulations, and the Advanced Photon Source synchrotron at Argonne National Lab for XRD. Some of these (FIB, strain cell) are directly relevant to sample preparation described in the supplementary materials. The FIB in particular is explicitly used to define sample geometry for transport measurements. Not capturing any equipment at all is a partial miss, though the synthesis-specific equipment is indeed absent from the source. A score of 2.0 reflects that some equipment was present in the source but not captured.",
+                "conditions_extraction_score": 2.5,
+                "conditions_extraction_reasoning": "No conditions are extracted (all condition fields are null). The source text provides very limited synthesis conditions: the synthesis is described only as a 'self-flux method' with reference to prior publications. However, some conditions are mentioned in the supplementary materials: samples for XRD were 10-20 μm thick, samples for transport were 1-10 μm thick, glue layers were 5-10 μm thick, and the titanium platform was heated to high temperatures for several hours to create an insulating oxide layer. The XRD was performed at 11.2 keV and at cryogenic temperatures. The CDW transition temperature of 268K for unstrained ErTe3 is also mentioned. While these are mostly measurement conditions rather than synthesis conditions, the heating of the Ti platform and sample thickness constraints are preparation conditions that could have been captured. The null conditions for the synthesis steps are appropriate given the lack of detail, but some preparation conditions were available.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction correctly identifies ErTe3 as the target compound, correctly classifies the synthesis as flux growth (self-flux method), and accurately represents the starting materials. The notes field faithfully captures key details about crystal dimensions (1-2 mm² surface area, 0.5 mm thick), the orthorhombic space group (Cmcm), and the sample preparation details (cleaving to 1-20 μm, Angstrom Bond epoxy, titanium platform). The classification of ErTe3 as a 'two-dimensional materials' type is somewhat debatable — it is a layered material with quasi-2D electronic structure, but it is a bulk crystal, not strictly a 2D material. This is a minor semantic imprecision. The description of step 2 (cleaving due to weak van der Waals bonding) is scientifically accurate. Overall, the scientific meaning is well-preserved within the constraints of the sparse synthesis information.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The extraction follows the GeneralSynthesisOntology schema well. Fields are properly typed: strings for names and descriptions, null for missing values, arrays for lists. The step structure includes step_number, action, description, materials, equipment, and conditions fields. The top-level structure includes target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. The conditions field is null rather than an empty object, which is acceptable. The equipment arrays are empty lists rather than null, which is also acceptable. The action classifications ('mix', 'other') are valid schema values. One minor issue: the step-level materials duplicate the top-level starting materials without adding new information, which is redundant but not incorrect. Overall format compliance is good.",
+                "overall_score": 3.2,
+                "overall_reasoning": "The extraction of ErTe3 synthesis information is generally appropriate given the extremely limited synthesis detail in the source text. The paper is primarily a physics/materials science study of CDW behavior under strain, with synthesis described in a single sentence referring to prior publications. The extractor correctly identifies the self-flux synthesis method, the elemental starting materials (Er and Te), and captures the most relevant sample preparation details in the notes field. The two process steps are reasonable representations of what is described. The main weaknesses are: (1) empty equipment list despite some equipment being mentioned in the source (FIB, Razorbill strain cell); (2) no conditions captured despite some preparation conditions being available (sample thicknesses, Ti platform heating); (3) minor semantic imprecision in classifying ErTe3 as a '2D material'; (4) the 'mix' action for flux growth is imprecise. The notes field is well-utilized to capture information that doesn't fit neatly into structured fields. Overall, this is a competent extraction of a synthesis-sparse paper, with room for improvement in equipment and conditions capture."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Focused ion beam (FIB) used to define sample geometry for transport devices",
+                "CS-130 Razorbill strain cell used for applying variable strain",
+                "Titanium platform heated to high temperatures for several hours to create insulating oxide layer (sample preparation condition)",
+                "Sample thickness ranges for XRD (10-20 μm) and transport (1-10 μm) measurements",
+                "Glue layer thickness (5-10 μm) for Angstrom Bond epoxy",
+                "XRD measurement energy (11.2 keV) and facility (Advanced Photon Source, Argonne National Lab, Sector 6-ID-B)"
+              ],
+              "extraction_errors": [
+                "ErTe3 classified as 'two-dimensional materials' — it is a layered bulk crystal with quasi-2D electronic structure, not strictly a 2D material",
+                "Action 'mix' for step 1 is imprecise for a flux growth/crystallization process",
+                "Equipment list is empty despite FIB (focused ion beam) and Razorbill CS-130 strain cell being mentioned in the source for sample preparation"
+              ],
+              "improvement_suggestions": [
+                "Reclassify target_compound_type to 'layered crystal' or 'rare-earth tritelluride' rather than 'two-dimensional materials'",
+                "Change step 1 action from 'mix' to 'crystallize' or 'anneal' to better reflect flux growth",
+                "Add FIB as equipment in the equipment list for sample preparation",
+                "Add Razorbill CS-130 strain cell as equipment",
+                "Add a step for heating the titanium platform to create an insulating oxide layer",
+                "Capture sample thickness constraints as conditions in the cleaving step",
+                "Consider adding a step for bonding the sample to the titanium platform with Angstrom Bond epoxy as a distinct preparation step"
+              ]
+            },
+            "overall_score": 3.2
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction successfully identifies the target material (ErTe3) and the general synthesis method (flux growth). It correctly captures the starting materials (Er and Te) and the post-synthesis processing (cleaving). However, the extraction is quite sparse regarding the specific experimental details mentioned in the 'Supplementary Materials' section, such as the specific epoxy used for mounting and the thickness ranges for different measurement types. It correctly leaves null values for quantities and temperatures that were not specified in the text, adhering to the core evaluation principle.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the primary synthesis method and the subsequent sample preparation (cleaving). It misses the 'bonding' step which is described in detail in the supplement (using Angstrom Bond epoxy), though it mentions this in the notes.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The starting materials (Er, Te) are correctly identified. The absence of amounts, units, and purities is correct as they are not provided in the source text.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The sequence is logical (growth then cleaving). The 'bonding' to the titanium platform is a distinct experimental step described in the text that could have been formalized as a step rather than just a note.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text does not specify synthesis equipment (e.g., furnace type or crucible) for the flux growth, only measurement equipment (XRD, Razorbill cell). Leaving the synthesis equipment list empty is correct.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No specific synthesis conditions (time, temperature profile) were provided in the text for the flux growth; therefore, null values are correct.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction accurately reflects that ErTe3 is a 2D material (Te bilayers) and that it was grown via self-flux.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly follows the provided schema.",
+                "overall_score": 4.7,
+                "overall_reasoning": "The extraction is highly accurate and avoids hallucination. It correctly identifies the materials and the high-level process. While it could have structured the sample mounting as a process step, its inclusion in the notes ensures no information is lost. The scores reflect a high degree of fidelity to the source text's specific synthesis details."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The specific epoxy (Angstrom Bond) used in the sample preparation step."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding 'bonding' as a process step, as the text specifies the use of 'Angstrom Bond epoxy' and a 'titanium platform' as part of the experimental preparation."
+              ]
+            },
+            "overall_score": 4.7
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the basic synthesis method (self-flux growth) and target compound (ErTe3) correctly. However, there are significant gaps in equipment extraction (multiple instruments explicitly named in the source are missing), conditions extraction (temperatures, strain values, dimensions not captured), and process steps (sample preparation details incomplete). Starting materials are inferred rather than explicitly stated in this text. The extraction follows the schema format but misses substantial experimental detail that is present in the source.",
+              "scores": {
+                "structural_completeness_score": 2.5,
+                "structural_completeness_reasoning": "The extraction captures the target compound and basic synthesis method but misses substantial structural elements. Equipment list is completely empty despite 7+ explicitly named instruments. Conditions field is null despite numerous numerical parameters. Process steps are minimal (2 steps) when the source describes synthesis, cleaving, mounting, bonding, and measurement procedures. The notes field contains some information that should be in structured fields. Significant portions of the experimental workflow are not represented in the structured ontology.",
+                "material_extraction_score": 3.0,
+                "material_extraction_reasoning": "Target compound (ErTe3) is correctly identified. Starting materials (Er, Te) are reasonable inferences from the compound name but are NOT explicitly stated in this source text - the paper references external sources (1,2) for synthesis details. This should ideally be null or marked as referenced. Crystal dimensions (1-2 mm² surface area, 0.5 mm thick) are captured in notes but not in structured material fields. Sample thicknesses for different measurements (10-20μm XRD, 1-10μm transport) are in notes but not structured. Purity information is absent from source and correctly null in extraction.",
+                "process_steps_score": 2.5,
+                "process_steps_reasoning": "Only 2 steps are captured when the source describes a more complex workflow: (1) crystal synthesis via self-flux, (2) crystal cleaving, (3) sample mounting on Ti platform, (4) epoxy bonding, (5) XRD measurement, (6) transport measurement. Step 1 action 'mix' is oversimplified for flux growth. Step 2 action 'other' for cleaving is appropriate but mounting/bonding steps are missing. The steps lack conditions (temperatures, durations, atmospheres) that are mentioned in the source. Logical flow is present but incomplete.",
+                "equipment_extraction_score": 1.5,
+                "equipment_extraction_reasoning": "This is a significant extraction failure. The equipment list is completely empty despite the source explicitly naming: CS-130 Razorbill strain cell, titanium bowtie platform, focused ion beam (FIB), Advanced Photon Source (Sector 6-ID-B), capacitive sensor, strain gauge, and COMSOL Multiphysics software. These are all clearly stated in the source text and should have been captured. The extraction correctly leaves vendor information null where not specified, but the equipment names themselves are missing. This represents a major gap in capturing the experimental setup.",
+                "conditions_extraction_score": 2.0,
+                "conditions_extraction_reasoning": "The conditions field is null despite numerous explicit parameters in the source: TCDW = 268K, cryogenic temperatures for XRD, X-ray energy 11.2 keV, critical strain ΔLx/Lx ~ 0.13%, sample thicknesses (10-20μm, 1-10μm), glue layer thickness (5-10μm), platform active length (3.47mm). Temperature, strain, and dimensional conditions are all present in the source but not captured in structured form. Some appear in notes but should be in conditions. This is a clear extraction failure for information that is explicitly stated.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The extraction preserves the core scientific meaning: ErTe3 synthesis via flux method, sample preparation for strain measurements. The target compound type 'two-dimensional materials' is reasonable given the Te bilayer structure described, though the paper emphasizes orthorhombic crystal structure. The synthesis description is accurate but oversimplified. No hallucinated information is present - missing elements are omissions rather than misrepresentations. The notes field captures some context appropriately. Scientific intent is maintained but with reduced precision.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure follows the expected ontology schema with appropriate field names and data types. Target compound, synthesis method, starting materials, steps, equipment, and notes fields are all present with correct structure. Null values are used appropriately for unspecified information (vendor, purity, amounts). The format is valid and parseable. Minor issue: some information that should be in structured fields (conditions, equipment) appears in the notes field instead, but this is a content issue rather than format violation.",
+                "overall_score": 2.7,
+                "overall_reasoning": "This extraction demonstrates partial success in capturing the synthesis ontology. Strengths include correct identification of target compound (ErTe3), synthesis method (flux growth), and valid JSON schema compliance. Critical weaknesses include: (1) completely empty equipment list despite 7+ explicitly named instruments, (2) null conditions field despite numerous temperature, strain, and dimensional parameters, (3) incomplete process steps missing mounting and bonding procedures, (4) starting materials inferred rather than explicitly stated. The extraction follows the 'no hallucination' principle correctly (null for unspecified vendor/purity) but fails to capture information that IS explicitly present in the source. Overall quality is moderate - the basic synthesis is captured but experimental details essential for reproducibility are missing. Priority improvements: extract all named equipment, capture numerical conditions in structured fields, expand process steps to include sample preparation workflow."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "CS-130 Razorbill strain cell",
+                "Titanium bowtie platform specifications",
+                "Advanced Photon Source Sector 6-ID-B",
+                "Focused Ion Beam (FIB) usage",
+                "Angstrom Bond epoxy for sample mounting",
+                "Cryogenic temperature conditions",
+                "X-ray energy (11.2 keV)",
+                "Critical strain value (ΔLx/Lx ~ 0.13%)",
+                "Sample thickness specifications (10-20μm for XRD, 1-10μm for transport)",
+                "Glue layer thickness (5-10μm)",
+                "TCDW = 268K"
+              ],
+              "extraction_errors": [
+                "Equipment list is empty despite explicit mentions of CS-130 Razorbill strain cell, titanium bowtie platform, FIB, Advanced Photon Source, capacitive sensor, and strain gauge",
+                "Conditions field is null despite explicit temperature values (TCDW = 268K, cryogenic temperatures), strain values (ΔLx/Lx ~ 0.13%), and dimensional specifications",
+                "Starting materials (Er, Te) are inferred from compound name but not explicitly stated in this source text - should be null or noted as referenced",
+                "Sample mounting procedure (Angstrom Bond epoxy, 5-10μm glue layers) not captured in structured steps",
+                "XRD measurement conditions (11.2 keV, Sector 6-ID-B) not captured"
+              ],
+              "improvement_suggestions": [
+                "Extract all explicitly named equipment with vendor/model information where available (e.g., CS-130 Razorbill, Advanced Photon Source Sector 6-ID-B)",
+                "Capture all numerical conditions including temperatures, strain values, energies, and dimensions in structured conditions field",
+                "Distinguish between synthesis steps and sample preparation/measurement steps more clearly",
+                "Mark starting materials as 'referenced' or null when not explicitly stated in the source text",
+                "Include measurement parameters (X-ray energy, temperature ranges) as synthesis/characterization conditions"
+              ]
+            },
+            "overall_score": 2.7
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a comprehensive research article focused on the physical properties, phase transitions, and strain-tuning experiments of ErTe3, not a detailed synthesis procedure. The primary synthesis information is a brief mention in the Supplementary Materials: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2).' The extracted ontology correctly identifies this method and the target compound. It does not hallucinate detailed steps, quantities, or equipment that are absent from the source. However, the extraction shows some minor semantic inaccuracies in material naming and step classification. The overall extraction is structurally sound but limited by the sparse synthesis details in the source.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the core synthesis components present in the source: the target material (ErTe3), the synthesis method (self-flux), and the starting materials (Er, Te). It correctly includes a note about crystal dimensions and post-synthesis sample preparation (cleaving). The source text does not provide a detailed, step-by-step synthesis procedure with quantities, durations, or specific equipment for the crystal growth itself; therefore, the minimal step list is appropriate. The extraction correctly omits extensive details not present. A point is deducted because the 'steps' list includes a 'cleaving' action, which is more accurately a sample preparation step for measurement rather than part of the synthesis of ErTe3 itself, slightly blurring the ontology's scope.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The extraction correctly identifies the starting elements as Erbium and Tellurium. However, there are inconsistencies: in the 'starting_materials' list, the names are 'Erbium' and 'Tellurium', but in the first step's 'materials' list, they are abbreviated as 'Er' and 'Te'. For consistency and clarity within an ontology, the naming should be uniform, preferably using the full element names or standardized chemical symbols. The source provides no amounts, units, or purities, so leaving those fields null is correct and not penalized. The score is reduced due to the naming inconsistency between the two lists.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "Two steps are extracted. Step 1 ('mix') corresponds to the described synthesis method. The description is accurate but very high-level, which is faithful to the source. Step 2 ('other' with description about cleaving) is problematic. While cleaving is mentioned in the context of sample preparation for strain measurements, it is not a step in the synthesis of the ErTe3 compound; it is a post-growth processing step for device fabrication. Including it as a synthesis step slightly misrepresents the process flow. The action 'other' is a catch-all but acceptable. The sequencing is logical given the text. A higher score is limited by the inclusion of the non-synthesis step.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text's synthesis description ('self-flux method') does not mention any specific equipment like furnaces, crucibles, or temperature controllers. The extracted ontology correctly leaves the 'equipment' list empty. No equipment is hallucinated. This is the correct behavior per the core evaluation principle: absence is not an error. Therefore, a perfect score is warranted.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The source provides no synthesis conditions such as temperature, time, atmosphere, heating/cooling rates, or pressure for the self-flux growth of ErTe3. The extracted ontology correctly sets 'conditions' to null for the steps. No conditions are hallucinated. This is the correct handling of absent information and earns a perfect score.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The overall scientific meaning is preserved: ErTe3 is made by a self-flux method from Er and Te. The classification of the method as 'flux growth' is semantically correct. The note about crystal dimensions and space group is accurate and adds useful context. The main semantic issue is the conflation of synthesis and sample preparation in the steps list, as noted above. The description 'two-dimensional materials' for the target compound type is a reasonable inference from the text's discussion of layered structure and van der Waals bonding, though not explicitly stated as such in the synthesis section.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the expected schema. All required top-level fields are present (target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, notes). The data types are correct (arrays, strings, null values). The 'steps' array contains objects with the expected sub-fields. Minor deduction for the internal inconsistency in material naming ('Erbium' vs 'Er') within the JSON, which is a data quality issue rather than a strict schema violation.",
+                "overall_score": 4.2,
+                "overall_reasoning": "The extraction successfully captures the limited synthesis information available in a physics-focused research paper. Its strengths are correct identification of the method and materials, proper omission of unspecified details (equipment, conditions), and good schema compliance. The primary weaknesses are minor: inconsistent naming of materials within the JSON and the inclusion of a sample preparation step (cleaving) within the synthesis steps, which slightly reduces semantic accuracy and process step clarity. The overall quality is good, reflecting a cautious and largely accurate extraction that avoids hallucination. The average of the seven criterion scores is 4.21."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "Inconsistent naming of starting materials: 'starting_materials' list uses 'Erbium' and 'Tellurium', while the 'materials' list in step 1 uses 'Er' and 'Te'.",
+                "Step 2 (cleaving) is a sample preparation step for device fabrication, not part of the chemical synthesis of ErTe3. Including it in the synthesis steps list is a contextual error."
+              ],
+              "improvement_suggestions": [
+                "Standardize chemical nomenclature throughout the extraction (e.g., always use 'Er' and 'Te' or always use 'Erbium' and 'Tellurium').",
+                "Differentiate between 'synthesis steps' and 'sample preparation steps' in the ontology or provide a clearer classification to avoid conflating compound synthesis with subsequent processing for measurement.",
+                "When the source cites prior work (e.g., 'as described in (1,2)'), consider adding a field for 'reference' or 'citation' to link to the detailed procedure."
+              ]
+            },
+            "overall_score": 4.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "ErTe3",
+        "synthesis": {
+          "target_compound": "ErTe3",
+          "target_compound_type": "semiconductors & electronic",
+          "synthesis_method": "flux growth",
+          "starting_materials": [],
+          "steps": [],
+          "equipment": [],
+          "notes": "Single crystals were synthesized via a self-flux method as described in references (1,2). Typical crystals had a surface area between 1-2 mm^2 and were 0.5 mm thick."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes the synthesis of ErTe3 single crystals via a self-flux method, but critically defers the full synthesis details to external references (refs 1 and 2: Ru & Fisher 2006, and Ru's PhD thesis 2008). The supplementary section 'Crystal Growth and Sample Preparation' states only: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2). Typical crystals had a surface area between 1-2 mm^2 and were 0.5 mm thick.' No starting materials, reagent quantities, temperatures, durations, atmospheres, or detailed process steps are provided in the source text itself. The extraction correctly identifies the target compound (ErTe3), the synthesis method (flux growth/self-flux), and captures the morphological note about crystal dimensions. The extraction leaves starting_materials, steps, and equipment as empty arrays, which is the correct behavior given the source text provides no such details. The notes field accurately summarizes the available synthesis information from the source.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis information actually present in the source text. The target compound (ErTe3), synthesis method (flux growth/self-flux), and the brief morphological description of crystals are all captured. The starting_materials, steps, and equipment arrays are correctly left empty because the source text explicitly defers synthesis details to external references and provides none of these elements itself. The notes field captures the key descriptive content. The only minor gap is that the notes could have also mentioned the sample preparation steps described in the supplementary (e.g., exfoliation/cleaving to thin dimensions, use of Angstrom Bond epoxy for mounting, FIB for device geometry), though these are arguably post-synthesis sample preparation rather than synthesis steps. Overall, the extraction is structurally complete relative to what the source provides.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "No starting materials are listed in the source text for the ErTe3 synthesis — the paper simply states 'synthesized via a self-flux method as described in (1,2)' without naming precursors, quantities, or purities. The extraction correctly leaves starting_materials as an empty array. The target compound is correctly identified as ErTe3. The notes field captures the crystal dimensions (1-2 mm^2 surface area, 0.5 mm thick). No quantities, units, or purities are available in the source to extract, so the empty fields are appropriate. A minor deduction is applied because the extraction could have noted that the synthesis is a self-flux method implying Er and Te as likely starting materials, but since the source does not explicitly state this, leaving it empty is the correct and conservative approach.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The source text provides no explicit process steps for the ErTe3 synthesis — it only states the method name (self-flux) and refers to external references. The extraction correctly leaves the steps array empty. Some post-synthesis sample preparation steps are described in the supplementary (cleaving/exfoliation to thin dimensions, bonding with Angstrom Bond epoxy, FIB patterning for transport devices, heating Ti platform to create oxide layer), but these are sample preparation and device fabrication steps rather than crystal synthesis steps. Not capturing these in the steps array is defensible, though a more comprehensive extraction might include them as preparation steps. The empty steps array is appropriate for the crystal synthesis procedure itself.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The source text does not name any specific equipment used for the ErTe3 crystal synthesis itself (the self-flux growth). Equipment mentioned in the paper relates to post-synthesis characterization and measurement: CS-130 Razorbill strain cell, titanium 'bowtie' platform, focused ion beam (FIB), COMSOL Multiphysics for finite element simulations, synchrotron XRD at Advanced Photon Source (Sector 6-ID-B), capacitive sensor, strain gauge, and piezoelectric stack. None of these are synthesis equipment for ErTe3 crystal growth. The extraction correctly leaves the equipment array empty for the synthesis procedure. A minor deduction is applied because the extraction could have noted the Razorbill strain cell and bowtie platform as experimental apparatus used in the study, but these are measurement rather than synthesis tools.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "The source text provides no synthesis conditions (temperature, pressure, duration, atmosphere, cooling rate) for the ErTe3 self-flux crystal growth — all such details are deferred to external references. The extraction correctly captures no conditions. The only quantitative information available in the source about the synthesis product is the crystal dimensions (1-2 mm^2 surface area, 0.5 mm thick), which is captured in the notes field. The XRD energy (11.2 keV), penetration depth (~50 μm), and strain values mentioned in the paper are characterization/measurement conditions, not synthesis conditions, and are correctly not included in the synthesis ontology.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction accurately represents the synthesis method as 'flux growth' (equivalent to 'self-flux method' as stated in the source). The target compound type 'semiconductors & electronic' is a reasonable classification for ErTe3, which is a charge density wave material with electronic properties of interest. The notes field faithfully reproduces the key information from the source text about crystal dimensions and the reference to the self-flux method. There is no misrepresentation or hallucination of information. The semantic meaning is well-preserved within the constraints of what the source provides.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. The target_compound field correctly identifies 'ErTe3', target_compound_type uses an appropriate category, synthesis_method is a valid string descriptor, starting_materials/steps/equipment are properly represented as empty arrays (not null or missing), and notes is a string field with relevant content. The JSON structure is valid and all expected fields are present. A minor deduction is applied because the synthesis_method value 'flux growth' slightly differs from the source's 'self-flux method' terminology, though this is a minor semantic variation that does not constitute an error.",
+                "overall_score": 4.2,
+                "overall_reasoning": "The extraction of ErTe3 synthesis information is of high quality given the severe limitations of the source text. The paper provides minimal synthesis details, explicitly deferring to external references for the self-flux crystal growth procedure. The extraction correctly identifies the target compound, synthesis method, and crystal morphology, while appropriately leaving starting_materials, steps, and equipment as empty arrays — reflecting the absence of this information in the source rather than an extraction failure. The notes field effectively captures the available synthesis-related information. There is no hallucination of information not present in the source. The main limitation of the extraction is not an error but rather a reflection of the source text's brevity regarding synthesis details. The extraction demonstrates correct behavior in the face of incomplete source information, which is the appropriate response for a high-quality extraction system. Overall scores are high (4.0-4.5 range) across all criteria, reflecting accurate and faithful extraction within the constraints of the available information."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample preparation steps (exfoliation/cleaving to thin dimensions of 1-20 μm for measurements) described in supplementary are not captured as process steps",
+                "Angstrom Bond epoxy used for sample mounting (glue layers 5-10 μm thick) not captured",
+                "FIB (focused ion beam) used for defining sample geometry for transport measurements not captured",
+                "Ti platform heating to create insulating oxide layer prior to sample bonding not captured",
+                "These omissions are defensible as they relate to sample preparation/device fabrication rather than crystal synthesis"
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding post-synthesis sample preparation steps (cleaving, thinning, mounting) as separate process steps with a 'sample_preparation' classification to distinguish from crystal growth steps",
+                "The synthesis_method could more precisely reflect the source terminology as 'self-flux' rather than the generic 'flux growth'",
+                "Consider adding a reference field to capture the external references (Ru & Fisher 2006, Ru PhD thesis 2008) where the full synthesis details can be found",
+                "Crystal dimensions (1-2 mm^2 surface area, 0.5 mm thick) could be captured in a structured product_properties field rather than only in notes"
+              ]
+            },
+            "overall_score": 4.2
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is extremely minimal. While the source text is primarily a characterization and physics study, it contains a dedicated 'Supplementary Materials' section titled 'Crystal Growth and Sample Preparation' which explicitly mentions the synthesis method (self-flux) and provides specific physical dimensions of the resulting crystals. The extraction correctly identifies the target material and method but fails to capture any of the detailed sample preparation steps described in the supplement, such as the exfoliation/cleaving process, the bonding/mounting procedure using Angstrom Bond epoxy, or the focused ion beam (FIB) patterning used to create the transport devices. These are critical 'synthesis' or 'fabrication' steps in the context of single-crystal device physics.",
+              "scores": {
+                "structural_completeness_score": 2.0,
+                "structural_completeness_reasoning": "The extraction captures the high-level method but omits all procedural details found in the supplementary section regarding sample thinning (cleaving), mounting (epoxy bonding), and device patterning (FIB).",
+                "material_extraction_score": 2.5,
+                "material_extraction_reasoning": "The target material is correct. However, the extraction fails to list 'Er' and 'Te' as starting materials for the self-flux, and misses auxiliary materials mentioned in the text like 'Angstrom Bond epoxy' and 'Titanium platform' used in the sample preparation.",
+                "process_steps_score": 1.0,
+                "process_steps_reasoning": "The 'steps' array is completely empty despite the text describing a sequence of: crystal growth, axis identification via XRD, cleaving to <50um, bonding with epoxy, and FIB patterning.",
+                "equipment_extraction_score": 1.0,
+                "equipment_extraction_reasoning": "The 'equipment' array is empty, failing to capture mentioned tools like the 'focused ion beam (FIB)', 'CS-130 Razorbill strain cell', or 'titanium bowtie platform'.",
+                "conditions_extraction_score": 1.0,
+                "conditions_extraction_reasoning": "No conditions were extracted. While growth temperature is not in the text, the sample preparation conditions (e.g., thickness <50um, glue layer 5-10um) were available and ignored.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The information that was extracted (target compound and flux growth method) is semantically correct and matches the source.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that adheres to the provided schema structure.",
+                "overall_score": 2.4,
+                "overall_reasoning": "The extraction system performed a very shallow pass. It identified the primary material and the name of the synthesis method but treated the rest of the experimental section as non-existent. In materials science, especially for single crystals, the 'synthesis' often extends into the preparation of the specimen (cleaving, orienting, patterning), all of which were described in the text but omitted from the JSON."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Starting materials: Er, Te.",
+                "Auxiliary materials: Angstrom Bond epoxy, Titanium platform.",
+                "Process steps: XRD orientation, cleaving/exfoliation, epoxy bonding, FIB patterning.",
+                "Equipment: Focused Ion Beam, Razorbill strain cell.",
+                "Specifications: Sample thickness (<50um), glue layer thickness (5-10um)."
+              ],
+              "extraction_errors": [
+                "Failed to extract starting materials (Er, Te) implied by 'self-flux'.",
+                "Failed to extract sample preparation steps (cleaving, bonding, FIB patterning).",
+                "Failed to extract equipment (FIB, Razorbill strain cell, Ti platform)."
+              ],
+              "improvement_suggestions": [
+                "Expand the extraction logic to include sample preparation and device fabrication steps, which are often described in the experimental or supplementary sections of physics papers.",
+                "Capture auxiliary materials like epoxies and substrates mentioned in the mounting procedures.",
+                "Identify equipment used for both synthesis and sample modification (e.g., FIB)."
+              ]
+            },
+            "overall_score": 2.4
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction captures basic synthesis information (target compound ErTe3, flux growth method) accurately but misses substantial experimental details present in the source text. While the crystal growth procedure references external papers (making empty starting_materials partially acceptable), the paper contains significant sample preparation steps, equipment listings, and experimental conditions that were not captured. The equipment array being completely empty is a notable omission given explicit mentions of CS-130 Razorbill strain cell, titanium bowtie platform, Advanced Photon Source, FIB, and other instruments. Sample preparation steps (exfoliation, epoxy mounting, thinning to specific thicknesses, platform heating) are also absent from the steps array.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the target compound and synthesis method correctly but misses significant structural elements. While starting_materials and steps being empty is partially justified (crystal growth references external papers), the sample preparation procedures described in Supplementary Materials are not captured. Equipment and conditions arrays are completely empty despite substantial information being present in the source text. The notes field captures some crystal dimension information but this should be more structured.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Target compound (ErTe3) is correctly identified. Compound type classification is reasonable. Starting materials being empty is acceptable since the paper references external sources for crystal growth precursors. However, Angstrom Bond epoxy used for mounting is not captured. Crystal dimensions (1-2 mm² surface area, 0.5 mm thickness) are captured in notes but could be more structured. Sample thickness variations for different measurements (10-20um XRD, 1-10um transport) are not captured.",
+                "process_steps_score": 2.5,
+                "process_steps_reasoning": "The steps array is empty, which is a significant omission. While the main crystal growth procedure references external papers (1,2), the Supplementary Materials describe detailed sample preparation steps: crystal exfoliation due to van der Waals bonding, cleaving to thin dimensions, epoxy application (5-10um glue layers), mounting on titanium platform, platform heating for oxide layer creation, and FIB sample geometry definition. These constitute valid process steps that should have been extracted even if the primary synthesis is referenced externally.",
+                "equipment_extraction_score": 2.0,
+                "equipment_extraction_reasoning": "The equipment array is completely empty, which is a significant error. The source text explicitly names multiple pieces of equipment: CS-130 Razorbill strain cell, titanium bowtie platform, Advanced Photon Source at Sector 6-ID-B, Focused ion beam (FIB), capacitive sensor in strain cell, and COMSOL Multiphysics for simulations. These are clearly stated and should have been captured. The extraction fails to capture any of the explicitly mentioned instrumentation.",
+                "conditions_extraction_score": 2.0,
+                "conditions_extraction_reasoning": "No conditions are captured in the extraction despite multiple experimental parameters being stated in the source. Missing conditions include: XRD energy (11.2 keV), cryogenic temperatures for strain tuning, platform heating duration (several hours), critical strain value (~0.13%), TCDW temperature (268K for unstrained ErTe3), sample thickness ranges for different measurements, glue layer thickness (5-10um), and strain transmission percentages (80-90%). These are all explicitly stated numerical conditions.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The information that is captured is semantically accurate. ErTe3 is correctly identified as the target compound. Flux growth method is correctly extracted from 'self-flux method'. Crystal dimensions in notes are accurate. There are no misrepresentations or hallucinations of information. The extraction faithfully represents what it does capture, though it misses substantial content.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure follows a reasonable schema with appropriate field names and data types. Target compound is a string, synthesis method is a string, arrays are properly formatted, and notes contains descriptive text. The structure appears compliant with expected ontology format. No obvious schema violations or data type errors are present in the extracted content.",
+                "overall_score": 3.1,
+                "overall_reasoning": "This extraction demonstrates partial success in capturing synthesis information. Strengths include accurate identification of target compound (ErTe3), correct synthesis method classification (flux growth), and faithful representation of captured information without hallucination. However, significant weaknesses exist: the equipment array is completely empty despite multiple instruments being explicitly named, process steps omit all sample preparation procedures described in Supplementary Materials, and experimental conditions (temperatures, energies, strain values, durations) are not captured. The extraction appears to have focused only on the primary crystal synthesis (which references external papers) while neglecting the detailed sample preparation and measurement procedures that are described in the source text. For a complete synthesis ontology, both the crystal growth and subsequent sample preparation/measurement procedures should be captured. The extraction would benefit from distinguishing between referenced synthesis procedures and described sample preparation procedures, and from more comprehensively capturing equipment, conditions, and procedural steps that are explicitly stated in the source."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "CS-130 Razorbill strain cell",
+                "Titanium bowtie platform",
+                "Advanced Photon Source at Argonne National Lab Sector 6-ID-B",
+                "Focused ion beam (FIB) for sample geometry definition",
+                "Angstrom Bond epoxy for sample mounting",
+                "Sample thickness ranges (10-20um for XRD, 1-10um for transport)",
+                "XRD energy (11.2 keV)",
+                "Cryogenic temperature conditions for strain tuning",
+                "Platform heating procedure (high temperatures for several hours)",
+                "Critical strain value (~0.13%)",
+                "TCDW temperature (268K for unstrained)"
+              ],
+              "extraction_errors": [
+                "Equipment array is empty despite multiple instruments being explicitly named (CS-130 Razorbill strain cell, titanium bowtie platform, Advanced Photon Source Sector 6-ID-B, Focused ion beam, capacitive sensor)",
+                "Process steps array is empty despite sample preparation procedures being described (exfoliation, epoxy mounting, thinning to specific thicknesses, platform oxide layer creation)",
+                "No experimental conditions captured (XRD energy 11.2 keV, cryogenic temperatures, platform heating duration, critical strain values, TCDW temperature)",
+                "Angstrom Bond epoxy mentioned as mounting material not captured in starting_materials or equipment"
+              ],
+              "improvement_suggestions": [
+                "Populate equipment array with all explicitly named instruments and facilities",
+                "Add sample preparation steps including exfoliation, epoxy mounting, thickness selection for different measurement types",
+                "Capture experimental conditions including temperatures, energies, strain values, and durations",
+                "Include epoxy (Angstrom Bond) and titanium platform as materials/equipment used in sample preparation",
+                "Consider separating crystal synthesis (referenced externally) from sample preparation (described in detail) as distinct procedure phases"
+              ]
+            },
+            "overall_score": 3.1
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a research article focused on the physical properties, phase transitions, and strain-tuning experiments of ErTe3 crystals. It is not a detailed synthesis procedure paper. The only synthesis information is a single sentence in the Supplementary Materials: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2).' The extracted ontology correctly identifies the target material and the synthesis method as 'flux growth' (a synonym for 'self-flux method'). It correctly leaves the starting_materials, steps, and equipment arrays empty, as the source provides no details on reagents, quantities, process steps, or specific equipment used in the crystal growth. The extraction demonstrates appropriate restraint by not hallucinating missing information. The primary evaluation task is to assess how well this minimal, correct extraction captures the limited synthesis information present.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "Score: 3.0 (Fair). The extraction captures the two core synthesis elements present in the source: the target compound (ErTe3) and the general method ('flux growth'). However, the ontology structure includes fields for starting materials, steps, and equipment which are all left empty. While this is correct given the source's lack of detail, a more 'complete' extraction for a synthesis-focused paper would populate these fields. The score reflects that the extraction is structurally sound for the information given but cannot be considered 'complete' in the broader sense of a full synthesis protocol.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Score: 5.0 (Excellent). The source text provides no specific starting materials, quantities, units, or purities for the synthesis of ErTe3. It only references a prior method. The extraction correctly leaves the `starting_materials` list empty. There is no information to extract, and the system did not hallucinate any. Therefore, this is a perfect execution of the 'absence is not an error' principle.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "Score: 5.0 (Excellent). The source provides zero details on the sequence of actions, durations, or specific procedures for growing ErTe3 crystals. The extraction correctly leaves the `steps` array empty. No process steps were stated, so none should be extracted. This is correct behavior and receives the highest score.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Score: 5.0 (Excellent). The source text does not mention any specific equipment (e.g., furnaces, crucibles) used in the crystal growth synthesis. The extensive discussion of equipment (Razorbill strain cell, FIB, SEM, XRD setup) pertains to characterization and measurement, not synthesis. The extraction correctly leaves the `equipment` array empty. No synthesis equipment was stated, so none were extracted.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Score: 5.0 (Excellent). The source provides no synthesis conditions such as temperature, time, atmosphere, or pressure for the crystal growth. The extraction has no fields for synthesis conditions to populate (they would typically be within steps), and as there are no steps, there are no conditions to report. The system correctly did not infer or invent any. This is accurate handling of absent information.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "Score: 4.5 (Very Good). The semantic meaning is well preserved. 'Self-flux method' is accurately mapped to the more general ontology term 'flux growth'. The note correctly paraphrases the source sentence and includes the reference to prior work. The `target_compound_type` of 'semiconductors & electronic' is a reasonable, broad classification for ErTe3, though not explicitly stated in the source. A minor deduction is made because the classification, while plausible, is an inference beyond the explicit text.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "Score: 5.0 (Excellent). The JSON output perfectly adheres to the expected GeneralSynthesisOntology schema. All required fields (`target_compound`, `target_compound_type`, `synthesis_method`, `starting_materials`, `steps`, `equipment`, `notes`) are present. The data types are correct: strings for text fields and empty lists for arrays. The structure is valid and well-formed.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction is of high quality for the given source. It correctly identifies the minimal synthesis information present (compound and method) and, crucially, does not hallucinate details for fields where the source is silent (materials, steps, equipment). This demonstrates excellent adherence to the core principle that absence is not an error. The scores are high across the board, with lower scores only in areas (like structural completeness) where the source itself provides very little information to structure. The system's semantic accuracy and format compliance are excellent. The overall performance is reliable and trustworthy for this type of brief, reference-only synthesis description."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the classification 'semiconductors & electronic' is reasonable, the system could adopt a more conservative approach by using a null or 'unknown' value for `target_compound_type` when it is not explicitly stated in the synthesis context of the source, to avoid even minor inferences."
+              ]
+            },
+            "overall_score": 4.6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "ErTe3",
+        "synthesis": {
+          "target_compound": "ErTe3",
+          "target_compound_type": "semiconductors & electronic",
+          "synthesis_method": "other",
+          "starting_materials": [],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Synthesized via a self-flux method.",
+              "materials": [],
+              "equipment": [],
+              "conditions": null
+            }
+          ],
+          "equipment": [],
+          "notes": "Single crystals of ErTe3 were synthesized via a self-flux method as described in references (1,2). Typical crystals had a surface area between 1-2 mm^2 and were 0.5 mm thick."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text describes the synthesis of ErTe3 single crystals via a self-flux method, with the synthesis details deliberately kept brief (referencing prior publications [1,2] for full details). The paper's primary focus is on strain-tuning experiments, elastoresistivity measurements, and CDW physics — not on the synthesis procedure itself. The supplementary section 'Crystal Growth and Sample Preparation' states: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2). Typical crystals had a surface area between 1-2 mm^2 and were 0.5 mm thick.' No starting materials, reagent quantities, temperatures, durations, or detailed procedural steps are provided in this paper — all synthesis details are deferred to external references. The extraction correctly identifies the target compound (ErTe3), the synthesis method (self-flux, categorized as 'other'), and captures the key note about crystal dimensions. The extraction appropriately leaves starting_materials empty and equipment empty, since none are specified in the source. The single process step captured ('Synthesized via a self-flux method') is a reasonable minimal representation of the available information. Overall, the extraction is faithful to the source text and correctly avoids hallucinating details not present in the paper.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the essential structural elements available in the source: target compound (ErTe3), synthesis method (self-flux → 'other'), a single process step, and a notes field with crystal dimensions. Starting materials, equipment, and detailed conditions are all correctly left empty/null because the source text does not provide them — it defers to external references [1,2]. The only minor gap is that the synthesis_method could more precisely be labeled or noted as 'self-flux' within the step description, which it does include. The crystal dimensions (1-2 mm^2 surface area, 0.5 mm thick) are captured in the notes. The target_compound_type classification as 'semiconductors & electronic' is reasonable for a CDW material. Overall structural completeness is high given the minimal synthesis information in the source.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The source text provides no starting materials, reagent quantities, purities, or stoichiometries for the self-flux synthesis — all such details are deferred to references [1,2]. The extraction correctly leaves starting_materials as an empty list, which is the appropriate response to absent information. The target compound ErTe3 is correctly identified. No penalization is warranted for the empty starting materials list. A minor deduction is applied because the extraction does not explicitly note that the synthesis details are deferred to external references within the materials section (though this is captured in the notes field). The materials field in the single step is also empty, which is correct given the source.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The source provides only one sentence of synthesis information: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2).' The extraction captures this as a single step with action 'mix' and description 'Synthesized via a self-flux method.' The action classification 'mix' is a reasonable approximation for a self-flux growth process, though 'grow' or 'crystallize' might be more semantically precise for a crystal growth method. No additional steps are described in the source, so the single-step representation is appropriate. The step correctly has no materials, equipment, or conditions since none are specified. The step description is accurate and concise.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The source text does not name any specific equipment used in the self-flux crystal growth synthesis (equipment details are deferred to references [1,2]). The extraction correctly leaves the equipment list empty. Note that equipment mentioned in the paper relates to the strain measurement apparatus (Razorbill strain cell, titanium bowtie platform, FIB, COMSOL simulations, synchrotron XRD at APS) — not to the crystal synthesis itself. Since the evaluation is focused on the synthesis of ErTe3, the empty equipment list is entirely correct and should not be penalized.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "The source text provides no synthesis conditions (temperature, pressure, duration, atmosphere, cooling rate, etc.) for the self-flux growth — all such details are in the referenced publications [1,2]. The extraction correctly sets conditions to null for the single step. Crystal dimensions (1-2 mm^2, 0.5 mm thick) are captured in the notes field rather than as conditions, which is appropriate since these are product characteristics rather than synthesis conditions. No penalization is warranted for absent conditions that are not stated in the source.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully represents the scientific content available in the source. The target compound ErTe3 is correctly identified. The synthesis method 'self-flux' is correctly captured in the step description and the method is classified as 'other' (since self-flux is not a standard enumerated method in many ontologies). The notes field accurately quotes the key information about crystal dimensions. The action 'mix' for a self-flux growth step is a slight semantic imprecision — self-flux growth involves dissolving the target material in an excess of one component and slowly cooling to crystallize, which is more accurately described as 'crystallize' or 'grow' — but this is a minor issue. No scientific meaning is distorted or hallucinated.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials (empty list), steps (list with one step), equipment (empty list), and notes. The step object contains step_number, action, description, materials (empty list), equipment (empty list), and conditions (null). Data types are correct throughout — lists are lists, null is used appropriately for absent conditions, strings are strings. The only minor format consideration is whether 'other' is the most informative synthesis_method classification, but it is schema-compliant. Overall format compliance is excellent.",
+                "overall_score": 4.1,
+                "overall_reasoning": "The extraction of ErTe3 synthesis information is of high quality given the extremely limited synthesis information provided in the source text. The paper is primarily a physics/materials science study of CDW behavior under strain, and the synthesis section consists of a single sentence deferring to prior publications. The extraction correctly identifies: (1) the target compound ErTe3, (2) the synthesis method as self-flux (classified as 'other'), (3) a single process step capturing the self-flux method, (4) empty starting materials and equipment lists (correct, since none are specified), (5) null conditions (correct, since none are specified), and (6) crystal dimensions in the notes field. The main minor issues are: the action classification 'mix' is slightly imprecise for a crystal growth/self-flux process (should ideally be 'crystallize' or 'grow'), and the synthesis_method field could benefit from a more specific label. However, these are minor semantic issues that do not significantly detract from the overall quality. The extraction demonstrates excellent discipline in not hallucinating information absent from the source, which is the most critical requirement for a reliable extraction system. Overall score: approximately 4.1/5.0."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The extraction does not explicitly note that synthesis details are deferred to external references [1,2] within the step description or materials section (though this is partially captured in the notes)."
+              ],
+              "extraction_errors": [
+                "Action classification 'mix' for the self-flux crystal growth step is semantically imprecise; 'crystallize' or 'grow' would better represent the self-flux method."
+              ],
+              "improvement_suggestions": [
+                "Change the action field for step 1 from 'mix' to 'crystallize' or 'grow' to better reflect the self-flux crystal growth process.",
+                "Add a note within the step description that full synthesis details are available in references [1,2] to improve traceability.",
+                "Consider adding a more specific synthesis_method label such as 'self-flux' if the ontology supports custom method names, rather than the generic 'other'.",
+                "The sample preparation details (cleaving to thin dimensions, use of Angstrom Bond epoxy for mounting) could be captured as additional steps if the ontology scope includes post-synthesis sample preparation."
+              ]
+            },
+            "overall_score": 4.1
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system correctly identified the target material and the general synthesis method (self-flux). However, it failed to extract any specific details regarding the starting materials or the synthesis process, even though the text mentions it is a 'self-flux method' which implies the use of Er and Te as starting materials. While the paper refers to external citations for the full protocol, the extraction is extremely minimal, essentially only capturing the abstract mention of the method without any of the physical characteristics or preparation steps (like cleaving or mounting) described in the 'Sample Preparation' section.",
+              "scores": {
+                "structural_completeness_score": 2.0,
+                "structural_completeness_reasoning": "The extraction is structurally very thin. It misses the preparation steps described in the 'Supplementary Materials' section, such as the exfoliation/cleaving to specific thicknesses (<50um) and the bonding process using Angstrom Bond epoxy, which are part of the experimental workflow for the target material in this study.",
+                "material_extraction_score": 2.0,
+                "material_extraction_reasoning": "The system failed to list Er and Te as starting materials, which are explicitly implied by 'self-flux method' for ErTe3. It also missed the 'Angstrom Bond epoxy' and 'titanium' mentioned as materials used in the sample preparation/mounting phase.",
+                "process_steps_score": 2.0,
+                "process_steps_reasoning": "Only one generic step was created. The text describes a sequence: synthesis (self-flux), orientation (XRD), cleaving/exfoliation, and mounting/bonding. These are distinct experimental steps that were ignored.",
+                "equipment_extraction_score": 1.0,
+                "equipment_extraction_reasoning": "The extraction failed to identify any equipment. The text explicitly mentions a 'CS-130 Razorbill strain cell', 'titanium bowtie platform', 'focused ion beam (FIB)', and 'synchrotron light source' (Sector 6-ID-B).",
+                "conditions_extraction_score": 3.0,
+                "conditions_extraction_reasoning": "The source text is indeed sparse on synthesis conditions (temperature/time) for the self-flux part, referring to citations instead. However, it does mention 'cryogenic temperatures' and '11.2 keV' for the XRD measurement phase which were not captured. The score is moderate because the primary synthesis conditions were indeed absent from the text.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The information that was extracted is accurate. The target material and the method name are correct.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that adheres to the provided schema.",
+                "overall_score": 2.7,
+                "overall_reasoning": "The extraction is technically correct in what it captured but suffers from significant omissions. It treated the 'synthesis' only as the initial crystal growth (which was cited) and ignored the extensive 'Sample Preparation' and 'Device Details' sections which describe the actual laboratory work performed in this paper (cleaving, FIB, mounting). A high-quality extraction should include the preparation of the material for measurement as part of the synthesis/processing workflow."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Starting materials (Er, Te)",
+                "Equipment (Razorbill strain cell, FIB, Ti platform)",
+                "Sample preparation steps (cleaving to <50um, bonding with epoxy)",
+                "Specific material dimensions (10-20um thickness for XRD samples)"
+              ],
+              "extraction_errors": [
+                "Failed to extract starting materials (Er, Te) implied by self-flux.",
+                "Failed to extract equipment: Razorbill strain cell, titanium platform, FIB.",
+                "Failed to extract auxiliary materials: Angstrom Bond epoxy."
+              ],
+              "improvement_suggestions": [
+                "Expand the scope of 'steps' to include sample preparation (cleaving, mounting) when described in detail.",
+                "Identify equipment mentioned in the experimental sections even if the primary synthesis is cited.",
+                "Infer starting materials from the compound name and method (e.g., Er and Te for ErTe3 self-flux)."
+              ]
+            },
+            "overall_score": 2.7
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses the extraction of synthesis ontology from a physics/characterization paper about ErTe3. The source text is primarily focused on strain-tuning experiments and CDW behavior, with minimal synthesis information provided only in the Supplementary Materials section. The extraction correctly identifies that detailed synthesis procedures are referenced to external papers (references 1,2) rather than described in this work. The extraction system appropriately did not hallucinate synthesis details that are not present in the source text, which is the correct behavior according to evaluation principles. The target compound (ErTe3) is correctly identified, the synthesis method (self-flux) is captured, and crystal dimensions are noted. The empty starting_materials and equipment lists are appropriate since these are not specified in the source. The main limitation is the action classification 'mix' for a self-flux method, which typically involves heating/cooling cycles rather than simple mixing.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information present in the source text. The source paper is primarily a characterization/physics study, not a synthesis paper, so limited synthesis details are expected. The extraction correctly identifies the target compound, synthesis method reference, and crystal dimensions. Empty fields for starting_materials, equipment, and conditions are appropriate since these are not specified in the source text. This represents correct behavior - not hallucinating information that doesn't exist in the source.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Target compound ErTe3 is correctly identified. Crystal dimensions (1-2 mm² surface area, 0.5 mm thickness) are captured in the notes field. No starting materials are listed because none are specified in the source text - this is correct behavior, not an extraction error. The extraction accurately represents what material information is available in the source.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "One process step is captured with the self-flux synthesis method description. The action classification 'mix' is suboptimal for self-flux crystal growth, which typically involves heating a mixture above melting point followed by controlled cooling. However, given the minimal synthesis information in the source, the extraction appropriately captures what is stated. Could be improved with better action taxonomy for crystal growth methods.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No synthesis equipment is explicitly mentioned in the source text for the ErTe3 synthesis itself (only referenced to external papers). The extraction correctly leaves the equipment list empty rather than hallucinating equipment names. Equipment mentioned in the paper (CS-130 Razorbill strain cell, titanium bowtie platform, XRD beamline) are for characterization measurements, not synthesis, so correctly excluding them from synthesis equipment is appropriate.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, time, atmosphere, pressure) are specified in the source text for the ErTe3 crystal growth. The extraction correctly leaves conditions as null rather than inferring or hallucinating values. This is the correct behavior when source information is absent. Temperature conditions mentioned in the paper (200K, TCDW=268K) are for characterization measurements, not synthesis.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully represents the scientific content available in the source. It correctly indicates that synthesis details are in referenced papers (1,2) rather than this work. The notes field accurately captures the crystal dimension information. The only semantic issue is the 'mix' action classification which doesn't fully capture the self-flux crystal growth process, but this is a minor taxonomy issue rather than a semantic misrepresentation.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON follows the expected ontology schema structure with all required fields present. Data types are appropriate (strings for text fields, arrays for lists, null for absent conditions). The structure is valid and would integrate properly with downstream systems expecting this ontology format.",
+                "overall_score": 4.8,
+                "overall_reasoning": "This is a high-quality extraction given the constraints of the source material. The paper is primarily a physics/characterization study with minimal synthesis information, and the extraction system correctly identified and captured what synthesis details exist without hallucinating additional information. Scores are high across all criteria because the extraction appropriately handles the limited synthesis content. The main area for improvement is the action classification taxonomy for crystal growth methods. The extraction demonstrates good adherence to the principle that absence of information in the source should result in null/empty fields, not inferred values. Overall score reflects excellent performance on a challenging extraction task where most synthesis details are external to the source document."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample preparation details for different measurement types (10-20μm for XRD, 1-10μm for transport)",
+                "Angstrom Bond epoxy used for sample mounting",
+                "Titanium platform heating for oxide layer creation (for transport devices)"
+              ],
+              "extraction_errors": [
+                "Action classification 'mix' is not optimal for self-flux crystal growth method, which typically involves heating and cooling cycles"
+              ],
+              "improvement_suggestions": [
+                "Consider using 'crystal_growth' or 'heat_treatment' as the action type for self-flux synthesis methods",
+                "Could capture sample preparation details (exfoliation to specific thicknesses, epoxy bonding) as separate process steps since these are described in Supplementary Materials",
+                "Consider adding a field to indicate when synthesis details are referenced to external literature"
+              ]
+            },
+            "overall_score": 4.8
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a research paper focused on the physical properties, phase transitions, and strain-tuning experiments of ErTe3 crystals. It contains a brief, non-detailed mention of the crystal synthesis method in the Supplementary Materials section: 'Single crystals of ErTe3 were synthesized via a self-flux method as described in (1,2).' The extracted ontology correctly identifies this single synthesis step and the target material. However, the source text provides no detailed synthesis procedure, starting material quantities, equipment used in synthesis, or specific conditions (temperature, time, atmosphere). The extraction correctly leaves most fields null, as the information is not present. The primary evaluation challenge is distinguishing between a missing detailed procedure (which is absent from the source) and the correct extraction of the high-level method statement that is present.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the high-level synthesis method ('self-flux') and creates a single process step, which is the only synthesis information explicitly provided. However, the ontology structure is minimal because the source provides minimal synthesis details. It correctly does not hallucinate a detailed procedure. A point of improvement: the 'starting_materials' list is empty, which is correct as none are specified, but the 'target_compound_type' is assigned as 'semiconductors & electronic', which is a reasonable inference but not explicitly stated in the provided synthesis context. The score reflects that the structure correctly represents the sparse information available.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "No starting materials, quantities, units, or purities are specified in the source text for the synthesis of ErTe3. The extraction correctly leaves the 'starting_materials' list empty. The target compound 'ErTe3' is accurately identified. Therefore, there are no errors of omission or commission regarding material extraction. The score is excellent because the system correctly extracted what was present (the target) and correctly omitted what was absent.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "A single step is extracted with the action 'mix' and description 'Synthesized via a self-flux method.' This accurately reflects the single sentence describing the synthesis. The action 'mix' is a reasonable, generic classification for a 'self-flux method,' though 'crystal_growth' or 'synthesis' might be more precise. The step is correctly sequenced (only one step). No further steps are mentioned, so the list is appropriately short. A minor deduction because the action could be more semantically precise, but the overall capture is correct.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text's synthesis description does not mention any specific equipment used for the crystal growth (e.g., furnaces, crucibles). The extraction correctly leaves the 'equipment' list empty. No equipment is hallucinated. This is the correct behavior for absent information.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The source text provides no synthesis conditions such as temperature, time, pressure, or atmosphere for the self-flux growth of ErTe3. The extraction correctly sets the 'conditions' field for the step to 'null'. This is accurate and avoids hallucination.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The semantic meaning of the source's synthesis statement is preserved: ErTe3 crystals were made by a self-flux method. The 'notes' field usefully includes the contextual details about crystal size. The assignment of 'target_compound_type' as 'semiconductors & electronic' is a plausible scientific inference but is not explicitly stated in the synthesis context; the paper discusses electronic properties, but the material class is not defined in the synthesis sentence. This is a minor interpretive addition. The core scientific meaning is accurately captured.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully complies with the expected GeneralSynthesisOntology schema. All required fields are present ('target_compound', 'synthesis_method', 'starting_materials', 'steps', 'equipment', 'notes'). The data types are correct: strings, arrays, objects, and null values where appropriate. The structure within the 'steps' array is valid.",
+                "overall_score": 4.5,
+                "overall_reasoning": "The extraction system performed very well given the extremely limited synthesis information in the source text. It correctly identified the target material and the high-level synthesis method without hallucinating details that were not present. All scores are high (4.0-5.0), reflecting accurate and compliant extraction. The only minor weaknesses are the slightly generic action classification ('mix') for the process step and the inferential assignment of 'target_compound_type'. The system correctly adhered to the core principle of not penalizing absence, leaving fields null where information was not provided. The overall quality is excellent for the information available."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The source text itself is missing detailed synthesis information (precursors, quantities, temperatures, equipment). Therefore, there is no 'missing information' from the extraction perspective; the extraction correctly reflects the source's lack of detail."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider using a more specific action verb like 'crystal_growth' or 'synthesize' instead of 'mix' for a self-flux method, though 'mix' is not incorrect.",
+                "When inferring fields like 'target_compound_type', it's safest to use a broader category like 'inorganic solid' or leave it null if the source text's synthesis context provides no classification, to avoid even minor interpretive additions."
+              ]
+            },
+            "overall_score": 4.5
+          }
+        ]
+      }
+    ]
   }
 ]
