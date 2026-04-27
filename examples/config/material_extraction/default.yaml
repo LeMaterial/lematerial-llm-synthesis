@@ -12,6 +12,7 @@ architecture:
     llm_name: "gemini-2.5-flash-lite"  # 使用Gemini 2.5 Flash Lite
     model_kwargs:
       temperature: 0.0
+      max_tokens: 4096
     system_prompt:
       _target_: llm_synthesis.utils.read_prompt_str_from_txt
       prompt_path: "examples/system_prompts/material_extraction/default.txt"

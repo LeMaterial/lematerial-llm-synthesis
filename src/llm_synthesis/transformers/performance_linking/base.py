@@ -23,7 +23,9 @@ class LinkingInput(NamedTuple):
     plot_metadata: dict
 
 
-class PerformanceLinkingInterface(ExtractorInterface[LinkingInput, list[SeriesMapping]]):
+class PerformanceLinkingInterface(
+    ExtractorInterface[LinkingInput, list[SeriesMapping]]
+):
     """Interface for linking plot series to materials.
 
     Implementations should take plot series names and material names,
@@ -35,7 +37,8 @@ class PerformanceLinkingInterface(ExtractorInterface[LinkingInput, list[SeriesMa
         """Match plot series names to material names.
 
         Args:
-            input: LinkingInput with materials, series names, context, and metadata
+            input: LinkingInput with materials, series names, context, and 
+            metadata
 
         Returns:
             List of SeriesMapping objects linking series to materials

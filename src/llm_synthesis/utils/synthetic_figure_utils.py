@@ -1,4 +1,3 @@
-# ruff: noqa: RUF001
 
 """
 This module contains the utils for generating synthetic figures.

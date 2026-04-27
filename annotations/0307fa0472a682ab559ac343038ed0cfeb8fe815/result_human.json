@@ -1,56 +1,66 @@
-[
+{
+  "schema_version": "multi_llm_v1",
+  "paper_id": "0307fa0472a682ab559ac343038ed0cfeb8fe815",
+  "paper_url": "https://www.mdpi.com/2076-3417/10/3/1178/pdf?version=1581326140",
+  "extractor_order": [
+    "claude-sonnet-4.6",
+    "gemini-3-flash",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2"
+  ],
+  "materials": [
     {
-      "material": "Bi2-xSbxTe3",
-      "synthesis": {
+      "material_name": "Bi2-xSbxTe3",
+      "human_recipe": {
         "target_compound": "Bi2-xSbxTe3",
         "target_compound_type": "nanomaterials",
         "synthesis_method": "microwave-assisted",
         "starting_materials": [
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "BiCl3",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": 1.6,
             "unit": "g",
             "purity": "98%"
           },
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "SbCl3",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": null,
             "unit": null,
             "purity": "99.95%"
           },
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "Te powder",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": 0.96,
             "unit": "g",
             "purity": "99.8%"
           },
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "ethylene glycol",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": 20.0,
             "unit": "mL",
             "purity": "99%"
           },
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "thioglycolic acid",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": 1.0,
             "unit": "mL",
             "purity": "98%"
           },
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "tri-butyl phosphine",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": 6.0,
             "unit": "mL",
             "purity": "93.5%"
           },
           {
-            "vendor": "Sigma Aldrich, Sweden",
             "name": "tri-octyl phosphine",
+            "vendor": "Sigma Aldrich, Sweden",
             "amount": 10.0,
             "unit": "mL",
             "purity": "90%"
@@ -63,25 +73,25 @@
             "description": "Preparation of Te precursor solution as a complex with TBP (or TOP)",
             "materials": [
               {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "Te powder",
-                "amount": 0.96,
-                "unit": "g",
-                "purity": "99.8%"
+                "name": "Te powder (0.96 g) [vendor: Sigma Aldrich, Sweden] [purity: 99.8%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "tri-butyl phosphine",
-                "amount": 6.0,
-                "unit": "mL",
-                "purity": "93.5%"
+                "name": "tri-butyl phosphine (6.0 mL) [vendor: Sigma Aldrich, Sweden] [purity: 93.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "tri-octyl phosphine",
-                "amount": 10.0,
-                "unit": "mL",
-                "purity": "90%"
+                "name": "tri-octyl phosphine (10.0 mL) [vendor: Sigma Aldrich, Sweden] [purity: 90%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               }
             ],
             "equipment": [
@@ -93,15 +103,15 @@
             ],
             "conditions": {
               "temperature": 220.0,
-              "temp_unit": "\u00b0C",
               "duration": 90.0,
-              "time_unit": "s",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "°C",
+              "time_unit": "s",
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": true,
-              "stirring_speed": null,
-              "ph": null
+              "stirring": null,
+              "stirring_speed": null
             }
           },
           {
@@ -110,39 +120,39 @@
             "description": "Preparation of Bi (or Sb) precursor solution",
             "materials": [
               {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "BiCl3",
-                "amount": 1.6,
-                "unit": "g",
-                "purity": "98%"
-              },
-              {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "ethylene glycol",
-                "amount": 20.0,
-                "unit": "mL",
-                "purity": "99%"
-              },
-              {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "SbCl3",
+                "name": "BiCl3 (1.6 g) [vendor: Sigma Aldrich, Sweden] [purity: 98%]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
-                "purity": "99.95%"
+                "purity": null
+              },
+              {
+                "name": "ethylene glycol (20.0 mL) [vendor: Sigma Aldrich, Sweden] [purity: 99%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "SbCl3 [vendor: Sigma Aldrich, Sweden] [purity: 99.95%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -151,11 +161,11 @@
             "description": "Addition of directing agent and sonication",
             "materials": [
               {
-                "vendor": "Sigma Aldrich, Sweden",
-                "name": "thioglycolic acid",
-                "amount": 1.0,
-                "unit": "mL",
-                "purity": "98%"
+                "name": "thioglycolic acid (1.0 mL) [vendor: Sigma Aldrich, Sweden] [purity: 98%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               }
             ],
             "equipment": [
@@ -167,15 +177,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -186,15 +196,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -216,15 +226,15 @@
             ],
             "conditions": {
               "temperature": 220.0,
-              "temp_unit": "\u00b0C",
               "duration": 2.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "°C",
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": true,
-              "stirring_speed": null,
-              "ph": null
+              "stirring": null,
+              "stirring_speed": null
             }
           },
           {
@@ -235,15 +245,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -252,15 +262,15 @@
             "description": "Separation and washing",
             "materials": [
               {
-                "vendor": null,
                 "name": "iso-propanol",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "acetone",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -275,15 +285,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -311,42 +321,147 @@
         ],
         "notes": "The stoichiometry of ternary compositions can easily be tuned by replacing the BiCl3 precursor with equivalent moles of SbCl3. The synthesis work was performed via MW-assisted thermolysis reaction inside a 100 mL Teflon vessel, in 4 parallel reaction vessels at a single run. The product (dark powder), which is about 2 g per vessel, was then cooled down to room temperature. The multivessel high pressure rotor was used for the MW synthesis work, where only four of the fifteen reactor positions were more than enough to prepare large quantity (>8 g) of the desired materials in a single run."
       },
-      "evaluation": {
-        "reasoning": "The text in paper mentions about general process steps.",
-        "scores": {
-          "structural_completeness_score": 4.0,
-          "structural_completeness_reasoning": "The ontology covers most aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the number of washing cycles and centrifuge settings.",
-          "material_extraction_score": 4.5,
-          "material_extraction_reasoning": "Material extraction is accurate, with correct names, amounts, units, and purities. The use of null values when amounts are variable (like SbCl3) is appropriate. However, the solvent for washing is not quantified.",
-          "process_steps_score": 4.0,
-          "process_steps_reasoning": "The process steps are logically sequenced and actions are classified correctly. The description of each step is clear. However, the separation and washing step could be more detailed (e.g., number of washes, centrifugation speed).",
-          "equipment_extraction_score": 3.5,
-          "equipment_extraction_reasoning": "Equipment extraction identifies key instruments like the microwave reactor and sonicator. The microwave reactor's settings are partially specified. However, the centrifuge and sonicator lack specific settings.",
-          "conditions_extraction_score": 4.0,
-          "conditions_extraction_reasoning": "Conditions extraction is accurate for temperature and duration in the heating steps. Stirring is noted. However, pressure and atmosphere are not specified, and sonication conditions are missing.",
-          "semantic_accuracy_score": 4.5,
-          "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
-          "format_compliance_score": 5.0,
-          "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted.",
-          "overall_score": 4.2,
-          "overall_reasoning": "The extraction is generally well-executed, capturing the essential details of the synthesis. Areas for improvement include adding more specific equipment settings and process details to enhance reproducibility."
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "No exact Bi2-xSbxTe3 entry. Compound type is inconsistent.",
+            "scores": {
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "conditions: null on 8/10 steps instead of a populated conditions object.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Coverage is split across specific compositions instead of one Bi2-xSbxTe3 entry.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Compound type 'functional materials & catalysts' instead of 'nanomaterials'.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.25,
+              "overall_reasoning": "Good coverage, but conditions objects are absent on most steps and no exact Bi2-xSbxTe3 entry."
+            },
+            "confidence_level": 4,
+            "missing_information": [
+              "No exact Bi2-xSbxTe3 entry"
+            ],
+            "extraction_errors": [
+              "conditions: null on 8/10 steps",
+              "Compound type is inconsistent"
+            ],
+            "improvement_suggestions": [
+              "Populate conditions object on all steps",
+              "Provide one Bi2-xSbxTe3 entry for the general series"
+            ]
+          }
         },
-        "confidence_level": "high",
-        "missing_information": [
-          "Number of washing cycles during separation.",
-          "Centrifuge settings (speed, duration).",
-          "Sonicator settings (power, duration).",
-          "Atmosphere during heating steps.",
-          "Quantities of iso-propanol and acetone used for washing."
-        ],
-        "extraction_errors": [],
-        "improvement_suggestions": [
-          "Specify the number of washing cycles in the separation step.",
-          "Include centrifuge settings (speed, duration) in the separation step.",
-          "Add sonicator settings (power, duration) to the sonication step.",
-          "If available, specify the atmosphere during the heating steps.",
-          "Quantify the amount of iso-propanol and acetone used for washing."
-        ]
-      }
+        {
+          "evaluation": {
+            "reasoning": "Cooling step is omitted.",
+            "scores": {
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "conditions: null on 4/6 steps instead of a populated conditions object.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "Cooling step is omitted.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Note: unit set to a text string (\"equivalent moles\") when amount is null.",
+              "overall_score": 4.75,
+              "overall_reasoning": "Conditions objects absent on several steps. Cooling step missing. Minor format issue with unit field."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Cooling to room temperature"
+            ],
+            "extraction_errors": [
+              "conditions: null on 4/6 steps",
+              "unit set to text string when amount is null"
+            ],
+            "improvement_suggestions": [
+              "Populate conditions object on all steps",
+              "Add the cooling step",
+              "Set unit to null when amount is null"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No exact Bi2-xSbxTe3 entry.  ",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": " ",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "Note: Some entries add SPS and extra workup beyond the main synthesis flow.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": " ",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": " ",
+              "semantic_accuracy_score": 4.25,
+              "semantic_accuracy_reasoning": "Some entries classify as 'semiconductors & electronic' instead of 'nanomaterials'.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "unit set when amount is null (iso-propanol, acetone with unit=mL; BiCl3, SbCl3 with unit=g).",
+              "overall_score": 4.5,
+              "overall_reasoning": " "
+            },
+            "confidence_level": 3,
+            "missing_information": [],
+            "extraction_errors": [
+              "Some ternary Bi/Sb amounts are inferred",
+              "unit set when amount is null",
+              "Wash solvents listed as starting materials"
+            ],
+            "improvement_suggestions": [
+              "Keep ternary precursor amounts unspecified unless explicit",
+              "Set unit to null when amount is null",
+              "Keep washing solvents in workup steps only"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No exact Bi2-xSbxTe3 entry. Ternary handling is inconsistent  ",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.75,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": " ",
+              "format_compliance_score": 4.75,
+              "format_compliance_reasoning": "TBP and TOP merged into one material entry instead of two separate entries.",
+              "overall_score": 4.5,
+              "overall_reasoning": " "
+            },
+            "confidence_level": 4,
+            "missing_information": [
+              "No exact Bi2-xSbxTe3 entry"
+            ],
+            "extraction_errors": [
+              "TBP and TOP merged into one material entry"
+            ],
+            "improvement_suggestions": [
+              "Keep TBP and TOP as separate material entries"
+            ]
+          }
+        }
+      ]
     }
   ]
+}

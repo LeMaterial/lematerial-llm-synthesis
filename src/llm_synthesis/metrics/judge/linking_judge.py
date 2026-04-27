@@ -20,18 +20,16 @@ from llm_synthesis.metrics.judge.linking_evaluation_ontology import (
 logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# Type alias for the judge interface
-# ---------------------------------------------------------------------------
+
+
 # Input: (source_text, synthesis_json, plot_data_json, linking_output_json)
 LinkingJudgeInterface = JudgeInterface[
     tuple[str, str, str, str], LinkingEvaluation
 ]
 
 
-# ---------------------------------------------------------------------------
-# DSPy judge implementation
-# ---------------------------------------------------------------------------
+
+
 class DspyLinkingJudge(LinkingJudgeInterface):
     """DSPy module for evaluating synthesis-to-performance linking quality.
 
@@ -315,9 +313,8 @@ class DspyLinkingJudge(LinkingJudgeInterface):
         return suggestions
 
 
-# ---------------------------------------------------------------------------
-# DSPy signature
-# ---------------------------------------------------------------------------
+
+
 class LinkingJudgeSignature(dspy.Signature):
     """Expert-level signature for evaluating synthesis-to-performance
     linking quality."""

@@ -1,113 +1,197 @@
 [
   {
-    "material": "Fe3O4",
-    "synthesis": {
-      "target_compound": "Fe3O4",
-      "target_compound_type": "nanomaterials",
-      "synthesis_method": "solvothermal",
-      "starting_materials": [
-        {
-          "vendor": "Sigma\u2013Aldrich",
-          "name": "Ferric chloride hexahydrate",
-          "amount": 2.4,
-          "unit": "gm",
-          "purity": "analytical grade"
-        },
-        {
-          "vendor": "Sigma\u2013Aldrich",
-          "name": "ethylene glycol",
-          "amount": 40.0,
-          "unit": "ml",
-          "purity": "analytical grade"
-        },
-        {
-          "vendor": "Sigma\u2013Aldrich",
-          "name": "ethyl alcohol",
-          "amount": 20.0,
-          "unit": "ml",
-          "purity": "analytical grade"
-        },
-        {
-          "vendor": "Sigma\u2013Aldrich",
-          "name": "Urea",
-          "amount": 1.06,
-          "unit": "gm",
-          "purity": "analytical grade"
-        },
-        {
-          "vendor": "Sigma\u2013Aldrich",
-          "name": "oleylamine",
-          "amount": null,
-          "unit": "ml",
-          "purity": "analytical grade"
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "mix",
-          "description": "mixing Ferric chloride hexahydrate in Ethylene Glycol (EG) and ethyl alcohol solution",
-          "materials": [
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "Fe3O4",
+        "synthesis": {
+          "target_compound": "Fe3O4 (Magnetite) Hollow Spheres",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "solvothermal",
+          "starting_materials": [
             {
-              "vendor": null,
-              "name": "Ferric chloride hexahydrate",
+              "vendor": "Sigma-Aldrich",
+              "name": "Ferric chloride hexahydrate (FeCl3·6H2O)",
               "amount": 2.4,
-              "unit": "gm",
-              "purity": null
+              "unit": "g",
+              "purity": "analytical grade"
             },
             {
-              "vendor": null,
-              "name": "ethylene glycol",
+              "vendor": "Sigma-Aldrich",
+              "name": "Ethylene Glycol (EG)",
               "amount": 40.0,
-              "unit": "ml",
-              "purity": null
+              "unit": "mL",
+              "purity": "analytical grade"
             },
             {
-              "vendor": null,
-              "name": "ethyl alcohol",
+              "vendor": "Sigma-Aldrich",
+              "name": "Ethyl alcohol",
               "amount": 20.0,
-              "unit": "ml",
-              "purity": null
-            }
-          ],
-          "equipment": [
+              "unit": "mL",
+              "purity": "analytical grade"
+            },
             {
-              "name": "magnetic stirrer",
-              "instrument_vendor": null,
-              "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": true,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 2,
-          "action": "add",
-          "description": "adding Urea and oleylamine in the above solution",
-          "materials": [
-            {
-              "vendor": null,
+              "vendor": "Sigma-Aldrich",
               "name": "Urea",
               "amount": 1.06,
-              "unit": "gm",
-              "purity": null
+              "unit": "g",
+              "purity": "analytical grade"
             },
             {
-              "vendor": null,
-              "name": "oleylamine",
+              "vendor": "Sigma-Aldrich",
+              "name": "Oleylamine",
               "amount": null,
-              "unit": "ml",
-              "purity": null
+              "unit": "mL",
+              "purity": "analytical grade"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "dissolve",
+              "description": "2.4 g of FeCl3·6H2O was mixed in 40 mL ethylene glycol and 20 mL ethyl alcohol solution.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ferric chloride hexahydrate (FeCl3·6H2O)",
+                  "amount": 2.4,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Ethylene Glycol (EG)",
+                  "amount": 40.0,
+                  "unit": "mL",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Ethyl alcohol",
+                  "amount": 20.0,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "1.06 g of urea and a specified amount of oleylamine (2 mL, 3 mL, or 4 mL for different sets) were added to the above solution and stirred until completely transparent.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Urea",
+                  "amount": 1.06,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Oleylamine",
+                  "amount": null,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "The final solutions were transferred into 80 mL Teflon-lined stainless steel autoclaves and subjected to solvothermal process at 180°C for 15 hours.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "Teflon-lined stainless steel autoclave",
+                  "instrument_vendor": null,
+                  "settings": "80 mL capacity"
+                }
+              ],
+              "conditions": {
+                "temperature": 180.0,
+                "temp_unit": "C",
+                "duration": 15.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "wash",
+              "description": "The resultant black solutions were washed in alcohol several times.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Alcohol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 5,
+              "action": "dry",
+              "description": "The washed particles were dried at 60°C overnight.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
             }
           ],
           "equipment": [
@@ -115,146 +199,1326 @@
               "name": "magnetic stirrer",
               "instrument_vendor": null,
               "settings": null
+            },
+            {
+              "name": "Teflon-lined stainless steel autoclave",
+              "instrument_vendor": null,
+              "settings": "80 mL capacity"
+            },
+            {
+              "name": "X-ray diffractometer",
+              "instrument_vendor": "Rigaku",
+              "settings": "Miniflex II, Cu Kα (λ = 1.5418 Å)"
+            },
+            {
+              "name": "Transmission Electron Microscope (TEM)",
+              "instrument_vendor": "FEI",
+              "settings": "TECHNAI G2 SF20 ST, 200 kV"
             }
           ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": true,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "notes": "Three different sets of particles were prepared by varying the amount of oleylamine: 2 mL, 3 mL, and 4 mL. With 2 mL oleylamine, particle size ~350 nm (shell ~80 nm); with 3 mL, ~280 nm (shell ~60 nm); with 4 mL, ~200 nm (shell ~35 nm). Ethylene glycol acts as a reducing agent to partially reduce Fe3+ to Fe2+. Urea decomposes to produce NH3 and CO2, which generates OH- ions to precipitate iron hydroxides. Prolonged heating converts the iron hydroxides to Fe3O4. Oleylamine forms micelles that serve as templates for hollow sphere formation."
         },
-        {
-          "step_number": 3,
-          "action": "heat",
-          "description": "transferring the solution in teflon lined stainless steel autoclaves for the solvothermal process",
-          "materials": [],
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology for Fe3O4 (Magnetite) Hollow Spheres synthesis captures the core synthesis procedure described in the source text with high fidelity. The extraction correctly identifies the solvothermal synthesis method, all key starting materials with their quantities and purities, the sequential process steps, and the primary equipment used. The source text describes a well-defined synthesis protocol involving dissolution of FeCl3·6H2O in ethylene glycol and ethyl alcohol, addition of urea and oleylamine, solvothermal treatment at 180°C for 15 hours, washing with alcohol, and drying at 60°C overnight. The extraction captures all of these steps accurately. The notes section provides excellent supplementary context about the mechanism, particle size variations, and role of each reagent. Minor issues include: the oleylamine amount is left null (correctly, since it varies across three sets), the SEM instrument is not captured in the equipment list (though it is mentioned in the source), and the drying duration ('overnight') is not captured numerically. The vendor attribution to Sigma-Aldrich for all reagents is correct per the source. The TEM vendor is listed as 'FEI' which is a reasonable inference for TECHNAI G2 instruments, though the source does not explicitly state the vendor name.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound, synthesis method, all five starting materials, five sequential process steps, equipment list, and synthesis conditions. The notes section adds valuable mechanistic context. Minor gaps include: (1) the SEM instrument is mentioned in the source ('scanning electron microscope (SEM)') but not included in the equipment list; (2) the DLS instrument used for micelle characterization is mentioned in the source but not captured; (3) the FTIR instrument (KBr matrix method) is mentioned but not in the equipment list. The AC magnetic measurement setup ('lab-made instrument') and UV-visible spectrophotometer used for drug loading quantification are also absent. However, these characterization instruments are secondary to the synthesis procedure itself, and their omission is a minor issue. The core synthesis information is comprehensively captured.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials are correctly identified with accurate names, amounts, units, and purity grades. FeCl3·6H2O (2.4 g), Ethylene Glycol (40 mL), Ethyl alcohol (20 mL), Urea (1.06 g), and Oleylamine (variable, correctly left null) are all present. The vendor (Sigma-Aldrich) and purity (analytical grade) are correctly assigned to all reagents as stated in the source. The oleylamine amount being null is correct since it varies (2, 3, or 4 mL) across the three experimental sets. The washing alcohol in step 4 is captured without amount, which is appropriate since no specific amount is given in the source. The drug loading materials (DOX, ammonium hydroxide, deionized water, PBS buffer) are not captured, but these relate to the drug loading application rather than the core Fe3O4 synthesis, so this omission is acceptable. Overall material extraction is highly accurate.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The five process steps are logically sequenced and accurately represent the synthesis procedure: (1) dissolve FeCl3·6H2O in EG/ethanol, (2) add urea and oleylamine with stirring, (3) solvothermal heating at 180°C for 15 h, (4) wash with alcohol, (5) dry at 60°C overnight. The action classifications (dissolve, add, heat, wash, dry) are appropriate and technically correct. Step descriptions are accurate and include key details. The step 2 correctly notes the variable oleylamine amounts (2, 3, or 4 mL). One minor issue: the drying step (step 5) correctly captures 60°C but leaves duration null, while the source states 'overnight' — this could have been captured as a qualitative duration or approximated as ~12 h. The stirring condition in step 1 is correctly noted. The transfer to autoclave in step 3 is well described. Overall, the process steps are well-organized and complete.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The equipment list captures the four most critical instruments: magnetic stirrer, Teflon-lined stainless steel autoclave (with correct 80 mL capacity specification), Rigaku Miniflex II X-ray diffractometer (with correct Cu Kα source and wavelength), and TECHNAI G2 SF20 ST TEM (with correct 200 kV operating voltage). The TEM vendor is listed as 'FEI' — while the source does not explicitly state the vendor, TECHNAI G2 instruments are indeed manufactured by FEI/Thermo Fisher, making this a reasonable and technically accurate inference. However, the SEM instrument is explicitly mentioned in the source ('scanning electron microscope (SEM)') but is absent from the equipment list. The FTIR spectrometer (used with KBr matrix method) is also mentioned in the source but not captured. The DLS instrument and UV-visible spectrophotometer are also absent. The lab-made AC magnetic measurement instrument is mentioned but not captured. These omissions reduce the score slightly, though the core synthesis equipment is well represented.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The key synthesis conditions are accurately captured: solvothermal temperature (180°C), duration (15 h), and drying temperature (60°C). Stirring is correctly noted as true for steps 1 and 2. The autoclave capacity (80 mL) is captured as a setting. The source does not specify pressure, atmosphere, or stirring speed, so these being null is correct. The drying duration ('overnight') is not captured numerically in step 5, which is a minor omission — it could have been noted as 'overnight' in the description or approximated. The AC magnetic measurement conditions (room temperature 25°C, frequency range 30-700 Hz, field strength ~92 kA/m) are not captured, but these relate to characterization rather than synthesis. The drug release conditions (37°C and 44°C, pH 7.4 PBS) are also not captured, but again these are application conditions rather than synthesis conditions. The core synthesis conditions are well represented.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the synthesis procedure. The notes section provides excellent mechanistic context: the role of ethylene glycol as a reducing agent (Fe3+ to Fe2+), urea decomposition to generate OH- ions for iron hydroxide precipitation, and oleylamine micelle formation as templates for hollow sphere formation. The relationship between oleylamine concentration and particle size/shell thickness is correctly noted (higher concentration → smaller particles, thinner shells). The solvothermal method classification is accurate. The target compound is correctly identified as Fe3O4 (Magnetite) Hollow Spheres with nanomaterials classification. The chemical reactions described in the source (urea hydrolysis, iron hydroxide formation, dehydration to Fe3O4) are summarized accurately in the notes. The Ostwald ripening mechanism is not explicitly mentioned in the notes but this is a minor omission. Overall, the semantic accuracy is high with no significant misinterpretations.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are populated: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity), steps (with step_number, action, description, materials, equipment, conditions), equipment (with name, instrument_vendor, settings), and notes. Data types are correct throughout: numerical values for amounts and temperatures, string values for names and descriptions, boolean for stirring, null for absent values. The conditions object in step 4 (wash) is null rather than an empty object, which is a minor schema deviation but acceptable. The step conditions in step 5 have time_unit set to 'h' despite duration being null, which is a minor inconsistency. The equipment vendor for TEM is listed as 'FEI' (an inference not explicitly stated in the source), which is technically accurate but represents a slight deviation from strict extraction. Overall format compliance is excellent.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of Fe3O4 Magnetite Hollow Sphere synthesis from this source text is of high quality overall. The core synthesis procedure is comprehensively and accurately captured across all evaluation dimensions. Starting materials are complete with correct quantities, units, and purities. The five process steps are logically sequenced with appropriate action classifications and accurate conditions. Key equipment (autoclave, stirrer, XRD, TEM) is well identified with technical specifications. Synthesis conditions (180°C, 15 h solvothermal; 60°C drying) are accurately recorded. The notes section adds significant value by capturing mechanistic information, particle size relationships, and reagent roles. Minor weaknesses include: absence of SEM and FTIR instruments from the equipment list despite being explicitly mentioned in the source; the drying duration ('overnight') not being captured; and the TEM vendor being inferred rather than stated. The drug loading and characterization procedures are not captured, but these are secondary to the core Fe3O4 synthesis. The extraction demonstrates strong scientific understanding of the synthesis procedure and faithfully preserves the chemical and mechanistic context of the original paper. Overall score: approximately 4.4/5.0, reflecting high-quality extraction with minor completeness gaps."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "SEM instrument is explicitly mentioned in the source but absent from the equipment list",
+                "FTIR spectrometer (KBr matrix method) is mentioned in the source but not captured in equipment",
+                "Drying duration ('overnight') in step 5 is not captured",
+                "DLS instrument used for micelle characterization is not captured",
+                "UV-visible spectrophotometer used for drug loading quantification is not captured",
+                "Lab-made AC magnetic measurement instrument (92 kA/m, up to 700 Hz) is not captured"
+              ],
+              "extraction_errors": [
+                "TEM vendor listed as 'FEI' — this is a reasonable inference but not explicitly stated in the source text",
+                "Step 5 (dry) has time_unit set to 'h' despite duration being null, creating a minor inconsistency"
+              ],
+              "improvement_suggestions": [
+                "Add SEM to the equipment list as it is explicitly mentioned in the characterization section of the source",
+                "Add FTIR spectrometer to the equipment list with KBr matrix method noted in settings",
+                "Capture the drying duration as 'overnight' in the step 5 description or as an approximate value (~12 h)",
+                "Consider adding the drug loading procedure as additional steps or a separate synthesis sub-procedure, as it is described in detail in the source",
+                "Add DLS instrument to equipment list as it is used for micelle characterization",
+                "Note the variable oleylamine amounts (2, 3, 4 mL) explicitly in step 2 conditions or as separate parallel steps to better represent the three experimental sets"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the core solvothermal synthesis of Fe3O4 hollow spheres with high fidelity. It correctly identifies the reagents, the specific amounts for the base solution, and the variable nature of the oleylamine concentration. The process steps follow the logical sequence of the experimental section, and the characterization equipment is well-documented.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all major components: starting materials, sequential process steps, specific equipment, and reaction conditions. It also includes the variable experimental parameters in the notes section.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Chemical names, amounts (2.4g FeCl3, 40mL EG, 20mL Alcohol, 1.06g Urea), and units are perfectly extracted. The purity 'analytical grade' and vendor 'Sigma-Aldrich' were correctly identified from the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps (dissolve, add, heat, wash, dry) accurately reflect the experimental workflow. The logic of adding urea and oleylamine after the initial dissolution is preserved.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The extraction correctly identifies the magnetic stirrer, the specific 80 mL Teflon-lined autoclave, and the characterization instruments (Rigaku XRD and Technai TEM) with their respective settings.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperature (180°C and 60°C) and duration (15 hrs and overnight) are correctly extracted. Stirring is correctly noted for the initial steps.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning, particularly the role of oleylamine as a variable template and the chemical mechanism described in the notes.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON is valid, follows the schema, and uses appropriate data types (nulls for missing values, floats for numbers).",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the primary Fe3O4 hollow sphere synthesis procedure. Starting materials are correctly identified with vendor (Sigma-Aldrich) and purity (analytical grade). Process steps follow the correct sequence with appropriate action classifications (dissolve, add, heat, wash, dry). Key synthesis conditions (180°C, 15 hours for solvothermal; 60°C for drying) are accurately captured. Equipment including magnetic stirrer, autoclave, XRD, and TEM are properly identified with specifications. However, some minor issues exist: oleylamine amounts are shown as null in starting_materials despite being specified in the text (2, 3, 4 mL for different sets), drying duration is null despite 'overnight' being stated, and the drug loading procedure is not included in the extraction. The TEM vendor 'FEI' appears to be inferred rather than explicitly stated in the source text.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis workflow comprehensively including all starting materials, process steps, equipment, and key conditions. The primary Fe3O4 hollow sphere synthesis is well-represented with proper organization. However, the drug loading experiment procedure is not included, which is a significant part of the experimental work described in the source. Additionally, some characterization equipment (AC magnetic measurement setup) is not captured. The structure follows logical synthesis ontology organization.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials are accurately extracted with correct names, amounts, units, and vendor information (Sigma-Aldrich). Purity (analytical grade) is correctly captured. The main issue is oleylamine amount shown as null in starting_materials despite the source clearly stating three different amounts (2 mL, 3 mL, 4 mL) for different experimental sets. This should have been captured as a variable parameter or noted in the extraction. All other material quantities (FeCl3·6H2O: 2.4 g, EG: 40 mL, ethyl alcohol: 20 mL, urea: 1.06 g) are accurate.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Process steps are well-organized with correct sequencing (dissolve → add → heat → wash → dry) and appropriate action classifications. Each step includes relevant materials, equipment, and conditions where applicable. Step descriptions accurately reflect the source text. The main weakness is step 5 (drying) has duration marked as null when 'overnight' is stated in the source. The drug loading procedure steps are not included, which represents a separate but related synthesis workflow.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Key equipment is properly identified including magnetic stirrer, Teflon-lined autoclave (with 80 mL capacity), XRD (Rigaku Miniflex II with Cu Kα source), and TEM (TECHNAI G2 SF20 ST at 200 kV). However, the TEM vendor is listed as 'FEI' which is not explicitly stated in the source text (TECHNAI is an FEI product line, but this is inference). Centrifugation equipment mentioned for particle separation is not captured. The lab-made AC magnetic measurement instrument is also not included in the equipment list.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Critical synthesis conditions are accurately captured: solvothermal temperature (180°C), duration (15 hours), drying temperature (60°C). Units are consistent and correct. Stirring conditions are noted where applicable. However, drying duration is marked as null despite 'overnight' being specified in the source. Pressure and atmosphere conditions are correctly left null as they are not specified in the source text. The extraction correctly avoids hallucinating unspecified parameters.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning and intent of the synthesis procedure. Chemical names, reaction conditions, and process flow are accurately represented. The notes section provides excellent context about the synthesis mechanism (ethylene glycol as reducing agent, urea decomposition, oleylamine micelle templating). No significant misinterpretations or semantic errors are present. The only concern is the FEI vendor inference for TEM which adds information not explicitly in the source.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction fully adheres to the GeneralSynthesisOntology schema structure. All required fields are present with appropriate data types. JSON formatting is valid. Field names match the expected ontology structure. Null values are used appropriately for unspecified parameters (following best practices of not hallucinating information). The organization into starting_materials, steps, equipment, and notes sections is consistent with the schema requirements.",
+                "overall_score": 4.5,
+                "overall_reasoning": "This is a high-quality extraction that captures the essential Fe3O4 hollow sphere synthesis procedure with strong accuracy and organization. The extraction correctly identifies all starting materials with vendor and purity information, sequences process steps logically with appropriate action classifications, and captures critical synthesis conditions (180°C/15h solvothermal, 60°C drying). Equipment is well-documented with specifications. Key strengths include: accurate material quantities and units, proper schema compliance, correct use of null for unspecified parameters, and informative notes section explaining the synthesis mechanism. Areas for improvement: oleylamine amounts should be captured (2, 3, 4 mL variants), drying duration 'overnight' should be represented rather than null, TEM vendor 'FEI' appears to be inferred rather than stated, and the drug loading procedure is not included. Overall, this extraction demonstrates strong performance in capturing reproducible synthesis information while appropriately avoiding hallucination of unspecified parameters."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drug loading experiment procedure (50 mg NHS, 1 mL deionized water, 50 μL ammonium hydroxide, 100 μL DOX solution, stirring times, centrifugation)",
+                "Specific drying duration ('overnight' could be quantified)",
+                "Centrifugation equipment for particle separation",
+                "AC magnetic field measurement instrument details (lab-made, 92 kA/m, 700 Hz)"
+              ],
+              "extraction_errors": [
+                "Oleylamine amount shown as null in starting_materials when source specifies 2 mL, 3 mL, and 4 mL for different experimental sets",
+                "Drying duration marked as null when source states 'overnight'",
+                "TEM instrument vendor listed as 'FEI' but source text only states 'TECHNAI G2 SF20 ST' without explicitly naming FEI",
+                "Drug loading experiment procedure not captured in the extraction"
+              ],
+              "improvement_suggestions": [
+                "Capture the three different oleylamine amounts (2, 3, 4 mL) as separate experimental conditions or note the variation explicitly",
+                "Represent 'overnight' as a duration value (e.g., ~12 hours or 8-16 hours) rather than null",
+                "Only include vendor information when explicitly stated in the source text",
+                "Consider including the drug loading procedure as a separate synthesis/processing section since it's part of the experimental workflow",
+                "Add centrifugation equipment mentioned in the drug loading and washing steps"
+              ]
+            },
+            "overall_score": 4.5
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extracted ontology provides a structured representation of the solvothermal synthesis of magnetite (Fe3O4) hollow spheres using oleylamine micelles as templates. The extraction successfully captures the core synthesis procedure, including starting materials, key process steps, equipment, and reaction conditions. It correctly identifies the solvothermal method, the role of reagents, and the variation in oleylamine amounts to produce different particle sizes. The extraction demonstrates good semantic understanding by including notes on the mechanism and particle size outcomes. However, there are some minor inaccuracies in material naming and a missed opportunity to structure the variable oleylamine amounts more explicitly. Overall, the extraction is largely complete and accurate, with high fidelity to the source text.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major structural components of the synthesis: target compound, method, starting materials, a logical sequence of steps, key equipment, and synthesis conditions. It includes the variable oleylamine amounts and the resulting particle sizes in the notes. The only minor omission is the explicit mention of the 'three different 80 ml teflon lined stainless steel autoclaves' used for parallel synthesis, though the equipment is listed. The drug loading procedure, while described in the source, is a separate application step not strictly part of the core Fe3O4 synthesis; its omission is acceptable. The structure is comprehensive.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material names, amounts, and units are accurately extracted for the main precursors (FeCl3·6H2O, EG, alcohol, urea). The vendor (Sigma-Aldrich) and purity (analytical grade) are correctly captured. A minor error exists: the source text specifies 'ethyl alcohol' but the extraction uses 'Ethyl alcohol' in starting_materials and 'Alcohol' in a wash step, which is slightly inconsistent but semantically correct. The handling of oleylamine is partially incomplete: the extraction correctly notes its amount is variable (2, 3, 4 mL) in the notes, but the `starting_materials` list has `amount: null` for oleylamine. It would be more precise to indicate a range or list the specific amounts used. No penalties for missing purities/vendors in step-specific materials, as they are inherited from the starting list.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The five process steps are logically sequenced and accurately describe the procedure: dissolution, addition and stirring, solvothermal reaction, washing, and drying. Action classifications (dissolve, add, heat, wash, dry) are appropriate. Descriptions are clear and faithful to the text. The step for transferring to autoclaves is implicitly part of step 3. The extraction correctly does not include the drug loading or characterization steps as part of the synthesis ontology. The flow is complete and reproducible.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "All explicitly named equipment used in the synthesis is captured: 'magnetic stirrer' and 'Teflon-lined stainless steel autoclave'. The autoclave capacity (80 mL) is noted. The extraction also lists characterization equipment (XRD, TEM) which, while not part of the synthesis procedure per se, is often included in such ontologies for context; this is not an error. No vendor/model is specified for the stirrer or autoclave in the source, so null values are correct. The settings for the autoclave are partially captured (capacity), but the source also mentions 'three different' autoclaves, which is a minor contextual detail not extracted.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately extracted: solvothermal temperature (180 C) and duration (15 h), and drying temperature (60 C). The stirring condition is correctly noted in steps 1 and 2. The source does not specify pressure, atmosphere, stirring speed, or pH for the solvothermal step, so their absence is correct. The duration for drying ('overnight') is not quantified in the source, so `duration: null` is appropriate. All numerical values and units match the source.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning and context of the synthesis exceptionally well. It correctly identifies the solvothermal method, the templating role of oleylamine micelles, the functions of ethylene glycol (reducing agent) and urea (hydroxide source), and the formation mechanism of hollow spheres. The notes section effectively summarizes the size variation with oleylamine amount and the chemical reactions. The only very minor semantic quibble is the use of 'Ethyl alcohol' versus 'ethyl alcohol', which is inconsequential. The overall scientific intent and process are faithfully represented.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected ontology schema. All required top-level fields (target_compound, synthesis_method, starting_materials, steps, equipment, notes) are present and correctly populated. Data types are appropriate (strings, numbers, arrays, objects, nulls). Nested structures for materials, equipment, and conditions follow the expected format. The extraction demonstrates excellent schema adherence.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction is of high quality, successfully transforming a detailed experimental procedure into a well-structured ontology. Strengths include accurate capture of materials, conditions, and process flow, excellent semantic preservation of the synthesis mechanism, and perfect format compliance. Minor areas for improvement are the handling of the variable oleylamine amount in the starting_materials list and slight consistency in naming 'ethyl alcohol'. The average score of 4.43 reflects a robust and reliable extraction suitable for database ingestion or further analysis."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "Inconsistent naming of 'Ethyl alcohol' (starting_materials) vs. 'Alcohol' (wash step); source uses 'ethyl alcohol'.",
+                "The variable amount of oleylamine (2, 3, 4 mL) is only described in notes; the `starting_materials` entry for oleylamine has `amount: null`, which is technically correct but could be more precisely represented (e.g., as a list or range)."
+              ],
+              "improvement_suggestions": [
+                "For variable reagent amounts like oleylamine, consider representing them as an array of specific amounts or a range in the `starting_materials` list to enhance precision.",
+                "Maintain consistent nomenclature for materials across all fields (e.g., use 'ethyl alcohol' uniformly).",
+                "Consider adding a field or tag to indicate parallel synthesis (three autoclaves) if the schema supports it, though it's a minor detail."
+              ]
+            },
+            "overall_score": 4.4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "Fe3O4",
+        "synthesis": {
+          "target_compound": "Fe3O4",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "solvothermal",
+          "starting_materials": [
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Ferric chloride hexahydrate (FeCl3, 6H2O)",
+              "amount": 2.4,
+              "unit": "g",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Ethylene glycol (EG)",
+              "amount": 40.0,
+              "unit": "mL",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Ethyl alcohol",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Urea",
+              "amount": 1.06,
+              "unit": "g",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Oleylamine",
+              "amount": null,
+              "unit": "mL",
+              "purity": "analytical grade"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Mix Ferric chloride hexahydrate in Ethylene Glycol and ethyl alcohol solution.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ferric chloride hexahydrate",
+                  "amount": 2.4,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Ethylene Glycol",
+                  "amount": 40.0,
+                  "unit": "mL",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Ethyl alcohol",
+                  "amount": 20.0,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "Add Urea and different amounts of oleylamine (2ml, 3ml, or 4ml) to the solution and stir until transparent.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Urea",
+                  "amount": 1.06,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Oleylamine",
+                  "amount": 2.0,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "Transfer the solution to a teflon lined stainless steel autoclave for solvothermal process.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "teflon lined stainless steel autoclave",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 180.0,
+                "temp_unit": "C",
+                "duration": 15.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "wash",
+              "description": "Wash the resultant black solutions in alcohol several times.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "alcohol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 5,
+              "action": "dry",
+              "description": "Dry the particles overnight.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": 12.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [
             {
-              "name": "autoclave",
+              "name": "teflon lined stainless steel autoclave",
+              "instrument_vendor": null,
+              "settings": "80 ml"
+            },
+            {
+              "name": "magnetic stirrer",
               "instrument_vendor": null,
               "settings": null
             }
           ],
-          "conditions": {
-            "temperature": 180.0,
-            "temp_unit": "\u00b0C",
-            "duration": 15.0,
-            "time_unit": "hrs",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "notes": "The amount of oleylamine was varied (2ml, 3ml, 4ml) to control the diameter and shell thickness of the hollow spheres. Ethylene glycol acts as a reducing agent."
         },
-        {
-          "step_number": 4,
-          "action": "wash",
-          "description": "washing the resultant black solutions in alcohol for several times",
-          "materials": [
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for Fe3O4 magnetite hollow spheres (NHS) via solvothermal method guided by oleylamine micelles. The extraction correctly identifies the target compound, synthesis method, starting materials with vendor, amounts, units, and purities, and organizes the process into five logical steps. The equipment list includes the two key pieces of equipment mentioned in the synthesis section. Conditions such as temperature (180°C), duration (15 h), and drying temperature (60°C) are correctly captured. However, there are a few notable issues: (1) the drying duration is listed as 12 h when the source says 'overnight' — this is an inference that is reasonable but not explicitly stated as 12 h; (2) oleylamine amount is listed as null in starting materials but 2.0 mL in step 2, which is inconsistent and only represents one of the three variants (2, 3, 4 mL); (3) the drug loading procedure (DOX loading, ammonium hydroxide functionalization, centrifugation, UV-vis measurement) is not captured in the steps, though this could be considered a separate sub-procedure; (4) the Rigaku Miniflex II XRD and TECHNAI G2 SF20 ST TEM are mentioned in the characterization section but not included in the equipment list — however, these are characterization instruments, not synthesis equipment, so their omission is acceptable; (5) the 80 mL autoclave volume is correctly noted in equipment settings. Overall, the extraction is of good quality with minor issues.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound (Fe3O4), synthesis method (solvothermal), five starting materials with vendor/amount/unit/purity, five process steps in logical order, two pieces of synthesis equipment, and key conditions. The drug loading sub-procedure (DOX loading, ammonium hydroxide addition, centrifugation, UV-vis quantification) is not captured as process steps, but this could be considered a separate application procedure rather than the core synthesis. The oleylamine amount variation (2, 3, 4 mL) is mentioned in notes but only one value (2 mL) appears in step 2, which slightly reduces completeness. The overall synthesis structure is well-represented.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials are correctly identified with accurate amounts, units, and purities (analytical grade, Sigma-Aldrich). FeCl3·6H2O at 2.4 g, EG at 40 mL, ethyl alcohol at 20 mL, urea at 1.06 g are all correctly extracted. Oleylamine amount is null in the starting materials list (correct, since it varies across experiments), but 2.0 mL is listed in step 2 — this is slightly inconsistent but not a major error. The note correctly mentions the three variants (2, 3, 4 mL). The alcohol used for washing is captured in step 4. No hallucinated quantities or incorrect chemical names are present.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The five steps (mix, add, heat, wash, dry) are logically sequenced and accurately reflect the source text. Step 1 correctly captures the mixing of FeCl3 in EG and ethanol with magnetic stirring. Step 2 correctly captures the addition of urea and oleylamine with stirring until transparent. Step 3 correctly captures the solvothermal process at 180°C for 15 h in a Teflon-lined autoclave. Step 4 captures washing with alcohol. Step 5 captures drying at 60°C. The drying duration is listed as 12 h, but the source says 'overnight' — this is a reasonable inference but not explicitly stated. The drug loading procedure is not captured as steps, which is a minor omission given it is a separate experimental procedure described in the paper. The stirring step in step 1 correctly notes the magnetic stirrer equipment.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The two primary synthesis equipment items are correctly identified: the Teflon-lined stainless steel autoclave (with 80 mL volume noted in settings) and the magnetic stirrer. The autoclave volume (80 mL) is correctly captured as a setting. Characterization instruments (Rigaku Miniflex II XRD, TECHNAI G2 SF20 ST TEM, lab-made AC magnetic measurement setup, DLS instrument) are not included, but these are characterization/measurement tools rather than synthesis equipment, so their omission is appropriate and not penalized. No hallucinated equipment is present.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately captured: solvothermal temperature of 180°C and duration of 15 h in step 3, drying temperature of 60°C in step 5. Stirring is correctly noted as true in steps 1 and 2. The drying duration of 12 h is an inference from 'overnight' — while reasonable, the source does not specify exactly 12 h. Pressure, atmosphere, stirring speed, and pH are correctly left null as they are not specified in the source. The room temperature for AC measurements (25°C) is not captured, but this is a characterization condition, not a synthesis condition. Overall, synthesis conditions are well-extracted.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis is faithfully preserved. The role of ethylene glycol as a reducing agent is correctly noted in the notes field. The oleylamine micelle-templating mechanism is referenced in the notes. The solvothermal nature of the process is correctly classified. The step descriptions accurately reflect the source text language and intent. The note about varying oleylamine concentration to control particle size and shell thickness is correctly captured. No significant misinterpretations or semantic distortions are present. The extraction correctly identifies this as a nanomaterial synthesis.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity), steps (with step_number, action, description, materials, equipment, conditions), equipment list, and notes. Data types are correct (numeric amounts, string names, boolean stirring). Null values are appropriately used for missing information. The conditions object in step 4 is null rather than an empty object with null fields — this is a minor schema deviation but functionally equivalent. The step actions use appropriate verbs (mix, add, heat, wash, dry). Overall format compliance is high.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction of the Fe3O4 magnetite hollow sphere synthesis ontology is of high quality overall. Strengths include: accurate identification of all five starting materials with correct quantities and vendor information, correct synthesis method classification (solvothermal), logical five-step process sequence, accurate temperature and duration conditions for the key solvothermal step, appropriate null values for unspecified parameters, and good schema compliance. Minor weaknesses include: the drying duration inferred as 12 h from 'overnight' (not explicitly stated), oleylamine amount inconsistency between starting materials (null) and step 2 (2.0 mL only), and the drug loading sub-procedure not being captured as process steps. The characterization equipment omission is appropriate and not penalized. The notes field effectively captures important contextual information about the oleylamine concentration variation and the role of ethylene glycol. The extraction demonstrates a solid understanding of the synthesis procedure and faithfully represents the scientific content of the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drug loading sub-procedure steps (50 mg NHS in 1 mL deionized water, 50 μL ammonium hydroxide, 100 μL DOX solution at 1.5×10⁻³ M, stirring for 30 min then 1 h, centrifugation, drying, washing)",
+                "The three oleylamine variants (2, 3, 4 mL) are only partially represented in step 2 (only 2 mL shown)",
+                "Aliquot collection time points for mechanism study (2, 5, 10, 15 h) not captured"
+              ],
+              "extraction_errors": [
+                "Drying duration listed as 12 h, but source text states 'overnight' without specifying exact hours",
+                "Oleylamine amount in starting_materials is null but listed as 2.0 mL in step 2, representing only one of three experimental variants (2, 3, 4 mL)",
+                "Drug loading procedure (ammonium hydroxide addition, DOX loading, centrifugation, UV-vis quantification) not captured as process steps"
+              ],
+              "improvement_suggestions": [
+                "Represent the three oleylamine variants as separate synthesis runs or use a range/list notation in the starting materials and step 2",
+                "Change drying duration to null or 'overnight' string rather than inferring 12 h, since the source does not specify exact hours",
+                "Add drug loading as a separate set of process steps or as a sub-procedure to capture the DOX loading protocol",
+                "Consider adding the autoclave volume (80 mL) as a condition or equipment setting in step 3 as well as in the equipment list"
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the core solvothermal synthesis of Fe3O4 hollow spheres. It correctly identifies the reagents, their quantities, and the specific solvothermal conditions (180 °C, 15 h). The extraction also handles the variable parameter (oleylamine amount) well by noting it in the steps and notes. The sequence of operations (mixing, adding, heating, washing, drying) aligns perfectly with the experimental section of the source text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All major components of the synthesis (starting materials, process steps, equipment, and conditions) were successfully extracted from the 'Experimental details' section. The extraction covers the full workflow from precursor mixing to final drying.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Reagent names, amounts (2.4g FeCl3, 40ml EG, 20ml alcohol, 1.06g Urea), and the Sigma-Aldrich vendor were correctly identified. The extraction correctly left the oleylamine amount as null in the starting materials list because it is a variable (2, 3, or 4 mL), which is the correct behavior.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps are logically sequenced and accurately reflect the text. The transition from mixing precursors to the solvothermal treatment and post-processing (washing/drying) is well-captured.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The magnetic stirrer and the 80 ml teflon-lined stainless steel autoclave were correctly identified. No other specific synthesis equipment was mentioned in the source text.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Temperature (180 °C) and duration (15 h) for the solvothermal step are accurate. For the drying step, 'overnight' was interpreted as 12 hours, which is a reasonable scientific inference, though not explicitly stated as a number in the text.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the synthesis, correctly identifying the role of ethylene glycol and the purpose of varying oleylamine concentration.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the provided schema, using correct data types and field names.",
+                "overall_score": 4.9,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While 12h is a standard interpretation for 'overnight', explicitly tagging it as an inferred value or leaving it null if strict adherence is required could be considered."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for Fe3O4 hollow spheres with good accuracy. The main synthesis steps, materials, equipment, and conditions are well represented. However, there are some areas for improvement: (1) the oleylamine amount variability (2ml, 3ml, 4ml for three different sets) is not well captured in the structured format, (2) the drug loading procedure described in the source is not included in the extraction, and (3) there is some redundancy between starting_materials and materials within steps. Overall, the extraction demonstrates solid understanding of the synthesis workflow with minor gaps in representing experimental variability.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis workflow including all five key steps (mixing, adding reagents, solvothermal treatment, washing, drying). Starting materials are listed with amounts and units. However, the drug loading procedure described in the source text is not included, and the three different experimental sets with varying oleylamine amounts are not well represented as distinct conditions. The notes field partially addresses the oleylamine variability but this should be more formally structured.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Chemical names, amounts, and units are accurately extracted for most materials (FeCl3·6H2O: 2.4g, EG: 40ml, ethyl alcohol: 20ml, urea: 1.06g). Vendor (Sigma-Aldrich) and purity (analytical grade) are correctly captured in starting_materials. The main issue is oleylamine: the starting_materials shows amount: null while step 2 shows 2.0ml, but the source clearly states three different amounts were used (2ml, 3ml, 4ml). This variability should be better represented.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Five process steps are correctly identified with appropriate action classifications (mix, add, heat, wash, dry). The sequencing matches the source text accurately. Step descriptions are clear and technically accurate. Step 3 correctly captures the solvothermal conditions (180°C, 15h). Step 5 interprets 'overnight' as 12h which is reasonable. Minor issue: Step 2 only shows one oleylamine amount (2.0ml) when three different sets were prepared.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Core synthesis equipment is correctly identified: magnetic stirrer and 80ml teflon-lined stainless steel autoclave. The autoclave volume (80ml) is properly captured in settings. However, characterization equipment mentioned in the source (Rigaku Miniflex II XRD, TECHNAI G2 SF20 ST TEM, SEM, lab-made AC magnetic field instrument, centrifuge, UV-visible spectrometer) is not included. Depending on ontology scope, this may or may not be expected. For synthesis-focused ontology, the current extraction is acceptable.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Temperature and duration conditions are accurately extracted: solvothermal at 180°C for 15h, drying at 60°C. Pressure and atmosphere are correctly left null as they are not specified in the source. Stirring is correctly noted for mixing steps. The interpretation of 'overnight' as 12h is reasonable though not explicitly stated. One minor issue: washing conditions (number of washes, alcohol type) could be more specific but the source says 'several times' which is appropriately captured as non-specific.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning is well preserved. The solvothermal method is correctly identified. The role of ethylene glycol as a reducing agent is noted in the notes field. Chemical formulas and names are accurate (FeCl3·6H2O, Fe3O4). No hallucinated information is present. The extraction correctly distinguishes between synthesis steps and does not conflate characterization procedures with synthesis. The notes about oleylamine variability and EG function add valuable context.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres to the expected ontology schema. Data types are consistent (numbers for amounts, strings for names, null for unspecified values). All required fields appear to be present. The nested structure for steps with materials, equipment, and conditions is properly formatted. One minor inconsistency: starting_materials includes vendor and purity while step materials have these as null, which may be intentional but creates some redundancy. Overall schema compliance is strong.",
+                "overall_score": 4.3,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures the Fe3O4 hollow sphere synthesis procedure. Strengths include: accurate material amounts and units, correct process step sequencing, proper condition extraction (temperature, time), and good schema compliance. Areas for improvement: (1) better representation of the three experimental sets with varying oleylamine amounts, (2) inclusion of the drug loading procedure, (3) consistency between starting_materials and step materials fields. The extraction correctly avoids hallucination by leaving unspecified values (pressure, atmosphere, stirring speed) as null. Overall score of 4.3/5 reflects strong performance with room for refinement in handling experimental variability and completeness."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drug loading procedure (50mg NHS, 1ml deionized water, 50μL ammonium hydroxide, 100μL DOX solution, centrifugation)",
+                "Explicit representation of three different oleylamine concentrations as separate experimental sets",
+                "Characterization equipment details (XRD, SEM, TEM instruments)"
+              ],
+              "extraction_errors": [
+                "Oleylamine amount in starting_materials is null, but step 2 shows only 2.0ml without indicating the three different sets (2ml, 3ml, 4ml)",
+                "Drug loading experiment procedure is not captured in the extraction",
+                "Redundancy between starting_materials (with vendor/purity) and step materials (with null vendor/purity)"
+              ],
+              "improvement_suggestions": [
+                "Represent oleylamine variability more explicitly, perhaps as a range or list of values",
+                "Include the drug loading procedure as a separate synthesis section or linked procedure",
+                "Ensure consistency between starting_materials and materials referenced in steps (either include vendor/purity in both or reference by ID)",
+                "Consider adding characterization equipment if within ontology scope"
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a solid understanding of the core solvothermal synthesis procedure for Fe3O4 hollow spheres. It correctly identifies the target compound, synthesis method, starting materials with their amounts and vendor, and the key process steps. The extraction appropriately leaves fields null where information is absent from the source (e.g., stirring speed, pressure, specific vendor for equipment). However, there are several significant errors and omissions. The most critical error is the misrepresentation of the oleylamine addition step; the source describes three separate syntheses with different oleylamine amounts (2, 3, 4 mL), but the extraction incorrectly lists a single step with only 2 mL, losing the experimental design. The equipment list is incomplete, omitting the centrifugation and drying oven implied in the washing and drying steps. The 'notes' field captures some but not all critical context (e.g., the role of urea). Overall, the extraction is structurally sound but contains factual inaccuracies and lacks completeness in capturing the full experimental narrative.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis components: target material, method, starting materials, and a sequence of steps. It correctly identifies the solvothermal method and key reagents. However, it fails to structurally represent the parallel synthesis of three different samples by varying oleylamine amount, which is a central experimental feature. The equipment list is also incomplete, missing items like centrifuge (implied in washing) and drying oven. The notes section captures some but not all auxiliary information (e.g., mechanism).",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material names, amounts, units, and vendor information for the primary starting materials (FeCl3·6H2O, EG, alcohol, urea) are accurately extracted from the source. The purity ('analytical grade') is correctly noted. The major error is in handling oleylamine: the source specifies three distinct amounts (2, 3, 4 mL) used in separate syntheses, but the extraction incorrectly lists a single entry with amount null in the starting_materials list and then specifies only 2 mL in step 2. This misrepresents the experimental design. Alcohol used for washing is correctly listed without amount, as none is specified.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "The step sequence (mix, add, heat, wash, dry) is logically ordered and action classifications are mostly correct. The description for step 2 is problematic: it mentions 'different amounts' but the materials list only includes 2 mL, failing to capture that three separate syntheses were performed. Step 4 (wash) and Step 5 (dry) are overly simplified; the source mentions washing 'several times' and drying 'overnight,' but the extraction does not capture the iterative nature of washing or the implied centrifugation step. The flow is correct but lacks fidelity to the experimental details.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "The extraction correctly identifies the 'teflon lined stainless steel autoclave' and 'magnetic stirrer.' The autoclave volume (80 ml) is captured in the equipment list settings, which is good. However, it misses critical equipment implied by the procedure: a centrifuge for separating particles during washing and a drying oven or setup for the 60°C drying step. The magnetic stirrer is listed in the equipment array but its use is only linked to step 1, not step 2 where stirring also occurs. The list is incomplete.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key conditions are accurately extracted: solvothermal temperature (180 °C) and time (15 h), and drying temperature (60 °C). The extraction correctly infers 'overnight' as ~12 hours for drying. Conditions correctly left as null where not specified (pressure, atmosphere, pH, stirring speed). The 'stirring' flag is appropriately set to true for the initial mixing step. No conditions from the source are missed, and no hallucinations are present.",
+                "semantic_accuracy_score": 3.0,
+                "semantic_accuracy_reasoning": "The core scientific meaning of a solvothermal synthesis using oleylamine micelles as a template is preserved. However, significant semantic distortion occurs regarding the experimental design: the paper describes a study where oleylamine amount is the variable (2, 3, 4 mL) to produce different particle sizes. The extraction flattens this into a single procedure with an ambiguous amount, losing the comparative study's intent. The roles of EG (reducing agent) and urea (hydroxide source) are mentioned in notes but could be more precisely linked to the reaction mechanism described in the text.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required top-level fields (target_compound, synthesis_method, etc.) are present. Nested objects (starting_materials, steps, equipment) follow the correct structure with appropriate sub-fields. Data types are correct (numbers, strings, booleans, nulls). The extraction correctly uses null values for unspecified information (e.g., oleylamine amount in starting_materials, equipment vendor). No schema violations are observed.",
+                "overall_score": 3.6,
+                "overall_reasoning": "The extraction is technically competent and schema-compliant, successfully capturing the basic recipe for Fe3O4 hollow sphere synthesis. Its strengths are accurate capture of material quantities, synthesis conditions, and format adherence. The primary weakness is a failure to accurately represent the experimental variable (oleylamine amount) and the parallel synthesis of three samples, which is a central aspect of the paper. This leads to deductions in structural completeness, process steps, and semantic accuracy. Equipment extraction is also incomplete. The system correctly avoids hallucination for unspecified details. The overall quality is moderate, suitable for a basic procedure record but insufficient for capturing the full experimental study design."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Explicit representation of the three parallel syntheses with different oleylamine amounts (2, 3, 4 mL).",
+                "The centrifuge used for washing and separation.",
+                "The specific drying apparatus (e.g., oven) for the 60°C step.",
+                "The detailed mechanism notes regarding the roles of urea (precipitation) and oleylamine (micelle template) could be more fully integrated into step descriptions or notes."
+              ],
+              "extraction_errors": [
+                "Incorrect handling of oleylamine variable: The source describes three separate syntheses with 2, 3, and 4 mL of oleylamine. The extraction lists a single starting_material entry with amount null and a process step with only 2 mL, misrepresenting the experimental design.",
+                "Incomplete equipment list: Fails to extract the centrifuge (implied in washing/separation steps) and the drying setup (oven) for the 60°C step.",
+                "Oversimplified washing step: Step 4 description ('wash...several times') does not capture the iterative separation and re-dispersion process, nor the equipment used (centrifuge).",
+                "Step 2 material list is incomplete/incorrect: Only lists 2 mL oleylamine, not reflecting the variable amounts used."
+              ],
+              "improvement_suggestions": [
+                "For variable synthesis parameters, consider representing them as a set of parallel procedures or explicitly listing the variable and its values in a dedicated field (e.g., 'synthesis_variants').",
+                "Extract implied equipment from action verbs: 'washed...and dried' typically involves centrifugation and an oven/dryer.",
+                "Enhance step descriptions to capture iterative processes (e.g., 'wash with alcohol via centrifugation, repeat several times').",
+                "Include a more comprehensive 'notes' section to capture the synthesis mechanism (Ostwald ripening, micelle template role) as described in the text."
+              ]
+            },
+            "overall_score": 3.6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "Fe3O4",
+        "synthesis": {
+          "target_compound": "Fe3O4",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "solvothermal",
+          "starting_materials": [
             {
-              "vendor": null,
-              "name": "alcohol",
+              "vendor": "Sigma-Aldrich",
+              "name": "Ferric chloride hexahydrate",
+              "amount": 2.4,
+              "unit": "g",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "Ethylene Glycol",
+              "amount": 40.0,
+              "unit": "ml",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "Ethyl alcohol",
+              "amount": 20.0,
+              "unit": "ml",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "Urea",
+              "amount": 1.06,
+              "unit": "g",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "Oleylamine",
               "amount": null,
-              "unit": null,
-              "purity": null
+              "unit": "ml",
+              "purity": "analytical grade"
             }
           ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "2.4 gm of FeCl3, 6H2O was mixed in 40ml Ethylene Glycol (EG) and 20ml ethyl alcohol solution",
+              "materials": [
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "Ferric chloride hexahydrate",
+                  "amount": 2.4,
+                  "unit": "g",
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "Ethylene Glycol",
+                  "amount": 40.0,
+                  "unit": "ml",
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "Ethyl alcohol",
+                  "amount": 20.0,
+                  "unit": "ml",
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "1.06 gm of Urea and different amount of oleylamine (2ml, 3ml, or 4ml) were added to the solution",
+              "materials": [
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "Urea",
+                  "amount": 1.06,
+                  "unit": "g",
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "Oleylamine",
+                  "amount": null,
+                  "unit": "ml",
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "mix",
+              "description": "Solutions were stirred until it became completely transparent",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "heat",
+              "description": "Final solutions were transferred to 80 ml teflon lined stainless steel autoclaves for solvothermal process",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "teflon lined stainless steel autoclaves",
+                  "instrument_vendor": null,
+                  "settings": "80 ml capacity"
+                }
+              ],
+              "conditions": {
+                "temperature": 180.0,
+                "temp_unit": "C",
+                "duration": 15.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "wash",
+              "description": "Resultant black solutions were washed in alcohol for several times",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "alcohol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 6,
+              "action": "dry",
+              "description": "Particles were dried at 60 °C overnight",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": "overnight",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "teflon lined stainless steel autoclaves",
+              "instrument_vendor": null,
+              "settings": "80 ml capacity"
+            }
+          ],
+          "notes": "Three different sets of particles were prepared by varying the amount of oleylamine micelles (2ml, 3ml, and 4ml) to see the effect of change of concentration of oleylamine. Ethylene Glycol reduces Fe3+ ions to Fe2+ ions partially. Urea helps to precipitate Fe3+ and Fe2+ to their corresponding hydroxides."
         },
-        {
-          "step_number": 5,
-          "action": "dry",
-          "description": "drying the washed solution",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": 60.0,
-            "temp_unit": "\u00b0C",
-            "duration": null,
-            "time_unit": "overnight",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for Fe3O4 magnetite hollow spheres (NHS) via solvothermal method using oleylamine micelles as templates. The extraction correctly identifies the target compound, synthesis method, starting materials with vendor, amounts, units, and purities, and organizes the process into six logical steps. The extraction is largely faithful to the source text, with only minor omissions and one ambiguity regarding the oleylamine amount (which is variable by design). The drug loading procedure is not captured as a separate synthesis step, but this is arguably a secondary procedure. Overall, the extraction is of high quality with good structural organization and semantic fidelity.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound (Fe3O4), synthesis method (solvothermal), all five starting materials with vendor/amount/unit/purity, six sequential process steps, and two pieces of equipment. The notes field captures important mechanistic context about the role of EG and urea. Minor omissions include: (1) the drug loading procedure (50 mg NHS, 1 ml deionized water, 50 µL ammonium hydroxide, 100 µL DOX solution, centrifugation, drying) is not captured as process steps, though this could be considered a separate application procedure rather than core synthesis; (2) the characterization equipment (Rigaku Miniflex II XRD, TECHNAI G2 SF20 ST TEM at 200 kV, lab-made AC magnetic instrument) is not included in the equipment list, though these are characterization rather than synthesis instruments. The three oleylamine variants (2, 3, 4 ml) are noted in the description and notes but the variable amount is correctly left null in the starting materials. Overall structural coverage of the synthesis procedure is excellent.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials are correctly identified: FeCl3·6H2O (2.4 g), Ethylene Glycol (40 ml), Ethyl alcohol (20 ml), Urea (1.06 g), and Oleylamine (variable: 2, 3, or 4 ml). Vendor (Sigma-Aldrich) and purity (analytical grade) are correctly assigned to all materials. The oleylamine amount is correctly left null since it varies across three experimental sets, with the variability noted in the description. The wash step correctly identifies 'alcohol' as the washing agent with null amount/unit/purity since these are not specified in the source. The drug loading materials (deionized water, ammonium hydroxide, DOX solution) are not captured, but these relate to the drug loading application rather than the core NHS synthesis. All quantities and units match the source text exactly.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The six process steps are logically sequenced and accurately represent the synthesis workflow: (1) mixing FeCl3 in EG and ethanol, (2) adding urea and oleylamine, (3) stirring until transparent, (4) solvothermal heating at 180°C for 15h in autoclave, (5) washing with alcohol, (6) drying at 60°C overnight. Action classifications are appropriate (mix, add, mix, heat, wash, dry). Step 4 correctly captures the transfer to autoclave and the solvothermal conditions. The stirring in step 1 is correctly noted with equipment. Step 3 correctly captures the transparency endpoint. The drug loading steps are absent, but as noted these are application steps rather than core synthesis. One minor point: step 2 could note the continued stirring after addition, but this is captured in step 3. The step descriptions are accurate and faithful to the source.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The two synthesis-relevant equipment items are correctly identified: magnetic stirrer (used in steps 1 and 3) and teflon-lined stainless steel autoclaves (80 ml capacity, used in step 4). The autoclave capacity (80 ml) is correctly captured as a setting. Vendor information is correctly left null as the source does not specify vendors for these items. Characterization equipment (Rigaku Miniflex II XRD diffractometer with Cu Kα source, TECHNAI G2 SF20 ST TEM at 200 kV, lab-made AC magnetic instrument producing ~92 kA/m at ~700 Hz) is not included in the equipment list. While these are characterization rather than synthesis instruments, their omission from the overall equipment list is a minor gap. The centrifuge used in drug loading is also absent. For the core synthesis equipment, coverage is complete and accurate.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The critical synthesis conditions are accurately captured: solvothermal temperature of 180°C (step 4), duration of 15 hours (step 4), and drying temperature of 60°C (step 6). The 'overnight' duration for drying is correctly captured in the time_unit field (though ideally this would be a separate notes field since 'overnight' is not a standard time unit). Stirring is correctly flagged as true in steps 1 and 3. Pressure, atmosphere, stirring speed, and pH are correctly left null as the source does not specify these. The autoclave capacity (80 ml) is captured as an equipment setting rather than a condition, which is appropriate. The AC magnetic field conditions (92 kA/m, 700 Hz, 44°C) for drug release are not captured, but these relate to the application rather than synthesis. All numerical values and units match the source exactly.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the synthesis procedure. The notes field correctly explains the roles of EG (partial reduction of Fe3+ to Fe2+) and urea (precipitation of iron hydroxides), which is important mechanistic context. The variable nature of oleylamine concentration is correctly communicated in step 2's description ('2ml, 3ml, or 4ml'). The solvothermal nature of the process is correctly identified as the synthesis method. The hollow sphere formation mechanism via Ostwald ripening and micelle templating is not explicitly captured in the structured steps (appropriately so, as it is mechanistic interpretation rather than procedural instruction). The drug loading procedure's scientific context (intercalation, hydroxylation with ammonium hydroxide, DOX loading efficiency ~70%) is not captured, but this is secondary to the core synthesis. No misinterpretations or hallucinations are detected.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. Target compound, compound type, synthesis method, starting materials, steps, equipment, and notes fields are all populated appropriately. Data types are correct: amounts are numeric (float), units are strings, temperatures are numeric with unit strings, booleans are used for stirring flags. Null values are used appropriately for unspecified fields. The 'time_unit' field for step 6 contains 'overnight' which is a string descriptor rather than a standard time unit (hours/minutes), which is a minor schema compliance issue but accurately reflects the source text's imprecision. The equipment list at the top level correctly mirrors the equipment used in steps. The step-level equipment and conditions sub-objects are properly structured. One minor issue: 'temp_unit' uses 'C' rather than '°C' but this is a minor formatting convention. Overall schema compliance is excellent.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extracted ontology for Fe3O4 magnetite hollow sphere synthesis is of high quality, demonstrating excellent coverage of the core synthesis procedure. All five starting materials are correctly identified with accurate amounts, units, vendor, and purity information. The six process steps are logically sequenced with appropriate action classifications and accurate conditions. The two synthesis-relevant equipment items (magnetic stirrer and teflon-lined autoclave) are correctly captured. Critical synthesis conditions (180°C, 15h solvothermal; 60°C overnight drying) are accurately recorded. The notes field provides valuable mechanistic context. Minor gaps include: absence of drug loading procedure steps, absence of characterization equipment from the equipment list, and the variable oleylamine amount being null (though this is correct given the three experimental variants). No hallucinations or factual errors are detected. The extraction demonstrates strong semantic fidelity and schema compliance, making it a reliable structured representation of the synthesis procedure."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drug loading procedure steps (50 mg NHS in 1 ml deionized water, 50 µL ammonium hydroxide, 100 µL of 1.5×10⁻³ M DOX solution, stirring 30 min + 1 hour, centrifugation, drying, washing with deionized water)",
+                "Characterization equipment: Rigaku Miniflex II desktop XRD diffractometer with Cu Kα (λ = 1.5418 Å) source",
+                "Characterization equipment: TECHNAI G2 SF20 ST TEM operating at 200 kV",
+                "Lab-made AC magnetic instrument (~92 kA/m field at ~700 Hz)",
+                "DLS (dynamic light scattering) instrument used for micelle characterization",
+                "FTIR measurement in KBr matrix (characterization step)",
+                "Specific oleylamine volumes (2 ml, 3 ml, 4 ml) as three separate experimental variants rather than a single null entry"
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider representing the three oleylamine variants as three separate synthesis entries or as a parameterized step with explicit values [2, 3, 4] ml rather than a single null amount",
+                "Add drug loading as a separate set of process steps or as a secondary synthesis procedure within the ontology",
+                "Include characterization equipment (XRD, TEM) in the equipment list with their specifications (model, operating voltage, radiation source) even if these are post-synthesis characterization tools",
+                "Use standardized time units (e.g., convert 'overnight' to an approximate numeric value with a note, or use a dedicated 'duration_note' field)",
+                "Consider adding a 'yield' or 'loading_efficiency' field to capture the ~70% DOX loading efficiency reported for 350 nm NHS",
+                "The 'time_unit' field for drying step should ideally use hours (e.g., ~12h) rather than 'overnight' for better machine-readability"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the core solvothermal synthesis of Fe3O4 hollow spheres. It correctly identifies the reagents, their quantities, and the specific solvothermal conditions (180 °C, 15 h). The extraction also handles the variable oleylamine amounts (2, 3, 4 ml) by noting them in the descriptions and notes, which is a scientifically sound way to handle parametric studies in a single extraction.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All major components of the synthesis (starting materials, sequential steps, equipment, and final drying conditions) are present. The extraction correctly identifies the solvothermal nature of the process.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Reagent names, amounts (2.4g FeCl3, 40ml EG, 20ml alcohol, 1.06g Urea), and the vendor (Sigma-Aldrich) were accurately extracted. The 'analytical grade' purity was also correctly captured.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of mixing, adding oleylamine, stirring until transparent, solvothermal heating, washing, and drying follows the experimental text perfectly.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The magnetic stirrer and the specific 80 ml teflon-lined stainless steel autoclaves were correctly identified from the text.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The critical parameters (180 °C for 15 h and 60 °C overnight) are accurately recorded with correct units.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning, particularly the role of urea and ethylene glycol in the notes, and correctly identifies the target as a nanomaterial.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON adheres to the schema, using null for unspecified values and maintaining correct data types for numerical fields.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the extraction is excellent, the 'amount' for oleylamine in the starting materials list could have been represented as a range or a specific note, though the current 'null' with a description in the steps is acceptable given the variable nature of the experiment."
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction successfully captures the core Fe3O4 synthesis procedure with accurate material quantities, process sequencing, and key reaction conditions. However, significant gaps exist: (1) characterization equipment (XRD, SEM, TEM, centrifuge) mentioned in the source is not extracted, (2) the drug loading procedure is completely omitted despite being a substantial part of the experimental section, and (3) oleylamine amounts are shown as null in starting_materials despite being specified as 2ml, 3ml, and 4ml in the source. The extraction demonstrates good semantic fidelity for the synthesis steps it does capture, with proper action classification and condition recording for the solvothermal process.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main Fe3O4 synthesis pathway comprehensively with materials, steps, equipment, and conditions. However, it omits the drug loading procedure which is a substantial experimental section, and characterization equipment is not included. The synthesis mechanism study (aliquot collection at 2, 5, 10, 15 h) is also not represented. For the core synthesis procedure alone, coverage is good, but the overall experimental workflow is incomplete.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting materials are accurately extracted with correct names, amounts, units, vendor (Sigma-Aldrich), and purity (analytical grade). The main issue is oleylamine amount shown as null in starting_materials despite the source clearly stating 2ml, 3ml, and 4ml for the three sets. This appears to be an extraction inconsistency since the steps section correctly notes the variable amounts. All other reagents (FeCl3·6H2O: 2.4g, EG: 40ml, ethyl alcohol: 20ml, urea: 1.06g) are correctly captured.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The six synthesis steps are correctly sequenced with appropriate action classifications (mix, add, heat, wash, dry). Step descriptions accurately reflect the source text. However, the drug loading procedure (dispersion in water, ammonium hydroxide addition, DOX intercalation, centrifugation, washing, drying) is completely missing despite being a detailed experimental section. The washing step could be more specific about 'several times' and the drying duration 'overnight' is non-standard.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "Only basic synthesis equipment is captured (magnetic stirrer, teflon lined stainless steel autoclaves with 80ml capacity). The source explicitly names multiple characterization instruments that are missing: Rigaku Miniflex II XRD, TECHNAI G2 SF20 ST TEM (with 200kV operating voltage), lab-made AC magnetic field instrument, centrifuge, and UV-visible spectrometer. This is a significant gap as equipment extraction should capture all explicitly mentioned instruments, not just synthesis equipment.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately captured: solvothermal temperature (180°C), duration (15h), drying temperature (60°C). The 'overnight' duration is recorded but uses non-standard time_unit. Stirring conditions are noted where mentioned. Missing conditions include: washing frequency ('several times' not quantified), atmosphere (not specified in source, correctly null), pressure (autoclave pressure not stated, correctly null). The extraction correctly leaves unspecified parameters as null rather than hallucinating values.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the synthesis procedure. Action classifications are appropriate (mix, add, heat, wash, dry). The notes section correctly captures the chemical mechanism (EG reduction of Fe3+ to Fe2+, urea precipitation to hydroxides, conversion to Fe3O4). No misinterpretations or hallucinations are present. The variable oleylamine concentration purpose is correctly noted. Minor issue: 'overnight' as time_unit is non-standard but semantically accurate to the source.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully adheres to the GeneralSynthesisOntology schema. All required fields are present with correct data types (numbers for amounts/temperatures, strings for names/descriptions, arrays for materials/steps/equipment). Null values are used appropriately for unspecified information. The structure is well-organized with logical grouping of synthesis components. No schema violations or type mismatches detected.",
+                "overall_score": 3.9,
+                "overall_reasoning": "This extraction demonstrates strong performance on the core Fe3O4 synthesis procedure with accurate material quantities, proper step sequencing, and correct condition recording. The format compliance is excellent with full schema adherence. However, significant gaps reduce overall quality: (1) characterization equipment completely missing despite explicit mentions, (2) drug loading procedure omitted entirely, (3) oleylamine amounts inconsistent between starting_materials (null) and steps (correctly noted). The extraction correctly avoids hallucination by leaving unspecified parameters null. For reproducibility purposes, the missing equipment and drug loading procedure are notable limitations. Score reflects good synthesis capture but incomplete experimental workflow documentation."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drug loading procedure (50 mg NHS, 1 ml deionized water, 50 μL ammonium hydroxide, 100 μL DOX solution, stirring times)",
+                "Characterization equipment details (Rigaku Miniflex II, TECHNAI G2 SF20 ST, lab-made AC magnetic field instrument)",
+                "Centrifugation equipment for particle separation",
+                "UV-visible absorption spectra measurement conditions",
+                "Cell culture conditions for cytotoxicity testing (37°C, 5% CO2, RPMI 1640 media)"
+              ],
+              "extraction_errors": [
+                "Oleylamine amount shown as null in starting_materials when source clearly states 2ml, 3ml, and 4ml for three different sets",
+                "Characterization equipment (Rigaku Miniflex II XRD, TECHNAI G2 SF20 ST TEM, centrifuge) not extracted despite being explicitly named",
+                "Drug loading procedure completely omitted from process steps",
+                "UV-visible spectrometer for drug release analysis not captured"
+              ],
+              "improvement_suggestions": [
+                "Populate oleylamine amounts with the three specific values (2ml, 3ml, 4ml) or note the variable nature explicitly",
+                "Include characterization equipment in the equipment section with vendor/model information where provided",
+                "Add drug loading procedure as separate process steps or as a secondary synthesis pathway",
+                "Standardize 'overnight' duration to a numerical value or mark as unspecified rather than using non-standard time_unit",
+                "Consider extracting the mechanism study aliquot collection times (2, 5, 10, 15 h) as they represent experimental conditions"
+              ]
+            },
+            "overall_score": 3.9
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a solid understanding of the core solvothermal synthesis procedure for Fe3O4 hollow spheres. It correctly identifies the target compound, synthesis method, starting materials with their vendors and purities, and the key process steps. The extraction appropriately leaves fields null where information is not specified in the source (e.g., stirring speed, pressure, specific atmosphere). However, there are notable omissions and a few inaccuracies. The most significant missing information is the explicit mention of the three separate syntheses with different oleylamine amounts (2, 3, 4 ml), which is a critical experimental variable. The extracted JSON lists oleylamine amount as `null` in the materials list and step 2, which is incorrect as the amounts are specified, albeit as a variable. The equipment list is incomplete, missing the centrifugation step used in washing. The semantic accuracy is slightly impacted by the misrepresentation of the variable oleylamine quantity and the oversimplified 'wash' step. Overall, the extraction is structurally sound and compliant with the schema but lacks full fidelity to the experimental details described.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis components: target material, method, a list of starting materials, a sequence of steps, and some equipment. It misses the structural nuance of performing three parallel syntheses with variable oleylamine, which is a core part of the experimental design. The post-synthesis washing procedure involving centrifugation is also not captured as a distinct step or piece of equipment, reducing completeness.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material names, vendors (Sigma-Aldrich), and purities (analytical grade) are accurately extracted. Quantities and units for FeCl3·6H2O, EG, alcohol, and urea are correct. The handling of oleylamine is flawed: the source text specifies three different amounts (2, 3, 4 ml) used in separate syntheses, but the extraction lists the amount as `null`. A better representation would be to note the variable amounts or list the range. The 'alcohol' used for washing is correctly identified but lacks vendor/purity info, which is absent from the source.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The logical flow of steps (mixing, adding, stirring, solvothermal treatment, washing, drying) is correctly sequenced and action classifications are generally appropriate. The description of Step 2 is slightly misleading as it mentions 'different amount' but does not capture the explicit set of values. Step 5 ('wash') is overly simplistic; the source implies a process involving centrifugation and multiple cycles, which is not detailed. The steps otherwise preserve the scientific intent.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "Correctly extracts the explicitly named 'magnetic stirrer' and 'teflon lined stainless steel autoclaves' (with capacity noted). However, it misses the 'centrifuge' (referred to in the washing and drug loading sections), which is a key piece of equipment for solid-liquid separation. No vendor/model info is extracted, which is correct as none is provided in the source.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Accurately extracts the critical solvothermal conditions (180 °C for 15 h) and drying condition (60 °C overnight). Correctly notes stirring in relevant steps. Appropriately leaves null fields for parameters not specified, such as pressure, atmosphere, stirring speed, and pH during synthesis. No errors in unit conversion or value recording.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The core scientific meaning of a micelle-guided, solvothermal synthesis is preserved. The major semantic inaccuracy is the treatment of oleylamine quantity; presenting it as an unspecified variable (`null`) loses the specific experimental detail of testing 2, 3, and 4 ml. The notes section partially mitigates this. The role of EG as a reducing agent and urea as a hydroxide source is captured in the notes, which is good. The washing step semantics are oversimplified.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure perfectly adheres to the expected GeneralSynthesisOntology schema. All required fields are present and correctly typed (objects, arrays, numbers, strings, nulls). The nesting of materials within steps and the conditions object is correctly implemented. There are no format violations.",
+                "overall_score": 3.9,
+                "overall_reasoning": "The extraction is of good quality, successfully structuring the majority of the synthesis information from the text into the ontology. Its strengths are accurate material and condition extraction, perfect format compliance, and a logically sequenced process. The primary weaknesses are the incomplete capture of the variable oleylamine experiment (a key design element) and the omission of centrifugation equipment. These omissions lower the scores in structural completeness, equipment extraction, and semantic accuracy. The system correctly avoided hallucination for unspecified details. With more precise handling of experimental variables and post-processing steps, the extraction would be excellent."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The explicit experimental design of three parallel syntheses with oleylamine volumes of 2 ml, 3 ml, and 4 ml. This is a critical parameter study.",
+                "The washing step involves centrifugation ('separated out through centrifugation technique'), which is not reflected in the equipment list or step description.",
+                "The note about aliquot collection at different times (2, 5, 10, 15 h) for mechanism study, while not a core synthesis step, is relevant experimental context."
+              ],
+              "extraction_errors": [
+                "Incorrectly set oleylamine 'amount' to null in the starting_materials list and step 2. The source explicitly states three specific amounts (2, 3, 4 ml) were used in separate syntheses.",
+                "Omitted the 'centrifuge' as a piece of equipment, which is explicitly mentioned in the drug loading procedure and implied in the washing process."
+              ],
+              "improvement_suggestions": [
+                "For variable parameters like oleylamine amount, represent them as a range (e.g., \"2-4 ml\") or a list of values in the description/notes, rather than setting amount to null.",
+                "Extract all equipment mentioned, including those used in workup (e.g., centrifuge).",
+                "Consider adding a field or note to capture the existence of parallel experiments or parameter variations, which is common in materials synthesis papers.",
+                "Break down composite steps like 'wash' into more detailed sub-actions (e.g., 'centrifuge', 'decant', 'resuspend') when the text provides enough detail."
+              ]
+            },
+            "overall_score": 3.9
           }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "magnetic stirrer",
-          "instrument_vendor": null,
-          "settings": null
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "Fe3O4",
+        "synthesis": {
+          "target_compound": "Fe3O4",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "solvothermal",
+          "starting_materials": [
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Ferric chloride hexahydrate",
+              "amount": 2.4,
+              "unit": "g",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Ethylene Glycol",
+              "amount": 40.0,
+              "unit": "mL",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "ethyl alcohol",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "Urea",
+              "amount": 1.06,
+              "unit": "g",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma–Aldrich",
+              "name": "oleylamine",
+              "amount": null,
+              "unit": "mL",
+              "purity": "analytical grade"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Mix Ferric chloride hexahydrate in Ethylene Glycol and ethyl alcohol solution.",
+              "materials": [
+                {
+                  "vendor": "Sigma–Aldrich",
+                  "name": "Ferric chloride hexahydrate",
+                  "amount": 2.4,
+                  "unit": "g",
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sigma–Aldrich",
+                  "name": "Ethylene Glycol",
+                  "amount": 40.0,
+                  "unit": "mL",
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sigma–Aldrich",
+                  "name": "ethyl alcohol",
+                  "amount": 20.0,
+                  "unit": "mL",
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "add",
+              "description": "Add Urea and oleylamine to the solution.",
+              "materials": [
+                {
+                  "vendor": "Sigma–Aldrich",
+                  "name": "Urea",
+                  "amount": 1.06,
+                  "unit": "g",
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sigma–Aldrich",
+                  "name": "oleylamine",
+                  "amount": null,
+                  "unit": "mL",
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "magnetic stirrer",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": true,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "Transfer solution to autoclave and perform solvothermal process.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "teflon lined stainless steel autoclave",
+                  "instrument_vendor": null,
+                  "settings": "80 mL capacity"
+                }
+              ],
+              "conditions": {
+                "temperature": 180.0,
+                "temp_unit": "C",
+                "duration": 15.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "wash",
+              "description": "Wash resultant black product in alcohol several times.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "alcohol",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "dry",
+              "description": "Dry the washed product.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "magnetic stirrer",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "teflon lined stainless steel autoclave",
+              "instrument_vendor": null,
+              "settings": "80 mL capacity"
+            }
+          ],
+          "notes": "Three different sets of particles were prepared by varying the amount of oleylamine micelles (2ml, 3ml, 4ml). Oleylamine acts as a micelle template for hollow sphere formation. Ethylene glycol reduces Fe3+ to Fe2+ partially. Urea helps precipitate iron hydroxides which upon heating form Fe3O4."
         },
-        {
-          "name": "autoclave",
-          "instrument_vendor": null,
-          "settings": null
-        }
-      ],
-      "notes": "Particles were prepared in three different amount of oleylamine such as 2ml, 3ml and 4ml to see the effect of change of concentration of oleylamine and to understand the mechanism of formation of NHS."
-    },
-    "evaluation": {
-      "reasoning": "The extraction captures the main elements of the synthesis, including materials, steps, and conditions. However, there are some inaccuracies and omissions that affect the overall quality. The material extraction is mostly accurate, but the amount of oleylamine is not specified, which is a key parameter varied in the experiment. The process steps are generally well-represented, but the description of each step could be more detailed. The equipment extraction is basic but correct. The conditions extraction is reasonably accurate, but the stirring speed is missing. The format compliance is good, but there are some minor issues with the units and data types. The semantic accuracy is generally maintained, but some of the nuances of the synthesis are lost in the structured format. Overall, the extraction is adequate but could be improved with more detail and accuracy.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction includes the main components but misses key details like specific oleylamine amounts and stirring speed, impacting completeness.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material names, amounts, and units are mostly correct, but the varying amounts of oleylamine are not accurately captured.",
-        "process_steps_score": 4.0,
-        "process_steps_reasoning": "The steps are logically sequenced, but lack detailed descriptions of actions performed within each step.",
-        "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The main equipment is identified, but lacks specific details like model numbers or vendors.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "Temperature and duration are accurate, but stirring speed and atmosphere are missing.",
-        "semantic_accuracy_score": 4.0,
-        "semantic_accuracy_reasoning": "Scientific meaning is generally preserved, but some nuances of the synthesis are lost in the structured format.",
-        "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "Adherence to the schema is good, but minor issues exist with units and data types.",
-        "overall_score": 4.1,
-        "overall_reasoning": "Adequate extraction, but more detail and accuracy are needed for a higher score."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Specific amounts of oleylamine used in different experiments",
-        "Stirring speed during mixing steps",
-        "Atmosphere during solvothermal process"
-      ],
-      "extraction_errors": [
-        "Missing specific amounts of oleylamine used in different experiments",
-        "Missing stirring speed during mixing steps",
-        "Lack of detailed descriptions for each process step",
-        "Omission of atmosphere during solvothermal process"
-      ],
-      "improvement_suggestions": [
-        "Include specific amounts of oleylamine for each set of particles prepared.",
-        "Add stirring speed to the conditions for mixing steps.",
-        "Provide more detailed descriptions for each process step, including specific actions performed.",
-        "Specify the atmosphere during the solvothermal process.",
-        "Include more specific details about the equipment used, such as model numbers or vendors."
-      ]
-    }
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology for Fe3O4 (magnetite) hollow sphere synthesis via solvothermal method guided by oleylamine micelles is evaluated against the source text. The extraction captures the core synthesis procedure accurately, including starting materials with correct quantities and vendor information, the key process steps in logical order, the primary equipment used, and the critical synthesis conditions (180°C, 15 hours). The extraction correctly notes the variable oleylamine amounts (2, 3, 4 mL) in the notes field. The drying step correctly captures 60°C. The drug loading procedure is not captured as a separate synthesis pathway, but this is a secondary procedure for the application study rather than the primary synthesis of Fe3O4. Overall, the extraction is of high quality with minor gaps.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: five starting materials with correct amounts and vendor, five logical process steps (mix, add, heat, wash, dry), two key equipment items, and the critical conditions. The variable oleylamine amounts (2, 3, 4 mL) are correctly noted in the notes field rather than as a fixed amount, which is appropriate given the experimental design. The drug loading procedure is not captured as a separate synthesis pathway, but this is a secondary application experiment rather than the primary Fe3O4 synthesis. The drying duration ('overnight') is not captured in the dry step, which is a minor omission. The stirring step descriptions correctly note that stirring continues until the solution becomes transparent. Overall structural coverage is excellent.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials are correctly identified: FeCl3·6H2O (2.4 g), Ethylene Glycol (40 mL), ethyl alcohol (20 mL), Urea (1.06 g), and oleylamine (variable amount, correctly left null with mL unit). Vendor (Sigma-Aldrich) and purity (analytical grade) are correctly assigned to all materials as stated in the source. The oleylamine amount is correctly left null since it varies across the three experimental sets (2, 3, 4 mL), with the variation noted in the notes field. The drug loading materials (DOX, ammonium hydroxide, deionized water, PBS buffer) are not captured, but these relate to the drug loading application rather than the primary Fe3O4 synthesis. A minor point: the chemical formula FeCl3·6H2O could be more explicitly noted, but the full name 'Ferric chloride hexahydrate' is correct.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The five process steps are logically sequenced and accurately represent the synthesis procedure: (1) mixing FeCl3 in EG/ethanol, (2) adding urea and oleylamine with stirring until transparent, (3) solvothermal heating at 180°C for 15h in autoclave, (4) washing with alcohol, (5) drying at 60°C. The actions (mix, add, heat, wash, dry) are correctly classified. Step 2 correctly notes stirring until transparent. The drying duration ('overnight') is not captured in step 5, which is a minor omission. The transfer step to the autoclave is incorporated into step 3 rather than being a separate step, which is acceptable. The stirring in steps 1 and 2 is correctly flagged. The three-autoclave parallel setup is noted in the notes field.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The two primary pieces of equipment explicitly named in the synthesis procedure are correctly identified: the magnetic stirrer and the teflon-lined stainless steel autoclave (with correct 80 mL capacity setting). Vendor information is correctly left null as no vendors are specified for synthesis equipment in the source. The characterization equipment (Rigaku Miniflex II XRD, TECHNAI G2 SF20 ST TEM, SEM, FTIR, DLS, lab-made AC magnetic instrument) is not captured, but these are characterization tools rather than synthesis equipment, so their omission is appropriate for a synthesis ontology. The centrifuge used in drug loading is not captured, but again this is for the application study. The extraction correctly identifies all synthesis-relevant equipment.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The critical synthesis conditions are accurately captured: solvothermal temperature of 180°C and duration of 15 hours in step 3, and drying temperature of 60°C in step 5. Stirring is correctly flagged as true in steps 1 and 2. The drying duration ('overnight') is not captured as a numeric value, which is a minor omission (though 'overnight' is qualitative and difficult to express numerically). Atmosphere and pressure are correctly left null as these are not specified in the source for the solvothermal process (the autoclave is sealed but no specific pressure is given). The room temperature (25°C) for AC magnetic measurements is not captured, but this is a characterization condition, not a synthesis condition. The AC magnetic field conditions (92 kA/m, 700 Hz, 44°C for drug release) are application conditions, not synthesis conditions, so their absence is appropriate.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis is faithfully preserved. The role of ethylene glycol as a reducing agent for Fe3+ to Fe2+, urea as a precipitating agent, and oleylamine as a micelle template are all correctly noted in the notes field. The synthesis method is correctly classified as 'solvothermal'. The target compound is correctly identified as Fe3O4 with type 'nanomaterials'. The notes field provides excellent contextual information about the mechanism and the three experimental sets. The description of the hollow sphere formation mechanism via Ostwald ripening is not captured in the structured fields, but this is mechanistic interpretation rather than procedural data. The chemical reactions described in the source are summarized appropriately in the notes. No scientific misinterpretations are present.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction fully adheres to the GeneralSynthesisOntology schema. All required fields are populated with appropriate data types: target_compound (string), target_compound_type (string), synthesis_method (string), starting_materials (array of objects with vendor, name, amount, unit, purity), steps (array with step_number, action, description, materials, equipment, conditions), equipment (array), and notes (string). Numeric values are correctly typed as floats (2.4, 40.0, 20.0, 1.06, 180.0, 15.0, 60.0). Null values are correctly used where information is absent. Units are consistently applied (g, mL, C, h). The conditions object structure is consistently applied across all steps with all required sub-fields. The equipment settings field is used appropriately to capture the 80 mL autoclave capacity.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction of the Fe3O4 hollow sphere synthesis ontology is of high quality, accurately capturing the essential synthesis information from the source text. Strengths include: (1) correct identification and quantification of all five starting materials with vendor and purity information; (2) logical five-step process sequence with appropriate action classifications; (3) accurate capture of critical conditions (180°C, 15h solvothermal; 60°C drying); (4) correct identification of synthesis equipment; (5) excellent notes field that captures mechanistic context and experimental variations; (6) full schema compliance with correct data types. Minor gaps include: the drying duration ('overnight') not captured numerically, and the drug loading procedure not captured as a separate synthesis pathway (though this is arguably outside the primary synthesis scope). The variable oleylamine amounts are appropriately handled by leaving the amount null and noting the variation in the notes field. Overall, this is a high-quality extraction that faithfully represents the synthesis procedure with minimal omissions."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drying duration ('overnight') not captured as a qualitative or approximate value in step 5",
+                "Drug loading procedure (DOX loading with ammonium hydroxide, centrifugation, washing) not captured as secondary synthesis steps"
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider capturing qualitative durations like 'overnight' as a note or approximate value (e.g., ~12h) in the dry step conditions",
+                "Consider adding a secondary synthesis pathway for the drug loading procedure, as it involves distinct steps (dispersion, ammonium hydroxide functionalization, DOX addition, centrifugation, drying, washing)",
+                "The oleylamine amount could be represented as a range or list [2, 3, 4] mL rather than null, with a note indicating the three experimental sets",
+                "The stirring duration in step 1 ('until completely miscible') and step 2 ('until completely transparent') could be captured as qualitative condition notes"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the core solvothermal synthesis of Fe3O4 hollow spheres. It correctly identifies the starting materials, their quantities, and the specific solvothermal conditions (180 °C, 15 h). The extraction also handles the variable oleylamine amounts well by noting them in the 'notes' section, which is appropriate for a multi-sample study. The sequence of steps (mixing, adding, heating, washing, drying) aligns perfectly with the experimental section of the source text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All major components of the synthesis (materials, equipment, steps, and conditions) were successfully extracted. The system correctly identified the solvothermal process and the subsequent post-processing steps.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Chemical names, amounts (2.4g FeCl3, 40mL EG, 20mL alcohol, 1.06g Urea), and the vendor (Sigma-Aldrich) were accurately captured. The 'analytical grade' purity was also correctly noted for all reagents.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps follow the logical experimental flow: initial mixing of iron salt, addition of urea/oleylamine, the solvothermal reaction, washing, and drying. Action classifications (mix, add, heat, wash, dry) are precise.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The magnetic stirrer and the teflon-lined stainless steel autoclave (including its 80 mL capacity) were correctly identified from the text.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The critical parameters (180 °C for 15 hours for synthesis and 60 °C for drying) were extracted accurately with correct units. Stirring was correctly flagged as 'true' for the initial mixing steps.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the paper, particularly the role of oleylamine as a variable template and the chemical transformation from iron salts to magnetite.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the GeneralSynthesisOntology schema, using correct data types and field structures.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is an excellent extraction. It successfully navigates a text describing multiple variations of a synthesis (different oleylamine concentrations) by capturing the common procedure and noting the variations. It avoids hallucination where data is missing (e.g., pressure or atmosphere) and captures all quantitative data provided in the source."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the extraction is excellent, explicitly capturing the 'overnight' duration for the drying step (Step 5) would add a bit more detail, though 'null' is acceptable as 'overnight' is a qualitative duration."
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the Fe3O4 hollow sphere synthesis procedure. All major starting materials are correctly identified with accurate amounts, units, and vendor information. The five-step process sequence accurately reflects the source text workflow from mixing through drying. Key synthesis conditions (180°C, 15h solvothermal; 60°C drying) are properly extracted. The extraction correctly handles the variable oleylamine amounts (2ml, 3ml, 4ml) by setting amount to null while documenting the variation in notes. Minor omissions include the 'overnight' duration for drying and some stirring details. No hallucinations detected - all extracted information traces back to the source text. The schema structure is well-formed with appropriate data types throughout.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound (Fe3O4), synthesis method (solvothermal), five starting materials with quantities, five process steps in correct sequence, two key equipment items, and synthesis conditions. The structure comprehensively represents the synthesis workflow. Minor deductions for missing 'overnight' duration descriptor for drying step and some stirring endpoint details. Overall excellent structural coverage of the source synthesis procedure.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials correctly identified with accurate chemical names, amounts, and units (FeCl3·6H2O: 2.4g, EG: 40mL, ethyl alcohol: 20mL, Urea: 1.06g, oleylamine: variable). Vendor (Sigma-Aldrich) and purity (analytical grade) correctly captured for all materials. Oleylamine amount appropriately set to null since source specifies three different amounts (2ml, 3ml, 4ml) for different experimental sets - this is correct behavior, not an error. The notes field properly documents this variation. Excellent material extraction accuracy.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Five process steps correctly sequenced: mix → add → heat (solvothermal) → wash → dry. Action classifications are appropriate for each step. Step descriptions accurately reflect source text. Step 3 correctly captures the solvothermal process with autoclave transfer. Minor omissions: stirring duration 'until completely transparent' after step 2 not explicitly captured, and drying duration 'overnight' not captured in step 5. Overall strong process step extraction with logical flow preserved.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "Key synthesis equipment correctly identified: magnetic stirrer (used in steps 1-2) and teflon-lined stainless steel autoclave with 80mL capacity specification. Equipment properly linked to relevant process steps. Characterization equipment (XRD, TEM, AC magnetic measurement instrument) not included, but this is acceptable as the ontology focuses on synthesis rather than characterization. Vendor information not stated in source, correctly left null. Good equipment extraction for synthesis-focused ontology.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Critical synthesis conditions accurately captured: solvothermal temperature (180°C), solvothermal duration (15h), drying temperature (60°C). Units correctly specified (C, h). Pressure and atmosphere correctly left null as not specified in source. Minor deduction for drying duration 'overnight' from source text extracted as null instead of captured as a qualitative descriptor. Stirring conditions correctly marked as true for mixing steps. Overall strong conditions extraction with one minor omission.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "Excellent semantic preservation throughout. Chemical names accurately represented (Ferric chloride hexahydrate, Ethylene Glycol, etc.). No hallucinations or misinterpretations detected. The notes field accurately summarizes key scientific context: oleylamine's role as micelle template, ethylene glycol's reducing function, urea's precipitation role, and the three experimental variations. All extracted information faithfully represents the source text's scientific meaning without distortion or addition.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "Extraction fully adheres to the GeneralSynthesisOntology schema. All required fields present with correct data types (numbers for amounts/temperatures, strings for names/descriptions, arrays for materials/steps/equipment). Null values appropriately used where source text lacks specific information (oleylamine amount, equipment vendors, pressure). JSON structure is valid and well-organized. Field naming conventions followed consistently. Excellent schema compliance.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This is a high-quality ontology extraction that accurately captures the Fe3O4 hollow sphere synthesis procedure. Strengths include: complete material identification with accurate quantities and vendor information, correct process step sequencing with appropriate action classifications, accurate capture of critical synthesis conditions (180°C/15h solvothermal, 60°C drying), proper handling of variable oleylamine amounts, and excellent schema compliance with no hallucinations. Minor weaknesses: 'overnight' drying duration not captured as a qualitative descriptor, and some stirring endpoint conditions not explicitly recorded. The extraction demonstrates strong understanding of synthesis workflows and appropriate handling of information that varies across experimental sets. Overall score reflects excellent extraction quality with room for minor improvements in capturing qualitative duration descriptors."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Drying duration descriptor 'overnight'",
+                "Stirring endpoint condition 'until completely transparent'"
+              ],
+              "extraction_errors": [
+                "Drying step duration 'overnight' from source text not captured (extracted as null)",
+                "Stirring duration 'until transparent' after urea/oleylamine addition not explicitly captured"
+              ],
+              "improvement_suggestions": [
+                "Capture qualitative duration descriptors like 'overnight' in a dedicated field or notes",
+                "Consider adding stirring endpoint conditions (e.g., 'until transparent') to step descriptions",
+                "Could optionally include characterization equipment (XRD, TEM) in a separate characterization section",
+                "Consider capturing the three oleylamine variations (2ml, 3ml, 4ml) as a structured list rather than null"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction successfully captures the core solvothermal synthesis procedure for Fe3O4 hollow spheres using oleylamine micelles as a template. It accurately identifies the starting materials, their quantities, and the key process steps (mixing, adding, solvothermal heating, washing, drying). The extraction correctly notes the variation in oleylamine amount (2, 3, 4 mL) and the roles of ethylene glycol and urea. However, the extraction is incomplete regarding the specific synthesis conditions for the three distinct batches. The source text explicitly describes preparing three different sets of particles by varying the oleylamine amount, but the extracted ontology presents a single, generalized procedure with a null amount for oleylamine, failing to capture the experimental design of variable concentrations. Furthermore, the 'notes' field contains a high-level summary but does not fully compensate for the missing structured data about the three specific syntheses. The equipment and conditions for the main solvothermal step are accurately captured.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis components: target compound, method, starting materials, a logical sequence of steps, equipment, and key conditions (temperature, duration for heating). It correctly includes the note about varying oleylamine amounts. However, it fails to structurally represent the three distinct syntheses (with 2, 3, and 4 mL oleylamine) as separate procedures or variations within the ontology. The source text clearly describes this as a core experimental variable, but the extraction presents a single procedure with a null amount for oleylamine, which is a significant omission of stated experimental design.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material names, quantities, and units for the fixed precursors (FeCl3·6H2O, EG, alcohol, urea) are accurately extracted with correct vendor information. The handling of oleylamine is partially correct but flawed. The source specifies three specific amounts (2, 3, 4 mL) used in separate syntheses. The extraction correctly lists oleylamine as a material but sets its amount to null, which is an error because specific amounts are stated. A better representation would be to list the three amounts or indicate a variable range. The purity ('analytical grade') is correctly captured. The washing agent 'alcohol' is identified, correctly without a specified amount.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The process steps are logically sequenced and accurately classified (mix, add, heat, wash, dry). Descriptions are clear and correspond well to the source text. The actions are correctly associated with their respective materials and equipment. The only minor weakness is that Step 2's description could more explicitly mention stirring until the solution becomes 'completely transparent' as per the source, but the action 'add' with stirring condition is fundamentally correct. The flow effectively represents the synthesis protocol.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "All explicitly named equipment is correctly identified: 'magnetic stirrer' and 'teflon lined stainless steel autoclave'. The autoclave capacity (80 mL) is correctly extracted from the text ('80 ml teflon lined stainless steel autoclaves'). No vendor or model is specified in the source, so leaving those fields null is correct. Settings for the magnetic stirrer (e.g., speed) are not mentioned, so null is appropriate. The extraction does not hallucinate any unspecified equipment.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately captured: the solvothermal temperature (180 °C) and duration (15 h), and the drying temperature (60 °C). The stirring condition for the initial steps is correctly set to true. Conditions not specified in the source (pressure, atmosphere, precise stirring speed, pH for these steps) are correctly left null. The duration for drying ('overnight') is not quantified, so a null duration is correct. The conditions are accurately represented without error.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis is well preserved. The roles of oleylamine (micelle template), ethylene glycol (reducing agent), and urea (hydroxide source) are correctly summarized in the notes. The method is correctly identified as 'solvothermal'. The core chemical transformation to Fe3O4 is implied. The main semantic shortcoming is the loss of the explicit experimental design involving three separate syntheses with varying oleylamine concentrations, which is a key aspect of the paper's methodology.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully complies with the expected GeneralSynthesisOntology schema. All required top-level fields (target_compound, synthesis_method, starting_materials, steps, equipment, notes) are present and populated with data of the correct type (strings, numbers, arrays, objects). The structure of nested objects (materials, equipment, conditions within steps) follows the schema correctly. There are no format errors or schema violations.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction demonstrates strong capabilities in parsing and structuring a detailed solvothermal synthesis procedure. Strengths include accurate capture of material quantities, a logically sequenced step-by-step process, correct identification of equipment and key reaction conditions, and perfect schema compliance. The primary weakness is the incomplete handling of the experimental variable: the source text explicitly details three syntheses with different oleylamine amounts (2, 3, 4 mL), but the extraction collapses this into a single procedure with a null amount for oleylamine. This omission reduces the completeness and semantic accuracy for replicating the study's core methodology of size control. Overall, it is a good extraction that faithfully represents a single, generalized protocol but misses a critical dimension of the reported experimental work."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The structured representation of the three distinct syntheses (batches) performed by varying the oleylamine amount (2, 3, 4 mL). The current ontology presents a single procedure, losing the comparative experimental design."
+              ],
+              "extraction_errors": [
+                "The amount of oleylamine is incorrectly set to null. The source text explicitly states three specific amounts (2 mL, 3 mL, 4 mL) used to prepare three different sets of particles. The extraction should represent these variable amounts, not a null value."
+              ],
+              "improvement_suggestions": [
+                "Implement a method to capture experimental variations or multiple syntheses within a single ontology. This could involve an array of 'synthesis_variants' or allowing material amounts to be specified as ranges or lists (e.g., \"amount\": [2, 3, 4]).",
+                "For Step 2, the description could be enhanced to include the endpoint 'stirred until it became completely transparent' to more fully capture the procedural detail."
+              ]
+            },
+            "overall_score": 4.3
+          }
+        ]
+      }
+    ]
   }
 ]

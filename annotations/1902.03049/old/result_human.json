@@ -1,0 +1,292 @@
+[
+  {
+    "material": "5-AGNR",
+    "synthesis": {
+      "target_compound": "5-AGNR",
+      "target_compound_type": "two-dimensional materials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3,9 (10)-dibromoperylene (DBP)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Annealing of 3,9 (10)-dibromoperylene (DBP) monomer",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "3,9 (10)-dibromoperylene (DBP)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 350.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "Extraction is correct and complete, without any information missing/ being hallucinated.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "The ontology includes materials, steps, equipment, and conditions.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The starting material, 3,9 (10)-dibromoperylene (DBP), is accurately extracted.",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "The process step is identified as annealing, which is correct.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment, a tube furnace, is correctly identified.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The conditions, including temperature (350\u00b0C), pressure (1.5 mbar), and atmosphere (Ar and H2), are accurately extracted with correct units.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is well-preserved in the structured format. The synthesis is accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements.",
+        "overall_score": 5.0,
+        "overall_reasoning": "The ontology extraction is generally accurate and complete. The material, equipment, and conditions are well-extracted."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  },
+  {
+    "material": "9-AGNR",
+    "synthesis": {
+      "target_compound": "9-AGNR",
+      "target_compound_type": "two-dimensional materials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3',6'-dibromo-1,1':2',1''-terphenyl (DBTP)",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "9-AGNR was prepared starting from 3',6'-dibromo-1,1':2',1''-terphenyl (DBTP) as the monomer at an annealing temperature of 400 \u00b0C",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "3',6'-dibromo-1,1':2',1''-terphenyl (DBTP)",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 400.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "All is correctly extrcated, except for the acronym for DBTP - since it has been extrcated for 5-AGNR, 0.5 units were deducted from the completeness score.",
+      "scores": {
+        "structural_completeness_score": 4.5,
+        "structural_completeness_reasoning": "All complete, except the starting material acronym (relevant as it can be used further in the text).",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "All complete.",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "All complete.",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment (tube furnace) is correctly identified.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "All complete.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "All complete.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "All complete.",
+        "overall_score": 4.9,
+        "overall_reasoning": "The ontology extraction is generally accurate and complete."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "DBTP acronym meaning"
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  },
+  {
+    "material": "5n-AGNR",
+    "synthesis": {
+      "target_compound": "5n-AGNR",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": null,
+          "name": "3,9 (10)-dibromoperylene",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "5-AGNR was prepared from 3,9 (10)-dibromoperylene (DBP) by setting the annealing temperature at 350 \u00b0C.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "3,9 (10)-dibromoperylene",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 350.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "heat",
+          "description": "By increasing the annealing temperature, 5-AGNR can undergo lateral fusion into wider GNRs. Fixing the annealing temperature at 600 \u00b0C, the resulting GNRs are a mixture of 10-AGNR and non-negligible amounts of 5-AGNR, 15-AGNR and 20-AGNR",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "5-AGNR",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "tube furnace",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 600.0,
+            "temp_unit": "\u00b0C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": 1.5,
+            "pressure_unit": "mbar",
+            "atmosphere": "Ar (500 sccm) and H2 (100 sccm)",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "tube furnace",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The sample labelled 5n-AGNR is a mixture containing mainly 10-AGNR and also some amounts of 5-, 15-, and 20-AGNRs."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the synthesis of 5n-AGNR using CVD, including the starting material, equipment, and conditions. The process steps are well-defined, and the note provides additional context about the composition of the 5n-AGNR sample. The extraction accurately reflects the information presented in the source text.",
+      "scores": {
+        "structural_completeness_score": 5.0,
+        "structural_completeness_reasoning": "All relevant synthesis components (materials, steps, equipment, conditions) are extracted from the source text.",
+        "material_extraction_score": 5.0,
+        "material_extraction_reasoning": "The starting material name is accurately extracted. While amounts and purities are not specified in the text, their absence in the extraction is appropriate.",
+        "process_steps_score": 5.0,
+        "process_steps_reasoning": "The process steps are accurately ordered and the actions are correctly classified (heating at different temperatures).",
+        "equipment_extraction_score": 5.0,
+        "equipment_extraction_reasoning": "The equipment (tube furnace) is correctly identified.",
+        "conditions_extraction_score": 5.0,
+        "conditions_extraction_reasoning": "The temperature, atmosphere, and pressure are accurately extracted with correct units. The values are numerically accurate and unit consistent.",
+        "semantic_accuracy_score": 5.0,
+        "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved without misinterpretation.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema, data types, and field structure.",
+        "overall_score": 5.0,
+        "overall_reasoning": "The extraction is complete, accurate, and well-structured, reflecting a high-quality representation of the synthesis information."
+      },
+      "confidence_level": "high",
+      "missing_information": [],
+      "extraction_errors": [],
+      "improvement_suggestions": []
+    }
+  }
+]

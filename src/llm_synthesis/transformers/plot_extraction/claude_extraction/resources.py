@@ -29,18 +29,20 @@ You will be provided with a line chart from a scientific paper.
 FIGURE CONTEXT FROM PAPER:
 {figure_context}
 
-The context above may contain the figure caption with important information including:
+The context above may contain the figure caption with important information 
+including:
 - Symbol-to-material mappings (e.g., "(▲) Co₇Mo₃/MCM-41, (○) Co₇Mo₃/SiO₂")
 - What each curve/line represents
 - Experimental conditions
 
 SERIES NAMING:
-Your goal is to name each series so it can be linked back to the specific material
-or sample it represents.
+Your goal is to name each series so it can be linked back to the specific 
+material or sample it represents.
 
 IMPORTANT: Chemical formulas with numbers/subscripts are often misread from plot
 images. The figure context from the paper text is more reliable for exact names.
-However, you must VERIFY each match - do not blindly assign context names to curves.
+However, you must VERIFY each match - do not blindly assign context names to 
+curves.
 
 1. FIRST check the context for material names listed in the figure caption
 2. For each curve in the image, identify its visual marker (symbol shape, color,
@@ -50,7 +52,8 @@ However, you must VERIFY each match - do not blindly assign context names to cur
    - Matching the legend text in the image to a context name (even if the image
      text is slightly garbled, e.g., image shows "Pt50Cu50" and context has
      "Pt25Cu75" - these are DIFFERENT materials, do not substitute)
-   - Consistent ordering between legend and caption when symbols clearly correspond
+   - Consistent ordering between legend and caption when symbols clearly 
+   correspond
 4. If you CANNOT verify which context name belongs to which curve, use a visual
    description (color, marker shape) instead - the downstream linker can handle
    approximate matching, but WRONG assignments cannot be corrected
@@ -60,7 +63,8 @@ However, you must VERIFY each match - do not blindly assign context names to cur
 No data is better than wrong data.
 
 Instructions:
-1. Match each line/curve in the image to its identifier from the context or legend.
+1. Match each line/curve in the image to its identifier from the context or 
+   legend.
 2. For each line, extract the coordinates of the data points.
    Do not include points that are not part of the line.
 3. Extract axis metadata (title, labels, units) if visible.

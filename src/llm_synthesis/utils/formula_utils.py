@@ -16,12 +16,14 @@ def normalize_formula(s: str) -> str:
     """
     base = s.strip()
     # Strip LaTeX text-mode commands: \mathrm{X} -> X
-    base = re.sub(r"\\(?:mathrm|text|textit|mathit|mathbf)\{([^}]*)\}", r"\1", base)
+    latex_cmd = r"\\(?:mathrm|text|textit|mathit|mathbf)\{([^}]*)\}"
+    base = re.sub(latex_cmd, r"\1", base)
     # Strip LaTeX sub/superscripts: _{0.12} -> 0.12
     base = re.sub(r"[_^]\{([^}]*)\}", r"\1", base)
     # Remove $ and remaining backslashes
     base = base.replace("$", "").replace("\\", "")
-    # Strip trailing parenthetical annotations: (C), (NC), (centrosymmetric), etc.
+    # Strip trailing parenthetical annotations: (C), (NC), (centrosymmetric),
+    # etc.
     base = re.sub(r"\s*\([^)]*\)\s*$", "", base).strip()
     # Strip trailing bracket annotations: [dashed-dotted line], etc.
     base = re.sub(r"\s*\[[^\]]*\]\s*$", "", base).strip()

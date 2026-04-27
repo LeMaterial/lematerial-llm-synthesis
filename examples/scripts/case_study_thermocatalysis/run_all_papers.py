@@ -24,6 +24,9 @@ Usage:
     # Skip papers that already have results
     python run_all_papers.py --skip-existing
 """
+# ==============================================================================
+# IMPORTS
+# ==============================================================================
 
 import argparse
 import json
@@ -34,6 +37,45 @@ import time
 import traceback
 import warnings
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+from llm_synthesis.config.plot_filter_config import PlotFilterConfig
+from llm_synthesis.metrics.judge.general_synthesis_judge import (
+    DspyGeneralSynthesisJudge,
+    make_general_synthesis_judge_signature,
+)
+from llm_synthesis.metrics.judge.linking_judge import (
+    DspyLinkingJudge,
+    make_linking_judge_signature,
+)
+from llm_synthesis.models.paper import Paper
+from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (
+    SynthesisPerformancePipeline,
+)
+from llm_synthesis.transformers.material_extraction.dspy_extraction import (
+    DspyTextExtractor,
+    make_dspy_text_extractor_signature,
+)
+from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
+from llm_synthesis.transformers.performance_linking import (
+    series_material_linker,
+)
+from llm_synthesis.transformers.plot_extraction.claude_extraction import (
+    plot_data_extraction as claude_plot_data,
+)
+from llm_synthesis.transformers.synthesis_extraction import (
+    dspy_synthesis_extraction,
+)
+from llm_synthesis.utils.dspy_utils import get_llm_from_name
+from llm_synthesis.utils.performance_utils import sanitize_filename
+
+SeriesMaterialLinker = series_material_linker.SeriesMaterialLinker
+ClaudeLinePlotDataExtractor = claude_plot_data.ClaudeLinePlotDataExtractor
+DspySynthesisExtractor = dspy_synthesis_extraction.DspySynthesisExtractor
+make_dspy_synthesis_extractor_signature = (
+    dspy_synthesis_extraction.make_dspy_synthesis_extractor_signature
+)
 
 # ==============================================================================
 # CONFIGURATION (defaults, can be overridden via CLI)
@@ -56,8 +98,6 @@ src_path = Path("../../src").resolve()
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
 
-from dotenv import load_dotenv
-
 env_path = Path("../../.env")
 load_dotenv(env_path, override=True)
 
@@ -75,74 +115,44 @@ logging.basicConfig(
 )
 logger = logging.getLogger("batch_runner")
 
-# ==============================================================================
-# IMPORTS
-# ==============================================================================
-
-import dspy
-
-from llm_synthesis.config.plot_filter_config import PlotFilterConfig
-from llm_synthesis.models.paper import Paper
-from llm_synthesis.metrics.judge.general_synthesis_judge import (
-    DspyGeneralSynthesisJudge,
-    make_general_synthesis_judge_signature,
-)
-from llm_synthesis.metrics.judge.linking_judge import (
-    DspyLinkingJudge,
-    make_linking_judge_signature,
-)
-from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (
-    SynthesisPerformancePipeline,
-)
-from llm_synthesis.transformers.figure_extraction import FigureExtractorMarkdown
-from llm_synthesis.transformers.material_extraction.dspy_extraction import (
-    DspyTextExtractor,
-    make_dspy_text_extractor_signature,
-)
-from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
-from llm_synthesis.transformers.performance_linking.series_material_linker import (
-    SeriesMaterialLinker,
-)
-from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (
-    ClaudeLinePlotDataExtractor,
-)
-from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (
-    DspySynthesisExtractor,
-    make_dspy_synthesis_extractor_signature,
-)
-from llm_synthesis.utils.dspy_utils import get_llm_from_name
-from llm_synthesis.utils.performance_utils import sanitize_filename
-
 
 # ==============================================================================
 # SYNTHESIS SYSTEM PROMPT
 # ==============================================================================
 
-SYNTHESIS_SYSTEM_PROMPT = """You are a helpful assistant that extracts structured synthesis procedures from scientific papers.
+SYNTHESIS_SYSTEM_PROMPT = """
+You are a helpful assistant that extracts structured synthesis
+procedures from scientific papers.
 
-IMPORTANT: For the synthesis_method field, you MUST choose from these exact values:
-'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis', 'electrospinning',
-'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation', 'coprecipitation', 'combustion',
-'microwave-assisted', 'sonochemical', 'template-directed', 'solid-state', 'flux growth',
-'float zone & Bridgman', 'arc melting & induction melting', 'spark plasma sintering',
-'electrochemical deposition', 'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
-'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition', 'ion implantation',
-'lithographic patterning', 'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing',
+IMPORTANT: For the synthesis_method field, you MUST choose from these values:
+'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis',
+'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation',
+'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical',
+'template-directed', 'solid-state', 'flux growth',
+'float zone & Bridgman', 'arc melting & induction melting',
+'spark plasma sintering', 'electrochemical deposition',
+'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
+'atomic layer deposition', 'molecular beam epitaxy',
+'pulsed laser deposition', 'ion implantation', 'lithographic patterning',
+'wet impregnation', 'incipient wetness impregnation', 'mechanical mixing',
 'solution-based', 'mechanochemical', 'other'
 
 For the target_compound_type field, you MUST choose from these exact values:
 'metals & alloys', 'ceramics & glasses', 'polymers & soft matter', 'composites',
 'semiconductors & electronic', 'nanomaterials', 'two-dimensional materials',
 'framework & porous materials', 'biomaterials & biological', 'liquid materials',
-'hybrid & organic-inorganic', 'functional materials & catalysts', 'energy & sustainability',
-'smart & responsive materials', 'emerging & quantum materials', 'other'
+'hybrid & organic-inorganic', 'functional materials & catalysts',
+'energy & sustainability', 'smart & responsive materials',
+'emerging & quantum materials', 'other'
 
-If the exact method is not in the list, use the closest match or 'other'."""
+If the exact method is not in the list, use the closest match or 'other'.
+"""
 
 
 # ==============================================================================
 # INITIALIZE PIPELINE
 # ==============================================================================
+
 
 def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
     """Initialize the PDF extractor and synthesis-performance pipeline.
@@ -158,40 +168,53 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
     # Material extractor
     material_sig = make_dspy_text_extractor_signature(
         instructions=(
-            "Extract ALL distinct material compositions that were synthesized and tested in this paper. "
-            "IMPORTANT: If the paper studies multiple variants of a material (e.g., different loadings, "
-            "dopant concentrations, or preparation conditions), list EACH variant as a separate material. "
-            "For example, if a paper studies 1%Ru/CaO, 3%Ru/CaO, and 5%Ru/CaO, list all three - "
-            "do NOT merge them into a single 'Ru/CaO'. "
-            "Focus on materials that were actually synthesized, not just mentioned or referenced."
+            "Extract ALL distinct material compositions that were synthesized "
+            "and tested in this paper. "
+            "IMPORTANT: If the paper studies multiple variants of a material "
+            "(e.g., different loadings, dopant concentrations, or preparation "
+            "conditions), list EACH variant as a separate material. "
+            "For example, if a paper studies 1%Ru/CaO, 3%Ru/CaO, and 5%Ru/CaO, "
+            "list all three - do NOT merge them into a single 'Ru/CaO'. "
+            "Focus on materials that were actually synthesized, not just "
+            "mentioned or referenced."
         ),
         output_description=(
-            "ALL distinct synthesized material compositions as a comma-separated list using chemical formulas. "
+            "ALL distinct synthesized material compositions as a "
+            "comma-separated list using chemical formulas. "
             "Include loading percentages and promoters when specified "
-            "(e.g., '1%Ru-10%K/CaO, 3%Ru-10%K/CaO, 5%Ru-10%K/CaO, 3%Ru-5%K/CaO'). "
-            "Never merge variants into a single generic name."
+            "(e.g., '1%Ru-10%K/CaO, 3%Ru-10%K/CaO, 5%Ru-10%K/CaO, "
+            "3%Ru-5%K/CaO'). Never merge variants into a single generic name."
         ),
     )
     material_lm = get_llm_from_name(
         "gemini-3.0-pro",
         model_kwargs={"temperature": 0.0, "max_tokens": 8000},
     )
-    material_extractor = DspyTextExtractor(signature=material_sig, lm=material_lm)
+    material_extractor = DspyTextExtractor(
+        signature=material_sig, lm=material_lm
+    )
 
     # Synthesis extractor
     synthesis_sig = make_dspy_synthesis_extractor_signature(
         instructions=(
-            "Extract the complete structured synthesis procedure for the specified material. "
-            "Include all steps, conditions (temperature, time, atmosphere), equipment, and precursors. "
+            "Extract the complete structured synthesis procedure for the "
+            "specified material. Include all steps, conditions (temperature, "
+            "time, atmosphere), equipment, and precursors. "
             "Be thorough and preserve all quantitative details."
         ),
     )
     synthesis_lm = get_llm_from_name(
         GEMINI_MODEL,
-        model_kwargs={"temperature": 0.0, "max_tokens": 80000, "max_retries": 3},
+        model_kwargs={
+            "temperature": 0.0,
+            "max_tokens": 80000,
+            "num_retries": 3,
+        },
         system_prompt=SYNTHESIS_SYSTEM_PROMPT,
     )
-    synthesis_extractor = DspySynthesisExtractor(signature=synthesis_sig, lm=synthesis_lm)
+    synthesis_extractor = DspySynthesisExtractor(
+        signature=synthesis_sig, lm=synthesis_lm
+    )
 
     # Synthesis judge
     judge_lm = get_llm_from_name(
@@ -243,7 +266,10 @@ def init_pipeline() -> tuple[MistralPDFExtractor, SynthesisPerformancePipeline]:
 # CUSTOM SAVE FUNCTION (with human annotation template)
 # ==============================================================================
 
-def save_results_with_annotations(result, output_dir: str, processing_time: float) -> None:
+
+def save_results_with_annotations(
+    result, output_dir: str, processing_time: float
+) -> None:
     """Save pipeline results with both LLM and human annotation templates.
 
     Extends the pipeline's save_results with:
@@ -266,9 +292,15 @@ def save_results_with_annotations(result, output_dir: str, processing_time: floa
         # Build dict without linking_evaluation (it goes in summary)
         mat_data = {
             "material": entry.material,
-            "synthesis": entry.synthesis.model_dump() if entry.synthesis else None,
-            "evaluation": entry.evaluation.model_dump() if entry.evaluation else None,
-            "performance": entry.performance.model_dump() if entry.performance else None,
+            "synthesis": entry.synthesis.model_dump()
+            if entry.synthesis
+            else None,
+            "evaluation": entry.evaluation.model_dump()
+            if entry.evaluation
+            else None,
+            "performance": entry.performance.model_dump()
+            if entry.performance
+            else None,
         }
         with open(mat_path, "w") as f:
             json.dump(mat_data, f, indent=2, default=str)
@@ -277,19 +309,27 @@ def save_results_with_annotations(result, output_dir: str, processing_time: floa
     if result.plot_mappings:
         mappings_path = os.path.join(paper_dir, "performance_mappings.json")
         with open(mappings_path, "w") as f:
-            json.dump([m.model_dump() for m in result.plot_mappings], f, indent=2)
+            json.dump(
+                [m.model_dump() for m in result.plot_mappings], f, indent=2
+            )
 
     # Base summary content
     base_summary = {
         "paper_id": result.paper_id,
         "paper_name": result.paper_name,
         "total_materials": len(result.materials),
-        "materials_with_synthesis": sum(1 for r in result.results if r.synthesis),
+        "materials_with_synthesis": sum(
+            1 for r in result.results if r.synthesis
+        ),
         "materials_with_performance": len(result.materials_with_performance),
-        "materials_without_performance": len(result.materials_without_performance),
+        "materials_without_performance": len(
+            result.materials_without_performance
+        ),
         "materials_list": result.materials,
         "materials_with_performance_list": result.materials_with_performance,
-        "materials_without_performance_list": result.materials_without_performance,
+        "materials_without_performance_list": (
+            result.materials_without_performance
+        ),
         "total_plots_extracted": result.num_plots,
         "plots_linked": len(result.plot_mappings),
         "processing_time_seconds": round(processing_time, 1),
@@ -362,8 +402,18 @@ def save_results_with_annotations(result, output_dir: str, processing_time: floa
 # ==============================================================================
 
 # Patterns that indicate a file is supplementary information
-SI_PATTERNS = ["_SI", "-SI", "_si", "-si", "_Supporting", "_supporting",
-               "_Supplementary", "_supplementary", "_supp", "_Supp"]
+SI_PATTERNS = [
+    "_SI",
+    "-SI",
+    "_si",
+    "-si",
+    "_Supporting",
+    "_supporting",
+    "_Supplementary",
+    "_supplementary",
+    "_supp",
+    "_Supp",
+]
 
 
 def is_si_file(path: Path) -> bool:
@@ -417,7 +467,7 @@ def load_file_text(path: Path, pdf_extractor: MistralPDFExtractor) -> str:
         with open(path, "rb") as f:
             return pdf_extractor.forward(f.read())
     elif suffix in [".md", ".txt"]:
-        with open(path, "r", errors="replace") as f:
+        with open(path, errors="replace") as f:
             return f.read()
     else:
         raise ValueError(f"Unsupported file type: {suffix}")
@@ -426,6 +476,7 @@ def load_file_text(path: Path, pdf_extractor: MistralPDFExtractor) -> str:
 # ==============================================================================
 # PROCESS ONE PAPER
 # ==============================================================================
+
 
 def process_paper(
     pdf_path: str,
@@ -494,9 +545,13 @@ def process_paper(
         "paper_id": result.paper_id,
         "paper_name": result.paper_name,
         "total_materials": len(result.materials),
-        "materials_with_synthesis": sum(1 for r in result.results if r.synthesis),
+        "materials_with_synthesis": sum(
+            1 for r in result.results if r.synthesis
+        ),
         "materials_with_performance": len(result.materials_with_performance),
-        "materials_without_performance": len(result.materials_without_performance),
+        "materials_without_performance": len(
+            result.materials_without_performance
+        ),
         "total_plots_extracted": result.num_plots,
         "plots_linked": len(result.plot_mappings),
         "processing_time_seconds": round(processing_time, 1),
@@ -507,10 +562,11 @@ def process_paper(
 # MAIN
 # ==============================================================================
 
+
 def main():
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description="Batch process PDF papers for synthesis + performance extraction.",
+        description="Batch process PDFs for synthesis and performance.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -573,7 +629,7 @@ Examples:
     pdf_files = sorted(pdf_dir.glob("*.pdf"))
     md_files = sorted(pdf_dir.glob("*.md"))
 
-    # Filter out SI files (they will be loaded automatically with their main paper)
+    # Filter out SI files (loaded automatically with main paper)
     pdf_files = [p for p in pdf_files if not is_si_file(p)]
     md_files = [p for p in md_files if not is_si_file(p)]
 
@@ -597,7 +653,10 @@ Examples:
         for paper_path in available_papers:
             paper_id = Path(paper_path).stem
             result_dir = Path(output_dir) / paper_id
-            if result_dir.exists() and (result_dir / "linking_summary_llm.json").exists():
+            if (
+                result_dir.exists()
+                and (result_dir / "linking_summary_llm.json").exists()
+            ):
                 logger.info(f"Skipping {paper_id} (already processed)")
             else:
                 papers_to_process.append(paper_path)
@@ -623,28 +682,44 @@ Examples:
     all_summaries = []
     for i, pdf_path in enumerate(available_papers, 1):
         logger.info(f"\n{'#' * 70}")
-        logger.info(f"# PAPER {i}/{len(available_papers)}: {Path(pdf_path).name}")
+        logger.info(
+            f"# PAPER {i}/{len(available_papers)}: {Path(pdf_path).name}"
+        )
         logger.info(f"{'#' * 70}")
 
         try:
-            summary = process_paper(pdf_path, pdf_extractor, pipeline, output_dir)
+            summary = process_paper(
+                pdf_path, pdf_extractor, pipeline, output_dir
+            )
             all_summaries.append(summary)
         except Exception as e:
             error_str = str(e).lower()
-            # Stop batch on rate limit errors - don't continue with incomplete data
-            if "rate" in error_str and "limit" in error_str or "429" in error_str or "quota" in error_str or "resource_exhausted" in error_str:
-                logger.error(f"RATE LIMIT HIT - stopping batch to avoid incomplete data: {e}")
-                all_summaries.append({
-                    "paper_id": Path(pdf_path).stem,
-                    "error": f"RATE_LIMIT: {e}",
-                })
+            # Stop batch on rate limit - avoid incomplete data
+            if (
+                ("rate" in error_str and "limit" in error_str)
+                or "429" in error_str
+                or "quota" in error_str
+                or "resource_exhausted" in error_str
+            ):
+                logger.error(
+                    "RATE LIMIT HIT - stopping batch to avoid "
+                    f"incomplete data: {e}"
+                )
+                all_summaries.append(
+                    {
+                        "paper_id": Path(pdf_path).stem,
+                        "error": f"RATE_LIMIT: {e}",
+                    }
+                )
                 break  # Stop processing more papers
             logger.error(f"FAILED to process {Path(pdf_path).name}: {e}")
             traceback.print_exc()
-            all_summaries.append({
-                "paper_id": Path(pdf_path).stem,
-                "error": str(e),
-            })
+            all_summaries.append(
+                {
+                    "paper_id": Path(pdf_path).stem,
+                    "error": str(e),
+                }
+            )
 
     # Save overall batch summary
     total_elapsed = round(time.time() - total_start, 1)
@@ -667,7 +742,10 @@ Examples:
     print("=" * 70)
     print("BATCH PROCESSING COMPLETE")
     print("=" * 70)
-    print(f"  Papers processed: {batch_summary['successful']}/{batch_summary['total_papers']}")
+    print(
+        f"  Papers processed: {batch_summary['successful']}/"
+        f"{batch_summary['total_papers']}"
+    )
     print(f"  Failed: {batch_summary['failed']}")
     print(f"  Total time: {total_elapsed}s ({total_elapsed / 60:.1f} min)")
     print()
