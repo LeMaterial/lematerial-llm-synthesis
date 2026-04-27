@@ -1,144 +1,251 @@
-[
-  {
-    "material": "SrIrO3",
-    "synthesis": {
-      "target_compound": "SrIrO3",
-      "target_compound_type": "ceramics & glasses",
-      "synthesis_method": "Pulsed laser deposition",
-      "starting_materials": [
-        {
-          "vendor": "Toshima Manufacturing, Japan",
-          "name": "SrIrO3 target",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": "Shinkosha Co., Japan",
-          "name": "Nb-doped SrTiO3 (001) (0.5 wt% doping)",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "etch",
-          "description": "Etch all substrates with buffered HF solution (pH = 4.5)",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "buffered HF solution",
-              "amount": null,
-              "unit": null,
-              "purity": null
+{
+  "schema_version": "multi_llm_v1",
+  "paper_id": "62cff0f127b1e42fe039c25e",
+  "paper_url": "https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/62cff0f127b1e42fe039c25e/original/probing-the-stability-of-sr-ir-o3-during-active-water-electrolysis-via-operando-atomic-force-microscopy.pdf",
+  "extractor_order": [
+    "claude-sonnet-4.6",
+    "gemini-3-flash",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2"
+  ],
+  "materials": [
+    {
+      "material_name": "SrIrO3",
+      "human_recipe": {
+        "target_compound": "SrIrO3",
+        "target_compound_type": "ceramics & glasses",
+        "synthesis_method": "Pulsed laser deposition",
+        "starting_materials": [
+          {
+            "name": "SrIrO3 target",
+            "vendor": "Toshima Manufacturing, Japan",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "Nb-doped SrTiO3 (001) (0.5 wt% doping)",
+            "vendor": "Shinkosha Co., Japan",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "etch",
+            "description": "Etch all substrates with buffered HF solution (pH = 4.5)",
+            "materials": [
+              {
+                "name": "buffered HF solution",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": 4.5,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
             }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": 4.5
-          }
-        },
-        {
-          "step_number": 2,
-          "action": "anneal",
-          "description": "Anneal substrates to restore high-quality step terraces",
-          "materials": [],
-          "equipment": [],
-          "conditions": {
-            "temperature": 950.0,
-            "temp_unit": "C",
-            "duration": 2.0,
-            "time_unit": "hours",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "Argon flow",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "deposit",
-          "description": "Grow SrIrO3 thin films by pulsed laser deposition",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "SrIrO3",
-              "amount": null,
-              "unit": null,
-              "purity": null
+          },
+          {
+            "step_number": 2,
+            "action": "anneal",
+            "description": "Anneal substrates to restore high-quality step terraces",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": 950.0,
+              "duration": 2.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "hours",
+              "pressure_unit": null,
+              "atmosphere": "Argon flow",
+              "stirring": null,
+              "stirring_speed": null
             }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": 700.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": 30.0,
-            "pressure_unit": "mTorr",
-            "atmosphere": "oxygen",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          },
+          {
+            "step_number": 3,
+            "action": "deposit",
+            "description": "Grow SrIrO3 thin films by pulsed laser deposition",
+            "materials": [
+              {
+                "name": "SrIrO3",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 700.0,
+              "duration": null,
+              "pressure": 30.0,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": null,
+              "pressure_unit": "mTorr",
+              "atmosphere": "oxygen",
+              "stirring": null,
+              "stirring_speed": null
+            }
           }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "pulsed laser deposition",
-          "instrument_vendor": "PLD/MBE 2300, PVD Products",
-          "settings": null
-        },
-        {
-          "name": "RHEED system",
-          "instrument_vendor": "Staib Instruments",
-          "settings": "TorrRHEED, operated at 35 kV (1.5 mA)"
-        }
-      ],
-      "notes": "The target to substrate distance was 84 mm, the laser fluence was 2 J/cm2. The growth was monitored in situ using a RHEED system. Some samples were grown under 15 mTorr."
-    },
-    "evaluation": {
-      "reasoning": "The extraction captures the synthesis of SrIrO3 thin films using pulsed laser deposition. It identifies the starting materials, including the SrIrO3 target and Nb-doped SrTiO3 substrate. The process steps are well-defined, including etching, annealing, and deposition. The equipment used - the PLD/MBE 2300 and RHEED - is also extracted. The synthesis conditions, including temperature, pressure, and atmosphere, are mostly captured; only missing thing was the HF buffer pH. Furthermore, the Nb-doped SrTiO3 was initially assigned the wt% doping as 'purity', which is incorrect nd was rectified. The PLD/MBE 2300, PVD Solutions is the name of the instrument, not the method. Other than these, the extraction is reasonably complete and accurate.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction covers most of the key aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the specific duration of the deposition step and the flow rate of Argon during annealing.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "The extraction accurately identifies the starting materials and their vendors. The purity of the Nb-doped SrTiO3 substrate is mistaken by wt% doping. However, the amounts and units of the starting materials are not specified, which limits the completeness of the extraction.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are well-defined and logically sequenced. The actions are correctly classified, and the descriptions are clear. Only thing that can be added is the pH of HF buffer.",
-        "equipment_extraction_score": 4.5,
-        "equipment_extraction_reasoning": "The extraction identifies the key equipment used in the synthesis, but confuses pulsed lase deposition with the name o the instrument, PLD/MBE 2300",
-        "conditions_extraction_score": 5.0,
-        "conditions_extraction_reasoning": "The extraction captures the key synthesis conditions, including temperature, pressure, and atmosphere, with the right units, according to the text.",
-        "semantic_accuracy_score": 5.0,
-        "semantic_accuracy_reasoning": "The extraction accurately preserves the scientific meaning of the synthesis procedure. The relationships between the different components are correctly represented.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
-        "overall_score": 4.6,
-        "overall_reasoning": "The extraction is generally well-done, capturing most of the key aspects of the SrIrO3 thin film synthesis. The process steps, materials, and equipment are accurately identified. The synthesis conditions are mostly captured, although some values are missing. The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. Overall, the extraction is of high quality, but there are some areas for improvement which are minor."
+        ],
+        "equipment": [
+          {
+            "name": "pulsed laser deposition",
+            "instrument_vendor": "PLD/MBE 2300, PVD Products",
+            "settings": null
+          },
+          {
+            "name": "RHEED system",
+            "instrument_vendor": "Staib Instruments",
+            "settings": "TorrRHEED, operated at 35 kV (1.5 mA)"
+          }
+        ],
+        "notes": "The target to substrate distance was 84 mm, the laser fluence was 2 J/cm2. The growth was monitored in situ using a RHEED system. Some samples were grown under 15 mTorr."
       },
-      "confidence_level": "high",
-      "missing_information": [
-        "pH of HF, the etchant"
-      ],
-      "extraction_errors": [
-        "PVD was assigned incorrectly as synthesis method initially.",
-        "The etchant is specified, it's the HF solution"
-      ],
-      "improvement_suggestions": []
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "All human recipe content is captured with correct key conditions. Minor issue: target_compound_type differs from human recipe.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "target_compound_type differs from human recipe.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Strong extraction with one minor compound-type mismatch."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "target_compound_type differs from human recipe."
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "3 steps matching human recipe structure. Missing pH 4.5 in step 1 conditions (conditions: null). Action 'other' for PLD is vague. Lift-off in notes only.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "Action 'other' for PLD is vague.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "pH 4.5 missing from step 1 conditions.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Good 3-step match. Missing pH 4.5 in etch step conditions."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "pH 4.5 in step 1 conditions"
+            ],
+            "extraction_errors": [
+              "Step 1 conditions null, pH 4.5 missing"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Core recipe and conditions are correct. Minor issues: target_compound_type differs from human recipe and PLD step action is generic.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "PLD step action uses generic 'add'.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "target_compound_type differs from human recipe.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Very good match with minor type/action issues."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "target_compound_type differs from human recipe.",
+              "PLD step action uses generic 'add'."
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Conflated HF etch + anneal into one 'heat' step. RHEED monitoring as separate step instead of equipment. Missing buffered HF and pH 4.5. Wrong compound type ('semiconductors & electronic').",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "Missing buffered HF from materials.",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "Etch+anneal conflated. RHEED as step. Missing pH 4.5.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "pH 4.5 missing. HF etch conditions lost in conflation.",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "Wrong compound type. Etch conflated with anneal under 'heat'.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 3.5,
+              "overall_reasoning": "Conflated etch+anneal, RHEED as step, wrong compound type, missing pH 4.5."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Separate etch step",
+              "pH 4.5",
+              "buffered HF"
+            ],
+            "extraction_errors": [
+              "Etch+anneal conflated into one step",
+              "Wrong target_compound_type"
+            ],
+            "improvement_suggestions": []
+          }
+        }
+      ]
     }
-  }
-]
+  ]
+}

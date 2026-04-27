@@ -2,6 +2,7 @@ import datasets
 
 from llm_synthesis.data_loader.paper_loader.base import PaperLoaderInterface
 from llm_synthesis.models.paper import Paper
+from llm_synthesis.utils.paper_id_utils import hf_id_to_folder_id
 
 
 class HFLoader(PaperLoaderInterface):
@@ -9,7 +10,12 @@ class HFLoader(PaperLoaderInterface):
     Paper loader that loads papers from a Hugging Face Dataset.
     """
 
-    def __init__(self, dataset_uri: str, dataset_config_name: str = "default", split: str = "train"):
+    def __init__(
+        self,
+        dataset_uri: str,
+        dataset_config_name: str = "default",
+        split: str = "train",
+    ):
         self.dataset_uri = dataset_uri
         self.dataset_config_name = dataset_config_name
         self.split = split
@@ -18,15 +24,19 @@ class HFLoader(PaperLoaderInterface):
         """
         Load papers from the Hugging Face Dataset.
         """
-        dataset = datasets.load_dataset(self.dataset_uri, name=self.dataset_config_name, split=self.split)
+        dataset = datasets.load_dataset(
+            self.dataset_uri, name=self.dataset_config_name, split=self.split
+        )
         papers = []
         for paper in dataset:
+            paper_id = hf_id_to_folder_id(paper["id"])
             papers.append(
                 Paper(
                     publication_text=paper["text_paper"],
-                    si_text=paper["text_si"],
-                    name=paper["title"],
-                    id=paper["id"],
+                    si_text=paper.get("text_si", ""),
+                    name=paper.get("title", paper_id),
+                    id=paper_id,
+                    pdf_url=paper.get("pdf_url"),
                 )
             )
         return papers

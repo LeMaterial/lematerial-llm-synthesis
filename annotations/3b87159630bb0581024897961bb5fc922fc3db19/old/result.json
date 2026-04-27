@@ -1,0 +1,263 @@
+[
+  {
+    "material": "Boron nitride nanotubes",
+    "synthesis": {
+      "target_compound": "Boron nitride nanotubes",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "CVD",
+      "starting_materials": [
+        {
+          "vendor": "China New Metal Materials Technology Company Limited",
+          "name": "Boron",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Sinopharm Chemical Reagent Company Limited",
+          "name": "MgO",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Sigma-Aldrich",
+          "name": "MgB2",
+          "amount": null,
+          "unit": null,
+          "purity": null
+        },
+        {
+          "vendor": "Linde Gas (China) Company Limited",
+          "name": "Ar",
+          "amount": null,
+          "unit": null,
+          "purity": "99.999%"
+        },
+        {
+          "vendor": "Linde Gas (China) Company Limited",
+          "name": "NH3",
+          "amount": null,
+          "unit": null,
+          "purity": "99.999%"
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "mix",
+          "description": "Weigh and grind B and MgO.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Boron",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "MgO",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "mix",
+          "description": "Weigh and mix MgB2 with the previously obtained B/MgO powder to form the precursor.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "MgB2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "B/MgO powder",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "heat",
+          "description": "Place the alumina boat containing the precursor and a piece of clean Si/SiO2 substrate in the center of the tube.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "B/MgO/MgB2",
+              "amount": 140.0,
+              "unit": "mg",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si/SiO2 substrate",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "alumina boat",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "heat",
+          "description": "Maintain the furnace temperature at 1400 C for 2 h in 200 sccm NH3.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "NH3",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "horizontal tube furnace",
+              "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+              "settings": "GSL-1700X"
+            }
+          ],
+          "conditions": {
+            "temperature": 1400.0,
+            "temp_unit": "C",
+            "duration": 2.0,
+            "time_unit": "h",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "NH3",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "cool",
+          "description": "Cool the system naturally to room temperature in Ar.",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "Ar",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "Ar",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "horizontal tube furnace",
+          "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+          "settings": "GSL-1700X"
+        }
+      ],
+      "notes": "The molar ratio of B : MgO : MgB2 is 2 : 1 : 1.5."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the main elements of the BNNT synthesis, including materials, steps, equipment, and conditions. The structure is generally well-organized, and the semantic meaning is mostly preserved. However, there are some inaccuracies and omissions, particularly in the amounts and units of the starting materials and some process details. The format compliance is good overall, but there are a few areas where the schema could be better adhered to.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the key aspects of the synthesis, including the starting materials, process steps, equipment, and conditions. However, some details are missing, such as the specific amounts of the starting materials used in the initial mixing steps. The description of the equipment is adequate but could include more specific settings.",
+        "material_extraction_score": 3.5,
+        "material_extraction_reasoning": "The extraction identifies the main starting materials (Boron, MgO, MgB2, Ar, NH3) and their vendors. However, the amounts and units for Boron, MgO, MgB2, Ar, and NH3 in the initial mixing steps are not specified, which reduces the score. The purity of the gases is correctly extracted. The ratio of B:MgO:MgB2 is mentioned in the notes, which is good, but it should ideally be part of the materials section.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-defined and logically sequenced. The actions (mix, heat, cool) are correctly classified. However, the description of the mixing steps could be more detailed, specifying the duration or intensity of mixing. The heating and cooling steps are adequately described, including the temperature, duration, and atmosphere.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "The extraction correctly identifies the horizontal tube furnace and alumina boat. The vendor and model number of the furnace are provided, which is excellent. However, the settings for the furnace (e.g., heating rate) are not specified, which slightly reduces the score. The alumina boat is mentioned, but no further details are given.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "The extraction accurately captures the main synthesis conditions, including the temperature (1400 C), duration (2 h), and atmosphere (NH3, Ar). The flow rate of NH3 (200 sccm) is also correctly extracted. However, the heating and cooling rates are not specified, which reduces the score slightly. The pressure is not mentioned, which is acceptable if it was performed at atmospheric pressure.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between the materials, steps, equipment, and conditions are correctly represented. However, the lack of specific amounts for some starting materials slightly detracts from the semantic accuracy, as it makes it harder to reproduce the synthesis.",
+        "format_compliance_score": 4.5,
+        "format_compliance_reasoning": "The extraction largely adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid, and the data types are generally correct. However, the missing amounts and units for some starting materials could be considered a violation of the schema, as these are important parameters for reproducibility.",
+        "overall_score": 4.0,
+        "overall_reasoning": "The extraction is generally of good quality, capturing the main elements of the BNNT synthesis. The structure is well-organized, and the semantic meaning is mostly preserved. However, there are some inaccuracies and omissions, particularly in the amounts and units of the starting materials and some process details. Addressing these issues would significantly improve the extraction quality."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Amounts and units for Boron, MgO, MgB2, Ar, and NH3 in the initial mixing steps.",
+        "Heating and cooling rates.",
+        "Mixing duration/intensity."
+      ],
+      "extraction_errors": [
+        "Missing amounts and units for some starting materials (Boron, MgO, MgB2, Ar, NH3) in the initial mixing steps.",
+        "Heating and cooling rates not specified.",
+        "Mixing duration/intensity not specified."
+      ],
+      "improvement_suggestions": [
+        "Include specific amounts and units for all starting materials in the materials section.",
+        "Specify the heating and cooling rates in the conditions section.",
+        "Provide more details about the mixing steps, such as the duration or intensity of mixing.",
+        "Add the molar ratio of B:MgO:MgB2 to the materials section instead of just the notes."
+      ]
+    }
+  }
+]

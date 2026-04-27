@@ -44,21 +44,46 @@ class LLMRegistry:
 LLM_REGISTRY = LLMRegistry(
     configs={
         "gemini-2.0-flash": LLMConfig(model="gemini/gemini-2.0-flash"),
-        "gemini-2.5-flash": LLMConfig(
-            model="gemini/gemini-2.5-flash"
-        ),
+        "gemini-2.5-flash": LLMConfig(model="gemini/gemini-2.5-flash"),
         "gemini-2.5-flash-lite": LLMConfig(
             model="gemini/gemini-2.5-flash-lite",
             extra_kwargs={"thinking": {"type": "enabled"}},
         ),
-        "gemini-2.5-pro": LLMConfig(
-            model="gemini/gemini-2.5-pro"
-        ),
+        "gemini-2.5-pro": LLMConfig(model="gemini/gemini-2.5-pro"),
         "gemini-3.0-pro": LLMConfig(model="gemini/gemini-3-pro-preview"),
         "gemini-3.0-flash": LLMConfig(model="gemini/gemini-3-flash-preview"),
         "gemini-3.0-flash-lite": LLMConfig(
             model="gemini/gemini-3-flash-lite",
             extra_kwargs={"thinking": {"type": "enabled"}},
+        ),
+        # Multi-LLM annotation stack: no thinking, temp=0 for reproducibility
+        "claude-sonnet-4.6": LLMConfig(model="anthropic/claude-sonnet-4-6"),
+        "gemini-3-flash": LLMConfig(
+            model="gemini/gemini-3-flash-preview",
+            extra_kwargs={"reasoning_effort": "disable"},
+        ),
+        "qwen3.5-35b-a3b": LLMConfig(
+            model="openrouter/qwen/qwen3.5-35b-a3b",
+            api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
+            extra_kwargs={"enable_thinking": False},
+        ),
+        "kimi-k2.5": LLMConfig(
+            model="openrouter/moonshotai/kimi-k2.5",
+            api_key=os.getenv("OPENROUTER_KIMI_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
+            extra_kwargs={"enable_thinking": False},
+        ),
+        "qwen3.5-397b-a17b": LLMConfig(
+            model="openrouter/qwen/qwen3.5-397b-a17b",
+            api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
+            extra_kwargs={"enable_thinking": False},
+        ),
+        "deepseek-v3.2": LLMConfig(
+            model="openrouter/deepseek/deepseek-v3.2",
+            api_key=os.getenv("OPENROUTER_DEEPSEEK_API_KEY"),
+            api_base="https://openrouter.ai/api/v1",
         ),
         "gpt-4o": LLMConfig(model="openai/gpt-4o"),
         "gpt-4o-mini": LLMConfig(model="openai/gpt-4o-mini"),

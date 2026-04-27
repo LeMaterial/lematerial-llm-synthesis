@@ -116,9 +116,7 @@ def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
         # in the cleaned text (this is the current figure)
         placeholder_pattern = r"!\[[^\]]*\]\(placeholder_image\)"
         cleaned_position = 0
-        for i, m in enumerate(
-            re.finditer(placeholder_pattern, cleaned_text)
-        ):
+        for i, m in enumerate(re.finditer(placeholder_pattern, cleaned_text)):
             if i == figure_index:
                 cleaned_position = m.start()
                 break
@@ -129,9 +127,7 @@ def find_figures_in_markdown(markdown_text: str) -> list[FigureInfo]:
         )
 
         # Find figure reference
-        figure_reference = find_figure_reference(
-            context_before, context_after
-        )
+        figure_reference = find_figure_reference(context_before, context_after)
 
         # Extract base64 data
         base64_data = extract_base64_from_data_uri(data_uri)

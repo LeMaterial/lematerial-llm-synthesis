@@ -1,127 +1,48 @@
 [
   {
-    "material": "Boron nitride nanotubes",
-    "synthesis": {
-      "target_compound": "Boron nitride nanotubes",
-      "target_compound_type": "nanomaterials",
-      "synthesis_method": "CVD",
-      "starting_materials": [
-        {
-          "vendor": "China New Metal Materials Technology Company Limited",
-          "name": "Boron",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": "Sinopharm Chemical Reagent Company Limited",
-          "name": "MgO",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": "Sigma-Aldrich",
-          "name": "MgB2",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": "Linde Gas (China) Company Limited",
-          "name": "Ar",
-          "amount": null,
-          "unit": null,
-          "purity": "99.999%"
-        },
-        {
-          "vendor": "Linde Gas (China) Company Limited",
-          "name": "NH3",
-          "amount": null,
-          "unit": null,
-          "purity": "99.999%"
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "mix",
-          "description": "Weigh and grind B and MgO.",
-          "materials": [
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "BN",
+        "synthesis": {
+          "target_compound": "Boron Nitride Nanotubes (BNNTs)",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "CVD",
+          "starting_materials": [
             {
-              "vendor": null,
-              "name": "Boron",
+              "vendor": "China New Metal Materials Technology Company Limited",
+              "name": "Boron (B)",
               "amount": null,
               "unit": null,
-              "purity": null
+              "purity": "analytical grade"
             },
             {
-              "vendor": null,
-              "name": "MgO",
+              "vendor": "Sinopharm Chemical Reagent Company Limited",
+              "name": "Magnesium Oxide (MgO)",
               "amount": null,
               "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 2,
-          "action": "mix",
-          "description": "Weigh and mix MgB2 with the previously obtained B/MgO powder to form the precursor.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "MgB2",
-              "amount": null,
-              "unit": null,
-              "purity": null
+              "purity": "analytical grade"
             },
             {
-              "vendor": null,
-              "name": "B/MgO powder",
+              "vendor": "Sigma-Aldrich",
+              "name": "Magnesium Diboride (MgB2)",
               "amount": null,
               "unit": null,
-              "purity": null
-            }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "heat",
-          "description": "Place the alumina boat containing the precursor and a piece of clean Si/SiO2 substrate in the center of the tube.",
-          "materials": [
+              "purity": "analytical grade"
+            },
             {
-              "vendor": null,
-              "name": "B/MgO/MgB2",
-              "amount": 140.0,
-              "unit": "mg",
-              "purity": null
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "Ammonia (NH3)",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "Argon (Ar)",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
             },
             {
               "vendor": null,
@@ -131,37 +52,495 @@
               "purity": null
             }
           ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Weigh a certain amount of B and MgO in a 2:1 molar ratio and grind them together.",
+              "materials": [
+                {
+                  "vendor": "China New Metal Materials Technology Company Limited",
+                  "name": "Boron (B)",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sinopharm Chemical Reagent Company Limited",
+                  "name": "Magnesium Oxide (MgO)",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "Weigh MgB2 and mix with the previously obtained B/MgO powder to form the precursor (140 mg total, B:MgO:MgB2 = 2:1:1.5 molar ratio).",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "B/MgO powder",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "Magnesium Diboride (MgB2)",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "add",
+              "description": "Place the alumina boat containing the precursor (140 mg, B:MgO:MgB2 = 2:1:1.5 molar ratio) and a clean Si/SiO2 substrate in the center of the alumina tube furnace.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "B/MgO/MgB2 precursor",
+                  "amount": 140.0,
+                  "unit": "mg",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Si/SiO2 substrate",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "alumina boat",
+                  "instrument_vendor": null,
+                  "settings": null
+                },
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X; alumina tube 120 cm length, 60 mm diameter; temperature zone ~60 cm"
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "heat",
+              "description": "Heat the furnace to 1400°C and maintain for 2 hours under 200 sccm NH3 atmosphere for BNNT growth.",
+              "materials": [
+                {
+                  "vendor": "Linde Gas (China) Company Limited",
+                  "name": "Ammonia (NH3)",
+                  "amount": 200.0,
+                  "unit": "sccm",
+                  "purity": "99.999%"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X"
+                }
+              ],
+              "conditions": {
+                "temperature": 1400.0,
+                "temp_unit": "C",
+                "duration": 2.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "NH3",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "cool",
+              "description": "Cool the system naturally to room temperature under Ar atmosphere.",
+              "materials": [
+                {
+                  "vendor": "Linde Gas (China) Company Limited",
+                  "name": "Argon (Ar)",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.999%"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X"
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [
+            {
+              "name": "horizontal tube furnace",
+              "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+              "settings": "GSL-1700X; alumina tube 120 cm length, 60 mm diameter; temperature zone ~60 cm"
+            },
             {
               "name": "alumina boat",
               "instrument_vendor": null,
               "settings": null
             }
           ],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "notes": "The precursor total mass was 140 mg with B:MgO:MgB2 = 2:1:1.5 molar ratio. BNNTs were deposited on Si/SiO2 substrate placed in the center of the tube above the precursor. The as-grown BNNTs can be further purified by washing with dilute hydrochloric acid to remove residual MgO and Mg3B2O6. MgB2 acts as a VLS catalyst, with MgB2 nanoparticles detected at the tips of the BNNTs. All three components (B, MgO, MgB2) are indispensable for BNNT growth."
         },
-        {
-          "step_number": 4,
-          "action": "heat",
-          "description": "Maintain the furnace temperature at 1400 C for 2 h in 200 sccm NH3.",
-          "materials": [
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology for BNNTs (Boron Nitride Nanotubes) synthesized via CVD using B/MgO/MgB2 precursor demonstrates a high-quality extraction overall. The source text describes a well-defined synthesis procedure in a horizontal tube furnace, and the extraction captures the key elements: starting materials with vendors and purities, a logical 5-step process sequence, equipment identification with vendor/model details, and synthesis conditions including temperature, duration, and atmosphere. The extraction correctly identifies the CVD method, the target compound, and preserves the scientific context of MgB2 acting as a VLS catalyst. Minor gaps include the absence of the total precursor mass in step 1 and 2 (though 140 mg is captured in step 3), and the Ar flow rate during cooling is not specified in the source (correctly left null). The notes section adds valuable contextual information about purification and the VLS mechanism. Overall, this is a thorough and accurate extraction.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: 6 starting materials with vendors and purities, 5 logically sequenced process steps, equipment with vendor/model details, and synthesis conditions. The target compound, synthesis method (CVD), and key notes about the VLS mechanism and purification are all included. Minor omissions include: the Si/SiO2 substrate placement detail (above the precursor, not just 'in the center') is partially captured, and the grinding step could be more explicitly separated from the mixing step. The total precursor mass (140 mg) is correctly placed in step 3 where it is first mentioned in context. The overall structure is comprehensive and well-organized.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All starting materials are correctly identified with accurate chemical names, vendor information, and purity grades. Boron, MgO, MgB2, NH3, Ar, and Si/SiO2 substrate are all captured. Purities are correctly assigned: analytical grade for solid reagents and 99.999% for gases. Amounts are correctly left null for individual solid reagents since the source only specifies the total precursor mass (140 mg) and molar ratios (B:MgO:MgB2 = 2:1:1.5), which are captured in the step descriptions. The NH3 flow rate (200 sccm) is correctly captured in step 4. The molar ratio of B:MgO (2:1) for the first mixing step is correctly noted. No hallucinated values are present.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The 5-step process sequence is logically organized and accurately reflects the source text: (1) grinding B and MgO, (2) mixing with MgB2 to form precursor, (3) loading into furnace, (4) heating at 1400°C for 2h under NH3, (5) cooling under Ar. The actions are appropriately classified (mix, mix, add, heat, cool). Step 1 uses 'mix' for what is described as 'weighed and grounded' - ideally 'grind' would be a more precise action classification, but 'mix' is acceptable as grinding is a form of mixing/processing. The step descriptions are detailed and accurate. The precursor total mass and molar ratios are correctly captured. The placement of the substrate in the center of the tube is noted in step 3.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The primary equipment is well-captured: the horizontal tube furnace (Hefei Kejing Materials Technology Co., LTD, GSL-1700X) with detailed specifications (alumina tube 120 cm length, 60 mm diameter, temperature zone ~60 cm) and the alumina boat. These are the only pieces of equipment explicitly named in the synthesis procedure. The characterization equipment (SEM Hitachi S4800, TEM Tecnai G2 F20S-TWIN, XRD D8 Advance, Raman LabRam ARAMIS/Horiba HR800, FTIR Thermo Scientific NicoletiN10, TGA Netzsch TG209 F1, CL Quanta 400 FEG) is correctly not included in the synthesis equipment list, as these are characterization instruments, not synthesis equipment. The extraction correctly focuses on synthesis-relevant equipment.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The key synthesis conditions are accurately captured: temperature of 1400°C, duration of 2 hours, NH3 atmosphere at 200 sccm for the heating step, and Ar atmosphere for the cooling step. The cooling step correctly leaves temperature and duration null since the source only states 'cooled naturally to room temperature' without specifying a rate or duration. Pressure is correctly left null throughout as the source does not specify operating pressure. The NH3 flow rate (200 sccm) is correctly captured as an amount with unit 'sccm' in the materials field of step 4, which is a reasonable representation. No conditions are misrepresented or hallucinated.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the synthesis procedure. The role of MgB2 as a VLS catalyst is correctly noted. The three-component precursor system (B/MgO/MgB2) and its indispensability are captured in the notes. The purification option (washing with dilute HCl) is mentioned. The synthesis context - CVD in a horizontal tube furnace, BNNT growth on Si/SiO2 substrate - is accurately represented. The molar ratios are correctly preserved. The notes section adds valuable scientific context about the VLS mechanism and catalyst role. No scientific misinterpretations are present.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are populated appropriately: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity fields), steps (with step_number, action, description, materials, equipment, conditions), equipment (with name, instrument_vendor, settings), and notes. Null values are used appropriately where information is not available. Data types are correct (numeric values for temperature, duration, amount; strings for names and descriptions). The conditions object within each step contains all required sub-fields. The overall structure is clean and well-formed.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This extraction demonstrates excellent quality across all evaluation criteria. The synthesis of BNNTs via CVD using B/MgO/MgB2 precursor is comprehensively captured with accurate starting materials (including vendors, purities), a logical 5-step process sequence, proper equipment identification with vendor/model/specifications, and accurate synthesis conditions (1400°C, 2h, 200 sccm NH3, Ar cooling). Key strengths include: (1) complete vendor and purity information for all reagents, (2) accurate molar ratios and total precursor mass, (3) detailed equipment specifications, (4) proper null handling for unspecified values, (5) informative notes section capturing the VLS mechanism and purification details. Minor areas for improvement: the grinding action in step 1 could use a more specific action classification ('grind' rather than 'mix'), and the step 1 description could more explicitly note that grinding is the primary action. Overall, this is a high-quality extraction that accurately and completely represents the synthesis procedure described in the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The grinding step (step 1) could more explicitly note that grinding/milling is the primary processing action, distinct from simple mixing"
+              ],
+              "extraction_errors": [
+                "Step 1 action is classified as 'mix' when the source text specifically states 'weighed and grounded' - 'grind' would be a more precise action classification"
+              ],
+              "improvement_suggestions": [
+                "Use 'grind' as the action classification for step 1 to more accurately reflect the 'weighed and grounded' description in the source text",
+                "Consider adding the Si/SiO2 substrate placement detail (placed above/on top of the precursor boat) more explicitly in step 3",
+                "The notes could mention the approximate BNNT length (~100 μm as estimated from SEM) as a product characteristic"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the specific synthesis protocol for Boron Nitride Nanotubes (BNNTs) using the MgB2-catalyzed CVD method. It correctly identifies the multi-component precursor (B/MgO/MgB2), the specific molar ratios, and the precise thermal conditions (1400 °C for 2 h). The extraction of equipment details, including the specific model and dimensions of the tube furnace, is excellent. The logical flow of steps—from precursor preparation to heating and cooling—is well-preserved.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all critical components: starting materials with vendors, a multi-step process, detailed equipment specifications, and all stated reaction conditions. It even includes the post-synthesis purification suggestion mentioned in the text.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "All materials (B, MgO, MgB2, NH3, Ar) are correctly identified with their respective vendors and purities. The total precursor mass (140 mg) and molar ratios are accurately captured.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps are logically sequenced: grinding B/MgO, mixing with MgB2, loading the furnace, heating under NH3, and cooling under Ar. The action classifications (mix, add, heat, cool) are appropriate.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly extracted the furnace model (GSL-1700X), the vendor (Hefei Kejing), and the specific dimensions of the alumina tube, which is vital for reproducibility.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperature (1400 C), duration (2 h), and gas flow rates (200 sccm NH3) are accurately extracted with correct units. The transition to Ar for cooling is also noted.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific context, specifically the role of MgB2 as a catalyst and the VLS mechanism mentioned in the discussion, which is summarized well in the notes.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the GeneralSynthesisOntology schema, using correct data types for all fields.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the molar ratios are mentioned in the description, they could potentially be calculated into individual mass amounts if the schema allowed for derived values, but as per the source text, the extraction is perfect."
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates high-quality capture of the BNNT synthesis procedure from the source text. All major synthesis components (materials, steps, equipment, conditions) are represented with accurate values and appropriate null fields where information was not specified in the source. The extraction correctly identifies vendors, purities, molar ratios, temperature, duration, and atmosphere conditions. The five-step process logically follows the experimental procedure from precursor preparation through cooling. No hallucinations are present, and the extraction appropriately leaves fields null when the source text does not provide specific values (e.g., individual reagent amounts beyond the total 140 mg precursor mass).",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components from the source text including starting materials (6 reagents with vendors and purities), process steps (5 sequential steps), equipment (furnace and alumina boat), and conditions (temperature, time, atmosphere, flow rate). The structure is comprehensive and well-organized. Minor deduction because the alumina tube dimensions are embedded in furnace settings rather than as a distinct equipment item, and the temperature zone information (~60 cm) could be more prominently featured.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All starting materials are correctly identified with accurate vendor information (China New Metal, Sinopharm, Sigma-Aldrich, Linde Gas) and purity specifications (analytical grade, 99.999% for gases). The extraction correctly leaves individual material amounts as null since the source only specifies the total precursor mass (140 mg) and molar ratios (B:MgO:MgB2 = 2:1:1.5). The Si/SiO2 substrate is appropriately included. No hallucinations of quantities that were not stated in the source.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The five process steps accurately reflect the synthesis procedure: (1) B and MgO grinding, (2) MgB2 mixing to form precursor, (3) loading into furnace, (4) heating at 1400°C for 2h in NH3, (5) cooling in Ar. Action classifications (mix, add, heat, cool) are appropriate and the sequencing matches the source text exactly. Each step includes relevant materials, equipment, and conditions. The step descriptions preserve the scientific intent without misinterpretation.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The synthesis equipment is correctly captured: horizontal tube furnace with vendor (Hefei Kejing Materials Technology Co., LTD) and model (GSL-1700X), plus alumina boat. The furnace settings include tube dimensions and temperature zone. Characterization equipment (SEM, TEM, XRD, Raman, FTIR, TGA) is not included, which is appropriate for a synthesis-focused ontology. Could be improved by listing the alumina tube as a separate equipment item given its detailed specifications in the source.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions are accurately extracted with correct numerical values and units: temperature (1400°C), duration (2 h), atmosphere (NH3 for heating, Ar for cooling), and gas flow rate (200 sccm NH3). The cooling condition (natural cooling to room temperature) is properly captured. All values match the source text exactly with no transcription errors. Pressure is correctly left null as it is not specified in the source.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning and context from the source text. The role of MgB2 as a catalyst is noted in the notes section. The VLS mechanism mention is accurate. The molar ratios, precursor composition, and synthesis strategy are all correctly represented. No misinterpretations, semantic drift, or hallucinations are present. The extraction maintains the distinction between synthesis and characterization procedures appropriately.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure adheres to the expected GeneralSynthesisOntology schema with proper field names, data types, and organization. Numerical values are correctly typed as numbers (1400.0, 2.0, 200.0, 140.0). Null values are appropriately used where information is not available in the source. All required fields appear to be present. The structure is valid JSON and follows consistent formatting throughout.",
+                "overall_score": 4.7,
+                "overall_reasoning": "This is an excellent ontology extraction that demonstrates strong adherence to both the source text and the expected schema format. The extraction correctly captures all stated synthesis information including materials with vendors and purities, five logically sequenced process steps, synthesis equipment with specifications, and all numerical conditions with accurate units. Critically, the extraction does not hallucinate information not present in the source (individual reagent amounts are correctly null, pressure is correctly null). The notes section effectively captures additional context about the catalyst role, purification options, and mechanism. Minor improvements could include more prominent equipment categorization for the alumina tube and better positioning of the gas flow rate in conditions. Overall scores range from 4.0 to 5.0, with an average of approximately 4.7, reflecting high-quality extraction suitable for reproducibility and data integration purposes."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider capturing the alumina tube dimensions (120 cm length, 60 mm diameter) as a separate equipment entry rather than only in furnace settings",
+                "The NH3 flow rate (200 sccm) could be more prominently captured in the conditions section of step 4 rather than only in the materials amount field",
+                "Consider adding a note about the purification step mentioned (washing with dilute hydrochloric acid) as an optional post-synthesis step"
+              ]
+            },
+            "overall_score": 4.7
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates a strong and accurate capture of the synthesis procedure for BNNTs from the provided source text. The system correctly identified the target compound, synthesis method (CVD), all starting materials with their vendors and purities, and the detailed multi-step process. The extraction faithfully represents the molar ratios and the total precursor mass, which are critical for reproducibility. The equipment and key synthesis conditions (temperature, duration, atmosphere) are accurately extracted. The system correctly avoided hallucinating information not present in the text, such as specific amounts for individual reagents or detailed equipment settings. The overall structure aligns well with the GeneralSynthesisOntology schema.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all major structural components of the synthesis described in the '2.2 Preparation of the BNNTs' section. It includes the target compound, synthesis method, a complete list of starting materials (including gases and substrate), a logical sequence of five process steps, the primary equipment (furnace, boat), and the core reaction conditions. All information explicitly stated in the source text is represented in the structured format.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is highly accurate. All chemical names, vendors, and purities are correctly captured. The molar ratios (B:MgO = 2:1, B:MgO:MgB2 = 2:1:1.5) and the total precursor mass (140 mg) are correctly extracted and placed in the relevant step descriptions. The gas flow rate (200 sccm NH3) is also correctly captured. The score is slightly reduced because the extraction lists 'B/MgO powder' and 'B/MgO/MgB2 precursor' as materials in steps 2 and 3. While this is a reasonable representation of intermediate mixtures, strictly speaking, these are not new starting materials but products of previous steps. The amounts for individual B, MgO, and MgB2 powders are correctly left null as they are not specified individually in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The process steps are perfectly sequenced and accurately classified. The five steps (mix, mix, add, heat, cool) logically represent the procedure: 1) preparing B/MgO, 2) adding MgB2 to form the final precursor, 3) loading the furnace, 4) the main reaction, and 5) cooling. The descriptions are clear, concise, and contain all critical parameters (ratios, mass, temperature, time, gas flow). The action verbs ('mix', 'add', 'heat', 'cool') are appropriately chosen.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Equipment extraction is complete and accurate. The horizontal tube furnace (including vendor Hefei Kejing and model GSL-1700X) and the alumina boat are correctly identified. The detailed specifications of the furnace (alumina tube dimensions, temperature zone length) are correctly captured in the settings field. No other equipment is explicitly mentioned in the synthesis procedure section, so the list is correctly not extended to characterization tools.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All explicitly stated synthesis conditions are accurately extracted. The key reaction conditions—temperature (1400 C), duration (2 h), and atmosphere (200 sccm NH3)—are correctly captured in step 4. The cooling atmosphere (Ar) is correctly noted in step 5. Conditions like pressure, stirring, and pH are correctly left null as they are not specified. The units are consistent and correctly parsed.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction preserves the full scientific meaning and context of the source text. The notes section effectively captures supplementary but crucial information: the role of MgB2 as a VLS catalyst, the evidence from tip analysis, the indispensability of all three components, and the post-synthesis purification note. The description of the precursor preparation accurately reflects the two-step mixing process and the molar ratios. There is no misinterpretation of the scientific intent.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully complies with the expected GeneralSynthesisOntology schema. All required top-level fields ('target_compound', 'synthesis_method', etc.) are present. The nested structures for starting_materials, steps, and equipment follow the defined schema, with correct data types (strings, numbers, arrays, objects). Fields are appropriately populated or left null. The JSON is well-formed and parsable.",
+                "overall_score": 4.9,
+                "overall_reasoning": "The extraction is exemplary, achieving near-perfect scores across all criteria. It demonstrates a sophisticated understanding of the source text, accurately distinguishing between stated information and unspecified details. The system successfully captured complex information like multi-step precursor preparation with molar ratios, detailed equipment specs, and precise reaction conditions. The semantic accuracy is particularly high, as evidenced by the informative notes section that captures the catalytic mechanism and experimental insights. This extraction would serve as a high-quality, reproducible record of the synthesis procedure."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While semantically reasonable, consider whether representing intermediate mixtures like 'B/MgO powder' as a material in a 'starting_materials' list for a subsequent step is the most elegant schema design. Alternative representations could be explored."
+              ]
+            },
+            "overall_score": 4.9
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "BN",
+        "synthesis": {
+          "target_compound": "BN",
+          "target_compound_type": "two-dimensional materials",
+          "synthesis_method": "CVD",
+          "starting_materials": [
             {
-              "vendor": null,
-              "name": "NH3",
+              "vendor": "China New Metal Materials Technology Company Limited",
+              "name": "Boron",
               "amount": null,
               "unit": null,
-              "purity": null
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sinopharm Chemical Reagent Company Limited",
+              "name": "MgO",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "MgB2",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "NH3",
+              "amount": 200.0,
+              "unit": "sccm",
+              "purity": "99.999%"
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "Ar",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "B and MgO are weighed and grounded together.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Boron",
+                  "amount": 2.0,
+                  "unit": "molar ratio",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "MgO",
+                  "amount": 1.0,
+                  "unit": "molar ratio",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "Grounded MgB2 is mixed with the B/MgO powder to form the final precursor.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "MgB2",
+                  "amount": 1.5,
+                  "unit": "molar ratio",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "B/MgO powder",
+                  "amount": 140.0,
+                  "unit": "mg",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "The precursor in an alumina boat and a Si/SiO2 substrate are placed in the center of the tube furnace and heated under NH3 flow.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "NH3",
+                  "amount": 200.0,
+                  "unit": "sccm",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X"
+                },
+                {
+                  "name": "alumina tube",
+                  "instrument_vendor": null,
+                  "settings": "120 cm length, 60 mm diameter"
+                }
+              ],
+              "conditions": {
+                "temperature": 1400.0,
+                "temp_unit": "C",
+                "duration": 2.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "NH3",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "cool",
+              "description": "The system is cooled naturally to room temperature in Ar atmosphere.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ar",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": 25.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
             }
           ],
           "equipment": [
@@ -171,93 +550,1156 @@
               "settings": "GSL-1700X"
             }
           ],
-          "conditions": {
-            "temperature": 1400.0,
-            "temp_unit": "C",
-            "duration": 2.0,
-            "time_unit": "h",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "NH3",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
+          "notes": "The target compound refers to Boron Nitride Nanotubes (BNNTs). The precursor molar ratio is B:MgO:MgB2 = 2:1:1.5."
         },
-        {
-          "step_number": 5,
-          "action": "cool",
-          "description": "Cool the system naturally to room temperature in Ar.",
-          "materials": [
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for BNNTs (Boron Nitride Nanotubes) via CVD using a B/MgO/MgB2 precursor system. The extraction correctly identifies the synthesis method (CVD), all starting materials with their vendors and purities, the four main process steps (two mixing steps, a heating step, and a cooling step), key equipment (horizontal tube furnace with vendor and model), and critical conditions (1400°C, 2h, NH3 atmosphere, Ar cooling). The target compound is listed as 'BN' with type 'two-dimensional materials', which is a minor semantic imprecision since BNNTs are one-dimensional nanotubes, not 2D materials. The molar ratios and total precursor mass (140 mg) are correctly captured. The NH3 flow rate (200 sccm) is correctly recorded. The alumina tube dimensions are captured in the equipment settings. Overall, the extraction is highly faithful to the source text with only minor issues.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: five starting materials with vendors and purities, four logically sequenced process steps, equipment with vendor/model information, and synthesis conditions. The precursor preparation (grinding + mixing), heating step with conditions, and cooling step are all represented. Minor omissions include: the alumina boat is mentioned in the source as the container for the precursor but is not listed as a separate equipment item in the top-level equipment list (though it appears in step 3 description). The Si/SiO2 substrate placement is mentioned in the step description but not as a material entry. These are minor gaps that do not significantly detract from overall completeness.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials (Boron, MgO, MgB2, NH3, Ar) are correctly identified with accurate vendor attributions and purities. The analytical grade purity for solid reagents and 99.999% for gases are correctly captured. The molar ratios (B:MgO = 2:1 in step 1, MgB2 = 1.5 molar ratio in step 2) and total precursor mass (140 mg) are accurately extracted. The NH3 flow rate of 200 sccm is correctly assigned. Individual amounts for B, MgO, and MgB2 are left null, which is correct since the paper only specifies molar ratios and total mass rather than individual masses. The Ar amount is null, which is correct since no flow rate is specified for Ar in the source. The only minor issue is that the B/MgO powder in step 2 is listed as 140 mg total precursor, which is technically the total precursor mass (B+MgO+MgB2), not just the B/MgO portion — this is a slight inaccuracy but understandable given the text structure.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The four process steps are logically sequenced and accurately represent the synthesis workflow: (1) grinding/mixing B and MgO, (2) mixing with MgB2 to form precursor, (3) heating in tube furnace under NH3, (4) cooling in Ar. The actions are appropriately classified (mix, mix, heat, cool). Step 1 correctly uses 'mix' though the source also mentions 'grounded' — a 'grind' action might be more precise, but 'mix' is acceptable. The descriptions are accurate and informative. The molar ratios in steps 1 and 2 are correctly captured. The placement of the alumina boat and Si/SiO2 substrate in the furnace center is mentioned in step 3's description. The cooling step correctly identifies Ar atmosphere and room temperature (25°C is a reasonable inference for 'room temperature'). No significant sequencing errors are present.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The primary equipment — the horizontal tube furnace (Hefei Kejing Materials Technology Co., LTD, GSL-1700X) — is correctly identified with vendor and model number. The alumina tube (120 cm length, 60 mm diameter) is captured in step 3's equipment list with correct dimensions. The top-level equipment list only includes the tube furnace, which is the primary synthesis equipment. The alumina boat is mentioned in the step description but not as a formal equipment entry. The Si/SiO2 substrate is mentioned in the description but not as equipment (which is appropriate since it's more of a substrate/material). Characterization equipment (SEM, TEM, XRD, Raman, FTIR, TGA, CL) is not included, which is correct since these are characterization tools, not synthesis equipment. The extraction appropriately focuses on synthesis-relevant equipment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All key synthesis conditions are accurately captured. The heating temperature (1400°C) and duration (2 hours) are correctly recorded in step 3. The NH3 atmosphere during heating and Ar atmosphere during cooling are correctly assigned to their respective steps. The NH3 flow rate (200 sccm) is captured as a material amount. The cooling target temperature (25°C for room temperature) is a reasonable inference. Pressure is left null throughout, which is correct since the paper does not specify operating pressure for the CVD process. No stirring or pH conditions are applicable and are correctly left null. The conditions extraction is comprehensive and accurate.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis is largely preserved. The CVD method classification is correct. The role of MgB2 as a catalyst is implicit in the extraction structure. The precursor composition and ratios are accurately represented. However, there is a notable semantic inaccuracy: the target_compound_type is listed as 'two-dimensional materials' when BNNTs are one-dimensional nanostructures (nanotubes), not 2D materials. This is a meaningful classification error. Additionally, the target_compound is listed as 'BN' rather than 'BNNTs' or 'Boron Nitride Nanotubes', though the notes field does clarify this. The notes field appropriately clarifies the BNNT identity and precursor molar ratio, partially compensating for the target compound ambiguity.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity), steps (with step_number, action, description, materials, equipment, conditions), equipment (with name, instrument_vendor, settings), and notes. Data types are appropriate — numerical values for amounts and conditions, strings for names and descriptions, null for absent values. The conditions object in steps 3 and 4 correctly uses the defined fields (temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, ph). Steps 1 and 2 have null conditions, which is appropriate since no specific temperature/time conditions are mentioned for the mixing steps. The format is clean and well-structured.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of the BNNT synthesis procedure is of high quality overall. Strengths include: accurate identification of all five starting materials with correct vendors and purities; well-sequenced four-step process capturing grinding, mixing, heating, and cooling; correct synthesis conditions (1400°C, 2h, NH3 at 200 sccm, Ar cooling); proper equipment identification with vendor and model; and appropriate use of null values for unspecified parameters. The main weakness is the semantic classification of BNNTs as 'two-dimensional materials' when they are one-dimensional nanotubes — this is a meaningful error in the target_compound_type field. Minor issues include: the alumina boat not being listed as a formal equipment item, and the 140 mg total precursor mass being attributed to 'B/MgO powder' in step 2 rather than the total precursor. The notes field helpfully clarifies the BNNT identity. Overall, this is a strong extraction with minor semantic and structural imprecisions that do not significantly compromise the scientific utility of the structured data."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Alumina boat is not listed as a formal equipment entry (only mentioned in step description)",
+                "Si/SiO2 substrate is not captured as a material or equipment entry in the synthesis steps",
+                "The grinding action in step 1 is classified as 'mix' rather than a more precise 'grind' action"
+              ],
+              "extraction_errors": [
+                "target_compound_type is listed as 'two-dimensional materials' but BNNTs are one-dimensional nanotubes, not 2D materials",
+                "In step 2, the 140 mg amount is attributed to 'B/MgO powder' but it actually represents the total precursor mass (B+MgO+MgB2 combined)"
+              ],
+              "improvement_suggestions": [
+                "Correct target_compound_type from 'two-dimensional materials' to 'one-dimensional nanostructure' or 'nanotube' to accurately reflect the BNNT morphology",
+                "Update target_compound from 'BN' to 'BNNT' or 'Boron Nitride Nanotube' for greater specificity",
+                "Add alumina boat as an equipment entry in step 3 (and optionally in the top-level equipment list)",
+                "Add Si/SiO2 substrate as a material in step 3 to capture its role as the growth substrate",
+                "Consider using 'grind' as the action for step 1 to more precisely reflect the grinding operation described in the source",
+                "Clarify that the 140 mg in step 2 refers to the total precursor mass (B:MgO:MgB2 = 2:1:1.5), not just the B/MgO powder mass"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the specific details of the BNNT synthesis. It correctly identifies the multi-component precursor (B/MgO/MgB2) and the specific molar ratios mentioned in the text. The process steps follow the experimental narrative closely, and the equipment details (including dimensions and vendors) are well-preserved. The extraction of conditions like temperature, duration, and gas flow rates is precise.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All major components of the synthesis—starting materials, multi-step preparation of the precursor, CVD growth conditions, and cooling—are fully captured.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Chemical names, vendors, and purities are correctly extracted. The complex molar ratios (2:1:1.5) and the total mass (140 mg) are accurately assigned to the correct materials.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of grinding, mixing, heating, and cooling is logically ordered and reflects the experimental section accurately.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The furnace model (GSL-1700X) and vendor (Hefei Kejing) are correctly identified, along with the specific dimensions of the alumina tube.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperature (1400 C), duration (2 h), and gas flow (200 sccm) are correctly extracted with their respective units.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction is scientifically sound. The target compound type 'two-dimensional materials' is slightly broad for nanotubes (usually 1D), but acceptable in many ontologies. The cooling temperature '25.0 C' is an inference for 'room temperature', which is standard.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output strictly adheres to the JSON schema with correct data types and field structures.",
+                "overall_score": 4.9,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While 'two-dimensional materials' is often used as a category for BN, 'nanotubes' or '1D nanomaterials' would be more specific for BNNTs."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures most synthesis information from the source text with good accuracy. The extraction correctly identifies starting materials with vendors and purities, captures the four-step synthesis procedure with appropriate action classifications, and records key synthesis conditions (temperature, duration, atmosphere, gas flow). However, there are notable issues: (1) BNNTs are misclassified as 'two-dimensional materials' when they are one-dimensional nanotubes, (2) room temperature is specified as 25°C in the cooling step when the source only states 'room temperature' without a specific value, and (3) NH3 flow rate is listed in starting materials rather than solely as a process condition. Overall, the extraction demonstrates strong technical understanding with minor semantic and categorization errors.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures most synthesis components including starting materials (5 reagents with vendors and purities), process steps (4 steps with actions and descriptions), equipment (furnace with vendor/model), and conditions (temperature, duration, atmosphere, gas flow). The overall structure is well-organized. Minor omissions include the alumina boat as equipment and the furnace temperature zone length. The target compound type misclassification affects structural semantic completeness.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials are accurately extracted with correct names, vendors, and purities as stated in Section 2.1. Molar ratios (B:MgO:MgB2 = 2:1:1.5) and total precursor mass (140 mg) are correctly captured in the steps. The only issue is NH3 being listed in starting_materials with a flow rate (200 sccm), which is technically a process condition rather than a material quantity. Solid reagent amounts are correctly null since the source doesn't specify exact masses for individual components.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Four synthesis steps are correctly identified with appropriate action classifications (mix, mix, heat, cool). The sequence accurately reflects the source text: (1) B and MgO grinding, (2) MgB2 mixing, (3) heating at 1400°C for 2h in NH3, (4) cooling in Ar. Step descriptions are faithful to the source. The only issue is step 4 specifying temperature as 25.0°C when the source only states 'room temperature' without a specific value - this is a minor inference.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The horizontal tube furnace is correctly identified with vendor (Hefei Kejing Materials Technology Co., LTD) and model (GSL-1700X). Alumina tube dimensions (120 cm length, 60 mm diameter) are captured in step conditions. However, the alumina boat mentioned in the source ('alumina boat containing the precursor') is not listed as equipment. Characterization equipment (SEM, TEM, XRD, etc.) is appropriately excluded as this is a synthesis ontology. The furnace temperature zone (60 cm) is not captured.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately extracted: temperature (1400°C), duration (2 h), atmosphere (NH3 for heating, Ar for cooling), and gas flow rate (200 sccm NH3). Units are consistent and correct. Pressure is correctly null as not specified in source. The cooling step correctly shows null duration for 'natural' cooling. The only issue is the room temperature being specified as 25.0°C in step 4 when the source does not provide this specific value - this is an inference rather than extraction.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "Most scientific meaning is faithfully preserved. The synthesis workflow, material relationships, and process logic are correctly represented. However, there are two notable semantic errors: (1) BNNTs are misclassified as 'two-dimensional materials' when they are clearly one-dimensional nanotubes (this is a fundamental materials science error), and (2) room temperature is specified as 25°C without source justification. The NH3 categorization as starting material with flow rate also represents a minor semantic organization issue. These errors affect the scientific accuracy of the structured representation.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully adheres to the GeneralSynthesisOntology schema. All required fields are present with correct data types (strings, numbers, null values where appropriate). The nested structure for steps, materials, equipment, and conditions follows the expected format. Arrays are properly formatted, and numeric values include appropriate units. No schema violations or data type errors are present.",
+                "overall_score": 4.4,
+                "overall_reasoning": "This extraction demonstrates strong technical competency in capturing synthesis information from scientific literature. The extraction correctly identifies all starting materials with vendors and purities, captures the four-step synthesis procedure with appropriate action classifications, and records key synthesis conditions with accurate values and units. Format compliance is excellent with full schema adherence. However, there are three notable issues that prevent a perfect score: (1) BNNTs are incorrectly classified as two-dimensional materials when they are one-dimensional nanotubes - this is a significant semantic accuracy error for a materials science ontology, (2) room temperature is specified as 25.0°C in the cooling step when the source only states 'room temperature' without a specific value - this represents an unwarranted inference, and (3) NH3 flow rate is listed in starting_materials rather than solely as a process condition - this is a minor categorization issue. The extraction correctly avoids hallucinating information not present in the source (e.g., solid reagent amounts are null, pressure is null, cooling duration is null for natural cooling). Overall scores average to 4.36/5.0, reflecting high-quality extraction with room for improvement in semantic accuracy and categorization."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Alumina boat not explicitly listed in equipment section",
+                "Temperature zone length (60 cm) of furnace not captured in equipment specifications"
+              ],
+              "extraction_errors": [
+                "Target compound type incorrectly classified as 'two-dimensional materials' - BNNTs are one-dimensional nanotubes",
+                "Room temperature inferred as 25.0°C in step 4 cooling conditions when source only states 'room temperature' without specific value",
+                "NH3 listed in starting_materials with flow rate (200 sccm) - this is a process condition, not a starting material quantity"
+              ],
+              "improvement_suggestions": [
+                "Correct target_compound_type to 'one-dimensional materials' or 'nanotubes' for BNNTs",
+                "Remove specific temperature value (25.0°C) for room temperature cooling or mark as null/unspecified",
+                "Consider moving gas flow rates from starting_materials to process step conditions for better semantic organization",
+                "Add alumina boat as equipment item in the synthesis setup"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a strong overall capture of the synthesis procedure for BNNTs using a MgB2-catalyzed CVD method from a B/MgO precursor. The ontology correctly identifies the target material, synthesis method, key starting materials with vendors, and the core process steps. The molar ratios and the final precursor mass are accurately extracted. The main heating step conditions (temperature, duration, atmosphere) are correctly captured. The extraction correctly avoids hallucinating details not present in the source, such as specific amounts for most solid reagents or detailed equipment settings. However, there are notable errors: the target compound is mis-specified as 'BN' instead of 'Boron Nitride Nanotubes (BNNTs)', and the 'target_compound_type' is incorrectly classified as 'two-dimensional materials' rather than 'nanotubes' or a similar descriptor. The structure of the process steps contains a logical flaw by separating the mixing of MgB2 with the B/MgO powder as a distinct step with a mass (140 mg) that the source text indicates is the total precursor mass, not an amount of B/MgO powder to be mixed. This misrepresents the procedure. The cooling step's temperature is specified as 25°C, which is an inference not explicitly stated (the text says 'room temperature').",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the major structural components: target compound (though misnamed), method, a comprehensive list of starting materials with vendors, a sequence of process steps, key equipment, and synthesis conditions. It successfully extracts the molar ratios and the crucial heating parameters. It does not miss any major synthesis components explicitly described in the text. The deduction is due to the misclassification of the target material type and the slightly flawed organization of the precursor preparation steps.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is largely excellent. The names and vendors for all starting materials (B, MgO, MgB2, NH3, Ar) are correctly identified. The purities ('analytical grade', '99.999%') are accurately captured. The molar ratios (2:1:1.5) for the precursor components are correctly extracted and assigned. The gas flow rate (200 sccm NH3) is correct. The system correctly leaves 'amount' and 'unit' null for materials where no specific mass/volume is given (e.g., B, MgO, MgB2 solids, Ar gas), which is the appropriate behavior. The only minor issue is the assignment of the 140 mg amount in step 2, which is conceptually an error in step logic rather than a pure material extraction error.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The process steps are sequenced logically (mix, mix, heat, cool) and the main actions are correctly classified. The descriptions are generally accurate. However, there is a significant error in step 2: the source states the final precursor has a total mass of 140 mg with a molar ratio B:MgO:MgB2 = 2:1:1.5. The extraction creates a step where 'B/MgO powder' (with an amount of 140 mg) is mixed with MgB2. This misrepresents the procedure; the 140 mg is the mass of the final mixture, not an input amount of an intermediate. The correct interpretation should be that the three components are combined to yield a 140 mg mixture with the specified molar ratio. Furthermore, step 4 specifies a temperature of 25°C, which is an inference; 'room temperature' should ideally be left as a descriptive string or null, not a specific numerical value.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Equipment extraction is perfect based on the source text. The horizontal tube furnace (GSL-1700X) from Hefei Kejing is correctly identified with its vendor and model. The alumina tube dimensions are accurately captured. No other equipment is explicitly named in the synthesis procedure description (e.g., no specific mill or boat model), and the extraction correctly does not hallucinate any. The equipment is properly linked to the relevant process step.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions for the critical heating step are extracted with high accuracy: temperature (1400°C), duration (2 h), and atmosphere (NH3) are all correct. The gas flow rate (200 sccm) is correctly placed in the materials list for that step. The cooling step atmosphere (Ar) is correct. The system correctly leaves pressure, stirring, and pH fields null, as they are not specified. The one deduction is for specifying the cooling temperature as 25°C; the text only states 'room temperature', so this is a minor over-specification. The duration for cooling is correctly left null.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The semantic accuracy is mixed. The core scientific meaning of the synthesis—using a MgB2 catalyst with a B/MgO precursor in a CVD furnace at 1400°C under ammonia—is preserved. However, there are key semantic errors: 1) The 'target_compound' is listed as 'BN', which is the chemical formula for boron nitride, but the specific material synthesized is 'Boron Nitride Nanotubes (BNNTs)'. This is a significant loss of specificity. 2) The 'target_compound_type' is 'two-dimensional materials', which is incorrect for nanotubes (1D nanomaterials). 3) The representation of the precursor mixing in step 2, as discussed, distorts the described procedure. These errors impact the faithful preservation of the scientific context.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully complies with the expected GeneralSynthesisOntology schema. All required top-level fields (target_compound, synthesis_method, starting_materials, steps, equipment, notes) are present. The nested structures for materials, equipment, and conditions follow the expected format with correct data types (strings, numbers, arrays, objects). The 'notes' field is appropriately used. There are no format violations.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction is structurally sound and format-compliant, with excellent capture of materials, equipment, and core reaction conditions. Its major weaknesses are semantic: misidentifying the target product (BN vs. BNNTs) and misclassifying its dimensionality. There is also a procedural logic error in representing the precursor mixing step, which slightly reduces the accuracy of the process flow. The system correctly avoids hallucination for unspecified details. The overall quality is good but is brought down by the critical error in target material specification, which is fundamental for a materials synthesis ontology. The average score reflects this mix of high performance in data capture and notable errors in semantic interpretation."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The placement of the substrate relative to the precursor (above the catalyst boat) is described in the text ('the substrate was moved from above the MgB2 catalyst') but not captured in the structured steps.",
+                "The fact that the Si/SiO2 substrate is 'clean' is noted but not extracted as a material property."
+              ],
+              "extraction_errors": [
+                "Target compound incorrectly specified as 'BN' instead of 'Boron Nitride Nanotubes (BNNTs)'.",
+                "Target compound type incorrectly classified as 'two-dimensional materials' instead of 'nanotubes' or 'one-dimensional nanomaterials'.",
+                "Step 2 misrepresents the precursor preparation: it lists 'B/MgO powder' with an amount of 140 mg to be mixed with MgB2. The source indicates the total precursor mixture is 140 mg with a molar ratio B:MgO:MgB2 = 2:1:1.5.",
+                "Step 4 specifies a cooling temperature of 25°C, which is an inference; the source only states 'room temperature'."
+              ],
+              "improvement_suggestions": [
+                "Improve entity recognition for complex material names, ensuring full terms like 'Boron Nitride Nanotubes (BNNTs)' are captured, not just their chemical formula.",
+                "Refine classification of nanomaterial dimensionality (e.g., 1D, 2D) based on the material morphology described.",
+                "Enhance logic for parsing multi-component mixtures with total mass and molar ratios to avoid creating artificial intermediate materials.",
+                "When terms like 'room temperature' are used, consider representing them as strings or leaving the temperature field null rather than assigning a specific numerical value."
+              ]
+            },
+            "overall_score": 4.3
+          }
+        ]
+      },
+      {
+        "material": "Mg3B2O6",
+        "synthesis": {
+          "target_compound": "Mg3B2O6",
+          "target_compound_type": "ceramics & glasses",
+          "synthesis_method": "other",
+          "starting_materials": [
             {
-              "vendor": null,
+              "vendor": "China New Metal Materials Technology Company Limited",
+              "name": "B",
+              "amount": 2.0,
+              "unit": "mol",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sinopharm Chemical Reagent Company Limited",
+              "name": "MgO",
+              "amount": 1.0,
+              "unit": "mol",
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "MgB2",
+              "amount": 1.5,
+              "unit": "mol",
+              "purity": "analytical grade"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "B and MgO (2:1 molar ratio) are weighed and grounded.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "B",
+                  "amount": 2.0,
+                  "unit": "mol",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "MgO",
+                  "amount": 1.0,
+                  "unit": "mol",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "Grounded MgB2 is mixed with the B/MgO powder to form the precursor (B:MgO:MgB2 = 2:1:1.5 molar ratio).",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "MgB2",
+                  "amount": 1.5,
+                  "unit": "mol",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "The precursor is placed in an alumina boat in a horizontal tube furnace and heated under NH3 flow.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X"
+                }
+              ],
+              "conditions": {
+                "temperature": 1400.0,
+                "temp_unit": "C",
+                "duration": 2.0,
+                "time_unit": "h",
+                "pressure": 200.0,
+                "pressure_unit": "sccm",
+                "atmosphere": "NH3",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "horizontal tube furnace",
+              "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+              "settings": "GSL-1700X"
+            }
+          ],
+          "notes": "Mg3B2O6 is identified as a side-reaction product (borate) formed during the synthesis of BNNTs from the B/MgO/MgB2 precursor. It appears as residual peaks in the XRD pattern."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extraction targets Mg3B2O6 as the target compound, but the source text clearly describes the synthesis of Boron Nitride Nanotubes (BNNTs) using a B/MgO/MgB2 precursor system. Mg3B2O6 is explicitly identified in the paper as a side-reaction byproduct (residual borate) detected in XRD patterns, NOT the intended synthesis target. This is a fundamental misidentification of the target material. The synthesis procedure described in the paper is for BNNTs, and the extraction should reflect that. However, given that the target_material field was provided as 'Mg3B2O6', the extractor attempted to frame the synthesis around this byproduct. The extraction does capture the correct starting materials (B, MgO, MgB2) with their vendors, purities, and molar ratios. The process steps are reasonably captured, including mixing and heating steps. The equipment (horizontal tube furnace, GSL-1700X by Hefei Kejing) is correctly identified. The synthesis conditions (1400°C, 2h, 200 sccm NH3) are accurately extracted. The classification of synthesis_method as 'other' is debatable — the paper clearly describes a CVD (Chemical Vapor Deposition) process, specifically BOCVD. The pressure_unit field incorrectly uses 'sccm' for what is actually a gas flow rate, not a pressure unit. The amounts listed as 'mol' are actually molar ratios, not absolute molar quantities. The notes field correctly acknowledges that Mg3B2O6 is a side product. Overall, the extraction captures the synthesis procedure well despite the target compound misidentification, with some unit and classification issues.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the three main starting materials with vendors and purities, three process steps (two mixing steps and one heating step), equipment, and synthesis conditions. However, the target compound is misidentified — Mg3B2O6 is a side product, not the synthesis target (BNNTs). The Si/SiO2 substrate placement step is missing. The cooling step (naturally cooled to room temperature in Ar) is not captured as a separate process step, which is an important part of the synthesis procedure. The alumina boat and alumina tube are mentioned in the source but not captured in the equipment list. The total precursor mass (140 mg) is noted in the source but not captured in the extraction. Despite these gaps, the core synthesis information is present.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The three starting materials (B, MgO, MgB2) are correctly identified with accurate vendor information and purity grades. The molar ratios (2:1:1.5) are correctly captured. However, the amounts are listed as absolute molar quantities (2.0 mol, 1.0 mol, 1.5 mol) when the source text specifies these as molar ratios, not absolute amounts — this is a misrepresentation of the data type. The total precursor mass of 140 mg is stated in the source but not captured. The Si/SiO2 substrate is a material used in the synthesis but is absent from the extraction. The NH3 and Ar gases are mentioned as high purity (99.999%) from Linde Gas (China) but are not included as starting materials despite being critical reactants/atmosphere gases.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The three steps captured (grind/mix B+MgO, mix with MgB2, heat) follow the correct logical sequence from the source text. Step 1 correctly identifies the grinding and mixing of B and MgO. Step 2 correctly captures the addition of MgB2. Step 3 correctly captures the heating conditions. However, the cooling step (naturally cooled to room temperature in Ar atmosphere) is missing entirely — this is explicitly stated in the source and is an important step. The placement of the Si/SiO2 substrate in the furnace center is also not captured as a step. Step 1 uses 'mix' as the action but 'grounded' (grinding) is the primary action described. The description in step 3 is accurate and informative.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "The horizontal tube furnace (Hefei Kejing Materials Technology Co., LTD, GSL-1700X) is correctly identified with vendor and model. However, several pieces of equipment explicitly mentioned in the source are missing: the alumina boat (used to contain the precursor), the alumina tube (120 cm length, 60 mm diameter), and the Si/SiO2 substrate (used as a growth substrate). The characterization equipment (SEM Hitachi S4800, TEM Tecnai G2 F20S-TWIN, XRD D8 Advance, Raman LabRam ARAMIS/Horiba HR800, FTIR Thermo Scientific NicoletiN10, TGA Netzsch TG209 F1, CL Quanta 400 FEG) are not included, though these are characterization instruments rather than synthesis equipment, so their absence is less critical for synthesis ontology purposes.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "The temperature (1400°C), duration (2 hours), and atmosphere (NH3) are correctly extracted. However, the flow rate of 200 sccm NH3 is incorrectly placed in the 'pressure' field with 'sccm' as the pressure_unit — sccm is a flow rate unit, not a pressure unit. This is a semantic error in field assignment. The cooling atmosphere (Ar) is not captured. The XRD operating conditions (45 kV, 40 mA, Cu Kα radiation) and TGA conditions (10°C/min ramp rate, air atmosphere, up to 800°C) are characterization conditions not synthesis conditions, so their absence is appropriate. The furnace tube dimensions (120 cm length, 60 mm diameter, ~60 cm temperature zone) are not captured but are more descriptive than critical synthesis conditions.",
+                "semantic_accuracy_score": 3.0,
+                "semantic_accuracy_reasoning": "The most significant semantic error is the misidentification of the target compound as Mg3B2O6 when the paper clearly synthesizes BNNTs. The notes field does acknowledge this discrepancy, stating that Mg3B2O6 is a side-reaction product, which partially mitigates the error. The synthesis_method is classified as 'other' when the paper explicitly describes this as CVD (specifically BOCVD — boron oxide chemical vapor deposition), which is a well-defined synthesis method. The molar ratios being represented as absolute molar amounts is a semantic inaccuracy. The description of MgB2 as a catalyst rather than a starting material is not reflected in the extraction structure. The overall scientific narrative of the synthesis is reasonably preserved in the step descriptions.",
+                "format_compliance_score": 3.5,
+                "format_compliance_reasoning": "The JSON structure generally adheres to the GeneralSynthesisOntology schema with proper fields for target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Each step has step_number, action, description, materials, equipment, and conditions fields. The conditions object has appropriate sub-fields. However, the 'pressure' field is misused for flow rate (200 sccm), which violates the semantic intent of the field. The 'settings' field for equipment uses the model number (GSL-1700X) which is acceptable but could be more descriptive. The amounts in starting_materials use 'mol' as unit for what are actually dimensionless molar ratios. The target_compound_type 'ceramics & glasses' for Mg3B2O6 is a reasonable classification for that compound. Overall format compliance is good with minor semantic field misuse.",
+                "overall_score": 3.4,
+                "overall_reasoning": "The extraction demonstrates a fundamental issue: the target compound is misidentified as Mg3B2O6 (a side product) rather than BNNTs (the actual synthesis target). This is the most critical error. Despite this, the extraction captures the core synthesis procedure reasonably well — the starting materials with vendors and purities are correctly identified, the molar ratios are captured (though misrepresented as absolute molar quantities), the main synthesis steps follow the correct sequence, the primary equipment (horizontal tube furnace) is correctly identified with vendor and model, and the key synthesis conditions (1400°C, 2h, NH3 atmosphere) are accurately extracted. Key weaknesses include: (1) target compound misidentification, (2) synthesis method classified as 'other' instead of CVD/BOCVD, (3) flow rate (200 sccm) incorrectly placed in pressure field, (4) missing cooling step in Ar atmosphere, (5) missing Si/SiO2 substrate as a material, (6) missing alumina boat and tube as equipment, (7) NH3 and Ar gases not captured as reactant/atmosphere materials with their purity (99.999%) and vendor (Linde Gas). The notes field appropriately acknowledges the side-product nature of Mg3B2O6. Overall, the extraction is partially successful but contains significant conceptual and technical errors that would limit its utility for reproducing the synthesis."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Si/SiO2 substrate as a synthesis material (growth substrate placed in center of tube)",
+                "NH3 and Ar gases as reactant/atmosphere materials with purity (99.999%) and vendor (Linde Gas China)",
+                "Alumina boat as synthesis equipment",
+                "Alumina tube dimensions (120 cm length, 60 mm diameter, ~60 cm temperature zone) as equipment details",
+                "Total precursor mass (140 mg) not captured",
+                "Cooling step in Ar atmosphere after synthesis",
+                "Substrate placement step (Si/SiO2 substrate placed in center of tube before heating)"
+              ],
+              "extraction_errors": [
+                "Target compound misidentified as Mg3B2O6 (a side product) instead of BNNTs (boron nitride nanotubes), which is the actual synthesis target of the paper",
+                "Synthesis method classified as 'other' instead of CVD or BOCVD (boron oxide chemical vapor deposition), which is explicitly stated in the paper",
+                "Flow rate of 200 sccm NH3 incorrectly placed in 'pressure' field with 'sccm' as pressure_unit — sccm is a flow rate unit, not a pressure unit",
+                "Molar ratios (2:1:1.5) represented as absolute molar quantities (2.0 mol, 1.0 mol, 1.5 mol) rather than dimensionless ratios",
+                "Cooling step (naturally cooled to room temperature in Ar) is missing from process steps"
+              ],
+              "improvement_suggestions": [
+                "Correct the target compound to 'BNNTs' or 'boron nitride nanotubes' as this is the actual synthesis target described in the paper",
+                "Change synthesis_method from 'other' to 'CVD' or 'chemical vapor deposition' to accurately reflect the method described",
+                "Move the 200 sccm NH3 flow rate to a dedicated flow_rate field or notes, and do not place it in the pressure field",
+                "Represent molar ratios as dimensionless ratios rather than absolute molar quantities, or add a note clarifying these are ratios",
+                "Add a cooling step: 'System cooled naturally to room temperature in Ar atmosphere'",
+                "Add NH3 and Ar as atmosphere/reactant materials with their purity (99.999%) and vendor (Linde Gas China)",
+                "Add alumina boat and alumina tube to the equipment list",
+                "Capture the total precursor mass (140 mg) in the synthesis notes or as a batch quantity",
+                "Add Si/SiO2 substrate as a synthesis material with its role as growth substrate"
+              ]
+            },
+            "overall_score": 3.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system correctly identified the synthesis procedure for the target material Mg3B2O6, which is described in the text as a side-reaction product formed during the synthesis of Boron Nitride Nanotubes (BNNTs). The system accurately captured the starting materials, their molar ratios, and the thermal conditions. However, there are significant errors in unit classification and target identification. Specifically, the system confused gas flow rate (sccm) with pressure, and it assigned absolute molar amounts (2.0, 1.0, 1.5 mol) to materials when the text only specified molar ratios and a total precursor mass of 140 mg. Additionally, while Mg3B2O6 is the requested target, the synthesis method is technically a Chemical Vapor Deposition (CVD) process where Mg3B2O6 is an unintended byproduct, which the extraction partially captures in the notes.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all relevant components mentioned in the text: starting materials, mixing steps, heating steps, equipment, and conditions.",
+                "material_extraction_score": 3.0,
+                "material_extraction_reasoning": "The system correctly identified the chemical names and vendors. However, it incorrectly extracted molar ratios (2:1:1.5) as absolute molar amounts (2.0 mol, etc.). The text specifies a total mass of 140 mg for the mixture, which was omitted.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The sequence of grinding B/MgO and then mixing with MgB2 followed by heating is logically correct and follows the text.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The horizontal tube furnace and its specific model/vendor were correctly identified and associated with the heating step.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "The temperature (1400 C) and duration (2 h) are correct. However, the gas flow rate of 200 sccm was incorrectly mapped to the 'pressure' field, which is a physical unit error.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction correctly identifies that Mg3B2O6 is a side product. However, the synthesis method 'other' is less accurate than 'CVD' or 'thermal annealing' which are implied/stated in the text.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output adheres strictly to the provided JSON schema with no missing required fields.",
+                "overall_score": 4.3,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Total precursor mass (140 mg).",
+                "Cooling condition (natural cooling in Ar) was mentioned in text but omitted from the steps."
+              ],
+              "extraction_errors": [
+                "Molar ratios (2:1:1.5) were extracted as absolute molar quantities (2.0 mol, 1.0 mol, 1.5 mol).",
+                "Gas flow rate (200 sccm) was placed in the pressure field.",
+                "The total precursor mass (140 mg) mentioned in the text was not extracted."
+              ],
+              "improvement_suggestions": [
+                "Distinguish between molar ratios and absolute molar amounts in the material extraction logic.",
+                "Map 'sccm' (standard cubic centimeters per minute) to a flow rate field or notes rather than the pressure field.",
+                "Capture the total mass of the precursor mixture if specified in the text."
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction captures the BNNT synthesis procedure from the source text, but there is a fundamental semantic mismatch: the target material (Mg3B2O6) is explicitly described in the paper as a side-reaction product, not the main synthesis target. The extraction correctly notes this in the notes field, but the synthesis steps describe BNNT production, not Mg3B2O6 synthesis. Key technical errors include mislabeling gas flow rate (200 sccm) as pressure, and representing molar ratios as actual molar amounts. The cooling step in Ar atmosphere is missing. Starting material vendors and the furnace equipment are correctly captured.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis workflow (mixing precursors, heating in furnace) but misses the cooling step in Ar atmosphere. The fundamental issue is that the synthesis procedure describes BNNT production, not Mg3B2O6 synthesis. Starting materials, equipment, and conditions are partially captured. Characterization equipment mentioned in section 2.3 is not extracted. Score reflects moderate completeness with significant gaps.",
+                "material_extraction_score": 3.0,
+                "material_extraction_reasoning": "Starting materials (B, MgO, MgB2) are correctly identified with accurate vendor information and purity (analytical grade). However, critical errors exist: molar ratios (2:1:1.5) are incorrectly represented as actual molar amounts with unit 'mol', and the total precursor mass (140 mg) is not captured. These unit/quantity misrepresentations affect reproducibility. Vendors are correctly extracted from section 2.1.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "Three main process steps are captured in logical sequence (mixing B/MgO, adding MgB2, heating in furnace). Action classifications (mix, heat) are appropriate. However, the cooling step ('cooled naturally to room temperature in Ar') is missing from the extraction. Step descriptions are generally accurate but the fundamental mismatch remains that these steps produce BNNTs, not Mg3B2O6.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "The horizontal tube furnace is correctly identified with vendor (Hefei Kejing Materials Technology Co., LTD) and model (GSL-1700X). However, characterization equipment from section 2.3 (SEM Hitachi S4800, TEM Tecnai G2 F20S-TWIN, XRD D8 Advance, Raman Horiba HR800, FTIR Thermo Scientific NicoletiN10, TGA Netzsch TG209 F1, CL Quanta 400 FEG) is not extracted. Alumina boat and tube dimensions are also not captured.",
+                "conditions_extraction_score": 2.5,
+                "conditions_extraction_reasoning": "Temperature (1400°C) and duration (2 h) are correctly extracted. Atmosphere (NH3) is correct. However, there is a significant technical error: 200 sccm is a gas flow rate, not pressure, and is incorrectly labeled in the pressure field. The Ar atmosphere during cooling is missing. Pressure is not actually specified in the source text (should be null). This mislabeling could cause serious reproducibility issues.",
+                "semantic_accuracy_score": 3.0,
+                "semantic_accuracy_reasoning": "The notes field correctly identifies Mg3B2O6 as a side-reaction product formed during BNNT synthesis. However, the extraction presents the BNNT synthesis procedure as if it produces Mg3B2O6, which is semantically inaccurate. The source text clearly states Mg3B2O6 appears as 'weak peaks' in XRD as an unwanted byproduct. This fundamental mismatch between target material and synthesis procedure affects scientific accuracy, though the notes provide helpful context.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "JSON structure is valid and follows the expected schema. Data types are generally appropriate (numbers for amounts, strings for names). The main compliance issue is semantic misuse of the pressure field for flow rate data, which violates the intended meaning of that schema field. Otherwise, the structure adheres to the ontology format requirements.",
+                "overall_score": 3.1,
+                "overall_reasoning": "This extraction demonstrates moderate quality with several significant technical issues. Strengths include correct identification of starting materials with vendors, accurate temperature and duration values, and appropriate notes explaining Mg3B2O6's role as a side product. Critical weaknesses include: (1) fundamental semantic mismatch between target material and synthesis procedure, (2) mislabeling flow rate as pressure, (3) representing molar ratios as actual molar amounts, (4) missing cooling step and Ar atmosphere. The extraction would benefit from better distinction between synthesis targets and byproducts, proper unit handling for flow rates vs pressure, and more complete step capture. For a side product like Mg3B2O6 with no dedicated synthesis procedure, returning null/empty synthesis steps with explanatory notes may be more appropriate than extracting unrelated synthesis procedures."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Ar atmosphere during cooling step",
+                "Total precursor mass (140 mg)",
+                "Substrate information (Si/SiO2)",
+                "Alumina boat as container material",
+                "Characterization equipment (SEM, TEM, XRD, Raman, FTIR, TGA, CL)"
+              ],
+              "extraction_errors": [
+                "Gas flow rate (200 sccm NH3) incorrectly labeled as pressure instead of flow rate",
+                "Molar ratios (2:1:1.5) incorrectly represented as actual molar amounts with unit 'mol' instead of dimensionless ratios",
+                "Total precursor mass (140 mg) not captured in starting materials",
+                "Cooling step in Ar atmosphere not included in process steps",
+                "Synthesis procedure describes BNNT production, not Mg3B2O6 synthesis (target material mismatch)"
+              ],
+              "improvement_suggestions": [
+                "Add a separate field for gas flow rate distinct from pressure in conditions schema",
+                "Distinguish between molar ratios and actual molar amounts in material quantification",
+                "Include cooling/annealing steps as separate process steps when mentioned in source",
+                "For side products or unintended compounds, consider returning null/empty synthesis steps with explanatory notes rather than extracting unrelated synthesis procedures",
+                "Capture total precursor mass when specified alongside molar ratios"
+              ]
+            },
+            "overall_score": 3.1
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text describes the synthesis of Boron Nitride Nanotubes (BNNTs) using a B/MgO/MgB2 precursor. The target material specified for evaluation is Mg3B2O6, which is explicitly mentioned in the text as a side-reaction product (a borate) identified in the XRD pattern of the BNNT product. The extracted ontology, however, incorrectly frames the entire synthesis procedure as targeting Mg3B2O6. This is a fundamental semantic error. The extraction captures the precursor preparation and heating steps accurately, but misattributes the purpose of the synthesis. The evaluation must therefore distinguish between the accuracy of extracting the described procedural steps and the critical error in identifying the target compound.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the core structural components of the synthesis procedure described in the '2.2 Preparation of the BNNTs' section. It includes the starting materials with their vendors and molar ratios, the multi-step preparation of the precursor (weighing/grinding and mixing), and the main heating step with key conditions (temperature, duration, atmosphere, gas flow). The equipment (horizontal tube furnace) is also captured. However, it misses the placement of the Si/SiO2 substrate and the final cooling step in Ar, which are part of the complete experimental setup.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is largely accurate and complete. The three starting materials (B, MgO, MgB2) are correctly identified with their vendors and the precise molar ratios (2:1:1.5) are captured. The use of 'analytical grade' purity is correctly noted. The amounts are correctly given in moles, reflecting the molar ratios stated. The only minor issue is that the total precursor mass (140 mg) is not extracted, but this is a secondary detail. The chemical names and quantities are faithfully reproduced from the source.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The process steps are logically sequenced and accurately described. Step 1 (weighing and grinding B and MgO) and Step 2 (mixing with MgB2) correctly capture the precursor preparation. Step 3 (heating in the furnace) captures the main reaction. The action classifications ('mix', 'heat') are appropriate. The extraction misses two minor but explicit steps: placing the substrate in the furnace and the final cooling under Ar. The description of the steps is clear and matches the source text.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The primary piece of equipment, the horizontal tube furnace, is correctly identified with its vendor (Hefei Kejing) and model (GSL-1700X). The use of an alumina boat is mentioned in the step description but is not listed as a separate equipment item in the dedicated 'equipment' array, which is a minor omission. No other equipment (like tools for grinding) is explicitly named in the synthesis section, so their absence is correct.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "Key conditions are extracted: temperature (1400 C), duration (2 h), and atmosphere (NH3). However, there is a significant error: the gas flow rate of 200 sccm is incorrectly assigned as a pressure value with unit 'sccm'. The source states '200 standard cubic centimeters per minute (sccm) NH3', which is a flow rate, not a pressure. This misrepresentation is a technical inaccuracy. The cooling atmosphere (Ar) is not captured. The temperature unit is correctly given as 'C'.",
+                "semantic_accuracy_score": 1.5,
+                "semantic_accuracy_reasoning": "This is the most significant failure of the extraction. The source text's primary goal is the synthesis of BNNTs using MgB2 as a catalyst. Mg3B2O6 is mentioned as an incidental by-product ('residual MgO' and 'Mg3B2O6' in XRD). The extracted ontology incorrectly presents the entire synthesis as targeting 'Mg3B2O6' as the 'target_compound'. This completely misrepresents the scientific intent and context of the work. While the procedural steps are extracted well, the overarching semantic meaning is lost.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the expected ontology schema. Fields are properly structured: 'target_compound', 'starting_materials' list, 'steps' list with nested objects for materials and conditions, and an 'equipment' list. Data types are correct (numbers, strings, nulls). The 'notes' field is appropriately used. The only minor compliance issue is the misassignment of the flow rate unit to a pressure field, but the structure itself is valid.",
+                "overall_score": 3.7,
+                "overall_reasoning": "The extraction demonstrates strong capabilities in parsing detailed procedural information: material ratios, step sequences, and equipment names are captured with high accuracy. Format compliance is excellent. However, it fails critically on semantic accuracy by misidentifying the target of the synthesis, which undermines the entire extraction's utility. A major technical error is also present in misclassifying a gas flow rate as pressure. The overall score is pulled down significantly by the semantic accuracy failure, reflecting an extraction that is structurally sound but scientifically misleading. The confidence in this evaluation is high due to the clear discrepancy between the source text's focus (BNNT growth) and the extraction's claimed target (Mg3B2O6)."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The placement of the Si/SiO2 substrate in the furnace alongside the precursor.",
+                "The final cooling step: 'the system was cooled naturally to room temperature in Ar.'",
+                "The total mass of the precursor (140 mg) is not extracted, though molar ratios are."
+              ],
+              "extraction_errors": [
+                "Fundamental semantic error: The extraction incorrectly identifies 'Mg3B2O6' as the target compound. The source text describes the synthesis of Boron Nitride Nanotubes (BNNTs); Mg3B2O6 is a minor by-product mentioned in characterization.",
+                "Technical error: The gas flow rate of '200 sccm' is incorrectly assigned to the 'pressure' field with unit 'sccm'. 'sccm' is a unit of volumetric flow rate, not pressure."
+              ],
+              "improvement_suggestions": [
+                "Implement context-aware reasoning to distinguish between the primary synthesis product and incidental by-products mentioned in characterization data.",
+                "Improve unit classification: differentiate between flow rate (sccm, mL/min) and pressure (atm, bar, Pa) parameters.",
+                "Extract all explicit steps from the procedure, including substrate placement and post-reaction treatments like cooling.",
+                "Consider adding a field to capture the primary synthesis product when a by-product is incorrectly assigned as the target, or implement validation against the paper's title and abstract."
+              ]
+            },
+            "overall_score": 3.7
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "h-BN",
+        "synthesis": {
+          "target_compound": "h-BN (Boron Nitride Nanotubes)",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "CVD",
+          "starting_materials": [
+            {
+              "vendor": "China New Metal Materials Technology Company Limited",
+              "name": "Boron",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sinopharm Chemical Reagent Company Limited",
+              "name": "MgO",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "MgB2",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "NH3",
+              "amount": 200.0,
+              "unit": "sccm",
+              "purity": "99.999%"
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
               "name": "Ar",
               "amount": null,
               "unit": null,
-              "purity": null
+              "purity": "99.999%"
             }
           ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "Ar",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Weigh and grind B and MgO powder at 2:1 molar ratio",
+              "materials": [
+                {
+                  "vendor": "China New Metal Materials Technology Company Limited",
+                  "name": "Boron",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sinopharm Chemical Reagent Company Limited",
+                  "name": "MgO",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "Mix grounded MgB2 with B/MgO powder to form precursor (140 mg total, B:MgO:MgB2 = 2:1:1.5 molar ratio)",
+              "materials": [
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "MgB2",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "add",
+              "description": "Place alumina boat containing precursor and Si/SiO2 substrate in center of tube furnace",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Si/SiO2 substrate",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "alumina boat",
+                  "instrument_vendor": null,
+                  "settings": null
+                },
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X"
+                }
+              ],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "heat",
+              "description": "Heat furnace to 1400°C for 2 hours in 200 sccm NH3 flow",
+              "materials": [
+                {
+                  "vendor": "Linde Gas (China) Company Limited",
+                  "name": "NH3",
+                  "amount": 200.0,
+                  "unit": "sccm",
+                  "purity": "99.999%"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+                  "settings": "GSL-1700X"
+                }
+              ],
+              "conditions": {
+                "temperature": 1400.0,
+                "temp_unit": "C",
+                "duration": 2.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "NH3",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "cool",
+              "description": "Cool system naturally to room temperature in Ar atmosphere",
+              "materials": [
+                {
+                  "vendor": "Linde Gas (China) Company Limited",
+                  "name": "Ar",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.999%"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "horizontal tube furnace",
+              "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
+              "settings": "GSL-1700X"
+            },
+            {
+              "name": "alumina tube",
+              "instrument_vendor": null,
+              "settings": "120 cm length, 60 mm diameter"
+            },
+            {
+              "name": "alumina boat",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "notes": "The precursor molar ratio is B:MgO:MgB2 = 2:1:1.5 with total mass of 140 mg. The tube furnace has a temperature zone of approximately 60 cm. BNNTs can be further purified by washing with dilute hydrochloric acid to reduce residual MgO and Mg3B2O6 peaks."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology for h-BN (Boron Nitride Nanotubes) synthesis via CVD demonstrates a high-quality extraction from the source text. The extraction correctly identifies the target compound, synthesis method, all starting materials with their vendors and purities, and captures the five key process steps in correct sequential order. The extraction faithfully reproduces the critical synthesis conditions (1400°C, 2h, NH3 atmosphere, 200 sccm flow rate), the precursor composition (B:MgO:MgB2 = 2:1:1.5 molar ratio, 140 mg total), and the equipment used (horizontal tube furnace with vendor and model, alumina tube with dimensions, alumina boat). The notes field captures important supplementary information about purification. Minor observations include that the step 1 action could be more precisely labeled as 'grind' rather than 'mix', and the alumina tube specifications are captured in the equipment list but not in the step-level equipment. Overall, this is an excellent extraction with very few omissions or errors.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components present in the source text: all five starting materials (B, MgO, MgB2, NH3, Ar) with vendors and purities, all five process steps in correct order (grind/mix B+MgO, mix with MgB2, load into furnace, heat at 1400°C for 2h in NH3, cool in Ar), all relevant equipment (horizontal tube furnace with model, alumina tube with dimensions, alumina boat), and all key conditions (temperature, duration, atmosphere, flow rate). The notes field also captures the purification option with dilute HCl and the precursor molar ratios. The target compound type is correctly identified as nanomaterials and the synthesis method as CVD. No significant synthesis information from the source text is missing from the extraction.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials are correctly identified with accurate vendor names, purity grades (analytical grade for solids, 99.999% for gases), and appropriate null values for amounts where not specified in the source. The NH3 flow rate of 200 sccm is correctly captured as the amount for NH3. The total precursor mass of 140 mg and the molar ratios (B:MgO:MgB2 = 2:1:1.5, B:MgO = 2:1) are captured in the notes and step descriptions. The Si/SiO2 substrate is correctly included as a material in step 3. The only minor issue is that individual masses of B, MgO, and MgB2 are not specified in the source (only the total and ratios are given), so null amounts are correctly used. The Ar flow rate during cooling is not specified in the source, so null is correct there.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "All five process steps are captured in correct sequential order: (1) weighing and grinding B+MgO, (2) mixing with MgB2 to form precursor, (3) loading into furnace, (4) heating at 1400°C for 2h in NH3, (5) cooling in Ar. The action classifications are reasonable: 'mix' for steps 1 and 2, 'add' for step 3, 'heat' for step 4, and 'cool' for step 5. The only minor issue is that step 1 involves both weighing and grinding (not just mixing), so 'grind' might be a more precise action label. Step 3 uses 'add' which is acceptable for the loading/placement action. The descriptions are accurate and informative. The precursor total mass (140 mg) and molar ratio are correctly noted in step 2.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "All equipment explicitly mentioned in the synthesis procedure is captured: the horizontal tube furnace (with vendor 'Hefei Kejing Materials Technology Co., LTD' and model 'GSL-1700X'), the alumina tube (with dimensions: 120 cm length, 60 mm diameter), and the alumina boat. The furnace is correctly associated with steps 3 and 4. The alumina tube specifications (120 cm length, 60 mm diameter, temperature zone ~60 cm) are captured in the equipment list settings field. Characterization equipment (SEM, TEM, XRD, Raman, FTIR, TGA, CL) is correctly not included in the synthesis equipment list, as these are characterization instruments, not synthesis equipment. The extraction correctly distinguishes between synthesis and characterization equipment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions explicitly stated in the source are accurately captured: temperature of 1400°C (step 4), duration of 2 hours (step 4), NH3 atmosphere at 200 sccm (step 4), and Ar atmosphere for cooling (step 5). Null values are correctly used for pressure (not specified), stirring (not applicable), and pH (not applicable). The cooling step correctly notes the Ar atmosphere without specifying a flow rate (not given in source). The room temperature conditions for steps 1-3 are correctly left as null since no specific conditions are stated. The TGA ramping rate of 10°C/min is a characterization condition, not a synthesis condition, and is correctly not included.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved throughout the extraction. The role of MgB2 as a catalyst (not just a precursor component) is correctly implied in the step descriptions. The VLS growth mechanism context is captured in the notes. The precursor composition and its significance are accurately represented. The target compound is correctly identified as h-BN (Boron Nitride Nanotubes) with type 'nanomaterials'. The synthesis method 'CVD' is correct (the paper uses 'BOCVD' and 'CVD' interchangeably for this horizontal tube furnace approach). The notes correctly capture the purification option. The only minor semantic issue is that the target_compound field says 'h-BN (Boron Nitride Nanotubes)' which is slightly redundant but accurate - BNNTs are indeed h-BN structured nanotubes.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction fully adheres to the GeneralSynthesisOntology schema. All required fields are present and properly typed: target_compound (string), target_compound_type (string), synthesis_method (string), starting_materials (array of material objects with vendor, name, amount, unit, purity), steps (array of step objects with step_number, action, description, materials, equipment, conditions), equipment (array of equipment objects with name, instrument_vendor, settings), and notes (string). Numeric values are correctly typed as floats (temperature: 1400.0, duration: 2.0, amount: 200.0). Null values are used appropriately for missing information. Step numbers are sequential integers. The conditions sub-object in each step contains all required fields. The equipment objects contain all required fields. No schema violations are detected.",
+                "overall_score": 4.8,
+                "overall_reasoning": "This extraction achieves an excellent overall quality score. The extraction correctly identifies all five starting materials with accurate vendor information and purities, captures all five synthesis steps in correct sequential order with appropriate action labels, identifies all synthesis equipment with vendor/model information and specifications, and accurately records all synthesis conditions including temperature (1400°C), duration (2h), atmosphere (NH3 at 200 sccm), and cooling atmosphere (Ar). The notes field adds valuable supplementary information about the precursor composition and purification option. The format fully complies with the GeneralSynthesisOntology schema with proper data types throughout. Minor areas for improvement include: (1) step 1 action could be 'grind' rather than 'mix' to better reflect the grinding operation described, (2) the alumina tube could be referenced in the step-level equipment for steps 3-5. These are very minor issues that do not significantly detract from the overall high quality of the extraction. The extraction demonstrates excellent fidelity to the source text without hallucination of information not present in the paper."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The temperature zone length (~60 cm) of the furnace is mentioned in the source and captured in the notes but not in the equipment settings field for the furnace itself.",
+                "The step 1 description mentions 'weighed' as a separate action before grinding, which could be captured as a distinct sub-step or noted in the description."
+              ],
+              "extraction_errors": [
+                "Step 1 action is labeled 'mix' but the source text explicitly states 'weighed and grounded' (ground/grind), making 'grind' a more accurate action classification.",
+                "The alumina tube is listed in the top-level equipment but not referenced in the step-level equipment lists for steps 3-5 where it is the reaction vessel."
+              ],
+              "improvement_suggestions": [
+                "Change step 1 action from 'mix' to 'grind' to more accurately reflect the grinding operation described in the source text.",
+                "Add the alumina tube to the equipment list in steps 3, 4, and 5 since it is the reaction vessel used throughout the synthesis.",
+                "Consider adding the furnace temperature zone length (60 cm) to the horizontal tube furnace settings field in addition to the alumina tube dimensions.",
+                "The target_compound could be more specifically labeled as 'Boron Nitride Nanotubes (BNNTs)' with target_compound_type as 'nanotube' for greater specificity."
+              ]
+            },
+            "overall_score": 4.8
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the specific synthesis protocol for BNNTs described in the experimental section. It correctly identifies the two-step precursor preparation and the subsequent CVD process. The extraction of materials, vendors, and specific molar ratios is precise. The equipment details, including the specific furnace model and tube dimensions, are well-captured. The conditions (1400 °C, 2 h, 200 sccm NH3) are correctly mapped to the heating step.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction covers all major components: starting materials, multi-step process flow, specific equipment, and reaction conditions. It also includes the purification note mentioned in the results section.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "All reagents (B, MgO, MgB2, NH3, Ar) are identified with their respective vendors and purities. The molar ratios and total precursor mass (140 mg) are correctly noted in the descriptions.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps follow the logical sequence of the paper: grinding B/MgO, mixing with MgB2, loading the furnace, heating under NH3, and cooling under Ar.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The extraction identifies the specific furnace model (GSL-1700X), the vendor (Hefei Kejing), and the dimensions of the alumina tube, which are explicitly stated in the text.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperature (1400 C), duration (2 h), and gas flow rates (200 sccm) are accurately extracted and associated with the correct steps.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning, correctly identifying MgB2 as a catalyst/precursor component and the Si/SiO2 as the substrate.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output adheres strictly to the JSON schema with appropriate data types and field structures.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the BNNT synthesis procedure from the source text. All major synthesis components are represented including starting materials with vendor information, a logical five-step process sequence, key equipment specifications, and critical synthesis conditions (1400°C, 2h, NH3 atmosphere at 200 sccm). The extraction correctly uses null values where the source text does not provide specific information (e.g., individual reagent amounts, Ar flow rate during cooling, pressure values), which aligns with best practices for avoiding hallucination. The molar ratios (B:MgO:MgB2 = 2:1:1.5) and total precursor mass (140 mg) are accurately captured. Equipment details including the furnace vendor (Hefei Kejing) and model (GSL-1700X) are correctly extracted. The process steps follow the correct chronological order from precursor preparation through heating to cooling. Minor opportunities for improvement include more explicit separation of synthesis vs. characterization equipment and capturing additional furnace specifications (temperature zone length, tube dimensions) in the main equipment list rather than only in notes.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components present in the source text: target compound (BNNTs/h-BN), synthesis method (CVD), five starting materials with vendors and purities, five process steps in correct sequence, three synthesis equipment items, and key conditions. The structure is well-organized with appropriate nesting of materials within steps. All information present in the source is represented in the extraction. Minor deduction because some equipment specifications (tube dimensions, temperature zone) are placed in notes rather than structured equipment fields, and characterization equipment is not included (though this may be intentional for a synthesis-focused ontology).",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material names are accurately extracted (Boron, MgO, MgB2, NH3, Ar, Si/SiO2 substrate). Vendors are correctly captured for all chemicals (China New Metal, Sinopharm, Sigma-Aldrich, Linde Gas). Purity information is accurately recorded (analytical grade for solids, 99.999% for gases). The total precursor mass (140 mg) and molar ratios (2:1:1.5) are correctly captured in step descriptions and notes. Individual reagent amounts are appropriately null since the source only provides the total mass and ratios, not individual quantities. This demonstrates correct handling of incomplete source information without hallucination.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Five process steps are extracted in correct chronological order: (1) B/MgO grinding, (2) MgB2 mixing, (3) loading into furnace, (4) heating at 1400°C, (5) cooling. Action classifications (mix, add, heat, cool) are appropriate and semantically accurate. Each step correctly associates relevant materials, equipment, and conditions. Step descriptions accurately reflect the source text. The logical flow matches the experimental procedure. Minor deduction because the substrate placement step could potentially be combined with or separated differently, but the current organization is reasonable and clear.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Key synthesis equipment is correctly identified: horizontal tube furnace with vendor (Hefei Kejing Materials Technology Co., LTD) and model (GSL-1700X), alumina tube with dimensions (120 cm length, 60 mm diameter), and alumina boat. Equipment is appropriately linked to relevant process steps. The extraction correctly focuses on synthesis equipment rather than characterization instruments (SEM, TEM, XRD, etc.), which is appropriate for a synthesis ontology. Minor deduction because some equipment specifications are in notes rather than structured fields, and the temperature zone specification (60 cm) could be more explicitly captured in the equipment section.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Critical synthesis conditions are accurately extracted: temperature (1400°C), duration (2 h), atmosphere during heating (NH3), gas flow rate (200 sccm), and cooling atmosphere (Ar). Units are correctly specified (C, h, sccm). The extraction correctly leaves pressure as null since it is not mentioned in the source text. Cooling temperature is appropriately null for 'room temperature' as no specific value is given. The NH3 flow rate is correctly associated with the heating step. This demonstrates excellent accuracy in capturing numerical conditions with proper units while avoiding hallucination of unspecified parameters.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved throughout the extraction. The synthesis method is correctly identified as CVD. The role of MgB2 as catalyst and B/MgO as precursor is maintained in the material relationships. The molar ratios and total mass are accurately represented. Process step descriptions maintain the original intent (e.g., 'grounded', 'mixed', 'placed in center', 'maintained at 1400°C', 'cooled naturally'). No misinterpretations or semantic distortions are present. The extraction correctly distinguishes between synthesis conditions and characterization parameters. Minor deduction only because some contextual information about the catalyst mechanism is in notes rather than structured fields.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction fully adheres to the GeneralSynthesisOntology schema. All required fields are present with correct data types: strings for names and descriptions, numbers for quantities and conditions, arrays for materials and steps, nested objects for conditions and equipment. Null values are correctly used for unspecified information (individual amounts, pressure, stirring, pH). The JSON structure is valid and well-formed. Field names match the expected ontology schema. Units are consistently specified where numerical values are present. This represents excellent schema compliance with no format violations.",
+                "overall_score": 4.5,
+                "overall_reasoning": "This is a high-quality ontology extraction that accurately captures the BNNT synthesis procedure from the source text. Strengths include: (1) Complete capture of all synthesis-relevant information present in the source, (2) Accurate material names, vendors, and purities, (3) Correct process step sequencing with appropriate action classifications, (4) Precise condition extraction with proper units (1400°C, 2h, 200 sccm NH3), (5) Proper handling of unspecified information using null values without hallucination, (6) Full schema compliance with valid JSON structure. The extraction demonstrates strong understanding of synthesis workflows and appropriate data modeling. Areas for minor improvement include moving some equipment specifications from notes to structured fields and potentially distinguishing synthesis from characterization equipment more explicitly. Overall scores range from 4.0 to 5.0, with an average of 4.5, reflecting excellent extraction quality that would support reproducibility and data integration in materials science applications."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding furnace specifications (60 cm temperature zone, 120 cm length, 60 mm diameter alumina tube) to the main equipment list with structured fields rather than in notes",
+                "Explicitly distinguish synthesis equipment from characterization equipment if the ontology schema supports this separation",
+                "Consider adding the purification step note (washing with dilute HCl) as an optional post-synthesis step if relevant to the target material preparation",
+                "Add substrate specifications (Si/SiO2) to starting materials with any available purity or thickness information if mentioned in source"
+              ]
+            },
+            "overall_score": 4.5
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a strong, accurate capture of the core synthesis procedure for BNNTs using a MgB2-catalyzed CVD method from a B/MgO precursor. The structured ontology correctly identifies the target material, synthesis method, starting materials with vendors and purities, and logically sequences the process steps. The extraction correctly leaves fields null where information is absent from the source (e.g., specific amounts for solid reagents, equipment settings). However, there are minor but important semantic inaccuracies: the target compound is more precisely 'Boron Nitride Nanotubes (BNNTs)' rather than the generic 'h-BN', and the 'Si/SiO2 substrate' is incorrectly listed as a starting material when it is a deposition substrate. The equipment list is well-extracted, and critical conditions (temperature, duration, atmosphere) are accurately captured.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures nearly all synthesis components present in the source text: target material, method, all starting materials (B, MgO, MgB2, NH3, Ar) with vendors and purities, a logical sequence of five process steps, key equipment (furnace, tube, boat), and primary reaction conditions. The only minor omission is the explicit mention of the furnace's 'temperature zone of approximately 60 cm' within the equipment settings, though the tube dimensions are captured. The structure is comprehensive and well-organized.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material names, vendors, and purities are accurately extracted. The molar ratios for the precursor mixture (B:MgO:MgB2 = 2:1:1.5) and the total mass (140 mg) are correctly noted in the step description and notes. The gas flow rate (200 sccm NH3) is correctly captured. The system correctly leaves amount/unit null for materials where only molar ratios are given (B, MgO, MgB2). One error: 'Si/SiO2 substrate' is listed as a starting material; it is a deposition substrate, not a consumed reagent, and its vendor/purity are not stated. This misclassification slightly impacts accuracy.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The five-step sequence accurately reflects the experimental procedure: 1) grinding B and MgO, 2) mixing with MgB2, 3) loading the furnace, 4) heating under NH3, 5) cooling under Ar. Actions ('mix', 'add', 'heat', 'cool') are generally appropriate. Descriptions are clear and incorporate key details like molar ratios and total mass. The logical flow is correct. A minor improvement would be to specify that step 1 involves 'grinding' as a primary action, though 'mix' is not incorrect.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "All explicitly named equipment is correctly identified: 'horizontal tube furnace' with vendor (Hefei Kejing) and model (GSL-1700X), 'alumina tube' with dimensions, and 'alumina boat'. The extraction correctly does not hallucinate vendors for the boat or tube. The furnace's temperature zone length (~60 cm) is mentioned in the source but not explicitly added to the equipment settings; however, this is a minor omission as the tube dimensions are captured. Overall, extraction is accurate and complete.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Excellent extraction of conditions explicitly stated in the source. The key synthesis conditions—temperature (1400 °C), duration (2 h), and atmosphere (NH3 during heating, Ar during cooling)—are perfectly captured with correct units. The gas flow rate (200 sccm) is correctly associated with the NH3 material. The system correctly leaves null fields for parameters not specified (pressure, stirring, pH). No errors or hallucinations are present.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning is largely preserved. However, there are two semantic inaccuracies. 1) The target_compound is listed as 'h-BN (Boron Nitride Nanotubes)'. While BNNTs are composed of hexagonal boron nitride (h-BN), the specific target is the nanotube morphology; 'Boron Nitride Nanotubes (BNNTs)' would be more precise. 2) The 'Si/SiO2 substrate' is semantically a growth substrate for deposition, not a starting material consumed in the reaction; listing it as a material in step 3 is misleading. Otherwise, the context, roles of materials (catalyst, precursor, gas), and process intent are well-maintained.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required top-level fields (target_compound, synthesis_method, starting_materials, steps, equipment, notes) are present. Nested objects (materials, equipment, conditions) follow the defined structure with correct data types (strings, numbers, nulls). The notes field is appropriately used for supplementary information. No schema violations are observed.",
+                "overall_score": 4.5,
+                "overall_reasoning": "The extraction is of high quality, demonstrating accurate and comprehensive capture of the synthesis procedure from the source text. Strengths include precise extraction of materials with vendors/purities, correct sequencing of steps, accurate equipment identification, and flawless conditions extraction. The system correctly avoids hallucination, leaving fields null appropriately. The main weaknesses are semantic: the target material name could be more specific ('BNNTs'), and the Si/SiO2 substrate is misclassified as a starting material. These do not severely impact reproducibility but affect ontological precision. The overall score reflects a robust extraction suitable for database ingestion, with minor refinements needed for semantic fidelity."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The approximate length of the furnace's temperature zone (~60 cm) is mentioned in the source but not explicitly added to the equipment settings for the furnace."
+              ],
+              "extraction_errors": [
+                "Semantic error: Target compound listed as 'h-BN (Boron Nitride Nanotubes)'. The paper specifically synthesizes Boron Nitride Nanotubes (BNNTs); 'h-BN' is the crystal structure but not the target morphology.",
+                "Classification error: 'Si/SiO2 substrate' is incorrectly listed as a starting material. It is a deposition substrate, not a consumed reagent, and should likely be captured in equipment or a separate 'substrate' field if the schema supports it."
+              ],
+              "improvement_suggestions": [
+                "Refine material classification to distinguish between consumed reagents and non-consumed substrates/tools. Consider a separate 'substrate' field in the ontology.",
+                "Use more precise target compound nomenclature, e.g., 'Boron Nitrate Nanotubes (BNNTs)' to specify the nanomaterial morphology.",
+                "For grinding/mixing steps, consider using more specific action types like 'grind' or 'mechanically mix' if the schema allows, to enhance step clarity.",
+                "Extract and include descriptive equipment specifications (like temperature zone length) into the equipment settings where relevant."
+              ]
+            },
+            "overall_score": 4.5
           }
-        }
-      ],
-      "equipment": [
-        {
-          "name": "horizontal tube furnace",
-          "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD",
-          "settings": "GSL-1700X"
-        }
-      ],
-      "notes": "The molar ratio of B : MgO : MgB2 is 2 : 1 : 1.5."
-    },
-    "evaluation": {
-      "reasoning": "The extraction captures the main elements of the BNNT synthesis, including materials, steps, equipment, and conditions. The structure is generally well-organized, and the semantic meaning is mostly preserved. However, there are some inaccuracies and omissions, particularly in the amounts and units of the starting materials and some process details. The format compliance is good overall, but there are a few areas where the schema could be better adhered to.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The extraction covers most of the key aspects of the synthesis, including the starting materials, process steps, equipment, and conditions. However, some details are missing, such as the specific amounts of the starting materials used in the initial mixing steps. The description of the equipment is adequate but could include more specific settings.",
-        "material_extraction_score": 3.5,
-        "material_extraction_reasoning": "The extraction identifies the main starting materials (Boron, MgO, MgB2, Ar, NH3) and their vendors. However, the amounts and units for Boron, MgO, MgB2, Ar, and NH3 in the initial mixing steps are not specified, which reduces the score. The purity of the gases is correctly extracted. The ratio of B:MgO:MgB2 is mentioned in the notes, which is good, but it should ideally be part of the materials section.",
-        "process_steps_score": 4.0,
-        "process_steps_reasoning": "The process steps are generally well-defined and logically sequenced. The actions (mix, heat, cool) are correctly classified. However, the description of the mixing steps could be more detailed, specifying the duration or intensity of mixing. The heating and cooling steps are adequately described, including the temperature, duration, and atmosphere.",
-        "equipment_extraction_score": 4.0,
-        "equipment_extraction_reasoning": "The extraction correctly identifies the horizontal tube furnace and alumina boat. The vendor and model number of the furnace are provided, which is excellent. However, the settings for the furnace (e.g., heating rate) are not specified, which slightly reduces the score. The alumina boat is mentioned, but no further details are given.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The extraction accurately captures the main synthesis conditions, including the temperature (1400 C), duration (2 h), and atmosphere (NH3, Ar). The flow rate of NH3 (200 sccm) is also correctly extracted. However, the heating and cooling rates are not specified, which reduces the score slightly. The pressure is not mentioned, which is acceptable if it was performed at atmospheric pressure.",
-        "semantic_accuracy_score": 4.0,
-        "semantic_accuracy_reasoning": "The extraction generally preserves the scientific meaning of the synthesis procedure. The relationships between the materials, steps, equipment, and conditions are correctly represented. However, the lack of specific amounts for some starting materials slightly detracts from the semantic accuracy, as it makes it harder to reproduce the synthesis.",
-        "format_compliance_score": 4.5,
-        "format_compliance_reasoning": "The extraction largely adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid, and the data types are generally correct. However, the missing amounts and units for some starting materials could be considered a violation of the schema, as these are important parameters for reproducibility.",
-        "overall_score": 4.0,
-        "overall_reasoning": "The extraction is generally of good quality, capturing the main elements of the BNNT synthesis. The structure is well-organized, and the semantic meaning is mostly preserved. However, there are some inaccuracies and omissions, particularly in the amounts and units of the starting materials and some process details. Addressing these issues would significantly improve the extraction quality."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Amounts and units for Boron, MgO, MgB2, Ar, and NH3 in the initial mixing steps.",
-        "Heating and cooling rates.",
-        "Mixing duration/intensity."
-      ],
-      "extraction_errors": [
-        "Missing amounts and units for some starting materials (Boron, MgO, MgB2, Ar, NH3) in the initial mixing steps.",
-        "Heating and cooling rates not specified.",
-        "Mixing duration/intensity not specified."
-      ],
-      "improvement_suggestions": [
-        "Include specific amounts and units for all starting materials in the materials section.",
-        "Specify the heating and cooling rates in the conditions section.",
-        "Provide more details about the mixing steps, such as the duration or intensity of mixing.",
-        "Add the molar ratio of B:MgO:MgB2 to the materials section instead of just the notes."
-      ]
-    }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "BN",
+        "synthesis": {
+          "target_compound": "BN",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "CVD",
+          "starting_materials": [
+            {
+              "vendor": "China New Metal Materials Technology Company Limited",
+              "name": "Boron",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sinopharm Chemical Reagent Company Limited",
+              "name": "MgO",
+              "amount": null,
+              "unit": null,
+              "purity": "analytical grade"
+            },
+            {
+              "vendor": "Sigma-Aldrich",
+              "name": "MgB2",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "NH3",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
+            },
+            {
+              "vendor": "Linde Gas (China) Company Limited",
+              "name": "Ar",
+              "amount": null,
+              "unit": null,
+              "purity": "99.999%"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Weigh and grind B and MgO in a molar ratio of 2:1.",
+              "materials": [
+                {
+                  "vendor": "China New Metal Materials Technology Company Limited",
+                  "name": "Boron",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                },
+                {
+                  "vendor": "Sinopharm Chemical Reagent Company Limited",
+                  "name": "MgO",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "analytical grade"
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "Mix the ground MgB2 with the previously obtained B/MgO powder to form the precursor with a molar ratio of B:MgO:MgB2 = 2:1:1.5. Total precursor mass is 140 mg.",
+              "materials": [
+                {
+                  "vendor": "Sigma-Aldrich",
+                  "name": "MgB2",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 3,
+              "action": "heat",
+              "description": "Place the alumina boat containing the precursor and a clean Si/SiO2 substrate in the center of the horizontal tube furnace. Heat the furnace to 1400 °C and maintain for 2 hours under a flow of 200 sccm NH3.",
+              "materials": [
+                {
+                  "vendor": "Linde Gas (China) Company Limited",
+                  "name": "NH3",
+                  "amount": 200.0,
+                  "unit": "sccm",
+                  "purity": "99.999%"
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "horizontal tube furnace",
+                  "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD, GSL-1700X",
+                  "settings": null
+                },
+                {
+                  "name": "alumina boat",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 1400.0,
+                "temp_unit": "C",
+                "duration": 2.0,
+                "time_unit": "h",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "NH3",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "cool",
+              "description": "Cool the system naturally to room temperature under Ar atmosphere.",
+              "materials": [
+                {
+                  "vendor": "Linde Gas (China) Company Limited",
+                  "name": "Ar",
+                  "amount": null,
+                  "unit": null,
+                  "purity": "99.999%"
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "Ar",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "horizontal tube furnace",
+              "instrument_vendor": "Hefei Kejing Materials Technology Co., LTD, GSL-1700X",
+              "settings": null
+            },
+            {
+              "name": "alumina tube",
+              "instrument_vendor": null,
+              "settings": "120 cm length, 60 mm diameter"
+            },
+            {
+              "name": "alumina boat",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "notes": "The precursor composition is B:MgO:MgB2 = 2:1:1.5 (molar ratio). The product is boron nitride nanotubes (BNNTs) grown on a Si/SiO2 substrate. The growth follows a vapor-liquid-solid (VLS) mechanism catalyzed by MgB2."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the synthesis of boron nitride nanotubes (BNNTs) via CVD using a B/MgO/MgB2 precursor system. The extraction is generally thorough and well-structured, correctly identifying the target compound, synthesis method, starting materials with vendor information, process steps in logical order, equipment, and synthesis conditions. The source text provides a detailed experimental section, and the extractor has faithfully captured most of the critical information. Key strengths include: correct identification of all starting materials with vendors and purities where stated, accurate molar ratios and total precursor mass, correct temperature (1400°C), duration (2h), atmosphere (NH3 at 200 sccm), and cooling atmosphere (Ar). The alumina tube dimensions are captured in equipment settings. Minor gaps include: the Si/SiO2 substrate is not listed as a starting material (though it could be argued it is a substrate rather than a reagent), and the grinding step could be more explicitly labeled as 'grind' rather than 'mix'. Overall, the extraction is of high quality.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: target compound (BNNTs/BN), synthesis method (CVD), all five starting materials with vendor and purity information, four logically sequenced process steps, equipment list including the tube furnace with model number and alumina tube dimensions, and synthesis conditions. The Si/SiO2 substrate is mentioned in the step description but not listed as a separate starting material — this is a minor omission since it is a substrate rather than a reagent. The temperature zone (~60 cm) is mentioned in the source but not captured in equipment settings, which is a very minor gap. The notes field provides useful contextual information about the VLS mechanism and precursor composition. Overall structural coverage is excellent.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All five starting materials are correctly identified: Boron (China New Metal Materials Technology Co.), MgO (Sinopharm Chemical Reagent Co.), MgB2 (Sigma-Aldrich), NH3 and Ar (both from Linde Gas China, 99.999% purity). Purities are correctly assigned where stated — analytical grade for B and MgO, 99.999% for gases, and null for MgB2 (which is not explicitly stated as analytical grade in the source, though all chemicals are described as 'analytical grade and used as received' — this is a minor inaccuracy as MgB2 from Sigma-Aldrich should also be analytical grade per the source text). Amounts are correctly left null for most materials since specific masses are not given per reagent (only total precursor mass of 140 mg is given). The molar ratios (B:MgO = 2:1 and B:MgO:MgB2 = 2:1:1.5) are correctly captured in step descriptions. The NH3 flow rate of 200 sccm is correctly captured in step 3.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Four process steps are extracted in correct logical order: (1) weighing and grinding B/MgO, (2) mixing with MgB2 to form precursor, (3) heating in tube furnace under NH3, (4) cooling under Ar. The step descriptions are accurate and informative. Step 1 is labeled 'mix' but the source says 'weighed and grounded' — 'grind' would be more precise as an action classification. Step 2 correctly captures the total precursor mass (140 mg) and molar ratio. Step 3 correctly captures temperature, duration, and NH3 flow. Step 4 correctly captures the natural cooling under Ar. The placement of the substrate and alumina boat in the furnace center is mentioned in step 3 description. The sequencing is logical and complete for the synthesis procedure.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The main equipment items are correctly identified: horizontal tube furnace (with vendor Hefei Kejing Materials Technology Co., LTD, model GSL-1700X), alumina tube (with dimensions 120 cm length, 60 mm diameter in settings), and alumina boat. The Si/SiO2 substrate is mentioned in step descriptions but not listed as equipment (appropriate, as it is a substrate). The temperature zone of ~60 cm is mentioned in the source but not captured in equipment settings — a very minor omission. Characterization equipment (SEM, TEM, XRD, Raman, FTIR, TGA, CL) is correctly not included in the synthesis equipment list, as these are characterization instruments rather than synthesis equipment. The vendor information for the tube furnace is correctly captured.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions are accurately extracted. Temperature: 1400°C (correct), duration: 2 hours (correct), atmosphere during synthesis: NH3 at 200 sccm (correct), cooling atmosphere: Ar (correct). Pressure is correctly left null as it is not specified in the source. The temperature unit (C) and time unit (h) are correctly assigned. The NH3 flow rate of 200 sccm is captured as the material amount in step 3, which is an appropriate way to represent it. No conditions are hallucinated, and no stated conditions are omitted. This is an excellent extraction of synthesis conditions.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning is faithfully preserved throughout the extraction. The target compound is correctly identified as BN (boron nitride nanotubes), the synthesis method as CVD, and the catalytic role of MgB2 is noted in the notes field. The VLS mechanism is correctly referenced. The precursor composition ratios are accurately captured. The description of the cooling step as 'natural cooling' is semantically accurate. The notes field correctly summarizes the key scientific context. One minor semantic issue: the action 'mix' for step 1 (which involves grinding) slightly misrepresents the mechanical processing step, but the description text correctly says 'weighed and grounded'. Overall, scientific meaning is well preserved.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are populated appropriately: target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity fields), steps (with step_number, action, description, materials, equipment, conditions), equipment (with name, instrument_vendor, settings), and notes. Data types are correct — numerical values for temperature (1400.0), duration (2.0), NH3 flow (200.0), null for unspecified values. The conditions object in steps 1 and 2 is null (appropriate since no conditions are specified for mixing steps). The equipment vendor field correctly uses the full vendor name and model. Minor: the instrument_vendor for the tube furnace combines vendor name and model number in one field, which is acceptable given the schema structure.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This is a high-quality extraction of the BNNT synthesis procedure from the source text. The extractor correctly identified all starting materials with their vendors and purities, captured the four-step synthesis process in correct order with accurate descriptions, identified all synthesis equipment with vendor/model information and physical specifications, and accurately recorded all synthesis conditions (temperature, duration, atmosphere, flow rate). The notes field provides valuable contextual information about the VLS mechanism and precursor rationale. Minor issues include: (1) MgB2 purity is left null despite the source stating all chemicals are analytical grade; (2) step 1 action is labeled 'mix' rather than 'grind'; (3) the temperature zone dimension (~60 cm) is not captured in equipment settings. These are very minor issues that do not significantly detract from the overall quality. The extraction demonstrates excellent fidelity to the source text without hallucination, and correctly leaves unspecified values as null. Overall score: approximately 4.6/5.0."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Temperature zone length (~60 cm) of the tube furnace is mentioned in the source but not captured in equipment settings.",
+                "Si/SiO2 substrate is mentioned as a substrate placed in the furnace but not listed as a starting material or substrate material."
+              ],
+              "extraction_errors": [
+                "MgB2 purity is listed as null, but the source text states 'All chemicals were of analytical grade and used as received' — this should apply to MgB2 as well.",
+                "Step 1 action is labeled 'mix' but the source text says 'weighed and grounded' — 'grind' would be a more accurate action classification."
+              ],
+              "improvement_suggestions": [
+                "Update MgB2 purity to 'analytical grade' since the source text explicitly states all chemicals were of analytical grade.",
+                "Change step 1 action from 'mix' to 'grind' to more accurately reflect the mechanical processing described in the source.",
+                "Add the temperature zone length (~60 cm) to the alumina tube or furnace equipment settings.",
+                "Consider adding Si/SiO2 substrate as a substrate material in the starting materials or as a separate field if the schema supports it.",
+                "Consider splitting the vendor and model number for the tube furnace into separate fields if the schema supports instrument_model as a distinct field."
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the specific synthesis parameters for Boron Nitride Nanotubes (BNNTs) described in the text. It correctly identifies the complex precursor mixture (B/MgO/MgB2), the specific molar ratios, and the high-temperature CVD process. The extraction of equipment details, including the specific model of the tube furnace and the dimensions of the alumina tube, is excellent. The sequencing of steps logically follows the experimental section, from precursor preparation to the final cooling phase.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "All major components of the synthesis—starting materials, multi-step preparation, specific equipment, and reaction conditions—are fully captured. The extraction includes the substrate and the specific gas flow rates mentioned in the text.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Chemical names, vendors, and purities are accurately extracted. The molar ratios and total mass (140 mg) are correctly identified in the descriptions. The only minor omission is the lack of individual mass calculations for each reagent, though the text only provides the total mass and ratios, so the extractor correctly avoided hallucinating specific weights.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps are logically ordered: grinding the primary precursor, mixing with the catalyst, the thermal CVD process, and the controlled cooling. The action classifications (mix, heat, cool) are appropriate.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system successfully extracted the furnace model (GSL-1700X) and vendor, as well as the specific dimensions of the alumina tube (120 cm length, 60 mm diameter) which are often missed in automated extractions.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperature (1400 C), duration (2 h), gas flow rate (200 sccm), and atmospheres (NH3 for growth, Ar for cooling) are all perfectly captured with correct units.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific context, correctly identifying MgB2 as a catalyst and the B/MgO as the precursor, reflecting the author's discussion on the VLS mechanism.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output adheres strictly to the JSON schema, using correct data types for numerical values and maintaining the required structure for the GeneralSynthesisOntology.",
+                "overall_score": 4.9,
+                "overall_reasoning": "This is an exceptional extraction that demonstrates high fidelity to the source text. It captures both the quantitative data (temperatures, times, ratios) and the qualitative technical details (equipment specs, specific vendors) without error. The handling of the two-stage precursor preparation is particularly well-executed."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the molar ratios are in the description, the system could potentially calculate the individual masses of B, MgO, and MgB2 based on the 140 mg total and the 2:1:1.5 ratio for even higher data utility, though this is an inference step beyond simple extraction."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates strong overall quality in capturing the BNNT synthesis procedure from the source text. The ontology correctly identifies the target material (BN), synthesis method (CVD), all five chemical reagents with accurate vendor information, and the four-step synthesis process with appropriate action classifications. Critical synthesis conditions (1400°C, 2h, 200 sccm NH3, Ar cooling) are accurately captured. However, there are notable gaps: the Si/SiO2 substrate is mentioned in step descriptions but not listed as a starting material or equipment item, and the temperature zone specification (~60 cm) for the furnace is missing from equipment settings. The extraction correctly leaves amount/unit fields null for solid reagents since the source only provides total precursor mass (140 mg) and molar ratios rather than individual quantities—this is appropriate behavior, not an error.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures most synthesis components including all chemical reagents, process steps, primary equipment, and synthesis conditions. The ontology structure is well-organized with clear separation of materials, steps, equipment, and conditions. However, the Si/SiO2 substrate is mentioned in step descriptions but not formally listed in starting_materials or equipment sections, representing a structural gap. The temperature zone specification (~60 cm) for the furnace is also missing from equipment settings. These omissions prevent a perfect score but the overall structure is comprehensive.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "All five chemical reagents (Boron, MgO, MgB2, NH3, Ar) are correctly extracted with accurate vendor information and purity specifications where stated in the source. The molar ratios (B:MgO:MgB2 = 2:1:1.5) and total precursor mass (140 mg) are properly captured in step descriptions. The extraction correctly leaves amount/unit fields null for solid reagents since the source provides only total mass and ratios, not individual quantities—this is correct behavior. However, the Si/SiO2 substrate, which is essential for BNNT growth, is not listed in starting_materials despite being mentioned in the procedure.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The four synthesis steps are accurately captured with correct sequencing (mix B/MgO → mix with MgB2 → heat → cool) and appropriate action classifications (mix, mix, heat, cool). Step descriptions preserve critical details including molar ratios, precursor mass, temperature, duration, and gas flow rates. The heating step correctly captures all synthesis conditions (1400°C, 2h, 200 sccm NH3). The cooling step properly notes Ar atmosphere. Minor improvement would be to explicitly note the substrate placement in step 3 as a distinct action or include it more prominently in the step description.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Primary synthesis equipment is well-captured: horizontal tube furnace with vendor (Hefei Kejing) and model (GSL-1700X), alumina tube with dimensions (120 cm length, 60 mm diameter), and alumina boat. However, the Si/SiO2 substrate is not listed in the equipment section despite being essential for the synthesis and mentioned in step 3. The temperature zone specification (~60 cm) for the furnace is also missing from equipment settings. Characterization equipment is appropriately excluded as it's not part of the synthesis procedure.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Critical synthesis conditions are accurately extracted: temperature (1400°C), duration (2h), atmosphere (NH3 for heating, Ar for cooling), and gas flow rate (200 sccm NH3). The extraction correctly leaves pressure as null since it's not specified in the source text. Temperature units (C) and time units (h) are consistent. The cooling step correctly notes 'natural' cooling without specifying duration, which matches the source. Minor improvement would be to note the heating rate if mentioned (not present in this source) or clarify that pressure is atmospheric by default.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning without misinterpretation or hallucination. The CVD synthesis method is correctly classified. Molar ratios, chemical names, and process descriptions accurately reflect the source text. The notes field appropriately captures the VLS mechanism and precursor composition context. No values are misrepresented or incorrectly inferred. The extraction correctly distinguishes between stated information and absent information (leaving fields null appropriately).",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON fully adheres to the GeneralSynthesisOntology schema with correct data types, field names, and structure. All required fields are present and properly formatted. Numeric values use appropriate types (float for temperature, duration, flow rate). String fields contain valid text. Null values are used correctly for unspecified information. The structure follows the expected ontology format with proper nesting of materials, steps, equipment, and conditions objects.",
+                "overall_score": 4.4,
+                "overall_reasoning": "This is a high-quality extraction that captures the essential synthesis information with strong accuracy and schema compliance. The extraction correctly identifies all chemical reagents with vendor information, captures the four-step synthesis process with appropriate action classifications, and accurately records critical synthesis conditions (1400°C, 2h, 200 sccm NH3). The main weaknesses are the omission of Si/SiO2 substrate from starting_materials and equipment sections, and missing temperature zone specification for the furnace. These are relatively minor gaps in an otherwise comprehensive extraction. The system appropriately leaves fields null when information is not stated in the source (e.g., individual reagent amounts, pressure, purity for MgB2), demonstrating good extraction discipline without hallucination. Overall score reflects strong performance with room for improvement in completeness."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Si/SiO2 substrate as starting material/equipment",
+                "Temperature zone length specification for furnace"
+              ],
+              "extraction_errors": [
+                "Si/SiO2 substrate not listed in starting_materials despite being mentioned in step 3 description",
+                "Si/SiO2 substrate not listed in equipment section",
+                "Temperature zone specification (~60 cm) missing from horizontal tube furnace equipment settings"
+              ],
+              "improvement_suggestions": [
+                "Add Si/SiO2 substrate to starting_materials list with appropriate classification as substrate material",
+                "Include Si/SiO2 substrate in equipment section for completeness",
+                "Add temperature zone length (approximately 60 cm) to horizontal tube furnace settings",
+                "Consider adding synthesis method details (horizontal tube furnace CVD) to synthesis_method field for more specificity"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a strong understanding of the CVD synthesis procedure for BNNTs, accurately capturing the key materials, molar ratios, equipment, and reaction conditions. It correctly identifies the multi-step precursor preparation and the main synthesis step. The ontology is well-structured and semantically faithful. The primary issues are minor: the target compound is more precisely 'BNNTs' or 'boron nitride nanotubes' rather than 'BN', and the 'alumina tube' is listed in equipment but not linked to any process step. The system correctly avoids hallucination for missing details like specific amounts of solid reagents.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures nearly all synthesis components from the source text: target material (BNNTs), synthesis method (CVD), all starting materials with vendors and purities, the multi-step process (mixing, heating, cooling), key equipment (furnace, boat, tube), and critical conditions (temperature, duration, atmosphere, gas flow). The only minor omission is the explicit mention of the 'Si/SiO2 substrate' as a material in the heating step, though it is referenced in the description. The structure logically organizes the information.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material extraction is highly accurate. All five starting materials (B, MgO, MgB2, NH3, Ar) are correctly identified with their vendors and purities as stated. The molar ratios (2:1 for B/MgO, 2:1:1.5 for B/MgO/MgB2) and the total precursor mass (140 mg) are correctly captured. The system correctly leaves 'amount' and 'unit' as null for solid reagents where only ratios are given, which is appropriate. The gas flow rate (200 sccm NH3) is correctly extracted. The target compound is listed as 'BN', which is chemically correct but less specific than 'BNNTs' or 'boron nitride nanotubes' as named in the paper.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "Process steps are perfectly extracted and organized. The four-step sequence (two mixing steps, heating, cooling) mirrors the source text exactly. Actions ('mix', 'heat', 'cool') are correctly classified. Descriptions are clear, concise, and include all critical details: molar ratios, total mass, placement of boat/substrate, temperature, time, and gas atmosphere. The logical flow from precursor preparation to synthesis to cooling is impeccably preserved.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Equipment extraction is good but has a minor structural inconsistency. The 'horizontal tube furnace' (with vendor) and 'alumina boat' are correctly identified and associated with the heating step. The 'alumina tube' (with dimensions) is correctly listed in the top-level equipment array. However, the ontology schema suggests equipment should be linked to steps; the 'alumina tube' is not referenced in any step's equipment list, though it is part of the furnace setup. This is a minor schema compliance issue rather than an accuracy error. No vendor/model is hallucinated for unspecified items.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Conditions extraction is excellent. All explicitly stated parameters are accurately captured: heating temperature (1400 °C), duration (2 h), atmosphere (NH3), gas flow rate (200 sccm linked to NH3 material), and cooling atmosphere (Ar). The system correctly does not infer or hallucinate pressure, stirring, or pH, as these are not mentioned. The units are consistent and correctly parsed. The conditions object for the cooling step appropriately has null values for temperature and duration, reflecting 'cool naturally to room temperature'.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "Semantic accuracy is very high. The scientific meaning, intent, and context of the synthesis are well-preserved. The notes correctly mention the VLS mechanism and the role of MgB2 as a catalyst. The precursor composition and experimental setup are accurately represented. The only semantic nuance lost is the specific target material form: 'BN' is chemically correct but the paper specifically synthesizes 'boron nitride nanotubes (BNNTs)', a nanomaterial. The 'target_compound_type' field correctly captures this as 'nanomaterials', mitigating the issue.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure largely complies with the expected GeneralSynthesisOntology schema. Data types are correct (numbers, strings, nulls). Required fields like steps and equipment are present and populated. The minor issue is the placement of 'alumina tube' in the top-level equipment array without a corresponding reference in a step's equipment list, which could be seen as a slight deviation from a strict step-centric equipment linkage. All other fields follow the schema appropriately, with nested objects for materials, conditions, and equipment correctly formatted.",
+                "overall_score": 4.6,
+                "overall_reasoning": "Overall, this is a high-quality extraction that faithfully and accurately structures the synthesis procedure from the source text. Strengths include precise capture of materials with vendors/purities, correct process sequencing, and excellent extraction of reaction conditions. Weaknesses are minimal: a slightly imprecise target compound name ('BN' vs. 'BNNTs') and a minor equipment linkage inconsistency. The system demonstrates good judgment by not hallucinating missing information. The extraction is scientifically sound, reproducible, and well-organized, suitable for database ingestion or further analysis."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The 'Si/SiO2 substrate' is mentioned in the step description but not explicitly listed as a material in the 'materials' array for step 3."
+              ],
+              "extraction_errors": [
+                "Target compound is listed as 'BN' instead of the more specific 'boron nitride nanotubes (BNNTs)' as per the paper.",
+                "Equipment 'alumina tube' is listed in the top-level array but not associated with any specific process step, creating a minor schema inconsistency."
+              ],
+              "improvement_suggestions": [
+                "When the target material is a specific nanostructure like nanotubes, use the full name (e.g., 'boron nitride nanotubes') or a common abbreviation (BNNTs) in the 'target_compound' field for clarity.",
+                "Ensure all equipment listed in the top-level array is also referenced in the relevant step's 'equipment' list to maintain clear step-equipment linkages.",
+                "Consider adding non-consumable items like substrates to the 'materials' list of a step if they are integral to the process, even if not consumed."
+              ]
+            },
+            "overall_score": 4.6
+          }
+        ]
+      }
+    ]
   }
 ]

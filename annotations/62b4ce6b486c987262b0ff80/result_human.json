@@ -1,102 +1,614 @@
-[
-  {
-    "material": "Au-Sn plasmonic alloy nanoparticles",
-    "synthesis": {
-      "target_compound": "Au-Sn plasmonic alloy nanoparticles",
-      "target_compound_type": "nanomaterials",
-      "synthesis_method": "other",
-      "starting_materials": [
+{
+  "schema_version": "multi_llm_v1",
+  "paper_id": "62b4ce6b486c987262b0ff80",
+  "paper_url": "https://chemrxiv.org/engage/api-gateway/chemrxiv/assets/orp/resource/item/62b4ce6b486c987262b0ff80/original/plasmon-manipulation-by-post-transition-metal-alloying.pdf",
+  "extractor_order": [
+    "claude-sonnet-4.6",
+    "gemini-3-flash",
+    "qwen3.5-397b-a17b",
+    "deepseek-v3.2"
+  ],
+  "materials": [
+    {
+      "material_name": "Ag-Sn nanoparticles",
+      "human_recipe": {
+        "target_compound": null,
+        "target_compound_type": null,
+        "synthesis_method": null,
+        "starting_materials": [],
+        "steps": [],
+        "equipment": [],
+        "notes": null
+      },
+      "evaluations": [
         {
-          "vendor": null,
-          "name": "citrate-capped Au nanoparticles",
-          "amount": 15.0,
-          "unit": "nm",
-          "purity": ""
+          "evaluation": {
+            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "material is correctly identified",
+              "process_steps_score": null,
+              "process_steps_reasoning": "not extracted",
+              "equipment_extraction_score": 5,
+              "equipment_extraction_reasoning": "not in main paper",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "not in main paper",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "good",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "good",
+              "overall_score": 3.6,
+              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
+            },
+            "confidence_level": 5,
+            "missing_information": ["type of process"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["extract clues from the text"]
+          }
         },
         {
-          "vendor": null,
-          "name": "SnCl4",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "reduce",
-          "description": "PTM-NM nanoparticles were synthesized using a seeded chemical reduction of Sn4+. The incorporation of Sn was controlled by modifying the added Sn amount. Temperature-dependent experiments were conducted to manipulate the diffusion of Sn into the Au seed and to probe the relation between optical and structural properties. Synthesis at 60˚C was found to give the most blue-shifted Localized Surface Plasmon Resonance (LSPR) and the greatest relative amount of Au5Sn phase.",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "SnCl4",
-              "amount": null,
-              "unit": null,
-              "purity": null
+          "evaluation": {
+            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "material is correctly identified",
+              "process_steps_score": null,
+              "process_steps_reasoning": "not extracted",
+              "equipment_extraction_score": 5,
+              "equipment_extraction_reasoning": "not in main paper",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "not in main paper",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "good",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "good",
+              "overall_score": 3.6,
+              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
             },
-            {
-                "vendor": null,
-                "name": "citrate-capped Au nanoparticles",
-                "amount": 15.0,
-                "unit": "nm",
-                "purity": null
-              }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": 60.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+            "confidence_level": 5,
+            "missing_information": ["type of process"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["extract clues from the text"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "material is correctly identified",
+              "process_steps_score": null,
+              "process_steps_reasoning": "not extracted",
+              "equipment_extraction_score": 5,
+              "equipment_extraction_reasoning": "not in main paper",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "not in main paper",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "good",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "good",
+              "overall_score": 3.6,
+              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
+            },
+            "confidence_level": 5,
+            "missing_information": ["type of process"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["extract clues from the text"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "material is correctly identified",
+              "process_steps_score": null,
+              "process_steps_reasoning": "not extracted",
+              "equipment_extraction_score": 5,
+              "equipment_extraction_reasoning": "not in main paper",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "not in main paper",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "good",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "good",
+              "overall_score": 3.6,
+              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
+            },
+            "confidence_level": 5,
+            "missing_information": ["type of process"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["extract clues from the text"]
           }
         }
-      ],
-      "equipment": [],
-      "notes": "Complete synthesis methodology is not provided in the main pdf."
+      ]
     },
-    "evaluation": {
-      "reasoning": "Sufficient experimental information is missing.",
-      "scores": {
-        "structural_completeness_score": 5,
-        "structural_completeness_reasoning": "Extracted structure is correct",
-        "material_extraction_score": 3.0,
-        "material_extraction_reasoning": "Stoichiometry is not exactly mentioned for all materials.",
-        "process_steps_score": 2.5,
-        "process_steps_reasoning": "Not provided in detail.",
-        "equipment_extraction_score": 2.5,
-        "equipment_extraction_reasoning": "Equipment details not provided.",
-        "conditions_extraction_score": 3.0,
-        "conditions_extraction_reasoning": "Conditions not mentioned for all procedures.",
-        "semantic_accuracy_score": 5.0,
-        "semantic_accuracy_reasoning": "Properly mentioned.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "Obeys the ontology.",
-        "overall_score": 3.71,
-        "overall_reasoning": "Not good."
+    {
+      "material_name": "Au-Bi nanoparticles",
+      "human_recipe": {
+        "target_compound": null,
+        "target_compound_type": null,
+        "synthesis_method": null,
+        "starting_materials": [],
+        "steps": [],
+        "equipment": [],
+        "notes": null
       },
-      "confidence_level": "low",
-      "missing_information": [
-        "Specific temperature values for incubation and alloying steps.",
-        "Detailed description of the synthesis procedure.",
-        "Vendor information for starting materials.",
-        "Purity of starting materials.",
-        "Duration of the alloying step.",
-        "Atmosphere during the reaction."
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Provide specific temperature values for the incubation and alloying steps.",
-        "Add more detail to the description of the synthesis procedure, including the order of operations and the actions performed.",
-        "Include vendor information for the starting materials.",
-        "Specify the purity of the starting materials.",
-        "Integrate the information from the notes section into the structured data."
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Au-In nanoparticles",
+            "human_recipe": {
+        "target_compound": null,
+        "target_compound_type": null,
+        "synthesis_method": null,
+        "starting_materials": [],
+        "steps": [],
+        "equipment": [],
+        "notes": null
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Au-Ga nanoparticles",
+        "human_recipe": {
+        "target_compound": null,
+        "target_compound_type": null,
+        "synthesis_method": null,
+        "starting_materials": [],
+        "steps": [],
+        "equipment": [],
+        "notes": null
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "they are not specifically mentioned in the text as being synthesised",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": null,
+              "overall_reasoning": "not applicable"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Au-Sn nanoparticles",
+        "human_recipe": {
+        "target_compound": null,
+        "target_compound_type": null,
+        "synthesis_method": null,
+        "starting_materials": [],
+        "steps": [],
+        "equipment": [],
+        "notes": null
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": 1.43,
+              "overall_reasoning": "the main method is missing, although mentioned in the text explicitely"
+            },
+            "confidence_level": 5,
+            "missing_information": ["target_compound: Au-Sn alloys and intermetallics",
+        "target_compound_type: alloys",
+        "synthesis_method: seeded chemical reduction",
+        "starting_materials: [PTM-NM, SnCl4, 15 nm citrate-capped Au nanoparticles]",
+        "steps: [mixing chemical reduction]",
+        "equipment: []",
+        "notes: the mixing is inferred from text]"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["add the above from page 5"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": 1.43,
+              "overall_reasoning": "the main method is missing, although mentioned in the text explicitely"
+            },
+            "confidence_level": 5,
+            "missing_information": ["target_compound: Au-Sn alloys and intermetallics",
+        "target_compound_type: alloys",
+        "synthesis_method: seeded chemical reduction",
+        "starting_materials: [PTM-NM, SnCl4, 15 nm citrate-capped Au nanoparticles]",
+        "steps: [mixing chemical reduction]",
+        "equipment: []",
+        "notes: the mixing is inferred from text]"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["add the above from page 5"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "",
+              "process_steps_score": null,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": null,
+              "format_compliance_reasoning": "",
+              "overall_score": 1.43,
+              "overall_reasoning": "the main method is missing, although mentioned in the text explicitely"
+            },
+            "confidence_level": 5,
+            "missing_information": ["target_compound: Au-Sn alloys and intermetallics",
+        "target_compound_type: alloys",
+        "synthesis_method: seeded chemical reduction",
+        "starting_materials: [PTM-NM, SnCl4, 15 nm citrate-capped Au nanoparticles]",
+        "steps: [mixing chemical reduction]",
+        "equipment: []",
+        "notes: the mixing is inferred from text]"],
+            "extraction_errors": ["missing information"],
+            "improvement_suggestions": ["add the above from page 5"]
+          }
+        }
       ]
     }
-  }
-]
+  ]
+}

@@ -1,0 +1,1024 @@
+[
+  {
+    "material": "Bi2-xSbxTe3",
+    "synthesis": {
+      "target_compound": "Bi2-xSbxTe3",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "microwave-assisted",
+      "starting_materials": [
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "BiCl3",
+          "amount": 1.6,
+          "unit": "g",
+          "purity": "98%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "SbCl3",
+          "amount": null,
+          "unit": null,
+          "purity": "99.95%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "Te powder",
+          "amount": 0.96,
+          "unit": "g",
+          "purity": "99.8%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "ethylene glycol",
+          "amount": 20.0,
+          "unit": "mL",
+          "purity": "99%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "thioglycolic acid",
+          "amount": 1.0,
+          "unit": "mL",
+          "purity": "98%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "tri-butyl phosphine",
+          "amount": 6.0,
+          "unit": "mL",
+          "purity": "93.5%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "tri-octyl phosphine",
+          "amount": 10.0,
+          "unit": "mL",
+          "purity": "90%"
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Preparation of Te precursor solution as a complex with TBP (or TOP)",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "Te powder",
+              "amount": 0.96,
+              "unit": "g",
+              "purity": "99.8%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "tri-butyl phosphine",
+              "amount": 6.0,
+              "unit": "mL",
+              "purity": "93.5%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "tri-octyl phosphine",
+              "amount": 10.0,
+              "unit": "mL",
+              "purity": "90%"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "microwave reactor",
+              "instrument_vendor": "flexiWAVE-Milestone",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 220.0,
+            "temp_unit": "\u00b0C",
+            "duration": 90.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dissolve",
+          "description": "Preparation of Bi (or Sb) precursor solution",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "BiCl3",
+              "amount": 1.6,
+              "unit": "g",
+              "purity": "98%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "ethylene glycol",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": "99%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "SbCl3",
+              "amount": null,
+              "unit": null,
+              "purity": "99.95%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "add",
+          "description": "Addition of directing agent and sonication",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "thioglycolic acid",
+              "amount": 1.0,
+              "unit": "mL",
+              "purity": "98%"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "sonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "mix",
+          "description": "Mixing of Te-TOP complex and Bi/Sb-EG solutions",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "Microwave reaction",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "microwave reactor",
+              "instrument_vendor": "flexiWAVE-Milestone",
+              "settings": null
+            },
+            {
+              "name": "Teflon vessel",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 220.0,
+            "temp_unit": "\u00b0C",
+            "duration": 2.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "cool",
+          "description": "Cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "centrifuge",
+          "description": "Separation and washing",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "iso-propanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "microwave reactor",
+          "instrument_vendor": "flexiWAVE-Milestone",
+          "settings": "1800 Watt; equipped with multivessel high pressure rotor"
+        },
+        {
+          "name": "Teflon vessel",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "centrifuge",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "sonicator",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The stoichiometry of ternary compositions can easily be tuned by replacing the BiCl3 precursor with equivalent moles of SbCl3. The synthesis work was performed via MW-assisted thermolysis reaction inside a 100 mL Teflon vessel, in 4 parallel reaction vessels at a single run. The product (dark powder), which is about 2 g per vessel, was then cooled down to room temperature. The multivessel high pressure rotor was used for the MW synthesis work, where only four of the fifteen reactor positions were more than enough to prepare large quantity (>8 g) of the desired materials in a single run."
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core synthesis steps and materials effectively, particularly the microwave-assisted polyol method. The stoichiometry adjustment for ternary compositions is noted. However, there are areas for improvement, especially in detailing the separation and washing steps, and in fully specifying equipment settings. The conditions extraction is generally good, but could benefit from more precision where available. Overall, the extraction provides a solid foundation but lacks some finer details for complete reproducibility.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most aspects of the synthesis, including materials, steps, equipment, and conditions. However, some details are missing, such as the number of washing cycles and centrifuge settings.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material extraction is accurate, with correct names, amounts, units, and purities. The use of null values when amounts are variable (like SbCl3) is appropriate. However, the solvent for washing is not quantified.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and actions are classified correctly. The description of each step is clear. However, the separation and washing step could be more detailed (e.g., number of washes, centrifugation speed).",
+        "equipment_extraction_score": 3.5,
+        "equipment_extraction_reasoning": "Equipment extraction identifies key instruments like the microwave reactor and sonicator. The microwave reactor's settings are partially specified. However, the centrifuge and sonicator lack specific settings.",
+        "conditions_extraction_score": 4.0,
+        "conditions_extraction_reasoning": "Conditions extraction is accurate for temperature and duration in the heating steps. Stirring is noted. However, pressure and atmosphere are not specified, and sonication conditions are missing.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are accurately represented.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extraction adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-executed, capturing the essential details of the synthesis. Areas for improvement include adding more specific equipment settings and process details to enhance reproducibility."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Number of washing cycles during separation.",
+        "Centrifuge settings (speed, duration).",
+        "Sonicator settings (power, duration).",
+        "Atmosphere during heating steps.",
+        "Quantities of iso-propanol and acetone used for washing."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Specify the number of washing cycles in the separation step.",
+        "Include centrifuge settings (speed, duration) in the separation step.",
+        "Add sonicator settings (power, duration) to the sonication step.",
+        "If available, specify the atmosphere during the heating steps.",
+        "Quantify the amount of iso-propanol and acetone used for washing."
+      ]
+    }
+  },
+  {
+    "material": "Bi2Te3",
+    "synthesis": {
+      "target_compound": "Bi2Te3",
+      "target_compound_type": "nanomaterials",
+      "synthesis_method": "microwave-assisted",
+      "starting_materials": [
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "BiCl3",
+          "amount": 1.6,
+          "unit": "g",
+          "purity": "98%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "Te powder",
+          "amount": 0.96,
+          "unit": "g",
+          "purity": "99.8%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "ethylene glycol",
+          "amount": 20.0,
+          "unit": "mL",
+          "purity": "99%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "tri-butyl phosphine",
+          "amount": 6.0,
+          "unit": "mL",
+          "purity": "93.5%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "thioglycolic acid",
+          "amount": 1.0,
+          "unit": "mL",
+          "purity": "98%"
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Preparation of Te precursor solution as a complex with TBP",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "Te powder",
+              "amount": 0.96,
+              "unit": "g",
+              "purity": "99.8%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "tri-butyl phosphine",
+              "amount": 6.0,
+              "unit": "mL",
+              "purity": "93.5%"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "microwave reactor",
+              "instrument_vendor": "flexiWAVE-Milestone",
+              "settings": "1800 Watt"
+            }
+          ],
+          "conditions": {
+            "temperature": 220.0,
+            "temp_unit": "C",
+            "duration": 90.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dissolve",
+          "description": "Preparation of Bi precursor solution",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "BiCl3",
+              "amount": 1.6,
+              "unit": "g",
+              "purity": "98%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "ethylene glycol",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": "99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "add",
+          "description": "Addition of directing agent and sonication",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "thioglycolic acid",
+              "amount": 1.0,
+              "unit": "mL",
+              "purity": "98%"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "sonicator",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "mix",
+          "description": "Mixing of Te-TBP complex and Bi-EG solutions",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "heat",
+          "description": "Microwave reaction",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "microwave reactor",
+              "instrument_vendor": "flexiWAVE-Milestone",
+              "settings": "1800 Watt"
+            },
+            {
+              "name": "Teflon vessel",
+              "instrument_vendor": null,
+              "settings": "100 mL"
+            }
+          ],
+          "conditions": {
+            "temperature": 220.0,
+            "temp_unit": "C",
+            "duration": 2.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "cool",
+          "description": "Cooling to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "centrifuge",
+          "description": "Separation and washing",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "iso-propanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "microwave reactor",
+          "instrument_vendor": "flexiWAVE-Milestone",
+          "settings": "1800 Watt; equipped with multivessel high pressure rotor"
+        },
+        {
+          "name": "Teflon vessel",
+          "instrument_vendor": null,
+          "settings": "100 mL"
+        },
+        {
+          "name": "centrifuge",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": "The synthesis work was performed via MW-assisted thermolysis reaction inside a 100 mL Teflon vessel, in 4 parallel reaction vessels at a single run. The product (dark powder), which is about 2 g per vessel, was then cooled down to room temperature. Particles were easily separated from the reaction mixture by centrifuging and washing with iso-propanol and acetone several times."
+    },
+    "evaluation": {
+      "reasoning": "The extracted ontology captures the core elements of the Bi2Te3 synthesis procedure, including materials, steps, equipment, and conditions. The extraction is generally accurate, with correct values and units. However, there are some areas for improvement, particularly in capturing all relevant details and ensuring complete semantic accuracy.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The ontology covers most of the synthesis information, including materials, steps, equipment, and conditions. However, some details are missing, such as the specific type of sonicator used and the number of washing cycles during the separation step. The description of the multivessel rotor could be more detailed.",
+        "material_extraction_score": 4.5,
+        "material_extraction_reasoning": "Material extraction is generally accurate, with correct names, amounts, units, and purities. The vendor information is also well-captured. However, the amounts of iso-propanol and acetone used for washing are not specified, which could be considered a minor omission.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are generally well-organized and accurately reflect the synthesis procedure. The sequencing of steps is correct, and the action classifications are appropriate. However, the description of the 'mixing' step (step 4) is vague and could benefit from more detail. Also, the number of washing cycles in step 7 is missing.",
+        "equipment_extraction_score": 4.0,
+        "equipment_extraction_reasoning": "Equipment extraction is reasonably complete, with the microwave reactor, Teflon vessel, and centrifuge identified. The vendor and settings for the microwave reactor are also provided. However, the specific type of sonicator used is not mentioned, and the technical specifications of the centrifuge are missing.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The extraction of synthesis conditions is mostly accurate, with correct temperature, duration, and stirring information. However, the pressure and atmosphere are not specified, which is acceptable if they were not explicitly mentioned in the source text. The temperature and duration values are correctly extracted with appropriate units.",
+        "semantic_accuracy_score": 4.0,
+        "semantic_accuracy_reasoning": "The extracted ontology generally preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, equipment, and conditions are correctly represented. However, the lack of detail in some descriptions (e.g., the 'mixing' step) slightly reduces the semantic accuracy.",
+        "format_compliance_score": 5.0,
+        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted, and the data types are appropriate.",
+        "overall_score": 4.3,
+        "overall_reasoning": "Overall, the ontology extraction is of good quality, accurately capturing the key elements of the Bi2Te3 synthesis procedure. The structural completeness, material extraction, conditions extraction, and format compliance are particularly strong. Areas for improvement include providing more detail in the process step descriptions and equipment specifications."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Specific type of sonicator used.",
+        "Number of washing cycles during the separation step.",
+        "Technical specifications of the centrifuge."
+      ],
+      "extraction_errors": [],
+      "improvement_suggestions": [
+        "Provide more detail in the description of the 'mixing' step (step 4).",
+        "Specify the type of sonicator used in step 3.",
+        "Include the number of washing cycles in step 7.",
+        "Add technical specifications for the centrifuge if available in the source text."
+      ]
+    }
+  },
+  {
+    "material": "Sb2Te3",
+    "synthesis": {
+      "target_compound": "Sb2Te3",
+      "target_compound_type": "semiconductors & electronic",
+      "synthesis_method": "microwave-assisted",
+      "starting_materials": [
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "SbCl3",
+          "amount": null,
+          "unit": "g",
+          "purity": "99.95%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "Te powder",
+          "amount": 0.96,
+          "unit": "g",
+          "purity": "99.8%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "ethylene glycol",
+          "amount": 20.0,
+          "unit": "mL",
+          "purity": "99%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "tri-butyl phosphine",
+          "amount": 6.0,
+          "unit": "mL",
+          "purity": "93.5%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "tri-octyl phosphine",
+          "amount": 10.0,
+          "unit": "mL",
+          "purity": "90%"
+        },
+        {
+          "vendor": "Sigma Aldrich, Sweden",
+          "name": "thioglycolic acid",
+          "amount": 1.0,
+          "unit": "mL",
+          "purity": "98%"
+        }
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "heat",
+          "description": "Te precursor solution was prepared as a complex with TBP (or TOP)",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "Te powder",
+              "amount": 0.96,
+              "unit": "g",
+              "purity": "99.8%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "tri-butyl phosphine",
+              "amount": 6.0,
+              "unit": "mL",
+              "purity": "93.5%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "tri-octyl phosphine",
+              "amount": 10.0,
+              "unit": "mL",
+              "purity": "90%"
+            }
+          ],
+          "equipment": [
+            {
+              "name": "microwave reactor",
+              "instrument_vendor": "flexiWAVE-Milestone",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 220.0,
+            "temp_unit": "C",
+            "duration": 90.0,
+            "time_unit": "s",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 2,
+          "action": "dissolve",
+          "description": "Sb precursor",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "SbCl3",
+              "amount": 1.6,
+              "unit": "g",
+              "purity": "99.95%"
+            },
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "ethylene glycol",
+              "amount": 20.0,
+              "unit": "mL",
+              "purity": "99%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 3,
+          "action": "add",
+          "description": "directing agent",
+          "materials": [
+            {
+              "vendor": "Sigma Aldrich, Sweden",
+              "name": "thioglycolic acid",
+              "amount": 1.0,
+              "unit": "mL",
+              "purity": "98%"
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 4,
+          "action": "sonicate",
+          "description": "to obtain a homogeneous solution",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 5,
+          "action": "mix",
+          "description": "mixing Te-TOP complex and Sb-EG solutions",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 6,
+          "action": "heat",
+          "description": "MW reaction",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "microwave reactor",
+              "instrument_vendor": "flexiWAVE-Milestone",
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": 220.0,
+            "temp_unit": "C",
+            "duration": 2.0,
+            "time_unit": "min",
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": true,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 7,
+          "action": "cool",
+          "description": "cooling down to room temperature",
+          "materials": [],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 8,
+          "action": "centrifuge",
+          "description": "separating particles from the reaction mixture",
+          "materials": [],
+          "equipment": [
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": null
+            }
+          ],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        },
+        {
+          "step_number": 9,
+          "action": "wash",
+          "description": "washing with iso-propanol and acetone several times",
+          "materials": [
+            {
+              "vendor": null,
+              "name": "iso-propanol",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "acetone",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "equipment": [],
+          "conditions": {
+            "temperature": null,
+            "temp_unit": null,
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": null,
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+          }
+        }
+      ],
+      "equipment": [
+        {
+          "name": "microwave reactor",
+          "instrument_vendor": "flexiWAVE-Milestone",
+          "settings": "1800 Watt; equipped with multivessel high pressure rotor"
+        },
+        {
+          "name": "100 mL Teflon vessel",
+          "instrument_vendor": null,
+          "settings": null
+        },
+        {
+          "name": "centrifuge",
+          "instrument_vendor": null,
+          "settings": null
+        }
+      ],
+      "notes": null
+    },
+    "evaluation": {
+      "reasoning": "The extraction captures the core elements of the Sb2Te3 synthesis, including materials, steps, equipment, and conditions. The extraction accurately represents the two-stage heating process, the use of a microwave reactor, and the materials involved. However, there are areas for improvement, particularly in specifying the quantities of all starting materials and providing more detail on the centrifuge washing steps. The format compliance is generally good, but some fields could be more structured. Overall, the extraction provides a solid foundation but needs refinement for completeness and accuracy.",
+      "scores": {
+        "structural_completeness_score": 4.0,
+        "structural_completeness_reasoning": "The extraction covers most of the key synthesis steps and materials. However, it could benefit from including more details about the washing and separation steps, as well as specifying the quantities of all starting materials.",
+        "material_extraction_score": 4.0,
+        "material_extraction_reasoning": "Material extraction is generally accurate, including vendors and purities. However, the amount of SbCl3 is missing. The units are correctly identified. The chemical names are accurate.",
+        "process_steps_score": 4.0,
+        "process_steps_reasoning": "The process steps are logically sequenced and mostly complete. The description of each step is clear. However, the description of the 'mix' action is vague and could be improved.",
+        "equipment_extraction_score": 4.5,
+        "equipment_extraction_reasoning": "The equipment extraction is good, correctly identifying the microwave reactor and centrifuge. The vendor for the microwave reactor is also provided. More specific settings for the centrifuge could be included if available in the text.",
+        "conditions_extraction_score": 4.5,
+        "conditions_extraction_reasoning": "The extraction of conditions is accurate, including temperature and duration for the heating steps. The stirring condition is also correctly identified. However, the pressure and atmosphere are not specified, which is acceptable if not mentioned in the text.",
+        "semantic_accuracy_score": 4.5,
+        "semantic_accuracy_reasoning": "The semantic accuracy is high, preserving the scientific meaning of the synthesis procedure. The relationships between materials, steps, and conditions are correctly represented.",
+        "format_compliance_score": 4.0,
+        "format_compliance_reasoning": "The extraction generally adheres to the GeneralSynthesisOntology schema. However, some fields could be more structured, such as providing specific settings for the centrifuge.",
+        "overall_score": 4.2,
+        "overall_reasoning": "The extraction is generally well-done, capturing the key aspects of the Sb2Te3 synthesis. Areas for improvement include specifying the quantities of all starting materials, providing more detail on the centrifuge washing steps, and adding more specific settings for the centrifuge."
+      },
+      "confidence_level": "high",
+      "missing_information": [
+        "Amount of SbCl3.",
+        "Specific settings for the centrifuge.",
+        "Number of washes and duration of each wash during the washing step."
+      ],
+      "extraction_errors": [
+        "Missing amount of SbCl3 in the starting materials.",
+        "The description of the 'mix' action is vague."
+      ],
+      "improvement_suggestions": [
+        "Include the amount of SbCl3 in the starting materials.",
+        "Provide more detail on the centrifuge washing steps, including the number of washes and the duration of each wash.",
+        "Add more specific settings for the centrifuge, such as the speed and duration of centrifugation.",
+        "Improve the description of the 'mix' action to be more specific about how the solutions are mixed."
+      ]
+    }
+  }
+]

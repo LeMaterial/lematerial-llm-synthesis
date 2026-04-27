@@ -15,21 +15,44 @@ Usage:
     python run_performance_only.py
 
     # Specify custom results and PDF directories
-    python run_performance_only.py --results ../data/results_catalysis --pdfs ../data/pdf_papers/catalysis_corpus
+    python run_performance_only.py --results ../data/results_catalysis \\
+        --pdfs ../data/pdf_papers/catalysis_corpus
 
     # Process only papers missing performance data
     python run_performance_only.py --only-missing
 """
+# ==============================================================================
+# IMPORTS
+# ==============================================================================
 
 import argparse
 import json
 import logging
-import os
 import sys
 import time
 import traceback
 import warnings
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+from llm_synthesis.config.plot_filter_config import PlotFilterConfig
+from llm_synthesis.metrics.judge.linking_judge import (
+    DspyLinkingJudge,
+    make_linking_judge_signature,
+)
+from llm_synthesis.transformers.figure_extraction import FigureExtractorMarkdown
+from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
+from llm_synthesis.transformers.performance_linking.\
+    series_material_linker import (
+    SeriesMaterialLinker,
+)
+from llm_synthesis.transformers.plot_extraction.claude_extraction.\
+    plot_data_extraction import (
+    ClaudeLinePlotDataExtractor,
+)
+from llm_synthesis.utils.dspy_utils import get_llm_from_name
+from llm_synthesis.utils.performance_utils import sanitize_filename
 
 # ==============================================================================
 # CONFIGURATION
@@ -51,8 +74,6 @@ src_path = Path("../../src").resolve()
 if str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
 
-from dotenv import load_dotenv
-
 env_path = Path("../../.env")
 load_dotenv(env_path, override=True)
 
@@ -68,37 +89,22 @@ logging.basicConfig(
     datefmt="%H:%M:%S",
 )
 logger = logging.getLogger("performance_runner")
-
-# ==============================================================================
-# IMPORTS
-# ==============================================================================
-
-import dspy
-
-from llm_synthesis.config.plot_filter_config import PlotFilterConfig
-from llm_synthesis.models.paper import Paper
-from llm_synthesis.metrics.judge.linking_judge import (
-    DspyLinkingJudge,
-    make_linking_judge_signature,
-)
-from llm_synthesis.transformers.figure_extraction import FigureExtractorMarkdown
-from llm_synthesis.transformers.pdf_extraction import MistralPDFExtractor
-from llm_synthesis.transformers.performance_linking.series_material_linker import (
-    SeriesMaterialLinker,
-)
-from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (
-    ClaudeLinePlotDataExtractor,
-)
-from llm_synthesis.utils.dspy_utils import get_llm_from_name
-from llm_synthesis.utils.performance_utils import sanitize_filename
-
-
 # ==============================================================================
 # SI FILE DETECTION (copied from run_all_papers.py)
 # ==============================================================================
 
-SI_PATTERNS = ["_SI", "-SI", "_si", "-si", "_Supporting", "_supporting",
-               "_Supplementary", "_supplementary", "_supp", "_Supp"]
+SI_PATTERNS = [
+    "_SI",
+    "-SI",
+    "_si",
+    "-si",
+    "_Supporting",
+    "_supporting",
+    "_Supplementary",
+    "_supplementary",
+    "_supp",
+    "_Supp",
+]
 
 
 def is_si_file(path: Path) -> bool:
@@ -128,7 +134,7 @@ def load_file_text(path: Path, pdf_extractor: MistralPDFExtractor) -> str:
         with open(path, "rb") as f:
             return pdf_extractor.forward(f.read())
     elif suffix in [".md", ".txt"]:
-        with open(path, "r", errors="replace") as f:
+        with open(path, errors="replace") as f:
             return f.read()
     else:
         raise ValueError(f"Unsupported file type: {suffix}")
@@ -137,6 +143,7 @@ def load_file_text(path: Path, pdf_extractor: MistralPDFExtractor) -> str:
 # ==============================================================================
 # INITIALIZE COMPONENTS
 # ==============================================================================
+
 
 def init_components():
     """Initialize components needed for performance extraction."""
@@ -172,12 +179,20 @@ def init_components():
     filter_config = PlotFilterConfig.for_catalysis()
 
     logger.info("Components initialized.")
-    return pdf_extractor, figure_extractor, plot_extractor, series_linker, linking_judge, filter_config
+    return (
+        pdf_extractor,
+        figure_extractor,
+        plot_extractor,
+        series_linker,
+        linking_judge,
+        filter_config,
+    )
 
 
 # ==============================================================================
 # LOAD EXISTING SYNTHESIS
 # ==============================================================================
+
 
 def load_existing_synthesis(result_dir: Path) -> list[tuple[str, dict]]:
     """Load existing synthesis data from a result directory.
@@ -189,7 +204,11 @@ def load_existing_synthesis(result_dir: Path) -> list[tuple[str, dict]]:
 
     for json_file in result_dir.glob("*.json"):
         # Skip summary files
-        if "linking_summary" in json_file.name or "batch_summary" in json_file.name or "performance_mappings" in json_file.name:
+        if (
+            "linking_summary" in json_file.name
+            or "batch_summary" in json_file.name
+            or "performance_mappings" in json_file.name
+        ):
             continue
 
         try:
@@ -225,6 +244,7 @@ def find_pdf_for_paper(paper_id: str, pdf_dir: Path) -> Path | None:
 # PROCESS ONE PAPER
 # ==============================================================================
 
+
 def process_paper_performance(
     paper_id: str,
     result_dir: Path,
@@ -248,7 +268,9 @@ def process_paper_performance(
     logger.info("Step 1: Loading existing synthesis data...")
     existing_materials = load_existing_synthesis(result_dir)
     material_names = [m[0] for m in existing_materials]
-    logger.info(f"  Found {len(existing_materials)} materials: {material_names}")
+    logger.info(
+        f"  Found {len(existing_materials)} materials: {material_names}"
+    )
 
     if not existing_materials:
         raise ValueError("No existing synthesis data found")
@@ -297,6 +319,7 @@ def process_paper_performance(
         try:
             # Create FigureInfoWithPaper for the extractor
             from llm_synthesis.models.figure import FigureInfoWithPaper
+
             fig_with_paper = FigureInfoWithPaper(
                 base64_data=fig.base64_data,
                 alt_text=fig.alt_text,
@@ -310,14 +333,19 @@ def process_paper_performance(
                 si_text="",
             )
             extracted = plot_extractor.forward(fig_with_paper)
-            if extracted and hasattr(extracted, 'series') and extracted.series:
+            if extracted and hasattr(extracted, "series") and extracted.series:
                 plots.append(extracted)
                 plot_figures.append(fig)
-                logger.info(f"    {fig.figure_reference}: {len(extracted.series)} series extracted")
+                logger.info(
+                    f"    {fig.figure_reference}: "
+                    f"{len(extracted.series)} series extracted"
+                )
             else:
                 logger.info(f"    {fig.figure_reference}: no series data")
         except Exception as e:
-            logger.warning(f"    {fig.figure_reference}: extraction failed - {e}")
+            logger.warning(
+                f"    {fig.figure_reference}: extraction failed - {e}"
+            )
 
     logger.info(f"  Extracted data from {len(plots)} plots")
 
@@ -334,33 +362,40 @@ def process_paper_performance(
         }
 
     # Step 5: Filter and link plots to materials
-    logger.info(f"Step 5: Linking {len(plots)} plots to {len(material_names)} materials...")
+    logger.info(
+        f"Step 5: Linking {len(plots)} plots to "
+        f"{len(material_names)} materials..."
+    )
 
     # Filter plots based on config
     filtered_plots = []
     filtered_figures = []
 
     for plot, fig in zip(plots, plot_figures):
-        x_axis = getattr(plot, 'x_axis_label', '') or ''
-        y_axis = getattr(plot, 'y_axis_label', '') or ''
-        x_unit = getattr(plot, 'x_axis_unit', '') or ''
-        y_unit = getattr(plot, 'y_axis_unit', '') or ''
+        x_axis = getattr(plot, "x_axis_label", "") or ""
+        y_axis = getattr(plot, "y_axis_label", "") or ""
+        x_unit = getattr(plot, "x_axis_unit", "") or ""
+        y_unit = getattr(plot, "y_axis_unit", "") or ""
 
         # Check if x-axis is relevant (temperature, time, etc.)
         x_relevant = filter_config.is_relevant_x_axis(x_axis, x_unit)
         y_relevant = filter_config.is_relevant_y_axis(y_axis, y_unit)
 
         if not x_relevant:
-            logger.info(f"  Skipping plot (not_relevant_x): x='{x_axis}' [{x_unit}]")
+            logger.info(
+                f"  Skipping plot (not_relevant_x): x='{x_axis}' [{x_unit}]"
+            )
             continue
         if not y_relevant:
-            logger.info(f"  Skipping plot (not_relevant_y): y='{y_axis}' [{y_unit}]")
+            logger.info(
+                f"  Skipping plot (not_relevant_y): y='{y_axis}' [{y_unit}]"
+            )
             continue
 
         # Check if plot has series data
-        series = getattr(plot, 'series', []) or []
+        series = getattr(plot, "series", []) or []
         if not series:
-            logger.info(f"  Skipping plot (no_series)")
+            logger.info("  Skipping plot (no_series)")
             continue
 
         filtered_plots.append(plot)
@@ -385,7 +420,10 @@ def process_paper_performance(
     all_unmatched = []
 
     for i, (plot, fig) in enumerate(zip(filtered_plots, filtered_figures)):
-        logger.info(f"    Linking plot {i} ({fig.figure_reference}, {len(plot.series)} series)")
+        logger.info(
+            f"    Linking plot {i} ({fig.figure_reference}, "
+            f"{len(plot.series)} series)"
+        )
         try:
             mapping = series_linker.forward(
                 plot=plot,
@@ -395,8 +433,14 @@ def process_paper_performance(
             )
             if mapping:
                 plot_mappings.append(mapping)
-                matched = sum(1 for m in mapping.series_mappings if m.material_name)
-                unmatched = [m.series_name for m in mapping.series_mappings if not m.material_name]
+                matched = sum(
+                    1 for m in mapping.series_mappings if m.material_name
+                )
+                unmatched = [
+                    m.series_name
+                    for m in mapping.series_mappings
+                    if not m.material_name
+                ]
                 all_unmatched.extend(unmatched)
                 logger.info(f"      Matched: {matched}, Unmatched: {unmatched}")
         except Exception as e:
@@ -416,8 +460,8 @@ def process_paper_performance(
                 paper_text=full_text[:30000],
             )
             if linking_evaluation:
-                score = getattr(linking_evaluation, 'overall_score', None)
-                flags = getattr(linking_evaluation, 'failure_flags', [])
+                score = getattr(linking_evaluation, "overall_score", None)
+                flags = getattr(linking_evaluation, "failure_flags", [])
                 logger.info(f"  Linking evaluation score: {score}/5.0")
                 if flags:
                     logger.info(f"  Failure flags: {flags}")
@@ -427,13 +471,18 @@ def process_paper_performance(
     # Step 7: Aggregate performance data per material
     logger.info("Step 7: Aggregating performance data...")
 
-    from llm_synthesis.models.performance import MaterialPerformance, PerformanceDataPoint
+    from llm_synthesis.models.performance import (
+        PerformanceDataPoint,
+    )
 
     material_performance = {name: [] for name in material_names}
 
     for mapping in plot_mappings:
         for series_mapping in mapping.series_mappings:
-            if series_mapping.material_name and series_mapping.material_name in material_performance:
+            if (
+                series_mapping.material_name
+                and series_mapping.material_name in material_performance
+            ):
                 # Create performance data point
                 data_point = PerformanceDataPoint(
                     figure_number=mapping.figure_number,
@@ -442,12 +491,18 @@ def process_paper_performance(
                     x_axis_unit=mapping.x_axis_unit,
                     y_axis_label=mapping.y_axis_label,
                     y_axis_unit=mapping.y_axis_unit,
-                    data_points=series_mapping.data_points if hasattr(series_mapping, 'data_points') else [],
+                    data_points=series_mapping.data_points
+                    if hasattr(series_mapping, "data_points")
+                    else [],
                     confidence=series_mapping.confidence,
                 )
-                material_performance[series_mapping.material_name].append(data_point)
+                material_performance[series_mapping.material_name].append(
+                    data_point
+                )
 
-    materials_with_perf = sum(1 for perfs in material_performance.values() if perfs)
+    materials_with_perf = sum(
+        1 for perfs in material_performance.values() if perfs
+    )
     logger.info(f"  {materials_with_perf} materials have performance data")
 
     # Step 8: Update result files
@@ -463,13 +518,20 @@ def process_paper_performance(
         if perf_data:
             mat_data["performance"] = {
                 "material_name": material_name,
-                "data_points": [dp.model_dump() if hasattr(dp, 'model_dump') else dp.__dict__ for dp in perf_data],
+                "data_points": [
+                    dp.model_dump()
+                    if hasattr(dp, "model_dump")
+                    else dp.__dict__
+                    for dp in perf_data
+                ],
             }
         else:
             mat_data["performance"] = None
 
         # Add linking evaluation
-        mat_data["linking_evaluation"] = linking_evaluation.model_dump() if linking_evaluation else None
+        mat_data["linking_evaluation"] = (
+            linking_evaluation.model_dump() if linking_evaluation else None
+        )
 
         with open(mat_path, "w") as f:
             json.dump(mat_data, f, indent=2, default=str)
@@ -478,13 +540,22 @@ def process_paper_performance(
     if plot_mappings:
         mappings_path = result_dir / "performance_mappings.json"
         with open(mappings_path, "w") as f:
-            json.dump([m.model_dump() for m in plot_mappings], f, indent=2, default=str)
+            json.dump(
+                [m.model_dump() for m in plot_mappings],
+                f,
+                indent=2,
+                default=str,
+            )
 
     # Update linking summaries
     processing_time = time.time() - paper_start
 
-    materials_with_perf_list = [name for name, perfs in material_performance.items() if perfs]
-    materials_without_perf_list = [name for name, perfs in material_performance.items() if not perfs]
+    materials_with_perf_list = [
+        name for name, perfs in material_performance.items() if perfs
+    ]
+    materials_without_perf_list = [
+        name for name, perfs in material_performance.items() if not perfs
+    ]
 
     base_summary = {
         "paper_id": paper_id,
@@ -503,7 +574,9 @@ def process_paper_performance(
 
     # LLM summary
     llm_summary = {**base_summary}
-    llm_summary["linking_evaluation"] = linking_evaluation.model_dump() if linking_evaluation else None
+    llm_summary["linking_evaluation"] = (
+        linking_evaluation.model_dump() if linking_evaluation else None
+    )
 
     with open(result_dir / "linking_summary_llm.json", "w") as f:
         json.dump(llm_summary, f, indent=2, default=str)
@@ -512,8 +585,16 @@ def process_paper_performance(
     human_summary = {**base_summary}
     human_summary["linking_evaluation"] = {
         "reasoning": None,
-        "scores": {k: None for k in ["material_identity_score", "performance_data_correctness_score",
-                                      "completeness_score", "format_structure_score", "overall_score"]},
+        "scores": {
+            k: None
+            for k in [
+                "material_identity_score",
+                "performance_data_correctness_score",
+                "completeness_score",
+                "format_structure_score",
+                "overall_score",
+            ]
+        },
         "failure_flags": {f"f{i}": None for i in range(1, 10)},
     }
 
@@ -537,6 +618,7 @@ def process_paper_performance(
 # ==============================================================================
 # MAIN
 # ==============================================================================
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -595,7 +677,9 @@ def main():
             with open(summary_path) as f:
                 summary = json.load(f)
             if summary.get("materials_with_performance", 0) > 0:
-                logger.info(f"Skipping {paper_dir.name} (already has performance data)")
+                logger.info(
+                    f"Skipping {paper_dir.name} (already has performance data)"
+                )
                 continue
 
         # Find PDF
@@ -607,7 +691,7 @@ def main():
         papers_to_process.append((paper_dir.name, paper_dir, pdf_path))
 
     if args.max:
-        papers_to_process = papers_to_process[:args.max]
+        papers_to_process = papers_to_process[: args.max]
 
     logger.info(f"Found {len(papers_to_process)} papers to process")
     for paper_id, _, pdf_path in papers_to_process:
@@ -618,7 +702,14 @@ def main():
         sys.exit(0)
 
     # Initialize components
-    pdf_extractor, figure_extractor, plot_extractor, series_linker, linking_judge, filter_config = init_components()
+    (
+        pdf_extractor,
+        figure_extractor,
+        plot_extractor,
+        series_linker,
+        linking_judge,
+        filter_config,
+    ) = init_components()
 
     # Process each paper
     all_summaries = []
@@ -631,16 +722,28 @@ def main():
 
         try:
             summary = process_paper_performance(
-                paper_id, result_dir, pdf_path,
-                pdf_extractor, figure_extractor, plot_extractor,
-                series_linker, linking_judge, filter_config,
+                paper_id,
+                result_dir,
+                pdf_path,
+                pdf_extractor,
+                figure_extractor,
+                plot_extractor,
+                series_linker,
+                linking_judge,
+                filter_config,
             )
             all_summaries.append(summary)
         except Exception as e:
             error_str = str(e).lower()
-            if "rate" in error_str or "429" in error_str or "quota" in error_str:
+            if (
+                "rate" in error_str
+                or "429" in error_str
+                or "quota" in error_str
+            ):
                 logger.error(f"RATE LIMIT - stopping: {e}")
-                all_summaries.append({"paper_id": paper_id, "error": f"RATE_LIMIT: {e}"})
+                all_summaries.append(
+                    {"paper_id": paper_id, "error": f"RATE_LIMIT: {e}"}
+                )
                 break
             logger.error(f"FAILED: {e}")
             traceback.print_exc()
@@ -653,7 +756,8 @@ def main():
     print("=" * 70)
     print("PERFORMANCE EXTRACTION COMPLETE")
     print("=" * 70)
-    print(f"  Papers processed: {sum(1 for s in all_summaries if 'error' not in s)}/{len(papers_to_process)}")
+    n_ok = sum(1 for s in all_summaries if "error" not in s)
+    print(f"  Papers processed: {n_ok}/{len(papers_to_process)}")
     print(f"  Total time: {total_time}s ({total_time / 60:.1f} min)")
     print()
 
@@ -664,8 +768,8 @@ def main():
             print(
                 f"  [OK]   {s['paper_id']}: "
                 f"{s['total_plots_extracted']} plots, "
-                f"{s['materials_with_performance']}/{s['total_materials']} with perf, "
-                f"{s['processing_time_seconds']}s"
+                f"{s['materials_with_performance']}/{s['total_materials']} "
+                f"with perf, {s['processing_time_seconds']}s"
             )
 
 

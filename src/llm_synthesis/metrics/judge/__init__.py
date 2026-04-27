@@ -8,6 +8,7 @@ from llm_synthesis.metrics.judge.general_synthesis_judge import (
     GeneralSynthesisEvaluationScore,
     GeneralSynthesisJudgeSignature,
     make_general_synthesis_judge_signature,
+    make_judge_extra_body,
 )
 from llm_synthesis.metrics.judge.linking_evaluation_ontology import (
     LinkingEvaluation,
@@ -33,5 +34,6 @@ __all__ = [
     "SynthesisEvaluation",
     "SynthesisEvaluationScore",
     "make_general_synthesis_judge_signature",
+    "make_judge_extra_body",
     "make_linking_judge_signature",
 ]

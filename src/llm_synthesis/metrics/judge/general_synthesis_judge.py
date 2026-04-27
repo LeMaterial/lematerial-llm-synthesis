@@ -1,12 +1,16 @@
 """General synthesis ontology judge implementation with comprehensive
 evaluation capabilities for structured synthesis procedures."""
 
+import copy
+import logging
 from typing import Literal
 
 import dspy
 from pydantic import BaseModel, Field
 
 from llm_synthesis.metrics.judge.base import SynthesisJudgeInterface
+
+log = logging.getLogger(__name__)
 
 
 class GeneralSynthesisEvaluationScore(BaseModel):
@@ -142,18 +146,18 @@ class GeneralSynthesisEvaluationScore(BaseModel):
         ),
     )
 
-    # Overall Assessment
+    # Overall Assessment — optional, recalculated by _post_process_evaluation
     overall_score: float = Field(
-        ...,
+        default=0.0,
         description=(
             "The average of all criterion scores, representing overall "
             "extraction quality and ontology compliance."
         ),
-        ge=1.0,
+        ge=0.0,
         le=5.0,
     )
     overall_reasoning: str = Field(
-        ...,
+        default="",
         description=(
             "Comprehensive summary highlighting key strengths, weaknesses, "
             "and overall assessment of the ontology extraction."
@@ -216,10 +220,42 @@ class GeneralSynthesisEvaluation(BaseModel):
     )
 
 
+def _get_json_schema_format() -> dict:
+    """
+    Return the json_schema response_format dict for GeneralSynthesisEvaluation.
+
+    Wraps the schema under the DSPy output field name ``evaluation`` so the
+    model's JSON maps directly to what DSPy's JSONAdapter expects.
+    """
+    inner = GeneralSynthesisEvaluation.model_json_schema()
+    wrapped = {
+        "type": "object",
+        "properties": {"evaluation": inner},
+        "required": ["evaluation"],
+        "additionalProperties": True,
+    }
+    return {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "GeneralSynthesisEvaluation",
+            "strict": True,
+            "schema": wrapped,
+        },
+    }
+
+
 class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
     """
     Enhanced DSPy module for evaluating GeneralSynthesisOntology extraction
     quality against source synthesis text.
+
+    Implements a two-level fallback chain for robust structured output:
+      1. Strict json_schema(native for Claude/Gemini; extra_body for OpenRouter)
+      2. json_object mode (valid JSON, prompt-guided schema compliance)
+
+    Within each strategy, temperature is escalated on validation failures.
+    API-level format errors (400/unsupported) skip immediately to the next
+    strategy without wasting temperature retries.
     """
 
     def __init__(
@@ -228,6 +264,7 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
         enable_reasoning_traces: bool = False,
         confidence_threshold: float = 0.7,
         signature: type[dspy.Signature] | None = None,
+        retry_temperatures: list[float] | None = None,
     ):
         """
         Initialize the unified synthesis judge.
@@ -239,19 +276,39 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
             traces
             confidence_threshold: Minimum confidence threshold for reliable
             evaluations
+            retry_temperatures: Temperatures to try per strategy on content
+            validation failures. Defaults to [0.0, 0.3, 0.5].
         """
         self._validate_signature(signature)
         self.signature = signature
-        self.lm = lm
         self.enable_reasoning_traces = enable_reasoning_traces
         self.confidence_threshold = confidence_threshold
+        self.retry_temperatures = retry_temperatures or [0.0, 0.3, 0.5]
+
+        # Store a clean base LM — strip any pre-existing response_format /
+        # extra_body so that _build_format_strategies() has full control.
+        _clean_keys = {"response_format", "extra_body"}
+        if _clean_keys & set(lm.kwargs):
+            self.lm = copy.copy(lm)
+            self.lm.kwargs = {
+                k: v for k, v in lm.kwargs.items() if k not in _clean_keys
+            }
+        else:
+            self.lm = lm
+
         super().__init__()
+
+    # ── Public API ─────────────────────────────────────────────────────────
 
     def forward(
         self, input: tuple[str, str] | tuple[str, str, str]
     ) -> GeneralSynthesisEvaluation:
         """
         Evaluate extracted GeneralSynthesisOntology against source text.
+
+        Tries each format strategy in order.  Within a strategy, retries at
+        escalating temperatures on content-validation failures.  API-level
+        format errors skip immediately to the next strategy.
 
         Args:
             input: Tuple of (source_text, extracted_ontology_json) or
@@ -268,25 +325,186 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
         else:
             source_text, extracted_ontology_json, target_material = input
 
-        # Validate inputs
         self._validate_inputs(source_text, extracted_ontology_json)
 
-        # Perform evaluation
-        with dspy.settings.context(
-            lm=self.lm, adapter=dspy.adapters.JSONAdapter()
-        ):
-            prediction = dspy.Predict(self.signature)(
-                source_text=source_text,
-                extracted_ontology_json=extracted_ontology_json,
-                target_material=target_material,
+        strategies = self._build_format_strategies()
+        last_exc: Exception | None = None
+
+        for s_idx, strategy_kwargs in enumerate(strategies):
+            strategy_label = (
+                "json_schema" if s_idx == 0 else "json_object-fallback"
             )
+            for t_idx, temp in enumerate(self.retry_temperatures):
+                lm = self._lm_with_overrides(
+                    {**strategy_kwargs, "temperature": temp}
+                )
+                try:
+                    with dspy.settings.context(
+                        lm=lm, adapter=dspy.adapters.JSONAdapter()
+                    ):
+                        prediction = dspy.Predict(self.signature)(
+                            source_text=source_text,
+                            extracted_ontology_json=extracted_ontology_json,
+                            target_material=target_material,
+                        )
+                    evaluation = prediction.evaluation
+                    evaluation = self._post_process_evaluation(evaluation)
+                    if s_idx > 0 or t_idx > 0:
+                        log.info(
+                            "Judge succeeded: strategy=%s, temperature=%.1f",
+                            strategy_label,
+                            temp,
+                        )
+                    return evaluation
+                except Exception as e:
+                    # Recovery: model returned complete JSON but without the
+                    # DSPy-expected {"evaluation": {...}} wrapper key.
+                    recovered = self._try_recover_bare_json(e)
+                    if recovered is not None:
+                        recovered = self._post_process_evaluation(recovered)
+                        log.info(
+                            "Judge: recovered bare JSON response"
+                            " (strategy=%s, temp=%.1f)",
+                            strategy_label,
+                            temp,
+                        )
+                        return recovered
 
-            evaluation = prediction.evaluation
+                    last_exc = e
+                    if self._is_api_format_error(e):
+                        log.warning(
+                            "Judge: format unsupported (%s): %r"
+                            " — falling back to next strategy",
+                            strategy_label,
+                            e,
+                        )
+                        break  # skip remaining temperatures, try next strategy
+                    elif t_idx < len(self.retry_temperatures) - 1:
+                        log.warning(
+                            "Judge: validation failure"
+                            " (strategy=%s, temp=%.1f): %r"
+                            " — retrying at temp=%.1f",
+                            strategy_label,
+                            temp,
+                            e,
+                            self.retry_temperatures[t_idx + 1],
+                        )
+                    else:
+                        log.warning(
+                            "Judge: all temperatures exhausted"
+                            " for strategy=%s — trying next strategy",
+                            strategy_label,
+                        )
 
-            # Post-process evaluation
-            evaluation = self._post_process_evaluation(evaluation)
+        raise last_exc  # type: ignore[misc]
 
-            return evaluation
+    # ── Private helpers ────────────────────────────────────────────────────
+
+    def _build_format_strategies(self) -> list[dict]:
+        """
+        Return an ordered list of kwargs-override dicts to try, from strictest
+        (json_schema) to most permissive (json_object).
+
+        Strategy is auto-selected based on the LM's model identifier:
+          - openrouter/* : extra_body workaround (LiteLLM strips response_format
+            for OpenRouter, so we bypass via extra_body)
+          - anthropic/*, gemini/*, others: native response_format (LiteLLM
+            translates to provider format automatically)
+        """
+        json_schema_fmt = _get_json_schema_format()
+        model: str = getattr(self.lm, "model", "")
+
+        if "openrouter/" in model:
+            # LiteLLM's OpenRouter adapter strips response_format; inject via
+            # extra_body to bypass the broken detection layer.
+            strict_strategy = {
+                "extra_body": {"response_format": json_schema_fmt}
+            }
+        else:
+            # Claude (anthropic/) and Gemini (gemini/) both support json_schema
+            # natively; LiteLLM translates response_format automatically.
+            strict_strategy = {"response_format": json_schema_fmt}
+
+        return [
+            strict_strategy,
+            {"response_format": {"type": "json_object"}},
+        ]
+
+    def _lm_with_overrides(self, overrides: dict) -> dspy.LM:
+        """Return a shallow copy of self.lm with kwargs overridden."""
+        lm = copy.copy(self.lm)
+        lm.kwargs = {**self.lm.kwargs, **overrides}
+        return lm
+
+    @staticmethod
+    def _try_recover_bare_json(
+        exc: Exception,
+    ) -> GeneralSynthesisEvaluation | None:
+        """
+        Attempt to recover when the model returned a complete, valid
+        GeneralSynthesisEvaluation JSON but without the DSPy-expected
+        ``{"evaluation": {...}}`` wrapper key.
+
+        DSPy's JSONAdapter embeds the raw LM response in the AdapterParseError
+        message, so we can parse it directly from the exception.
+
+        Returns the parsed evaluation on success, None otherwise.
+        """
+        import json
+        import re
+
+        msg = str(exc)
+        # DSPy embeds the raw response as "LM Response: <json>"
+        match = re.search(r"LM Response:\s*(\{)", msg, re.DOTALL)
+        if not match:
+            return None
+
+        # Use raw_decode to extract the first complete JSON object starting
+        # at the opening brace — stops cleanly at the end of the object.
+        try:
+            data, _ = json.JSONDecoder().raw_decode(msg, match.start(1))
+        except json.JSONDecodeError:
+            return None
+
+        # Already wrapped — not the case we're handling
+        if "evaluation" in data:
+            return None
+
+        # Try to validate as a bare GeneralSynthesisEvaluation
+        try:
+            return GeneralSynthesisEvaluation.model_validate(data)
+        except Exception:
+            return None
+
+    @staticmethod
+    def _is_api_format_error(exc: Exception) -> bool:
+        """
+        Return True if the exception is an API-level rejection of the requested
+        response format (e.g. model doesn't support json_schema), as opposed to
+        a content/validation error that warrants a temperature retry.
+        """
+        try:
+            import litellm
+
+            if isinstance(
+                exc, litellm.BadRequestError | litellm.UnsupportedParamsError
+            ):
+                return True
+        except ImportError:
+            pass
+        msg = str(exc).lower()
+        return any(
+            kw in msg
+            for kw in (
+                "bad request",
+                "400",
+                "422",
+                "json_schema",
+                "unsupported",
+                "invalid request",
+                "response_format",
+            )
+        )
 
     def _validate_signature(self, signature: type[dspy.Signature]):
         """Validate that the signature contains all required fields."""
@@ -529,31 +747,43 @@ class GeneralSynthesisJudgeSignature(dspy.Signature):
             """Comprehensive evaluation of GeneralSynthesisOntology extraction 
             quality.
 
+CORE PRINCIPLE — ABSENCE IS NOT AN ERROR:
+The extraction system must never hallucinate. When a field is null or
+empty, ask: "Is this stated in the source text?" If no → CORRECT.
+Only penalize when the source clearly states something the extractor
+missed or got wrong.
+
+Examples of CORRECT behavior that must NOT be penalized:
+- Null reagent amounts/units → paper does not state quantities
+- Null equipment vendor/model → paper does not name a vendor
+- Null step duration, atmosphere, or pressure → not specified in paper
+- Empty steps/equipment/materials → no synthesis for this material
+  (e.g. commercial reference: "20% Pt/C was used as received")
+- Generic or absent precursor name → paper does not identify it
+
 EVALUATION CRITERIA:
-1. Structural Completeness (1-5): Coverage of all synthesis components present 
-in the source text
-2. Material Extraction (1-5): Accuracy of materials, quantities, and units 
-extracted from the paper
-3. Process Steps (1-5): Correct sequencing and classification of synthesis 
-actions
-4. Equipment Extraction (1-5): Identification of equipment mentioned in the text
-5. Conditions Extraction (1-5): Accurate representation of synthesis conditions 
-if provided
-6. Semantic Accuracy (1-5): Faithful preservation of the scientific meaning 
+1. Structural Completeness (1-5): Coverage of all synthesis components
+EXPLICITLY PRESENT in the source text. Do not penalize for null fields
+corresponding to information absent from the paper.
+2. Material Extraction (1-5): Accuracy of materials, quantities, and units
+extracted from the paper. Null amounts/purities are correct when the paper
+does not state them — do not penalize.
+3. Process Steps (1-5): Correct sequencing and classification of synthesis
+actions present in the source. Empty steps are correct for materials with
+no described synthesis procedure.
+4. Equipment Extraction (1-5): Identification of equipment EXPLICITLY NAMED
+in the text. Do not penalize for absent vendor info or for not inferring
+equipment from implied processes (e.g. "annealed" does not require naming
+a furnace if none is mentioned).
+5. Conditions Extraction (1-5): Accurate representation of synthesis conditions
+STATED in the source. Null duration, atmosphere, or pressure are correct when
+the paper does not provide these values.
+6. Semantic Accuracy (1-5): Faithful preservation of the scientific meaning
 from the original text
 7. Format Compliance (1-5): Adherence to the specified schema and data types
 
-IMPORTANT NOTE:
-The extraction system should only be evaluated on the basis of information 
-explicitly present in the source document. 
-Do NOT penalize the extraction for missing components or fields that are not 
-present in the original paper. 
-If a component is absent in the source, and thus absent in the output, assign a 
-high score for that criterion (provided the absence is correctly handled and 
-doesn't introduce errors).
-
 EVALUATION APPROACH:
-- Compare extracted ontology against the source text carefully and 
+- Compare extracted ontology against the source text carefully and
 systematically
 - Assess accuracy, completeness (relative to the paper), and semantic fidelity
 - Identify and explain any extraction errors or misinterpretations
@@ -568,10 +798,37 @@ SCORING GUIDELINES:
 - 2.0-2.5: Poor - Significant inaccuracies or misunderstandings
 - 1.0-1.5: Very Poor - Major errors or misrepresentations
 
+CRITICAL REQUIREMENT: You MUST populate EVERY field without exception:
+- reasoning, confidence_level
+- scores.structural_completeness_score AND
+  scores.structural_completeness_reasoning
+- scores.material_extraction_score AND scores.material_extraction_reasoning
+- scores.process_steps_score AND scores.process_steps_reasoning
+- scores.equipment_extraction_score AND scores.equipment_extraction_reasoning
+- scores.conditions_extraction_score AND scores.conditions_extraction_reasoning
+- scores.semantic_accuracy_score AND scores.semantic_accuracy_reasoning
+- scores.format_compliance_score AND scores.format_compliance_reasoning
+- scores.overall_reasoning
+Do NOT omit any field. An incomplete response is invalid.
+
 Focus on scientific accuracy, structural integrity, and source faithfulness.
 """
         )
     )
+
+
+def make_judge_extra_body() -> dict:
+    """
+    Build the extra_body dict for OpenRouter models that need explicit
+    structured-output enforcement via json_schema response_format.
+
+    Note: DspyGeneralSynthesisJudge now handles this automatically based on
+    the model name. This function is kept for external use / testing.
+
+    Returns:
+        extra_body dict containing the json_schema response_format.
+    """
+    return {"response_format": _get_json_schema_format()}
 
 
 def make_general_synthesis_judge_signature(
@@ -587,7 +844,10 @@ def make_general_synthesis_judge_signature(
         "Target material for synthesis context."
     ),
     evaluation_description: str = (
-        "Comprehensive evaluation of ontology extraction quality."
+        "Comprehensive evaluation of ontology extraction quality. "
+        "CRITICAL: populate ALL fields — reasoning, confidence_level, "
+        "all seven *_score and *_reasoning pairs inside scores, and "
+        "scores.overall_reasoning. Omitting any field is invalid."
     ),
 ) -> type[dspy.Signature]:
     """

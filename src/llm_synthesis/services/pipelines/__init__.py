@@ -7,7 +7,7 @@ from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (
 )
 
 __all__ = [
-    "SynthesisPerformancePipeline",
     "PipelineResult",
+    "SynthesisPerformancePipeline",
     "SynthesisWithPerformanceEntry",
 ]

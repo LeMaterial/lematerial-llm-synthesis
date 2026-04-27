@@ -1,44 +1,683 @@
 [
   {
-    "material": "Pf-AgNPs",
-    "synthesis": {
-      "target_compound": "Pf-AgNPs",
-      "target_compound_type": "nanomaterials",
-      "synthesis_method": "other",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "AgNO3",
-          "amount": null,
-          "unit": "mM",
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "P. frutescens extract aqueous solution",
-          "amount": null,
-          "unit": "%",
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "dissolve",
-          "description": "AgNO3 in three concentrations of 0.5, 1, and 2 mM was dissolved in *P. frutescens* extract aqueous solution (1, 2.5, 5, and 10%, v/v)",
-          "materials": [
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "Ag",
+        "synthesis": {
+          "target_compound": "Silver nanoparticles (Pf-AgNPs) synthesized using Perilla frutescens leaf extract",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "other",
+          "starting_materials": [
             {
               "vendor": null,
-              "name": "AgNO3",
-              "amount": 0.5,
+              "name": "Silver nitrate (AgNO3)",
+              "amount": 2.0,
               "unit": "mM",
               "purity": null
             },
             {
               "vendor": null,
-              "name": "AgNO3",
-              "amount": 1.0,
+              "name": "Perilla frutescens aqueous leaf extract",
+              "amount": 2.5,
+              "unit": "v/v%",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Distilled water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "dissolve",
+              "description": "Powdered plant leaves (5 g) were heated in 100 mL of distilled water at 70°C for 60 min to prepare the aqueous leaf extract. The cooled and filtered solution was preserved at 4°C for further use.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Perilla frutescens powdered leaves",
+                  "amount": 5.0,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Distilled water",
+                  "amount": 100.0,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "heating apparatus",
+                  "instrument_vendor": null,
+                  "settings": "70°C, 60 min"
+                }
+              ],
+              "conditions": {
+                "temperature": 70.0,
+                "temp_unit": "C",
+                "duration": 60.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "AgNO3 (2 mM) was dissolved in P. frutescens aqueous leaf extract (2.5% v/v). The mixture was sonicated for 90 min at 60°C in the dark.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Silver nitrate (AgNO3)",
+                  "amount": 2.0,
+                  "unit": "mM",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Perilla frutescens aqueous leaf extract",
+                  "amount": 2.5,
+                  "unit": "v/v%",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "sonicator",
+                  "instrument_vendor": null,
+                  "settings": "90 min, 60°C, dark condition"
+                }
+              ],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": 90.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "dark",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "centrifuge",
+              "description": "The solution was centrifuged at 9000 rpm for 30 min at 25°C.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "centrifuge",
+                  "instrument_vendor": null,
+                  "settings": "9000 rpm, 30 min, 25°C"
+                }
+              ],
+              "conditions": {
+                "temperature": 25.0,
+                "temp_unit": "C",
+                "duration": 30.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": 9000.0,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "wash",
+              "description": "The sediment obtained was washed three times.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "sonicator",
+              "instrument_vendor": null,
+              "settings": "90 min, 60°C"
+            },
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": "9000 rpm, 30 min, 25°C"
+            }
+          ],
+          "notes": "The whole reaction was carried out in the dark to prevent photo-activation. Optimum conditions were determined as 2 mM AgNO3 and 2.5% plant extract. The bio-reduction of Ag+ to Ag0 was confirmed by color change from pale yellow to dim brown. The synthesized Pf-AgNPs had a crystallite size of ~15 nm (XRD), hydrodynamic diameter of 28.3–161 nm (DLS, most <61 nm), spherical/oval shape (FESEM), and zeta potential of −18.1 mV."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for Pf-AgNPs (silver nanoparticles synthesized using Perilla frutescens leaf extract) with good fidelity to the source text. The extraction correctly identifies the two-phase process: (1) preparation of the aqueous leaf extract and (2) the actual nanoparticle synthesis via sonication, followed by centrifugation and washing. Key synthesis parameters such as temperature, duration, concentration of AgNO3 (2 mM), extract concentration (2.5% v/v), sonication conditions (90 min, 60°C, dark), and centrifugation conditions (9000 rpm, 30 min, 25°C) are accurately captured. The starting materials are correctly identified with appropriate amounts and units. Equipment is reasonably identified. The notes field captures important characterization results and optimum conditions. Some minor issues exist: the action for step 1 is labeled 'dissolve' when 'heat' or 'extract' would be more accurate; the step 1 description conflates extraction with storage; the washing step lacks detail about the washing medium. Overall, the extraction is of high quality and faithfully represents the synthesis procedure described in the source text.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all four major synthesis steps: extract preparation, mixing/sonication, centrifugation, and washing. Starting materials are listed with amounts and units. Equipment is identified at both the step level and the global level. The notes field captures important characterization data (crystallite size ~15 nm, zeta potential -18.1 mV, hydrodynamic diameter range, shape). The target compound type and synthesis method are correctly classified. Minor gaps include: the storage step (preservation at 4°C) is embedded in step 1 description rather than as a separate step, and the washing medium is not specified (though not stated in the source either). The extraction does not capture the full characterization workflow (UV-Vis, XRD, FESEM, EDX, DLS, FTIR, SERS) as separate steps, but these are characterization steps rather than synthesis steps, so their absence is appropriate. Overall structural completeness is very good.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "The key starting materials are correctly identified: Silver nitrate (AgNO3) at 2 mM (the optimum concentration), Perilla frutescens aqueous leaf extract at 2.5% v/v (the optimum concentration), and distilled water. The amounts and units are accurate and match the source text. The powdered plant leaves (5 g in 100 mL distilled water) are correctly captured in step 1. Purity information is correctly left null as the source does not specify purities. Vendor information is correctly left null. One minor point: the extraction could have also listed KBr (used in FTIR characterization) but this is a characterization reagent, not a synthesis material, so its omission is appropriate. The extraction correctly focuses on synthesis-relevant materials.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The four process steps are logically sequenced and accurately represent the synthesis workflow: (1) extract preparation by heating, (2) mixing AgNO3 with extract and sonication, (3) centrifugation, (4) washing. The step descriptions are accurate and include key details from the source. The action classification for step 1 ('dissolve') is slightly inaccurate — the process is better described as 'heat' or 'extract' since the plant material is being extracted, not dissolved. Step 2 action 'mix' is reasonable though 'sonicate' might be more precise given that sonication is the primary action. Steps 3 (centrifuge) and 4 (wash) are correctly classified. The number of washes (three times) is correctly captured in step 4. The dark condition for the reaction is noted in step 2 and in the notes. The sequential logic is correct and the descriptions faithfully represent the source text.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The extraction correctly identifies the two primary synthesis equipment items: sonicator and centrifuge, with appropriate settings. The heating apparatus for extract preparation is identified in step 1 with correct settings (70°C, 60 min). The global equipment list includes sonicator and centrifuge with settings. Vendor information is correctly left null as the source does not specify vendors for synthesis equipment (though it does name vendors for characterization instruments like ZEISS Sigma 300 for FESEM, Rigaku-Ultima IV for XRD, VASCO Cordouan Technology for DLS, Perkin Elmer for FTIR, TakRam N1-541 for SERS, Unico 2100 for UV-Vis — but these are characterization instruments, not synthesis equipment). The heating apparatus in step 1 is not included in the global equipment list, which is a minor inconsistency. Overall equipment extraction for synthesis-relevant equipment is good.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Synthesis conditions are accurately captured across all steps. Step 1: temperature 70°C, duration 60 min — correct. Step 2: temperature 60°C, duration 90 min, atmosphere 'dark' — correct. Step 3: temperature 25°C, duration 30 min, stirring_speed 9000 rpm — correct (using stirring_speed field for centrifuge speed is a reasonable schema adaptation). Step 4: all conditions null — correct as the source provides no specific conditions for the washing step. The dark condition is appropriately captured as atmosphere in step 2. The storage temperature of 4°C for the extract is mentioned in the step 1 description but not as a separate condition field, which is a very minor omission. Overall conditions extraction is excellent.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The bio-reduction mechanism (Ag+ to Ag0) is correctly noted. The role of plant extract as reducing, capping, and stabilizing agent is captured in the notes. The optimum conditions (2 mM AgNO3, 2.5% extract) are correctly identified and used as the primary values in the extraction. The dark condition to prevent photo-activation is correctly captured. The characterization results (crystallite size ~15 nm, zeta potential -18.1 mV, hydrodynamic diameter range, spherical/oval shape) are accurately summarized in the notes. The synthesis method is classified as 'other' which is reasonable given that green synthesis/biosynthesis is not a standard category in many ontologies. The target compound type 'nanomaterials' is correct. No significant semantic errors or misinterpretations are present.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields are populated appropriately. Null values are used correctly for absent information (vendor, purity, pressure, atmosphere where not applicable). Numeric values are provided as floats where appropriate (e.g., 2.0 mM, 2.5 v/v%, 5.0 g, 100.0 mL, 70.0°C, 60.0 min, etc.). Units are specified as strings. The steps array is properly structured with step_number, action, description, materials, equipment, and conditions sub-fields. The global equipment list mirrors the step-level equipment. The notes field is used effectively to capture additional synthesis context and characterization results. One minor format issue: the stirring_speed field is used for centrifuge RPM (9000 rpm), which is a reasonable adaptation but slightly semantically imprecise — a dedicated centrifuge_speed field would be more accurate, though this is a schema limitation rather than an extraction error.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of the Pf-AgNPs synthesis ontology is of high quality overall. The four synthesis steps are correctly identified and sequenced, with accurate conditions, materials, and equipment captured at each step. Starting materials are correctly identified with appropriate amounts and units. The optimum synthesis conditions (2 mM AgNO3, 2.5% v/v extract, 60°C, 90 min sonication, dark) are accurately represented. Equipment is appropriately identified with settings. The notes field effectively captures important synthesis context and characterization results. Minor issues include: (1) the action label for step 1 ('dissolve') is slightly inaccurate for an extraction process; (2) the heating apparatus is not included in the global equipment list; (3) the storage condition (4°C) is embedded in the description rather than as a condition field. These are minor issues that do not significantly detract from the overall quality. The extraction correctly avoids hallucinating information not present in the source (vendor names, purities, washing medium). The synthesis method classification as 'other' is appropriate for green/biosynthesis. Overall, this is a strong extraction that faithfully and completely represents the synthesis procedure described in the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The storage condition of the extract at 4°C is mentioned in the step 1 description but not captured as a formal condition field",
+                "The washing medium for step 4 is not specified (though this is also not stated in the source text)"
+              ],
+              "extraction_errors": [
+                "Step 1 action is labeled 'dissolve' but the process is a hot aqueous extraction of plant material, which would be better classified as 'heat' or 'extract'",
+                "The heating apparatus used in step 1 is not included in the global equipment list, creating an inconsistency between step-level and global equipment"
+              ],
+              "improvement_suggestions": [
+                "Change the action for step 1 from 'dissolve' to 'heat' or 'extract' to more accurately reflect the hot aqueous extraction process",
+                "Add the heating apparatus to the global equipment list for consistency with step-level equipment",
+                "Consider adding a separate storage step (step 1b) with temperature condition of 4°C to capture the extract preservation step",
+                "Consider using a more specific action for step 2 such as 'sonicate' rather than 'mix' since sonication is the primary action described"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the essential synthesis parameters for the target material (Ag nanoparticles). It correctly identifies the two-stage process: the preparation of the plant extract and the subsequent green synthesis of the nanoparticles. The extractor successfully identified the optimized parameters (2 mM AgNO3 and 2.5% extract) from a range of experimental variations mentioned in the text. All materials, equipment, and conditions are well-mapped to the source text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction covers all critical components: starting materials (AgNO3, plant leaves, water), the sequential process steps (extraction, mixing/sonication, centrifugation, washing), and the specific equipment used.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Material names and quantities are extracted accurately. It correctly identifies the 5g/100mL ratio for the extract preparation and the optimized 2mM/2.5% concentrations for the nanoparticle synthesis. Units (mM, v/v%, g, mL) are correctly preserved.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps follow the logical experimental flow described in the 'Materials and methods' section. The action classifications (dissolve, mix, centrifuge, wash) are appropriate for the described tasks.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The extraction identifies the heating apparatus, sonicator, and centrifuge. While vendors for characterization equipment are in the text, the synthesis equipment vendors were not specified, so the null values are correct.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Temperature (70C, 60C, 25C), durations (60 min, 90 min, 30 min), and specific conditions like 'dark' and '9000 rpm' are accurately captured in the respective fields.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the 'green synthesis' approach. It correctly distinguishes between the preparation of the bioreductant (extract) and the actual synthesis of the AgNPs.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid, parseable JSON that strictly adheres to the provided schema, using correct data types for numerical values and nulls for missing information.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is an excellent extraction. It demonstrates a high level of precision by selecting the 'optimum' values from the text rather than just listing all tested concentrations. It captures the multi-step nature of the synthesis and populates the condition fields with high fidelity."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the green synthesis procedure for Pf-AgNPs. The extraction correctly identifies the two-phase process (extract preparation followed by nanoparticle synthesis), captures optimum conditions (2 mM AgNO3, 2.5% extract), and records key parameters (temperatures, durations, centrifugation settings). The four-step workflow is logically organized with appropriate action classifications. Characterization results are summarized in notes. Minor issues include centrifugation rpm being placed in stirring_speed field and some concentration optimization details not fully captured. Overall, this is a high-quality extraction that faithfully represents the synthesis protocol.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: starting materials (AgNO3, plant extract, distilled water), process steps (extract preparation, mixing/sonication, centrifugation, washing), equipment (sonicator, centrifuge), and conditions (temperatures, durations, atmosphere). The two-phase synthesis (extract prep + NP synthesis) is correctly represented. Minor deduction because the concentration optimization process (testing multiple concentrations before selecting optimum) is not fully captured, and storage conditions (4°C) are in description but not structured fields.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material names are accurate (Silver nitrate, Perilla frutescens aqueous leaf extract, Distilled water). Amounts and units are correctly extracted (2 mM AgNO3, 2.5% v/v extract, 5g leaves, 100 mL water). The optimum conditions are correctly identified from the range tested. Purity fields are appropriately null as the source doesn't specify purities. One minor issue: the starting_materials section lists the optimum synthesis reagents, while step 1 materials correctly show the extract preparation materials - this separation is appropriate.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "Four steps are logically sequenced: (1) extract preparation, (2) mixing and sonication for synthesis, (3) centrifugation for separation, (4) washing. Action classifications (dissolve, mix, centrifuge, wash) are appropriate. Step descriptions are detailed and accurate. The separation of extract preparation from nanoparticle synthesis is correct. Minor deduction because the washing step lacks solvent specification (though this reflects the source text limitation, not extraction error).",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Synthesis equipment (sonicator, centrifuge, heating apparatus) is correctly identified with appropriate settings. Vendor information is appropriately null as the source doesn't specify vendors for synthesis equipment (only for characterization equipment). Characterization equipment (UV-Vis, XRD, FESEM, etc.) is mentioned in notes but not in the equipment field - this is acceptable for a synthesis-focused ontology. The equipment list could be more comprehensive by including all mentioned instrumentation.",
+                "conditions_extraction_score": 4.0,
+                "conditions_extraction_reasoning": "Temperature values are accurate (70°C for extract prep, 60°C for synthesis, 25°C for centrifugation). Durations are correct (60 min, 90 min, 30 min). Atmosphere condition (dark) is captured. Pressure and pH are appropriately null as not specified. One error: centrifugation speed (9000 rpm) is placed in stirring_speed field which is semantically incorrect - centrifugation speed should be a separate parameter. Storage temperature (4°C) is in description but not in structured conditions.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning is well preserved. The green synthesis nature using plant extract as reducing/capping agent is clear. The optimum conditions are correctly identified. The notes section accurately summarizes characterization results (size, shape, zeta potential). The extraction correctly distinguishes between extract preparation and nanoparticle synthesis phases. Minor semantic issue with centrifugation rpm in stirring_speed field.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure is valid and follows the expected ontology schema. All required fields are present. Data types are correct (numbers for amounts/conditions, strings for names/descriptions, arrays for lists). Null values are appropriately used where information is not available in the source. The structure is consistent and machine-readable.",
+                "overall_score": 4.4,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures the green synthesis protocol for Pf-AgNPs. Strengths include correct identification of the two-phase synthesis process, accurate extraction of optimum conditions and parameters, logical step sequencing, and valid JSON structure. The extraction correctly leaves fields null where the source doesn't provide information (vendor, purity, pressure, pH). Areas for improvement include: (1) separating centrifugation speed from stirring_speed for semantic accuracy, (2) capturing the concentration optimization range tested, (3) moving storage temperature to structured conditions field. The extraction demonstrates good understanding of the synthesis workflow and faithfully represents the experimental protocol without hallucination. Overall score reflects strong performance with minor refinements possible."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Storage temperature of extract (4°C) is mentioned in step description but not in structured conditions field",
+                "The fact that reaction was carried out 'in the dark' is captured in atmosphere but could be more explicitly noted as a light-sensitivity precaution",
+                "HPLC analysis conditions for phenolic compounds are not captured (though this is characterization, not synthesis)"
+              ],
+              "extraction_errors": [
+                "Centrifugation speed (9000 rpm) is incorrectly placed in stirring_speed field rather than a dedicated centrifugation parameter",
+                "The range of concentrations tested during optimization (0.5, 1, 2 mM AgNO3; 1, 2.5, 5, 10% extract) is not captured, only the optimum conditions",
+                "Washing solvent is not specified (source text says 'washed three times' without specifying the solvent)"
+              ],
+              "improvement_suggestions": [
+                "Add a dedicated field for centrifugation speed separate from stirring_speed to avoid semantic confusion",
+                "Consider capturing the optimization range tested before determining optimum conditions, as this provides important experimental context",
+                "Add a field to note when washing solvent is unspecified in the source text",
+                "Consider adding characterization equipment to the equipment list if the ontology scope includes analytical instrumentation"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction successfully captures the core synthesis procedure for green-synthesized silver nanoparticles (Pf-AgNPs) using Perilla frutescens leaf extract. It correctly identifies the target material, key starting materials (AgNO3, plant extract), and the main process steps (extract preparation, mixing/sonication, centrifugation, washing). The extraction accurately reflects the optimized conditions (2 mM AgNO3, 2.5% extract, 60°C, 90 min sonication in dark) and key characterization results (size, shape, zeta potential). However, there are notable omissions: the source text describes a combinatorial optimization study testing multiple concentrations of AgNO3 (0.5, 1, 2 mM) and extract (1, 2.5, 5, 10% v/v), but the extraction presents only the final optimum values as if they were the sole conditions used. This flattens the experimental design. Furthermore, the extraction incorrectly lists 'Distilled water' as a starting material with the target compound, which is not a direct reactant in the nanoparticle synthesis step. The equipment list is minimal but correct for the explicitly named items; many analytical instruments mentioned in the characterization section are correctly omitted from the synthesis equipment list as they are not part of the synthesis procedure itself.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the essential structural components: target compound, synthesis method, starting materials, a logical sequence of steps, and key equipment. It misses the experimental design aspect (the testing of multiple concentrations to find the optimum) which is a significant part of the synthesis methodology described. The notes section usefully includes characterization results, which, while not strictly part of the synthesis procedure, provide valuable context. Overall, the core synthesis workflow is well represented.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "Accuracy is mixed. The names and the optimized quantities (2 mM AgNO3, 2.5% extract) are correct. A significant error is the inclusion of 'Distilled water' as a starting material in the main list; it is a solvent for extract preparation, not a direct reactant for the nanoparticle synthesis reaction. The amounts for the extract preparation step (5 g leaves, 100 mL water) are correctly extracted. Purity information is correctly left null as it is not specified. The omission of the full factorial of tested concentrations (0.5, 1, 2 mM AgNO3; 1, 2.5, 5, 10% extract) is a loss of experimental detail.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The step sequence is logical, accurate, and well-classified (dissolve, mix, centrifuge, wash). Descriptions are clear and paraphrase the source text effectively. The actions ('sonicate' is part of the 'mix' step description) are appropriate. The only minor flaw is that the combinatorial nature of the synthesis (testing multiple conditions) is not reflected in the step logic; it is presented as a single linear procedure with the optimum parameters.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Correctly extracts the two pieces of equipment explicitly used in the synthesis steps: 'sonicator' and 'centrifuge', along with their key settings (time, temperature, rpm). No vendor information is provided in the source, so null values are correct. The extraction appropriately does not include the numerous analytical instruments (UV-Vis, XRD, FESEM, etc.) mentioned in the characterization section, as they are not part of the synthesis procedure. A 'heating apparatus' is correctly inferred for the extract preparation step.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Extracts conditions with high accuracy: temperatures (70°C for extract prep, 60°C for reaction, 25°C for centrifugation), durations (60 min, 90 min, 30 min), and the 'dark' atmosphere for the reaction are all correctly captured. Units are consistent. The stirring speed is correctly captured as the centrifuge rpm. Pressure and pH are correctly null as not specified. The conditions for the washing step are correctly left null.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis is largely preserved. The core reduction mechanism (Ag+ to Ag0 using plant phytochemicals), the role of sonication, and the purpose of centrifugation and washing are correctly conveyed. The main semantic loss is the representation of the optimization study; the source describes a process of varying parameters to find an optimum, while the extraction presents only the final optimum as the synthesis protocol. The inclusion of characterization results in the notes adds valuable semantic context.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and populated with appropriate data types (strings, numbers, arrays, objects, nulls). The nesting of materials and equipment within steps is correct. The 'notes' field is used appropriately for supplementary information.",
+                "overall_score": 4.2,
+                "overall_reasoning": "The extraction is of good quality, providing a reproducible synthesis protocol for Pf-AgNPs. Its strengths are accurate capture of the optimized reaction conditions, correct sequencing of steps, and excellent format compliance. The primary weaknesses are: 1) the omission of the experimental optimization matrix, presenting a simplified linear procedure, and 2) the incorrect listing of 'Distilled water' as a synthesis starting material. The extraction correctly avoids hallucinating unspecified details (vendors, purities, pressures) and appropriately excludes characterization equipment from the synthesis ontology. The overall score reflects a robust extraction that would enable reproduction of the synthesis but lacks some methodological nuance from the source."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The experimental design of testing multiple AgNO3 and extract concentrations to optimize the synthesis. This is a key part of the 'Materials and methods' description.",
+                "The specific ratio mentioned in the Discussion ('2 mM AgNO3 with a 1:40 ratio'). This quantitative ratio between AgNO3 solution and extract is not captured."
+              ],
+              "extraction_errors": [
+                "Incorrectly listed 'Distilled water' as a starting material in the main `starting_materials` list. It is a solvent for extract preparation, not a direct reactant for the nanoparticle synthesis reaction.",
+                "Presents the synthesis as using only the optimum concentrations (2 mM AgNO3, 2.5% extract), omitting the fact that the paper tested a range of concentrations (0.5, 1, 2 mM AgNO3 and 1, 2.5, 5, 10% v/v extract) to determine this optimum."
+              ],
+              "improvement_suggestions": [
+                "For optimization studies, consider adding an optional field to the ontology to capture tested parameter ranges (e.g., 'parameter_study': {'AgNO3_concentration': [0.5, 1, 2], 'extract_concentration': [1, 2.5, 5, 10]}), while still recording the 'optimum_conditions' separately.",
+                "Refine the logic for populating the main `starting_materials` list to include only direct reactants/precursors for the final target compound, not solvents used in preparatory steps. Solvents can be captured within the relevant step's `materials` list.",
+                "Extract and include explicit quantitative ratios (e.g., '1:40 ratio' of AgNO3 to extract) when provided in the text, as they are critical for reproducibility."
+              ]
+            },
+            "overall_score": 4.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "Ag",
+        "synthesis": {
+          "target_compound": "Ag",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "other",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Silver nitrate (AgNO3)",
+              "amount": 2.0,
               "unit": "mM",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Perilla frutescens leaf extract",
+              "amount": 2.5,
+              "unit": "vol%",
+              "purity": "aqueous"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "add",
+              "description": "Powdered plant leaves (5 g) were heated in 100 mL of distilled water at 70 °C for 60 min to prepare the aqueous extract.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Powdered Perilla frutescens leaves",
+                  "amount": 5.0,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Distilled water",
+                  "amount": 100.0,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": 70.0,
+                "temp_unit": "C",
+                "duration": 60.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "mix",
+              "description": "AgNO3 (2 mM) was dissolved in P. frutescens extract aqueous solution (2.5%, v/v).",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "AgNO3",
+                  "amount": 2.0,
+                  "unit": "mM",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Perilla frutescens leaf extract",
+                  "amount": 2.5,
+                  "unit": "vol%",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            },
+            {
+              "step_number": 3,
+              "action": "sonicate",
+              "description": "The mixture was sonicated in dark conditions to prevent photo-activation.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": 90.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "dark",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "centrifuge",
+              "description": "The solution was centrifuged to collect the sediment.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 25.0,
+                "temp_unit": "C",
+                "duration": 30.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": 9000.0,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "wash",
+              "description": "The sediment obtained was washed three times.",
+              "materials": [],
+              "equipment": [],
+              "conditions": null
+            }
+          ],
+          "equipment": [
+            {
+              "name": "UV–Visible spectrophotometer",
+              "instrument_vendor": "Unico 2100",
+              "settings": "200–800 nm"
+            },
+            {
+              "name": "X-ray diffractometer",
+              "instrument_vendor": "Rigaku-Ultima IV",
+              "settings": "Cu-Kα radiation"
+            },
+            {
+              "name": "FESEM-EDX",
+              "instrument_vendor": "ZEISS Sigma 300",
+              "settings": null
+            }
+          ],
+          "notes": "The synthesis was optimized at 2 mM AgNO3 and 2.5% plant extract. The reaction was carried out in the dark. The resulting nanoparticles (Pf-AgNPs) were spherical with a size <61 nm."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for Pf-AgNPs (silver nanoparticles from Perilla frutescens leaf extract) with reasonable fidelity. The extraction correctly identifies the target compound (Ag nanomaterials), the two primary starting materials (AgNO3 at 2 mM and P. frutescens leaf extract at 2.5% v/v), and the five main synthesis steps: extract preparation, mixing, sonication, centrifugation, and washing. Equipment for characterization is partially captured. Several minor omissions and one classification issue are noted, but overall the extraction is solid and faithful to the source text.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures all five major synthesis steps (extract preparation, mixing, sonication, centrifugation, washing), the two key starting materials at their optimized concentrations, and three characterization instruments. The synthesis method is labeled 'other' which is acceptable given the green/biosynthesis nature not fitting standard categories. However, several characterization instruments explicitly mentioned in the source (DLS/VASCO Cordouan Technology, FTIR/Perkin Elmer, SERS/TakRam N1-541, Waters HPLC) are absent from the equipment list. The notes field compensates somewhat by summarizing key outcomes. The step for storing the cooled/filtered extract at 4°C is also not captured as a discrete step. Overall, the main synthesis workflow is well-represented but characterization equipment coverage is incomplete.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "The two primary starting materials are correctly identified with accurate quantities: AgNO3 at 2 mM and P. frutescens leaf extract at 2.5% v/v — both matching the optimized conditions stated in the source. The extract preparation step correctly captures 5 g powdered leaves in 100 mL distilled water. The 'purity' field for the leaf extract is labeled 'aqueous' which is a reasonable descriptor for the solvent type rather than a true purity value, but this is a minor semantic issue. Vendor/purity information is correctly left null where not stated in the source. No hallucinated quantities are present. The only minor gap is that the source mentions three AgNO3 concentrations tested (0.5, 1, 2 mM) and four extract concentrations (1, 2.5, 5, 10%), but the extraction correctly focuses on the optimized values, which is appropriate.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The five steps are logically sequenced and cover the essential synthesis workflow. Step 1 (extract preparation with correct temperature 70°C and duration 60 min) is well-captured. Step 2 (mixing AgNO3 with extract) is correctly identified. Step 3 (sonication at 60°C for 90 min in dark) accurately captures the reaction conditions. Step 4 (centrifugation at 9000 rpm, 30 min, 25°C) is correctly extracted. Step 5 (washing three times) is noted. However, the action classification for Step 1 is 'add' rather than 'heat' or 'extract', which is a minor misclassification — the primary action is heating/extraction, not addition. The cooling, filtering, and storage at 4°C steps mentioned in the source are not captured as discrete steps. The dark condition in Step 3 is correctly noted as 'atmosphere: dark', which is a reasonable encoding. The stirring_speed field in Step 4 is used for centrifugation speed (9000 rpm), which is technically a repurposing of the field but pragmatically acceptable.",
+                "equipment_extraction_score": 3.0,
+                "equipment_extraction_reasoning": "Three instruments are captured: UV-Visible spectrophotometer (Unico 2100), X-ray diffractometer (Rigaku-Ultima IV), and FESEM-EDX (ZEISS Sigma 300). These are correctly identified with their vendors/models. However, several explicitly named instruments from the source are missing: DLS instrument (VASCO Cordouan Technology, France), FTIR spectrometer (Perkin Elmer, USA), SERS/Raman spectrometer (TakRam N1-541, Iran with Hamamatsu detector), and HPLC apparatus (Waters 2695 with PDA Detector Waters 996). The instrument_vendor field is used for model numbers (e.g., 'Unico 2100') rather than vendor names, which is a minor schema misuse but understandable given the source text format. The settings field for the XRD correctly notes 'Cu-Kα radiation'. The synthesis equipment (sonicator, centrifuge) are not listed in the equipment section, though their parameters appear in the step conditions — this is a minor gap.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The key synthesis conditions are accurately captured: extract preparation at 70°C for 60 min (Step 1), sonication at 60°C for 90 min in dark conditions (Step 3), and centrifugation at 9000 rpm for 30 min at 25°C (Step 4). All numerical values match the source text exactly. The dark condition is appropriately encoded in the atmosphere field. The centrifugation speed (9000 rpm) is placed in the stirring_speed field, which is a field repurposing but pragmatically reasonable given schema constraints. Pressure and pH are correctly left null as they are not specified in the source. The XRD scan conditions (2θ range 7-80°, scan rate 0.2°/min, time constant 2s) and FTIR conditions (400-4000 cm⁻¹, 4 cm⁻¹ resolution) are not captured, but these are characterization rather than synthesis conditions, so their absence is acceptable.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The green synthesis mechanism (bioreduction of Ag+ to Ag0 by phytochemicals) is correctly implied by the starting materials and conditions. The optimized conditions (2 mM AgNO3, 2.5% extract) are correctly identified as the synthesis parameters rather than the screening conditions. The dark condition for preventing photo-activation is correctly captured. The notes field accurately summarizes key outcomes (spherical morphology, <61 nm size). The synthesis_method labeled as 'other' is semantically appropriate for green/biosynthesis. The target_compound 'Ag' with type 'nanomaterials' correctly represents silver nanoparticles. No significant misinterpretations or hallucinations are present. The 'purity: aqueous' for the leaf extract is a minor semantic imprecision but does not misrepresent the material.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Numerical values use floats where expected. Null values are correctly used for absent information. The steps array is properly ordered with step_number, action, description, materials, equipment, and conditions fields. The equipment array follows the expected structure. One schema compliance issue: the instrument_vendor field contains model identifiers (e.g., 'Unico 2100', 'Rigaku-Ultima IV', 'ZEISS Sigma 300') rather than vendor names, though in some cases these are the same. The stirring_speed field is repurposed for centrifugation speed, which is a minor schema deviation. The conditions object in Step 3 uses 'dark' as an atmosphere value, which is a reasonable encoding. Overall format compliance is good with only minor deviations.",
+                "overall_score": 4.1,
+                "overall_reasoning": "The extraction of the Pf-AgNPs synthesis ontology is of good quality overall, earning an estimated average score of approximately 4.1/5.0. Key strengths include: accurate capture of optimized synthesis conditions (2 mM AgNO3, 2.5% extract, 60°C, 90 min sonication, 9000 rpm centrifugation), correct identification of starting materials with proper quantities, logical step sequencing, and faithful semantic representation of the green synthesis approach. The notes field effectively summarizes key characterization outcomes. Main weaknesses include: incomplete equipment extraction (missing DLS, FTIR, SERS/Raman, and HPLC instruments that are explicitly named in the source), minor step action misclassification (Step 1 labeled 'add' instead of 'heat'), absence of the cooling/filtering/storage steps, and minor schema deviations (instrument_vendor field used for model numbers, stirring_speed repurposed for centrifugation speed). No hallucinations were detected. The extraction correctly omits vendor information, purities, and other details not present in the source. Overall, this is a competent extraction that captures the essential synthesis information with good accuracy."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "DLS instrument (VASCO Cordouan Technology, France) not included in equipment list",
+                "FTIR spectrometer (Perkin Elmer, USA) not included in equipment list",
+                "SERS/Raman spectrometer (TakRam N1-541, Iran, with Hamamatsu detector, 100 mW max power) not included in equipment list",
+                "HPLC apparatus (Waters 2695 with PDA Detector Waters 996) not included in equipment list",
+                "Cooling, filtering, and storage at 4°C of the plant extract not captured as discrete steps",
+                "Sonicator and centrifuge not listed as equipment items despite being used in synthesis steps",
+                "XRD scan parameters (2θ range 7-80°, scan rate 0.2°/min, time constant 2s, 2h duration) not captured in equipment settings"
+              ],
+              "extraction_errors": [
+                "Step 1 action is classified as 'add' but the primary action is heating/extraction of plant material",
+                "instrument_vendor field contains model identifiers rather than true vendor names in some cases (e.g., 'Unico 2100' is a model, not a vendor name)",
+                "stirring_speed field repurposed to store centrifugation speed (9000 rpm) — minor schema deviation"
+              ],
+              "improvement_suggestions": [
+                "Reclassify Step 1 action from 'add' to 'heat' or 'extract' to better reflect the primary operation",
+                "Add all explicitly named characterization instruments to the equipment list: DLS (VASCO Cordouan Technology), FTIR (Perkin Elmer), SERS/Raman (TakRam N1-541), HPLC (Waters 2695)",
+                "Add synthesis equipment (sonicator, centrifuge) to the equipment list with their operating parameters",
+                "Add a step for cooling, filtering, and storing the plant extract at 4°C",
+                "Use a dedicated centrifugation_speed field or note the 9000 rpm value in the step description rather than repurposing stirring_speed",
+                "Clarify the instrument_vendor field to distinguish between vendor names and model numbers",
+                "Consider encoding the 'purity' field for the leaf extract as null rather than 'aqueous', since 'aqueous' describes the solvent system rather than purity"
+              ]
+            },
+            "overall_score": 4.1
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the multi-stage synthesis process of silver nanoparticles using Perilla frutescens leaf extract. It correctly identifies the two-part process: first, the preparation of the plant extract, and second, the bioreduction of silver nitrate. The extraction successfully identifies the optimized concentrations (2 mM AgNO3 and 2.5% extract) from a text that discusses multiple experimental variations. All numerical values, units, and specific conditions like 'dark' atmosphere are correctly mapped.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The ontology captures all critical components: starting materials (plant leaves, water, AgNO3), the sequential steps (heating, mixing, sonication, centrifugation, washing), and the characterization equipment. It correctly separates the extract preparation from the nanoparticle synthesis.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Material names and quantities are extracted accurately. It correctly identifies the 5g/100mL ratio for the extract and the 2mM/2.5% optimized parameters for the AgNP synthesis. Units (mM, vol%, g, mL) are correctly preserved.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The steps follow the logical experimental flow described in the 'Materials and methods' section. Action classifications (add, mix, sonicate, centrifuge, wash) are appropriate for the described tasks.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "Major characterization equipment is identified with vendors (Unico, Rigaku, ZEISS). It missed the sonicator and centrifuge in the steps' equipment lists, though the actions themselves are captured.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Conditions are exceptionally well-captured, including the 70°C/60min for extraction, 60°C/90min for sonication, and 25°C/30min/9000rpm for centrifugation. The 'dark' condition is correctly placed in the atmosphere field.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the text, specifically distinguishing between the 'extract' as a reagent and the 'leaves' as the precursor to that reagent.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly adheres to the provided schema, using correct data types for all fields.",
+                "overall_score": 4.9,
+                "overall_reasoning": "This is an excellent extraction. It successfully navigated a complex text containing both a preliminary extract preparation and a subsequent nanoparticle synthesis with optimized parameters. The attention to detail regarding temperatures, durations, and rotational speeds is commendable."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Specific model/vendor for the sonicator used during the 90-minute reaction."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Include the sonicator and centrifuge in the equipment list for the specific process steps where they are used.",
+                "Capture the HPLC and FTIR equipment mentioned in the characterization section for even greater completeness."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extracted ontology demonstrates strong capture of the green synthesis procedure for silver nanoparticles using Perilla frutescens leaf extract. The extraction correctly identifies optimum synthesis conditions (2 mM AgNO3, 2.5% extract) from the discussion section, which is appropriate for a synthesis ontology. Key process steps including extract preparation, mixing, sonication, centrifugation, and washing are well-documented with accurate conditions. Equipment identification covers major synthesis and characterization instruments with vendor information. However, some minor details are missing such as the filtration step after extract preparation and 4°C storage condition. The extraction avoids hallucination and correctly leaves fields null when information is not present in the source.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis workflow including plant extract preparation, nanoparticle synthesis, and purification steps. All major synthesis components (materials, steps, equipment, conditions) are represented. However, the filtration step after extract preparation and the 4°C storage condition are missing. Some characterization equipment is not included though this is less critical for synthesis ontology. The structure follows logical experimental flow.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Starting materials are correctly identified with accurate amounts and units (AgNO3: 2.0 mM, P. frutescens extract: 2.5 vol%). The extraction correctly identifies optimum conditions from the discussion section. Plant leaf powder (5 g) and distilled water (100 mL) are captured in step 1. Purity information is appropriately null where not specified. No hallucinated values detected. Minor improvement: water could be more explicitly listed as a starting material.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "Five process steps cover the synthesis workflow with correct sequencing: extract preparation, mixing, sonication, centrifugation, and washing. Action classifications (add, mix, sonicate, centrifuge, wash) are appropriate. Step conditions are well-documented. The filtration step after heating plant leaves is missing as a distinct action. Step 5 (washing) lacks specific conditions which is acceptable as the source doesn't specify washing conditions beyond 'three times'.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "Key equipment is identified with vendor information: UV-Vis (Unico 2100), XRD (Rigaku-Ultima IV), FESEM-EDX (ZEISS Sigma 300). Settings are captured where specified. However, several characterization instruments mentioned in the source are missing: DLS (VASCO Cordouan Technology), FTIR (Perkin Elmer), SERS (TakRam N1-541), HPLC (Waters 2695). For synthesis ontology, the captured equipment is sufficient, but completeness could be improved.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Temperature, duration, and atmosphere conditions are accurately extracted for each relevant step. Extract preparation: 70°C, 60 min. Sonication: 60°C, 90 min, dark atmosphere. Centrifugation: 25°C, 30 min, 9000 rpm (captured in stirring_speed field). The dark condition is correctly noted. No pH values are mentioned in source, so null is correct. Units are consistent and accurate.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "Scientific meaning is faithfully preserved. The extraction correctly identifies optimum synthesis conditions from the discussion section rather than listing all tested concentrations, which is appropriate for a synthesis ontology. No hallucinations or misinterpretations detected. The notes field accurately summarizes key findings (spherical shape, <61 nm size, dark reaction conditions). Chemical nomenclature is correct (AgNO3, Perilla frutescens).",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "JSON structure adheres to the expected ontology schema. All required fields are present with appropriate data types. Numeric values have correct types. Null values are used appropriately where information is not available. The structure is well-organized with clear step numbering. Minor issue: stirring_speed field used for centrifugation rpm which is a common schema limitation but technically not stirring.",
+                "overall_score": 4.3,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures the green synthesis procedure for silver nanoparticles. Strengths include correct identification of optimum conditions, accurate material quantities and units, proper step sequencing, and good equipment vendor information. The extraction avoids hallucination and correctly uses null values where source information is absent. Areas for improvement include capturing the filtration step, adding missing characterization equipment, and using more specific synthesis method classification. Overall, the extraction would enable reproduction of the synthesis procedure with minor gaps. Scores range from 4.0 to 4.5 across criteria, reflecting strong performance with room for minor enhancements."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Filtration step after heating plant leaves",
+                "4°C storage condition for plant extract",
+                "DLS equipment (VASCO Cordouan Technology)",
+                "FTIR equipment (Perkin Elmer)",
+                "SERS equipment (TakRam N1-541)",
+                "HPLC equipment (Waters 2695)"
+              ],
+              "extraction_errors": [
+                "Filtration step after plant extract preparation not captured as a separate step",
+                "4°C storage condition for prepared extract not recorded",
+                "Some characterization equipment missing (DLS, FTIR, SERS, HPLC)",
+                "synthesis_method classified as 'other' instead of 'green synthesis' or 'biosynthesis'"
+              ],
+              "improvement_suggestions": [
+                "Add filtration as a distinct step in the extract preparation workflow",
+                "Include storage conditions (4°C) for prepared plant extract",
+                "Expand equipment list to include all characterization instruments mentioned",
+                "Use more specific synthesis_method classification (e.g., 'green synthesis', 'biosynthesis', 'plant-mediated reduction')",
+                "Consider adding pH conditions if mentioned in source (none in this case)"
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a solid understanding of the green synthesis procedure for silver nanoparticles (Pf-AgNPs) using Perilla frutescens leaf extract. It correctly identifies the core synthesis steps, key materials, and some critical conditions. The ontology is well-structured and captures the essential workflow from extract preparation to nanoparticle isolation. However, there are notable omissions and inaccuracies. The extraction incorrectly lists 'Ag' as the target compound instead of the synthesized nanoparticle 'Pf-AgNPs' or 'silver nanoparticles'. It also fails to capture the combinatorial screening of concentrations (0.5, 1, 2 mM AgNO3 and 1, 2.5, 5, 10% extract) that led to the identified optimum (2 mM, 2.5%), presenting only the final optimized parameters as the sole procedure. Some equipment used in the synthesis steps (e.g., sonicator, centrifuge) is not listed in the equipment array, while characterization equipment is listed. The material amounts for the extract in the synthesis step are ambiguously represented as '2.5, unit: vol%' without clarifying the volume basis. Overall, the extraction is semantically good but lacks completeness in representing the experimental design and has some structural misalignments.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis stages: extract preparation, mixing, sonication, centrifugation, and washing. It includes key materials (AgNO3, plant leaves, water) and some conditions (temperatures, times, atmosphere). However, it is incomplete. The source text describes a multi-parameter optimization (varying AgNO3 and extract concentrations) to find optimum conditions, but the extraction presents only the final optimized single condition as the entire procedure, omitting the experimental design. The equipment list includes characterization tools (spectrophotometer, XRD, FESEM) but omits the synthesis equipment explicitly mentioned (sonicator, centrifuge). The 'target_compound' is incorrectly simplified to 'Ag' instead of the synthesized nanomaterial. These omissions reduce the score.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material names are accurately captured (Silver nitrate, Perilla frutescens leaf extract, powdered leaves, distilled water). Quantities and units for the leaf extract preparation (5 g leaves, 100 mL water) are correct. The representation of the extract concentration in the synthesis step as '2.5, unit: vol%' is problematic; the source states '2.5%, v/v' which implies a volume/volume percentage, but the absolute volume in the reaction mixture is not specified. The amount for AgNO3 is given as '2.0, unit: mM', correctly reflecting concentration but not the absolute molar amount or solution volume. Purity fields are correctly left null where unspecified. The main issue is the ambiguous representation of the extract amount in the synthesis context.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The step sequence and action classifications (add, mix, sonicate, centrifuge, wash) are logically correct and accurately reflect the described procedure. The descriptions are concise and faithful to the source. The deduction is due to the omission of the combinatorial experimental context. The source describes testing multiple concentrations to find an optimum; the extraction presents a linear procedure using only the optimum values, which oversimplifies the reported method. A more complete representation might include a note or a parameter screening step.",
+                "equipment_extraction_score": 2.5,
+                "equipment_extraction_reasoning": "The extraction correctly identifies and lists characterization equipment (UV-Vis spectrophotometer, XRD, FESEM-EDX) with their vendors. However, it critically fails to list the equipment used in the actual synthesis steps: a sonicator and a centrifuge are explicitly mentioned in the procedure but are absent from the 'equipment' array. They are only referenced within step conditions ('sonicated', 'centrifuged'). According to the ontology schema, equipment used in the process should be listed. This is a significant omission. Furthermore, the centrifuge speed (9000 rpm) is listed under step conditions but not linked to an equipment entry.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions are well-extracted where specified. For Step 1: temperature (70 °C) and duration (60 min) are correct. For Step 3: temperature (60 °C), duration (90 min), and atmosphere ('dark') are accurately captured. For Step 4: temperature (25 °C), duration (30 min), and stirring_speed (9000 rpm) are correct. The use of 'stirring_speed' for centrifuge RPM is a minor semantic misalignment but is functionally clear. Conditions correctly left null where not specified (e.g., pressure, pH). The score is high because the extracted conditions are accurate and complete based on the text.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The overall scientific meaning of the synthesis is preserved. However, there are key semantic inaccuracies. 1) The 'target_compound' is listed as 'Ag' (elemental silver) with type 'nanomaterials'. This is a significant oversimplification; the target is specifically biosynthesized silver nanoparticles (Pf-AgNPs). 2) The 'synthesis_method' is 'other'; 'green synthesis' or 'biosynthesis' would be more precise. 3) Presenting only the optimum conditions as the synthesis procedure loses the semantic nuance of the optimization study reported. The representation of the extract concentration ('vol%') without context is semantically ambiguous.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure largely adheres to the expected GeneralSynthesisOntology schema. Fields are correctly nested (starting_materials, steps, equipment). Data types appear correct (numbers, strings, nulls). The 'equipment' array contains objects with 'name' and 'instrument_vendor'. A minor issue: within step conditions, 'stirring_speed' is used for centrifuge RPM, which is technically correct but 'stirring' implies a different action. The schema compliance is otherwise excellent.",
+                "overall_score": 3.8,
+                "overall_reasoning": "The extraction successfully creates a structured, mostly accurate representation of the green synthesis protocol. Its strengths are in capturing the procedural steps, key materials, and specific conditions with high accuracy. The primary weaknesses are: 1) Incorrect/incomplete target material specification ('Ag' vs. 'Pf-AgNPs'), 2) Omission of the experimental optimization context, presenting only final parameters, 3) Failure to list synthesis equipment (sonicator, centrifuge) in the equipment array, and 4) Ambiguous representation of reagent amounts for the synthesis step. These issues impact structural completeness, semantic accuracy, and equipment extraction scores. The format is largely compliant. With corrections to these points, the extraction would be of very high quality."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The combinatorial experimental design to find optimum AgNO3 and extract concentrations.",
+                "Explicit listing of 'sonicator' and 'centrifuge' in the equipment array.",
+                "Clarification on the volume basis for the extract concentration in the synthesis step (e.g., extract volume per total volume).",
+                "Note that the extract was filtered and stored at 4°C before use (from 'Plant material and preparation of plant extract' section)."
+              ],
+              "extraction_errors": [
+                "Target compound incorrectly specified as 'Ag' instead of 'silver nanoparticles' or 'Pf-AgNPs'.",
+                "Synthesis method listed as 'other' instead of a more specific term like 'green synthesis' or 'biosynthesis'.",
+                "Equipment used in synthesis (sonicator, centrifuge) not listed in the 'equipment' array, only mentioned in step descriptions/conditions.",
+                "Represents the synthesis as a single condition (2 mM AgNO3, 2.5% extract) without capturing the parameter screening (0.5, 1, 2 mM and 1, 2.5, 5, 10% extract) described in the source.",
+                "Amount for 'Perilla frutescens leaf extract' in Step 2 is given as '2.5, unit: vol%' which is ambiguous without the total solution volume."
+              ],
+              "improvement_suggestions": [
+                "Extract the target compound as 'silver nanoparticles (Pf-AgNPs)' with a compound type of 'nanomaterial' or 'metal nanoparticle'.",
+                "Set 'synthesis_method' to 'green synthesis' or 'biosynthesis'.",
+                "Include all equipment used in process steps (e.g., sonicator, centrifuge) in the dedicated 'equipment' list, not just characterization tools.",
+                "Consider adding a note or a preliminary 'screening' step to reflect that the reported conditions (2 mM, 2.5%) were the result of an optimization study.",
+                "For solution concentrations like '2.5%, v/v', consider adding a field for 'concentration' or ensure the description field clarifies the context if absolute amounts are not provided."
+              ]
+            },
+            "overall_score": 3.8
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "Ag",
+        "synthesis": {
+          "target_compound": "Ag (Silver nanoparticles, Pf-AgNPs)",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "solution-based",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Perilla frutescens leaves",
+              "amount": 5.0,
+              "unit": "g",
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Distilled water",
+              "amount": 100.0,
+              "unit": "mL",
               "purity": null
             },
             {
@@ -51,172 +690,676 @@
             {
               "vendor": null,
               "name": "P. frutescens extract aqueous solution",
-              "amount": 1.0,
-              "unit": "%",
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "P. frutescens extract aqueous solution",
               "amount": 2.5,
-              "unit": "%",
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "P. frutescens extract aqueous solution",
-              "amount": 5.0,
-              "unit": "%",
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "P. frutescens extract aqueous solution",
-              "amount": 10.0,
-              "unit": "%",
+              "unit": "% v/v",
               "purity": null
             }
           ],
-          "equipment": [],
-          "conditions": null
-        },
-        {
-          "step_number": 2,
-          "action": "sonicate",
-          "description": "the mixture was sonicated for 90 min",
-          "materials": [],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Plant leaves were washed and dried in the shade at ambient temperature",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Perilla frutescens leaves",
+                  "amount": 5.0,
+                  "unit": "g",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "ambient",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "heat",
+              "description": "Powdered plant leaves were heated in distilled water to prepare aqueous leaf extract",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Powdered plant leaves",
+                  "amount": 5.0,
+                  "unit": "g",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Distilled water",
+                  "amount": 100.0,
+                  "unit": "mL",
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": 70.0,
+                "temp_unit": "C",
+                "duration": 60.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "mix",
+              "description": "The cooled and filtered solution was preserved at 4°C for further use",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": 4.0,
+                "temp_unit": "C",
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "mix",
+              "description": "AgNO3 was dissolved in P. frutescens extract aqueous solution and the mixture was sonicated",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "AgNO3",
+                  "amount": 2.0,
+                  "unit": "mM",
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "P. frutescens extract aqueous solution",
+                  "amount": 2.5,
+                  "unit": "% v/v",
+                  "purity": null
+                }
+              ],
+              "equipment": [
+                {
+                  "name": "sonicator",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": 90.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "dark",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 5,
+              "action": "centrifuge",
+              "description": "The solution was centrifuged to obtain sediment",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "centrifuge",
+                  "instrument_vendor": null,
+                  "settings": "9000 rpm"
+                }
+              ],
+              "conditions": {
+                "temperature": 25.0,
+                "temp_unit": "C",
+                "duration": 30.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 6,
+              "action": "wash",
+              "description": "The sediment obtained was washed three times and stored for characterization and biological studies",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [
             {
               "name": "sonicator",
               "instrument_vendor": null,
               "settings": null
-            }
-          ],
-          "conditions": {
-            "temperature": 60.0,
-            "temp_unit": "C",
-            "duration": 90.0,
-            "time_unit": "min",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "dark",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
-        },
-        {
-          "step_number": 3,
-          "action": "centrifuge",
-          "description": "the solution was centrifuged at 9000 rpm for 30 min",
-          "materials": [],
-          "equipment": [
+            },
             {
               "name": "centrifuge",
               "instrument_vendor": null,
               "settings": "9000 rpm"
             }
           ],
-          "conditions": {
-            "temperature": 25.0,
-            "temp_unit": "C",
-            "duration": 30.0,
-            "time_unit": "min",
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          "notes": "The whole reaction was carried out in the dark to prevent photo-activation. Optimum conditions were 2 mM AgNO3 and 2.5% plant extract at 60°C for 90 min. The synthesized Pf-AgNPs had optimal size (<61 nm), spherical shape, and moderate stability (−18.1 mV zeta potential)."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for green-synthesized silver nanoparticles (Pf-AgNPs) using Perilla frutescens aqueous leaf extract. The extraction correctly identifies the target compound, synthesis method, key starting materials, and the main process steps including extract preparation, sonication-based synthesis, centrifugation, and washing. The optimum conditions (2 mM AgNO3, 2.5% extract, 60°C, 90 min, dark conditions) are well captured. Vendor information is appropriately left null throughout, consistent with the source text not naming reagent vendors. The extraction is largely faithful to the source, with only minor omissions and a few classification issues in step actions.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: starting materials (P. frutescens leaves, distilled water, AgNO3, extract solution), all six key process steps (washing/drying, heating for extract preparation, cooling/filtering/storage, sonication-based synthesis, centrifugation, washing of sediment), and the two main pieces of equipment (sonicator, centrifuge). The target compound type (nanomaterials), synthesis method (solution-based), and key characterization notes are included. Minor omissions include: (1) the filtering step after heating is not explicitly captured as a separate action — it is mentioned in step 3 description but the action is labeled 'mix' rather than 'filter'; (2) the storage condition (4°C) is captured in step 3 but the action label 'mix' is semantically incorrect for a cooling/filtering/storage step. Overall, the structural coverage is very good with only minor classification issues.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All four key starting materials are correctly identified with appropriate amounts and units: P. frutescens leaves (5 g), distilled water (100 mL), AgNO3 (2 mM — the optimum concentration), and P. frutescens extract aqueous solution (2.5% v/v — the optimum concentration). Purity values are correctly left null as the source does not specify reagent purities. Vendor information is correctly left null. The extraction correctly captures the optimized conditions rather than listing all tested concentrations (0.5, 1, 2 mM AgNO3; 1, 2.5, 5, 10% extract), which is appropriate for a synthesis ontology focused on the successful protocol. One minor note: the source mentions the extract:AgNO3 ratio as 1:40, which is not explicitly captured, but this is derivable from the listed amounts.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The six process steps are logically sequenced and cover the complete synthesis workflow. Steps 2 (heating for extract preparation), 4 (sonication/mixing for AgNP synthesis), 5 (centrifugation), and 6 (washing) are correctly classified and described. However, there are two action classification issues: (1) Step 1 is labeled 'mix' but the actual actions are washing and drying of plant leaves — a more accurate label would be 'wash' or 'dry'; (2) Step 3 is labeled 'mix' but the actual actions are cooling, filtering, and storing the extract — a more accurate label would be 'filter' or 'store'. The descriptions within these steps are accurate, but the action labels are semantically imprecise. The sonication step (step 4) is correctly labeled 'mix' as it involves dissolving and mixing, though 'sonicate' would be more precise. The overall logical flow is correct and complete.",
+                "equipment_extraction_score": 4.0,
+                "equipment_extraction_reasoning": "The two most critical pieces of equipment for the synthesis — the sonicator and centrifuge — are correctly identified and included in both the equipment list and the relevant process steps. The centrifuge settings (9000 rpm) are correctly captured. Vendor information is appropriately null for both instruments as the source does not name vendors for these. However, several characterization instruments mentioned in the source are not included in the equipment list: UV-Visible spectrophotometer (Unico 2100), XRD diffractometer (Rigaku-Ultima IV), FESEM-EDX (ZEISS Sigma 300), DLS instrument (VASCO Cordouan Technology), FTIR spectrometer (Perkin Elmer), SERS spectrometer (TakRam N1-541), HPLC apparatus (Waters 2695), and ELISA reader (BioTek). While these are characterization rather than synthesis instruments, their omission is notable. For a synthesis-focused ontology, the sonicator and centrifuge are the most relevant, so this is a moderate rather than severe omission.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The key synthesis conditions are accurately captured: heating temperature (70°C, 60 min) for extract preparation in step 2; sonication at 60°C for 90 min in dark conditions in step 4; centrifugation at 9000 rpm, 25°C, 30 min in step 5; and storage at 4°C in step 3. The dark condition for the synthesis reaction is correctly noted as 'atmosphere: dark' in step 4 and also mentioned in the notes. Pressure and pH are correctly left null as the source does not specify these. Stirring parameters are correctly null. The notes field also captures the key characterization results (size <61 nm, zeta potential -18.1 mV, spherical shape). One minor omission: the source mentions the reaction was carried out in the dark for the entire synthesis (not just sonication), but this is adequately captured in the notes. The 1:40 ratio of extract to AgNO3 mentioned in the discussion is not explicitly captured as a condition.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is faithfully preserved. The green synthesis approach using plant extract as both reducing and capping agent is correctly represented. The optimum conditions are accurately identified from the text (2 mM AgNO3, 2.5% extract, 60°C, 90 min). The synthesis method classification as 'solution-based' is appropriate for this wet chemical green synthesis approach. The notes field accurately summarizes key outcomes (size, shape, stability). The target compound is correctly identified as 'Ag (Silver nanoparticles, Pf-AgNPs)' with type 'nanomaterials'. The only semantic imprecision is the use of 'mix' as the action for steps 1 and 3, which slightly misrepresents the actual operations (washing/drying and filtering/storing, respectively). The dark condition is correctly captured as preventing photo-activation.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials (with name, amount, unit, purity, vendor fields), steps (with step_number, action, description, materials, equipment, conditions fields), equipment list, and notes. Data types are correct throughout — numeric values for amounts, temperatures, durations; string values for units and descriptions; null for absent information. The conditions sub-object within each step contains all expected fields (temperature, temp_unit, duration, time_unit, pressure, pressure_unit, atmosphere, stirring, stirring_speed, ph). Equipment entries contain name, instrument_vendor, and settings fields. The format is fully compliant with no structural violations.",
+                "overall_score": 4.4,
+                "overall_reasoning": "The extraction of the Pf-AgNPs green synthesis ontology is of high quality overall. The target compound, synthesis method, starting materials, process steps, conditions, and equipment are all captured with good accuracy and completeness. Key strengths include: accurate capture of optimized synthesis conditions (2 mM AgNO3, 2.5% extract, 60°C, 90 min, dark), correct identification of the sonicator and centrifuge with their settings, appropriate null values for absent information (vendors, purities, pressure, pH), and full schema compliance. The main weaknesses are: (1) action labels for steps 1 and 3 are semantically imprecise ('mix' used for washing/drying and filtering/storing operations); (2) characterization equipment (UV-Vis, XRD, FESEM, DLS, FTIR, SERS, HPLC, ELISA reader) is not included in the equipment list, though these are secondary to the synthesis workflow; (3) the 1:40 extract:AgNO3 ratio mentioned in the discussion is not captured. Overall, the extraction faithfully represents the synthesis procedure with minor classification and completeness issues, earning a strong overall score."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Characterization equipment not captured in equipment list: UV-Visible spectrophotometer (Unico 2100), XRD diffractometer (Rigaku-Ultima IV), FESEM-EDX (ZEISS Sigma 300), DLS (VASCO Cordouan Technology), FTIR (Perkin Elmer), SERS spectrometer (TakRam N1-541), HPLC (Waters 2695), ELISA reader (BioTek)",
+                "The 1:40 volume ratio of extract to AgNO3 mentioned in the Discussion section is not captured",
+                "The filtering step after extract preparation is not captured as a distinct action in step 3"
+              ],
+              "extraction_errors": [
+                "Step 1 action labeled 'mix' is semantically incorrect — the actual operations are washing and drying of plant leaves",
+                "Step 3 action labeled 'mix' is semantically incorrect — the actual operations are cooling, filtering, and storing the extract at 4°C"
+              ],
+              "improvement_suggestions": [
+                "Change step 1 action from 'mix' to 'wash' or 'dry' to better reflect the actual operation of washing and shade-drying plant leaves",
+                "Change step 3 action from 'mix' to 'filter' or 'store' to better reflect the cooling, filtering, and cold storage operations",
+                "Consider adding a separate step for the filtering operation between heating (step 2) and storage (step 3)",
+                "Consider adding characterization equipment to the equipment list with their vendor/model information as provided in the source (e.g., ZEISS Sigma 300 for FESEM, Rigaku-Ultima IV for XRD)",
+                "Add the 1:40 extract:AgNO3 volume ratio as a condition or note in step 4",
+                "Consider using 'sonicate' as the action for step 4 rather than 'mix' to more precisely describe the sonication operation"
+              ]
+            },
+            "overall_score": 4.4
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction is highly accurate and captures the multi-stage process of green synthesis, including the preparation of the plant extract and the subsequent nanoparticle formation. It correctly identifies the optimized parameters (2 mM AgNO3 and 2.5% extract) from the experimental results section rather than just listing the screening range. All critical conditions like temperature, time, and atmosphere (darkness) are well-captured.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction covers all phases of the synthesis: plant material preparation, extract production, and the nanoparticle synthesis/purification steps. It includes materials, equipment, and conditions for each step.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Material names and quantities are extracted accurately. It correctly identifies the optimized concentration of AgNO3 (2 mM) and the extract (2.5%) as the primary starting materials for the target compound.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The sequence of steps (washing/drying, heating for extraction, cooling, sonication-assisted synthesis, centrifugation, and washing) follows the logical and chronological order described in the text.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The sonicator and centrifuge are correctly identified. While characterization equipment (XRD, FESEM, etc.) is mentioned in the text, the extraction correctly focuses on synthesis equipment as per the ontology's purpose.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Numerical values for temperature (70C, 60C, 25C), time (60 min, 90 min, 30 min), and specific conditions like 'dark' and '9000 rpm' are perfectly captured.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the 'green synthesis' process, distinguishing between the preparation of the bioreductant and the actual nanoparticle formation.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON is valid, follows the schema, and uses appropriate data types for all fields.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates strong performance in capturing the core green synthesis procedure for Pf-AgNPs from Perilla frutescens leaf extract. The starting materials are accurately identified with correct quantities (5g leaves, 100mL water, 2mM AgNO3, 2.5% extract). The six process steps follow a logical sequence from plant preparation through nanoparticle synthesis, centrifugation, and washing. Key synthesis conditions are well-captured including temperatures (70°C for extraction, 60°C for synthesis, 25°C for centrifugation), durations (60 min, 90 min, 30 min), and the dark atmosphere condition. The extraction correctly identifies the optimum conditions (2mM AgNO3, 2.5% extract) as stated in the Results section. However, characterization equipment (UV-Vis, XRD, FESEM, FTIR, DLS, SERS, HPLC) is not included, though this may be appropriate for a synthesis-focused ontology. Minor redundancy exists with the extract listed as both a product of step 2 and a starting material. Overall, the extraction faithfully represents the synthesis protocol without hallucination.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all major synthesis components: starting materials with quantities, six sequential process steps, synthesis equipment, and reaction conditions. The structure follows a logical flow from plant preparation through nanoparticle synthesis and purification. All key synthesis information from the source text is represented. The only limitation is the absence of characterization equipment, which may be outside the synthesis ontology scope. Minor redundancy exists with the extract listed as both intermediate and starting material.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material names, quantities, and units are accurately extracted: Perilla frutescens leaves (5g), distilled water (100mL), AgNO3 (2mM), and P. frutescens extract (2.5% v/v). The optimum concentration (2.5%) is correctly identified from the Results section. Purity information is appropriately left null as it is not specified in the source. The extraction correctly distinguishes between the plant material and the prepared extract. No hallucinated quantities or units are present.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "All six process steps are accurately captured with correct action classifications (mix, heat, mix, mix, centrifuge, wash). The step sequence correctly follows the source text: plant preparation, extract preparation, storage, nanoparticle synthesis with sonication, centrifugation, and washing. Step descriptions faithfully represent the source text without misinterpretation. The logical flow from raw material to final product is well-maintained. Each step includes appropriate materials, equipment, and conditions.",
+                "equipment_extraction_score": 3.5,
+                "equipment_extraction_reasoning": "The extraction captures synthesis equipment (sonicator, centrifuge) with relevant settings (9000 rpm for centrifuge). However, extensive characterization equipment explicitly mentioned in the source (UV-Visible spectrophotometer Unico 2100, XRD Rigaku-Ultima IV, FESEM-EDX ZEISS Sigma 300, DLS VASCO Cordouan, FTIR Perkin Elmer, SERS TakRam N1-541, HPLC Waters 2695) is not included. This may be appropriate if the ontology focuses solely on synthesis rather than characterization, but represents incomplete capture of the experimental workflow described in the source.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Synthesis conditions are excellently captured with accurate numerical values and units: extraction at 70°C for 60 min, storage at 4°C, synthesis at 60°C for 90 min in dark atmosphere, centrifugation at 9000 rpm for 30 min at 25°C. The dark condition to prevent photo-activation is correctly noted. Temperature units (°C) and time units (min) are consistent. No conditions are hallucinated, and null values are appropriately used where the source does not specify (e.g., pressure, pH, stirring speed).",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning and intent of the source text. The green synthesis approach using plant extract as reducing/capping agent is correctly represented. The optimum conditions (2mM AgNO3, 2.5% extract, 60°C, 90 min) match the Results section conclusions. The dark condition rationale (prevent photo-activation) is captured in notes. No misinterpretations or semantic distortions are present. The extraction correctly distinguishes between the synthesis procedure and the characterization/analysis procedures.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure adheres to the GeneralSynthesisOntology schema with all required fields present: target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Data types are correct (numbers for quantities, strings for names, nested objects for conditions). Field naming follows the expected convention. Null values are appropriately used for unspecified information (vendor, purity, pressure). The structure is valid and parseable.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This is a high-quality extraction that accurately captures the green synthesis protocol for Pf-AgNPs. Strengths include accurate material quantities and units, well-sequenced process steps with correct action classifications, comprehensive condition capture with proper numerical values, and faithful semantic preservation. The extraction correctly identifies optimum synthesis conditions from the Results section. The main limitation is the absence of characterization equipment, which represents incomplete capture of the full experimental workflow but may be appropriate for a synthesis-focused ontology. Minor redundancy exists with the extract listed as both intermediate product and starting material. No hallucinations are present, and null values are correctly used for unspecified information. The format fully complies with the expected schema. Overall, this extraction would enable reproduction of the synthesis procedure with high fidelity."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Characterization instrumentation details (vendors, models, settings)",
+                "HPLC gradient program details for phenolic analysis",
+                "Specific washing solvent used for sediment (not specified in source)",
+                "Plant collection location details (Siahkal, Guilan, Iran coordinates)"
+              ],
+              "extraction_errors": [
+                "Characterization equipment (UV-Vis spectrophotometer, XRD diffractometer, FESEM, FTIR, DLS, SERS, HPLC) mentioned in source text is not captured in equipment list",
+                "P. frutescens extract aqueous solution is listed as starting material but is actually produced in step 2, creating minor redundancy"
+              ],
+              "improvement_suggestions": [
+                "Consider including characterization equipment if the ontology scope extends beyond synthesis to include analysis procedures",
+                "Clarify the relationship between intermediate products (extract) and starting materials to avoid redundancy",
+                "Add vendor information for equipment where explicitly stated in source (e.g., Unico 2100, Rigaku-Ultima IV, ZEISS Sigma 300)",
+                "Consider adding notes about the concentration screening (0.5, 1, 2 mM AgNO3; 1, 2.5, 5, 10% extract) that led to optimum conditions"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction demonstrates a solid understanding of the green synthesis procedure for silver nanoparticles (Pf-AgNPs) using Perilla frutescens leaf extract. It correctly identifies the core synthesis steps, key materials, and critical conditions (temperature, time, atmosphere). The ontology is well-structured and captures the essential workflow from plant extract preparation to nanoparticle isolation. However, there are notable inaccuracies in material representation, particularly the misrepresentation of AgNO3 concentration as a material amount and the omission of the combinatorial screening context. The extraction correctly avoids hallucinating details not present (e.g., vendor information, stirring parameters). Overall, it is a good but imperfect representation of the source text.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the major structural components: the target material (Pf-AgNPs), the synthesis method (solution-based), a list of starting materials, a sequence of process steps, and relevant equipment. It includes the key preparatory step for the plant extract and the main synthesis/reaction step. However, it misses the explicit combinatorial screening of multiple AgNO3 concentrations (0.5, 1, 2 mM) and plant extract concentrations (1, 2.5, 5, 10% v/v) described in the source, presenting only the final optimized condition as a single, definitive step. This omission reduces the completeness of the experimental narrative.",
+                "material_extraction_score": 3.0,
+                "material_extraction_reasoning": "Accuracy is mixed. The plant leaf and water quantities for extract preparation are correctly captured (5 g, 100 mL). However, a critical error exists: AgNO3 is listed with an 'amount' of 2.0 and a 'unit' of 'mM'. This misrepresents concentration as a mass/volume amount. The correct representation should be a concentration field or the amount should be derived from the described ratio (e.g., 2 mM AgNO3 solution). The 'P. frutescens extract aqueous solution' is also listed with a unit of '% v/v', which is a concentration, not a direct amount. The extraction fails to capture that the 2.5% value is the *optimal* concentration identified from a screen, not the sole one used. Purity fields are correctly left null as not specified.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The step sequence is logically ordered and action classifications (mix, heat, centrifuge, wash) are generally appropriate. The description for Step 1 is slightly misaligned (it describes preparation of the leaves, not a 'mix' action). Step 4 correctly combines dissolution and sonication. A significant shortfall is the lack of a step representing the filtration of the plant extract after heating and cooling, which is explicitly mentioned ('cooled and filtered solution'). The process flow is otherwise accurately captured.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "Equipment extraction is accurate for the explicitly named items. The 'sonicator' and 'centrifuge' are correctly identified. The centrifuge setting ('9000 rpm') is accurately captured. No vendor information is provided in the source, so those fields are correctly null. The extraction does not hallucinate additional equipment. It correctly omits characterization equipment (UV-Vis, XRD, etc.) as they are not part of the synthesis procedure itself. A minor point: the sonicator is not given a specific setting in the text, so 'settings: null' is correct.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Key synthesis conditions are accurately extracted: heating the extract at 70°C for 60 min, sonication at 60°C for 90 min in the dark, and centrifugation at 25°C for 30 min. The 'dark' atmosphere for the reaction is correctly noted. The storage temperature of 4°C is captured. Units are consistent. Conditions not specified in the text (pressure, pH, stirring) are correctly omitted. The only minor issue is that the 'ambient' atmosphere for leaf drying is inferred but reasonable.",
+                "semantic_accuracy_score": 3.5,
+                "semantic_accuracy_reasoning": "The overall scientific meaning of a green synthesis using plant extract is preserved. However, semantic inaccuracies arise from the material representation errors (treating concentration as amount) and the flattening of the optimization study. The source describes a process of testing multiple variables to find optimum conditions (2 mM AgNO3, 2.5% extract). The extraction presents this optimum as the only procedure, losing the semantic context of an investigative optimization. The note field partially recovers this, but the structured data implies a single, linear synthesis.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and populated with appropriate data types (strings, numbers, arrays, objects, nulls). The nesting of materials within steps and the conditions object is correct. The 'notes' field is used appropriately for supplementary information. There are no format violations.",
+                "overall_score": 4.1,
+                "overall_reasoning": "The extraction successfully structures the core green synthesis protocol for Pf-AgNPs with high format compliance and good capture of steps, equipment, and conditions. Its primary weaknesses are in material representation (confusing concentration with amount) and a loss of semantic nuance regarding the experimental optimization process. These issues impact the material extraction and semantic accuracy scores. The system correctly refrains from hallucinating unspecified details. With corrections to material quantity representation and a more nuanced capture of the screening process, this would be an excellent extraction."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "The combinatorial screening of AgNO3 and plant extract concentrations to determine optimum conditions.",
+                "The filtration step for the plant extract after heating and cooling."
+              ],
+              "extraction_errors": [
+                "Misrepresentation of AgNO3 'amount' as 2.0 with unit 'mM'. Concentration should be represented differently.",
+                "Misrepresentation of plant extract 'amount' as 2.5 with unit '% v/v'. This is a concentration, not a direct material amount.",
+                "Omission of the filtration step after plant extract preparation.",
+                "Step 1 action 'mix' is not the most accurate description for washing and drying leaves.",
+                "Presentation of the optimized synthesis conditions (2 mM, 2.5%) as the only procedure, omitting the context of screening multiple concentrations (0.5, 1, 2 mM AgNO3 and 1, 2.5, 5, 10% extract)."
+              ],
+              "improvement_suggestions": [
+                "Implement a dedicated field for reagent concentration (e.g., 'concentration', 'concentration_unit') separate from 'amount' and 'unit' for bulk materials.",
+                "For optimization studies, consider a structure that can capture parameter screening (e.g., a 'parameters_studied' field or representing multiple parallel experiments).",
+                "Refine action classification: 'prepare' or 'dry' might be better than 'mix' for the initial leaf processing step.",
+                "Ensure all explicit procedural actions (like 'filtered' in 'cooled and filtered solution') are captured as distinct steps or within step descriptions."
+              ]
+            },
+            "overall_score": 4.1
           }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "Ag",
+        "synthesis": {
+          "target_compound": "Ag",
+          "target_compound_type": "nanomaterials",
+          "synthesis_method": "other",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "AgNO3",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Perilla frutescens leaf extract aqueous solution",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "distilled water",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "For the green synthesis of Pf-AgNPs, AgNO3 in three concentrations of 0.5, 1, and 2 mM was dissolved in P. frutescens extract aqueous solution (1, 2.5, 5, and 10%, v/v).",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "AgNO3",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Perilla frutescens extract aqueous solution",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 2,
+              "action": "sonicate",
+              "description": "The mixture was sonicated for 90 min at 60 °C and in the dark condition.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "sonicator",
+                  "instrument_vendor": null,
+                  "settings": null
+                }
+              ],
+              "conditions": {
+                "temperature": 60.0,
+                "temp_unit": "C",
+                "duration": 90.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": "dark",
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 3,
+              "action": "centrifuge",
+              "description": "After that, the solution was centrifuged at 9000 rpm for 30 min and at 25 °C.",
+              "materials": [],
+              "equipment": [
+                {
+                  "name": "centrifuge",
+                  "instrument_vendor": null,
+                  "settings": "9000 rpm"
+                }
+              ],
+              "conditions": {
+                "temperature": 25.0,
+                "temp_unit": "C",
+                "duration": 30.0,
+                "time_unit": "min",
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            },
+            {
+              "step_number": 4,
+              "action": "wash",
+              "description": "Then, the sediment obtained was washed three times and stored for determining characterization and biological studies.",
+              "materials": [],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [
+            {
+              "name": "sonicator",
+              "instrument_vendor": null,
+              "settings": null
+            },
+            {
+              "name": "centrifuge",
+              "instrument_vendor": null,
+              "settings": "9000 rpm"
+            }
+          ],
+          "notes": "The whole reaction was carried out in the dark to prevent photo-activation. The optimum conditions were determined as 2 mM AgNO3 and 2.5% plant extract."
         },
-        {
-          "step_number": 4,
-          "action": "wash",
-          "description": "the sediment obtained was washed three times",
-          "materials": [],
-          "equipment": [],
-          "conditions": null
-        },
-        {
-          "step_number": 5,
-          "action": "dry",
-          "description": "stored for determining characterization and biological studies",
-          "materials": [],
-          "equipment": [],
-          "conditions": null
-        }
-      ],
-      "equipment": [
-        {
-          "name": "UV\u2013Visible spectrophotometer",
-          "instrument_vendor": "Unico",
-          "settings": null
-        },
-        {
-          "name": "X-ray difractometer",
-          "instrument_vendor": "Rigaku",
-          "settings": "Cu-K\u03b1 radiation wavelength of \u03bb=0.154178 nm at room temperature in a 2*\u03b8* range 7 to 80*\u03b8* at a scan rate of 0.2\u00b0/min. with a time constant of 2 s in 2 h"
-        },
-        {
-          "name": "FESEM-EDX",
-          "instrument_vendor": "ZEISS",
-          "settings": "Sigma 300, Germany"
-        },
-        {
-          "name": "dynamic light scattering",
-          "instrument_vendor": "VASCO Cordouan Technology",
-          "settings": "France"
-        },
-        {
-          "name": "Fourier transform infrared",
-          "instrument_vendor": "Perkin Elmer",
-          "settings": "USA"
-        },
-        {
-          "name": "Surface-enhanced Raman spectroscopy",
-          "instrument_vendor": "TakRam",
-          "settings": "N1-541 spectrometer (Iran) equipped with a Hamamatsu detector equipped with a maximum power of 100 mW"
-        }
-      ],
-      "notes": "The whole reaction was carried out in the dark to prevent photo-activation. The concentration of 2 mM AgNO3 and 2.5% plant extract were obtained as the optimum conditions."
-    },
-    "evaluation": {
-      "reasoning": "The extraction captures the core synthesis steps and conditions for Pf-AgNPs. Material extraction is mostly accurate, although some quantities are missing. The process steps are logically sequenced. Equipment is well-identified. Conditions are generally well-extracted, but some specifics are lacking. Semantic accuracy is good, and the overall format compliance is high. However, there are opportunities to improve completeness by including more specific details about material amounts and equipment settings.",
-      "scores": {
-        "structural_completeness_score": 4.0,
-        "structural_completeness_reasoning": "The ontology covers the main aspects of the synthesis, including materials, steps, equipment, and conditions. However, it could benefit from more detailed information on specific quantities and equipment settings.",
-        "material_extraction_score": 4.0,
-        "material_extraction_reasoning": "Material names are accurately extracted. However, the amounts and units are not consistently captured for all materials. Purity information is missing.",
-        "process_steps_score": 4.5,
-        "process_steps_reasoning": "The process steps are correctly sequenced and the actions are appropriately classified. The description of each step is clear and concise.",
-        "equipment_extraction_score": 4.5,
-        "equipment_extraction_reasoning": "The equipment used in the synthesis is well-identified, including names and vendors. However, specific settings for each piece of equipment are not always included.",
-        "conditions_extraction_score": 4.0,
-        "conditions_extraction_reasoning": "The main synthesis conditions, such as temperature, duration, and atmosphere, are extracted. However, more specific details, such as stirring speed or pH, are missing.",
-        "semantic_accuracy_score": 4.5,
-        "semantic_accuracy_reasoning": "The extracted ontology accurately preserves the scientific meaning of the synthesis procedure. The relationships between materials, steps, equipment, and conditions are correctly represented.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. All fields are correctly formatted and populated.",
-        "overall_score": 4.4,
-        "overall_reasoning": "The ontology extraction is of good quality, capturing the essential details of the Pf-AgNPs synthesis. The main strengths are the accurate identification of materials, the logical sequencing of process steps, and the good semantic accuracy. The main weaknesses are the missing quantities and equipment settings, and the lack of purity information."
-      },
-      "confidence_level": "high",
-      "missing_information": [
-        "Quantities for all starting materials",
-        "Purity information for starting materials",
-        "Specific settings for all equipment",
-        "Solvent used in the washing step",
-        "Stirring speed or pH"
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Include specific quantities and units for all starting materials.",
-        "Add purity information for the starting materials.",
-        "Include specific settings for each piece of equipment, such as voltage, current, or flow rate.",
-        "Add more details about the washing step, such as the solvent used.",
-        "Include stirring speed or pH if available."
-      ]
-    }
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The extracted ontology captures the core synthesis procedure for Pf-AgNPs (silver nanoparticles from Perilla frutescens leaf extract) with reasonable fidelity. The main synthesis steps — mixing AgNO3 with plant extract, sonication, centrifugation, and washing — are all present and correctly sequenced. Key conditions such as temperature (60°C for sonication, 25°C for centrifugation), duration (90 min sonication, 30 min centrifugation), and centrifuge speed (9000 rpm) are accurately captured. The dark condition is noted both in the step and in the notes field. The starting materials include AgNO3, Perilla frutescens leaf extract aqueous solution, and distilled water. However, the extraction also includes a separate plant extract preparation step (heating 5g powdered leaves in 100 mL distilled water at 70°C for 60 min) that is not captured as a process step. The target compound is listed as 'Ag' which is technically correct but could be more descriptive as 'Ag nanoparticles' or 'Pf-AgNPs'. The synthesis method is listed as 'other' rather than 'green synthesis' or 'biogenic synthesis', which is a minor semantic issue. Amounts and purities are correctly left null since the paper does not specify them in standard quantity terms for the synthesis step. The equipment list is minimal but appropriate given what is explicitly named. Overall, the extraction is solid with a few notable gaps.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the four main synthesis steps (mixing, sonication, centrifugation, washing) and the key starting materials. However, it misses the plant extract preparation step, which is an explicit and distinct synthesis procedure described in the source text (heating 5g powdered leaves in 100 mL distilled water at 70°C for 60 min, then filtering and storing at 4°C). This is a meaningful omission since the plant extract is a critical precursor. The notes field helpfully captures the optimum conditions (2 mM AgNO3, 2.5% plant extract) and the dark condition rationale. The characterization steps (UV-Vis, XRD, FESEM, etc.) are appropriately not included as synthesis steps. The overall structure is reasonable but incomplete due to the missing extract preparation step.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "The three starting materials — AgNO3, Perilla frutescens leaf extract aqueous solution, and distilled water — are correctly identified. Vendor and purity information are correctly left null as the paper does not specify these. Amounts are also correctly left null since the paper describes ranges of concentrations (0.5, 1, 2 mM for AgNO3; 1, 2.5, 5, 10% v/v for extract) rather than fixed quantities for a single synthesis run. The optimum conditions (2 mM AgNO3, 2.5% extract) are captured in the notes. One minor issue is that the plant extract preparation materials (5g powdered leaves, 100 mL distilled water) are not captured as a separate starting material sub-process. The distilled water is listed as a starting material, which is reasonable. Overall, material extraction is good with minor gaps.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The four synthesis steps are correctly identified and sequenced: (1) mixing AgNO3 with plant extract, (2) sonication at 60°C for 90 min in dark, (3) centrifugation at 9000 rpm for 30 min at 25°C, (4) washing three times. Action classifications are appropriate (mix, sonicate, centrifuge, wash). The descriptions are accurate and faithful to the source text. However, the plant extract preparation step (heating powdered leaves in distilled water at 70°C for 60 min, cooling, filtering, storing at 4°C) is entirely absent. This is a clearly described and distinct process step in the source text that should have been captured. The storage step after washing is also not explicitly captured as a step. The step for the wash correctly notes 'three times' in the description.",
+                "equipment_extraction_score": 3.5,
+                "equipment_extraction_reasoning": "The sonicator and centrifuge are correctly identified as the primary synthesis equipment, with the centrifuge settings (9000 rpm) properly captured. Vendor information is correctly left null as the paper does not name vendors for these instruments. However, the source text also mentions a spectrophotometer (Unico 2100) used during synthesis monitoring (UV-Vis), though this is more of a characterization instrument. More importantly, no equipment is listed for the plant extract preparation step (which would involve a heating apparatus/hot plate or water bath). The equipment list is minimal but defensible given that the paper does not explicitly name the heating equipment used for extract preparation. The sonicator settings (60°C, 90 min, dark) are captured in the step conditions rather than equipment settings, which is acceptable.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The key synthesis conditions are accurately captured: sonication at 60°C for 90 min in dark conditions, centrifugation at 9000 rpm for 30 min at 25°C. The dark atmosphere condition is correctly noted for the sonication step. The centrifuge speed (9000 rpm) is captured in both the equipment settings and the step description. Temperature units (C) and time units (min) are correctly specified. The wash step correctly has null conditions since no specific conditions are stated in the source. The optimum conditions (2 mM AgNO3, 2.5% extract) are captured in the notes. The plant extract preparation conditions (70°C, 60 min, storage at 4°C) are not captured since that step is missing, but this is a consequence of the missing step rather than a conditions extraction error per se. Overall, conditions extraction for the captured steps is excellent.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is well preserved. The green synthesis approach using plant extract as reducing/capping agent is correctly represented. The target compound 'Ag' is technically correct but could be more precisely described as 'Ag nanoparticles' or 'Pf-AgNPs' to better reflect the nanomaterial nature. The synthesis method 'other' is a reasonable choice given the schema constraints, though 'green synthesis' or 'biogenic' would be more semantically precise. The dark condition is correctly attributed to preventing photo-activation (noted in the notes field). The description of the mixing step correctly captures the range of concentrations tested. The notes field accurately summarizes the optimum conditions determined. No significant semantic errors or misinterpretations are present.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Each step contains step_number, action, description, materials, equipment, and conditions sub-fields. Conditions fields use appropriate data types (floats for temperature and duration, strings for units and atmosphere). Null values are correctly used for absent information rather than empty strings or placeholder values. The equipment list at the top level mirrors the equipment mentioned in steps, which is consistent. The target_compound_type 'nanomaterials' is appropriate. One minor issue is that 'atmosphere: dark' is a non-standard use of the atmosphere field (which typically refers to gas atmosphere like N2, air, Ar), but it is a reasonable adaptation given the schema constraints.",
+                "overall_score": 3.9,
+                "overall_reasoning": "The extraction of the Pf-AgNPs synthesis ontology is generally of good quality, capturing the core synthesis workflow with accurate conditions and appropriate null handling. The four main synthesis steps (mixing, sonication, centrifugation, washing) are correctly identified and sequenced with accurate conditions. Key parameters such as temperature, duration, centrifuge speed, and dark condition are faithfully extracted. Starting materials are correctly identified with appropriate null values for unspecified quantities. The primary weakness is the omission of the plant extract preparation step, which is a clearly described and distinct procedure in the source text (heating 5g powdered leaves in 100 mL distilled water at 70°C for 60 min, filtering, storing at 4°C). This step is important for reproducibility and completeness. The target compound could be more descriptively labeled as 'Ag nanoparticles', and the synthesis method 'other' could be more precisely 'green synthesis'. Equipment extraction is minimal but appropriate given what is explicitly named. Format compliance is high with proper schema adherence and correct use of null values. Overall, this is a competent extraction with one notable gap (missing extract preparation step) that prevents a higher score."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Plant extract preparation step: 5g powdered leaves heated in 100 mL distilled water at 70°C for 60 min, cooled, filtered, stored at 4°C.",
+                "Storage condition after washing: the sediment was stored for characterization and biological studies (storage conditions not specified in source, so null is acceptable).",
+                "The 1:40 ratio of plant extract to AgNO3 mentioned in the Discussion section as optimum conditions is not captured.",
+                "The pH condition mentioned in the Discussion as relevant to synthesis is not captured (though no specific pH value is given for this synthesis)."
+              ],
+              "extraction_errors": [
+                "Plant extract preparation step is missing: the source explicitly describes heating 5g powdered leaves in 100 mL distilled water at 70°C for 60 min, followed by cooling, filtering, and storing at 4°C — this should be captured as a distinct process step.",
+                "Target compound listed as 'Ag' rather than 'Ag nanoparticles' or 'Pf-AgNPs', which is less precise for a nanomaterial synthesis.",
+                "Synthesis method listed as 'other' rather than a more descriptive term like 'green synthesis' or 'biogenic synthesis'.",
+                "The 'atmosphere' field is used for 'dark' condition in the sonication step, which is semantically imprecise — dark refers to light exclusion, not gas atmosphere."
+              ],
+              "improvement_suggestions": [
+                "Add a Step 0 or Step 1 for plant extract preparation: action='heat', description='Powdered plant leaves (5 g) were heated in 100 mL of distilled water at 70°C for 60 min, then cooled, filtered, and stored at 4°C', with conditions temperature=70, temp_unit='C', duration=60, time_unit='min'.",
+                "Update target_compound to 'Ag nanoparticles' or 'Pf-AgNPs' to better reflect the nanomaterial nature of the product.",
+                "Consider using synthesis_method='green synthesis' or 'biogenic' instead of 'other' to better capture the nature of the synthesis approach.",
+                "Use a separate notes field or custom condition field for 'dark' condition rather than the atmosphere field, or add a note clarifying that 'dark' refers to light exclusion to prevent photo-activation.",
+                "Capture the optimum conditions (2 mM AgNO3, 2.5% plant extract, 1:40 ratio) as specific material amounts in the starting materials list or as a dedicated conditions note.",
+                "Consider adding the storage temperature (4°C) for the plant extract as a condition in the extract preparation step."
+              ]
+            },
+            "overall_score": 3.9
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system successfully identified the core synthesis procedure for silver nanoparticles (Pf-AgNPs) using Perilla frutescens leaf extract. It correctly captured the sequence of mixing, sonication, centrifugation, and washing. The extraction of conditions (temperature, time, atmosphere) was highly accurate, and the system correctly identified the 'dark' condition as an atmosphere/environment parameter. However, it missed the preliminary step of preparing the plant extract itself (heating powdered leaves in water at 70 °C for 60 min), which is a critical part of the 'green synthesis' workflow described in the text.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captured the main nanoparticle synthesis steps but omitted the precursor step: the preparation of the aqueous leaf extract (5g leaves in 100mL water at 70°C). This is explicitly described in the 'Plant material and preparation of plant extract' section.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Materials like AgNO3 and the extract were correctly identified. While amounts were listed as null, the text provides concentrations (0.5, 1, 2 mM) and volume percentages (1, 2.5, 5, 10%) rather than absolute masses/volumes, so null is acceptable. It missed the 'powdered plant leaves' and 'distilled water' quantities from the extract preparation step.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The sequence for the nanoparticle formation is perfect. The only deduction is for the missing extract preparation step which precedes the mixing step.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The system correctly identified the sonicator and centrifuge from the synthesis section. Other instruments mentioned in the text (XRD, FESEM, etc.) are for characterization, not synthesis, and were correctly excluded.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Excellent extraction of numerical values (60 °C, 90 min, 9000 rpm, 25 °C) and the qualitative 'dark' condition. Units are correctly mapped.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning of the 'green synthesis' process. The use of 'other' for synthesis method is appropriate as 'green synthesis' or 'biosynthesis' doesn't always fit standard categories like 'sol-gel' or 'hydrothermal'.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON that strictly follows the provided schema, including correct data types for scores and nested objects.",
+                "overall_score": 4.6,
+                "overall_reasoning": "The extraction is of high quality and very reliable for the nanoparticle formation phase. Its primary weakness is the omission of the initial plant extract preparation step. All extracted data points are accurate to the source text."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Plant extract preparation parameters: 5g leaf powder, 100mL distilled water, 70°C, 60 minutes."
+              ],
+              "extraction_errors": [
+                "Omitted the preparation step for the plant extract (heating 5g leaves in 100mL water at 70°C for 60 min)."
+              ],
+              "improvement_suggestions": [
+                "Expand the extraction scope to include 'Preparation of plant extract' sections when the target material is a green-synthesized nanoparticle, as the extract is a primary reagent.",
+                "Capture the specific concentrations (e.g., 2 mM) in the material 'amount' or 'notes' field if the schema allows for concentration strings."
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The extraction captures the core AgNP synthesis workflow with reasonable accuracy but has significant gaps. The main synthesis steps (mixing, sonication, centrifugation, washing) are correctly identified with appropriate conditions. However, the plant extract preparation procedure (5g leaves, 100mL water, 70°C, 60 min) is completely missing from the steps. Material quantities are present in step descriptions but not properly structured in the materials fields (all amounts/units are null despite concentration data being available). Equipment extraction is notably incomplete—only sonicator and centrifuge are captured while 8+ characterization instruments are explicitly named in the source. The extraction correctly avoids hallucination and maintains semantic fidelity to the source text.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the main AgNP synthesis workflow (4 steps) but omits the plant extract preparation procedure which is a critical precursor step explicitly described in the source (5g leaves, 100mL water, 70°C, 60 min). Characterization procedures are also not represented as synthesis steps. The overall structure follows a logical sequence but lacks completeness for full reproducibility. Starting materials are identified but quantity fields are systematically empty despite data being available in the text.",
+                "material_extraction_score": 2.5,
+                "material_extraction_reasoning": "Three starting materials are correctly identified (AgNO3, P. frutescens extract, distilled water) with accurate chemical names. However, all amount, unit, and purity fields are null despite the source explicitly stating concentrations (0.5, 1, 2 mM for AgNO3; 1, 2.5, 5, 10% v/v for extract). This concentration data appears in step descriptions but is not properly structured in the materials fields, representing a significant extraction gap. No hallucination occurred, but available quantitative data was not captured in the appropriate schema fields.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "Four synthesis steps are correctly identified with appropriate action classifications (mix, sonicate, centrifuge, wash) in logical sequence. Step descriptions accurately reflect the source text. However, the plant extract preparation is completely missing as a process step, which is a critical precursor procedure described in detail in the source. The extraction captures the nanoparticle synthesis portion but not the complete workflow from raw plant material to final product.",
+                "equipment_extraction_score": 2.0,
+                "equipment_extraction_reasoning": "Only 2 pieces of equipment are captured (sonicator, centrifuge) while the source explicitly names 8+ characterization instruments with vendor information: UV-Vis spectrophotometer (Unico 2100), XRD (Rigaku-Ultima IV), FESEM-EDX (ZEISS Sigma 300, Germany), DLS (VASCO Cordouan Technology, France), FTIR (Perkin Elmer, USA), SERS (TakRam N1-541, Iran), HPLC (Waters 2695, USA), and ELISA reader (BioTek wave xs2, USA). This represents a significant under-extraction of explicitly stated equipment information.",
+                "conditions_extraction_score": 3.5,
+                "conditions_extraction_reasoning": "Synthesis conditions are reasonably well captured for the main steps: sonication (60°C, 90 min, dark), centrifugation (25°C, 30 min, 9000 rpm). The dark atmosphere condition is appropriately noted. However, plant extract preparation conditions (70°C, 60 min, ambient drying, 4°C storage) are missing. Temperature and duration units are correctly specified. Pressure and pH are appropriately null as they are not stated in the source for synthesis steps.",
+                "semantic_accuracy_score": 4.0,
+                "semantic_accuracy_reasoning": "The extraction maintains faithful representation of the scientific content without hallucination or misinterpretation. Step descriptions accurately quote or paraphrase the source text. The dark condition for preventing photo-activation is correctly captured. Optimum conditions are noted appropriately. No scientific meaning is distorted, and the extraction correctly leaves fields null when information is not available rather than inferring values.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema with proper field names, data types, and organization. All required fields are present. Temperature and duration values use appropriate numeric types with separate unit fields. The structure is valid and parseable. Minor improvement would be populating amount/unit fields where data exists in the source rather than leaving them null.",
+                "overall_score": 3.2,
+                "overall_reasoning": "This extraction demonstrates moderate quality with strong semantic fidelity but notable completeness gaps. Strengths include accurate step sequencing, correct condition capture for synthesis steps, proper schema compliance, and no hallucination. Critical weaknesses include: (1) missing plant extract preparation step entirely, (2) equipment extraction capturing only 2 of 8+ instruments, (3) material quantities present in text but not structured in appropriate fields. For reproducibility purposes, the missing extract preparation procedure and incomplete equipment list are significant limitations. The extraction would benefit from more thorough parsing of quantitative data from step descriptions into structured material fields, and comprehensive equipment extraction from the characterization section. Overall score reflects adequate capture of core synthesis workflow but insufficient completeness for full experimental reproduction."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Plant extract preparation procedure (5g powdered leaves, 100mL distilled water, 70°C, 60 min, 4°C storage)",
+                "Characterization equipment list (Unico 2100, Rigaku-Ultima IV, ZEISS Sigma 300, VASCO Cordouan, Perkin Elmer, TakRam N1-541, Waters 2695, BioTek wave xs2)",
+                "Specific concentration values for starting materials in structured format",
+                "Washing solvent specification for step 4",
+                "Storage conditions for final product"
+              ],
+              "extraction_errors": [
+                "Material amounts and units are null in structured fields despite concentration data (0.5, 1, 2 mM AgNO3; 1, 2.5, 5, 10% extract) being present in step descriptions",
+                "Plant extract preparation step (5g leaves, 100mL water, 70°C, 60 min) is completely missing from process steps",
+                "Characterization equipment (UV-Vis, XRD, FESEM-EDX, DLS, FTIR, SERS, HPLC, ELISA reader) not captured in equipment list",
+                "Optimum conditions (2 mM AgNO3, 2.5% extract) only in notes, not integrated into synthesis parameters"
+              ],
+              "improvement_suggestions": [
+                "Parse concentration values from step descriptions and populate material amount/unit fields systematically",
+                "Include plant extract preparation as a distinct synthesis step with its own conditions",
+                "Extract all explicitly named characterization equipment with vendor information where available",
+                "Integrate optimum conditions into the main synthesis parameters rather than relegating to notes",
+                "Consider adding washing solvent (likely distilled water based on context) to step 4 materials"
+              ]
+            },
+            "overall_score": 3.2
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The extraction captures the core synthesis procedure for green-synthesized silver nanoparticles (Pf-AgNPs) from the source text. It correctly identifies the main starting materials (AgNO3, Perilla frutescens leaf extract), the key process steps (mixing, sonication, centrifugation, washing), and the primary conditions (temperature, time, atmosphere). The extraction correctly leaves fields null where information is absent from the source (e.g., vendor details, specific amounts, purities). However, there are notable omissions and inaccuracies: the extraction misses the preparation of the plant extract itself (a distinct synthesis step), incorrectly lists 'Ag' as the target compound instead of 'Ag nanoparticles' or 'Pf-AgNPs', and fails to capture the optimization context (multiple concentrations tested) and the final storage condition. The structure is largely compliant with the schema, but semantic accuracy is reduced due to the target material misrepresentation and incomplete step sequence.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction captures the main synthesis steps from the 'Biosynthesis of AgNPs' subsection. However, it omits the preceding 'Plant material and preparation of plant extract' step, which is an integral part of the synthesis workflow. It also misses the final storage condition ('stored for determining characterization...'). The equipment list is minimal but correct for the steps extracted. The overall structure includes materials, steps, and conditions, but is incomplete as it does not represent the full synthesis procedure described in the source.",
+                "material_extraction_score": 3.0,
+                "material_extraction_reasoning": "Starting material names are accurately captured (AgNO3, Perilla frutescens leaf extract aqueous solution, distilled water). The system correctly leaves amount, unit, and purity fields null, as these are not specified quantitatively in the synthesis step (only concentration ranges are given). However, a critical error is the misrepresentation of the 'target_compound' as 'Ag' instead of 'Ag nanoparticles' or 'Pf-AgNPs'. This is a significant semantic inaccuracy, as the target is a nanomaterial, not elemental silver. The material list for step 1 is correct but could be more precise (e.g., noting the concentration ranges).",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "The four extracted steps (mix, sonicate, centrifuge, wash) are correctly identified, sequenced, and classified. Descriptions are largely accurate paraphrases of the source text. The main deficiency is the omission of the initial plant extract preparation step ('Plant material and preparation of plant extract'), which is a distinct, documented synthesis step preceding the nanoparticle synthesis. The action classifications for the included steps are appropriate.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "All explicitly named equipment in the described synthesis steps are correctly extracted: 'sonicator' and 'centrifuge'. The centrifuge setting ('9000 rpm') is accurately captured. No vendor information is provided in the source, so leaving those fields null is correct. No other equipment (e.g., for plant extract preparation) is mentioned in the extracted steps, so the list is appropriately minimal. A minor point: the sonicator settings (e.g., power) are not specified in the source, so their absence is correct.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions are accurately extracted where specified: sonication temperature (60 °C) and duration (90 min), centrifugation temperature (25 °C) and duration (30 min), and the 'dark' atmosphere for the reaction. The centrifuge speed (9000 rpm) is correctly placed in equipment settings. The system correctly leaves null fields for unspecified conditions like pressure, pH, and stirring. The extraction accurately reflects the information present in the source text.",
+                "semantic_accuracy_score": 3.0,
+                "semantic_accuracy_reasoning": "The core scientific meaning of the synthesis procedure is preserved in the extracted steps and conditions. However, a major semantic error is the 'target_compound' being listed as 'Ag'. The paper synthesizes silver nanoparticles (Pf-AgNPs), a nanomaterial with distinct properties from bulk Ag. This misrepresentation loses critical scientific context. Furthermore, the extraction presents a single, linear procedure, while the source describes an optimization study testing multiple concentrations of AgNO3 and extract; this context is only partially captured in the notes. The 'synthesis_method' as 'other' is acceptable but 'green synthesis' or 'biosynthesis' would be more precise.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and populated with appropriate data types (strings, numbers, nulls, arrays, objects). Nested structures for starting_materials, steps, equipment, and conditions are correctly formatted. The extraction demonstrates excellent adherence to the prescribed format.",
+                "overall_score": 3.9,
+                "overall_reasoning": "The extraction successfully structures the core nanoparticle synthesis steps from the source text with good format compliance and accurate capture of explicit conditions and equipment. Major weaknesses are the incorrect target material specification ('Ag' vs. 'Ag nanoparticles') and the omission of the plant extract preparation step, which reduces structural completeness and semantic accuracy. The system correctly avoids hallucination, leaving fields null where information is absent. Overall, it is a good but incomplete representation that requires correction of the target material and inclusion of the full synthesis workflow to be scientifically precise."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Synthesis step for preparing the aqueous leaf extract (5 g powdered leaves in 100 mL distilled water at 70 °C for 60 min, then cooling and filtering).",
+                "Context that the synthesis involved testing multiple concentrations (0.5, 1, 2 mM AgNO3; 1, 2.5, 5, 10% extract) to determine optimum conditions (2 mM, 2.5%).",
+                "Final storage condition detail (implied but not explicitly stated in the extracted step description)."
+              ],
+              "extraction_errors": [
+                "Target compound incorrectly specified as 'Ag' instead of 'Ag nanoparticles' or 'Pf-AgNPs'.",
+                "Omission of the 'Plant material and preparation of plant extract' synthesis step (heating powdered leaves in water, filtering)."
+              ],
+              "improvement_suggestions": [
+                "Always extract the target compound as the specific material synthesized (e.g., 'Ag nanoparticles', 'Pf-AgNPs') rather than the elemental symbol.",
+                "Include all preparatory synthesis steps described in the 'Materials and methods' section, such as the preparation of reagents (plant extract) when they are part of the documented procedure.",
+                "Consider adding a field or note to capture optimization parameters (ranges tested) when the source describes a parameter study, to preserve the experimental context.",
+                "Use more specific 'synthesis_method' terms like 'green synthesis' or 'biosynthesis' when applicable."
+              ]
+            },
+            "overall_score": 3.9
+          }
+        ]
+      }
+    ]
   }
 ]

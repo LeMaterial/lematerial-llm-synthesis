@@ -1,98 +1,921 @@
 [
   {
-    "material": "CeAu2Si2",
-    "synthesis": {
-      "target_compound": "CeAu2Si2",
-      "target_compound_type": "metals & alloys",
-      "synthesis_method": "flux growth",
-      "starting_materials": [
-        {
-          "vendor": null,
-          "name": "Ce",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Au",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Si",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Sn",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
-      "steps": [
-        {
-          "step_number": 1,
-          "action": "grow",
-          "description": "CeAu2Si2 crystals are grown from Sn flux as described elsewhere",
-          "materials": [],
+    "synth_llm": "claude-sonnet-4.6",
+    "materials": [
+      {
+        "material": "CeAu2Si2",
+        "synthesis": {
+          "target_compound": "CeAu2Si2",
+          "target_compound_type": "functional materials & catalysts",
+          "synthesis_method": "flux growth",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Ce",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Au",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Sn flux",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "CeAu2Si2 crystals are grown from Sn flux as described in references [12, 16].",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ce",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Au",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Si",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Sn flux",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
           "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+          "notes": "CeAu2Si2 crystals were grown from Sn flux. A sample cut from a crystal with low residual resistivity ρ0 ≈ 2 µΩcm was used for in-plane S(T) and ρ(T) measurements. The detailed synthesis procedure is described elsewhere (Refs. [12, 16] in the paper)."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text is a physics/materials science paper focused primarily on thermopower and resistivity measurements of CeAu2Si2 under pressure. The synthesis section is extremely brief — it states only 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' with the additional detail that 'A sample cut from a crystal with low residual resistivity ρ0 ≈ 2 µΩcm is used for in-plane S(T) and ρ(T) measurements.' The paper deliberately defers all synthesis details to external references. Given this minimal synthesis disclosure, the extraction must be evaluated against what is actually present in the source text, not against what a full synthesis paper would contain. The extractor correctly identified the synthesis method (flux growth), the target compound (CeAu2Si2), and inferred the likely starting materials (Ce, Au, Si, Sn flux). All null fields are appropriate given the absence of quantitative synthesis data in the source. The extraction is largely faithful and appropriately sparse.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the key structural elements available in the source: target compound, synthesis method (flux growth), starting materials (Ce, Au, Si, Sn flux), a single process step, and a notes field summarizing the sparse synthesis context. Given that the source text provides almost no synthesis detail beyond 'grown from Sn flux as described elsewhere,' the extraction is structurally complete relative to what is available. The only minor gap is that the step action 'mix' is a reasonable but somewhat imprecise label — flux growth typically involves a 'dissolve/melt' or 'crystallize' action rather than just 'mix.' The equipment list is correctly left empty since no equipment is named in the source. Overall, the structure is well-organized and appropriately minimal.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "The extractor correctly identified Ce, Au, Si, and Sn flux as the starting materials, which is a reasonable inference from the compound formula and the stated flux growth method. The source text does not provide any amounts, units, purities, or vendor information, so all null values are correct and should not be penalized. The inclusion of Sn flux as a separate starting material is chemically appropriate for flux growth synthesis. The target compound CeAu2Si2 is correctly identified. No hallucinated quantities or false information is present. The only minor issue is that the source does not explicitly list Ce, Au, and Si as starting materials — this is an inference from the compound stoichiometry, which is reasonable but slightly speculative.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The extraction captures a single process step, which is appropriate given the source text provides essentially no procedural detail. The step description accurately quotes/paraphrases the source. However, the action classification 'mix' is not the most accurate descriptor for flux crystal growth — a more appropriate action would be 'crystallize' or 'grow' since the paper explicitly states crystal growth from flux. The step also lacks any conditions (temperature, duration, atmosphere), which is correct since none are provided in the source. The single-step representation is acceptable given the reference to external procedures, though ideally a note about the crystal cutting/sample preparation step could have been included as a separate step since the paper mentions 'A sample cut from a crystal.'",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The equipment list is correctly left empty. The source text does not name any specific equipment used in the crystal growth synthesis (the Bridgman-type anvil pressure cell mentioned in the paper is measurement equipment, not synthesis equipment). The extractor correctly distinguished between synthesis equipment and measurement/characterization equipment, leaving the synthesis equipment list empty. This is the correct behavior per the evaluation guidelines — absence of equipment in the source should not be penalized. The score is high because the extractor made the correct decision to leave this field empty rather than hallucinating equipment names.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "All synthesis conditions (temperature, duration, pressure, atmosphere, stirring) are correctly left null. The source text provides no synthesis conditions for the crystal growth — it only states the method and defers to external references. The measurement conditions (1.3 < T < 300 K, up to 27.8 GPa) are correctly not included in the synthesis conditions, as they pertain to characterization rather than synthesis. The residual resistivity value (ρ0 ≈ 2 µΩcm) is appropriately captured in the notes rather than as a synthesis condition. No hallucinated conditions are present.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the source text. The synthesis method is correctly identified as 'flux growth' (Sn flux), which is the standard terminology for this type of crystal growth. The target compound type 'functional materials & catalysts' is a reasonable classification for a heavy fermion superconductor, though 'quantum materials' or 'intermetallic compounds' might be more precise. The notes field accurately summarizes the key synthesis-relevant information from the paper, including the residual resistivity criterion for sample selection. The description in the step correctly references the external sources. No scientific misinterpretations are present.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure adheres well to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are used correctly for absent information rather than empty strings or placeholder values. The starting_materials array is properly structured with all required sub-fields. The steps array contains a properly formatted step object with all required fields. The equipment arrays (both global and within the step) are correctly represented as empty arrays. The notes field provides useful contextual information. The only minor format consideration is that 'mix' as an action type may not be the most semantically precise choice for flux crystal growth, but it is a valid schema entry.",
+                "overall_score": 4.2,
+                "overall_reasoning": "This extraction is evaluated against a source text that provides minimal synthesis information — essentially a single sentence stating that CeAu2Si2 crystals were grown from Sn flux with details deferred to external references. Given this constraint, the extraction performs very well. The extractor correctly identified the synthesis method (flux growth), inferred reasonable starting materials from the compound formula and flux method, left all quantitative fields null (as appropriate), correctly left equipment lists empty, and captured the key contextual information in the notes field. The main weaknesses are: (1) the action classification 'mix' is imprecise for flux crystal growth — 'crystallize' or 'grow' would be more accurate; (2) the target compound type 'functional materials & catalysts' is a somewhat imprecise classification for a heavy fermion superconductor; (3) the starting materials Ce, Au, Si are inferred rather than explicitly stated in the source. Overall, the extraction demonstrates good judgment in distinguishing between synthesis and measurement information, avoiding hallucination, and appropriately handling a sparse synthesis description. The average score reflects a high-quality extraction given the limited source material."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample preparation step (cutting the crystal) is mentioned in the source but not captured as a separate process step.",
+                "The reference to external synthesis procedures [12, 16] could be more explicitly noted as the primary source of synthesis details."
+              ],
+              "extraction_errors": [
+                "Action classification 'mix' in step 1 is imprecise for flux crystal growth; 'crystallize' or 'grow' would better represent the actual synthesis action.",
+                "Target compound type 'functional materials & catalysts' is a somewhat imprecise classification; 'intermetallic compounds' or 'heavy fermion materials' would be more accurate for CeAu2Si2."
+              ],
+              "improvement_suggestions": [
+                "Change the step action from 'mix' to 'crystallize' or 'grow' to better reflect the flux crystal growth process.",
+                "Add a second step for sample preparation: 'A sample was cut from the grown crystal, selecting for low residual resistivity ρ0 ≈ 2 µΩcm.'",
+                "Consider using a more precise target compound type such as 'intermetallic compound' or 'heavy fermion superconductor' instead of 'functional materials & catalysts'.",
+                "Note explicitly in the step description or notes that the full synthesis procedure is described in references [12] (Ren et al., Phys. Rev. X 4, 031055, 2014) and [16] (Ota et al., J. Phys. Soc. Jpn. 78, 034714, 2009)."
+              ]
+            },
+            "overall_score": 4.2
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system correctly identified the target material (CeAu2Si2) and the synthesis method (flux growth). It accurately listed the constituent elements and the flux (Sn) as starting materials. However, the source text is primarily a characterization paper rather than a synthesis paper; it explicitly refers to previous literature (Refs 12 and 16) for the detailed growth parameters. Consequently, the extraction is limited by the lack of procedural detail in the source text. The system correctly avoided hallucinating temperatures or durations not present in the text, though it could have inferred the 'mix' action as a precursor to the growth process mentioned.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information available in the text. It identifies the method, the materials, and the fact that the procedure is detailed elsewhere. No synthesis information present in the text was omitted.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The system correctly identified Ce, Au, Si, and Sn flux. Since the source text does not provide quantities, purities, or vendors, these fields were correctly left null.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The system identified the growth process. While the description is brief, it accurately reflects the text's statement. The 'mix' action is a reasonable classification for the preparation of a flux growth melt.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No synthesis equipment (e.g., furnaces, crucibles) is mentioned in the source text for the growth of the crystals. The system correctly left this list empty.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The source text does not specify synthesis conditions (temperature, time, etc.) for the flux growth, only measurement conditions. The system correctly left the synthesis conditions null.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction maintains the scientific meaning, correctly identifying that the material is a crystal grown from a flux and that the specific details are in external references.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON object that strictly adheres to the provided schema and data types.",
+                "overall_score": 4.9,
+                "overall_reasoning": "The extraction is excellent given the constraints of the source text. The source text is a physics study focusing on high-pressure measurements and provides only a summary of the material's origin. The extraction system performed perfectly by capturing the available metadata (Sn flux, growth method) without hallucinating the missing procedural details."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Specific synthesis parameters (temperature profile, cooling rate, crucible type) are missing from the source text and thus missing from the extraction."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "While the extraction is accurate, the 'mix' action could be supplemented with a 'grow' or 'crystallize' action if the schema allows for more specific flux-growth terminology."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses the ontology extraction from a physics/materials science paper focused on thermopower and resistivity measurements of CeAu2Si2 under pressure. Critically, this is NOT a synthesis paper - it explicitly states that crystal growth is 'described elsewhere [12, 16]'. The extraction system correctly recognized this limitation and appropriately captured the minimal synthesis information available while leaving unspecified fields null. This represents correct extraction behavior for a characterization paper that references synthesis work from other publications.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information present in the source text. The structure includes target compound, synthesis method, starting materials, steps, equipment, conditions, and notes. Since the source paper explicitly states synthesis is 'described elsewhere', the extraction correctly reflects this limitation rather than hallucinating details. The notes field appropriately documents that detailed synthesis procedure is in referenced papers. Minor deduction because the extraction could more explicitly flag this as a reference-based synthesis rather than a direct procedure.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Starting materials (Ce, Au, Si, Sn flux) are reasonably inferred from the compound formula and the statement 'grown from Sn flux'. The extraction correctly leaves amounts, units, and purities as null since these are not stated in the source text. This is correct behavior per the evaluation guidelines - absence in source should result in null values, not errors. The material names are chemically accurate for CeAu2Si2 synthesis via flux method.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "One process step is captured with action 'mix' and description accurately reflecting the source text ('CeAu2Si2 crystals are grown from Sn flux as described in references [12, 16]'). This appropriately represents the limited synthesis information available. The step correctly has null conditions since no synthesis conditions are provided in this measurement-focused paper. The extraction accurately conveys that detailed procedure is external to this text.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment list is correctly empty for synthesis equipment. The source text mentions Bridgman-type anvil pressure cell and thermocouple wires, but these are for measurements (resistivity and thermopower), NOT for synthesis. The extraction correctly distinguishes this and does not incorrectly populate synthesis equipment with measurement apparatus. This demonstrates excellent semantic understanding of the experimental workflow.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions (temperature, pressure, duration, atmosphere) are correctly null. The source text provides temperature (1.3-300 K) and pressure (up to 27.8 GPa) values, but these are explicitly for measurements, not synthesis. The extraction correctly does not conflate measurement conditions with synthesis conditions. This is exemplary behavior - recognizing what information is present but not applicable to the synthesis ontology.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning from the source. It correctly identifies this as flux growth synthesis, accurately notes that details are in referenced papers, and does not misrepresent measurement parameters as synthesis conditions. The notes field provides excellent context about the sample characteristics (low residual resistivity) and the reference-based nature of the synthesis information. No hallucination or misinterpretation detected.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure adheres to the expected GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are correctly used for unspecified information rather than empty strings or incorrect types. The structure is valid and would integrate properly with downstream systems expecting this ontology format.",
+                "overall_score": 4.7,
+                "overall_reasoning": "This is an excellent extraction for a challenging case - a characterization paper with minimal synthesis information. The extraction system demonstrates sophisticated understanding by: (1) correctly identifying the synthesis method from brief mention, (2) appropriately inferring starting materials from compound formula and flux mention, (3) correctly leaving unspecified quantities/conditions as null rather than hallucinating, (4) distinguishing measurement equipment/conditions from synthesis equipment/conditions, and (5) documenting in notes that synthesis details are externally referenced. No penalization for missing synthesis details since they genuinely don't exist in this source text. The extraction accurately represents what information is available while maintaining schema compliance. Scores reflect high quality extraction with minor room for improvement in explicitly flagging reference-based synthesis procedures."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a field to explicitly indicate when synthesis details are referenced externally rather than provided in the source text",
+                "Could distinguish between synthesis equipment and measurement equipment if both are present in the source",
+                "May benefit from capturing the reference numbers [12, 16] in a structured citations field for traceability"
+              ]
+            },
+            "overall_score": 4.7
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a research paper focused on high-pressure thermopower and resistivity measurements of CeAu2Si2, not a detailed synthesis procedure. The only synthesis information provided is a single sentence referencing a flux growth method from prior work. The extracted ontology correctly identifies the target material and synthesis method, and appropriately lists starting materials based on the compound's formula and the mentioned 'Sn flux'. It correctly does not hallucinate detailed steps, equipment, or conditions not present in the source. The primary evaluation challenge is assessing an extraction from a source with minimal synthesis detail, where the system's correct behavior is to extract the sparse information available and leave other fields null.",
+              "scores": {
+                "structural_completeness_score": 3.0,
+                "structural_completeness_reasoning": "The extraction captures the core structural elements present in the source: the target compound, a high-level synthesis method ('flux growth'), and a logical list of starting materials (Ce, Au, Si, Sn flux). It correctly creates a single process step for the mentioned growth action. However, the source text provides almost no detail on the synthesis process; the procedure is described as being 'elsewhere'. Therefore, the extraction is structurally complete relative to the available information but inherently sparse. No major synthesis components stated in the source are missing.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material extraction is accurate and appropriate. The system correctly identifies 'Ce', 'Au', 'Si', and 'Sn flux' as starting materials based on the compound formula CeAu2Si2 and the phrase 'grown from Sn flux'. It correctly leaves all amount, unit, purity, and vendor fields as null, as none are specified in the source text. This demonstrates proper adherence to the core principle of not hallucinating. The only minor imperfection is that 'Sn flux' could be more precisely categorized as a solvent/medium rather than a pure starting material, but its inclusion is contextually correct.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The single extracted step ('mix') with a description referencing the growth from flux is a reasonable, high-level representation of the only synthesis action mentioned. The step sequencing is trivial (only one step) and correct. The action classification is broad but acceptable given the lack of detail. The system correctly avoids inventing a multi-step procedure. The score reflects a faithful but minimal extraction; a more precise action like 'flux growth' or 'crystallize' might be slightly better, but 'mix' is not incorrect.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text describes measurement equipment (Bridgman-type anvil pressure cell, thermocouples) but provides no equipment details for the synthesis of CeAu2Si2 itself. The extraction correctly returns an empty equipment list. This is the correct and optimal behavior—penalizing for missing synthesis equipment would be an error, as the information is absent from the source. The system demonstrates perfect discipline in not hallucinating laboratory equipment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, time, atmosphere, pressure for growth) are stated in the source text. The extraction correctly leaves all condition fields (temperature, duration, pressure, atmosphere, etc.) as null within the synthesis step. This is precisely correct. The paper discusses measurement conditions (pressure, temperature) extensively, but these are not part of the material synthesis procedure. The system correctly distinguishes and excludes them.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction semantically preserves the limited scientific meaning from the source. It correctly identifies CeAu2Si2 as the target, the flux growth method, and the constituent elements. The note field accurately summarizes the context. There is no misinterpretation. The only slight semantic gap is the very generic step action 'mix', which doesn't fully capture the specific nature of 'flux growth' and subsequent crystal isolation. However, the description text mitigates this. The core scientific context is faithfully maintained.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required fields are present and correctly typed (strings, arrays, objects, null values). The nesting of starting_materials and steps is proper. The use of null for unspecified information is schema-compliant and correct. No formatting errors are present.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction system performed excellently given the severe constraints of the source material. The paper is a measurement study, not a synthesis paper. The system correctly identified the scant synthesis information (method, target, implied starting materials) and structured it without hallucinating missing details. Scores are high for format compliance, equipment extraction, and conditions extraction (all 5.0) because the system correctly left fields empty where information was absent. Material extraction (4.0) and semantic accuracy (4.5) are strong. Lower scores in structural completeness (3.0) and process steps (3.5) reflect the inherent incompleteness of the source, not a failure of the extractor. The overall quality is very good, demonstrating a system that is conservative and accurate."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider using a more specific action verb than 'mix' for flux growth processes, such as 'dissolve in flux', 'crystallize from flux', or simply 'flux growth'. The description field already contains the correct context, so this is a minor enhancement.",
+                "The 'target_compound_type' field is assigned as 'functional materials & catalysts'. While not incorrect, a more specific descriptor like 'heavy fermion intermetallic' or 'Kondo lattice compound' would better capture the material's scientific context, if such classification is available from the broader text."
+              ]
+            },
+            "overall_score": 4.3
           }
-        }
-      ],
-      "equipment": [],
-      "notes": null
-    },
-    "evaluation": {
-      "reasoning": "The extracted ontology captures the synthesis of CeAu2Si2 using the flux growth method. The starting materials (Ce, Au, Si, and Sn) are identified, and the process step of crystal growth is described. However, specific details regarding the amounts of starting materials, growth conditions (temperature, duration), and equipment used are missing. The ontology structure is generally correct, but lacks completeness due to the absence of these crucial synthesis parameters.",
-      "scores": {
-        "structural_completeness_score": 3.0,
-        "structural_completeness_reasoning": "The ontology includes the target compound, synthesis method, starting materials, and a general process step. However, it lacks specific details about the synthesis conditions (temperature, duration), equipment, and quantities of materials, making it incomplete.",
-        "material_extraction_score": 3.5,
-        "material_extraction_reasoning": "The starting materials are correctly identified, but the amounts, units, and purities are not specified. The target compound is also correctly identified. The lack of quantitative information reduces the score.",
-        "process_steps_score": 3.0,
-        "process_steps_reasoning": "A single process step (crystal growth) is identified, but the description is vague and lacks details about specific actions or procedures. The step is logically sound but incomplete.",
-        "equipment_extraction_score": 1.0,
-        "equipment_extraction_reasoning": "No specific equipment is mentioned in the provided text, resulting in a low score. The extraction fails to identify any apparatus used in the synthesis.",
-        "conditions_extraction_score": 1.0,
-        "conditions_extraction_reasoning": "No specific synthesis conditions (temperature, duration, atmosphere) are provided in the extracted ontology. The absence of these parameters results in a low score.",
-        "semantic_accuracy_score": 4.0,
-        "semantic_accuracy_reasoning": "The extracted information is scientifically accurate and preserves the meaning of the original text. The relationships between materials, method, and process step are correctly represented.",
-        "format_compliance_score": 5.0,
-        "format_compliance_reasoning": "The extracted ontology adheres to the GeneralSynthesisOntology schema and data type requirements. The JSON format is valid and well-structured.",
-        "overall_score": 2.9,
-        "overall_reasoning": "The ontology extraction is partially successful, capturing the basic elements of the synthesis but missing crucial details about quantities, conditions, and equipment. The structural completeness and conditions extraction are the weakest points. The format compliance is excellent, but the lack of specific information limits the overall utility of the extracted data."
-      },
-      "confidence_level": "low",
-      "missing_information": [
-        "Amounts and purities of starting materials",
-        "Specific synthesis conditions (temperature, duration, atmosphere)",
-        "Equipment used in the synthesis process",
-        "Detailed description of the crystal growth process"
-      ],
-      "extraction_errors": [],
-      "improvement_suggestions": [
-        "Include specific details about the amounts and purities of starting materials.",
-        "Extract and include the synthesis conditions (temperature, duration, atmosphere) from the source text or related references.",
-        "Identify and include any specific equipment used in the synthesis process.",
-        "Provide more detailed descriptions of the process steps, including specific actions and procedures."
-      ]
-    }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "gemini-3-flash",
+    "materials": [
+      {
+        "material": "CeAu2Si2",
+        "synthesis": {
+          "target_compound": "CeAu2Si2",
+          "target_compound_type": "emerging & quantum materials",
+          "synthesis_method": "flux growth",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Ce",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Au",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Sn",
+              "amount": null,
+              "unit": "flux",
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Crystals are grown from Sn flux.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ce",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Au",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Si",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Sn",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            }
+          ],
+          "equipment": [],
+          "notes": "The paper specifies that crystals were grown from Sn flux as described in previous literature (Refs 12 and 16). The resulting crystals used for measurements had a low residual resistivity of approximately 2 micro-ohm-cm."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text is a physics/materials science paper focused primarily on thermopower and resistivity measurements of CeAu2Si2 under pressure. The synthesis section is extremely brief: 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' This single sentence is the entirety of the synthesis description in the paper, with all procedural details deferred to external references. The extraction correctly identifies the target compound, synthesis method (flux growth), and the four constituent/flux materials (Ce, Au, Si, Sn). No quantities, purities, temperatures, durations, or equipment are specified in the source text for the synthesis procedure. The extraction appropriately leaves these fields null. The notes field correctly captures the residual resistivity of the crystal used (~2 µΩcm) and the reference to prior literature. Overall, the extraction is faithful to the minimal synthesis information available in the source.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-relevant information present in the source text. The target compound, synthesis method (flux growth), starting materials (Ce, Au, Si, Sn flux), and a single process step are all represented. The equipment list is empty, which is correct since no equipment is named in the synthesis description. Conditions are null, which is correct since none are specified. The notes field adds useful context about crystal quality. The only minor gap is that the step action 'mix' is a reasonable but slightly imprecise characterization of flux growth (which involves dissolving and crystallizing, not just mixing), but given the source provides no detail, this is a minor issue. Overall structural completeness is excellent given the sparse source.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All four materials mentioned in the synthesis context are correctly identified: Ce, Au, Si as constituent elements and Sn as the flux. Vendor, amount, unit, and purity are all null, which is correct since the source text provides none of these details. The use of 'flux' as the unit for Sn is a minor schema deviation (unit should typically be a physical unit like grams or moles, not a role descriptor), but it communicates useful semantic information. No materials are hallucinated or missed. The extraction is accurate and complete relative to what the source provides.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The extraction captures a single step describing flux growth, which is appropriate given the source only states 'crystals are grown from Sn flux as described elsewhere.' The action 'mix' is a reasonable approximation but does not fully capture the flux growth process (which involves dissolution, slow cooling, and crystallization). A more accurate action might be 'crystallize' or 'grow.' However, since the source provides no procedural detail, the extractor cannot be penalized for not capturing steps that are not described. The step description is accurate and the materials list within the step is complete. The conditions field is null, which is correct. The step count of 1 is appropriate for the information available.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The equipment list is empty, which is entirely correct. The synthesis section of the source text names no specific equipment for the crystal growth procedure (details are deferred to references [12] and [16]). The measurement equipment (Bridgman-type anvil pressure cell) is mentioned in the experimental section but pertains to characterization, not synthesis. Not including measurement equipment in the synthesis ontology is appropriate. No equipment is hallucinated. This is a correct and faithful extraction.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "Conditions are null throughout the extraction, which is correct. The source text provides no synthesis conditions (temperature, pressure, duration, atmosphere) for the crystal growth procedure — all details are deferred to external references. The measurement conditions (temperature range 1.3 < T < 300 K, pressures up to 27.8 GPa) are characterization parameters, not synthesis conditions, and are correctly excluded from the synthesis ontology. No conditions are hallucinated. This is accurate behavior.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the source. The synthesis method is correctly identified as 'flux growth' (Sn flux), the target compound is correctly named as CeAu2Si2, and the compound type 'emerging & quantum materials' is an appropriate classification for a heavy fermion superconductor. The notes correctly capture the key crystal quality metric (residual resistivity ~2 µΩcm) and the reference to prior literature for full synthesis details. The minor semantic imprecision is the use of 'mix' as the action for flux growth, which understates the complexity of the process, but this is a minor issue given the source's brevity.",
+                "format_compliance_score": 4.0,
+                "format_compliance_reasoning": "The extraction largely adheres to the expected ontology schema. Fields are properly structured with appropriate null values for missing information. The starting_materials and steps arrays are correctly formatted. The equipment array is correctly empty. The notes field is used appropriately for supplementary context. One minor schema deviation is the use of 'flux' as a unit value for Sn — the unit field should represent a physical measurement unit (e.g., g, mol, mL), not a functional role. This should ideally be null with the flux role captured in the description or a role field. Otherwise, format compliance is good.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction of CeAu2Si2 synthesis information is of high quality given the extremely limited synthesis description in the source text. The paper dedicates only one sentence to synthesis ('We grow CeAu2Si2 crystals from Sn flux as described elsewhere'), deferring all procedural details to prior publications. The extractor correctly identifies the target compound, synthesis method, constituent materials, and flux agent, while appropriately leaving all quantitative fields (amounts, purities, conditions, equipment) as null. The notes field adds valuable context about crystal quality. Minor issues include: (1) use of 'flux' as a unit value for Sn rather than null, and (2) the action 'mix' being a slight undercharacterization of flux growth. These are minor given the source constraints. Overall, the extraction demonstrates excellent fidelity to the source and correct handling of absent information, earning high scores across all criteria."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Full synthesis procedure details are deferred to references [12] and [16] and are not present in the source text — this is not an extraction error but a limitation of the source."
+              ],
+              "extraction_errors": [
+                "Sn material has 'unit' set to 'flux' — 'flux' is a role descriptor, not a physical unit; this field should be null or the role should be captured in a description field."
+              ],
+              "improvement_suggestions": [
+                "Change the 'unit' field for Sn from 'flux' to null, and instead capture the flux role in the step description or a dedicated role/notes field.",
+                "Consider using a more precise action verb for the flux growth step, such as 'crystallize' or 'grow', rather than 'mix', to better reflect the flux growth process.",
+                "Add a note or flag indicating that full synthesis details are available in referenced prior publications (Refs. 12 and 16) but not reproduced in this paper."
+              ]
+            },
+            "overall_score": 4.3
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction correctly identifies the target material and the primary synthesis method (flux growth). However, the source text is a physics-focused paper that primarily discusses high-pressure measurements rather than providing a detailed synthesis protocol. The text explicitly refers to previous literature (Refs 12 and 16) for the growth details. The extraction system correctly identifies the starting materials (Ce, Au, Si) and the flux (Sn) based on the chemical formula and the mention of 'Sn flux'. It appropriately leaves fields like amounts, purities, and specific equipment null as they are not present in the source text. The process steps are minimal but reflect the limited information available in the provided text.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information present in the text. It identifies the method, the materials, and the reference to the flux. No synthesis information from the source text was omitted.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The materials (Ce, Au, Si, Sn) are correctly identified. The system correctly identifies Sn as the flux. Since no quantities or purities are mentioned in the text, leaving those fields null is the correct behavior.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The extraction identifies the single 'mix/growth' step mentioned. While the text is brief, the extraction accurately reflects the 'grown from Sn flux' statement. The action 'mix' is a reasonable classification for the start of a flux growth process.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No synthesis equipment (e.g., furnaces, crucibles) is mentioned in the source text for the growth of the crystals; the equipment mentioned in the text (Bridgman-type anvil cell) is for measurement, not synthesis. The system correctly left the synthesis equipment list empty.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, duration) are provided in the text for the crystal growth. The system correctly left these fields null.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction accurately preserves the meaning of the text, correctly identifying that the material is a crystal grown from a specific flux.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output follows the required JSON schema perfectly, using correct data types and structures.",
+                "overall_score": 4.9,
+                "overall_reasoning": "The extraction is excellent given the constraints of the source text. The source text is a characterization paper that points to other work for synthesis details. The extractor correctly identified the components mentioned (Sn flux) and did not hallucinate details not present in the text. It correctly distinguished between measurement equipment and synthesis equipment."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Specific growth temperatures and cooling rates (not present in source text, only in cited references)."
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "The action for flux growth could be more specifically labeled as 'crystal growth' or 'heating' if the schema allows, though 'mix' is acceptable for the initial stage."
+              ]
+            },
+            "overall_score": 4.9
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses an ontology extraction from a physics characterization paper rather than a synthesis paper. The source text describes thermopower and resistivity measurements on CeAu2Si2 crystals under pressure, with synthesis details only referenced to previous literature (Refs 12, 16). The extraction system correctly handled this constraint by not hallucinating synthesis details, appropriately leaving unspecified fields as null, and adding explanatory notes. This represents correct behavior per the evaluation guidelines - absence of information in the source should not be penalized. The extraction accurately captures all available synthesis information (flux growth method, starting materials Ce/Au/Si with Sn flux) while correctly noting that detailed parameters come from external references.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-relevant information available in the source text. Given that this is a characterization paper with synthesis details referenced externally, the structure appropriately reflects the limited synthesis information. Starting materials, method (flux growth), and target compound are all correctly identified. The single process step is appropriate given the source constraints. No synthesis information present in the source was missed.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "All materials mentioned in relation to synthesis are correctly extracted: Ce, Au, Si as constituent elements and Sn as flux. The extraction appropriately leaves amounts, units, and purities as null since these are not specified in the source text. This is correct behavior per evaluation guidelines. Target compound CeAu2Si2 is correctly identified. The material list accurately reflects what the source states without hallucination.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "One process step is provided with action 'mix' and description 'Crystals are grown from Sn flux.' This accurately reflects the limited synthesis information in the source. The step cannot be more detailed because the source explicitly references external literature for synthesis details. The action classification is reasonable for flux growth methodology. Given the source constraints, this represents appropriate extraction.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment list is correctly empty. The source text describes measurement equipment (Bridgman-type anvil pressure cell, thermocouple wires) but no synthesis equipment. The extraction system correctly distinguished between synthesis and characterization equipment, leaving the synthesis equipment field empty rather than incorrectly including measurement apparatus. This demonstrates proper understanding of the ontology scope.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Synthesis conditions are correctly left as null because the source does not specify synthesis temperature, pressure, duration, or atmosphere. The temperature range (1.3-300 K) and pressure values (up to 27.8 GPa) mentioned in the text are measurement conditions, not synthesis conditions, and the extraction correctly did not conflate these. This is exemplary handling of absent information.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning from the source. The notes section appropriately explains that synthesis details come from referenced literature (Refs 12, 16). The target compound type classification as 'emerging & quantum materials' is reasonable for this heavy fermion superconductor system. No misinterpretations or semantic distortions are present. The extraction maintains appropriate uncertainty where the source is vague.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure is valid and conforms to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are correctly used for unspecified information rather than empty strings or incorrect types. The structure follows the expected ontology format with target_compound, starting_materials, steps, equipment, and notes fields properly organized.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This extraction demonstrates excellent handling of a challenging case: a characterization paper with minimal synthesis information. The system correctly identified all available synthesis details (flux growth method, constituent materials), appropriately left unspecified fields as null without hallucination, and added contextual notes explaining the reference to external literature. Equipment and conditions are correctly empty since no synthesis apparatus or parameters are described. The extraction follows the critical evaluation principle that absence of information in the source should not be penalized. Scores reflect high quality extraction within the constraints of the source material, with particular strength in not conflating measurement conditions with synthesis conditions. Minor improvements could include explicit flagging of externally-referenced synthesis details and better distinction between synthesis vs. characterization contexts in the schema."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a field to explicitly indicate when synthesis details are referenced to external literature rather than described in the current paper",
+                "Could distinguish between synthesis equipment and measurement/characterization equipment more clearly in the schema",
+                "May benefit from capturing sample characteristics (e.g., residual resistivity ρ0 ≈ 2 µΩcm) as a separate field for material properties"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a physics research paper focused on high-pressure thermopower and resistivity measurements of CeAu2Si2. It is not a synthesis paper; the only synthesis information is a single, brief mention that crystals were grown from Sn flux, referencing prior work. The extracted ontology correctly identifies this as a 'flux growth' method and lists the constituent elements and flux. It appropriately leaves most fields (amounts, units, purities, equipment, detailed conditions) null, as they are not provided. The extraction does not hallucinate. However, the ontology's structure is minimal, as the source provides minimal synthesis detail. The primary evaluation challenge is distinguishing between a correct, sparse extraction and a failure to capture a detailed procedure that was never present.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures the only synthesis-relevant components from the source: the target compound, the general method (flux growth), and the starting materials (Ce, Au, Si, Sn flux). It correctly does not attempt to populate fields for which there is no information (e.g., detailed process steps, equipment, specific conditions). The structure is logically sound. A minor deduction is made because the 'steps' array contains a single, very generic step. While this reflects the source, a more sophisticated extraction might have noted the step is a reference to an external procedure, not a described process.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "Material names are accurately extracted: Ce, Au, Si, and Sn (correctly identified as the flux). The assignment of 'unit: flux' for Sn is a reasonable and correct interpretation. All other fields (amount, purity, vendor) are correctly left null, as the paper provides no such details. The score is high because the extraction is accurate and avoids hallucination. A perfect score is reserved for cases where quantitative details are also extracted, which was impossible here.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The single step ('mix', with description 'Crystals are grown from Sn flux.') is a correct, high-level representation of the only synthesis statement. The action 'mix' is a reasonable default, though 'flux_growth' or 'crystal_growth' might be more precise. The step is logically sequenced (it's the only one). The score reflects that the extraction is faithful to the extremely limited information but cannot be detailed. No penalty is applied for the lack of detail, as it is absent from the source.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment list is correctly empty. The source text mentions measurement equipment (Bridgman-type anvil cell, thermocouples) but no synthesis equipment. The extraction correctly does not include these, as they pertain to the measurement phase, not the material synthesis. This is a perfect example of correct absence and non-hallucination.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The conditions field is correctly null. The paper does not describe any synthesis conditions such as temperature, time, or atmosphere for the crystal growth. The extraction correctly refrains from inventing any. This is a perfect score for accurate handling of absent information.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The semantic meaning of the source is well-preserved. The extraction correctly identifies the synthesis as flux growth using Sn, and the note accurately references the prior literature. It correctly interprets 'Sn flux' as a material with a specific role. The scientific context—that this is a reference to a known synthesis, not a described procedure—is implicitly captured by the sparse data. A minor point: the 'target_compound_type' as 'emerging & quantum materials' is a reasonable inference but not explicitly stated.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure fully complies with the expected GeneralSynthesisOntology schema. All required top-level fields are present (target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, notes). The nested objects for materials and steps follow the correct format. Data types are appropriate (strings, arrays, null values). No schema violations are present.",
+                "overall_score": 4.5,
+                "overall_reasoning": "The extraction is of high quality given the severe constraints of the source material. It demonstrates excellent discipline by not hallucinating and correctly leaving unspecified fields null. The core synthesis fact (Sn flux growth) is accurately captured. The main 'weakness' is the inherent lack of detail in the source, which is not a fault of the extractor. Scores are high across the board, particularly for format compliance, equipment, and conditions extraction where correct absence is paramount. The overall score reflects a robust and accurate extraction of the limited available information."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider using a more specific action verb than 'mix' for flux growth, such as 'flux_growth' or 'crystal_growth_from_flux', if the ontology's controlled vocabulary supports it.",
+                "The note field is well-used. To enhance clarity, it could explicitly state that the synthesis details are not described in this paper and are referenced from prior work."
+              ]
+            },
+            "overall_score": 4.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "qwen3.5-397b-a17b",
+    "materials": [
+      {
+        "material": "CeAu2Si2",
+        "synthesis": {
+          "target_compound": "CeAu2Si2",
+          "target_compound_type": "metals & alloys",
+          "synthesis_method": "flux growth",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Ce",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Au",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Sn",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "CeAu2Si2 crystals are grown from Sn flux as described in references [12, 16]. Detailed synthesis procedure is not provided in this paper.",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ce",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Au",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Si",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Sn",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": {
+                "temperature": null,
+                "temp_unit": null,
+                "duration": null,
+                "time_unit": null,
+                "pressure": null,
+                "pressure_unit": null,
+                "atmosphere": null,
+                "stirring": null,
+                "stirring_speed": null,
+                "ph": null
+              }
+            }
+          ],
+          "equipment": [],
+          "notes": "The detailed synthesis procedure for CeAu2Si2 crystals is not described in this paper. The text only mentions that crystals are grown from Sn flux as described in references [12, 16]. This paper focuses on thermopower and resistivity measurements under pressure rather than synthesis."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text is a physics/materials science paper focused on thermopower and resistivity measurements of CeAu2Si2 under pressure. The synthesis section is extremely brief: 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' This single sentence is the entirety of the synthesis description in this paper. The extractor correctly identified the synthesis method (flux growth), the target compound (CeAu2Si2), and inferred the starting materials (Ce, Au, Si, Sn) from the compound formula and flux mention. The extractor also correctly noted that detailed synthesis procedures are referenced elsewhere and not provided in this paper. All null/empty fields are appropriate given the absence of synthesis details in the source text. The extraction is honest, accurate, and appropriately minimal given the source material.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-relevant information present in the source text. The target compound, synthesis method (flux growth), and starting materials (Ce, Au, Si, Sn) are all correctly identified. The note field accurately explains that detailed synthesis procedures are referenced elsewhere. The single process step correctly reflects the minimal information available. No significant synthesis information present in the source was omitted. The only minor gap is that the step action 'mix' is a reasonable but somewhat arbitrary choice given the lack of procedural detail — 'grow' or 'crystallize' might be more semantically precise — but this is a minor issue.",
+                "material_extraction_score": 4.5,
+                "material_extraction_reasoning": "The starting materials (Ce, Au, Si as components of CeAu2Si2, and Sn as the flux) are correctly identified from the brief synthesis mention. All amounts, purities, and vendor information are correctly left null since none are provided in the source text. The extractor correctly inferred Sn as a starting material from 'Sn flux' mention. The residual resistivity value (ρ0 ≈ 2 µΩcm) mentioned for the sample could arguably be noted as a sample quality criterion, but this is a characterization parameter rather than a synthesis material property, so its absence is not a significant error.",
+                "process_steps_score": 4.0,
+                "process_steps_reasoning": "Given that the source text provides only one sentence about synthesis ('We grow CeAu2Si2 crystals from Sn flux as described elsewhere'), a single process step is the correct representation. The step description accurately conveys that the detailed procedure is not provided in this paper and references [12, 16]. The action classification as 'mix' is somewhat imprecise — 'grow' or 'crystallize' would better reflect flux crystal growth — but this is a minor semantic issue. All conditions are correctly left null. The step correctly lists all four starting materials.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "No synthesis equipment is mentioned in the source text for the crystal growth procedure. The extraction correctly leaves the equipment list empty. The paper does mention a Bridgman-type anvil pressure cell for measurements, but this is measurement equipment, not synthesis equipment, and its absence from the synthesis equipment list is correct. The extractor appropriately distinguished between synthesis and measurement contexts.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, pressure, duration, atmosphere) are provided in the source text for the crystal growth procedure. All condition fields are correctly left null. The paper mentions measurement conditions (1.3 < T < 300 K, up to 27.8 GPa) but these are experimental measurement conditions, not synthesis conditions, and their absence from the synthesis conditions is correct. The extractor correctly identified this distinction.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully represents the scientific content of the synthesis description. The synthesis method 'flux growth' is semantically accurate for Sn-flux crystal growth. The note correctly conveys that this paper focuses on measurements rather than synthesis, and that synthesis details are in referenced works. The target compound type 'metals & alloys' is a reasonable classification for an intermetallic compound, though 'intermetallic' or 'heavy fermion compound' might be more precise. The overall semantic fidelity is high given the minimal synthesis information available.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction fully adheres to the GeneralSynthesisOntology schema. All required fields are present with appropriate data types. Null values are used correctly for absent information. The structure includes target_compound, target_compound_type, synthesis_method, starting_materials (with vendor, name, amount, unit, purity fields), steps (with step_number, action, description, materials, equipment, conditions), equipment, and notes — all conforming to the expected schema. No schema violations or data type errors are present.",
+                "overall_score": 4.5,
+                "overall_reasoning": "This extraction demonstrates excellent quality given the extremely limited synthesis information in the source text. The paper is primarily a physics study of thermopower and resistivity under pressure, with synthesis described in a single sentence referencing other works. The extractor correctly identified: (1) the synthesis method as flux growth from Sn, (2) the four starting materials (Ce, Au, Si, Sn), (3) the absence of detailed procedural information, and (4) the distinction between synthesis and measurement equipment/conditions. All null fields are appropriate and reflect correct absence rather than extraction failures. The notes field provides valuable context explaining why synthesis details are minimal. Minor issues include the 'mix' action classification (slightly imprecise for flux crystal growth) and the 'metals & alloys' compound type (could be more specific as 'intermetallic'). Overall, this is a high-quality extraction that correctly handles a paper where synthesis is not the primary focus, achieving near-maximum scores across all criteria."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Sample quality criterion: residual resistivity ρ0 ≈ 2 µΩcm used for sample selection (though this is characterization, not synthesis)"
+              ],
+              "extraction_errors": [
+                "Step action classified as 'mix' rather than a more appropriate term like 'grow' or 'crystallize' for flux crystal growth"
+              ],
+              "improvement_suggestions": [
+                "Use 'grow' or 'crystallize' as the step action instead of 'mix' to better reflect the flux crystal growth process",
+                "Consider classifying the compound type as 'intermetallic' or 'heavy fermion compound' rather than 'metals & alloys' for greater precision",
+                "The note about sample selection criterion (low residual resistivity ρ0 ≈ 2 µΩcm) could be included in the notes field as it provides context about sample quality requirements"
+              ]
+            },
+            "overall_score": 4.5
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system correctly identified that the source text is primarily a characterization paper rather than a synthesis report. It accurately captured the target material, the synthesis method (flux growth), and the flux material (Sn). It correctly noted that the specific synthesis details are referenced to external literature rather than detailed in the current text. The extraction follows the core principle of not hallucinating data that is absent from the source.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all available synthesis-related information from the text. Since the paper focuses on high-pressure measurements and only briefly mentions the growth method (Sn flux), the extraction correctly reflects this limited scope without missing any stated details.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The starting materials (Ce, Au, Si) and the flux (Sn) were correctly identified. No quantities or purities were mentioned in the text, so the null values are correct.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The system correctly identified 'flux growth' as the method. Since the text does not provide a step-by-step protocol, the single summary step with a descriptive note is the most accurate representation of the source content.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No synthesis equipment (e.g., furnaces, crucibles) was mentioned in the source text for the crystal growth phase. The extraction correctly left the equipment list empty.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, duration) were provided in the text for the growth of the crystals. The extraction correctly left these fields null.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction accurately preserves the meaning of the text, specifically identifying that the synthesis is described elsewhere and that Sn was used as a flux.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output is a valid JSON object that strictly adheres to the provided schema and data types.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "This evaluation assesses the extraction of synthesis ontology from a physics research paper focused on thermopower and resistivity measurements of CeAu2Si2 under pressure. The source text contains minimal synthesis information, stating only that crystals were grown from Sn flux with references to other papers for details. The extraction correctly identifies this limitation and does not hallucinate information not present in the source. The extraction appropriately captures the target compound, synthesis method (flux growth), and reasonable starting material inferences while leaving amounts, purities, equipment, and conditions null as they are not specified in the source text. This represents best practice in scientific data extraction - accurately representing what is known while acknowledging what is not stated.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information present in the source text. The source explicitly states that synthesis details are described elsewhere (references [12, 16]), and the extraction correctly reflects this limitation. All available synthesis components (target compound, method, starting materials) are captured, and fields without source information are appropriately left null. This is exemplary handling of a source with minimal synthesis information.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "Starting materials are correctly identified: Ce, Au, Si (from compound formula CeAu2Si2) and Sn (explicitly mentioned as flux material). All amounts, units, and purities are correctly left null as the source does not provide these values. This demonstrates proper extraction behavior - capturing what is stated while not hallucinating unspecified quantities. The material names are chemically accurate and properly formatted.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The single process step accurately reflects the source text, with the description explicitly noting that detailed synthesis procedure is not provided in this paper and referencing the external sources [12, 16]. The action classification ('mix') is reasonable for flux growth methodology. The step appropriately contains null values for conditions and equipment since these are not described in the source. This is correct extraction behavior.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The equipment list is correctly empty. The source text describes measurement equipment (Bridgman-type anvil pressure cell, thermocouple wires, etc.) but these are for characterization, not synthesis. No synthesis-specific equipment is mentioned in the source text. The extraction correctly distinguishes between synthesis and measurement contexts, avoiding the error of including measurement apparatus in the synthesis equipment list.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "All synthesis conditions (temperature, duration, pressure, atmosphere) are correctly left null as the source text does not provide synthesis conditions. The temperature range (1.3 < T < 300 K) and pressure values (up to 27.8 GPa) mentioned in the source are measurement conditions, not synthesis conditions. The extraction correctly avoids conflating these distinct experimental contexts. This demonstrates excellent semantic understanding.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning of the source text. It correctly identifies this as a flux growth synthesis, accurately represents the limitation that details are in referenced papers, and does not misinterpret measurement parameters as synthesis conditions. The notes field provides appropriate context about the paper's focus on measurements rather than synthesis. No semantic errors or misinterpretations are present.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extraction follows the GeneralSynthesisOntology schema correctly. All required fields are present, data types are appropriate (null for unspecified values, strings for names, numbers for quantities), and the structure is well-organized. The JSON format is valid and the field naming conventions are consistent with the ontology specification.",
+                "overall_score": 5.0,
+                "overall_reasoning": "This is an excellent extraction that demonstrates best practices in scientific data extraction. The extraction system correctly identified all synthesis information present in the source (target compound, synthesis method, starting materials) while appropriately leaving null all fields for which the source provides no information (amounts, purities, equipment, conditions). Critically, the system did not hallucinate synthesis details or confuse measurement parameters with synthesis conditions. The notes field provides valuable context about the source's limitations. The only minor improvement would be capturing the reference citations [12, 16] more explicitly. All seven evaluation criteria score 5.0, resulting in an overall score of 5.0. This extraction exemplifies the principle that absence of information in the source should result in null values in the extraction, not invented data."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "Consider adding a field to explicitly capture reference citations for synthesis procedures (e.g., references [12, 16] mentioned in the source)",
+                "Could distinguish between synthesis equipment and measurement equipment if both are present in source text",
+                "May consider adding a confidence indicator for inferred starting materials (Ce, Au, Si inferred from compound formula vs. Sn explicitly mentioned as flux)"
+              ]
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a research paper focused on high-pressure thermopower and resistivity measurements of CeAu2Si2, not a detailed synthesis procedure. The only synthesis information provided is a single sentence referencing prior work: 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' The extracted ontology correctly identifies this as a 'flux growth' method and lists the constituent elements (Ce, Au, Si, Sn) as starting materials. It appropriately creates a single, high-level 'mix' step with a description acknowledging the lack of detail and correctly leaves most quantitative fields (amounts, units, equipment, conditions) null, as they are not stated. The extraction demonstrates excellent restraint by not hallucinating missing information. The primary evaluation challenge is assessing how well a sparse, non-procedural source text can be structured into a synthesis ontology. The extraction succeeds in capturing the minimal available data accurately and structuring it compliantly, but the inherent lack of procedural detail in the source limits the potential scores for completeness and process detail.",
+              "scores": {
+                "structural_completeness_score": 3.5,
+                "structural_completeness_reasoning": "The extraction correctly structures the very limited synthesis information available. It identifies the target compound, method, and starting materials. A single process step is created, which is appropriate given the source's brevity. However, the structure is inherently incomplete because the source provides no detailed procedure, equipment, or conditions. The extraction cannot be penalized for this absence, but the overall capture of 'all synthesis components' is necessarily low because the source contains almost none. The score reflects a good job with the available data but acknowledges the severe limitations of the source.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Material extraction is accurate for the information given. The four elemental constituents (Ce, Au, Si, Sn) are correctly identified from the phrase 'grown from Sn flux'. No amounts, purities, or vendors are stated in the source, and the extraction correctly leaves these fields null. The only minor imperfection is that 'Sn' is listed as a starting material, which is technically correct as the flux medium, but the ontology might benefit from a 'flux' role distinction. This is a schema design consideration, not an extraction error. The extraction correctly avoids inventing quantities.",
+                "process_steps_score": 3.0,
+                "process_steps_reasoning": "A single step with action 'mix' is created, which is a reasonable, generic classification for the described 'growth from Sn flux'. The description accurately notes that the detailed procedure is not provided and references the prior work. The sequencing is trivial (one step). The score is middling because while the extraction is faithful to the source's vagueness, the action 'mix' is a broad interpretation of 'flux growth', which typically involves heating, cooling, and separation steps. A more precise action like 'flux_synthesis' might be better, but 'mix' is not incorrect. The extraction correctly does not invent sub-steps.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "The source text mentions no specific synthesis equipment (e.g., furnaces, crucibles). The equipment list in the extraction is correctly empty. This is the perfect, correct response to the absence of information and receives the highest score for accuracy and for not hallucinating.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "The source provides no synthesis conditions (temperature, time, atmosphere, etc.) for the crystal growth. All condition fields in the extraction are correctly null. This is the correct behavior and is scored perfectly.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the source text with high fidelity. It correctly identifies the synthesis method as 'flux growth' from the phrase 'Sn flux'. The note accurately contextualizes that the paper focuses on measurements, not synthesis. The only slight semantic gap is that the step description could more explicitly state that the referenced papers [12,16] contain the actual synthesis details, but the current description is sufficiently clear. The core meaning—that synthesis is not described here—is perfectly captured.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON perfectly adheres to the expected GeneralSynthesisOntology schema. All required fields are present (target_compound, method, starting_materials, steps, etc.). Data types are correct (strings, arrays, objects, null values). The structure is clean, logical, and compliant. No format errors are present.",
+                "overall_score": 4.3,
+                "overall_reasoning": "The extraction demonstrates excellent technical execution within the severe constraints of the source material. It accurately captures the minimal synthesis information (method, constituents) and, critically, correctly leaves all unspecified fields null, showing disciplined avoidance of hallucination. Format compliance is perfect. The lower scores in structural completeness and process steps are direct reflections of the source text's non-procedural nature, not extraction failures. The system successfully transformed a passing reference to synthesis into a valid, if sparse, ontology entry. The overall quality is high for what was possible, earning a score slightly above the midpoint of the scale."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Detailed synthesis procedure (heating/cooling profile, flux removal method)",
+                "Specific equipment used for flux growth (e.g., furnace, crucible type)",
+                "Synthesis conditions (temperature, duration, atmosphere)",
+                "Quantities of starting materials and flux"
+              ],
+              "extraction_errors": [],
+              "improvement_suggestions": [
+                "The action 'mix' could be refined to a more specific term like 'flux_synthesis' or 'solution_growth' if the ontology vocabulary supports it, to better capture the method described.",
+                "The note field effectively communicates the lack of detail; this is a good practice that could be standardized in extractions from reference-only synthesis descriptions."
+              ]
+            },
+            "overall_score": 4.3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "synth_llm": "deepseek-v3.2",
+    "materials": [
+      {
+        "material": "CeAu2Si2",
+        "synthesis": {
+          "target_compound": "CeAu2Si2",
+          "target_compound_type": "metals & alloys",
+          "synthesis_method": "flux growth",
+          "starting_materials": [
+            {
+              "vendor": null,
+              "name": "Ce",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Au",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Si",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            },
+            {
+              "vendor": null,
+              "name": "Sn",
+              "amount": null,
+              "unit": null,
+              "purity": null
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "action": "mix",
+              "description": "Grow CeAu2Si2 crystals from Sn flux",
+              "materials": [
+                {
+                  "vendor": null,
+                  "name": "Ce",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Au",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Si",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                },
+                {
+                  "vendor": null,
+                  "name": "Sn",
+                  "amount": null,
+                  "unit": null,
+                  "purity": null
+                }
+              ],
+              "equipment": [],
+              "conditions": null
+            }
+          ],
+          "equipment": [],
+          "notes": "Synthesis described as 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' Details are referenced to prior work."
+        },
+        "evaluations": [
+          {
+            "judge_llm": "claude-sonnet-4.6",
+            "evaluation": {
+              "reasoning": "The source text is a physics/materials science paper focused primarily on thermopower and resistivity measurements of CeAu2Si2 under pressure. The synthesis section is extremely brief: 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' This single sentence is the entirety of the synthesis description in the paper. The paper explicitly defers all synthesis details to prior referenced works. Given this minimal source information, the extraction must be evaluated against what is actually present in the text, not against what would ideally be in a full synthesis protocol. The extractor correctly identified the target compound (CeAu2Si2), the synthesis method (flux growth), and the flux agent (Sn). The starting materials Ce, Au, Si, and Sn are reasonable inferences from the compound formula and the flux mention, though the paper itself does not explicitly list them as starting materials. The extractor correctly left all amounts, purities, and vendor information as null, which is appropriate since none of this information is provided in the source. The notes field accurately captures the referential nature of the synthesis description.",
+              "scores": {
+                "structural_completeness_score": 4.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis information that is actually present in the source text. The source provides only one sentence about synthesis: crystal growth from Sn flux, with details deferred to prior works. The extractor correctly identified the target compound, synthesis method (flux growth), the flux agent (Sn), and inferred the constituent elements (Ce, Au, Si) as starting materials. The notes field appropriately documents the referential nature of the synthesis. The single process step is a reasonable representation of the minimal information available. No significant synthesis information present in the source was omitted. The structure is as complete as the source allows.",
+                "material_extraction_score": 3.5,
+                "material_extraction_reasoning": "The extractor listed Ce, Au, Si, and Sn as starting materials, which is a reasonable inference from the compound formula and the mention of Sn flux. However, the source text does not explicitly enumerate these as starting materials — it only states 'crystals from Sn flux.' The inclusion of Ce, Au, and Si is an inference (albeit a chemically sound one) rather than a direct extraction. Sn is explicitly mentioned as the flux. All amounts, purities, and vendor information are correctly left null since none are provided in the source. The inference is scientifically valid and helpful, but slightly beyond what the text strictly states. No hallucinated quantities or purities are present, which is correct behavior.",
+                "process_steps_score": 3.5,
+                "process_steps_reasoning": "The extraction represents the synthesis as a single step with action 'mix' and description 'Grow CeAu2Si2 crystals from Sn flux.' The action classification 'mix' is somewhat imprecise for a flux crystal growth process, which typically involves melting, slow cooling, and separation steps. However, since the source provides no detail about individual steps (all details are deferred to references), a single consolidated step is the most defensible representation. The description accurately paraphrases the source. No conditions are attached to the step, which is correct since none are stated. The step number and structure are properly formatted. The imprecision in action classification ('mix' vs. something like 'crystallize' or 'grow') is a minor issue given the lack of source detail.",
+                "equipment_extraction_score": 4.5,
+                "equipment_extraction_reasoning": "The source text does not mention any specific synthesis equipment for the crystal growth process (details are deferred to references). The extractor correctly left the equipment list empty both at the top level and within the process step. This is the correct behavior — not penalizing for absent information. The only equipment mentioned in the paper relates to measurement (Bridgman-type anvil pressure cell), not synthesis, and the extractor appropriately did not include measurement equipment in the synthesis ontology.",
+                "conditions_extraction_score": 4.5,
+                "conditions_extraction_reasoning": "The source text provides no synthesis conditions (temperature, pressure, atmosphere, duration, etc.) for the crystal growth — all details are referenced to prior works. The extractor correctly set conditions to null for the single process step and did not fabricate any conditions. This is the correct behavior per the evaluation principle that absence of information should not be penalized. The only condition-like information in the paper (residual resistivity ρ0 ≈ 2 µΩcm of the selected sample) is a sample characterization parameter, not a synthesis condition, and was correctly not included.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully represents the scientific content of the synthesis description. The synthesis method is correctly identified as 'flux growth,' which is the standard terminology for this type of crystal growth using a molten flux (Sn in this case). The target compound type 'metals & alloys' is a reasonable classification for an intermetallic compound, though 'intermetallic' or 'heavy fermion compound' might be more precise. The notes field accurately captures the key limitation: that synthesis details are deferred to prior references. No scientific meaning has been distorted or misrepresented. The compound formula CeAu2Si2 is correctly preserved.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The extracted JSON adheres well to the GeneralSynthesisOntology schema. All required fields are present: target_compound, target_compound_type, synthesis_method, starting_materials, steps, equipment, and notes. Each starting material entry contains the expected fields (vendor, name, amount, unit, purity) with appropriate null values where information is absent. The process step contains step_number, action, description, materials, equipment, and conditions fields. Data types are correct throughout (null for missing values, arrays for lists, integers for step numbers). The overall structure is clean and well-formed with no schema violations.",
+                "overall_score": 4.2,
+                "overall_reasoning": "This extraction deals with a source text that provides minimal synthesis information — essentially a single sentence deferring all details to prior references. Given this constraint, the extractor performed well overall. Key strengths include: (1) correct identification of the synthesis method as flux growth, (2) appropriate null values for all unspecified quantities, (3) correct absence of fabricated conditions or equipment, (4) accurate notes documenting the referential nature of the synthesis, and (5) full schema compliance. Minor weaknesses include: (1) the action classification 'mix' is imprecise for flux crystal growth, (2) Ce, Au, and Si as starting materials are inferences beyond what the text strictly states (though chemically sound), and (3) the compound type 'metals & alloys' could be more precisely classified as 'intermetallic compound.' Overall, the extraction represents a high-quality, conservative, and accurate representation of the available synthesis information, correctly avoiding hallucination while capturing all explicitly stated content."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "No synthesis details are missing from the extraction that were present in the source — the source itself defers all details to prior references [12, 16]."
+              ],
+              "extraction_errors": [
+                "Action classification 'mix' is imprecise for a flux crystal growth process; 'crystallize' or 'flux growth' would be more semantically accurate.",
+                "Ce, Au, and Si are listed as starting materials by inference from the compound formula, not from explicit mention in the source text — this is a minor over-inference."
+              ],
+              "improvement_suggestions": [
+                "Use a more precise action classification for the process step, such as 'crystallize', 'grow', or 'flux growth' instead of 'mix', to better reflect the crystal growth nature of the process.",
+                "Consider noting in the starting_materials or notes that Ce, Au, and Si are inferred from the compound stoichiometry rather than explicitly listed in the source text.",
+                "The compound type could be more precisely classified as 'intermetallic compound' or 'heavy fermion compound' rather than the generic 'metals & alloys'.",
+                "Consider adding a reference note pointing to [12] and [16] as the sources for full synthesis details, which would improve reproducibility tracking."
+              ]
+            },
+            "overall_score": 4.2
+          },
+          {
+            "judge_llm": "gemini-3-flash",
+            "evaluation": {
+              "reasoning": "The extraction system correctly identified the target material and the synthesis method (flux growth) from the source text. It accurately noted that the specific synthesis details are referenced to external literature ([12, 16]), which explains the lack of detailed process steps, equipment, and conditions in the source text. The system correctly identified the starting materials (Ce, Au, Si) and the flux (Sn) based on the chemical formula and the mention of 'Sn flux'.",
+              "scores": {
+                "structural_completeness_score": 5.0,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information present in the text. Since the paper focuses on physical measurements and references the synthesis procedure to other works, the minimal extraction is a faithful representation of the provided source.",
+                "material_extraction_score": 5.0,
+                "material_extraction_reasoning": "The system correctly identified the constituent elements of the target compound and the flux material. It correctly left amounts and purities null as they are not specified in the text.",
+                "process_steps_score": 5.0,
+                "process_steps_reasoning": "The single step 'mix' with the description of growing crystals from flux is the only process information provided. The system did not hallucinate additional steps.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "No synthesis equipment (e.g., furnaces, crucibles) is mentioned in the text; the system correctly left this field empty.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "No synthesis conditions (temperature, duration) are provided in the text; the system correctly left this field null.",
+                "semantic_accuracy_score": 5.0,
+                "semantic_accuracy_reasoning": "The extraction accurately reflects that the material is a crystal grown from a tin flux, preserving the scientific meaning.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The output follows the required JSON schema perfectly, using nulls and empty lists appropriately.",
+                "overall_score": 5.0,
+                "overall_reasoning": ""
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [],
+              "improvement_suggestions": []
+            },
+            "overall_score": 5.0
+          },
+          {
+            "judge_llm": "qwen3.5-397b-a17b",
+            "evaluation": {
+              "reasoning": "The source text contains minimal synthesis information, with only one sentence stating 'We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].' The extraction correctly identifies the flux growth method and Sn flux, but infers starting materials (Ce, Au, Si) that are not explicitly stated in the text. All other fields (amounts, units, purities, equipment, conditions) are correctly left null since they are not provided in the source. The extraction appropriately notes in the notes field that synthesis details are referenced to prior work. This is a case where the source text itself lacks detailed synthesis information, and the extraction system handled this appropriately by not hallucinating specific values while making reasonable chemical inferences for starting materials.",
+              "scores": {
+                "structural_completeness_score": 4.5,
+                "structural_completeness_reasoning": "The extraction captures all synthesis-related information present in the source text. The single synthesis statement is properly represented with appropriate null values for unspecified details. The structure correctly reflects the limited nature of the synthesis description in the source. Minor deduction for inferring starting materials not explicitly stated.",
+                "material_extraction_score": 4.0,
+                "material_extraction_reasoning": "Sn flux is correctly identified as mentioned in the text. However, Ce, Au, and Si are listed as starting materials despite not being explicitly stated in the source - this is a reasonable chemical inference for CeAu2Si2 synthesis but technically constitutes information not present in the source text. All amounts, units, and purities are correctly null since none are specified.",
+                "process_steps_score": 4.5,
+                "process_steps_reasoning": "The single process step accurately reflects the source text's description of crystal growth from Sn flux. The action classification as 'mix' is a reasonable interpretation of flux growth methodology. The step correctly captures that details are referenced elsewhere. Could be slightly improved by using a more specific action term like 'crystal growth' or 'flux growth'.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Correctly left empty as no synthesis equipment is mentioned in the source text. The Bridgman-type anvil pressure cell mentioned in the text is for measurements, not synthesis, so appropriately excluded from synthesis equipment. This demonstrates proper distinction between synthesis and characterization equipment.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Correctly left null as no synthesis conditions (temperature, time, atmosphere, pressure) are specified in the source text. The extraction system properly avoided hallucinating values that are not present in the source. This is the correct behavior when source text references external work for details.",
+                "semantic_accuracy_score": 4.5,
+                "semantic_accuracy_reasoning": "The extraction faithfully preserves the scientific meaning that synthesis details are referenced to prior work. The notes field correctly indicates this limitation. The inference of starting materials is chemically accurate but represents a minor semantic addition beyond the source text. Overall meaning and context are well preserved.",
+                "format_compliance_score": 5.0,
+                "format_compliance_reasoning": "The JSON structure adheres to the expected ontology schema. All required fields are present with appropriate data types. Null values are correctly used for unspecified information. The structure is valid and well-formed for downstream processing.",
+                "overall_score": 4.6,
+                "overall_reasoning": "This extraction demonstrates strong adherence to the principle of not hallucinating information while capturing what is present in the source text. The source itself contains minimal synthesis information (one sentence referencing external work), and the extraction appropriately reflects this limitation. The main area for improvement is distinguishing between explicitly stated materials (Sn flux) and chemically inferred materials (Ce, Au, Si). All numerical fields, equipment, and conditions are correctly left null since they are not in the source. The notes field effectively communicates the referenced nature of the synthesis details. Overall, this is a high-quality extraction that balances completeness with accuracy, properly handling a source text that lacks detailed synthesis procedures."
+              },
+              "confidence_level": "high",
+              "missing_information": [],
+              "extraction_errors": [
+                "Starting materials Ce, Au, and Si are inferred rather than explicitly stated in the source text - only Sn flux is mentioned"
+              ],
+              "improvement_suggestions": [
+                "Consider flagging inferred starting materials separately from explicitly stated materials",
+                "Add a field to indicate when synthesis details are referenced to external sources",
+                "Could include measurement equipment (Bridgman-type anvil pressure cell) in a separate measurement equipment field if the ontology supports it"
+              ]
+            },
+            "overall_score": 4.6
+          },
+          {
+            "judge_llm": "deepseek-v3.2",
+            "evaluation": {
+              "reasoning": "The source text is a physics research paper focused on high-pressure thermopower and resistivity measurements of CeAu2Si2. It contains a brief, non-detailed reference to the material's synthesis ('We grow CeAu2Si2 crystals from Sn flux as described elsewhere [12, 16].'). The extracted ontology correctly identifies this single synthesis method and the target compound. However, it attempts to populate a detailed starting_materials list and a process step with actions and materials, which constitutes a significant over-extraction and hallucination. The source provides no details on specific starting elements, amounts, purity, or a step-by-step process; it only references prior work. The extraction should have reflected the minimal, referenced nature of the synthesis description. The equipment and conditions sections are correctly left empty, as none are mentioned.",
+              "scores": {
+                "structural_completeness_score": 2.5,
+                "structural_completeness_reasoning": "The extraction captures the high-level synthesis method ('flux growth') and the target compound, which are the only explicit synthesis components in the source. However, it incorrectly populates a detailed list of starting materials (Ce, Au, Si, Sn) and creates a 'mix' action step. The source does not list these specific elements as starting materials for this procedure; it only states the compound was grown from Sn flux, referencing prior work. This over-specification is a structural error. The equipment and conditions sections are correctly minimal, aligning with the source.",
+                "material_extraction_score": 1.5,
+                "material_extraction_reasoning": "Score is low due to significant hallucination. The extraction lists specific starting materials (Ce, Au, Si, Sn) with null values for amount, unit, and purity. The source text does not list these materials; it only mentions 'Sn flux' as the growth medium and references prior synthesis. Inferring the constituent elements of CeAu2Si2 and Sn as the flux is a logical but unsupported extraction that goes beyond the explicitly stated information. The correct behavior would be to have an empty or very generic starting_materials list, perhaps with a single entry like 'precursors (as per reference)'.",
+                "process_steps_score": 2.0,
+                "process_steps_reasoning": "The extraction creates a single step with action 'mix' and description 'Grow CeAu2Si2 crystals from Sn flux'. While the description paraphrases the source, the action 'mix' is an unwarranted interpretation. The source provides no procedural steps; it is a passive description referencing other work. The step should either be omitted or classified with a more generic action like 'reference' or 'synthesize (external reference)'. The sequencing is not an issue as there is only one implied step.",
+                "equipment_extraction_score": 5.0,
+                "equipment_extraction_reasoning": "Score is excellent. The source text mentions no specific synthesis equipment (only measurement equipment like pressure cells and thermocouples, which are not part of the synthesis ontology). The extracted equipment list is correctly empty, adhering to the core principle of not hallucinating.",
+                "conditions_extraction_score": 5.0,
+                "conditions_extraction_reasoning": "Score is excellent. The source provides no synthesis conditions (temperature, time, atmosphere, etc.) for the crystal growth, as the procedure is not described. The extraction correctly leaves the conditions field as null for the step, which is the appropriate behavior.",
+                "semantic_accuracy_score": 2.0,
+                "semantic_accuracy_reasoning": "The semantic meaning is partially preserved (the material is made via Sn flux growth). However, accuracy is severely compromised by the hallucination of a specific material list and a procedural step. The extraction transforms a brief reference to prior work into a pseudo-detailed synthesis protocol, misrepresenting the level of information actually provided in the source. The 'notes' field correctly captures the referenced nature, but the main ontology fields contradict this.",
+                "format_compliance_score": 4.5,
+                "format_compliance_reasoning": "The JSON structure is valid and adheres to the expected schema. All required fields are present and of the correct data types (e.g., lists, null values). The only minor issue is that the 'steps[0].conditions' is set to `null` instead of an empty object `{}`, but this is likely schema-compliant. The primary compliance issue is not structural but semantic, related to the inappropriate population of fields with unsupported data.",
+                "overall_score": 3.2,
+                "overall_reasoning": "The extraction demonstrates good schema compliance and correctly avoids inventing equipment or conditions. Its critical failure is over-extraction and hallucination regarding starting materials and process steps. For a source text that only references synthesis, the system should have produced a much sparser ontology—perhaps just the target_compound, synthesis_method, and a note referencing the prior work. The overall quality is undermined by the system's inability to recognize the absence of detailed synthesis information. The average score reflects this mix of correct null-handling and incorrect material/step specification."
+              },
+              "confidence_level": "high",
+              "missing_information": [
+                "Material quantities, units, or purities",
+                "Process step details or sequencing"
+              ],
+              "extraction_errors": [
+                "Hallucinated specific starting materials (Ce, Au, Si, Sn). The source only mentions 'Sn flux' and references prior work.",
+                "Incorrectly specified a 'mix' action for the synthesis step. The source provides no actionable steps.",
+                "Over-interpreted the brief synthesis reference, creating a more detailed protocol than the source supports."
+              ],
+              "improvement_suggestions": [
+                "Implement a stronger rule to distinguish between detailed synthesis procedures and bibliographic references. For text like 'as described elsewhere', the extraction should be minimal.",
+                "When a synthesis method is named but not detailed, the starting_materials list should be left empty or contain a generic placeholder, not enumerated elements.",
+                "For referenced syntheses, consider a dedicated field or flag (e.g., 'is_referenced': true) to prevent the system from inferring unsupported details.",
+                "The action for a step described only as 'grown from...' should be more generic (e.g., 'synthesize', 'prepare') or omitted if no clear action is stated."
+              ]
+            },
+            "overall_score": 3.2
+          }
+        ]
+      }
+    ]
   }
 ]
