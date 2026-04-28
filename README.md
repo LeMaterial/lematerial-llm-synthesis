@@ -360,50 +360,104 @@ class BandgapWriter(CsvMasterWriter):
         return records
 ```
 
-#### Putting it together — minimal new case study
+#### Putting it together — the porous materials case study
+
+The porosity case study is a concrete example of a custom domain built with these primitives. Here is how it is wired up in [`examples/scripts/case_study_porosity/run.py`](examples/scripts/case_study_porosity/run.py):
+
+**Step 1 — define what plots to keep**
+
+Adsorption isotherms have pressure on the x-axis and uptake/loading on the y-axis. The filter matches both axis labels and units, and vetoes plots about temperature, heat, or selectivity (which share some keywords but are not isotherms):
 
 ```python
-# examples/scripts/case_study_electrochemistry/run.py
-from llm_synthesis.config.domain_config import DomainConfig
 from llm_synthesis.config.plot_filter_config import PlotFilterConfig
-from llm_synthesis.runners.batch_runner import BatchRunner
+
+plot_filter = PlotFilterConfig(
+    x_axis_labels=[
+        "pressure", "p", "p/p0", "p/p₀", "relative pressure",
+        "p (bar)", "p (kpa)", "p (mpa)", "p (atm)", "p (pa)",
+        "p [bar]", "p [kpa]", "p [atm]",
+    ],
+    x_axis_units=["bar", "kpa", "mpa", "atm", "pa", "p0", "p/p0"],
+    y_axis_keywords=[
+        "loading", "uptake", "adsorption", "coverage", "surface area",
+        "amount adsorbed", "quantity adsorbed",
+        "cm³/g", "cm3/g", "mmol/g", "mol/kg", "mg/g", "wt%", "cc/g",
+    ],
+    y_axis_units=[
+        "mmol/g", "mol/kg", "cm³/g", "cm3/g", "cc/g", "mg/g",
+        "wt%", "ml/g", "l/g", "g/g", "mmol g⁻¹", "cm³ g⁻¹",
+    ],
+    y_axis_exclude_patterns=[
+        "temperature", "time", "heat", "enthalpy",
+        "selectivity", "permeability", "diffusivity",
+    ],
+    require_y_keyword_with_percentage=False,
+)
+```
+
+**Step 2 — tell the material extractor what to look for**
+
+Porous materials papers study MOFs, zeolites, COFs, and related frameworks. Each variant (different linker, metal node, or activation condition) should be a separate entry:
+
+```python
+material_extraction_instructions = (
+    "Extract ALL distinct porous or framework material compositions "
+    "that were synthesized and characterized in this paper. "
+    "If the paper studies multiple variants (e.g., different linkers, "
+    "metal nodes, activation conditions) list EACH variant separately. "
+    "Focus on materials for which adsorption or porosity data are reported."
+)
+
+material_output_description = (
+    "ALL distinct synthesized porous material compositions as a "
+    "comma-separated list using chemical formulas or IUPAC names. "
+    "Include variant labels where relevant (e.g., 'MOF-5-activated', "
+    "'ZIF-8-NH2')."
+)
+```
+
+**Step 3 — choose an output writer**
+
+No domain-specific scalars are needed beyond what the pipeline already extracts, so both optional extractors are `None`. Results are saved as per-material JSON files with annotation templates using `AnnotatedJsonWriter`:
+
+```python
 from llm_synthesis.runners.output_writers.json_writer import AnnotatedJsonWriter
 
+output_writer = AnnotatedJsonWriter()
+```
+
+**Step 4 — assemble `DomainConfig` and run**
+
+```python
+from llm_synthesis.config.domain_config import DomainConfig
+from llm_synthesis.runners.batch_runner import BatchRunner
+
 domain = DomainConfig(
-    name="electrochemistry",
-    plot_filter_config=PlotFilterConfig(
-        x_axis_labels=["potential", "voltage", "v vs"],
-        x_axis_units=["v", "mv"],
-        y_axis_keywords=["current", "faradaic efficiency", "overpotential"],
-        y_axis_units=["%", "ma", "mv"],
-        filter_x_axis=True,
-        filter_y_axis=True,
-    ),
-    material_extraction_instructions=(
-        "Extract ALL distinct electrocatalyst compositions synthesized and "
-        "tested. List each loading, dopant level, and substrate variant "
-        "separately (e.g. '1%Pt/C', '3%Pt/C', 'IrO2/Ti')."
-    ),
-    material_output_description=(
-        "Comma-separated chemical formulas including loading percentages "
-        "and substrate (e.g. '1%Pt/C, 3%Pt/C, IrO2/Ti')."
-    ),
-    text_metric_extractor=None,   # add a BaseTextMetricExtractor subclass here
-    vlm_metric_processor=None,    # add a BaseVLMMetricProcessor subclass here
-    output_writer=AnnotatedJsonWriter(),
+    name="porosity",
+    plot_filter_config=plot_filter,
+    material_extraction_instructions=material_extraction_instructions,
+    material_output_description=material_output_description,
+    text_metric_extractor=None,
+    vlm_metric_processor=None,
+    output_writer=output_writer,
 )
 
 runner = BatchRunner(
     domain_config=domain,
     gemini_model="gemini-3.0-flash",
     claude_model="claude-sonnet-4-20250514",
+    material_model="gemini-3.0-pro",
+    synthesis_max_tokens=80_000,
+    linker_max_tokens=32_000,
 )
 runner.run(pdf_dir="/path/to/pdfs", output_dir="/path/to/results")
 ```
 
+This is exactly what `DomainConfig.for_porosity()` returns — the factory method is just a convenience wrapper around the same four steps above.
+
 Run it:
 ```bash
-python examples/scripts/case_study_electrochemistry/run.py \
+python examples/scripts/case_study_porosity/run.py \
   /path/to/pdfs /path/to/results --skip-existing
 ```
 
