@@ -66,6 +66,11 @@ class PipelineResult(BaseModel):
     linking_stats: LinkingStats | None = None
     materials_with_performance: list[str] = Field(default_factory=list)
     materials_without_performance: list[str] = Field(default_factory=list)
+    # Exposed so domain VLM processors can run additional passes on plots
+    relevant_plots: list[tuple[int, ExtractedLinePlotData]] = Field(
+        default_factory=list
+    )
+    plot_figures: list[FigureInfo] = Field(default_factory=list)
 
 
 class SynthesisPerformancePipeline:
@@ -545,6 +550,13 @@ class SynthesisPerformancePipeline:
                         )
                         # Keep empty defaults - synthesis still saved
 
+        # Collect relevant plots for domain metric processors
+        kept_relevant_plots: list[tuple[int, ExtractedLinePlotData]] = []
+        if extracted_plots:
+            kept_relevant_plots, _ = self.plot_filter.filter_plots(
+                extracted_plots, log_skipped=False
+            )
+
         # Build results
         results = []
         for entry in all_syntheses:
@@ -574,6 +586,8 @@ class SynthesisPerformancePipeline:
             linking_stats=linking_stats,
             materials_with_performance=materials_with_perf,
             materials_without_performance=materials_without_perf,
+            relevant_plots=kept_relevant_plots,
+            plot_figures=plot_figures,
         )
 
     async def process_paper_async(
@@ -674,7 +688,7 @@ class SynthesisPerformancePipeline:
         linking_evaluation = None
 
         if not skip_figures:
-            # Step 3: 
+            # Step 3:
             # Extract figures (CPU-bound, no LLM — run in thread directly)
             figures = await asyncio.to_thread(
                 self.extract_figures, paper.publication_text
