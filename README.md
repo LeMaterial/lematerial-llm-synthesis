@@ -225,9 +225,209 @@ Additional flags for both batch scripts: `--max N` to limit to the first N paper
 - Open `visualisation_tc.ipynb` to produce Tc-vs-year scatter plots, text/VLM agreement plots, and synthesis method breakdowns.
 - Open `visualisation_tc_with_human_annotation.ipynb` to compare pipeline output against human-annotated ground truth.
 
-### Customize LeMat-Synth
-*Work in Progress*
-{EXAMPLES HOW TO GENERALIZE/ABSTRACT EXTRACTION PIPELINE}
+### Adding Your Own Case Study
+
+The pipeline is built around four composable pieces. Once you configure them, `BatchRunner` handles everything else — PDF loading, SI detection, rate-limit retries, progress reporting, and output.
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                         BatchRunner                            │
+│  ┌──────────────┐   ┌───────────────────────────────────────┐  │
+│  │ DomainConfig │──▶│    SynthesisPerformancePipeline       │  │
+│  │              │   │  (PDF → materials → synthesis →       │  │
+│  │ PlotFilter   │   │   figures → plot data → linking)      │  │
+│  │ MatPrompt    │   └───────────────────────────────────────┘  │
+│  │ TextExtract? │──▶  Optional: BaseTextMetricExtractor        │
+│  │ VLMProcess?  │──▶  Optional: BaseVLMMetricProcessor         │
+│  │ OutputWriter │──▶  AnnotatedJsonWriter / CsvMasterWriter    │
+│  └──────────────┘                                              │
+└────────────────────────────────────────────────────────────────┘
+```
+
+#### The four pieces
+
+**1. `PlotFilterConfig` — which plots are relevant?**
+
+Every paper produces many figures. `PlotFilterConfig` filters them by axis labels and units so only domain-relevant plots reach the downstream LLM. For thermocatalysis you want temperature on the x-axis and conversion/yield on the y-axis; for superconductors you want resistance vs. temperature.
+
+```python
+from llm_synthesis.config.plot_filter_config import PlotFilterConfig
+
+# Use a built-in preset:
+PlotFilterConfig.for_catalysis()        # T vs. conversion/yield
+PlotFilterConfig.for_superconductivity() # R(T) / ρ(T) plots
+PlotFilterConfig.for_coverage()          # P vs. adsorption isotherms
+
+# Or build a custom one:
+filter_cfg = PlotFilterConfig(
+    x_axis_labels=["current density", "j"],
+    x_axis_units=["ma/cm2", "a/cm2"],
+    y_axis_keywords=["overpotential", "faradaic efficiency"],
+    y_axis_units=["%", "mv"],
+    filter_x_axis=True,
+    filter_y_axis=True,
+)
+```
+
+Key fields:
+| Field | Purpose |
+|---|---|
+| `x_axis_labels` | Substrings matched (case-insensitive) against the x-axis label |
+| `x_axis_units` | Exact unit strings that also signal a relevant x-axis |
+| `y_axis_keywords` | Substrings matched against the y-axis label |
+| `y_axis_units` | Unit strings that signal a relevant y-axis |
+| `y_axis_exclude_patterns` | Veto list — overrides keyword matches (e.g. exclude "field" for superconductors) |
+| `filter_x_axis` / `filter_y_axis` | Set either to `False` to skip that axis entirely |
+
+**2. Material extraction prompt — what to look for in the text?**
+
+Two strings tell the material extractor what to find:
+
+- `material_extraction_instructions` — free-text instructions to the LLM (be specific about variants, dopings, loadings).
+- `material_output_description` — describes the expected output format (e.g. "comma-separated chemical formulas including loading percentages").
+
+The quality of downstream synthesis and performance linking depends heavily on these strings. Be explicit about whether you want each doping level listed separately, whether precursors should be included, etc.
+
+**3. Domain metric extractors (optional) — domain-specific scalars**
+
+After the standard pipeline runs, you can attach two optional extraction passes:
+
+`BaseTextMetricExtractor` — one extra LLM call on the paper text:
+```python
+from llm_synthesis.domain_metrics.base import BaseTextMetricExtractor
+
+class MyTextExtractor(BaseTextMetricExtractor):
+    def extract(self, paper_text: str, materials: list[str]) -> dict:
+        # Call your LLM, parse the output.
+        # Return: {material_name: {metric_key: value, ...}, ...}
+        return {
+            "Cu0.5Ba0.5": {"bandgap_eV": 1.8, "measured_at_K": 300},
+        }
+```
+
+`BaseVLMMetricProcessor` — one extra VLM pass on the already-filtered relevant plots:
+```python
+from llm_synthesis.domain_metrics.base import BaseVLMMetricProcessor
+
+class MyVLMProcessor(BaseVLMMetricProcessor):
+    def process(
+        self,
+        relevant_plots,   # list[(index, ExtractedLinePlotData)]
+        plot_figures,     # list[FigureInfo] — contains the image bytes
+        plot_mappings,    # series-to-material links from the pipeline
+        materials,        # list[str]
+        paper_text,       # full paper text for context
+    ) -> dict:
+        # Run your VLM calls, return per-material metrics.
+        return {
+            "Cu0.5Ba0.5": {"onset_current_mA": 12.3},
+        }
+```
+
+Both return the same shape: `{material_name: {key: value}}`. Set either to `None` in `DomainConfig` to skip it.
+
+**4. `BaseOutputWriter` — how to save results**
+
+Two built-in writers cover most needs:
+
+| Writer | Best for | Output |
+|---|---|---|
+| `AnnotatedJsonWriter` | Qualitative / rich data | `<output_dir>/<paper_id>/<material>.json` + linking summaries |
+| `CsvMasterWriter` | Tabular data you want to aggregate across papers | Same JSON + a growing `master.csv` with one row per (paper, material) |
+
+For a fully custom CSV schema, subclass `CsvMasterWriter` and override `_build_flat_records`:
+```python
+from llm_synthesis.runners.output_writers.csv_writer import CsvMasterWriter
+
+MY_COLUMNS = ["paper_id", "material", "bandgap_eV", "synthesis_method"]
+
+class BandgapWriter(CsvMasterWriter):
+    def __init__(self):
+        super().__init__(csv_columns=MY_COLUMNS, master_csv_name="bandgaps.csv")
+
+    def _build_flat_records(self, paper_id, result, text_metrics, vlm_metrics):
+        records = []
+        for entry in result.results:
+            m = entry.material
+            records.append({
+                "paper_id": paper_id,
+                "material": m,
+                "bandgap_eV": text_metrics.get(m, {}).get("bandgap_eV"),
+                "synthesis_method": (
+                    entry.synthesis.synthesis_method if entry.synthesis else None
+                ),
+            })
+        return records
+```
+
+#### Putting it together — minimal new case study
+
+```python
+# examples/scripts/case_study_electrochemistry/run.py
+from llm_synthesis.config.domain_config import DomainConfig
+from llm_synthesis.config.plot_filter_config import PlotFilterConfig
+from llm_synthesis.runners.batch_runner import BatchRunner
+from llm_synthesis.runners.output_writers.json_writer import AnnotatedJsonWriter
+
+domain = DomainConfig(
+    name="electrochemistry",
+    plot_filter_config=PlotFilterConfig(
+        x_axis_labels=["potential", "voltage", "v vs"],
+        x_axis_units=["v", "mv"],
+        y_axis_keywords=["current", "faradaic efficiency", "overpotential"],
+        y_axis_units=["%", "ma", "mv"],
+        filter_x_axis=True,
+        filter_y_axis=True,
+    ),
+    material_extraction_instructions=(
+        "Extract ALL distinct electrocatalyst compositions synthesized and "
+        "tested. List each loading, dopant level, and substrate variant "
+        "separately (e.g. '1%Pt/C', '3%Pt/C', 'IrO2/Ti')."
+    ),
+    material_output_description=(
+        "Comma-separated chemical formulas including loading percentages "
+        "and substrate (e.g. '1%Pt/C, 3%Pt/C, IrO2/Ti')."
+    ),
+    text_metric_extractor=None,   # add a BaseTextMetricExtractor subclass here
+    vlm_metric_processor=None,    # add a BaseVLMMetricProcessor subclass here
+    output_writer=AnnotatedJsonWriter(),
+)
+
+runner = BatchRunner(
+    domain_config=domain,
+    gemini_model="gemini-3.0-flash",
+    claude_model="claude-sonnet-4-20250514",
+)
+runner.run(pdf_dir="/path/to/pdfs", output_dir="/path/to/results")
+```
+
+Run it:
+```bash
+python examples/scripts/case_study_electrochemistry/run.py \
+  /path/to/pdfs /path/to/results --skip-existing
+```
+
+#### Using a built-in domain config
+
+For the three built-in domains you don't need to construct `DomainConfig` manually:
+
+```python
+DomainConfig.for_catalysis()
+DomainConfig.for_porosity()
+DomainConfig.for_superconductivity(claude_model="claude-sonnet-4-20250514")
+```
+
+#### Decision guide
+
+| I want to... | What to change |
+|---|---|
+| Filter different plot types | Customize `PlotFilterConfig` |
+| Extract different materials | Edit `material_extraction_instructions` / `material_output_description` |
+| Pull a scalar from the text (e.g. bandgap, yield) | Implement `BaseTextMetricExtractor` |
+| Read a value geometrically from a figure | Implement `BaseVLMMetricProcessor` |
+| Save results as a growing CSV | Use `CsvMasterWriter` (or subclass for custom columns) |
+| Save rich per-material JSON with annotation templates | Use `AnnotatedJsonWriter` |
+| Skip figure extraction entirely (faster, text only) | Pass `--skip-figures` or `skip_figures=True` to `runner.run()` |
 
 ---
 
