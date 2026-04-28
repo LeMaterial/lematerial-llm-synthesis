@@ -8,7 +8,7 @@ A Streamlit UI for the 5-step annotation workflow:
   4. Score each LLM extraction (blind)
   5. Save result_human.json
 
-Run with:  streamlit run annotator_app.py
+Run with:  streamlit run examples/scripts/data_curation/annotator_app.py
 """
 
 import copy
@@ -340,7 +340,7 @@ def format_extraction_md(synthesis):
         for s in steps:
             num = s.get("step_number", "?")
             action = s.get("action", "?")
-            lines.append(f"\n**Step {num} — {action}**")
+            lines.append(f"\n**Step {num} - {action}**")
             desc = s.get("description", "")
             if desc:
                 lines.append(f"> {desc}")
@@ -608,7 +608,7 @@ def render_scoring_tabs(llm_data, human_data, mat_idx):
                         dim_label,
                         options=SCORE_OPTIONS,
                         key=f"ev_{i}_{dim_key}_s",
-                        format_func=lambda x: "\u2014" if x is None else f"{x:.1f}",
+                        format_func=lambda x: "N/A" if x is None else f"{x:.1f}",
                         help=dim_hint,
                     )
                 with cols[1]:
@@ -625,7 +625,7 @@ def render_scoring_tabs(llm_data, human_data, mat_idx):
                 "Confidence Level",
                 options=[None, 1, 2, 3, 4, 5],
                 key=f"ev_{i}_conf",
-                format_func=lambda x: "\u2014" if x is None else str(x),
+                format_func=lambda x: "N/A" if x is None else str(x),
             )
 
             st.text_area("Overall Reasoning", key=f"ev_{i}_reason", height=80)
