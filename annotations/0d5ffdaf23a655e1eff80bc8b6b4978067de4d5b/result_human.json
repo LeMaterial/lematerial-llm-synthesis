@@ -10,6 +10,108 @@
   ],
   "materials": [
     {
+      "material_name": "CNT array",
+      "human_recipe": {
+        "target_compound": "CNT array",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "CVD",
+        "starting_materials": [
+          {
+            "name": "xylene",
+            "vendor": null,
+            "amount": 90.0,
+            "unit": "mol%",
+            "purity": null
+          },
+          {
+            "name": "ferrocene",
+            "vendor": null,
+            "amount": 10.0,
+            "unit": "mol%",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "CNT arrays were synthesized on Si substrates by the floating catalyst CVD via a high-temperature pyrolysis of the xylene/ferrocene solution injected into the reaction zone of quartz reactor.",
+            "materials": [
+              {
+                "name": "xylene",
+                "vendor": null,
+                "amount": 90.0,
+                "unit": "mol%",
+                "purity": null
+              },
+              {
+                "name": "ferrocene",
+                "vendor": null,
+                "amount": 10.0,
+                "unit": "mol%",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "heat",
+            "description": "CNT arrays were synthesized on Si substrates by the floating catalyst CVD via a high-temperature pyrolysis of the xylene/ferrocene solution injected into the reaction zone of quartz reactor.",
+            "materials": [
+              {
+                "name": "xylene / ferrocene solution",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "quartz reactor",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": 875.0,
+              "duration": 30.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "s",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "quartz reactor",
+            "instrument_vendor": null,
+            "settings": null
+          }
+        ],
+        "notes": ""
+      },
+      "evaluations": []
+    },
+    {
       "material_name": "Fe phase nanosphere/conical CNT bundle nanostructures",
       "human_recipe": {
         "target_compound": "Fe phase nanosphere/conical CNT bundle nanostructures",
