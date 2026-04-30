@@ -12,13 +12,118 @@
     {
       "material_name": "Pt-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Pt–OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "chloroplatinic acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Pt–OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "chloroplatinic acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "OLC acted as both reductant and surfactant in the synthesis."
       },
       "evaluations": [
         {
@@ -134,13 +239,118 @@
     {
       "material_name": "Pd-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Pd–OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "palladium precursor",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Pd–OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "palladium precursor",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "Pd, Au, Ag nanoparticles decorated OLC samples were also synthesized by the same method."
       },
       "evaluations": [
         {
@@ -256,13 +466,118 @@
     {
       "material_name": "Au-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Au–OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "gold precursor",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Au–OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "gold precursor",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "OLC acted as both reductant and surfactant in the synthesis."
       },
       "evaluations": [
         {
@@ -378,13 +693,118 @@
     {
       "material_name": "Ag-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Ag–OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "silver precursor",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Ag–OLC was obtained by a hydrothermal treatment at 200 C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "silver precursor",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "OLC acted as both reductant and surfactant in the synthesis."
       },
       "evaluations": [
         {
@@ -494,7 +914,7 @@
             "extraction_errors": ["incomplete extraction"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
-        },
+        }
       ]
     }
   ]
