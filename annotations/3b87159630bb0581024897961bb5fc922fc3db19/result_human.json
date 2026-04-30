@@ -66,17 +66,17 @@
             "description": "Weigh and grind B and MgO.",
             "materials": [
               {
-                "name": "Boron (2.0 equiv)",
+                "name": "Boron",
                 "vendor": null,
-                "amount": null,
-                "unit": null,
+                "amount": 2.0,
+                "unit": "equiv",
                 "purity": null
               },
               {
-                "name": "MgO (1.0 equiv)",
+                "name": "MgO",
                 "vendor": null,
-                "amount": null,
-                "unit": null,
+                "amount": 1.0,
+                "unit": "equiv",
                 "purity": null
               }
             ],
@@ -100,17 +100,17 @@
             "description": "Weigh and mix MgB2 with the previously obtained B/MgO powder to form the precursor.",
             "materials": [
               {
-                "name": "MgB2 (1.5 equiv) [vendor: Sigma-Aldrich]",
-                "vendor": null,
-                "amount": null,
-                "unit": null,
+                "name": "MgB2",
+                "vendor": "Sigma-Aldrich",
+                "amount": 1.5,
+                "unit": "equiv",
                 "purity": null
               },
               {
-                "name": "B/MgO powder (1.0 equiv)",
+                "name": "B/MgO powder",
                 "vendor": null,
-                "amount": null,
-                "unit": null,
+                "amount": 1.0,
+                "unit": "equiv",
                 "purity": null
               }
             ],
@@ -134,10 +134,10 @@
             "description": "Place the alumina boat containing the precursor and a piece of clean Si/SiO2 substrate in the center of the tube.",
             "materials": [
               {
-                "name": "B/MgO/MgB2 (140.0 mg)",
+                "name": "B/MgO/MgB2",
                 "vendor": null,
-                "amount": null,
-                "unit": null,
+                "amount": 140.0,
+                "unit": "mg",
                 "purity": null
               },
               {
@@ -148,11 +148,11 @@
                 "purity": null
               },
               {
-                "name": "NH3 [vendor: Linde Gas (China) Company Limited] [purity: 99.999%]",
-                "vendor": null,
+                "name": "NH3",
+                "vendor": "Linde Gas (China) Company Limited",
                 "amount": null,
                 "unit": null,
-                "purity": null
+                "purity": "99.999%"
               }
             ],
             "equipment": [
@@ -186,11 +186,11 @@
             "description": "Cool the system naturally to room temperature in Ar.",
             "materials": [
               {
-                "name": "Ar [vendor: Linde Gas (China) Company Limited] [purity: 99.999%]",
-                "vendor": null,
+                "name": "Ar",
+                "vendor": "Linde Gas (China) Company Limited",
                 "amount": null,
                 "unit": null,
-                "purity": null
+                "purity": "99.999%"
               }
             ],
             "equipment": [],
