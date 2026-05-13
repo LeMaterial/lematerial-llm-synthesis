@@ -10,9 +10,9 @@
   ],
   "materials": [
     {
-      "material_name": "Carboxylate-functionalized cellulose nanospheres",
+      "material_name": "Oxidized CNS",
       "human_recipe": {
-        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound": "Oxidized CNS",
         "target_compound_type": "nanomaterials",
         "synthesis_method": "manual grinding",
         "starting_materials": [
@@ -82,7 +82,7 @@
           {
             "step_number": 2,
             "action": "add",
-            "description": "Oxidant (Na2CO3.1.5H2O2) was added iteratively (5 equiv. each time with respect to the catalyst) with continuous grinding by pestle until the catalyst color bleaches out.",
+            "description": "Na2CO3.1.5H2O2 (SPC) as the oxidant (each time 5 eqv.) was added in equal portions over a period of 1.5 h.",
             "materials": [
               {
                 "vendor": null,
@@ -144,31 +144,6 @@
             "action": "filter",
             "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
             "materials": [],
-            "equipment": [
-              {
-                "name": "dialysis membrane",
-                "instrument_vendor": null,
-                "settings": "3.5 kDa molecular weight cut-off"
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-          "step_number": 5,
-            "action": "dry",
-            "description": "Lyophilizing the dialyzed water to obtain the product.",
-            "materials": [],
             "equipment": [],
             "conditions": {
               "temperature": null,
@@ -189,11 +164,6 @@
             "name": "mortar and pestle",
             "instrument_vendor": null,
             "settings": null
-          },
-          {
-            "name": "dialysis membrane",
-            "instrument_vendor": null,
-            "settings": "3.5 kDa molecular weight cut-off"
           }
         ],
         "notes": null
@@ -342,9 +312,9 @@
       ]
     },
     {
-      "material_name": "Carboxylate-functionalized cellulose nanospheres",
+      "material_name": "Oxidized CNS",
       "human_recipe": {
-        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound": "Oxidized CNS",
         "target_compound_type": "nanomaterials",
         "synthesis_method": "ball milling",
         "starting_materials": [
@@ -422,7 +392,7 @@
               {
                 "name": "mixer mill",
                 "instrument_vendor": "Retsch",
-                "settings": "MM 400, 1.5 ml stainless steel jar, 5 mm stainless steel ball, frequency of 30 Hz, 10 min cycle"
+                "settings": "frequency of 30 Hz, 10 min cycle"
               }
             ],
             "conditions": {
@@ -470,31 +440,6 @@
             "action": "filter",
             "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
             "materials": [],
-            "equipment": [
-              {
-                "name": "dialysis membrane",
-                "instrument_vendor": null,
-                "settings": "3.5 kDa molecular weight cut-off"
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-          "step_number": 5,
-            "action": "dry",
-            "description": "Lyophilizing the dialyzed water to obtain the product.",
-            "materials": [],
             "equipment": [],
             "conditions": {
               "temperature": null,
@@ -514,12 +459,7 @@
           {
             "name": "mixer mill",
             "instrument_vendor": "Retsch",
-            "settings": "MM 400, 1.5 ml stainless steel jar, 5 mm stainless steel ball, frequency of 30 Hz, 10 min cycle"
-          },
-          {
-            "name": "dialysis membrane",
-            "instrument_vendor": null,
-            "settings": "3.5 kDa molecular weight cut-off"
+            "settings": "frequency of 30 Hz, 10 min cycle"
           }
         ],
         "notes": null
@@ -664,9 +604,9 @@
       ]
     },
     {
-      "material_name": "Carboxylate-functionalized cellulose nanospheres",
+      "material_name": "Oxidized CNS",
       "human_recipe": {
-        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound": "Oxidized CNS",
         "target_compound_type": "nanomaterials",
         "synthesis_method": "manual grinding",
         "starting_materials": [
@@ -679,14 +619,14 @@
           },
           {
             "vendor": null,
-            "name": "biomass (from corncob or softwood pine)",
+            "name": "lignocellulosic biomass (from corncob or softwood pine)",
             "amount": 20,
             "unit": "mg",
             "purity": null
           },
           {
             "vendor": null,
-            "name": "Na2CO3.1.5H2O2 (SPC)",
+            "name": "Na2CO3.1.5H2O2",
             "amount": 5,
             "unit": "equiv",
             "purity": null
@@ -746,13 +686,7 @@
                 "purity": null
               }
             ],
-            "equipment": [
-              {
-                "name": "mortar and pestle",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
+            "equipment": [],
             "conditions": {
               "temperature": null,
               "temp_unit": null,
@@ -796,32 +730,7 @@
           {
             "step_number": 4,
             "action": "filter",
-            "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
-            "materials": [],
-            "equipment": [
-              {
-                "name": "dialysis membrane",
-                "instrument_vendor": null,
-                "settings": "3.5 kDa molecular weight cut-off"
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-          "step_number": 5,
-            "action": "dry",
-            "description": "Lyophilizing the dialyzed water to obtain the product.",
+            "description": "Dialyzed through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities.",
             "materials": [],
             "equipment": [],
             "conditions": {
@@ -843,11 +752,6 @@
             "name": "mortar and pestle",
             "instrument_vendor": null,
             "settings": null
-          },
-          {
-            "name": "dialysis membrane",
-            "instrument_vendor": null,
-            "settings": "3.5 kDa molecular weight cut-off"
           }
         ],
         "notes": null
@@ -993,9 +897,9 @@
       ]
     },
     {
-      "material_name": "Carboxylate-functionalized cellulose nanospheres",
+      "material_name": "Oxidized CNS",
       "human_recipe": {
-        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound": "Oxidized CNS",
         "target_compound_type": "nanomaterials",
         "synthesis_method": "ball milling",
         "starting_materials": [
@@ -1058,7 +962,7 @@
           },
           {
             "step_number": 2,
-            "action": "ball mixing",
+            "action": "ball milling",
             "description": "Oxidant (Na2CO3.1.5H2O2) was added in equal portions over a period of 1.5 h with continuous milling",
             "materials": [
               {
@@ -1121,31 +1025,6 @@
             "action": "filter",
             "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
             "materials": [],
-            "equipment": [
-              {
-                "name": "dialysis membrane",
-                "instrument_vendor": null,
-                "settings": "3.5 kDa molecular weight cut-off"
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-          "step_number": 5,
-            "action": "dry",
-            "description": "Lyophilizing the dialyzed water to obtain the product.",
-            "materials": [],
             "equipment": [],
             "conditions": {
               "temperature": null,
@@ -1163,14 +1042,9 @@
         ],
         "equipment": [
           {
-            "name": "mortar and pestle",
-            "instrument_vendor": null,
-            "settings": null
-          },
-          {
-            "name": "dialysis membrane",
-            "instrument_vendor": null,
-            "settings": "3.5 kDa molecular weight cut-off"
+            "name": "mixer mill",
+            "instrument_vendor": "Retsch",
+            "settings": "frequency of 30 Hz, 10 min cycle"
           }
         ],
         "notes": null
