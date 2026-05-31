@@ -14,7 +14,7 @@
       "human_recipe": {
         "target_compound": "Purified Graphene Sheet (PGS)",
         "target_compound_type": "two-dimensional materials",
-        "synthesis_method": "acid reflux",
+        "synthesis_method": "solution-based",
         "starting_materials": [
           {
             "name": "Electrochemically exfoliated graphene sheet (GRB)",
@@ -28,15 +28,14 @@
             "vendor": null,
             "amount": 40,
             "unit": "mL",
-            "purity": null,
-            "concentration": "5 mol/L"
+            "purity": null
           }
         ],
         "steps": [
           {
             "step_number": 1,
             "action": "heat",
-            "description": "Acid-reflux exfoliated GS (50 mg) in 5 mol/L HNO3 (40 mL) at 100 \u00b0C for 24 h with continuous stirring to purify and reduce flake size",
+            "description": "Acid-reflux exfoliated GS (50 mg) in 5 mol/L HNO3 (40 mL) at 100 °C for 24 h with continuous stirring to purify and reduce flake size",
             "materials": [
               {
                 "name": "Electrochemically exfoliated graphene sheet (GRB)",
@@ -50,8 +49,7 @@
                 "vendor": null,
                 "amount": 40,
                 "unit": "mL",
-                "purity": null,
-                "concentration": "5 mol/L"
+                "purity": null
               }
             ],
             "equipment": [
@@ -71,7 +69,7 @@
               "duration": 24.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "ambient",
@@ -234,7 +232,9 @@
             "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": ["don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"]
+            "improvement_suggestions": [
+              "don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"
+            ]
           }
         }
       ]
@@ -243,7 +243,7 @@
       "material_name": "GQD1",
       "human_recipe": {
         "target_compound": "GQD1",
-        "target_compound_type": "zero-dimensional nanomaterials",
+        "target_compound_type": "nanomaterials",
         "synthesis_method": "hydrothermal",
         "starting_materials": [
           {
@@ -258,8 +258,7 @@
             "vendor": "Merck Mumbai",
             "amount": 20,
             "unit": "mL",
-            "purity": null,
-            "concentration": "5 mol/L"
+            "purity": null
           },
           {
             "name": "ethylenediamine (en)",
@@ -287,8 +286,7 @@
                 "vendor": "Merck Mumbai",
                 "amount": 20,
                 "unit": "mL",
-                "purity": null,
-                "concentration": "5 mol/L"
+                "purity": null
               },
               {
                 "name": "ethylenediamine (en, C2H8N2)",
@@ -340,7 +338,7 @@
           {
             "step_number": 3,
             "action": "heat",
-            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 4 h",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 °C for 4 h",
             "materials": [],
             "equipment": [
               {
@@ -354,7 +352,7 @@
               "duration": 4.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "autogenous (sealed)",
@@ -365,7 +363,7 @@
           {
             "step_number": 4,
             "action": "cool",
-            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "description": "Cool autoclave to room temperature (30 °C)",
             "materials": [],
             "equipment": [],
             "conditions": {
@@ -373,7 +371,7 @@
               "duration": null,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
@@ -418,7 +416,7 @@
           {
             "step_number": 6,
             "action": "filter",
-            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 µm filter paper; collect filtrate",
             "materials": [],
             "equipment": [
               {
@@ -427,9 +425,9 @@
                 "settings": null
               },
               {
-                "name": "0.22 \u00b5m Whatman filter paper",
+                "name": "0.22 µm Whatman filter paper",
                 "instrument_vendor": "Whatman",
-                "settings": "0.22 \u00b5m pore size"
+                "settings": "0.22 µm pore size"
               }
             ],
             "conditions": {
@@ -496,9 +494,9 @@
             "settings": null
           },
           {
-            "name": "0.22 \u00b5m Whatman filter paper",
+            "name": "0.22 µm Whatman filter paper",
             "instrument_vendor": "Whatman",
-            "settings": "0.22 \u00b5m pore size"
+            "settings": "0.22 µm pore size"
           },
           {
             "name": "dialysis membrane-50",
@@ -614,7 +612,9 @@
             "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": ["don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"]
+            "improvement_suggestions": [
+              "don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"
+            ]
           }
         }
       ]
@@ -623,7 +623,7 @@
       "material_name": "GQD2",
       "human_recipe": {
         "target_compound": "GQD2",
-        "target_compound_type": "zero-dimensional nanomaterials",
+        "target_compound_type": "nanomaterials",
         "synthesis_method": "hydrothermal",
         "starting_materials": [
           {
@@ -638,8 +638,7 @@
             "vendor": "Merck Mumbai",
             "amount": 20,
             "unit": "mL",
-            "purity": null,
-            "concentration": "5 mol/L"
+            "purity": null
           },
           {
             "name": "ethylenediamine (en)",
@@ -667,8 +666,7 @@
                 "vendor": "Merck Mumbai",
                 "amount": 20,
                 "unit": "mL",
-                "purity": null,
-                "concentration": "5 mol/L"
+                "purity": null
               },
               {
                 "name": "ethylenediamine (en)",
@@ -720,7 +718,7 @@
           {
             "step_number": 3,
             "action": "heat",
-            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 8 h",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 °C for 8 h",
             "materials": [],
             "equipment": [
               {
@@ -734,7 +732,7 @@
               "duration": 8.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "autogenous (sealed)",
@@ -745,7 +743,7 @@
           {
             "step_number": 4,
             "action": "cool",
-            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "description": "Cool autoclave to room temperature (30 °C)",
             "materials": [],
             "equipment": [],
             "conditions": {
@@ -753,7 +751,7 @@
               "duration": null,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
@@ -798,7 +796,7 @@
           {
             "step_number": 6,
             "action": "filter",
-            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 µm filter paper; collect filtrate",
             "materials": [],
             "equipment": [
               {
@@ -807,9 +805,9 @@
                 "settings": null
               },
               {
-                "name": "0.22 \u00b5m Whatman filter paper",
+                "name": "0.22 µm Whatman filter paper",
                 "instrument_vendor": "Whatman",
-                "settings": "0.22 \u00b5m pore size"
+                "settings": "0.22 µm pore size"
               }
             ],
             "conditions": {
@@ -876,9 +874,9 @@
             "settings": null
           },
           {
-            "name": "0.22 \u00b5m Whatman filter paper",
+            "name": "0.22 µm Whatman filter paper",
             "instrument_vendor": "Whatman",
-            "settings": "0.22 \u00b5m pore size"
+            "settings": "0.22 µm pore size"
           },
           {
             "name": "dialysis membrane-50",
@@ -886,7 +884,7 @@
             "settings": "LA387-10MT"
           }
         ],
-        "notes": "GQD2 = 8 h hydrothermal duration, identified as optimal. Size ca. 6\u201310 nm, strong blue fluorescence, ID/IG = 0.78, C/O = 2. No N or P doping detected by EDX."
+        "notes": "GQD2 = 8 h hydrothermal duration, identified as optimal. Size ca. 6–10 nm, strong blue fluorescence, ID/IG = 0.78, C/O = 2. No N or P doping detected by EDX."
       },
       "evaluations": [
         {
@@ -994,7 +992,9 @@
             "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
-            "improvement_suggestions": ["don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"]
+            "improvement_suggestions": [
+              "don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"
+            ]
           }
         }
       ]
@@ -1003,7 +1003,7 @@
       "material_name": "GQD3",
       "human_recipe": {
         "target_compound": "GQD3",
-        "target_compound_type": "zero-dimensional nanomaterials",
+        "target_compound_type": "nanomaterials",
         "synthesis_method": "hydrothermal",
         "starting_materials": [
           {
@@ -1018,8 +1018,7 @@
             "vendor": "Merck Mumbai",
             "amount": 20,
             "unit": "mL",
-            "purity": null,
-            "concentration": "5 mol/L"
+            "purity": null
           },
           {
             "name": "ethylenediamine (en)",
@@ -1047,8 +1046,7 @@
                 "vendor": "Merck Mumbai",
                 "amount": 20,
                 "unit": "mL",
-                "purity": null,
-                "concentration": "5 mol/L"
+                "purity": null
               },
               {
                 "name": "ethylenediamine (en)",
@@ -1100,7 +1098,7 @@
           {
             "step_number": 3,
             "action": "heat",
-            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 12 h",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 °C for 12 h",
             "materials": [],
             "equipment": [
               {
@@ -1114,7 +1112,7 @@
               "duration": 12.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "autogenous (sealed)",
@@ -1125,7 +1123,7 @@
           {
             "step_number": 4,
             "action": "cool",
-            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "description": "Cool autoclave to room temperature (30 °C)",
             "materials": [],
             "equipment": [],
             "conditions": {
@@ -1133,7 +1131,7 @@
               "duration": null,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
@@ -1178,7 +1176,7 @@
           {
             "step_number": 6,
             "action": "filter",
-            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 µm filter paper; collect filtrate",
             "materials": [],
             "equipment": [
               {
@@ -1187,9 +1185,9 @@
                 "settings": null
               },
               {
-                "name": "0.22 \u00b5m Whatman filter paper",
+                "name": "0.22 µm Whatman filter paper",
                 "instrument_vendor": "Whatman",
-                "settings": "0.22 \u00b5m pore size"
+                "settings": "0.22 µm pore size"
               }
             ],
             "conditions": {
@@ -1256,9 +1254,9 @@
             "settings": null
           },
           {
-            "name": "0.22 \u00b5m Whatman filter paper",
+            "name": "0.22 µm Whatman filter paper",
             "instrument_vendor": "Whatman",
-            "settings": "0.22 \u00b5m pore size"
+            "settings": "0.22 µm pore size"
           },
           {
             "name": "dialysis membrane-50",
@@ -1268,7 +1266,7 @@
         ],
         "notes": "GQD3 = 12 h hydrothermal duration. Yielded nonuniform and larger particles compared to GQD2 (8 h optimum)."
       },
-        "evaluations": [
+      "evaluations": [
         {
           "evaluation": {
             "reasoning": "none of the ground truth information is present in the llm extractions",
@@ -1383,7 +1381,7 @@
       "material_name": "GQD4",
       "human_recipe": {
         "target_compound": "GQD4",
-        "target_compound_type": "zero-dimensional nanomaterials",
+        "target_compound_type": "nanomaterials",
         "synthesis_method": "hydrothermal",
         "starting_materials": [
           {
@@ -1439,7 +1437,7 @@
           {
             "step_number": 2,
             "action": "heat",
-            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 8 h",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 °C for 8 h",
             "materials": [],
             "equipment": [
               {
@@ -1453,7 +1451,7 @@
               "duration": 8.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "autogenous (sealed)",
@@ -1464,7 +1462,7 @@
           {
             "step_number": 3,
             "action": "cool",
-            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "description": "Cool autoclave to room temperature (30 °C)",
             "materials": [],
             "equipment": [],
             "conditions": {
@@ -1472,7 +1470,7 @@
               "duration": null,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
@@ -1483,7 +1481,7 @@
           {
             "step_number": 4,
             "action": "filter",
-            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 µm filter paper; collect filtrate",
             "materials": [],
             "equipment": [
               {
@@ -1492,9 +1490,9 @@
                 "settings": null
               },
               {
-                "name": "0.22 \u00b5m Whatman filter paper",
+                "name": "0.22 µm Whatman filter paper",
                 "instrument_vendor": "Whatman",
-                "settings": "0.22 \u00b5m pore size"
+                "settings": "0.22 µm pore size"
               }
             ],
             "conditions": {
@@ -1556,9 +1554,9 @@
             "settings": null
           },
           {
-            "name": "0.22 \u00b5m Whatman filter paper",
+            "name": "0.22 µm Whatman filter paper",
             "instrument_vendor": "Whatman",
-            "settings": "0.22 \u00b5m pore size"
+            "settings": "0.22 µm pore size"
           },
           {
             "name": "dialysis membrane-50",
@@ -1566,7 +1564,7 @@
             "settings": "LA387-10MT"
           }
         ],
-        "notes": "Control sample \u2014 no surface passivation (no ethylenediamine) and no H3PO4. Supercritical water acts as reducing agent. Lower fluorescence and higher defects than GQD2 (ID/IG = 0.94). Scanty GQD distribution on GS surface by FESEM."
+        "notes": "Control sample — no surface passivation (no ethylenediamine) and no H3PO4. Supercritical water acts as reducing agent. Lower fluorescence and higher defects than GQD2 (ID/IG = 0.94). Scanty GQD distribution on GS surface by FESEM."
       },
       "evaluations": [
         {
@@ -1683,8 +1681,8 @@
       "material_name": "GQD5",
       "human_recipe": {
         "target_compound": "GQD5",
-        "target_compound_type": "zero-dimensional nanomaterials",
-        "synthesis_method": "electrochemical exfoliation",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "other",
         "starting_materials": [
           {
             "name": "graphite rod (anode)",
@@ -1705,8 +1703,7 @@
             "vendor": "Merck Mumbai",
             "amount": null,
             "unit": null,
-            "purity": null,
-            "concentration": "0.1 mol/L"
+            "purity": null
           }
         ],
         "steps": [
@@ -1734,8 +1731,7 @@
                 "vendor": "Merck Mumbai",
                 "amount": null,
                 "unit": null,
-                "purity": null,
-                "concentration": "0.1 mol/L"
+                "purity": null
               }
             ],
             "equipment": [
@@ -1755,7 +1751,7 @@
               "duration": null,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "ambient",
@@ -1780,7 +1776,7 @@
               "duration": 40.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "\u00b0C",
+              "temp_unit": "°C",
               "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": "ambient",
@@ -1825,7 +1821,7 @@
           {
             "step_number": 4,
             "action": "filter",
-            "description": "Remove larger graphite particles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "description": "Remove larger graphite particles by vacuum filtration through 0.22 µm filter paper; collect filtrate",
             "materials": [],
             "equipment": [
               {
@@ -1834,9 +1830,9 @@
                 "settings": null
               },
               {
-                "name": "0.22 \u00b5m Whatman filter paper",
+                "name": "0.22 µm Whatman filter paper",
                 "instrument_vendor": "Whatman",
-                "settings": "0.22 \u00b5m pore size"
+                "settings": "0.22 µm pore size"
               }
             ],
             "conditions": {
@@ -1903,9 +1899,9 @@
             "settings": null
           },
           {
-            "name": "0.22 \u00b5m Whatman filter paper",
+            "name": "0.22 µm Whatman filter paper",
             "instrument_vendor": "Whatman",
-            "settings": "0.22 \u00b5m pore size"
+            "settings": "0.22 µm pore size"
           },
           {
             "name": "dialysis membrane-50",
