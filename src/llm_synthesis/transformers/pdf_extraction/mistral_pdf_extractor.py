@@ -5,7 +5,7 @@ import mimetypes
 import os
 import time
 
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 from llm_synthesis.transformers.pdf_extraction.base import (
     PdfExtractorInterface,

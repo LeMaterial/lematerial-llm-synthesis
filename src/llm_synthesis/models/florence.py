@@ -9,6 +9,7 @@ directly outputs both bounding boxes AND classification labels
 
 import base64
 import io
+import logging
 import re
 from dataclasses import dataclass
 
@@ -16,6 +17,8 @@ import torch
 from peft import PeftModel
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoProcessor
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -68,7 +71,7 @@ class FlorenceSegmenter:
 
     def _load_model(self):
         """Load the Florence-2 base model with LoRA adapters."""
-        print(f"Loading Florence-2 base model: {self.base_model}")
+        logger.info("Loading Florence-2 base model: %s", self.base_model)
         self.processor = AutoProcessor.from_pretrained(
             self.base_model, trust_remote_code=True
         )
@@ -81,14 +84,25 @@ class FlorenceSegmenter:
             attn_implementation="eager",
         )
 
-        print(f"Loading LoRA adapters from: {self.repo_id}")
+        logger.info("Loading LoRA adapters from: %s", self.repo_id)
         model = PeftModel.from_pretrained(model, self.repo_id)
 
-        print("Merging LoRA adapters with base model...")
+        logger.info("Merging LoRA adapters with base model...")
         model = model.merge_and_unload()
 
         self.model = model.to(self.device)
-        print(f"Florence-2 model loaded on {self.device}")
+
+        # Newer transformers removed forced_bos_token_id from
+        # Florence2LanguageConfig; add it so generate() does not fail.
+        lang_cfg = getattr(
+            getattr(self.model, "language_model", None), "config", None
+        )
+        if lang_cfg is not None and not hasattr(
+            lang_cfg, "forced_bos_token_id"
+        ):
+            lang_cfg.forced_bos_token_id = None
+
+        logger.info("Florence-2 model loaded on %s", self.device)
 
     def _parse_output(self, output_text: str) -> list[dict]:
         """

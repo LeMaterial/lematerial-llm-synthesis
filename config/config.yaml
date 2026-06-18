@@ -1,0 +1,18 @@
+# Defaults
+defaults:
+  - _self_
+  - data_loader: default
+  - synthesis_extraction: default
+  - material_extraction: default
+  - judge: default
+  - result_save: default
+  - plot_extraction: default
+
+# Dir handling
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: results/single_run/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: results/multi_run/${now:%Y-%m-%d}/${now:%H-%M-%S}

@@ -1,0 +1,125 @@
+# LeMat-Synth CLI configuration
+#
+# All values here can be overridden from the command line using Hydra
+# key=value syntax.  Example:
+#
+#   lemat-synth extract paper.txt synthesis_model=anthropic/claude-sonnet-4-6
+#   lemat-synth batch papers/ output_dir=my_results/ domain=catalysis
+#   lemat-synth extract paper.txt "prompts.synthesis_instructions=Extract only the
+#     primary synthesis route, ignoring any alternative procedures."
+
+# ── Models ────────────────────────────────────────────────────────────────────
+# Any LiteLLM-compatible model string is accepted.
+# For standard providers the API key is auto-detected from the environment
+# (GEMINI_API_KEY / GOOGLE_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY …).
+# For OpenRouter models also set:  api_base=https://openrouter.ai/api/v1
+synthesis_model: gemini/gemini-2.0-flash
+material_model: gemini/gemini-2.5-flash-lite
+judge_model: ${synthesis_model}          # OmegaConf interpolation — mirrors synthesis_model
+linker_model: gemini/gemini-3-pro-preview
+plot_model: claude-sonnet-4-20250514
+api_base: null                            # e.g. https://openrouter.ai/api/v1
+
+# ── API key selection (per component) ────────────────────────────────────────
+# Specify which environment variable holds the API key for each component.
+# null = LiteLLM auto-detects the key from the standard env var for that
+#        provider (e.g. GEMINI_API_KEY for gemini/* models).
+# Set explicitly when routing a component through an OpenRouter key slot or
+# when the auto-detected key is not the one you want.
+#
+# Allowed values (must match the name exactly):
+#   ANTHROPIC_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, MISTRAL_API_KEY,
+#   OPENROUTER_QWEN_API_KEY, OPENROUTER_KIMI_API_KEY, OPENROUTER_DEEPSEEK_API_KEY
+synthesis_api_key_env: null
+material_api_key_env: null
+judge_api_key_env: ${synthesis_api_key_env}  # mirrors synthesis by default
+linker_api_key_env: null
+
+# ── Pipeline behaviour ────────────────────────────────────────────────────────
+# domain: generic | catalysis | superconductors | electrochemistry
+#   'generic'          — no plot-relevance filtering (all figures kept)
+#   'catalysis'        — keeps conversion/selectivity vs temperature curves
+#   'superconductors'  — keeps ρ(T)/R(T) plots
+#   'electrochemistry' — keeps current/capacitance vs voltage curves
+domain: generic
+with_performance: false
+output_dir: results
+
+# pdf_extractor: docling | mistral
+#   'docling'  — local CPU-based extraction via Docling (no API key required)
+#   'mistral'  — Mistral OCR API (requires MISTRAL_API_KEY; better for
+#                scanned/complex PDFs)
+pdf_extractor: docling
+
+# figure_segmenter: dino | florence
+#   'dino'     — Grounding DINO + ResNet-152 (28 figure classes, default)
+#   'florence' — Florence-2 + LoRA (binary: quantitative / qualitative)
+# florence_repo_id: HuggingFace LoRA adapter repo used when
+#   figure_segmenter=florence
+figure_segmenter: dino
+florence_repo_id: amayuelas/plot-visualization-florence-2-lora-32
+
+# ── Batch settings (lemat-synth batch only) ───────────────────────────────────
+max_papers: null           # Stop after N papers (null = process all)
+skip_existing: true        # Skip papers that already have a results folder
+max_papers_parallel: 4     # Papers processed concurrently
+
+# ── Prompts ───────────────────────────────────────────────────────────────────
+# Every prompt field can be overridden from the command line.
+# Example:
+#   lemat-synth extract paper.txt \
+#     "prompts.synthesis_instructions=Extract only the primary synthesis route."
+prompts:
+  synthesis_system: |
+    You are a helpful assistant that extracts structured synthesis procedures
+    from scientific papers.
+
+    IMPORTANT: For the synthesis_method field, you MUST choose from these values:
+    'PVD', 'CVD', 'arc discharge', 'ball milling', 'spray pyrolysis',
+    'electrospinning', 'sol-gel', 'hydrothermal', 'solvothermal', 'precipitation',
+    'coprecipitation', 'combustion', 'microwave-assisted', 'sonochemical',
+    'template-directed', 'solid-state', 'flux growth',
+    'float zone & Bridgman', 'arc melting & induction melting',
+    'spark plasma sintering', 'electrochemical deposition',
+    'chemical bath deposition', 'liquid-phase epitaxy', 'self-assembly',
+    'atomic layer deposition', 'molecular beam epitaxy', 'pulsed laser deposition',
+    'ion implantation', 'lithographic patterning', 'wet impregnation',
+    'incipient wetness impregnation', 'mechanical mixing', 'solution-based',
+    'mechanochemical', 'other'
+
+    For the target_compound_type field, you MUST choose from these exact values:
+    'metals & alloys', 'ceramics & glasses', 'polymers & soft matter', 'composites',
+    'semiconductors & electronic', 'nanomaterials', 'two-dimensional materials',
+    'framework & porous materials', 'biomaterials & biological', 'liquid materials',
+    'hybrid & organic-inorganic', 'functional materials & catalysts',
+    'energy & sustainability', 'smart & responsive materials',
+    'emerging & quantum materials', 'other'
+
+    If the exact method is not in the list, use the closest match or 'other'.
+
+  synthesis_instructions: >-
+    Extract the complete structured synthesis procedure for the specified
+    material. Include all steps, conditions (temperature, time, atmosphere),
+    equipment, and precursors. Be thorough and preserve all quantitative details.
+
+  paper_text_description: >-
+    The complete paper text containing synthesis procedures.
+
+  material_name_description: >-
+    The specific material to extract the synthesis procedure for.
+
+  synthesis_output_description: >-
+    The complete structured synthesis procedure for the material.
+
+  material_instructions: >-
+    Extract ONLY the final synthesized materials from the publication text.
+    Focus on materials actually synthesized, not just mentioned.
+    Return materials as chemical formulas when possible.
+
+  material_input_description: >-
+    The publication text to extract synthesized materials from.
+
+  material_output_description: >-
+    Comma-separated list of synthesized material formulas
+    (e.g. 'Ru/CeO2, Ni-Mo/Al2O3'). Include loading percentages and
+    promoters when given.

@@ -3,7 +3,7 @@ evaluation capabilities for structured synthesis procedures."""
 
 import copy
 import logging
-from typing import Literal
+from typing import Any, Literal
 
 import dspy
 from pydantic import BaseModel, Field
@@ -220,6 +220,32 @@ class GeneralSynthesisEvaluation(BaseModel):
     )
 
 
+def _inline_refs(schema: dict) -> dict:
+    """Recursively resolve all $ref references, removing $defs.
+
+    Pydantic schemas use $defs + $ref pairs. When such a schema is nested
+    inside a larger wrapper object the absolute $ref paths (e.g.
+    #/$defs/Foo) no longer resolve from the new document root, which causes
+    400 errors from providers that validate the schema strictly (e.g. Google
+    via OpenRouter). Inlining converts every $ref to its full definition so
+    the schema is self-contained at any nesting depth.
+    """
+    defs = schema.get("$defs", {})
+
+    def _resolve(node: Any) -> Any:
+        if isinstance(node, dict):
+            if "$ref" in node:
+                ref_name = node["$ref"].split("/")[-1]
+                resolved = defs.get(ref_name, node)
+                return _resolve(copy.deepcopy(resolved))
+            return {k: _resolve(v) for k, v in node.items() if k != "$defs"}
+        if isinstance(node, list):
+            return [_resolve(item) for item in node]
+        return node
+
+    return _resolve(copy.deepcopy(schema))
+
+
 def _get_json_schema_format() -> dict:
     """
     Return the json_schema response_format dict for GeneralSynthesisEvaluation.
@@ -227,7 +253,7 @@ def _get_json_schema_format() -> dict:
     Wraps the schema under the DSPy output field name ``evaluation`` so the
     model's JSON maps directly to what DSPy's JSONAdapter expects.
     """
-    inner = GeneralSynthesisEvaluation.model_json_schema()
+    inner = _inline_refs(GeneralSynthesisEvaluation.model_json_schema())
     wrapped = {
         "type": "object",
         "properties": {"evaluation": inner},
@@ -300,6 +326,8 @@ class DspyGeneralSynthesisJudge(SynthesisJudgeInterface):
 
     # ── Public API ─────────────────────────────────────────────────────────
 
+    # TODO: refactor — function is ~100 lines; the per-strategy and
+    # per-temperature retry loops would be clearer as private helpers.
     def forward(
         self, input: tuple[str, str] | tuple[str, str, str]
     ) -> GeneralSynthesisEvaluation:

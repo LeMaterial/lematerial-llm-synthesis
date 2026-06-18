@@ -1,3 +1,4 @@
+import logging
 from io import BytesIO
 from typing import Literal
 
@@ -15,6 +16,10 @@ from llm_synthesis.transformers.figure_extraction.base import (
     FigureExtractorInterface,
 )
 
+logger = logging.getLogger(__name__)
+
+DEFAULT_FLORENCE_REPO_ID = "amayuelas/plot-visualization-florence-2-lora-32"
+
 
 class HFFigureExtractor(FigureExtractorInterface):
     """
@@ -29,9 +34,7 @@ class HFFigureExtractor(FigureExtractorInterface):
     def __init__(
         self,
         segmenter: Literal["dino", "florence"] = "dino",
-        florence_repo_id: str = (
-            "amayuelas/plot-visualization-florence-2-lora-32"
-        ),
+        florence_repo_id: str = DEFAULT_FLORENCE_REPO_ID,
     ):
         """
         Initialize the figure extractor.
@@ -68,18 +71,22 @@ class HFFigureExtractor(FigureExtractorInterface):
 
         all_segmented_images: list[FigureInfo] = []
 
-        print(f"Found {len(input)} figures in the paper.")
+        logger.info("Found %d figures in the paper.", len(input))
 
         for figure_dict in input:
             figure_path = figure_dict.get("path", "")
             figure_bytes = figure_dict.get("bytes", b"")
 
             if not isinstance(figure_bytes, bytes):
-                print(f"Skipping figure {figure_path}: invalid bytes data")
+                logger.warning(
+                    "Skipping figure %s: invalid bytes data", figure_path
+                )
                 continue
 
             if len(figure_bytes) == 0:
-                print(f"Skipping figure {figure_path}: empty bytes data")
+                logger.warning(
+                    "Skipping figure %s: empty bytes data", figure_path
+                )
                 continue
 
             try:
@@ -94,8 +101,10 @@ class HFFigureExtractor(FigureExtractorInterface):
                 pil_image.load()
 
             except Exception as e:
-                print(
-                    f"Skipping figure {figure_path}: failed to load image - {e}"
+                logger.warning(
+                    "Skipping figure %s: failed to load image - %s",
+                    figure_path,
+                    e,
                 )
                 continue
 
@@ -128,9 +137,13 @@ class HFFigureExtractor(FigureExtractorInterface):
 
         try:
             detections = self.segmenter.segment_with_labels(pil_image)
-            print(f"segm. {len(detections)} subfig. from {figure_path}.")
+            logger.info(
+                "Segmented %d subfigures from %s.",
+                len(detections),
+                figure_path,
+            )
         except Exception as e:
-            print(f"Failed to segment figure {figure_path}: {e}")
+            logger.warning("Failed to segment figure %s: %s", figure_path, e)
             # Fallback: return original image as unknown
             try:
                 figure_info = FigureInfo(
@@ -170,17 +183,21 @@ class HFFigureExtractor(FigureExtractorInterface):
                     if predicted_label in QUANT_FIGURE_CATEGORIES:
                         figure_info.quantitative = True
                 except Exception as e:
-                    print(
-                        f"Failed to classify subfig. {i + 1}",
-                        f"from {figure_path}: {e}",
+                    logger.warning(
+                        "Failed to classify subfigure %d from %s: %s",
+                        i + 1,
+                        figure_path,
+                        e,
                     )
 
                 results.append(figure_info)
 
             except Exception as e:
-                print(
-                    f"Failed to process subfig. {i + 1}",
-                    f"from {figure_path}: {e}",
+                logger.warning(
+                    "Failed to process subfigure %d from %s: %s",
+                    i + 1,
+                    figure_path,
+                    e,
                 )
                 continue
 
@@ -203,9 +220,13 @@ class HFFigureExtractor(FigureExtractorInterface):
 
         try:
             segmented_images = self.segmenter.segment(pil_image)
-            print(f"segm. {len(segmented_images)} subfig. from {figure_path}.")
+            logger.info(
+                "Segmented %d subfigures from %s.",
+                len(segmented_images),
+                figure_path,
+            )
         except Exception as e:
-            print(f"Failed to segment figure {figure_path}: {e}")
+            logger.warning("Failed to segment figure %s: %s", figure_path, e)
             segmented_images = [pil_image]
 
         for i, subfigure in enumerate(segmented_images):
@@ -232,9 +253,11 @@ class HFFigureExtractor(FigureExtractorInterface):
                     else:
                         figure_info.quantitative = False
                 except Exception as e:
-                    print(
-                        f"Failed to classify subfig. {i + 1}",
-                        f"from {figure_path}: {e}",
+                    logger.warning(
+                        "Failed to classify subfigure %d from %s: %s",
+                        i + 1,
+                        figure_path,
+                        e,
                     )
                     figure_info.figure_class = "Unknown"
                     figure_info.quantitative = False
@@ -242,9 +265,11 @@ class HFFigureExtractor(FigureExtractorInterface):
                 results.append(figure_info)
 
             except Exception as e:
-                print(
-                    f"Failed to process subfig. {i + 1}",
-                    f"from {figure_path}: {e}",
+                logger.warning(
+                    "Failed to process subfigure %d from %s: %s",
+                    i + 1,
+                    figure_path,
+                    e,
                 )
                 continue
 
