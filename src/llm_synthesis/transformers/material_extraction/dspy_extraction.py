@@ -92,7 +92,13 @@ class DspyTextExtractor(MaterialExtractorInterface):
                         e,
                     )
 
-        raise last_exc  # type: ignore[misc]
+        if last_exc is None:
+            # Defensive: the loop body always sets last_exc on failure and
+            # returns on success, so this branch is unreachable in practice.
+            raise RuntimeError(
+                "material extraction failed without recording an exception"
+            )
+        raise last_exc
 
     def _lm_with_overrides(self, overrides: dict) -> dspy.LM:
         """Return a shallow copy of self.lm with kwargs overridden."""

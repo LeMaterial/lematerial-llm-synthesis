@@ -88,7 +88,11 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
 
         # Call LLM
         response = self.lm(prompt)
-        response_text = response if isinstance(response, str) else response[0]
+        first = response[0] if response else None
+        if isinstance(first, dict):
+            response_text = first.get("text", "")
+        else:
+            response_text = first or ""
 
         if not response_text:
             logger.warning(

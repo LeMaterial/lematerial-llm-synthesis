@@ -1,0 +1,89 @@
+site_name: LeMat-Synth
+site_description: >-
+  A multi-modal toolbox for extracting structured synthesis procedures
+  and performance data from materials science literature at scale.
+site_url: https://lematerial.github.io/lematerial-llm-synthesis/
+repo_name: LeMaterial/lematerial-llm-synthesis
+repo_url: https://github.com/LeMaterial/lematerial-llm-synthesis
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  logo: assets/lematerial-logo.png
+  favicon: assets/favicon.png
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - css/custom.css
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_category_heading: true
+            show_symbol_type_heading: true
+            docstring_style: google
+            merge_init_into_class: true
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quickstart: getting-started/quickstart.md
+  - User Guide:
+      - CLI Reference: user-guide/cli.md
+      - Output Format: user-guide/output-format.md
+      - Configuration & Models: user-guide/configuration.md
+      - Troubleshooting: user-guide/troubleshooting.md
+  - Developer Guide:
+      - Architecture: developer-guide/architecture.md
+      - Annotations: developer-guide/annotations.md
+      - Configuration Internals: developer-guide/configuration-internals.md
+  - API Reference:
+      - Pipeline: api/pipeline.md
+      - Data Models: api/models.md
+      - Transformers: api/transformers.md
+      - Configuration: api/configuration.md
+      - Metrics & Judges: api/metrics.md

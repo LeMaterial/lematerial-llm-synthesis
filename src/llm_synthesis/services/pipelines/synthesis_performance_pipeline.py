@@ -88,6 +88,10 @@ class SynthesisPerformancePipeline:
         plot_extractor=None,
         series_linker: SeriesMaterialLinker | None = None,
         plot_filter_config: PlotFilterConfig | None = None,
+        figure_segmenter: str = "dino",
+        florence_repo_id: str = (
+            "amayuelas/plot-visualization-florence-2-lora-32"
+        ),
     ):
         """Initialize the pipeline.
 
@@ -100,6 +104,10 @@ class SynthesisPerformancePipeline:
                 (e.g. ClaudeLinePlotDataExtractor).
             series_linker: Optional linker for matching series to materials
             plot_filter_config: Optional config for filtering plots
+            figure_segmenter: Backend for figure segmentation,
+                ``"dino"`` (default) or ``"florence"``.
+            florence_repo_id: HuggingFace LoRA repo used when
+                ``figure_segmenter="florence"``.
         """
         self.material_extractor = material_extractor
         self.synthesis_extractor = synthesis_extractor
@@ -112,6 +120,8 @@ class SynthesisPerformancePipeline:
             if plot_filter_config
             else PlotFilter()
         )
+        self.figure_segmenter = figure_segmenter
+        self.florence_repo_id = florence_repo_id
 
     def extract_materials(self, paper_text: str) -> list[str]:
         """Step 1: Extract list of materials from paper text.
@@ -208,7 +218,10 @@ class SynthesisPerformancePipeline:
                 FigureExtractorMarkdown,
             )
 
-            extractor = FigureExtractorMarkdown()
+            extractor = FigureExtractorMarkdown(
+                segmenter=self.figure_segmenter,
+                florence_repo_id=self.florence_repo_id,
+            )
             all_figures = extractor.forward(markdown_text)
 
             # Filter to only quantitative figures (classified by ResNet).
@@ -463,6 +476,8 @@ class SynthesisPerformancePipeline:
             logger.warning(f"  Linking judge evaluation failed: {e}")
             return None
 
+    # TODO: refactor — function is over 100 lines; split into private
+    # _materials / _synthesis / _figures / _link / _build_result helpers.
     def process_paper(
         self,
         paper: Paper,
@@ -576,6 +591,9 @@ class SynthesisPerformancePipeline:
             materials_without_performance=materials_without_perf,
         )
 
+    # TODO: refactor — function is over 200 lines and inlines the whole
+    # pipeline; split into private _materials_async / _figures_async /
+    # _link_async / _build_result helpers.
     async def process_paper_async(
         self,
         paper: Paper,
@@ -674,7 +692,7 @@ class SynthesisPerformancePipeline:
         linking_evaluation = None
 
         if not skip_figures:
-            # Step 3: 
+            # Step 3:
             # Extract figures (CPU-bound, no LLM — run in thread directly)
             figures = await asyncio.to_thread(
                 self.extract_figures, paper.publication_text
@@ -710,6 +728,13 @@ class SynthesisPerformancePipeline:
                         # Step 5: Link each plot in parallel
                         relevant_plots, skip_counts = (
                             self.plot_filter.filter_plots(plots)
+                        )
+                        # filter_plots returns (idx, plot) where idx indexes
+                        # `plots`; `plots` and `plot_figures` are built in
+                        # lockstep just above, so they must match.
+                        assert len(plots) == len(plot_figures), (
+                            f"plots/plot_figures desynced: "
+                            f"{len(plots)} vs {len(plot_figures)}"
                         )
                         skipped_plots = []
                         link_tasks = [
@@ -818,7 +843,8 @@ class SynthesisPerformancePipeline:
             materials_without_performance=materials_without_perf,
         )
 
-    def save_results(self, result: PipelineResult, output_dir: str) -> None:
+    @staticmethod
+    def save_results(result: PipelineResult, output_dir: str) -> None:
         """Save pipeline results to disk.
 
         Args:
