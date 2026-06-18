@@ -10,7 +10,7 @@
   ],
   "materials": [
     {
-      "material_name": "CNT array",
+      "material_name": "CNT array with Fe nanoparticles",
       "human_recipe": {
         "target_compound": "CNT array",
         "target_compound_type": "nanomaterials",
@@ -29,13 +29,20 @@
             "amount": 10.0,
             "unit": "mol%",
             "purity": null
+          },
+           {
+            "name": "silicon substrate",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
           }
         ],
         "steps": [
           {
             "step_number": 1,
             "action": "mix",
-            "description": "CNT arrays were synthesized on Si substrates by the floating catalyst CVD via a high-temperature pyrolysis of the xylene/ferrocene solution injected into the reaction zone of quartz reactor.",
+            "description": "Xylene and ferrocene were mixed to prepare the precursor solution (90/10 mol%).",
             "materials": [
               {
                 "name": "xylene",
@@ -91,7 +98,7 @@
               "duration": 30.0,
               "pressure": null,
               "ph": null,
-              "temp_unit": "C",
+              "temp_unit": "°C",
               "time_unit": "s",
               "pressure_unit": null,
               "atmosphere": "ambient",
@@ -109,187 +116,116 @@
         ],
         "notes": ""
       },
-      "evaluations": []
-    },
-    {
-      "material_name": "Fe phase nanosphere/conical CNT bundle nanostructures",
-      "human_recipe": {
-        "target_compound": "Fe phase nanosphere/conical CNT bundle nanostructures",
-        "target_compound_type": "nanomaterials",
-        "synthesis_method": "pulsed laser deposition",
-        "starting_materials": [
-          {
-            "name": "vertically aligned carbon nanotubes intercalated with the ferromagnetic (Fe phase) nanoparticles",
-            "vendor": null,
-            "amount": null,
-            "unit": null,
-            "purity": null
-          }
-        ],
-        "steps": [
-          {
-            "step_number": 1,
-            "action": "heat",
-            "description": "The FSL irradiation was performed in ambient atmosphere with laser scanning microscope (Zeiss LSM 510 NLO based on Zeiss Aviovert 200 M inverted research microscope).",
-            "materials": [
-              {
-                "name": "vertically aligned carbon nanotubes intercalated with the ferromagnetic (Fe phase) nanoparticles",
-                "vendor": null,
-                "amount": null,
-                "unit": null,
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "laser scanning microscope",
-                "instrument_vendor": "Zeiss",
-                "settings": "Ti Sapphire laser; 100 fs pulses; 790 nm; 82 MHz repetition rate; 15 nJ pulse energy; 1.2 micrometer focus;"
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "duration": null,
-              "pressure": null,
-              "ph": null,
-              "temp_unit": null,
-              "time_unit": null,
-              "pressure_unit": null,
-              "atmosphere": "ambient",
-              "stirring": null,
-              "stirring_speed": null
-            }
-          }
-        ],
-        "equipment": [
-          {
-            "name": "laser scanning microscope",
-            "instrument_vendor": "Zeiss",
-            "settings": null
-          }
-        ],
-        "notes": "The energy of a single pulse was 15 nJ. The laser beam was then focused by Zeiss Plan-Neofluar 40x/0.75 objective and formed a spot with 1.2 μm in diameter on the sample surface. The beam was attenuated with an acoustic-optical filter to the energy level of 6.25nJ per pulse at the focal plane of the microscope objective. The investigated samples were placed onto the stage of the microscope without cover glass."
-      },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "FSL step fully captured with all laser equipment and ambient atmosphere.",
+            "reasoning": "the model identified Fe/CNT as the material, with an acceptable name",
             "scores": {
-              "structural_completeness_score": 5.0,
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "all relevant parts included",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "Fe3C is also identified but wrongly, it's just a phase of the material",
+              "process_steps_score": 4,
+              "process_steps_reasoning": "mixing and heating are identified as other",
+              "equipment_extraction_score": 1,
+              "equipment_extraction_reasoning": "the relevant 'equipment' extracted includes characterisation apparatus which is irrelevant",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.1,
+              "overall_reasoning": "good extraction of one relevant material, however the model extracted a second one; there is a lot of extra information extracted as well which is irrelevant"
+            },
+            "confidence_level": 5,
+            "missing_information": ["concentration of the ferrocene solution"],
+            "extraction_errors": ["one extra material, Fe3C was extracted which is not relevant"],
+            "improvement_suggestions": ["go through the text and look carefully for any mention of materials, their properties, and how they are used in the synthesis process. Ensure that all relevant details are captured accurately."]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "too many materials, including Fe phases, combinations with C, or even oxides, are extractedincorrectly. the CNT/Fe or any variation is not extracted.",
+            "scores": {
+              "structural_completeness_score": 0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5,
+              "process_steps_reasoning": "the relevant process steps are identified corectly for the C synthesis, probably related to the CNT synthesis from te relevant paragraph",
+              "equipment_extraction_score": 5,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4,
+              "conditions_extraction_reasoning": "xylene/ferocene vapour is inferred from text but is wrong",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "",
+              "overall_score": 3.4,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": ["materials with subsequent conditions, steps etc"],
+            "extraction_errors": ["the material target is wrong; Fe oxide particles are mentioned in the text as an occurence during the main experiment, and don't show any structured synthesis procedure to be extracted"],
+            "improvement_suggestions": ["go through the text and look carefully for any mention of materials, their properties, and how they are used in the synthesis process. Ensure that all relevant details are captured accurately."]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Fe/C is extrcated as the material, which is technically correct but incomplete as the relevant C is the nanotubes (CNTs), rather than amorphous C",
+            "scores": {
+              "structural_completeness_score": 4,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "only one material extracted, correctly",
+              "process_steps_score": 2,
+              "process_steps_reasoning": "too many steps extracted, of which step 3 is similar to 2 but combines the characterisation as well",
+              "equipment_extraction_score": 2,
+              "equipment_extraction_reasoning": "too much irrelevant material for characterisation present",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": ["too many steps and equipment extracted, including characterisation which is not relevant"],
+            "improvement_suggestions": ["go through the text and look carefully for any mention of materials, their properties, and how they are used in the synthesis process. Ensure that all relevant details are captured accurately."]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "the right composition for the Fe/CNT combination is extracted, but also 2 other materials that appear in the text but aren't synthesised directly are extracted incorrectly.",
+            "scores": {
+              "structural_completeness_score": 3,
               "structural_completeness_reasoning": "",
               "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": 5.0,
-              "process_steps_reasoning": "FSL step captured with full detail; step action 'other' is slightly generic",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "only 1 step is given, combining the two steps",
               "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
               "conditions_extraction_score": 5.0,
-              "conditions_extraction_reasoning": "Atmosphere 'ambient air' vs 'ambient'; laser parameters captured in equipment settings and step description",
-              "semantic_accuracy_score": 4.75,
-              "semantic_accuracy_reasoning": "Synthesis_method 'other' vs 'pulsed laser deposition' is a minor terminology difference",
-              "format_compliance_score": 4.75,
-              "format_compliance_reasoning": "Step actions 'other' is generic; top-level equipment omits objective and acoustic-optical filter present at step level",
-              "overall_score": 4.75,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "Synthesis_method is 'other' instead of 'pulsed laser deposition'; step action is 'heat' instead of 'irradiate'",
+              "overall_score": 4.4,
               "overall_reasoning": ""
             },
             "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "No exact match; 8 materials evaluated as fallback. No FSL step in any entry. Fe2O3/Fe3O4 entries describe photoflash ignition from cited literature, not the FSL experiment. Target 'C' oversimplified.",
-            "scores": {
-              "structural_completeness_score": 4.5,
-              "structural_completeness_reasoning": "Step 1 in 'C' entry has conditions: null (absent object) rather than an object with null-valued fields",
-              "material_extraction_score": 3.0,
-              "material_extraction_reasoning": "FSL starting material (CNT arrays + Fe nanoparticles) present in Fe2O3/Fe3O4 entries but attributed to a photoflash process from cited literature, not the target FSL synthesis",
-              "process_steps_score": 2.0,
-              "process_steps_reasoning": "FSL irradiation step absent across all 8 entries",
-              "equipment_extraction_score": 2.0,
-              "equipment_extraction_reasoning": "Laser scanning setup absent; ",
-              "conditions_extraction_score": 3.75,
-              "conditions_extraction_reasoning": "No FSL conditions in any entry; ",
-              "semantic_accuracy_score": 4.0,
-              "semantic_accuracy_reasoning": "Target 'C' loses all meaning;   ",
-              "format_compliance_score": 4.0,
-              "format_compliance_reasoning": "Step 1 conditions: null instead of populated object with null fields",
-              "overall_score": 2.0,
-              "overall_reasoning": "FSL process entirely missed across all 8 entries; light-based process captured only as a photoflash side-reference from cited literature"
-            },
-            "confidence_level": 2,
-            "missing_information": [
-              "No exact 'Fe phase nanosphere/conical CNT bundle nanostructures' entry",
-              "FSL irradiation step and laser equipment (Zeiss LSM 510 NLO, Ti:Sapphire laser)"
-            ],
-            "extraction_errors": [
-              "Fe2O3/Fe3O4 photoflash ignition extracted from cited prior literature, not from the paper's own experiment"
-            ],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "Great extraction. Only extractor to capture FSL step with laser equipment and ambient atmosphere.",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 4.5,
-              "material_extraction_reasoning": "FSL starting material (CNT arrays with Fe nanoparticles) present; ferrocene concentration stored in purity field is a minor schema misuse",
-              "process_steps_score": 5.0,
-              "process_steps_reasoning": "FSL captured across steps 3-4;  ",
-              "equipment_extraction_score": 5.0,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": 4.5,
-              "conditions_extraction_reasoning": "Ambient atmosphere correctly captured; laser parameters recorded in equipment settings rather than conditions fields",
-              "semantic_accuracy_score": 4.0,
-              "semantic_accuracy_reasoning": "Step 4 'mix' action wrong for laser scanning; synthesis_method 'other' vs 'pulsed laser deposition'",
-              "format_compliance_score": 4.0,
-              "format_compliance_reasoning": "Concentration stored in purity field; 'mix' action for scanning step",
-              "overall_score": 4.5,
-              "overall_reasoning": ""
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [
-              "Step 4 action 'mix' for laser scanning"
-            ],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "Fallback to 'Fe/CNT' entry (closest match). CVD only; FSL entirely absent. Starting materials are xylene/ferrocene/Si instead of CNT arrays with Fe nanoparticles.",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 2.5,
-              "material_extraction_reasoning": "Starting materials are xylene/ferrocene/Si, not the CNT arrays + Fe nanoparticles required for the FSL step",
-              "process_steps_score": 2.0,
-              "process_steps_reasoning": "FSL irradiation step entirely absent; only CVD precursor step captured",
-              "equipment_extraction_score": 2.0,
-              "equipment_extraction_reasoning": "Laser scanning setup absent; quartz reactor belongs to the precursor CVD",
-              "conditions_extraction_score": 2.0,
-              "conditions_extraction_reasoning": "No FSL conditions; CVD conditions (875 C, 30 s) are outside human recipe scope",
-              "semantic_accuracy_score": 3.0,
-              "semantic_accuracy_reasoning": " synthesis_method 'CVD' still misses the FSL process",
-              "format_compliance_score": 4.5,
-              "format_compliance_reasoning": "Ferrocene concentration stored in purity field",
-              "overall_score": 2.0,
-              "overall_reasoning": "FSL process entirely missed; starting materials for the extracted synthesis step absent"
-            },
-            "confidence_level": 3,
-            "missing_information": [
-              "No exact 'Fe phase nanosphere/conical CNT bundle nanostructures' entry; scored via 'Fe/CNT' fallback",
-              "FSL irradiation step and laser equipment"
-            ],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "missing_information": ["the first step, a dissolve"],
+            "extraction_errors": ["too many phases of Fe are extracted"],
+            "improvement_suggestions": ["break down the steps into more detail, including dissolving the initial starting materials"]
           }
         }
       ]
     }
-  ]
+  ]  
 }
