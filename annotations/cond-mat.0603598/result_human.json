@@ -12,13 +12,208 @@
     {
       "material_name": "LaAlO3/SrTiO3",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
+        "target_compound": "LaAlO3/SrTiO3 heterointerface",
+        "target_compound_type": "two-dimensional materials",
+        "synthesis_method": "pulsed laser deposition",
+        "starting_materials": [
+            {
+            "vendor": null,
+            "name": "LaAlO3 target",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "SrTiO3 substrate",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "etching",
+            "description": "HF chemical treatment to form TiO2 terminated SrTiO3 substrates.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "HF",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": null,
+            "notes": "The HF chemical treatment needed to form TiO2 terminated SrTiO3 substrates is described elsewhere."
+          },
+          {
+            "step_number": 2,
+            "action": "deposition",
+            "description": "Pre-ablation of the rotating LaAlO3 target.",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "KrF excimer laser",
+                "instrument_vendor": null,
+                "settings": "4 Hz, 2 min"
+              }
+            ],
+            "conditions": null
+          },
+          {
+            "step_number": 3,
+            "action": "deposition",
+            "description": "Growth of LaAlO3 layers on TiO2 terminated SrTiO3 substrates using Pulsed Laser Deposition (PLD).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "LaAlO3 target",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "TiO2 terminated SrTiO3 substrate",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "stainless steel vacuum chamber",
+                "instrument_vendor": null,
+                "settings": "background pressure 10-9 Torr"
+              },
+              {
+                "name": "KrF excimer laser",
+                "instrument_vendor": null,
+                "settings": "Energy density 1.2 J/cm2, 248 nm wavelength, pulse lengths 20-30 ns"
+              },
+              {
+                "name": "RHEED",
+                "instrument_vendor": null,
+                "settings": "monitoring intensity oscillations"
+              },
+              {
+                "name": "rectangular mask",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "variable attenuator",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": 815.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressures": [1e-06, 1e-05],
+              "pressure_unit": "torr",
+              "atmosphere": "O2",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "cool",
+            "description": "Standard post-deposition treatment for samples grown at low oxygen pressures: both the oxygen flow and the substrate temperature were quenched immediately. At higher oxygen pressures (10-5 Torr), such treatment was not necessary and samples were cooled down in deposition pressure.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "LaAlO3 layers grown on TiO2 terminated SrTiO3 substrates",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "stainless steel vacuum chamber",
+                "instrument_vendor": null,
+                "settings": "background pressure 10-9 Torr"
+              }
+            ],
+            "conditions": null
+          },
+          {
+            "step_number": 5,
+            "action": "oxidation",
+            "description": "Optional additional oxidation: some samples (e.g., 1 ML deposited at 1 Hz) were exposed to ~6000 L of oxygen at 150 °C after deposition.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "LaAlO3 layers grown on TiO2 terminated SrTiO3 substrates",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "oxygen",
+                "amount": 6000.0,
+                "unit": "L",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "stainless steel vacuum chamber",
+                "instrument_vendor": null,
+                "settings": "background pressure 10-9 Torr"
+              }
+            ],
+            "conditions": {
+            "temperature": 150.0,
+            "temp_unit": "C",
+            "duration": null,
+            "time_unit": null,
+            "pressure": null,
+            "pressure_unit": null,
+            "atmosphere": "O2",
+            "stirring": null,
+            "stirring_speed": null,
+            "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "stainless steel vacuum chamber",
+            "instrument_vendor": null,
+            "settings": "background pressure 10-9 Torr"
+          },
+          {
+            "name": "KrF excimer laser",
+            "instrument_vendor": null,
+            "settings": "Energy density 1.2 J/cm2, 248 nm wavelength, pulse lengths 20-30 ns"
+          },
+          {
+            "name": "RHEED",
+            "instrument_vendor": null,
+            "settings": "monitoring intensity oscillations"
+          },
+          {
+            "name": "rectangular mask",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "variable attenuator",
+            "instrument_vendor": null,
+            "settings": null
+          }
+        ],
+        "notes": "Various parameters were varied from run to run, including laser repetition rate, number of laser pulses, mask size, and post-deposition treatment. Typically 120 laser pulses are required to grow a monolayer of LaAlO3. Deposition pressures varied between 10-6 Torr and 2x10-5 Torr. Repetition rates varied from 1 Hz to 5 Hz."
       },
       "evaluations": [
         {

@@ -30,9 +30,14 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "scikit-learn>=1.7.1",
     "seaborn>=0.13.2",
+    "streamlit>=1.58.0",
     "timm>=1.0.24",
+    "typer>=0.15",
     "wordcloud>=1.9.4",
 ]
+
+[project.scripts]
+lemat-synth = "llm_synthesis.cli:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -44,6 +49,9 @@ packages = ["src/llm_synthesis"]
 [dependency-groups]
 data = ["arxiv>=2.2.0", "chemrxiv>=0.1.2"]
 dev = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
     "nbstripout>=0.8.1",
     "ruff>=0.12.8",
     "ipykernel>=6.29.5",

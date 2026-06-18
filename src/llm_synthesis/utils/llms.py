@@ -1,8 +1,11 @@
+import logging
 import os
 from collections.abc import Mapping
 from dataclasses import dataclass
 
 import dspy
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -163,16 +166,14 @@ class SystemPrefixedLM(dspy.LM):
 
     def _extract_and_accumulate_cost(self, response) -> None:
         """Extract cost from DSPy response and accumulate it."""
-        try:
-            # Import here to avoid circular imports
-            from llm_synthesis.utils.cost_tracking import (
-                extract_cost_from_dspy_response,
-            )
+        # Import here to avoid circular imports
+        from llm_synthesis.utils.cost_tracking import (
+            extract_cost_from_dspy_response,
+        )
 
+        try:
             cost = extract_cost_from_dspy_response(response)
             if cost is not None:
                 self._cumulative_cost_usd += cost
-
-        except (AttributeError, TypeError, ValueError):
-            # If cost extraction fails, continue silently
-            pass
+        except (AttributeError, TypeError, ValueError) as exc:
+            logger.debug("cost accumulation failed: %r", exc)

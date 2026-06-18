@@ -37,7 +37,7 @@ uv sync && uv pip install -e .
 
 <details>
 <summary><b>macOS/Linux</b></summary>
-```bash
+```
 cp .env.example .env
 # Edit `.env` to add:
 #   MISTRAL_API_KEY=your_api_key # if using Mistral models and Mistral OCR
@@ -89,9 +89,9 @@ The data is hosted as a LeMaterial Dataset on HuggingFace: [LeMat-Synth](https:/
 
 1. **Apply for access** (request will be instantly approved)
 2. **Install HuggingFace CLI** ([guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli))
-   - Recommended: `pip install -U "huggingface_hub[cli]"`
-   - Or (macOS): `brew install huggingface-cli`
-3. **Login with access token**: `huggingface-cli login`
+   - Recommended: `pip install -U "huggingface_hub"`
+   - Or (macOS): `brew install hf`
+3. **Login with access token**: `hf auth login`
 
 ### Available Datasets
 
@@ -482,6 +482,48 @@ DomainConfig.for_superconductivity(claude_model="claude-sonnet-4-20250514")
 | Save results as a growing CSV | Use `CsvMasterWriter` (or subclass for custom columns) |
 | Save rich per-material JSON with annotation templates | Use `AnnotatedJsonWriter` |
 | Skip figure extraction entirely (faster, text only) | Pass `--skip-figures` or `skip_figures=True` to `runner.run()` |
+### Human Annotation App
+
+<details>
+<summary><b>Streamlit annotator for scoring extractor outputs</b></summary>
+
+Run from repo root:
+
+```bash
+streamlit run examples/scripts/data_curation/annotator_app.py
+```
+
+**Workflow:**
+1. Select paper ID
+2. Open/read PDF in app
+3. Fill or update `human_recipe`
+4. Score each extractor tab
+5. Save → `annotations/<paper_id>/result_human.json`
+
+**Submit annotations:**
+```bash
+git add annotations/<paper_id>/result_human.json
+git commit -m "annotate/<paper_id>"
+git push
+```
+
+Or open a dedicated PR:
+```bash
+git fetch origin
+git checkout -b annotate/<paper_id> origin/main
+git add annotations/<paper_id>/result_human.json
+git commit -m "annotate/<paper_id>"
+git push -u origin annotate/<paper_id>
+gh pr create --fill
+```
+
+> If `uv sync` fails on your platform: `pip install "streamlit==1.55.0"`
+
+</details>
+
+### Customize LeMat-Synth
+*Work in Progress*
+{EXAMPLES HOW TO GENERALIZE/ABSTRACT EXTRACTION PIPELINE}
 
 ---
 

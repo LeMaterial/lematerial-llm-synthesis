@@ -1,10 +1,16 @@
+import logging
+
 import dspy
 
 from llm_synthesis.utils.llms import LLM_REGISTRY, LLMConfig, SystemPrefixedLM
 
+logger = logging.getLogger(__name__)
+
 
 def get_llm_from_name(
-    llm_name: str, model_kwargs: dict = {}, system_prompt: str | None = None
+    llm_name: str,
+    model_kwargs: dict | None = None,
+    system_prompt: str | None = None,
 ) -> dspy.LM:
     """
     Get a dspy.LM from a given LLM name with cost tracking capabilities.
@@ -17,12 +23,17 @@ def get_llm_from_name(
     Returns:
         A dspy.LM object with cost tracking capabilities.
     """
+    # Copy so we never mutate the caller's dict and so the default cannot
+    # leak across invocations.
+    model_kwargs = dict(model_kwargs) if model_kwargs else {}
+
     try:
         cfg: LLMConfig = LLM_REGISTRY.configs[llm_name]
     except KeyError:
         available_models = list(LLM_REGISTRY.configs.keys())
         raise ValueError(
-            f"LLM name {llm_name!r} not supported.Available: {available_models}"
+            f"LLM name {llm_name!r} not supported. "
+            f"Available: {available_models}"
         )
 
     if cfg.api_key:
@@ -38,7 +49,9 @@ def get_llm_from_name(
 
 
 def configure_dspy(
-    lm: str, model_kwargs: dict = {}, system_prompt: str | None = None
+    lm: str,
+    model_kwargs: dict | None = None,
+    system_prompt: str | None = None,
 ) -> None:
     """
     Configure dspy with a selected LLM with cost tracking.
@@ -48,13 +61,13 @@ def configure_dspy(
         model_kwargs: Additional model kwargs (e.g., {"temperature": 0.7}).
         system_prompt: A system prompt to inject at the start of every call.
     """
+    model_kwargs = dict(model_kwargs) if model_kwargs else {}
     dspy.settings.configure(
         track_usage=True,
         lm=get_llm_from_name(lm, model_kwargs, system_prompt),
         adapter=dspy.adapters.JSONAdapter(),
     )
-
-    print(f"Configured dspy with {lm!r} and model_kwargs={model_kwargs}")
+    logger.info("Configured dspy with %r and model_kwargs=%s", lm, model_kwargs)
 
 
 def get_lm_cost(lm: dspy.LM) -> float | None:

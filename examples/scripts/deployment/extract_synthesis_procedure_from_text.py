@@ -119,12 +119,6 @@ def main(cfg: DictConfig) -> None:
             to_process, cfg.data_loader.number_of_samples
         )
 
-    # ids_to_rerun = [
-    #     "cond-mat.9604170",
-    # ]
-
-    # to_process = [p for p in to_process if p.id in ids_to_rerun]
-
     def process_paper(paper) -> tuple:
         logging.info(f"Processing {paper.name}")
 
@@ -322,7 +316,9 @@ def main(cfg: DictConfig) -> None:
 
         return paper_with_syntheses, paper_total_cost
 
-    max_workers = 4  # TODO: this should be a config
+    # Number of papers processed in parallel. Overridable via env;
+    # LLM-level concurrency is independently capped inside the extractors.
+    max_workers = int(os.environ.get("LLM_SYNTHESIS_MAX_PAPER_WORKERS", "4"))
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         logging.info(f"Processing {len(to_process)} papers")
         futures = {

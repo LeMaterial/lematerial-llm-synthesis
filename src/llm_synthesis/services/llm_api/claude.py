@@ -18,8 +18,18 @@ class ClaudeAPIResponse:
 
 
 class ClaudeAPIClient:
+    _OPENROUTER_BASE_URL = "https://openrouter.ai/api"
+
     def __init__(self, model_name: str):
-        self.client = anthropic.Anthropic()
+        # Route through OpenRouter when the model string uses that prefix.
+        # "openrouter/anthropic/claude-X" → base_url set, model "claude-X".
+        if model_name.startswith("openrouter/"):
+            model_name = model_name.split("/", 2)[-1]
+            self.client = anthropic.Anthropic(
+                base_url=self._OPENROUTER_BASE_URL
+            )
+        else:
+            self.client = anthropic.Anthropic()
         self.model_name = model_name
         self._cumulative_cost_usd = 0.0
 

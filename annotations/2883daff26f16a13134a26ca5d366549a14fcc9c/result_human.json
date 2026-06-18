@@ -10,37 +10,145 @@
   ],
   "materials": [
     {
-      "material_name": "No materials synthesized",
+      "material_name": "Purified Graphene Sheet (PGS)",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": "the paper presents quite a lot of experimental for the processess conditions, NOT the material synthesis, so the LLMs consistently did a great job"
+        "target_compound": "Purified Graphene Sheet (PGS)",
+        "target_compound_type": "two-dimensional materials",
+        "synthesis_method": "acid reflux",
+        "starting_materials": [
+          {
+            "name": "Electrochemically exfoliated graphene sheet (GRB)",
+            "vendor": null,
+            "amount": 50,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "name": "HNO3 (nitric acid)",
+            "vendor": null,
+            "amount": 40,
+            "unit": "mL",
+            "purity": null,
+            "concentration": "5 mol/L"
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "heat",
+            "description": "Acid-reflux exfoliated GS (50 mg) in 5 mol/L HNO3 (40 mL) at 100 \u00b0C for 24 h with continuous stirring to purify and reduce flake size",
+            "materials": [
+              {
+                "name": "Electrochemically exfoliated graphene sheet (GRB)",
+                "vendor": null,
+                "amount": 50,
+                "unit": "mg",
+                "purity": null
+              },
+              {
+                "name": "HNO3 (nitric acid)",
+                "vendor": null,
+                "amount": 40,
+                "unit": "mL",
+                "purity": null,
+                "concentration": "5 mol/L"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "reflux condenser / round-bottom flask",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "magnetic stirrer / hotplate",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": 100.0,
+              "duration": 24.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": true,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "wash",
+            "description": "Rinse mixture with DI water and ethanol to remove acid and bring pH to neutral",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "ethanol",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": 7.0,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "reflux condenser / round-bottom flask",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "magnetic stirrer / hotplate",
+            "instrument_vendor": null,
+            "settings": null
+          }
+        ],
+        "notes": "PGS is the intermediate consumed in hydrothermal GQD synthesis (GQD1-4)."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "none of the ground truth information is present in the llm extractions",
             "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "none in the paper, identified correctly",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "none in the paper, identified correctly",
-              "process_steps_score": 5,
-              "process_steps_reasoning": "none in the paper, identified correctly",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "none in the paper, identified correctly",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "none in the paper, identified correctly",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "none in the paper, identified correctly",
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "none in the paper, identified correctly",
-              "overall_score": 5,
-              "overall_reasoning": "none in the paper, identified correctly"
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
             },
             "confidence_level": 5,
             "missing_information": [],
@@ -50,24 +158,24 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "none of the ground truth information is present in the llm extractions",
             "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "none in the paper, identified correctly",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "none in the paper, identified correctly",
-              "process_steps_score": 5,
-              "process_steps_reasoning": "none in the paper, identified correctly",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "none in the paper, identified correctly",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "none in the paper, identified correctly",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "none in the paper, identified correctly",
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "none in the paper, identified correctly",
-              "overall_score": 5,
-              "overall_reasoning": "none in the paper, identified correctly"
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
             },
             "confidence_level": 5,
             "missing_information": [],
@@ -77,24 +185,24 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "none of the ground truth information is present in the llm extractions",
             "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "none in the paper, identified correctly",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "none in the paper, identified correctly",
-              "process_steps_score": 5,
-              "process_steps_reasoning": "none in the paper, identified correctly",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "none in the paper, identified correctly",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "none in the paper, identified correctly",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "none in the paper, identified correctly",
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "none in the paper, identified correctly",
-              "overall_score": 5,
-              "overall_reasoning": "none in the paper, identified correctly"
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
             },
             "confidence_level": 5,
             "missing_information": [],
@@ -104,24 +212,1811 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "none of the ground truth information is present in the llm extraction, for this model key reactants are treated as materials, which i penalised in the scores",
             "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "none in the paper, identified correctly",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "none in the paper, identified correctly",
-              "process_steps_score": 5,
-              "process_steps_reasoning": "none in the paper, identified correctly",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "none in the paper, identified correctly",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "none in the paper, identified correctly",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "none in the paper, identified correctly",
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "although a material was identified, it was not a key material for synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "wrong material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "none in the paper, identified correctly",
-              "overall_score": 5,
-              "overall_reasoning": "none in the paper, identified correctly"
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": ["don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "GQD1",
+      "human_recipe": {
+        "target_compound": "GQD1",
+        "target_compound_type": "zero-dimensional nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "name": "Purified graphene sheet (PGS)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "H3PO4 (orthophosphoric acid)",
+            "vendor": "Merck Mumbai",
+            "amount": 20,
+            "unit": "mL",
+            "purity": null,
+            "concentration": "5 mol/L"
+          },
+          {
+            "name": "ethylenediamine (en)",
+            "vendor": "Thermo Fisher Scientific",
+            "amount": 30,
+            "unit": "mL",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Suspend PGS in a mixture of 5 mol/L H3PO4 (20 mL) and ethylenediamine (30 mL)",
+            "materials": [
+              {
+                "name": "Purified graphene sheet (PGS)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "H3PO4 (orthophosphoric acid)",
+                "vendor": "Merck Mumbai",
+                "amount": 20,
+                "unit": "mL",
+                "purity": null,
+                "concentration": "5 mol/L"
+              },
+              {
+                "name": "ethylenediamine (en, C2H8N2)",
+                "vendor": "Thermo Fisher Scientific",
+                "amount": 30,
+                "unit": "mL",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "sonicate",
+            "description": "Probe-sonicate the suspension for 2 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "probe sonicator",
+                "instrument_vendor": "LABMAN PRO-650",
+                "settings": "650 W, 25 kHz"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 2.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "heat",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 4 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "Teflon-lined stainless steel autoclave",
+                "instrument_vendor": null,
+                "settings": "100 mL"
+              }
+            ],
+            "conditions": {
+              "temperature": 200.0,
+              "duration": 4.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "autogenous (sealed)",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "cool",
+            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": 30.0,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "wash",
+            "description": "Wash brown colloidal supernatant with ethanol and DI water to remove residual ethylenediamine",
+            "materials": [
+              {
+                "name": "ethanol",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": 7.0,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 6,
+            "action": "filter",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "vacuum filtration setup",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "0.22 \u00b5m Whatman filter paper",
+                "instrument_vendor": "Whatman",
+                "settings": "0.22 \u00b5m pore size"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 7,
+            "action": "dialyze",
+            "description": "Dialyse collected filtrate over DI water using dialysis membrane-50 for 24 h to obtain GQD1",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "dialysis membrane-50",
+                "instrument_vendor": "Himedia",
+                "settings": "LA387-10MT"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 24.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "probe sonicator",
+            "instrument_vendor": "LABMAN PRO-650",
+            "settings": "650 W, 25 kHz"
+          },
+          {
+            "name": "Teflon-lined stainless steel autoclave",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "vacuum filtration setup",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "0.22 \u00b5m Whatman filter paper",
+            "instrument_vendor": "Whatman",
+            "settings": "0.22 \u00b5m pore size"
+          },
+          {
+            "name": "dialysis membrane-50",
+            "instrument_vendor": "Himedia",
+            "settings": "LA387-10MT"
+          }
+        ],
+        "notes": "GQD1 = 4 h hydrothermal duration. Ethylenediamine acts as surface passivation agent reducing defects. Product is a clear brown solution after dialysis."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extraction, for this model key reactants are treated as materials, which i penalised in the scores",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "although a material was identified, it was not a key material for synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "wrong material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": ["don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "GQD2",
+      "human_recipe": {
+        "target_compound": "GQD2",
+        "target_compound_type": "zero-dimensional nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "name": "Purified graphene sheet (PGS)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "H3PO4 (orthophosphoric acid)",
+            "vendor": "Merck Mumbai",
+            "amount": 20,
+            "unit": "mL",
+            "purity": null,
+            "concentration": "5 mol/L"
+          },
+          {
+            "name": "ethylenediamine (en)",
+            "vendor": "Thermo Fisher Scientific",
+            "amount": 30,
+            "unit": "mL",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Suspend the previously obtainedPGS in a mixture of 5 mol/L H3PO4 (20 mL) and ethylenediamine (30 mL)",
+            "materials": [
+              {
+                "name": "Purified graphene sheet (PGS)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "H3PO4 (orthophosphoric acid)",
+                "vendor": "Merck Mumbai",
+                "amount": 20,
+                "unit": "mL",
+                "purity": null,
+                "concentration": "5 mol/L"
+              },
+              {
+                "name": "ethylenediamine (en)",
+                "vendor": "Thermo Fisher Scientific",
+                "amount": 30,
+                "unit": "mL",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "sonicate",
+            "description": "Probe-sonicate the suspension for 2 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "probe sonicator",
+                "instrument_vendor": "LABMAN PRO-650",
+                "settings": "650 W, 25 kHz"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 2.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "heat",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 8 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "Teflon-lined stainless steel autoclave",
+                "instrument_vendor": null,
+                "settings": "100 mL"
+              }
+            ],
+            "conditions": {
+              "temperature": 200.0,
+              "duration": 8.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "autogenous (sealed)",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "cool",
+            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": 30.0,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "wash",
+            "description": "Wash brown colloidal supernatant with ethanol and DI water to remove residual ethylenediamine",
+            "materials": [
+              {
+                "name": "ethanol",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": 7.0,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 6,
+            "action": "filter",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "vacuum filtration setup",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "0.22 \u00b5m Whatman filter paper",
+                "instrument_vendor": "Whatman",
+                "settings": "0.22 \u00b5m pore size"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 7,
+            "action": "dialyze",
+            "description": "Dialyse collected filtrate over DI water using dialysis membrane-50 for 24 h to obtain GQD2",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "dialysis membrane-50",
+                "instrument_vendor": "Himedia",
+                "settings": "LA387-10MT"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 24.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "probe sonicator",
+            "instrument_vendor": "LABMAN PRO-650",
+            "settings": "650 W, 25 kHz"
+          },
+          {
+            "name": "Teflon-lined stainless steel autoclave",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "vacuum filtration setup",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "0.22 \u00b5m Whatman filter paper",
+            "instrument_vendor": "Whatman",
+            "settings": "0.22 \u00b5m pore size"
+          },
+          {
+            "name": "dialysis membrane-50",
+            "instrument_vendor": "Himedia",
+            "settings": "LA387-10MT"
+          }
+        ],
+        "notes": "GQD2 = 8 h hydrothermal duration, identified as optimal. Size ca. 6\u201310 nm, strong blue fluorescence, ID/IG = 0.78, C/O = 2. No N or P doping detected by EDX."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extraction, for this model key reactants are treated as materials, which i penalised in the scores",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "although a material was identified, it was not a key material for synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "wrong material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": ["don't treat reactants as key materials to be synthesised, check if the reactants are attributed any verbs, like mixing, specific to the action they perform in the synthesis"]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "GQD3",
+      "human_recipe": {
+        "target_compound": "GQD3",
+        "target_compound_type": "zero-dimensional nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "name": "Purified graphene sheet (PGS)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "H3PO4 (orthophosphoric acid)",
+            "vendor": "Merck Mumbai",
+            "amount": 20,
+            "unit": "mL",
+            "purity": null,
+            "concentration": "5 mol/L"
+          },
+          {
+            "name": "ethylenediamine (en)",
+            "vendor": "Thermo Fisher Scientific",
+            "amount": 30,
+            "unit": "mL",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Suspend PGS in a mixture of 5 mol/L H3PO4 (20 mL) and ethylenediamine (30 mL)",
+            "materials": [
+              {
+                "name": "Purified graphene sheet (PGS)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "H3PO4 (orthophosphoric acid)",
+                "vendor": "Merck Mumbai",
+                "amount": 20,
+                "unit": "mL",
+                "purity": null,
+                "concentration": "5 mol/L"
+              },
+              {
+                "name": "ethylenediamine (en)",
+                "vendor": "Thermo Fisher Scientific",
+                "amount": 30,
+                "unit": "mL",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "sonicate",
+            "description": "Probe-sonicate the suspension for 2 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "probe sonicator",
+                "instrument_vendor": "LABMAN PRO-650",
+                "settings": "650 W, 25 kHz"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 2.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "heat",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 12 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "Teflon-lined stainless steel autoclave",
+                "instrument_vendor": null,
+                "settings": "100 mL"
+              }
+            ],
+            "conditions": {
+              "temperature": 200.0,
+              "duration": 12.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "autogenous (sealed)",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "cool",
+            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": 30.0,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "wash",
+            "description": "Wash brown colloidal supernatant with ethanol and DI water to remove residual ethylenediamine",
+            "materials": [
+              {
+                "name": "ethanol",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": 7.0,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 6,
+            "action": "filter",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "vacuum filtration setup",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "0.22 \u00b5m Whatman filter paper",
+                "instrument_vendor": "Whatman",
+                "settings": "0.22 \u00b5m pore size"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 7,
+            "action": "dialyze",
+            "description": "Dialyse collected filtrate over DI water using dialysis membrane-50 for 24 h to obtain GQD3",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "dialysis membrane-50",
+                "instrument_vendor": "Himedia",
+                "settings": "LA387-10MT"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 24.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "probe sonicator",
+            "instrument_vendor": "LABMAN PRO-650",
+            "settings": "650 W, 25 kHz"
+          },
+          {
+            "name": "Teflon-lined stainless steel autoclave",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "vacuum filtration setup",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "0.22 \u00b5m Whatman filter paper",
+            "instrument_vendor": "Whatman",
+            "settings": "0.22 \u00b5m pore size"
+          },
+          {
+            "name": "dialysis membrane-50",
+            "instrument_vendor": "Himedia",
+            "settings": "LA387-10MT"
+          }
+        ],
+        "notes": "GQD3 = 12 h hydrothermal duration. Yielded nonuniform and larger particles compared to GQD2 (8 h optimum)."
+      },
+        "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "GQD4",
+      "human_recipe": {
+        "target_compound": "GQD4",
+        "target_compound_type": "zero-dimensional nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "name": "Purified graphene sheet (PGS)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "name": "DI water",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Suspend PGS in DI water only (no H3PO4, no ethylenediamine)",
+            "materials": [
+              {
+                "name": "Purified graphene sheet (PGS)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "heat",
+            "description": "Transfer to 100 mL Teflon-lined stainless steel autoclave and heat at 200 \u00b0C for 8 h",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "Teflon-lined stainless steel autoclave",
+                "instrument_vendor": null,
+                "settings": "100 mL"
+              }
+            ],
+            "conditions": {
+              "temperature": 200.0,
+              "duration": 8.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "autogenous (sealed)",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "cool",
+            "description": "Cool autoclave to room temperature (30 \u00b0C)",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": 30.0,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "filter",
+            "description": "Separate larger graphene nanoparticles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "vacuum filtration setup",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "0.22 \u00b5m Whatman filter paper",
+                "instrument_vendor": "Whatman",
+                "settings": "0.22 \u00b5m pore size"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "dialyze",
+            "description": "Dialyse filtrate over DI water for 24 h to obtain GQD4",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "dialysis membrane-50",
+                "instrument_vendor": "Himedia",
+                "settings": "LA387-10MT"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 24.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "Teflon-lined stainless steel autoclave",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "vacuum filtration setup",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "0.22 \u00b5m Whatman filter paper",
+            "instrument_vendor": "Whatman",
+            "settings": "0.22 \u00b5m pore size"
+          },
+          {
+            "name": "dialysis membrane-50",
+            "instrument_vendor": "Himedia",
+            "settings": "LA387-10MT"
+          }
+        ],
+        "notes": "Control sample \u2014 no surface passivation (no ethylenediamine) and no H3PO4. Supercritical water acts as reducing agent. Lower fluorescence and higher defects than GQD2 (ID/IG = 0.94). Scanty GQD distribution on GS surface by FESEM."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "GQD5",
+      "human_recipe": {
+        "target_compound": "GQD5",
+        "target_compound_type": "zero-dimensional nanomaterials",
+        "synthesis_method": "electrochemical exfoliation",
+        "starting_materials": [
+          {
+            "name": "graphite rod (anode)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "name": "graphite rod (cathode)",
+            "vendor": null,
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "name": "NaOH (sodium hydroxide)",
+            "vendor": "Merck Mumbai",
+            "amount": null,
+            "unit": null,
+            "purity": null,
+            "concentration": "0.1 mol/L"
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "setup",
+            "description": "Set up 2-electrode system with both anode and cathode as graphite electrodes, facing parallel, separated by 2 cm, immersed in 0.1 mol/L NaOH",
+            "materials": [
+              {
+                "name": "graphite rod (anode)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "name": "graphite rod (cathode)",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "name": "NaOH (sodium hydroxide)",
+                "vendor": "Merck Mumbai",
+                "amount": null,
+                "unit": null,
+                "purity": null,
+                "concentration": "0.1 mol/L"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "2-electrode electrochemical cell",
+                "instrument_vendor": null,
+                "settings": "electrode separation 2 cm"
+              },
+              {
+                "name": "DC power supply",
+                "instrument_vendor": "Solatron 1280C",
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": 30.0,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "electrochemical etch",
+            "description": "Apply 10 V DC for ~40 min; solution transforms from colourless to light brown to dark brown indicating GQD formation",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "DC power supply",
+                "instrument_vendor": "Solatron 1280C",
+                "settings": "10 V DC"
+              }
+            ],
+            "conditions": {
+              "temperature": 30.0,
+              "duration": 40.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": "\u00b0C",
+              "time_unit": "min",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "wash",
+            "description": "Wash solution thoroughly with DI water and ethanol to obtain neutral pH",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "ethanol",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": 7.0,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "filter",
+            "description": "Remove larger graphite particles by vacuum filtration through 0.22 \u00b5m filter paper; collect filtrate",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "vacuum filtration setup",
+                "instrument_vendor": null,
+                "settings": null
+              },
+              {
+                "name": "0.22 \u00b5m Whatman filter paper",
+                "instrument_vendor": "Whatman",
+                "settings": "0.22 \u00b5m pore size"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": null,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "dialyze",
+            "description": "Dialyse filtrate over DI water for 24 h to obtain GQD5; solvent can then be evaporated to obtain powder redispersible in DI water or other solvents",
+            "materials": [
+              {
+                "name": "DI water",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "dialysis membrane-50",
+                "instrument_vendor": "Himedia",
+                "settings": "LA387-10MT"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "duration": 24.0,
+              "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
+              "pressure_unit": null,
+              "atmosphere": "ambient",
+              "stirring": null,
+              "stirring_speed": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "2-electrode electrochemical cell",
+            "instrument_vendor": null,
+            "settings": "electrode separation 2 cm"
+          },
+          {
+            "name": "DC power supply",
+            "instrument_vendor": "Solatron 1280C",
+            "settings": "10 V DC"
+          },
+          {
+            "name": "vacuum filtration setup",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "0.22 \u00b5m Whatman filter paper",
+            "instrument_vendor": "Whatman",
+            "settings": "0.22 \u00b5m pore size"
+          },
+          {
+            "name": "dialysis membrane-50",
+            "instrument_vendor": "Himedia",
+            "settings": "LA387-10MT"
+          }
+        ],
+        "notes": "Electrochemical process introduces more oxygen groups and sp3 defects vs hydrothermal. GQD5 shows higher ID/IG than GQD4, nonuniform and bigger particles. Multiple emission peaks (375, 394, 414 nm). Fluorescence order: GQD2 > GQD5 > GQD4 > PGS."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "none of the ground truth information is present in the llm extractions",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "the paper contains plenty of information for the synthesis",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "no material extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no processes extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "n/a",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "the extraction follows the schema correctly",
+              "overall_score": 0.71,
+              "overall_reasoning": ""
             },
             "confidence_level": 5,
             "missing_information": [],
