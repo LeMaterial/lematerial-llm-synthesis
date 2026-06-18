@@ -13,26 +13,26 @@
       "material_name": "(D2O)z(macrocycle)rMoS2",
       "human_recipe": {
         "target_compound": "(D2O)z(macrocycle)rMoS2",
-        "target_compound_type": "two-dimensional materials",
+        "target_compound_type": null,
         "synthesis_method": "wet chemical synthesis",
         "starting_materials": [
           {
-            "vendor": null,
             "name": "LixMoS2",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": null,
             "name": "D2O",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": null,
             "name": "macrocycles in D2O",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
@@ -45,15 +45,15 @@
             "description": "Reaction of LixMoS2 with D2O results in the formation of completely exfoliated single layers of MoS2.",
             "materials": [
               {
-                "vendor": null,
                 "name": "LixMoS2",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "D2O",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -62,15 +62,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -79,15 +79,15 @@
             "description": "The intercalation compounds were synthesized by adding a solution of the macrocycles in D2O to the exfoliated MoS2 solution.",
             "materials": [
               {
-                "vendor": null,
                 "name": "macrocycles in D2O",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "exfoliated MoS2 solution",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -96,15 +96,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -121,15 +121,15 @@
             ],
             "conditions": {
               "temperature": 298.15,
-              "temp_unit": "K",
               "duration": 2.0,
-              "time_unit": "days",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "K",
+              "time_unit": "days",
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": true,
-              "stirring_speed": null,
-              "ph": null
+              "stirring": null,
+              "stirring_speed": null
             }
           },
           {
@@ -146,15 +146,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -163,8 +163,8 @@
             "description": "The insoluble product washed throroughly with D2O to remove LiOH and excess macrocycles.",
             "materials": [
               {
-                "vendor": null,
                 "name": "D2O",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -173,15 +173,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -204,24 +204,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 4.75,
+              "equipment_extraction_reasoning": "TGA instrument in global list (characterization, not synthesis). ",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "target_compound_type 'hybrid & organic-inorganic' wrong; human is 'two-dimensional materials'. method 'other' vs 'wet chemical synthesis'.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Good extraction with exact name match. Wrong compound type, TGA in equipment"
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -229,28 +229,32 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Evaluated against (D2O)z(C16H28N4)rMoS2 (closest match to general formula); 3 additional specific composition entries also extracted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "4/5 steps have conditions as JSON null instead of null-field structured objects.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Synthesis split across 4 entries (3 specific compositions + general formula); general formula entry present and correct.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 1.5,
+              "equipment_extraction_reasoning": "Global equipment list and all step-level equipment arrays empty; stirrer and filter are missing.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "synthesis_method 'solution-based' vs 'wet chemical synthesis'; purity 'deuterated' incorrectly used in starting materials.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "conditions stored as JSON null instead of structured null-field object for 4 steps.",
+              "overall_score": 3.75,
+              "overall_reasoning": "General formula entry correct and all 5 steps present. Missing all equipment is a significant gap. Split across 4 entries and null conditions format issue."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "No exact (D2O)z(macrocycle)rMoS2 entry; macrocycle identified by IUPAC formula"
+            ],
+            "extraction_errors": [
+              "purity: deuterated"
+            ],
             "improvement_suggestions": []
           }
         },
@@ -258,24 +262,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "Target compound too generic ('MoS2 intercalation compounds'). Starting materials correctly listed (LixMoS2, D2O, macrocycles).",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
+              "semantic_accuracy_score": 5.0,
               "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Good synthesis content but target name too generic. Equipment and conditions correct."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -283,27 +287,29 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No exact (D2O)z(macrocycle)rMoS2 entry; evaluated series (materials 2-5 with macrocycles) as fallback.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 3.5,
+              "material_extraction_reasoning": "Synthesis split across 5 specific composition entries with inferred r values; no general formula entry.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.75,
+              "conditions_extraction_reasoning": "Atmosphere 'air' inferred in one entry's step 3 (not in source).",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "synthesis_method 'other' wrong across all entries.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 3.75,
+              "overall_reasoning": "Series (materials 2-5) covers steps, equipment, and conditions correctly. No general formula entry; synthesis spread across specific inferred compositions with one unrelated r=0 entry. Method consistently wrong."
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 3,
+            "missing_information": [
+              "No exact (D2O)z(macrocycle)rMoS2 entry; synthesis split across specific composition entries"
+            ],
             "extraction_errors": [],
             "improvement_suggestions": []
           }

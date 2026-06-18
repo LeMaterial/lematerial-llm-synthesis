@@ -12,121 +12,196 @@
     {
       "material_name": "Rhodamine 3B SMILES",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "R3B SMILES",
+        "target_compound_type": "functional materials & catalysts",
+        "synthesis_method": "self-assembly",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "R3B-ClO4",
+            "amount": 1.0,
+            "unit": "equiv",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "cyanostar",
+            "amount": 2.0,
+            "unit": "equiv",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "mixing of the cationic dye with cyanostar",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "R3B-ClO4",
+                "amount": 1.0,
+                "unit": "equiv",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "cyanostar",
+                "amount": 2.0,
+                "unit": "equiv",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "R3B SMILES is a mix of 1 equivalent of the cationic dye R3B-ClO4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction of R3B SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The actions names could be more accurate.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "The structural completeness is very good. The extraction captured all the information present on the article about this synthesis.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "The LLM deduced the chemical formula of R3B SMILES (R3B·(CS)2·ClO4), although this was not explicitly stated in the article. It correctly identified the starting materials, along with their respective proportions.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "The steps are clearly identified. However, the descriptions are too long. The LLM has reused step 2 in the description of step 1. The action of step 2 (precipitate) could be more precisely described as ‘co-crystallize’.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "The extraction was successful, preserving the meaning of the article. The LLM successfully captured the accuracy of the data.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected. All required fields are present and remain empty when necessary.",
+              "overall_score": 4.5,
+              "overall_reasoning": "The extraction of R3B SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The actions names could be more accurate."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "Step 2 action classified as 'precipitate' rather than the more precise 'co-crystallize', which better reflects the co-crystallization process described in the source."
+            ],
+            "improvement_suggestions": [
+              "Expand the actions list to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction represents the synthesis of R3B SMILES with two components in two steps, which is correct. However, the proportions of the cationic dye are missing, and step 2 is not precise. The synthesis method is not clearly identified. It extracted equipment that is not part of the synthesis.",
+            "scores": {
+              "structural_completeness_score": 3.0,
+              "structural_completeness_reasoning": "The extraction captured all the fields but with some mistakes ",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name R3B SMILES. It omitted the amount and unit of the cationic dye in the starting materials. It did not identify the synthesis method. However, it extracted the cationic dye and cyanostar in their respective proportions in step 1.",
+              "process_steps_score": 2.0,
+              "process_steps_reasoning": "The extraction of two steps is correct. However, it did not identify the action of step 2. The description of step 2 is not precise.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "The equipment extraction for step 2 is incorrect. The LLM did not correctly extract step 2.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 2.5,
+              "semantic_accuracy_reasoning": "The LLM identified 2 different steps, but step 2 is not understood, making the extraction less accurate. The R3B SMILES formula is missing as well as the amount and unit of the cationic dye in the starting materials.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction represents the synthesis of R3B SMILES with two components in two steps, which is correct. However, the proportions of the cationic dye are missing, and step 2 is not precise. The synthesis method is not clearly identified. It extracted equipment that is not part of the synthesis."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The R3B SMILES formula",
+              "The amount and unit of the cationic dye in the starting materials"
+            ],
+            "extraction_errors": [
+              "Recognized equipment in step 2 even though there was not any.",
+              "The synthesis method and the action of step 2 are not identified.",
+              "Identified cationic dye as the target compound."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps.",
+              "Expand the synthesis method and actions lists to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": "high",
+            "missing_information": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction from the R3B SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "All the fields are respected, but it missed the second step.",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name R3B SMILES. It omitted the amount and unit of the cationic dye. It did not identify the synthesis method",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "It omitted the co-crystallization step. The step 1 is correct but it missed the amount and unit of the cationic dye",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "It did not identify the second step, making the extraction less accurate.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected.",
+              "overall_score": 4.0,
+              "overall_reasoning": "The extraction from the R3B SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The R3B SMILES formula.",
+              "The amount and unit of the cationic dye.",
+              "The step 2 is omitted."
+            ],
+            "extraction_errors": [
+              "The synthesis method is not clearly identified.",
+              "Identified cationic dye as the target compound."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps."
+            ]
           }
         }
       ]
@@ -141,8 +216,8 @@
           {
             "vendor": null,
             "name": "oxazine 720-ClO4",
-            "amount": null,
-            "unit": null,
+            "amount": 1.0,
+            "unit": "equiv",
             "purity": null
           },
           {
@@ -162,8 +237,8 @@
               {
                 "vendor": null,
                 "name": "oxazine 720-ClO4",
-                "amount": null,
-                "unit": null,
+                "amount": 1.0,
+                "unit": "equiv",
                 "purity": null
               },
               {
@@ -190,115 +265,145 @@
           }
         ],
         "equipment": [],
-        "notes": "Oxazine SMILES is a mix of the cationic dye 720-ClO4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
+        "notes": "Oxazine SMILES is a mix of 1 equivalent of the cationic dye oxazine 720-ClO4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction of Oxazine SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The action names could be more accurate. The chemical formula of the cationic dye could be identified.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "The structural completeness is very good. The extraction captured all the information present on the article about this synthesis.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "The LLM deduced the chemical formula of Oxazine SMILES (Oxazine720·(CS)2·ClO4), although this was not explicitly stated in the article. It correctly identified the starting materials, along with their respective proportions. It should have specified the chemical formula of the cationic dye (oxazine 720 ClO4).",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "The steps are clearly identified. However, the descriptions are too long. The LLM has reused step 2 in the description of step 1. The action of step 2 (precipitate) could be more precisely described as ‘co-crystallize’.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "The extraction was successful, preserving the meaning of the article. The LLM successfully captured the accuracy of the data.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected. All required fields are present and remain empty when necessary.",
+              "overall_score": 4.5,
+              "overall_reasoning": "The extraction of Oxazine SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The action names could be more accurate. The chemical formula of the cationic dye could be identified."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
+            "missing_information": [
+              "The chemical formula of the cationic dye (oxazine 720 ClO4)."
+            ],
+            "extraction_errors": [
+              "Step 2 action classified as 'precipitate' rather than the more precise 'co-crystallize', which better reflects the co-crystallization process described in the source."
+            ],
+            "improvement_suggestions": [
+              "Expand the actions list to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction represents the synthesis of Oxazine SMILES with dichloromethane, that is incorrect. Dichloromethane is not part of the synthesis, and wrongly identified the spin-coating as a second step. The proportions of the cationic dye are missing in starting materials. The synthesis method is not correct. It extracted equipment that is not part of the synthesis.",
+            "scores": {
+              "structural_completeness_score": 2.0,
+              "structural_completeness_reasoning": "It missed the co-crystallization step and replaced it by a wrong description.The structure is partially correct, the conditions fields are missing in step 2.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name Oxazine SMILES and its formula. It omitted the amount and unit of the cationic dye in the starting materials, and incorrectly added dichloromethane. It did not properly extract the synthesis method. However, it extracted the cationic dye and cyanostar in their respective proportions in step 1.",
+              "process_steps_score": 2.0,
+              "process_steps_reasoning": "It correctly extracted two steps, but it made a mistake in the second. For step 1, it correctly identified the action, and the description is correct. However, it added dichloromethane, which is not part of this synthesis. For step 2, the extraction does not match what is described in the source. The spin-coating is not part of the synthesis. Plus, it added equipment not mentioned in the source.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "The LLM extracted 'spin-coater' as equipment, but it is not mentioned anywhere in the source and it does not correspond to step 2.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The LLM extracted conditions for step 1 that are not mentioned in the source. For step 2, it omitted the condition fields.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The LLM modified the synthesis of Oxazine SMILES by adding dichloromethane and extracting in the wrong step 2.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "JSON structure is respected, but it omitted the conditions fields in step 2.",
+              "overall_score": 2.0,
+              "overall_reasoning": "The extraction represents the synthesis of Oxazine SMILES with dichloromethane, that is incorrect. Dichloromethane is not part of the synthesis, and wrongly identified the spin-coating as a second step. The proportions of the cationic dye are missing in starting materials. The synthesis method is not correct. It extracted equipment that is not part of the synthesis."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The Oxazine SMILES formula",
+              "The amount and unit of the cationic dye in the starting materials",
+              "The conditions fields in step 2."
+            ],
+            "extraction_errors": [
+              "Recognized equipment in step 2 even though there was not any.",
+              "The synthesis method and the step 2 are incorrect.",
+              "Identified cationic dye as the target compound.",
+              "Added dichloromethane as a reagent."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps.",
+              "Expand the synthesis method and actions lists to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction from the Oxazine SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 3.0,
+              "structural_completeness_reasoning": "Iit missed the second step and the conditions fields.",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name Oxazine SMILES and its formula. It omitted the amount and unit of the cationic dye. It did not identify the synthesis method",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "It omitted the co-crystallization step. The step 1 is correct but it missed the amount and unit of the cationic dye",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The conditions fields are missing.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "It did not identify the second step, making the extraction less accurate.",
+              "format_compliance_score": 2.0,
+              "format_compliance_reasoning": "JSON structure is respected but it missed the conditions fields.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction from the Oxazine SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The Oxazine SMILES formula.",
+              "The amount and unit of the cationic dye.",
+              "The step 2 is omitted.",
+              "The conditions fields."
+            ],
+            "extraction_errors": [
+              "The synthesis method is not clearly identified.",
+              "Identified cationic dye as the target compound."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps."
+            ]
           }
         }
       ]
@@ -313,8 +418,8 @@
           {
             "vendor": null,
             "name": "pyridine 1-ClO4",
-            "amount": null,
-            "unit": null,
+            "amount": 1.0,
+            "unit": "equiv",
             "purity": null
           },
           {
@@ -334,8 +439,8 @@
               {
                 "vendor": null,
                 "name": "pyridine 1-ClO4",
-                "amount": null,
-                "unit": null,
+                "amount": 1.0,
+                "unit": "equiv",
                 "purity": null
               },
               {
@@ -362,115 +467,145 @@
           }
         ],
         "equipment": [],
-        "notes": "Pyridine SMILES is a mix of the cationic dye pyridine 1-ClO4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
+        "notes": "Pyridine SMILES is a mix of 1 equivalent of the cationic dye pyridine 1-ClO4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction of Pyridine 1 SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The action names could be more accurate. The chemical formula of the cationic dye could have been repeated in step 1.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "The structural completeness is very good. The extraction captured all the information present on the article about this synthesis.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "The LLM deduced the chemical formula of Pyridine 1 SMILES (Pyridine1·(CS)2·ClO4), although this was not explicitly stated in the article. It correctly identified the starting materials, along with their respective proportions. It should have specified the chemical formula of the cationic dye (pyridine 1·ClO4) in step 1.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "The steps are clearly identified. However, the descriptions are too long. The LLM has reused step 2 in the description of step 1. The action of step 2 (precipitate) could be more precisely described as ‘co-crystallize’.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "The extraction was successful, preserving the meaning of the article. The LLM successfully captured the accuracy of the data.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected. All required fields are present and remain empty when necessary.",
+              "overall_score": 4.5,
+              "overall_reasoning": "The extraction of Pyridine 1 SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The action names could be more accurate. The chemical formula of the cationic dye could have been repeated in step 1."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
+            "missing_information": [
+              "The chemical formula of the cationic dye (pyridine 1·ClO4) in step 1."
+            ],
+            "extraction_errors": [
+              "Step 2 action classified as 'precipitate' rather than the more precise 'co-crystallize', which better reflects the co-crystallization process described in the source."
+            ],
+            "improvement_suggestions": [
+              "Expand the actions list to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The LLM incorrectly describes the synthesis of Pyridine SMILES as three steps. It also incorrectly identifies dichloromethane as a reactant and spin-coating as part of the synthesis. The proportions of the cationic dye are missing in starting materials. The synthesis method is not correct. It extracted equipment that is not part of the synthesis.",
+            "scores": {
+              "structural_completeness_score": 2.0,
+              "structural_completeness_reasoning": "It missed the co-crystallization step and replaced it by two wrong steps.The structure is partially correct, the conditions fields are missing.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name Pyridine SMILES and its formula. It omitted the amount and unit of the cationic dye in the starting materials, and incorrectly added dichloromethane. It did not properly extract the synthesis method. However, it extracted the cationic dye and cyanostar in their respective proportions in step 1.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "The steps are extracted incorrectly. It identified the dissolution in dichloromethane and the spin-coating as part of the synthesis. For step 1, it correctly identified the action, and the description is correct. However, it added dichloromethane, which is not part of this synthesis. For steps 2 and 3, the extraction does not match what is described in the source. The dissolution and the spin-coating are not part of the synthesis. Plus, it added equipment not mentioned in the source.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "The LLM extracted 'spin-coater' as equipment, but it is not mentioned anywhere in the source and it does not correspond to step 2.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The LLM omitted the condition fields.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The LLM modified the synthesis of Pyridine SMILES by adding dichloromethane and extracting in 3 steps instead of 2 steps.",
+              "format_compliance_score": 3.5,
+              "format_compliance_reasoning": "JSON structure is respected, but it omitted the conditions fields.",
+              "overall_score": 2.0,
+              "overall_reasoning": "The LLM incorrectly describes the synthesis of Pyridine SMILES as three steps. It also incorrectly identifies dichloromethane as a reactant and spin-coating as part of the synthesis. The proportions of the cationic dye are missing in starting materials. The synthesis method is not correct. It extracted equipment that is not part of the synthesis.."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The Pyridine SMILES formula",
+              "The amount and unit of the cationic dye in the starting materials",
+              "The conditions fields."
+            ],
+            "extraction_errors": [
+              "Recognized equipment in step 2 even though there was not any.",
+              "The synthesis method and the steps 2 and 3 are incorrect.",
+              "Identified cationic dye as the target compound.",
+              "Added dichloromethane as a reagent."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps.",
+              "Expand the synthesis method and actions lists to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction from the Pyridine SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 3.0,
+              "structural_completeness_reasoning": "It missed the second step and the conditions fields.",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name Pyridine SMILES and its formula. It omitted the amount and unit of the cationic dye. It did not identify the synthesis method",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "It omitted the co-crystallization step. The step 1 is correct but it missed the amount and unit of the cationic dye",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The conditions fields are missing.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "It did not identify the second step, making the extraction less accurate.",
+              "format_compliance_score": 2.0,
+              "format_compliance_reasoning": "JSON structure is respected but it missed the conditions fields.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction from the Pyridine SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The Pyridine SMILES formula.",
+              "The amount and unit of the cationic dye.",
+              "The step 2 is omitted.",
+              "The conditions fields."
+            ],
+            "extraction_errors": [
+              "The synthesis method is not clearly identified.",
+              "Identified cationic dye as the target compound."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps."
+            ]
           }
         }
       ]
@@ -478,121 +613,200 @@
     {
       "material_name": "Cyanine SMILES",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "cyanine SMILES",
+        "target_compound_type": "functional materials & catalysts",
+        "synthesis_method": "self-assembly",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "DIOC2-PF6",
+            "amount": 1.0,
+            "unit": "equiv",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "cyanostar",
+            "amount": 2.0,
+            "unit": "equiv",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "mixing of the cationic dye with cyanostar",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "DIOC2-PF6",
+                "amount": 1.0,
+                "unit": "equiv",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "cyanostar",
+                "amount": 2.0,
+                "unit": "equiv",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "Cyanine SMILES is a mix of 1 equivalent of the cationic dye DIOC2-PF6 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction of Cyanine SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The action names could be more accurate. The amount and unit of the cationic dye in the starting materials are not captured.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "The structural completeness is very good. The extraction captured all the information present on the article about this synthesis.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "The LLM deduced the chemical formula of Cyanine SMILES (DIOC2·(CS)2·PF6), although this was not explicitly stated in the article. The amount and unit of the cationic dye in the starting materials are not captured.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "The steps are clearly identified. However, the descriptions are too long. The LLM has reused step 2 in the description of step 1. The action of step 2 (precipitate) could be more precisely described as ‘co-crystallize’.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "The extraction was successful, preserving the meaning of the article. The LLM globally captured the accuracy of the data, omitting the amount and unit of the cationic dye in the starting materials.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected. All required fields are present and remain empty when necessary.",
+              "overall_score": 4.5,
+              "overall_reasoning": "The extraction of Cyanine SMILES was successful. The LLM captured the chemical formula, although this is not mentioned in the article. The steps descriptions are somewhat lengthy and overlap. The action names could be more accurate. The amount and unit of the cationic dye in the starting materials are not captured."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
+            "missing_information": [
+              "The amount and unit of the cationic dye in the starting materials."
+            ],
+            "extraction_errors": [
+              "Step 2 action classified as 'precipitate' rather than the more precise 'co-crystallize', which better reflects the co-crystallization process described in the source."
+            ],
+            "improvement_suggestions": [
+              "Expand the actions list to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction represents the synthesis of Cyanine SMILES with dichloromethane, that is incorrect. Dichloromethane is not part of the synthesis, and wrongly identified the spin-coating as a second step. The proportions of the cationic dye are missing in starting materials. The synthesis method is not correct. It extracted equipment that is not part of the synthesis.",
+            "scores": {
+              "structural_completeness_score": 2.0,
+              "structural_completeness_reasoning": "It missed the co-crystallization step and replaced it by a wrong description.The structure is partially correct, the conditions fields are missing in step 2.",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name Cyanine SMILES and its formula. It incorrectly added dichloromethane. It did not properly extract the synthesis method. However, it extracted the cationic dye and cyanostar in their respective proportions.",
+              "process_steps_score": 2.0,
+              "process_steps_reasoning": "It correctly extracted two steps, but it made a mistake in the second. For step 1, it correctly identified the action, and the description is correct. However, it added dichloromethane, which is not part of this synthesis. For step 2, the extraction does not match what is described in the source. The spin-coating is not part of the synthesis. Plus, it added equipment not mentioned in the source.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "The LLM extracted 'spin-coater' as equipment, but it is not mentioned anywhere in the source and it does not correspond to step 2.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The LLM omitted the condition fields in step 2",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The LLM modified the synthesis of Cyanine SMILES by adding dichloromethane and extracting in the wrong step 2.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "JSON structure is respected, but it omitted the conditions fields in step 2.",
+              "overall_score": 2.0,
+              "overall_reasoning": "The extraction represents the synthesis of Cyanine SMILES with dichloromethane, that is incorrect. Dichloromethane is not part of the synthesis, and wrongly identified the spin-coating as a second step. The proportions of the cationic dye are missing in starting materials. The synthesis method is not correct. It extracted equipment that is not part of the synthesis."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The Cyanine SMILES formula",
+              "The conditions fields in step 2."
+            ],
+            "extraction_errors": [
+              "Recognized equipment in step 2 even though there was not any.",
+              "The synthesis method and the step 2 are incorrect.",
+              "Identified cationic dye as the target compound.",
+              "Added dichloromethane as a reagent."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps.",
+              "Expand the synthesis method and actions lists to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction from the Cyanine SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 3.0,
+              "structural_completeness_reasoning": "It missed the second step and the conditions fields.",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name Cyanine SMILES and its formula. It omitted the amount and unit of the cationic dye. It did not identify the synthesis method",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "It omitted the co-crystallization step. The step 1 is correct but it missed the amount and unit of the cationic dye",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The conditions fields are missing.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "It did not identify the second step, making the extraction less accurate.",
+              "format_compliance_score": 2.0,
+              "format_compliance_reasoning": "JSON structure is respected but it missed the conditions fields.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction from the Cyanine SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The Cyanine SMILES formula.",
+              "The amount and unit of the cationic dye.",
+              "The step 2 is omitted.",
+              "The conditions fields."
+            ],
+            "extraction_errors": [
+              "The synthesis method is not clearly identified.",
+              "Identified cationic dye as the target compound."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps."
+            ]
           }
         }
       ]
@@ -607,8 +821,8 @@
           {
             "vendor": null,
             "name": "DAOTA-BF4",
-            "amount": null,
-            "unit": null,
+            "amount": 1.0,
+            "unit": "equiv",
             "purity": null
           },
           {
@@ -628,8 +842,8 @@
               {
                 "vendor": null,
                 "name": "DAOTA-BF4",
-                "amount": null,
-                "unit": null,
+                "amount": 1.0,
+                "unit": "equiv",
                 "purity": null
               },
               {
@@ -656,115 +870,145 @@
           }
         ],
         "equipment": [],
-        "notes": "DAOTA SMILES is a mix of the cationic dye DAOTA-BF4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
+        "notes": "DAOTA SMILES is a mix of 1 equivalent of the cationic dye DAOTA-BF4 with 2 equivalents of cyanostar. The counter anions of the dye form complexes with cyanostar, which helps to structure crystallisation and preserve the fluorescence of the dye in solution. SMILES materials have superior fluorescence properties to the solids of the dye alone."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction of DAOTA SMILES was quite good. The LLM captured the chemical formula, although this is not mentioned in the article. However, it does not identify two distinct steps. The description is too long.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "All the necessary fields are present, such as materials, starting materials, steps, equipment, and conditions. Although the LLM did not extract step 2, the step field is respected for step 1.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "The LLM deduced the chemical formula of DAOTA SMILES (DAOTA·(CS)2·BF4), although this was not explicitly stated in the article. It correctly identified the starting materials, along with their respective proportions. It included both the full formula of the cationic dye and its abbreviated formula.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "It identified a single synthesis step by grouping mixing and co-crystallization together. It should have separated it into two steps to be more precise. The description is too long.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions fields remain empty, as the article does not specify.",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is quite good. It could have been even more precise by distinguishing between two synthesis steps.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected. All required fields are present and remain empty when necessary.",
+              "overall_score": 3.5,
+              "overall_reasoning": "The extraction of DAOTA SMILES was quite good. The LLM captured the chemical formula, although this is not mentioned in the article. However, it does not identify two distinct steps. The description is too long."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
+            "missing_information": [
+              "The step 2 of co-crystallization."
+            ],
+            "extraction_errors": [
+              "Steps 1 and 2 have been extracted into a single step."
+            ],
+            "improvement_suggestions": [
+              "Recognize action verbs more specifically in order to distinguish the different steps."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction represents the synthesis of DAOTA SMILES in two steps, which is correct. However, it incorrectly added dichloromethane in step 1 and step 2 is not precise. The proportions of the cationic dye are missing in starting materials. The synthesis method is not clearly identified. It extracted equipment that is not part of the synthesis.",
+            "scores": {
+              "structural_completeness_score": 2.0,
+              "structural_completeness_reasoning": "It missed the co-crystallization step and replaced it by a wrong description.The structure is partially correct, the conditions fields are missing in step 2.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name DAOTA SMILES and its formula. It omitted the amount and unit of the cationic dye in the starting materials, and incorrectly added dichloromethane. It did not properly extract the synthesis method. However, it extracted the cationic dye and cyanostar in their respective proportions in step 1.",
+              "process_steps_score": 2.0,
+              "process_steps_reasoning": "It correctly extracted two steps, but it made a mistake in the second. For step 1, it correctly identified the action, and the description is correct. However, it added dichloromethane, which is not part of this synthesis. For step 2, the extraction does not match what is described in the source. The spin-coating is not part of the synthesis. Plus, it added equipment not mentioned in the source.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "The LLM extracted 'spin-coater' as equipment, but it is not mentioned anywhere in the source and it does not correspond to step 2.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The LLM extracted conditions for step 1 that are not mentioned in the source. For step 2, it omitted the condition fields.",
+              "semantic_accuracy_score": 2.5,
+              "semantic_accuracy_reasoning": "The LLM identified 2 different steps, but step 2 is not understood, making the extraction less accurate. The R3B SMILES formula is missing as well as the amount and unit of the cationic dye in the starting materials.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "JSON structure is respected, but it omitted the conditions fields in step 2.",
+              "overall_score": 2.0,
+              "overall_reasoning": "The extraction represents the synthesis of DAOTA SMILES in two steps, which is correct. However, it incorrectly added dichloromethane in step 1 and step 2 is not precise. The proportions of the cationic dye are missing in starting materials. The synthesis method is not clearly identified. It extracted equipment that is not part of the synthesis."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The DAOTA SMILES formula",
+              "The amount and unit of the cationic dye in the starting materials",
+              "The conditions fields in step 2."
+            ],
+            "extraction_errors": [
+              "Recognized equipment in step 2 even though there was not any.",
+              "The synthesis method and the action of step 2 are not identified.",
+              "Identified cationic dye as the target compound.",
+              "Added dichloromethane as a reagent."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps.",
+              "Expand the synthesis method and actions lists to be more precise."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction from the DAOTA SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 3.0,
+              "structural_completeness_reasoning": "It missed the second step and the conditions fields.",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "The LLM used the name of the cationic dye as the target compound. It failed to extract the name DAOTA SMILES and its formula. It omitted the amount and unit of the cationic dye. It did not identify the synthesis method",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "It omitted the co-crystallization step. The step 1 is correct but it missed the amount and unit of the cationic dye",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "No equipment was extracted, as the article does not specify.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "The conditions fields are missing.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "It did not identify the second step, making the extraction less accurate.",
+              "format_compliance_score": 2.0,
+              "format_compliance_reasoning": "JSON structure is respected but it missed the conditions fields.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction from the DAOTA SMILES synthesis is almost correct. It did not identify step 2 and the amount and unit of the cationic dye. The conditions fields are missing."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The DAOTA SMILES formula.",
+              "The amount and unit of the cationic dye.",
+              "The step 2 is omitted.",
+              "The conditions fields."
+            ],
+            "extraction_errors": [
+              "The synthesis method is not clearly identified.",
+              "Identified cationic dye as the target compound."
+            ],
+            "improvement_suggestions": [
+              "Repeat the values in starting materials and steps."
+            ]
           }
         }
       ]

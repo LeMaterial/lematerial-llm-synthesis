@@ -23,26 +23,86 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Mathes the synthesis that was extracted from the paper.  Equipment and conditions are not scored since they are not present in the synthesis. ",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
               "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
+              "equipment_extraction_reasoning": "no equipment mentioned in the original paper",
               "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_reasoning": "no confitions mentioned in the original paper",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Type: functional material instead of ceramics ",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 5.0,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "Type: functional material instead of ceramics"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Extracted as 6 individual compositions (LaMnO3 + 5 Ca-doped variants); full set covers all doping levels. No exact La1-xCaxMnO3 entry. Type 'ceramics & glasses' correct for all entries. Notes mention solid-state technique for each composition.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.75,
+              "material_extraction_reasoning": "Full set covers all 6 compositions; split into individual entries rather than general formula.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment mentioned in the original paper",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions mentioned in the original paper",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 5.0,
+              "overall_reasoning": "Good extraction split into individual compositions; full set well covers the synthesis series."
+            },
+            "confidence_level": 3,
+            "missing_information": [
+              "No exact La1-xCaxMnO3 entry"
+            ],
+            "extraction_errors": [
+              "Series split into 6 individual composition entries instead of general formula"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Matches the extracted synthesis. ",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "no equipment mentioned in the original paper",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "no conditions mentioned in the original paper",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 5.0,
+              "overall_reasoning": ""
+            },
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -50,82 +110,33 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Extracted as 6 individual compositions; no exact La1-xCaxMnO3 entry. 3/6 entries (LaMnO3, x=0.44, x=0.5) have no notes or steps. Inconsistent coverage across the series is the main weakness.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "3/6 extracted entries have no notes and no steps, reducing overall completeness of the series.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "LaMnO3 instead of general formula La1-xCaxMnO3.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "Synthesis method note absent for 3/6 compositions.",
               "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
+              "equipment_extraction_reasoning": "no equipment mentioned in the original paper",
               "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
+              "conditions_extraction_reasoning": "no conditions mentioned in the original paper",
+              "semantic_accuracy_score": 5.0,
               "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "format_compliance_score": 4.5,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 3.5,
+              "overall_reasoning": "Inconsistent coverage: 3/6 entries have no synthesis notes or steps."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 3,
+            "missing_information": [
+              "No exact La1-xCaxMnO3 entry",
+              "Notes and steps absent for LaMnO3, x=0.44, and x=0.5 entries"
+            ],
+            "extraction_errors": [
+              "Series split into 6 individual composition entries instead of general formula"
+            ],
             "improvement_suggestions": []
           }
         }

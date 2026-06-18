@@ -12,121 +12,245 @@
     {
       "material_name": "GdCo2",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
+        "target_compound": "GdCo2",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "arc melting",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "Gd",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Co",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "melt",
+            "description": "A GdCo2 ingot was prepared by melting of the constituent metals on a water-cooled copper hearth in a high purity argon atmosphere.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Gd",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "Co",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "water-cooled copper hearth",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "high purity argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "melt",
+            "description": "The sample was remelted several times to promote homogeneity.",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "water-cooled copper hearth",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "high purity argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "water-cooled copper hearth",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "Siemens D-5000 diffractometer",
+            "instrument_vendor": "Siemens",
+            "settings": "Cu-Ka radiation, X-ray Debye-Scherrer diffraction"
+          }
+        ],
+        "notes": "The GdCo2 ingot was prepared by melting constituent metals on a water-cooled copper hearth in high purity argon atmosphere and remelted several times for homogeneity. Phase purity was verified by X-ray Debye-Scherrer diffraction with Cu-Ka radiation using a Siemens D-5000 diffractometer. The resulting sample is polycrystalline, metallic, ferromagnetic with Curie temperature of about 410 K. This paper is primarily a characterization study of phase transformations using galvanic cell, surface potential barrier, and resistivity methods. The text says 'melting on a water-cooled copper hearth' which is consistent with arc melting, but the paper does not explicitly name the technique as 'arc melting'."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM identified GdCo2 correctly with starting materials. It created 3 steps. The synthesis_method 'arc melting & induction melting' includes 'induction melting' which is not mentioned in the paper.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "Captures all major components: materials, steps, equipment, atmosphere. Three steps is slightly over-decomposed (source describes ~2 actions). Diffractometer correctly included in equipment.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Starting materials correctly identified with full names and symbols. Null quantities/purities correct since source provides none.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "Three steps where two can be enough according to the paper description.",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Correctly extracted info.",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Correctly identified one condition. All other conditions appropriately null.",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "Core synthesis captured well. 'induction melting' in synthesis_method could be hallucinated, the source only says 'melting on a water-cooled copper hearth'.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "Schema compliance with all fields properly typed.",
+              "overall_score": 4.1,
+              "overall_reasoning": "Good extraction with some issues like 'induction melting' or extra step."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "extraction_errors": [
+              "'induction melting' in synthesis_method is not directly mentioned.",
+              "3 steps is when source describes 2 actions (melt + remelt)."
+            ],
+            "improvement_suggestions": [
+              "Remove 'induction melting' from synthesis_method.",
+              "Consolidate to 2 steps with 'melt' action labels."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM produced a clean extraction with 2 steps, correct materials. The synthesis_method contains 'induction melting'.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "All synthesis components captured.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Correctly identified starting materials. Null quantities appropriate.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Two steps is the right number. Action 'mix' can be too general.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "Correctly captured equipment with vendor and settings.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "Correctly captured in both steps.",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "'induction melting' not mentioned. Action 'mix' can be too general.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "Clean JSON, proper schema compliance.",
+              "overall_score": 4.5,
+              "overall_reasoning": "Strong extraction. Main issues are 'induction melting' in method and imprecise 'mix' actions."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "extraction_errors": [
+              "'induction melting' in synthesis_method is not in the paper.",
+              "'mix' action is imprecise for melting operations."
+            ],
+            "improvement_suggestions": [
+              "Use 'arc melting' or just 'melting' as synthesis_method.",
+              "Use more precise action labels."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "It uses a good action and has 2 well-structured steps. The synthesis_method includes 'induction melting', not referenced in the paper.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "Good structure with 2 steps, materials, equipment, and conditions.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "Correctly identified. Null quantities appropriate.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Two steps with. Descriptions accurate. Equipment included in both steps.",
+              "equipment_extraction_score": 3.5,
+              "equipment_extraction_reasoning": "Siemens D-5000 mentioned in notes but not in equipment list",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "Captured Argon atmosphere, but missing qualifier. Other nulls correct.",
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "'induction melting' not in the paper. Otherwise semantically accurate.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Good schema compliance.",
+              "overall_score": 4.1,
+              "overall_reasoning": "Solid extraction with action labels. 'induction melting' not in the paper, diffractometer not in equipment list."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "diffractometer should be in equipment list, not just notes."
+            ],
+            "extraction_errors": [
+              "'induction melting' in synthesis_method is not in source.",
+              "qualifier missing from argon atmosphere."
+            ],
+            "improvement_suggestions": [
+              "Provide a complete equipment list.",
+              "Include in method only contect from the paper.",
+              "Use qualifers for atmosphere."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM identified GdCo2 with 2 steps. The synthesis_method again includes 'induction melting'. Atmosphere correctly captured as 'high purity argon'. Some inconsistency in actions.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "Basic structure captured. No diffractometer in equipment. 2 steps.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Starting materials correctly identified using element symbols. Null quantities correct.",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "Two steps. Inconsistent action labels for remelting.",
+              "equipment_extraction_score": 3.0,
+              "equipment_extraction_reasoning": "diffractometer not mentioned at all.",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "qualifer for argon correctly captured. Other nulls appropriate.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "'induction melting' is not in the paper. Inconsistent action labels. Missing diffractometer.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Valid schema structure.",
+              "overall_score": 3.7,
+              "overall_reasoning": "Adequate extraction with several issues. Like 'induction melting', inconsistent actions, missing diffractometer."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "diffractometer not mentioned.",
+              "Phase purity verification step not captured."
+            ],
+            "extraction_errors": [
+              "'induction melting' not mentioned.",
+              "Inconsistent action labels between steps for melt actions",
+              "Missing diffractometer."
+            ],
+            "improvement_suggestions": [
+              "Stick to descriptions mentioned in the paper.",
+              "Use consistent actions.",
+              "Include all of the equipment."
+            ]
           }
         }
       ]

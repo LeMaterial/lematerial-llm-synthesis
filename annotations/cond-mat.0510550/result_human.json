@@ -253,231 +253,125 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No extraction produced.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The LLM correctly extracted the data from this synthesis. It could have been more precise by further separating the steps. It added a step that is not part of the synthesis and omitted the condition fields.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "The LLM captured the main synthesis steps but some of them could be separated to be more accurate.",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "The starting materials are correctly extracted. The LLM had correctly identified all the materials in different steps. However, it noted “C” for the material and target compound instead of “carbon nanotubes”.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "The LLM understood the different steps, but it could have separated them more precisely (one step per technique). The names of the \"actions\" are not very precise and do not necessarily correspond to the description of the step. Step 6 is incorrect; it does not correspond to the synthesis of nanocarbons.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "The equipment is well extracted. It noticed the low-temperature for the ALD equipment.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "It omitted the conditions fields such as \"temperature\", \"temp_unit\", \"duration\", \"time_unit\", \"pressure\", etc. and replaced these by the mention null.",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is good. The LLM preserved all the values but the steps actions should be more representative.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "JSON structure is respected. But, it omitted the conditions fields.",
+              "overall_score": 4.0,
+              "overall_reasoning": "The LLM correctly extracted the data from this synthesis. It could have been more precise by further separating the steps. It added a step that is not part of the synthesis and omitted the condition fields."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
+            "missing_information": [
+              "The conditions fields"
+            ],
+            "extraction_errors": [
+              "The target compound noted as C instead of carbon nanotubes.",
+              "The names of actions",
+              "The step 6 is incorrect",
+              "The LLM extracted two other syntheses that are not explicitly stated in the article. The Al2O3 synthesis actually corresponds to step 6 of the nanocarbon synthesis, which he did not correctly identify. The article describes the fabrication of the device, not the complete synthesis of aluminum."
+            ],
+            "improvement_suggestions": [
+              "Expand the list of actions.",
+              "Specify target compound"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No extraction produced.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "No extraction produced."
             },
-            "confidence_level": null,
+            "confidence_level": "high",
             "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "Al2O3",
-      "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "No materials found."
+            ],
             "improvement_suggestions": []
           }
         }

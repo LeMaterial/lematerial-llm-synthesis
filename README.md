@@ -37,7 +37,7 @@ uv sync && uv pip install -e .
 
 <details>
 <summary><b>macOS/Linux</b></summary>
-```bash
+```
 cp .env.example .env
 # Edit `.env` to add:
 #   MISTRAL_API_KEY=your_api_key # if using Mistral models and Mistral OCR
@@ -89,9 +89,9 @@ The data is hosted as a LeMaterial Dataset on HuggingFace: [LeMat-Synth](https:/
 
 1. **Apply for access** (request will be instantly approved)
 2. **Install HuggingFace CLI** ([guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli))
-   - Recommended: `pip install -U "huggingface_hub[cli]"`
-   - Or (macOS): `brew install huggingface-cli`
-3. **Login with access token**: `huggingface-cli login`
+   - Recommended: `pip install -U "huggingface_hub"`
+   - Or (macOS): `brew install hf`
+3. **Login with access token**: `hf auth login`
 
 ### Available Datasets
 
@@ -131,34 +131,103 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 
 
 
+
 ### Thermocatalysis Case Study
 
-*Work in Progress*
-take pdf of catalysis papers (not part of open source corpus)
+Extracts synthesis procedures and catalytic performance data (conversion/selectivity vs temperature curves) from a local corpus of heterogeneous catalysis papers (PDFs not part of the open-source LeMat-Synth-Papers corpus).
 
+**Scripts** — [`examples/scripts/case_study_thermocatalysis/`](examples/scripts/case_study_thermocatalysis/)
+
+| Script / Notebook | What it does |
+|---|---|
+| `run_all_papers.py` | Full synthesis + performance extraction on a local folder of PDFs → per-paper JSON results |
+| `catalysis_synthesis_with_performance.ipynb` | Step-by-step interactive extraction for a single paper |
+| `catalysis_map_notebook.ipynb` | Visualizations: conversion landscape, per-metal subplots |
+| `keyword_search.py` | *(Experimental)* Keyword filtering of LeMat-Synth-Papers — not used in the main pipeline |
+| `downsample_with_llm.py` | *(Experimental)* LLM screening for performance-vs-temperature plots — not used in the main pipeline |
+
+**Run extraction** on your local PDF corpus:
 ```bash
-uv run python run_all_papers.py \​
-  /path/to/data/pdf_papers/catalysis_corpus \​
-  /path/to/data/results_catalysis/ \​
-  --skip-existing​
+uv run examples/scripts/case_study_thermocatalysis/run_all_papers.py \
+  /path/to/catalysis_corpus \
+  /path/to/results_catalysis/ \
+  --skip-existing
 ```
+For each paper the script saves:
+- `<output_dir>/<paper_id>/<material>.json` — synthesis procedure + evaluation score per material
+- `<output_dir>/<paper_id>/performance_mappings.json` — plot series linked to materials
+- `<output_dir>/<paper_id>/linking_summary_llm.json` — LLM quality evaluation
+- `<output_dir>/<paper_id>/linking_summary_human.json` — blank template for human annotation
+- `<output_dir>/batch_summary.json` — overall batch statistics
 
-this extracts ... <deascribe extracted data>
+Additional flags: `--max N` to limit to the first N papers, `--skip-existing` to resume an interrupted run.
 
-Visualize results: noteboioks shows
+**Explore results interactively:**
+- Open `catalysis_synthesis_with_performance.ipynb` to walk through every extraction step on a single paper (PDF → materials → synthesis → figures → plot data → linking).
+- Open `catalysis_map_notebook.ipynb` to produce publication-quality conversion landscape and per-metal subplot figures from the batch results.
+
+---
 
 ### Superconductor Case Study
-Filter down:
-```bash
 
-uv run examples/scripts/case_study_thermocatalysis/keyword_search.py
-uv run examples/scripts/case_study_thermocatalysis/downsample_with_llm.py --prompt default
-uv run examples/scripts/case_study_thermocatalysis/downsample_with_llm.py --prompt long
+Extracts synthesis procedures and critical temperatures (Tc) from superconductor papers using both text extraction and vision-language model (VLM) reading of ρ(T)/R(T) plots.
+
+**Scripts** — [`examples/scripts/case_study_superconductors/`](examples/scripts/case_study_superconductors/)
+
+| Script / Notebook | What it does |
+|---|---|
+| `keyword_search.py` | Filters LeMat-Synth-Papers by "Superconductor" category + "resistivity" keyword → `results/db_superconductors.pkl` |
+| `downsample_with_llm.py` | Gemini LLM check for ρ(T)/R(T) plots → filtered dataset on HuggingFace + sample PDFs |
+| `batch_run_tc.py` | Full Tc extraction (text + VLM) on PDFs → `tc_master.csv` + per-paper JSONs |
+| `batch_run_tc_new_snippet.py` | Enhanced extraction: adds bottom-left crop (snippet) VLM pass + synthesis extraction → `tc_master_snippet.csv` |
+| `superconductivity_tc_extraction.ipynb` | Step-by-step interactive extraction for a single paper |
+| `superconductivity_tc_extraction_plus_snippet.ipynb` | Same as above with additional snippet-based VLM extraction |
+| `visualisation_tc.ipynb` | Visualizations: Tc vs year, text/VLM agreement, synthesis methods |
+| `visualisation_tc_with_human_annotation.ipynb` | Same + comparison against human-annotated ground truth |
+
+**Step 1 — Keyword + category filtering** (screens LeMat-Synth-Papers on HuggingFace):
+```bash
+uv run examples/scripts/case_study_superconductors/keyword_search.py
 ```
+Filters by the "Superconductor" category field and the keyword `"resistivity"` in abstracts. Outputs `results/db_superconductors.pkl` and creates a PR on HuggingFace with the filtered subset.
+
+**Step 2 — LLM downsampling** (requires `GEMINI_API_KEY`):
+```bash
+# Concise prompt
+uv run examples/scripts/case_study_superconductors/downsample_with_llm.py --prompt default
+
+# Detailed prompt with explicit magnetic-field exclusion rules (recommended)
+uv run examples/scripts/case_study_superconductors/downsample_with_llm.py --prompt long
+```
+Uses Gemini to verify each paper contains a ρ(T) or R(T) plot that is not purely a field-sweep study. Pushes the filtered list to HuggingFace and downloads up to 100 sample PDFs.
+
+**Step 3 — Extract Tc from PDFs:**
+
+Standard extraction (text extraction + VLM figure reading):
+```bash
+uv run examples/scripts/case_study_superconductors/batch_run_tc.py /path/to/superconductor_pdfs
+```
+Outputs `<pdf_folder>/results/tc_master.csv` with one row per (paper, material).
+
+Enhanced extraction (adds snippet-based VLM crop + synthesis extraction):
+```bash
+uv run examples/scripts/case_study_superconductors/batch_run_tc_new_snippet.py \
+  /path/to/superconductor_pdfs \
+  --skip-existing
+```
+Outputs `<pdf_folder>/results_snippet/tc_master_snippet.csv`.
+
+Additional flags for both batch scripts: `--max N` to limit to the first N papers, `--skip-existing` to resume an interrupted run, `--skip-figures` for text-only mode (no VLM, faster).
+
+**Explore results interactively:**
+- Open `superconductivity_tc_extraction.ipynb` for a guided single-paper walkthrough.
+- Open `superconductivity_tc_extraction_plus_snippet.ipynb` for the same with the snippet VLM pass.
+- Open `visualisation_tc.ipynb` to produce Tc-vs-year scatter plots, text/VLM agreement plots, and synthesis method breakdowns.
+- Open `visualisation_tc_with_human_annotation.ipynb` to compare pipeline output against human-annotated ground truth.
 
 ### Customize LeMat-Synth
 *Work in Progress*
-EXAMPLES HOW TO GENERALIZE/ABSTRACT EXTRACTION PIPELINE}
+{EXAMPLES HOW TO GENERALIZE/ABSTRACT EXTRACTION PIPELINE}
 
 ---
 

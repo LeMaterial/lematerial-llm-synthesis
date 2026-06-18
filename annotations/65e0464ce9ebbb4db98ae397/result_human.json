@@ -564,24 +564,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "material_extraction_score": 4.75,
+              "material_extraction_reasoning": "Resin loading (0.78 mmol/g) not captured.",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "Ar atmosphere in wrong step (step 10 instead of precipitate step). 20s coupling activation condition lost.",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Ar atmosphere in wrong step (step 10 vs. human step 11). T=25 C added to steps where human has null (justified by paper text but deviates from human schema). 20s activation condition missing.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "synthesis_method 'other' vs human 'wet chemical synthesis'.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Ac2O listed twice as separate starting material entries.",
+              "overall_score": 4.6,
+              "overall_reasoning": "Good extraction. Key issues: Ar atmosphere in wrong step, 20s activation condition lost, resin loading null, method mismatch."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -590,6 +590,60 @@
         {
           "evaluation": {
             "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "3/7 steps have conditions: null (unstructured null instead of null-field object). Minor.",
+              "material_extraction_score": 3.5,
+              "material_extraction_reasoning": "Only 9 of 12 starting materials; major reagents (piperidine, TFA, TIS, DMF, Et2O, DCM) absent from list.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "7 condensed steps lose granularity; missing 20s activation, capping incubation duration, Ar atmosphere.",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Centrifuge absent from all steps and global equipment.",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "Condensed steps drop many per-step conditions (20s activation, Ar atmosphere, capping duration).",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Wrong compound type ('polymers & soft matter' vs 'biomaterials & biological'). Action verb 'filter' instead of 'centrifuge'. Method mismatch.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.1,
+              "overall_reasoning": "Condensed extraction misses many starting materials, drops key conditions, wrong compound type and action verb."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Resin loading (0.78 mmol/g) placed in purity field instead of amount field. Milli-Q water purity set to resistivity '18.2 MΩ cm' (not purity). Otherwise 13 materials with correct vendors.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "Correctly captures 20s activation (step 4) and Ar atmosphere in right step (step 11).",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "T=25 C missing from step 2 deprotection (human has 25 C). All other conditions correct.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "synthesis_method 'other' vs human 'wet chemical synthesis'.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "Resin loading in purity field (should be amount). Milli-Q resistivity value in purity field.",
+              "overall_score": 4.6,
+              "overall_reasoning": "Strong extraction with correct step coverage and Ar placement. Schema errors in purity field (resin loading, Milli-Q resistivity). Method mismatch."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Extraction failed due to Pydantic validation error (pressure field received 'reduced' string instead of a number). No steps or materials were extracted.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -608,61 +662,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -674,89 +674,89 @@
       "material_name": "Fmoc-LIVKHH-NH2",
       "human_recipe": {
         "target_compound": "Fmoc-LIVKHH-NH2",
-        "target_compound_type": "biomaterials & biological",
+        "target_compound_type": null,
         "synthesis_method": "wet chemical synthesis",
         "starting_materials": [
           {
-            "vendor": "Merck",
             "name": "Fmoc rink amide AM resin",
+            "vendor": "Merck",
             "amount": 0.78,
             "unit": "mmol/g",
             "purity": null
           },
           {
-            "vendor": "Iris Biotech",
             "name": "Fmoc protected amino acids",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
             "vendor": "Iris Biotech",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
             "name": "diisopropylethylamine (DIPEA)",
+            "vendor": "Iris Biotech",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Acros-Fischer",
             "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU)",
+            "vendor": "Acros-Fischer",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Fluorochem Limited",
             "name": "trifluoroacetic acid (TFA)",
+            "vendor": "Fluorochem Limited",
             "amount": null,
             "unit": null,
             "purity": "peptide grade"
           },
           {
-            "vendor": "TCI Europe",
             "name": "triisopropylsilane (TIS)",
+            "vendor": "TCI Europe",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Alfa Aesar",
             "name": "piperidine",
+            "vendor": "Alfa Aesar",
             "amount": null,
             "unit": null,
             "purity": "99%"
           },
           {
-            "vendor": "ChemSolute",
             "name": "diethyl ether (Et2O)",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
             "vendor": "ChemSolute",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
             "name": "dichloromethane (DCM)",
+            "vendor": "ChemSolute",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Fischer Chemical",
             "name": "dimethylformamide (DMF)",
+            "vendor": "Fischer Chemical",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Sigma Aldrich",
             "name": "acetic anhydride (Ac2O)",
+            "vendor": "Sigma Aldrich",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Millipore",
             "name": "Milli-Q water",
+            "vendor": "Millipore",
             "amount": null,
             "unit": null,
             "purity": null
@@ -769,15 +769,15 @@
             "description": "Fmoc-rink amide AM resin was weighed out, and the beads were allowed to swell for 1h in DMF.",
             "materials": [
               {
-                "vendor": "Merck",
-                "name": "Fmoc-rink amide AM resin",
-                "amount": 0.78,
-                "unit": "mmol/g",
+                "name": "Fmoc-rink amide AM resin (0.78 mmol/g) [vendor: Merck]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Fischer Chemical",
-                "name": "dimethylformamide (DMF)",
+                "name": "dimethylformamide (DMF) [vendor: Fischer Chemical]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -786,15 +786,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": 1.0,
-              "time_unit": "h",
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -803,15 +803,15 @@
             "description": "Fmoc deprotection was achieved with a mixture of 20% v/v piperidine in DMF, which was added to the resin and left to agitate for 15 min.",
             "materials": [
               {
-                "vendor": "Alfa Aesar",
-                "name": "piperidine",
-                "amount": 20.0,
-                "unit": "v/v",
-                "purity": "99%"
+                "name": "piperidine (20.0 v/v) [vendor: Alfa Aesar] [purity: 99%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "Fischer Chemical",
-                "name": "dimethylformamide (DMF)",
+                "name": "dimethylformamide (DMF) [vendor: Fischer Chemical]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -820,15 +820,15 @@
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": 15.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -837,36 +837,36 @@
             "description": "2 equiv. of HOBt and HBTU were dissolved in DMF and combined. Another 2 equiv. of the initial protected amino acid, pre-dissolved in DMF, were introduced to the mixture, followed by the addition of 2 equiv. of DIPEA to the same solution, allowing 20 seconds for activation.",
             "materials": [
               {
+                "name": "HOBt (2.0 equiv)",
                 "vendor": null,
-                "name": "HOBt",
-                "amount": 2.0,
-                "unit": "equiv",
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Acros-Fischer",
-                "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU)",
-                "amount": 2.0,
-                "unit": "equiv",
+                "name": "2-(1H-benzotriazol-1-yl)-1,1,3,3-tetramethyluronium hexafluorophosphate (HBTU) (2.0 equiv) [vendor: Acros-Fischer]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Iris Biotech",
-                "name": "Fmoc protected amino acids",
-                "amount": 2.0,
-                "unit": "equiv",
+                "name": "Fmoc protected amino acids (2.0 equiv) [vendor: Iris Biotech]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Iris Biotech",
-                "name": "DIPEA",
-                "amount": 2.0,
-                "unit": "equiv",
+                "name": "DIPEA (2.0 equiv) [vendor: Iris Biotech]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Fischer Chemical",
-                "name": "dimethylformamide (DMF)",
+                "name": "dimethylformamide (DMF) [vendor: Fischer Chemical]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -875,15 +875,15 @@
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": 20.0,
-              "time_unit": "s",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "s",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -892,8 +892,8 @@
             "description": "This solution was added to the resin and left to agitate for 45 minutes. The resin was washed with DMF and subjected to a series of deprotection and coupling reactions with the desired amino acids. All the reactions were performed at 25°C, and the couplings were monitored via Kaiser test.",
             "materials": [
               {
-                "vendor": "Fischer Chemical",
-                "name": "dimethylformamide (DMF)",
+                "name": "dimethylformamide (DMF) [vendor: Fischer Chemical]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -902,15 +902,15 @@
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": 45.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -919,22 +919,22 @@
             "description": "After a though washing with DMF, a DMF solution of 12 equiv. of Ac2O and DIPEA was added (capping) to prevent side reactions of the side-groups, and the mixture was incubated for 30 minutes.",
             "materials": [
               {
-                "vendor": "Sigma Aldrich",
-                "name": "Ac2O",
-                "amount": 12.0,
-                "unit": "equiv",
+                "name": "Ac2O (12.0 equiv) [vendor: Sigma Aldrich]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Iris Biotech",
-                "name": "DIPEA",
-                "amount": 12.0,
-                "unit": "equiv",
+                "name": "DIPEA (12.0 equiv) [vendor: Iris Biotech]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Fischer Chemical",
-                "name": "dimethylformamide (DMF)",
+                "name": "dimethylformamide (DMF) [vendor: Fischer Chemical]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -943,15 +943,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": 30.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -960,53 +960,53 @@
             "description": "The resin was subsequently washed with DMF and DCM and allowed to dry before the peptide cleavage step using a mixture of 94% TFA, 3% Milli-Q water and 3% TIS.",
             "materials": [
               {
-                "vendor": "Fischer Chemical",
-                "name": "dimethylformamide (DMF)",
+                "name": "dimethylformamide (DMF) [vendor: Fischer Chemical]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "ChemSolute",
-                "name": "dichloromethane (DCM)",
+                "name": "dichloromethane (DCM) [vendor: ChemSolute]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Fluorochem Limited",
-                "name": "trifluoroacetic acid (TFA)",
-                "amount": 94.0,
-                "unit": "%",
-                "purity": "peptide grade"
-              },
-              {
-                "vendor": "MilliporeSigma",
-                "name": "Milli-Q water",
-                "amount": 3.0,
-                "unit": "%",
+                "name": "trifluoroacetic acid (TFA) (94.0 %) [vendor: Fluorochem Limited] [purity: peptide grade]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": "TCI Europe",
-                "name": "triisopropylsilane (TIS)",
-                "amount": 3.0,
-                "unit": "%",
+                "name": "Milli-Q water (3.0 %) [vendor: MilliporeSigma]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "triisopropylsilane (TIS) (3.0 %) [vendor: TCI Europe]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -1015,8 +1015,8 @@
             "description": "The solvents were reduced under an Ar atmosphere, and Et2O was added to precipitate the peptide. The peptides were isolated through several centrifugations, washed with Et2O, and dried under reduced pressure.",
             "materials": [
               {
-                "vendor": "ChemSolute",
-                "name": "diethyl ether (Et2O)",
+                "name": "diethyl ether (Et2O) [vendor: ChemSolute]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -1025,15 +1025,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "Ar",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -1042,18 +1042,18 @@
             "description": "The peptides were then lyophilized in Milli-Q water with the presence of 0.01% TFA and analyzed by high-performance liquid chromatography system coupled to a mass spectrometer (HPLC-MS, Thermo scientific, Ultimate 3000 HPLC system coupled with maXis UHR-TOF).",
             "materials": [
               {
-                "vendor": "Millipore",
-                "name": "Milli-Q water",
+                "name": "Milli-Q water [vendor: Millipore]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Fluorochem Limited",
-                "name": "trifluoroacetic acid (TFA)",
-                "amount": 0.01,
-                "unit": "%",
-                "purity": "peptide grade"
+                "name": "trifluoroacetic acid (TFA) (0.01 %) [vendor: Fluorochem Limited] [purity: peptide grade]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               }
             ],
             "equipment": [
@@ -1065,30 +1065,33 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
         "equipment": [
           {
             "name": "HPLC-MS",
-            "instrument_vendor": null
+            "instrument_vendor": null,
+            "settings": null
           },
           {
             "name": "ESI-MS",
-            "instrument_vendor": null
+            "instrument_vendor": null,
+            "settings": null
           },
           {
             "name": "centrifuge",
-            "instrument_vendor": null
+            "instrument_vendor": null,
+            "settings": null
           }
         ],
         "notes": "The purity of the desired peptides ranged between 95 and 99%, therefore, no further purification was necessary."
@@ -1098,24 +1101,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 4.75,
+              "material_extraction_reasoning": "Resin loading (0.78 mmol/g) not captured.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Ar atmosphere in wrong step (step 8 'dry' instead of precipitate step). 20s coupling activation missing.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "synthesis_method 'other' vs human 'wet chemical synthesis'.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Strong extraction, correctly captures P2. Resin loading null, Ar in wrong step, 20s activation missing, method mismatch."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1125,24 +1128,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "3/7 steps have conditions: null (unstructured null instead of null-field object). Minor.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "Missing DMF, Et2O, DCM, Milli-Q water from starting materials list.",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "7 condensed steps cover human's 8 adequately. Correctly omits N-terminus acetylation for P2.",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Centrifuge absent from all steps and global equipment.",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Some per-step conditions absent due to condensed representation.",
+              "semantic_accuracy_score": 4.25,
+              "semantic_accuracy_reasoning": "Wrong compound type ('polymers & soft matter' vs 'biomaterials & biological').",
+              "format_compliance_score": 4.5,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Better material coverage than P1 but still missing DMF/Et2O/DCM. Wrong compound type persists."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1152,24 +1155,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Same schema errors as P1: resin loading in purity field, Milli-Q resistivity in purity field.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "synthesis_method 'other' vs human 'wet chemical synthesis'.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "Resin loading in purity field. Milli-Q resistivity value in purity field.",
+              "overall_score": 4.5,
+              "overall_reasoning": "Strong extraction. Correctly captures P2 (no acetylation). Schema errors in purity field. Method mismatch."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1177,26 +1180,26 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Extraction failed due to Pydantic validation error (pressure field received 'reduced' string instead of a number). No steps or materials were extracted.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 0.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 0.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 0.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 0.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 0.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
+              "semantic_accuracy_score": 0.0,
               "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "format_compliance_score": 0.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 0.0,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1208,54 +1211,54 @@
       "material_name": "metallo-hydrogels",
       "human_recipe": {
         "target_compound": "metallo-hydrogels",
-        "target_compound_type": "hybrid & organic-inorganic",
+        "target_compound_type": null,
         "synthesis_method": "wet chemical synthesis",
         "starting_materials": [
           {
-            "vendor": null,
             "name": "Ac-LIVKHH-NH2",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": null,
             "name": "Fmoc-LIVKHH-NH2",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": null,
             "name": "Zn(OAc)2",
+            "vendor": null,
             "amount": 0.5,
             "unit": "equiv",
             "purity": null
           },
           {
-            "vendor": null,
             "name": "NaOH",
+            "vendor": null,
             "amount": 750.0,
             "unit": "mM",
             "purity": null
           },
           {
-            "vendor": "Alfa Aesar",
             "name": "phosphate-buffered saline 10x (PBS)",
+            "vendor": "Alfa Aesar",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "BLD Pharmatech Ltd",
             "name": "2-(N-morpholino)ethanesulfonic acid buffer solution (MES)",
+            "vendor": "BLD Pharmatech Ltd",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Millipore",
             "name": "Milli-Q water",
+            "vendor": "Millipore",
             "amount": null,
             "unit": null,
             "purity": null
@@ -1268,39 +1271,39 @@
             "description": "Pre-weighed peptide powder of P1 and P2 was dissolved in total volume of 1 or 2 mL (depending on the measurement) in Milli-Q water",
             "materials": [
               {
-                "vendor": null,
                 "name": "Ac-LIVKHH-NH2",
-                "amount": null,
-                "unit": null,
-                "purity": null
-              },
-              {
                 "vendor": null,
-                "name": "Fmoc-LIVKHH-NH2",
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Millipore",
-                "name": "Milli-Q water",
+                "name": "Fmoc-LIVKHH-NH2",
+                "vendor": null,
                 "amount": null,
-                "unit": "mL",
+                "unit": null,
+                "purity": null
+              },
+              {
+                "name": "Milli-Q water [vendor: Millipore]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": 7.0,
+              "temp_unit": "C",
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": 7.0
+              "stirring_speed": null
             }
           },
           {
@@ -1309,25 +1312,25 @@
             "description": "0.5 equiv. of Zn(OAc)2 was added to the solution",
             "materials": [
               {
+                "name": "Zn(OAc)2 (0.5 equiv)",
                 "vendor": null,
-                "name": "Zn(OAc)2",
-                "amount": 0.5,
-                "unit": "equiv",
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -1349,15 +1352,15 @@
             ],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": null,
-              "time_unit": "s",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "s",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -1366,25 +1369,25 @@
             "description": "The pH was then adjusted to approximately 7 using 750 mM NaOH solution.",
             "materials": [
               {
+                "name": "NaOH (750.0 mM)",
                 "vendor": null,
-                "name": "NaOH",
-                "amount": 750.0,
-                "unit": "mM",
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": 7.0,
+              "temp_unit": "C",
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": 7.0
+              "stirring_speed": null
             }
           },
           {
@@ -1395,15 +1398,15 @@
             "equipment": [],
             "conditions": {
               "temperature": 25.0,
-              "temp_unit": "C",
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -1413,7 +1416,7 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No extraction for metallo-hydrogels. Claude extracted only P1 (Ac-LIVKHH-NH2) and P2 (Fmoc-LIVKHH-NH2) but not the hydrogel formation step.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -1432,7 +1435,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1440,26 +1443,26 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Fallback: Gemini extracted Zn-C37H62N12O7 and Zn-C50H70N12O8 separately; scored together as combined representation of metallo-hydrogels.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "PBS and MES absent from both entries (5 of 7 SMs present). P1, P2, Zn(OAc)2, NaOH, Milli-Q water all captured with amounts.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "T=25 captured in steps 1 and 5 only; missing in steps 2, 3, 4.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "synthesis_method 'self-assembly' vs 'wet chemical synthesis'.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Fallback: split extraction covers most of the synthesis. PBS and MES missing; T=25 absent in steps 2-4; method mismatch."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1467,7 +1470,7 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No extraction for metallo-hydrogels. Qwen extracted only P1 and P2 peptides but not the hydrogel formation step.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -1486,7 +1489,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -1494,7 +1497,7 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Extraction failed due to Pydantic validation error. No materials extracted.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -1513,7 +1516,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []

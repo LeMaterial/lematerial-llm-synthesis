@@ -10,123 +10,386 @@
   ],
   "materials": [
     {
-      "material_name": "No materials synthesized",
+      "material_name": "CuMoTaWV RHEA film",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
+        "target_compound": "CuMoTaWV",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "magnetron sputtering",
+        "starting_materials": [
+          {
+            "vendor": "Alfa Aesar",
+            "name": "Cu",
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "Mo",
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "vendor": "US Research Nanomaterials, TX",
+            "name": "Ta",
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "vendor": "US Research Nanomaterials, TX",
+            "name": "V",
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "vendor": "US Research Nanomaterials, TX",
+            "name": "W",
+            "amount": null,
+            "unit": null,
+            "purity": "99.9%"
+          },
+          {
+            "vendor": null,
+            "name": "Si3N4 milling balls",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Equimolar powder mixture of Cu (10 um, Alfa Aesar), Mo (3-7 um, Alfa Aesar), Ta (325 mesh, US Research Nanomaterials), V (325 mesh, US Research Nanomaterials), and W (70 nm, US Research Nanomaterials) weighed in argon atmosphere, placed in plastic vials with Si3N4 milling balls in ratio 1:1, and ball milled for 1 hour.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "Cu powder (10 um)",
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "Mo powder (3-7 um)",
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "vendor": "US Research Nanomaterials, TX",
+                "name": "Ta powder (325 mesh)",
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "vendor": "US Research Nanomaterials, TX",
+                "name": "V powder (325 mesh)",
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "vendor": "US Research Nanomaterials, TX",
+                "name": "W powder (70 nm)",
+                "amount": null,
+                "unit": null,
+                "purity": "99.9%"
+              },
+              {
+                "vendor": null,
+                "name": "Si3N4 milling balls",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "ball mill",
+                "instrument_vendor": null,
+                "settings": "1:1 powder to ball ratio, 1 hour"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 1.0,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "heat",
+            "description": "Ball-milled powder fed into 76 mm graphite die with graphite paper, transferred to SPS apparatus. Sintered in vacuum at 1000 C (100 C/min to 800 C, then 50 C/min to 1000 C), soaking time 5 min, furnace cooling. Pressure: 40 MPa up to 900 C, then slowly decreased to 20 MPa up to 1000 C.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "graphite die (76 mm)",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "graphite paper",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "SPS apparatus (Dr. Sinter 2050)",
+                "instrument_vendor": "Sumitomo Coal Mining Co., Ltd., Japan",
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": 1000.0,
+              "temp_unit": "C",
+              "duration": 5.0,
+              "time_unit": "min",
+              "pressure": 40.0,
+              "pressure_unit": "MPa",
+              "atmosphere": "vacuum",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "deposit",
+            "description": "RHEA film deposited by DC-magnetron sputtering in argon atmosphere on Si substrate and 304 stainless steel. Substrate at 500 C, 150W power, 20 sccm gas flow, 8 rpm rotation, 1.16e-3 mPa deposition pressure, 120 min deposition, 7.5 nm/min rate. Target presputtered 5 min before deposition to remove surface oxides.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "CuMoTaWV sputtering target",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "Si substrate",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "304 stainless steel substrate",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "DC-magnetron sputtering system",
+                "instrument_vendor": "Moorfield, London, UK",
+                "settings": "150W, 20 sccm Ar, 8 rpm, 1.16e-3 mPa"
+              }
+            ],
+            "conditions": {
+              "temperature": 500.0,
+              "temp_unit": "C",
+              "duration": 120.0,
+              "time_unit": "min",
+              "pressure": 0.00116,
+              "pressure_unit": "mPa",
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "heat",
+            "description": "RHEA film deposited on 304 stainless steel was annealed at 300 C with a heating rate of 2 C/min in an argon atmosphere to improve adhesion.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": 300.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "ball mill",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "SPS apparatus (Dr. Sinter 2050)",
+            "instrument_vendor": "Sumitomo Coal Mining Co., Ltd., Japan",
+            "settings": null
+          },
+          {
+            "name": "DC-magnetron sputtering system",
+            "instrument_vendor": "Moorfield, London, UK",
+            "settings": null
+          }
+        ],
+        "notes": "This paper describes the synthesis and mechanical characterization of a CuMoTaWV. The synthesis involves two major phases: (1) target preparation, and (2) film deposition."
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM found no materials in this paper, which is a complete extraction failure. The paper has an Experimental Section describing target preparation and film deposition with explicit starting materials, process steps, equipment, and conditions.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No materials, steps, equipment, or conditions.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "Failed to identify any starting materials.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No process steps extracted.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "Complete failure.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "Output of 'No materials found' does not provide any structured synthesis information.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Complete extraction failure. I think the LLM might have read a different paper?"
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All starting materials",
+              "All process steps",
+              "All equipment",
+              "All conditions"
+            ],
+            "extraction_errors": [
+              "Failed to identify any synthesis information."
+            ],
+            "improvement_suggestions": [
+              "Must be able to parse the data correctly."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM found no materials, which is a complete extraction failure.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No synthesis information.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "Failed to identify any starting materials.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No process steps extracted.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "Complete failure to recognize synthesis content.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No structured output produced.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Complete extraction failure on a detailed synthesis paper."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All synthesis information from this paper."
+            ],
+            "extraction_errors": [
+              "Failed to extract any synthesis information."
+            ],
+            "improvement_suggestions": [
+              "Must be able to parse data correctly."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM found no materials. Complete failure.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "No synthesis information extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "Failed to identify any starting materials.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No process steps extracted.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "Complete failure.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "No structured output.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Complete extraction failure."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All synthesis information."
+            ],
+            "extraction_errors": [
+              "Failed to extract any synthesis information."
+            ],
+            "improvement_suggestions": [
+              "Must identify synthesis sections."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "LLM failed and hallucinated completely unrelated materials ",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "Completely wrong materials extracted. None of the actual synthesis info captured.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "Hallucinated entirely wrong target compounds.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No correct process steps.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "Hallucinated completely unrelated materials.",
+              "format_compliance_score": 2.0,
+              "format_compliance_reasoning": "While the JSON structure is valid, the content is entirely wrong.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Failed to extract the actual synthesis and hallucinated completely unrelated materials."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All actual synthesis information about the synthesis recipe."
+            ],
+            "extraction_errors": [
+              "Hallucinated three completely unrelated materials",
+              "Failed to identify the actual target material."
+            ],
+            "improvement_suggestions": [
+              "The LLM must correctly identify the material and the recipe.",
+              "LLM cannot hallucinate unrelated materials."
+            ]
           }
         }
       ]

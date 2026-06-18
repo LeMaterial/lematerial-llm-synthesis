@@ -23,8 +23,8 @@
             "description": "The samples were etched in 1:6 buffered oxide etch for 2 minutes to achieve TiO2 termination.",
             "materials": [
               {
-                "vendor": null,
                 "name": "buffered oxide etch",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -33,15 +33,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": 2.0,
-              "time_unit": "min",
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": "min",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -50,16 +50,16 @@
             "description": "Annealing the samples differently: A at 1025 C in 1:10 O2:Ar for 1 hr, B at 950 C in 1:10 O2:Ar for 1 hr, C no anneal. Only sample A is mentioned below.",
             "materials": [
               {
+                "name": "O2 (1.0 )",
                 "vendor": null,
-                "name": "O2",
-                "amount": 1.0,
+                "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
+                "name": "Ar (10.0 )",
                 "vendor": null,
-                "name": "Ar",
-                "amount": 10.0,
+                "amount": null,
                 "unit": null,
                 "purity": null
               }
@@ -67,15 +67,15 @@
             "equipment": [],
             "conditions": {
               "temperature": 1025.0,
-              "temp_unit": "C",
               "duration": 1.0,
-              "time_unit": "h",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "1:10 O2:Ar",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -91,26 +91,26 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No extraction produced.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 0.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 0.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 0.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 0.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 0.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 0.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 0.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 0.0,
+              "overall_reasoning": "No extraction produced."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -120,24 +120,54 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "Analytical equipment extracted (Pilatus detector with hallucinated vendor DECTRIS, Si(111) monochromator) but not synthesis-relevant; noted below.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Action \"wash\" used instead of \"etch\" for the BOE step (0.25); synthesis_method \"other\" vs \"wet chemical synthesis\" (0.25).",
+              "format_compliance_score": 4.75,
+              "format_compliance_reasoning": "unit set to \"ratio\" for BOE and gas materials is a non-standard unit string.",
+              "overall_score": 4.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
+            "missing_information": [
+              "Analytical equipment extracted but not synthesis-relevant: Pilatus 100k area detector (hallucinated vendor DECTRIS)",
+              "Analytical equipment extracted but not synthesis-relevant: double crystal Si(111) monochromator"
+            ],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No extraction produced.",
+            "scores": {
+              "structural_completeness_score": 0.0,
+              "structural_completeness_reasoning": "No extraction produced.",
+              "material_extraction_score": 0.0,
+              "material_extraction_reasoning": "No extraction produced.",
+              "process_steps_score": 0.0,
+              "process_steps_reasoning": "No extraction produced.",
+              "equipment_extraction_score": 0.0,
+              "equipment_extraction_reasoning": "No extraction produced.",
+              "conditions_extraction_score": 0.0,
+              "conditions_extraction_reasoning": "No extraction produced.",
+              "semantic_accuracy_score": 0.0,
+              "semantic_accuracy_reasoning": "No extraction produced.",
+              "format_compliance_score": 0.0,
+              "format_compliance_reasoning": "No extraction produced.",
+              "overall_score": 0.0,
+              "overall_reasoning": "No extraction produced."
+            },
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -147,51 +177,24 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
               "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_reasoning": "No synthesis equipment in extraction; only characterization equipment present in recipe.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.75,
+              "semantic_accuracy_reasoning": "synthesis_method \"other\" vs \"wet chemical synthesis\".",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
+              "overall_score": 4.75,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []

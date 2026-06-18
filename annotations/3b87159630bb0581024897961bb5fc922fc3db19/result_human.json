@@ -17,43 +17,43 @@
         "synthesis_method": "CVD",
         "starting_materials": [
           {
-            "vendor": "China New Metal Materials Technology Company Limited",
             "name": "Boron",
+            "vendor": "China New Metal Materials Technology Company Limited",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Sinopharm Chemical Reagent Company Limited",
             "name": "MgO",
+            "vendor": "Sinopharm Chemical Reagent Company Limited",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Sigma-Aldrich",
             "name": "MgB2",
+            "vendor": "Sigma-Aldrich",
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": "Linde Gas (China) Company Limited",
             "name": "Ar",
-            "amount": null,
-            "unit": null,
-            "purity": "99.999%"
-          },
-          {
             "vendor": "Linde Gas (China) Company Limited",
-            "name": "NH3",
             "amount": null,
             "unit": null,
             "purity": "99.999%"
           },
           {
-            "vendor": null,
+            "name": "NH3",
+            "vendor": "Linde Gas (China) Company Limited",
+            "amount": null,
+            "unit": null,
+            "purity": "99.999%"
+          },
+          {
             "name": "Si/SiO2 substrate",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
@@ -66,32 +66,32 @@
             "description": "Weigh and grind B and MgO.",
             "materials": [
               {
+                "name": "Boron (2.0 equiv)",
                 "vendor": null,
-                "name": "Boron",
-                "amount": 2.0,
-                "unit": "equiv",
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
+                "name": "MgO (1.0 equiv)",
                 "vendor": null,
-                "name": "MgO",
-                "amount": 1.0,
-                "unit": "equiv",
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -100,32 +100,32 @@
             "description": "Weigh and mix MgB2 with the previously obtained B/MgO powder to form the precursor.",
             "materials": [
               {
-                "vendor": "Sigma-Aldrich",
-                "name": "MgB2",
-                "amount": 1.5,
-                "unit": "equiv",
+                "name": "MgB2 (1.5 equiv) [vendor: Sigma-Aldrich]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
+                "name": "B/MgO powder (1.0 equiv)",
                 "vendor": null,
-                "name": "B/MgO powder",
-                "amount": 1.0,
-                "unit": "equiv",
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -134,25 +134,25 @@
             "description": "Place the alumina boat containing the precursor and a piece of clean Si/SiO2 substrate in the center of the tube.",
             "materials": [
               {
+                "name": "B/MgO/MgB2 (140.0 mg)",
                 "vendor": null,
-                "name": "B/MgO/MgB2",
-                "amount": 140.0,
-                "unit": "mg",
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "Si/SiO2 substrate",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Linde Gas (China) Company Limited",
-                "name": "NH3",
+                "name": "NH3 [vendor: Linde Gas (China) Company Limited] [purity: 99.999%]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
-                "purity": "99.999%"
+                "purity": null
               }
             ],
             "equipment": [
@@ -169,15 +169,15 @@
             ],
             "conditions": {
               "temperature": 1400.0,
-              "temp_unit": "C",
               "duration": 2.0,
-              "time_unit": "h",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "C",
+              "time_unit": "h",
               "pressure_unit": null,
               "atmosphere": "NH3",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -186,25 +186,25 @@
             "description": "Cool the system naturally to room temperature in Ar.",
             "materials": [
               {
-                "vendor": "Linde Gas (China) Company Limited",
-                "name": "Ar",
+                "name": "Ar [vendor: Linde Gas (China) Company Limited] [purity: 99.999%]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
-                "purity": "99.999%"
+                "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": 298.15,
-              "temp_unit": "K",
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": "K",
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "Ar",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -225,26 +225,26 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "5 steps, extra 'add' for furnace loading. All 6 materials correct with vendors/purities. 1400C/2h/NH3/Ar all correct. Excellent mechanistic notes about VLS mechanism and purification.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
+              "semantic_accuracy_score": 5.0,
               "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 5.0,
+              "overall_reasoning": "Excellent extraction. All synthesis info captured accurately."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -252,82 +252,94 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "4 steps matching human recipe. Wrong target_compound_type ('two-dimensional materials', BNNTs are 1D). Missing Si/SiO2 substrate. 140mg misattributed to B/MgO powder. 25C inferred for room temp. Steps 1-2 have null conditions objects.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "Steps 1 and 2 have null conditions objects instead of populated schema objects.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Missing Si/SiO2 substrate. 140mg assigned to B/MgO instead of total precursor.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Missing alumina boat.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Wrong compound type: 'two-dimensional materials' for 1D nanotubes.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Deducted for wrong compound type (2D vs 1D) and missing substrate/boat."
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "Si/SiO2 substrate",
+              "alumina boat"
+            ],
+            "extraction_errors": [
+              "target_compound_type 'two-dimensional materials' -- BNNTs are 1D nanotubes",
+              "140mg attributed to B/MgO powder instead of total precursor"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "5 steps with separate loading step. Most complete equipment list (furnace+tube+boat). Si/SiO2 substrate missing from starting materials. 1400C/2h/NH3/Ar all correct. 140mg and molar ratios in descriptions.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Si/SiO2 substrate missing from starting materials.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Si/SiO2 substrate missing from starting materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Si/SiO2 substrate as starting material"
+            ],
             "extraction_errors": [],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "4 steps matching human recipe. MgB2 purity null and Si/SiO2 missing. Steps 1-2 have null conditions objects. Clean extraction with VLS mechanism noted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "Steps 1 and 2 have null conditions objects instead of populated schema objects.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": " MgB2 purity null, paper says all analytical grade. Missing Si/SiO2 substrate.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
+              "semantic_accuracy_score": 5.0,
               "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 5.0,
+              "overall_reasoning": "Clean, accurate extraction. MgB2 purity gap is minor."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "Si/SiO2 substrate as starting material"
+            ],
+            "extraction_errors": [
+              "MgB2 purity null, but the paper states all chemicals are analytical grade"
+            ],
             "improvement_suggestions": []
           }
         }

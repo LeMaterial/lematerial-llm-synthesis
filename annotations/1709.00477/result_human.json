@@ -23,7 +23,7 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No synthesis in this paper; extractor correctly returned no materials.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -42,7 +42,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -50,7 +50,39 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Ambiguous case: paper is a mechanics study on floating elastic sheet indentation; PDMS preparation (spreading Sylgard 184 + curing 1 week at 40-45 C) described in Section 3.1 is sample fabrication for physical experiments. Extractor found real procedural content - steps, conditions, and starting material are accurately extracted from the text. PI and PC sheets correctly identified as commercially sourced. Duplicate PDMS entry present. The boundary between sample preparation and material synthesis is genuinely unclear here.",
+            "scores": {
+              "structural_completeness_score": 4.25,
+              "structural_completeness_reasoning": "Duplicate PDMS entry; PI and PC entries appropriately minimal for commercial materials.",
+              "material_extraction_score": 4.25,
+              "material_extraction_reasoning": "Sylgard 184 (Dow Corning, UK) correctly extracted; PI/PC correctly identified as commercial with no synthesis amounts.",
+              "process_steps_score": 4.25,
+              "process_steps_reasoning": "PDMS spreading and curing steps match the paper; PVS spin-coating absent.",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Instron 3345 is characterization equipment, not synthesis equipment; levelled table correctly captured.",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Curing temperature (42.5 C as midpoint of 40-45 C range) and duration (1 week) correctly extracted.",
+              "semantic_accuracy_score": 3.25,
+              "semantic_accuracy_reasoning": "Extractor framed sample preparation as material synthesis; action 'mix' for spreading is imprecise.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.0,
+              "overall_reasoning": "Extraction is factually accurate to the text; content found is real sample prep. Ambiguous case - PDMS curing could reasonably be considered preparation rather than synthesis. Not penalized for finding real content."
+            },
+            "confidence_level": 1,
+            "missing_information": [
+              "Paper is a mechanics/physics study; PDMS preparation is experimental sample fabrication, not a primary synthesis target",
+              "Ambiguous case: sample preparation vs. material synthesis boundary is context-dependent",
+              "Duplicate PDMS material entry in extraction",
+              "PVS spin-coating (Elite 8 Double and Elite 22 Double, Zhermack) absent from extraction"
+            ],
+            "extraction_errors": [],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "No synthesis in this paper; extractor correctly returned no materials.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -69,7 +101,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -77,7 +109,7 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No synthesis in this paper; extractor correctly returned no materials.",
             "scores": {
               "structural_completeness_score": null,
               "structural_completeness_reasoning": "",
@@ -96,34 +128,7 @@
               "overall_score": null,
               "overall_reasoning": ""
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []

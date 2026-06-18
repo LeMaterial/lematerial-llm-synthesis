@@ -109,7 +109,7 @@
             "conditions": {
               "temperature": null,
               "temp_unit": null,
-              "duration": 5.0,
+              "durations": [5.0, 10.0, 15.0],
               "time_unit": "h",
               "pressure": null,
               "pressure_unit": null,
@@ -161,232 +161,159 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extracted ontology captures the essential synthesis information for the fluorapatite-titania (FAp-TiO2) nanocomposite with good overall accuracy. The target compound, fluorapatite, is correctly identified, and all four precursor materials are included with the appropriate vendor information and purity specifications. In addition, the three principal synthesis stages (mixing, mechanical activation, and annealing) are represented in the correct logical order. Critical processing parameters are also extracted accurately, including the milling speed (600 rpm), ball-to-powder ratio (20:1), TiO2 content (20 wt%), annealing temperature (700 °C), annealing time (2 h), and heating rate (10 °C/min). The ontology also appropriately leaves the individual reagent amounts unspecified, since the source text reports only the total powder mass (6 g) rather than the mass of each precursor. Some minor issues exist: the milling duration in step 2 is set to 15 h (the maximum), but the paper describes three milling durations (5 h, 10 h, 15 h); the total powder mass of 6 g is not captured; the quartz boat is listed as equipment in the annealing step but is more of a sample holder than a furnace. Finally, characterization instruments are not included, but this omission is acceptable given that these instruments relate to post-synthesis characterization rather than the synthesis workflow. Overall, the extracted ontology is accurate and well-structured, with only minor omissions and simplifications that do not substantially affect its overall quality.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "All major synthesis components are captured correctly, will all relevant details present. A minor gap is the duration in the milling step conditions field, which only lists 15 h and misses the other two milling durations (5, 10, 15 h) in parallel. Though this is partially addressed in the notes, the durations could also be captured more clearly as separate condition variants. Characterization equipment is omitted appropriately from the synthesis procedure.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "All four starting materials are identified correctly, including (individual) amounts with appropriate units. Vendors and purities are assigned accurately. All metrics and values for the synthesis are present in the description, with no hallucinations occuring.",
+              "process_steps_score": 4.5,
+              "process_steps_reasoning": "All three process steps are sequenced logically and described accurately. The action classifications (mix, mix, anneal) are reasonable, though for step 2, 'ball milling' or 'mechanical activation' would be more precise for than 'mix'. The process descriptions are complete and capture all relevant information.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "All required synthesis equipment items are correctly identified. Characterization instruments are appropriately excluded from the synthesis equipment list.",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "As mentioned above, the milling step duration is set to 15 h in the conditions field, which omits the other two variants in duration (5, 10, 15 h). These conditions are mentioned in the description but not formally represented as separate condition sets. Since the milling is carried out at 'room temperature', the 'temperature' is set to 25°C. While the 25°C is not stated explicitly in the source, this is a reasonable inference and not a significant error.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "Throughout the extraction process, the scientific meaning and intent of the synthesis procedure are properly preserved in all steps. No scientific misinterpretations or semantic distortions are present. The target compound type 'nanomaterials' is appropriate.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema. All required fields (inside 'materials', 'equipment', 'conditions') are filled in appropriately. The extraction schema was applied consistently across all synthesis steps.",
+              "overall_score": 4.8,
+              "overall_reasoning": "The extracted ontology for the fluorapatite-titania nanocomposite synthesis fully covers the synthesis information from the source text. All four starting materials are identified correctly. The synthesis conditions are both accurate and complete. The synthesis equipment is listed correctly with all relevant settings. In case of absent information, null values are inserted properly, with no hallucination occuring. Minor suggestions include representing all three milling durations (5, 10, 15 h) as separate condition variants as well as precisely capturing each synthesis step (mechanical activation) in its action label (e.g. 'mechanical activation' instead of 'mill'). Overall, the synthesis extraction is correct and complete, the information well-structured and accessable."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The three milling durations (5 h, 10 h, 15 h) are mentioned in the description, but only the maximum (15 h) is represented as a condition in the process steps.",
+              "The heating rate (10°C/min) is captured in the equipment settings for the quartz boat furnace but could also be explicitly included in the annealing step conditions field."
+            ],
+            "extraction_errors": [
+              "Step 2 action is labeled 'mix' but could rather be labelled 'ball milling' or 'mechanical activation' to better reflect the mechanical activation procedure.",
+              "The milling step conditions field should acknowledge all three experimental variants (5 h, 10 h, 15 h) as separate conditions or a range."
+            ],
+            "improvement_suggestions": [
+              "Change the action label for step 2 from 'mix' to 'ball milling' or 'mechanical activation'",
+              "Consider representing the three milling durations (5 h, 10 h, 15 h) as separate sub-steps or parallel condition sets.",
+              "Include the heating rate (10°C/min) as a dedicated field in the annealing step conditions."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extracted ontology captures the core synthesis procedure for fluorapatite-titania (FAp-TiO2) nanocomposite nanopowders with good overall fidelity. The target compound (fluorapatite) is correctly identified and all four precursor materials are included with the correct vendor attributions and purity grades. However, these details are only preserved within the starting materials section and are not reflected in the first synthesis step. The three main synthesis stages (mixing, mechanical activation, and annealing) are otherwise represented in the correct logical sequence. The extraction also captures the key synthesis parameters accurately, including the milling speed (600 rpm), ball-to-powder ratio (20:1), TiO2 content (20 wt%), annealing temperature (700 °C), annealing duration (2 h), and heating rate (10 °C/min). The individual reagent quantities are appropriately left unspecified. A few minor issues remain: The milling duration in the mechanical activation step is recorded as 15 h, whereas the source describes three milling durations (5 h, 10 h, and 15 h) so the extraction reflects only the maximum value rather than the full experimental range. The total powder mass of 6 g is also omitted. In addition, the Quartz boat furnace is not mentioned as equipment in the annealing step, although it serves an essential purpose here. Finally, characterization instruments are left out, which is reasonable as these tools are associated with material characterization rather than the synthesis procedure itself. Overall, the extracted ontology is accurate and logically structured, with only minor omissions that do not significantly affect the overall quality of the extraction",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 3.5,
+              "structural_completeness_reasoning": "The extraction captures the four starting materials, the three main synthesis stages (mixing, mechanical activation, and annealing), and the primary synthesis equipment. The target compound and overall synthesis method are correctly identified, providing a solid structural representation of the workflow. However, some structural details are missing or simplified. The total powder mass of 6 g reported in the source is not represented in the ontology. In addition, the three milling durations (5 h, 10 h, and 15 h) are reduced to a single value of 15 h, which removes the comparative experimental design described in the original procedure. The heating rate of 10 °C/min is only mentioned in the notes rather than encoded as a formal annealing condition. Furthermore, the annealing equipment description does not explicitly capture the heating furnace, while the quartz boat is treated as the main equipment item although it is only a sample holder. Overall, the ontology structure is well organized but does not fully preserve all experimental details.",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "The extraction identifies all four precursor materials (CaHPO4, Ca(OH)2, CaF2, and TiO2) correctly, including the appropriate vendor attributions and purity specifications. The TiO2 proportion of 20 wt% is accurately represented in the mixing step, and the Ca/P molar ratio of 1.67 is correctly reflected in the process description. The target compound Ca10(PO4)6F2 is also accurately identified. Since the source does not specify the individual precursor masses, leaving the material quantities as null is appropriate. However, the source does provide the total powder mass of 6 g, and this value is omitted from the extraction. This is the main limitation in an otherwise accurate material representation.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "The synthesis workflow is represented in the correct order, with mixing, mechanical activation, and annealing logically sequenced. The descriptions of each step are technically accurate and provide the key operational details. However, there are several limitations in how the steps are encoded. The mechanical activation stage is labeled generically as 'mix' rather than as 'ball milling' or 'mechanical activation,' reducing semantic precision. More importantly, the ontology captures only a single milling duration of 15 h, whereas the source describes three separate milling durations (5 h, 10 h, and 15 h), which are central to the experimental design. The heating rate of 10 °C/min is also relegated to the notes instead of being defined as an explicit annealing condition. Despite these issues, the core synthesis sequence remains accurate.",
+              "equipment_extraction_score": 4.0,
+              "equipment_extraction_reasoning": "The primary synthesis equipment is extracted accurately, including the high-energy planetary ball mill, polyamide-6 milling vials, zirconia balls, the milling speed of 600 rpm, and the ball-to-powder ratio of 20:1. These details capture the essential mechanochemical setup well. The quartz boat used during annealing is also identified, consistent with the source description. However, the extraction presents the quartz boat as the main annealing equipment even though it is only a sample holder. The actual heating device, such as the furnace used for annealing, is not represented, although it is only implied in the source and not explicitly named. Overall, the major synthesis equipment is represented accurately, with only minor ambiguity in the annealing apparatus.",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "The key synthesis conditions are captured well, including milling at room temperature in air, annealing at 700 °C for 2 h, the rotational speed of 600 rpm, the ball-to-powder ratio of 20:1, and the TiO2 content of 20 wt%. The note indicating that no process control agent was used is also preserved correctly. The heating rate of 10 °C/min is mentioned, but only in the notes rather than as a formal condition in the annealing step, which limits structural completeness. Additionally, the extraction records only the 15 h milling condition and omits the 5 h and 10 h variants reported in the source. The total powder mass of 6 g is also absent. Despite these omissions, the main experimental conditions are represented with good accuracy.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "The scientific meaning of the synthesis procedure is preserved accurately. The mechanochemical synthesis route is correctly interpreted as a ball milling/mechanical activation process followed by annealing, and the stoichiometric Ca/P ratio of 1.67 is represented correctly. The extraction also correctly reflects the composite nature of the final material as fluorapatite combined with TiO2 rather than pure fluorapatite. Important procedural details, such as the absence of a process control agent and the role of annealing in restoring crystallinity, are also conveyed properly. No major semantic distortions or incorrect inferences are present, and the extracted representation remains faithful to the source procedure.",
+              "format_compliance_score": 5.0,"format_compliance_reasoning": "The extracted synthesis description follows the GeneralSynthesisOntology schema correctly. Required fields are populated consistently, and fields are appropriately left null where source information is unavailable. Numerical values are represented with the correct data types, step ordering is sequential, and the schema structure is maintained throughout. Equipment and processing notes are incorporated in the expected fields, and the target compound classification as 'nanomaterials' is suitable. The formatting is therefore fully compliant with the ontology requirements.",
+              "overall_score": 4.2,
+              "overall_reasoning": "The extraction of the FAp-TiO₂ nanocomposite synthesis ontology is of good overall quality, with accurate identification of the starting materials, synthesis method, and key process parameters. All four precursor materials are correctly extracted, including the associated vendor information and purity specifications. The synthesis workflow is also represented in a clear and logical three-step sequence—mixing, mechanical activation, and annealing—with the essential experimental conditions preserved. Important synthesis parameters are captured accurately, including the milling speed (600 rpm), ball-to-powder ratio (20:1), TiO₂ content (20 wt%), annealing temperature (700 °C), annealing duration (2 h), and heating rate (10 °C/min). This indicates that the extraction successfully preserves the critical operational details needed to reproduce the synthesis process. The main limitations are related to the level of procedural detail retained in the ontology. The three milling durations reported in the source (5 h, 10 h, and 15 h) are reduced to a single value of 15 h, which removes part of the comparative experimental design. The total powder mass of 6 g is also omitted, despite being explicitly reported in the source text. In addition, the heating rate is stored in the notes field rather than represented as a formal annealing condition, reducing structural precision. The milling step is also labeled with the generic action term mix, whereas a more specific label such as ball milling or mechanical activation would more accurately reflect the synthesis operation. Despite these limitations, the extraction remains consistent the source text, preserves the scientific meaning of the synthesis procedure, and introduces no hallucinated information. Missing values are handled appropriately, and the ontology captures the essential synthesis workflow with strong overall fidelity."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "Total powder mass of 6 g (although it was explicitly stated in source)",
+              "All three milling duration variants (5 h, 10 h, 15 h) as separate experimental conditions or step variants",
+              "Heating rate (10°C/min) is mentioned only in the notes, but not as a formal condition in the annealing step",
+              "the quartz boat oven is not listed as equipment in the annealing step"
+            ],
+            "extraction_errors": [
+              "Step 2 milling duration is set to 15 h only, but the paper describes three experimental variants: 5 h, 10 h, and 15 h — this loses the comparative experimental design central to the study",
+              "Step 2 action is classified as 'mix' rather than a more specific 'ball milling' or 'mechanical activation', which is semantically imprecise",
+              "Heating rate of 10°C/min is placed in notes rather than as a formal condition in the annealing step"
+            ],
+            "improvement_suggestions": [
+              "Represent the three milling duration variants (5 h, 10 h, 15 h) as separate process steps or as a parameterized step to capture the comparative experimental design",
+              "Change the action for step 2 from 'mix' to 'ball milling' or 'mechanical activation' to better reflect the mechanochemical nature of the process",
+              "Add the total powder mass (6 g) as a condition or note in the milling step",
+              "Move the heating rate (10°C/min) from notes to a formal condition field in the annealing step",
+              "List the quartz boat oven as equipment in the annealing step"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extracted ontology captures the core synthesis procedure for fluorapatite-titania (FAp-TiO2) composite nanopowders with good overall fidelity. The target compound, Ca10(PO4)6F2, is correctly identified, along with the synthesis method based on ball milling/mechanical activation. All four starting materials are extracted accurately with their associated vendors, and the stoichiometric ratio, milling parameters, and annealing conditions are all represented correctly. The synthesis workflow is structured logically into the three main stages (mixing, mechanical activation, and annealing), which aligns well with the experimental procedure described in the source. The extraction also captures the main synthesis equipment effectively, including the planetary ball mill, polyamide-6 vials, zirconia balls, quartz boat, and furnace. Key operational parameters such as milling speed, annealing temperature, annealing duration, atmosphere, and heating rate are represented accurately, preserving the essential experimental conditions needed to describe the synthesis route.Only minor issues are present: The mechanical activation step is labeled with the generic action mix, whereas a more precise term would better reflect the actual process. In addition, the milling duration is left unspecified, even though the source reports three experimental durations (5 h, 10 h, and 15 h) so the ontology does not fully preserve the range of milling conditions explored. The purity values for Ca(OH)2 and CaF2 are also not explicitly represented, which is a minor omission given that the source text only refers to them broadly as 'analytical grade'. The omission of characterization equipment is appropriate. Overall, the extracted ontology is accurate, well-structured, and preserves the essential synthesis information with only minor gaps in process specificity and material detail.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "The extraction captures all major structural components of the synthesis procedure, including the four starting materials with vendor information, the three sequential synthesis steps, the relevant equipment, and the key synthesis conditions. The target compound, synthesis method, and supplementary notes are all represented, providing a comprehensive structural overview of the process. Important details such as the ball-to-powder ratio (20:1), total powder mass (6 g), and the absence of PCA are preserved in the notes section. The main structural limitation is that the three milling durations (5 h, 10 h, and 15 h) are not explicitly encoded as step conditions, even though they are referenced in the notes. Nevertheless, the extraction maintains excellent structural completeness and accurately reflects the synthesis workflow.",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "All four precursor materials are identified correctly: CaHPO4, Ca(OH)2, CaF2, and TiO2, along with the available vendor information. The TiO2 content of 20 wt% is captured accurately, and the Ca/P stoichiometric ratio of 1.67 is reflected in the synthesis description. Since the source does not provide individual precursor masses, leaving those quantities as null is appropriate, while the total powder mass of 6 g is still preserved in the notes. The purity information is partially represented; while CaHPO4 is identified as analytical grade, the purities of the other reagents are left null, which is acceptable given that the source does not clearly specify whether the analytical grade designation applies to all reagents. Overall, the material extraction is accurate, with only minor incompleteness in purity attribution.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "The three-step synthesis sequence—mixing, mechanical activation, and annealing—is represented in the correct order and aligns well with the experimental workflow described in the source. The mixing and annealing steps are detailed clearly, with accurate descriptions and conditions. However, the second step is labeled generically as 'mix' rather than with a more precise action such as 'ball milling' or 'mechanical activation', which reduces semantic specificity. Additionally, the milling duration is left null in the step conditions despite the source specifying three durations (5 h, 10 h, and 15 h). While the notes mention these variants, the absence of explicit step-level encoding limits the completeness of the process representation. The annealing step, however, captures the thermal treatment conditions accurately.",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "The extraction captures all synthesis-relevant equipment described in the source, including the high-energy planetary ball mill, polyamide-6 vials, zirconia balls, quartz boat, and furnace. Operational settings such as the milling speed of 600 rpm are also represented accurately. The quartz boat and furnace are both included in the annealing step, appropriately reflecting the annealing setup. Equipment vendors are correctly left unspecified because the source does not provide that information. The exclusion of characterization equipment is appropriate, since those tools are not part of the synthesis process itself. Overall, the equipment extraction is complete and accurate.",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "The key synthesis conditions are represented accurately, including room-temperature milling, air atmosphere, 600 rpm rotational speed, 700 °C annealing temperature, 2 h annealing duration, atmospheric pressure, and a heating rate of 10 °C/min. These conditions preserve the essential operating parameters of the synthesis process. The main omission is that the milling duration remains unspecified in the formal step conditions, despite the source defining 5 h, 10 h, and 15 h milling variants. This information is partially preserved in the notes but not structured as a process condition. Aside from this omission, the extraction captures the synthesis conditions with good fidelity.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "The extraction preserves the scientific meaning of the synthesis procedure accurately. The mechanochemical synthesis route, the incorporation of TiO2 at 20 wt%, the stoichiometric Ca/P ratio for fluorapatite formation, and the annealing treatment to improve crystallinity are all represented correctly. The notes section effectively captures important contextual details such as the absence of PCA and the use of multiple milling durations. The use of 'ball milling' as the synthesis method is scientifically accurate, even if the source also refers to the process as mechanical activation. The extraction therefore maintains strong semantic fidelity, with only minor simplifications in process terminology.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "The extraction adheres well to the expected ontology schema, with all required fields populated or appropriately set to null where source data is unavailable. Numerical values, strings, and structured arrays are used consistently, and the synthesis steps are organized in the correct format. Equipment is represented both globally and at the step level, and the notes field is used appropriately for supplementary details. Minor issues include slight formatting simplifications, such as using generic action labels in the milling step and representing some conditions in the notes instead of as explicit structured fields. Despite these small issues, the format compliance is strong overall.",
+              "overall_score": 4.3,
+              "overall_reasoning": "The extracted ontology for Ca10(PO4)6F2 (fluorapatite-titania composite) synthesis is of high overall quality and accurately represents the mechanochemical synthesis procedure described in the source text. One of its main strengths is the complete identification of all four precursor materials, including the correct vendor information and the TiO2 weight percentage. The extraction also preserves the three-step synthesis workflow clearly, maintaining the correct sequence of mixing, mechanical activation, and annealing. In addition, the synthesis equipment is comprehensively represented, with the relevant operational settings captured accurately. The annealing conditions (700 °C for 2 h in air with a heating rate of 10 °C/min) are also extracted correctly, and the notes section is well used to retain important contextual synthesis details. The main limitations are relatively minor and concern the precision of process labeling and condition structuring. The mechanical activation step is labeled as 'mix', whereas a more specific action such as 'ball milling' or 'mechanical activation' would more accurate. In addition, the milling duration is not represented in the formal step conditions, even though the source specifies multiple milling durations as part of the experimental design. Although this information is retained in the notes, its absence from the structured conditions reduces procedural completeness. There are also minor formatting inconsistencies, such as the representation of temperature units, but these do not affect the scientific interpretation of the synthesis process. Importantly, the extraction handles missing information appropriately by leaving unspecified values (such as individual precursor masses or equipment model details) as null rather than inferring unsupported values. This preserves the reliability of the extracted ontology and avoids the introduction of hallucinated data. Overall, the extraction is accurate, structurally sound, and consistent to the source procedure, with only minor refinements needed to improve process specificity and formatting consistency."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "None of the milling duration variants (5 h, 10 h, 15 h) not explicitly captured in step conditions",
+              "Ball-to-powder ratio (BPR = 20:1) not captured in step conditions (only in notes)"
+            ],
+            "extraction_errors": [
+              "Step 2 action is labeled 'mix' instead of a more accurate term like 'ball milling' or 'mechanical activation', which misrepresents the nature of the high-energy ball milling process",
+              "Milling duration (5 h, 10 h, 15 h) is not captured in the step 2 conditions duration field, though it is mentioned in the notes"
+            ],
+            "improvement_suggestions": [
+              "Change step 2 action from 'mix' to 'ball milling' or 'mechanical activation' to accurately reflect the high-energy ball milling process",
+              "Add milling duration to step 2 conditions, or create separate step entries for each milling duration variant (5 h, 10 h, 15 h)",
+              "Include ball-to-powder ratio (BPR = 20:1) as a condition parameter in the milling step",
+              "Use '°C' instead of 'C' for temperature units for better format compliance"
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extracted ontology for Ca10(PO4)6F2 (fluorapatite-titania composite) synthesis is of high overall quality and provides an accurate representation of the mechanochemical synthesis procedure described in the source text. A major strength of the extraction is the complete identification of all four precursor materials, including the correct vendor information and TiO2 weight percentage. The ontology also preserves the three-step synthesis workflow clearly, maintaining the correct sequence of mixing, mechanical activation, and annealing. Furthermore, the synthesis equipment is comprehensively captured, with the relevant operational settings represented accurately. The annealing conditions (temperature, duration, atmosphere, and heating rate) are also correctly included, and the notes section effectively retains important contextual details related to the synthesis process. The remaining limitations are relatively minor and mainly concern process specificity and structural precision. For example, the mechanical activation step is labeled as 'mix', whereas a more precise action such as 'ball milling' or 'mechanical activation' would better reflect the actual operation. In addition, the milling duration is not formally encoded in the step conditions, even though the source specifies multiple milling durations as part of the experimental design. While this information is retained in the notes, its omission from the structured conditions slightly reduces procedural completeness. There are also small formatting inconsistencies, such as the way temperature units are represented, but these do not affect the scientific meaning of the extraction. Importantly, the ontology handles missing information appropriately by leaving unspecified values (such as individual precursor masses or equipment model details) as null rather than introducing unsupported assumptions. This strengthens the reliability of the extraction and ensures fidelity to the source text. Overall, the ontology is accurate and well-structured, requiring only minor refinements to improve the specificity of process labels and the completeness of structured condition fields.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "The extraction captures all three major synthesis stages: mixing, mechanical activation (ball milling), and annealing. The starting materials are all identified, with vendor information and purity values included where stated. Key process parameters, including the ball-to-powder ratio, vial volume, ball diameter, rotational speed, total powder mass, milling atmosphere, annealing temperature, duration, and heating rate, are captured either in the structured conditions or in the notes section. The Ca/P mole ratio and the absence of PCA are also noted, helping preserve the important synthesis details from the source text. The only minor gaps are that the purity for calcium hydroxide is not captured even though 'analytical grade' is stated in the source, and the TiO2 amount in the starting_materials list includes the unit 'wt%' but does not include the numeric value of 20.0; although this value is correctly captured in step 1. These are minor omissions that do not significantly affect the quality of the extraction. The characterization equipment is appropriately omitted, since it is not part of the synthesis procedure.",
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "The three-step process (mix, mechanically activate, anneal) is correctly sequenced and described. Step 1 (mixing) is well described, including all starting materials and the 20 wt% TiO2 proportion. Step 3 (annealing) also correctly captures the annealing temperature (700 °C), duration (2 h), atmospheric pressure, and air atmosphere. The main issue lies in Step 2, which is labeled as 'mix' rather than a more appropriate action such as 'ball milling' or 'mechanical activation'. This is a semantic classification issue, since the step involves mechanical activation through ball milling rather than simple mixing. The milling conditions, including room temperature, air atmosphere, and a 15 h duration, are captured, and using 15 h as a representative value is reasonable given that multiple milling durations were studied. The heating rate (10 °C/min) is also correctly included in the notes field.",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "The three-step process (mix, mechanically activate, anneal) is correctly sequenced and described. Step 1 (mixing) is well described, including all starting materials and the 20 wt% TiO2 proportion. Step 3 (annealing) correctly captures 700°C, 2 h, atmospheric pressure, and air atmosphere. The main issue is that Step 2 is labeled 'mix' rather than a more appropriate action such as 'mill' or 'mechanically activate'. This is a semantic classification error, since the step corresponds to mechanical activation via ball milling rather than simple mixing. The milling conditions (room temperature, air atmosphere, 15 h duration) are captured, although the 15 h value represents only one of three reported milling durations (5 h, 10 h, 15 h) in this multi-condition study. The heating rate (10°C/min) is correctly included in the notes field.",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "The two key synthesis equipment items, along with their operational settings, are correctly identified: the high-energy planetary ball mill (including vial material and volume, ball material and diameter, ball-to-powder ratio, total powder mass, and rotational speed) and the quartz boat used during annealing. However, the annealing oven/furnace itself is not explicitly represented, even though it is implied in the process description. Vendor information is not provided in the source for these items, so assigning null values is appropriate. Characterization instruments are correctly excluded from the equipment list, as they are not part of the synthesis procedure. Overall, the equipment extraction is very strong and nearly complete for synthesis-relevant components.",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "Synthesis conditions are well captured, including room temperature (25°C inferred) and air atmosphere (1.0 atm inferred) for milling, and 700°C for 2 h under atmospheric pressure in air for annealing. The ball mill rotational speed (600 rpm) is also correctly included as part of the milling conditions. The heating rate of 10°C/min is captured in the notes field. The milling duration is represented as 15 h, which is used as a single representative value; however, the source actually describes three experimental durations (5 h, 10 h, and 15 h), and the omission of the shorter durations means this variability is not reflected, including in the notes. The atmospheric pressure value (1.0 atm) for annealing is correctly inferred from the stated 'atmospheric pressure' condition. No pressure is specified for milling, so leaving it as null is appropriate. Overall, the conditions extraction is thorough and largely accurate, with the main limitation being the incomplete representation of the multi-duration milling study.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "The scientific meaning of the synthesis is well preserved. The mechanochemical synthesis route, the role of TiO2 as a reinforcing agent at 20 wt%, the stoichiometric Ca/P ratio for fluorapatite formation, and the thermal treatment conditions are all consistently represented. The reaction equation is not explicitly included, but the stoichiometric note still captures the essential Ca/P ratio information. The main semantic issue is the labeling of the ball milling step as 'mix' rather than 'ball milling' or 'mechanical activation', which slightly weakens the accuracy of the process interpretation. The notes field effectively captures key contextual information.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "The extraction adheres well to the GeneralSynthesisOntology schema, with all required fields present and correctly typed. Null values are appropriately used where the source does not provide information, and numeric parameters such as temperatures and durations are correctly represented as floats. Units are applied consistently overall, and the notes field is effectively used for supplementary contextual details. Equipment settings are appropriately captured as descriptive strings, which fits the flexibility of the schema. The only minor issue is in the starting_materials entry for TiO2, where the unit is given as 'wt%' but the corresponding amount value is null, creating a slight inconsistency since a unit is present without an explicit numeric value. This remains a minor schema compliance issue and does not affect the overall validity or quality of the extraction.",
+              "overall_score": 4.2,
+              "overall_reasoning": "The extraction of the FAp–TiO2 nanocomposite synthesis ontology is of high quality overall. All major synthesis components are captured, including four starting materials with correct vendors and purities, three well-sequenced process steps, key synthesis equipment with detailed settings, and accurate synthesis conditions. The notes field effectively includes important supplementary information such as the Ca/P ratio, absence of PCA, and heating rate. Minor issues remain: the purity of Ca(OH)2 is listed as null despite the source indicating 'analytical grade' for all reagents; Step 2 is labeled as 'mix' rather than 'ball milling' or 'mechanical activation'; the three milling durations (5 h, 10 h, and 15 h) are reduced to a single value of 15 h, with no further details in the notes; and the TiO2 entry in the starting_materials list includes a unit but no corresponding numeric value. These are relatively small inconsistencies that do not significantly affect the overall quality of the extraction. The characterization equipment is correctly omitted, and no unsupported information is introduced. Overall, the extraction is reliable and well-structured, with only minor refinements needed."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "FAp–TiO2 composite nanopowders",
-      "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "Ca(OH)2 purity (analytical grade, Fluka) not captured in starting_materials",
+              "the TiO2 entry in the starting_materials list includes no numeric value (but a unit)",
+              "The multiple milling durations studied (5 h, 10 h, 15 h) are not individually represented as separate process variants (only 15 h)"
+            ],
+            "extraction_errors": [
+              "Ca(OH)2 purity is listed as null, but the source text states 'analytical grade' for all reagents including Ca(OH)2 (Fluka)",
+              "Step 2 action is labeled 'mix' instead of a more accurate descriptor like 'ball milling' or 'mechanical activation', which misclassifies the ball milling process",
+              "TiO2 entry in starting_materials has unit='wt%' but amount=null, creating an inconsistency (unit without a corresponding value)"
+            ],
+            "improvement_suggestions": [
+              "Correct the Ca(OH)2 purity to 'analytical grade' to match the source text, which states all reagents with analytical grade purity",
+              "Change Step 2 action from 'mix' to 'ball milling' or 'mechanical activation'",
+              "Either populate the TiO2 amount field with 20.0 in starting_materials or remove the unit field to avoid inconsistency",
+              "Consider representing the multiple milling durations (5 h, 10 h, 15 h) as separate synthesis variants or noting them explicitly in the step description",
+              "Consider adding the stoichiometric reaction equation to the notes field for completeness"
+            ]
           }
         }
       ]

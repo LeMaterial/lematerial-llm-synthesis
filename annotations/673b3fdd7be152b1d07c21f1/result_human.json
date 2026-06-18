@@ -10,245 +10,1303 @@
   ],
   "materials": [
     {
-      "material_name": "carboxylate-functionalized cellulose nanospheres",
+      "material_name": "Carboxylate-functionalized cellulose nanospheres",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
+        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "manual grinding",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+            "amount": 0.833,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "cellulose",
+            "amount": 20,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Na2CO3.1.5H2O2",
+            "amount": 5,
+            "unit": "equiv",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Mixing (Et4N)2[Fe-(Ph,Me)bTAML] and cellulose.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+                "amount": 0.833,
+                "unit": "mg",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "cellulose",
+                "amount": 20.0,
+                "unit": "mg",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "mortar and pestle",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "add",
+            "description": "Oxidant (Na2CO3.1.5H2O2) was added iteratively (5 equiv. each time with respect to the catalyst) with continuous grinding by pestle until the catalyst color bleaches out.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Na2CO3.1.5H2O2",
+                "amount": 5,
+                "unit": "equiv",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "mortar and pestle",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 1.5,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "dissolve",
+            "description": "Dissolving the reaction mixture in water",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "filter",
+            "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "dialysis membrane",
+                "instrument_vendor": null,
+                "settings": "3.5 kDa molecular weight cut-off"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+          "step_number": 5,
+            "action": "dry",
+            "description": "Lyophilizing the dialyzed water to obtain the product.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "mortar and pestle",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "dialysis membrane",
+            "instrument_vendor": null,
+            "settings": "3.5 kDa molecular weight cut-off"
+          }
+        ],
         "notes": null
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction is globally correct. The extraction is mostly accurate but misses the oxidant’s amount and units in the starting materials. The LLM also confused equipment between two syntheses, incorrectly adding a mixer mill to Synthesis 1 (which only uses a mortar and pestle) and including a lyophilizer, which isn’t explicitly mentioned.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "The structure is correct, all information is present",
+              "material_extraction_score": 3.5,
+              "material_extraction_reasoning": "The extraction is almost correct but the target compound Carboxylate-functionalized cellulose nanospheres (CNS) is not correct, CNS is the nanosphere without functionalization. The amount and unit of oxydant are missing in starting materials.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "All steps are correctly extracted",
+              "equipment_extraction_score": 3.5,
+              "equipment_extraction_reasoning": "The LLM was confused and mixed up the equipment for Synthesis 1 with that for Synthesis 2, it added the mixer mill even though only the mortar and pestle are used for Synthesis 1. The LLM added \"Lyophilizer\" to the equipment list even though it is not explicitly mentioned in the article, although we can implicitly understand from the verb \"lyophilized\" that a lyophilizer was used.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions are correctly extracted.",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is partially correct,the amount and unit of oxydant are missing.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected.",
+              "overall_score": 4.5,
+              "overall_reasoning": "The extraction is globally correct, The extraction is mostly accurate but misses the oxidant’s amount and unit in the starting materials. The LLM also confused equipment between two syntheses, incorrectly adding a mixer mill to Synthesis 1 (which only uses a mortar and pestle) and including a lyophilizer, which isn’t explicitly mentioned."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The amount and unit of the oxydant"
+            ],
+            "extraction_errors": [
+              "The llm extracted equipment not explicitly mentioned in this synthesis."
+            ],
+            "improvement_suggestions": [
+              "The LLM has to extract the amounts and units of all materials and check carefully the equipment which is used for synthesis to not confuse equipment between synthesis."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The oxidation of microcrystalline cellulose has not been extracted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of cellulose is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of cellulose is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of microcrystalline cellulose is not recognised."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction suffers from poor chemical and procedural accuracy. The LLM confused reagents between syntheses, misassigned equipment, included hallucinated items, and reported incorrect conditions. While the JSON structure is solid, the semantic errors and missing information significantly reduce the reliability of the extracted procedure.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "The structure respected the main fields such as starting materials, steps, equipment and conditions.",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "It confused corncob powder, which is the biomass reagent used in synthesis 3 instead of cellulose which is the correct reagent for synthesis 1. It doesn’t give the amount of Sodium Percarbonate and it would be nice to give the formula as it was mentioned a few times in the method paragraph. Also it is written water in starting material which is wrong, it is used to dissolve in the end of the synthesis",
+              "process_steps_score": 2.0,
+              "process_steps_reasoning": "Step 1 is incorrect. The addition of the catalyst is right(and it’s better to mention (Et4N)2[Fe-(Ph,Me)bTAML]) but the reagent is not biomass corncob powder (it is a confusion with synthesis 3), but rather cellulose. Also the description said “mortal or ball mir jar and grind well” for the equipment but it is completely wrong, it is only with a mortar.\nThe equipment is wrong in step 1 as mentioned.\nThe LLM added \"Lyophilizer\" to the equipment list even though it is not explicitly mentioned in the article, although we can implicitly understand from the verb \"lyophilized\" that a lyophilizer was used.",
+              "equipment_extraction_score": 3.0,
+              "equipment_extraction_reasoning": "The equipment extraction is almost correct but there is no ball mill for this synthesis and not \"Lyophilizer\" as it is not explicitly mentioned in the text.",
+              "conditions_extraction_score": 3.0,
+              "conditions_extraction_reasoning": "Conditions are not respected in step 2. The duration is not 2.5h but 1.5h.",
+              "semantic_accuracy_score": 2.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is poor. The LLM combined several syntheses into one. It did not identify the correct reagents with the correct equipment.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction suffers from poor chemical and procedural accuracy. The LLM confused reagents between syntheses, misassigned equipment, included hallucinated items, and reported incorrect conditions. While the JSON structure is solid, the semantic errors and missing information significantly reduce the reliability of the extracted procedure."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "Amount of sodium percarbonate",
+              "Chemical formula of sodium percarbonate"
+            ],
+            "extraction_errors": [
+              "Wrong reaction duration.",
+              "Extracted water as a starting material",
+              "Incorrect reagent: used corncob powder instead of cellulose",
+              "Confusion between synthesis 1 and synthesis 3",
+              "Incorrect equipment: ball mill mentioned instead of mortar only",
+              "Incorrect step description: 'mortar or ball mill jar' instead of mortar",
+              "Hallucinated equipment: lyophilizer added without explicit mention"
+            ],
+            "improvement_suggestions": [
+              "The LLM should correctly identify reagents and their amounts, avoid confusing different syntheses, use precise equipment and step descriptions without adding hallucinated items, and ensure reaction conditions match the source text."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The oxidation of microcrystalline cellulose has not been extracted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of cellulose is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of cellulose is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of microcrystalline cellulose is not recognised."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of C6H12O7 and C12H22O12 that are not the syntheses targeted in the article.",
+              "For the synthesis of C12H22O12, the LLM did not extract the starting materials, steps, equipment, and conditions."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
           }
         }
       ]
     },
     {
-      "material_name": "cellulose nanospheres",
+      "material_name": "Carboxylate-functionalized cellulose nanospheres",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
+        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "ball milling",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "cellulose",
+            "amount": 20,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+            "amount": 0.43,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Na2CO3.1.5H2O2 (SPC)",
+            "amount": 2,
+            "unit": "equiv",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Mixing (Et4N)2[Fe-(Ph,Me)bTAML] and cellulose",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "cellulose",
+                "amount": 20,
+                "unit": "mg",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+                "amount": 0.43,
+                "unit": "mg",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "ball milling",
+            "description": "Oxidant (Na2CO3.1.5H2O2) was added in equal portions over a period of 1.5 h with continuous milling",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Na2CO3.1.5H2O2 (SPC)",
+                "amount": 2,
+                "unit": "equiv",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "mixer mill",
+                "instrument_vendor": "Retsch",
+                "settings": "MM 400, 1.5 ml stainless steel jar, 5 mm stainless steel ball, frequency of 30 Hz, 10 min cycle"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 1.5,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": "yes",
+              "stirring_speed": "30 Hz",
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "dissolve",
+            "description": "Dissolving the reaction mixture in water",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "filter",
+            "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "dialysis membrane",
+                "instrument_vendor": null,
+                "settings": "3.5 kDa molecular weight cut-off"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+          "step_number": 5,
+            "action": "dry",
+            "description": "Lyophilizing the dialyzed water to obtain the product.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "mixer mill",
+            "instrument_vendor": "Retsch",
+            "settings": "MM 400, 1.5 ml stainless steel jar, 5 mm stainless steel ball, frequency of 30 Hz, 10 min cycle"
+          },
+          {
+            "name": "dialysis membrane",
+            "instrument_vendor": null,
+            "settings": "3.5 kDa molecular weight cut-off"
+          }
+        ],
         "notes": null
       },
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The extraction is partially correct. The LLM has extracted the wrong material name and the wrong amount of the catalyst in starting materials. It did not identify the correct synthesis method. It missed the oxidant’s amount and unit in the starting materials and wrongly extracted it in step 1. The LLM also confused equipment between two syntheses, incorrectly adding a mortar and pestle to Synthesis 2 (which only uses a mixer mill) and including a lyophilizer, which isn’t explicitly mentioned.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "The structure is correct, the major information of synthesis is present such as starting materials, steps, equipment, conditions even though some mistakes.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The extraction is incorrect, the LLM extracted a wrong material name. The starting materials are correctly identified but the llm did not extracted the correct amount of catalyst and missed the amount and unit of oxydant. In step 2, the oxydant’s amount and unit are wrongly extracted.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "The llm has correctly identified five steps.",
+              "equipment_extraction_score": 3.5,
+              "equipment_extraction_reasoning": "The LLM was confused and mixed up the equipment for Synthesis 2 with that for Synthesis 1, it added the mortar and pestle even though only the mixer mill is used for Synthesis 2. The LLM added \"Lyophilizer\" to the equipment list event though it is not explicitly mentioned in the article, although we can implicitly understand from the verb \"lyophilised\" that a lyophilizer was used.",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "The stirring conditions are not extracted in the step 2",
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is partially correct. The amounts and units of the catalyst and oxydant are missing or are wrong and the synthesis method is incorrect.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected.",
+              "overall_score": 4.0,
+              "overall_reasoning": "The extraction is partially correct. The LLM has extracted the wrong material name and the wrong amount of the catalyst in starting materials. It did not identify the correct synthesis method. It missed the oxidant’s amount and unit in the starting materials and wrongly extracted it in step 1. The LLM also confused equipment between two syntheses, incorrectly adding a mortar and pestle to Synthesis 2 (which only uses a mixer mill) and including a lyophilizer, which isn’t explicitly mentioned."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "The amount and unit of the oxydant",
+              "The stirring conditions"
+            ],
+            "extraction_errors": [
+              "The LLM extracted equipment not explicitly mentioned in this synthesis.",
+              "The name of the material extracted is incorrect.",
+              "The amount and units of the catalyst"
+            ],
+            "improvement_suggestions": [
+              "The LLM has to extract the amount and units of all materials and check carefully the equipment which is used for synthesis to not confuse equipment between synthesis."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The oxidation of microcrystalline cellulose has not been extracted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of cellulose is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of cellulose is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of microcrystalline cellulose is not recognised."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The oxidation of microcrystalline cellulose by mechanical milling has not been extracted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of cellulose by mechanical milling is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of cellulose by mechanical milling is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of cellulose by mechanical milling is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of cellulose by mechanical milling is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of microcrystalline cellulose by mechanical milling is not recognised."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "The oxidation of microcrystalline cellulose has not been extracted.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of cellulose is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of cellulose is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of cellulose is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of microcrystalline cellulose is not recognised."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of C6H12O7 and C12H22O12 that are not the syntheses targeted in the article.",
+              "For the synthesis of C12H22O12, the LLM did not extract the starting materials, steps, equipment, and conditions."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Carboxylate-functionalized cellulose nanospheres",
+      "human_recipe": {
+        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "manual grinding",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "cellobiose",
+            "amount": 0.833,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "biomass (from corncob or softwood pine)",
+            "amount": 20,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Na2CO3.1.5H2O2 (SPC)",
+            "amount": 5,
+            "unit": "equiv",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "To a mortar, mixing of cellobiose and biomass (corncob/softwood pine powder).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "cellobiose",
+                "amount": 0.833,
+                "unit": "mg",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "corncob/softwood pine powder",
+                "amount": 20.0,
+                "unit": "mg",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "mortar and pestle",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "add",
+            "description": "Na2CO3.1.5H2O2 (SPC) as the oxidant (each time 5 eqv.) was added in equal portions over a period of 2.5 h.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Na2CO3.1.5H2O2",
+                "amount": 5,
+                "unit": "equiv",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "mortar and pestle",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 2.5,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "dissolve",
+            "description": "After completion of the reaction, the reaction mixture was dissolved in water",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "filter",
+            "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "dialysis membrane",
+                "instrument_vendor": null,
+                "settings": "3.5 kDa molecular weight cut-off"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+          "step_number": 5,
+            "action": "dry",
+            "description": "Lyophilizing the dialyzed water to obtain the product.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "mortar and pestle",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "dialysis membrane",
+            "instrument_vendor": null,
+            "settings": "3.5 kDa molecular weight cut-off"
+          }
+        ],
+        "notes": null
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "The extraction is partially correct. The LLM has extracted the wrong material and target compound names. It did not identify the correct synthesis method. It missed the oxidant’s amount and unit in the starting materials. The LLM also confused equipment between two syntheses, incorrectly adding a mixer mill (which only uses a mortar and pestle) and including a lyophilizer, which isn’t explicitly mentioned.",
+            "scores": {
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "The structure is correct, the major information of synthesis is present such as starting materials, steps, equipment, conditions even though some mistakes.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The extraction is incorrect. The target compound Carboxylate-functionalized cellulose nanospheres (CNS) is not correct, CNS is the nanosphere without functionalization.The starting materials are not correctly identified. The amount and unit of oxydant are missing in the starting materials. In step 1, the materials are wrong, the llm did not identify cellobiose and biomass.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "The LLM has correctly identified five steps: mix, add, dissolve, filter and dry.",
+              "equipment_extraction_score": 3.5,
+              "equipment_extraction_reasoning": "The LLM was confused and mixed up the equipment for Synthesis 3 with that for Synthesis 2, it added the mixer mill even though only the mortar and pestle is used for Synthesis 3. The LLM added \"Lyophilizer\" to the equipment list event though it is not explicitly mentioned in the article, although we can implicitly understand from the verb \"lyophilised\" that a lyophilizer was used.",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "The conditions are correctly extracted. The LLM identified the duration of 2.5h for step 2",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is partially correct. The starting materials are incorrect. The amount and unit of the oxydant are missing and the synthesis method is incorrect.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "JSON structure is respected.",
+              "overall_score": 4.0,
+              "overall_reasoning": "The extraction is partially correct. The LLM has extracted the wrong material and target compound names. It did not identify the correct synthesis method. It missed the oxidant’s amount and unit in the starting materials. The LLM also confused equipment between two syntheses, incorrectly adding a mixer mill (which only uses a mortar and pestle) and including a lyophilizer, which isn’t explicitly mentioned."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The amount and unit of the oxydant"
+            ],
+            "extraction_errors": [
+              "The LLM extracted equipment not explicitly mentioned in this synthesis.",
+              "The name of the material extracted is incorrect.",
+              "The starting materials"
+            ],
+            "improvement_suggestions": [
+              "The LLM has to extract the amounts and units of all materials and check carefully the equipment which is used for synthesis to not confuse equipment between synthesis. It has to extract the correct starting materials by identifying the correct synthesis."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction was quite good, but it didn't identify one of the starting materials, nor the quantity and unit of the oxidant. It also confused equipment between syntheses, incorrectly adding a mixer mill and including a lyophilizer, which isn’t explicitly mentioned.",
+            "scores": {
+              "structural_completeness_score": 4.0,
+              "structural_completeness_reasoning": "In steps 1, 3, 4, and 5, the LLM omitted the structure of the conditions.",
+              "material_extraction_score": 3.0,
+              "material_extraction_reasoning": "The LLM distinguished corncob and softwood as two different starting materials, whereas the article refers to a single material, \"biomass.\" In the starting materials section, it identified the oxidant as being in excess, while the article specifies 5 equivalents. And it did not extract the cellobiose",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "The synthesis steps are correctly extracted. However, it did not capture the cellobiose material in step 1. It did not extract the amount and unit of the oxidant in step 2.",
+              "equipment_extraction_score": 2.0,
+              "equipment_extraction_reasoning": "The LLM was confused and identified the mixer mill even though only the mortar and pestle are used in this synthesis. The LLM added \"Lyophilizer\" to the equipment list even though it is not explicitly mentioned in the article, although we can implicitly understand from the verb \"lyophilized\" that a lyophilizer was used.",
+              "conditions_extraction_score": 3.0,
+              "conditions_extraction_reasoning": "In steps 1, 3, 4, and 5, the LLM omitted various condition parameters and wrote \"null\" instead of \"temperature\", \"temp_unit\", \"duration\", etc. In step 2, the conditions are correct.",
+              "semantic_accuracy_score": 2.0,
+              "semantic_accuracy_reasoning": "The semantic accuracy is not very good. The LLM did not capture the cellobiose material. It did not specify \"oxidized CNS\" in the target compound. And it omitted the amount and unit of the oxidant.",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "The JSON structure is correct, but the different sections in \"conditions\" are missing.",
+              "overall_score": 3.0,
+              "overall_reasoning": "The extraction was quite good, but it didn't identify one of the starting materials, nor the quantity and unit of the oxidant. It also confused equipment between syntheses, incorrectly adding a mixer mill and including a lyophilizer, which isn’t explicitly mentioned."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "The amount and unit of the oxidant"
+            ],
+            "extraction_errors": [
+              "The LLM distinguished corncob and softwood as two different starting materials",
+              "The LLM extracted equipment not explicitly mentioned in this synthesis.",
+              "The name of the material extracted is incorrect."
+            ],
+            "improvement_suggestions": [
+              "The LLM has to extract the amounts and units of all materials and check carefully the equipment which is used for synthesis to not confuse equipment between synthesis. It has to extract the correct starting materials by identifying the correct synthesis."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The oxidation of biomass by mortar and pestle has not been extracted.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of biomass by mortar and pestle is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of biomass by mortar and pestle is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of biomass by mortar and pestle is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of biomass by mortar and pestle is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of biomass by mortar and pestle is not recognised."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The oxidation of biomass has not been extracted.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of biomass is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of biomass is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of biomass is not recognised."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of C6H12O7 and C12H22O12 that are not the syntheses targeted in the article.",
+              "For the synthesis of C12H22O12, the LLM did not extract the starting materials, steps, equipment, and conditions."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Carboxylate-functionalized cellulose nanospheres",
+      "human_recipe": {
+        "target_compound": "Carboxylate-functionalized cellulose nanospheres",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "ball milling",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "lignocellulosic biomass (from corncob or softwood pine)",
+            "amount": 20,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+            "amount": 0.833,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Na2CO3.1.5H2O2 (SPC)",
+            "amount": 5,
+            "unit": "equiv",
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Mixing (Et4N)2[Fe-(Ph,Me)bTAML] and lignocellulosic biomass (corncob/softwood pine powder)",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "lignocellulosic biomass (from corncob or softwood pine)",
+                "amount": 20,
+                "unit": "mg",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "(Et4N)2[Fe-(Ph,Me)bTAML]",
+                "amount": 0.833,
+                "unit": "mg",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "ball mixing",
+            "description": "Oxidant (Na2CO3.1.5H2O2) was added in equal portions over a period of 1.5 h with continuous milling",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Na2CO3.1.5H2O2 (SPC)",
+                "amount": 5.0,
+                "unit": "equiv",
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "mixer mill",
+                "instrument_vendor": "Retsch",
+                "settings": "frequency of 30 Hz, 10 min cycle"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 1.5,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": "30 Hz",
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "dissolve",
+            "description": "Dissolving the reaction mixture in water",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "filter",
+            "description": "Dialyzing through a membrane of 3.5 kDa molecular weight cut-off to remove the smaller impurities",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "dialysis membrane",
+                "instrument_vendor": null,
+                "settings": "3.5 kDa molecular weight cut-off"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+          "step_number": 5,
+            "action": "dry",
+            "description": "Lyophilizing the dialyzed water to obtain the product.",
+            "materials": [],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "mortar and pestle",
+            "instrument_vendor": null,
+            "settings": null
+          },
+          {
+            "name": "dialysis membrane",
+            "instrument_vendor": null,
+            "settings": "3.5 kDa molecular weight cut-off"
+          }
+        ],
+        "notes": null
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "The oxidation of biomass has not been extracted.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this synthesis has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of biomass is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of biomass is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of biomass is not recognised."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The oxidation of biomass has not been extracted.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this synthesis has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of biomass is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of biomass is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of biomass is not recognised."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The oxidation of biomass by mechanical milling has not been extracted.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of biomass by mechanical milling is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of biomass by mechanical milling is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of biomass by mechanical milling is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of biomass by mechanical milling is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of biomass by mechanical milling is not recognised."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of glucose and other compounds that are not the syntheses targeted in the article."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The oxidation of biomass has not been extracted.",
+            "scores": {
+              "structural_completeness_score": 1.0,
+              "structural_completeness_reasoning": "The structural completeness is not good because this oxidation has not been extracted.",
+              "material_extraction_score": 1.0,
+              "material_extraction_reasoning": "The materials are not extracted because the oxidation of biomass is not recognised.",
+              "process_steps_score": 1.0,
+              "process_steps_reasoning": "No steps were extracted because the oxidation of biomass is not recognised.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "No equipment was extracted.",
+              "conditions_extraction_score": 1.0,
+              "conditions_extraction_reasoning": "No conditions were extracted.",
+              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "format_compliance_score": 1.0,
+              "format_compliance_reasoning": "The oxidation of biomass is not recognised, so information is lacking.",
+              "overall_score": 1.0,
+              "overall_reasoning": "Extraction is missing. The oxidation of biomass is not recognised."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "All of the information."
+            ],
+            "extraction_errors": [
+              "The LLM extracted the synthesis of C6H12O7 and C12H22O12 that are not the syntheses targeted in the article.",
+              "For the synthesis of C12H22O12, the LLM did not extract the starting materials, steps, equipment, and conditions."
+            ],
+            "improvement_suggestions": [
+              "The LLM must recognize and distinguish the targeted syntheses of the article from other syntheses."
+            ]
           }
         }
       ]

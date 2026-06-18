@@ -23,8 +23,8 @@
             "description": "High quality superstructure-free Bi1.74Pb0.38Sr1.88CuO6+δ (Pb-Bi2201) single crystal was grown by floating-zone technique.",
             "materials": [
               {
-                "vendor": null,
                 "name": "Bi1.74Pb0.38Sr1.88CuO6+δ",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -33,15 +33,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -50,22 +50,22 @@
             "description": "Through Oxygen or Argon annealing, we have prepared overdoped samples with superconducting phase transition temperature Tc's (dopings) of 0K (0.27), 5K (0.26), 7K (0.258), 10K (0.252), 16K (0.24) and 22K (0.225), where the hole concentration x's are estimated based on the empirical formula T<sup>c</sup> = Tc,opt[1 − 82.6(x − 0.16)<sup>2</sup> ],[20](#page-4-20) and Tc,opt = 34K for Bi2201.",
             "materials": [
               {
-                "vendor": null,
                 "name": "Bi1.74Pb0.38Sr1.88CuO6+δ",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "Oxygen",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "Argon",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -74,15 +74,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -92,26 +92,26 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Exact target name match.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "Step 1 conditions stored as JSON null (NoneType) instead of null-field structured object.",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "They are not explicitly stated in \"materials\", but they are all mentioned in steps. ",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Adds floating-zone furnace to global list and step 1.  technique referenced in text ",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Step 1 action 'other' vs 'grow'. ",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Good extraction. Main issues: step 1 unstructured null conditions, missing Bi crystal in step materials"
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -119,26 +119,26 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Matched to Bi1.74Pb0.38Sr1.88CuO6+δ (exact name match). Also extracted spurious second material Bi2Sr2CuO6+δ.",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "structural_completeness_score": 4.5,
+              "structural_completeness_reasoning": "Step 1 conditions stored as JSON null (NoneType) instead of null-field structured object.",
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Step 1 action 'other' vs human 'grow'. Also extracted spurious second material Bi2Sr2CuO6+δ with same procedure.",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "method 'flux growth' is wrong",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Method wrong (flux growth vs floating-zone).  Step 1 unstructured null conditions."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -146,26 +146,26 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Exact target name match. Minor issues: step 1 action 'heat' vs 'grow', Bi crystal missing in step materials. ",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Step 1 and step 2 missing Bi crystal in step materials ",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Step 1 action 'heat' vs human 'grow'.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 5.0,
+              "overall_reasoning": "Minor issues: step 1 action 'heat' vs 'grow', Bi crystal missing in step materials"
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -173,26 +173,26 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Overall good. ",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Step 2 materials empty [] -- O2 and Ar moved to conditions atmosphere only, not in materials list. Human has [Bi crystal, Oxygen, Argon] in step 2. Bi crystal also missing in step 1.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "O2/Ar captured only in conditions. ",
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": "Adds floating-zone furnace (step 1 + global) and annealing furnace (step 2 + global). Annealing furnace inferred from process.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "type 'semiconductors & electronic' wrong, should be 'ceramics & glasses'.  Step 1 action 'heat' vs human 'grow'",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.5,
+              "overall_reasoning": "Wrong compound type. O2/Ar placed only in conditions, not step materials, but it's valid. "
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []

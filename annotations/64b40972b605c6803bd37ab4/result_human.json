@@ -14,18 +14,18 @@
       "human_recipe": {
         "target_compound": "WFe2Ni-red",
         "target_compound_type": "other",
-        "synthesis_method": "simulation",
+        "synthesis_method": "other",
         "starting_materials": [
           {
-            "vendor": null,
             "name": "[Et4N][Tp*WFe2Cl2S3(µ-SMe)]",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
           },
           {
-            "vendor": null,
             "name": "IPrNi(styrene)2",
+            "vendor": null,
             "amount": null,
             "unit": null,
             "purity": null
@@ -38,15 +38,15 @@
             "description": "Addition of IPrNi(styrene)2 (IPr = 1,3-bis(2,6-diisopropyl)-1,3-dihydro-2*H*-imidazol-2 ylidene) to WFe2 in a THF:MeCN mixture results in conversion to a new *C*<sup>s</sup> species as indicated by a shift in the two diagnostic Tp\\* resonances in the <sup>1</sup> H NMR spectrum.",
             "materials": [
               {
-                "vendor": null,
                 "name": "IPrNi(styrene)2",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "[Et4N][Tp*WFe2Cl2S3(µ-SMe)]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -55,15 +55,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -73,109 +73,122 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Wrong compound type. Action verb 'mix' instead of 'add'.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.25,
+              "semantic_accuracy_reasoning": "Wrong compound type. Action verb 'mix' instead of 'add'.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Good extraction with one classification issue and minor action verb mismatch."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "Wrong target_compound_type",
+              "Action verb 'mix' instead of 'add'"
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Wrong compound type. Added unsupported inert atmosphere.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Unsupported inert atmosphere.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Wrong compound type.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Good extraction with classification issue and one condition hallucination."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "Wrong target_compound_type",
+              "Unsupported inert atmosphere"
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No exact WFe2Ni-red entry; scored against WFe2NiS4 merged entry. Wrong compound type. Action verb 'mix' instead of 'add'.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.25,
+              "semantic_accuracy_reasoning": "Wrong compound type. Action verb 'mix' instead of 'add'.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Merged entry covers both syntheses; scored against WFe2Ni-red scope. Classification issue and minor verb mismatch."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "No exact WFe2Ni-red entry"
+            ],
+            "extraction_errors": [
+              "Wrong target_compound_type",
+              "Action verb 'mix' instead of 'add'"
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Wrong compound type.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Wrong compound type.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Good extraction with one classification issue."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "Wrong target_compound_type"
+            ],
             "improvement_suggestions": []
           }
         }
@@ -186,7 +199,7 @@
       "human_recipe": {
         "target_compound": "WFe2Ni-ox",
         "target_compound_type": "other",
-        "synthesis_method": "simulation",
+        "synthesis_method": "other",
         "starting_materials": [
           {
             "vendor": null,
@@ -245,26 +258,55 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Wrong compound type. Atmosphere air not captured.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Atmosphere air not captured.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Wrong compound type.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Good oxidation extraction with classification issue and missing atmosphere."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "Wrong target_compound_type"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Atmosphere air not captured.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Atmosphere air not captured.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Wrong compound type.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.8,
+              "overall_reasoning": "Good extraction with classification issue and missing atmosphere."
+            },
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -272,82 +314,61 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "No exact WFe2Ni-ox entry; scored against WFe2NiS4 merged entry. Wrong compound type. Atmosphere air not captured.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Atmosphere air not captured.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Wrong compound type.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Merged entry covers both syntheses; scored against WFe2Ni-ox scope. Classification issue and missing atmosphere."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "No exact WFe2Ni-ox entry"
+            ],
+            "extraction_errors": [
+              "Wrong target_compound_type"
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Wrong compound type. Atmosphere air not captured.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Atmosphere air not captured.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Wrong compound type.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.75,
+              "overall_reasoning": "Good extraction with classification issue and missing atmosphere."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "extraction_errors": [
+              "Wrong target_compound_type"
+            ],
             "improvement_suggestions": []
           }
         }

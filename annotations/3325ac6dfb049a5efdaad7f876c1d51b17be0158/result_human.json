@@ -17,36 +17,36 @@
         "synthesis_method": "solvothermal",
         "starting_materials": [
           {
-            "vendor": "Sigma–Aldrich",
             "name": "Ferric chloride hexahydrate",
+            "vendor": "Sigma–Aldrich",
             "amount": 2.4,
             "unit": "gm",
             "purity": "analytical grade"
           },
           {
-            "vendor": "Sigma–Aldrich",
             "name": "ethylene glycol",
+            "vendor": "Sigma–Aldrich",
             "amount": 40.0,
             "unit": "ml",
             "purity": "analytical grade"
           },
           {
-            "vendor": "Sigma–Aldrich",
             "name": "ethyl alcohol",
+            "vendor": "Sigma–Aldrich",
             "amount": 20.0,
             "unit": "ml",
             "purity": "analytical grade"
           },
           {
-            "vendor": "Sigma–Aldrich",
             "name": "Urea",
+            "vendor": "Sigma–Aldrich",
             "amount": 1.06,
             "unit": "gm",
             "purity": "analytical grade"
           },
           {
-            "vendor": "Sigma–Aldrich",
             "name": "oleylamine",
+            "vendor": "Sigma–Aldrich",
             "amount": null,
             "unit": "ml",
             "purity": "analytical grade"
@@ -59,24 +59,24 @@
             "description": "mixing Ferric chloride hexahydrate in Ethylene Glycol (EG) and ethyl alcohol solution",
             "materials": [
               {
+                "name": "Ferric chloride hexahydrate (2.4 gm)",
                 "vendor": null,
-                "name": "Ferric chloride hexahydrate",
-                "amount": 2.4,
-                "unit": "gm",
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
+                "name": "ethylene glycol (40.0 ml)",
                 "vendor": null,
-                "name": "ethylene glycol",
-                "amount": 40.0,
-                "unit": "ml",
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
+                "name": "ethyl alcohol (20.0 ml)",
                 "vendor": null,
-                "name": "ethyl alcohol",
-                "amount": 20.0,
-                "unit": "ml",
+                "amount": null,
+                "unit": null,
                 "purity": null
               }
             ],
@@ -89,15 +89,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": true,
-              "stirring_speed": null,
-              "ph": null
+              "stirring": null,
+              "stirring_speed": null
             }
           },
           {
@@ -106,17 +106,17 @@
             "description": "adding Urea and oleylamine in the above solution",
             "materials": [
               {
+                "name": "Urea (1.06 gm)",
                 "vendor": null,
-                "name": "Urea",
-                "amount": 1.06,
-                "unit": "gm",
+                "amount": null,
+                "unit": null,
                 "purity": null
               },
               {
-                "vendor": null,
                 "name": "oleylamine",
+                "vendor": null,
                 "amount": null,
-                "unit": "ml",
+                "unit": null,
                 "purity": null
               }
             ],
@@ -129,15 +129,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": true,
-              "stirring_speed": null,
-              "ph": null
+              "stirring": null,
+              "stirring_speed": null
             }
           },
           {
@@ -154,15 +154,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -179,15 +179,15 @@
             ],
             "conditions": {
               "temperature": 180.0,
-              "temp_unit": "°C",
               "duration": 15.0,
-              "time_unit": "hrs",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "°C",
+              "time_unit": "hrs",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -196,8 +196,8 @@
             "description": "washing the resultant black solutions in alcohol for several times",
             "materials": [
               {
-                "vendor": null,
                 "name": "alcohol",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -206,15 +206,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -225,15 +225,15 @@
             "equipment": [],
             "conditions": {
               "temperature": 60.0,
-              "temp_unit": "°C",
               "duration": null,
-              "time_unit": "overnight",
               "pressure": null,
+              "ph": null,
+              "temp_unit": "°C",
+              "time_unit": "overnight",
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -259,26 +259,85 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": " Included XRD/TEM in equipment (characterization, not synthesis) is a minor error. Apart from that -- great match with the human extracted synthesis. ",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
+              "material_extraction_score": 5.0,
               "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 4.5,
+              "equipment_extraction_reasoning": " listed XRD and TEM characterization, not synthesis equipment.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
+              "semantic_accuracy_score": 5.0,
               "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 5.0,
+              "overall_reasoning": "XRD/TEM in equipment is minor "
             },
-            "confidence_level": null,
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "XRD and TEM listed as synthesis equipment, these are characterization tools"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "5 steps, correct materials and conditions. Oleylamine listed as 2ml in step 2 (should be null — paper uses 2/3/4ml variants). Inferred 12h for 'overnight' drying.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "All materials correct. But oleylamine=2ml in step 2 while null in starting materials inconsistent. Paper uses 2/3/4ml variants.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "Inferred 12h for 'overnight'. Reasonable but not stated in paper.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Good. EG role noted. Oleylamine 2ml picks only one of three variants.",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": "Very good. Deducted for oleylamine inconsistency (2ml vs null) and inferred 12h duration."
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [
+              "Oleylamine=2ml in step 2 but null in starting materials",
+              "Drying duration inferred as 12h , paper says 'overnight'"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": " Includes separate 'stir until transparent' step. All materials, vendor, purity correct. Oleylamine null (correct). 'overnight' as time_unit is non-standard but honest.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "'overnight' as time_unit is non-standard but acceptable in this case. ",
+              "overall_score": 5.0,
+              "overall_reasoning": "Best extraction. 6 steps closest to human recipe. All info correct."
+            },
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -286,80 +345,26 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "5 steps, clean extraction. All materials correct with vendor/purity. Oleylamine null (correct). Magnetic stirrer in both steps 1 and 2 is good.  ",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": " ",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": " ",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": " ",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": " ",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": " Duration null for drying is honest.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": " ",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": " ",
+              "overall_score": 5.0,
+              "overall_reasoning": " "
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []

@@ -17,38 +17,45 @@
         "synthesis_method": "electrochemical deposition",
         "starting_materials": [
           {
-            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
             "name": "LiTFSA",
+            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
             "amount": 0.5,
             "unit": "mol",
             "purity": "99.5%"
           },
           {
-            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
             "name": "NaTFSA",
-            "amount": 0.5,
-            "unit": "mol",
-            "purity": "99.5%"
-          },
-          {
             "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-            "name": "CaTFSA2",
             "amount": 0.5,
             "unit": "mol",
             "purity": "99.5%"
           },
           {
-            "vendor": "Tokyo Chemical Industry Co., Ltd.",
+            "name": "CaTFSA2",
+            "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": "99.5%"
+          },
+          {
             "name": "G3",
+            "vendor": "Tokyo Chemical Industry Co., Ltd.",
             "amount": null,
             "unit": "L",
             "purity": ">99.0%"
           },
           {
-            "vendor": "Takeuchi Metal Foil & Powder",
             "name": "Cu foil",
-            "amount": "20",
+            "vendor": "Takeuchi Metal Foil & Powder",
+            "amount": 20.0,
             "unit": "um",
+            "purity": null
+          },
+          {
+            "name": "Li ",
+            "vendor": "Honjo Metal Co., Ltd.",
+            "amount": null,
+            "unit": null,
             "purity": null
           }
         ],
@@ -59,25 +66,25 @@
             "description": "The electrolytes were prepared by using alkali-metal-TFSA (LiTFSA, CaTFSA2) salts as the solutes (TFSA- : bis(trifluoromethanesulfon)imide, [N(SO2CF3)2]- ) and a chain-like ether G3 as the solvent (G3: triethylene glycol dimethyl ether, C8H18O4).",
             "materials": [
               {
-                "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-                "name": "LiTFSA",
-                "amount": 0.5,
-                "unit": "mol",
-                "purity": "99.5%"
+                "name": "LiTFSA (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-                "name": "CaTFSA2",
-                "amount": 0.5,
-                "unit": "mol",
-                "purity": "99.5%"
+                "name": "CaTFSA2 (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "Tokyo Chemical Industry Co., Ltd.",
-                "name": "G3",
-                "amount": 1,
-                "unit": "L",
-                "purity": ">99.0%"
+                "name": "G3 (1 L) [vendor: Tokyo Chemical Industry Co., Ltd.] [purity: >99.0%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               }
             ],
             "equipment": [
@@ -89,15 +96,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "high purity argon",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -106,15 +113,15 @@
             "description": "Constant potential (chronoamperometry) electrodeposition experiments in the Li, Li-Ca single-cation and dual-cation electrolytes.",
             "materials": [
               {
-                "vendor": "Takeuchi Metal Foil and Powder Co., Ltd.",
-                "name": "Cu foil",
+                "name": "Cu foil [vendor: Takeuchi Metal Foil and Powder Co., Ltd.]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
               },
               {
-                "vendor": "Honjo Metal Co., Ltd.",
-                "name": "Li metal",
+                "name": "Li metal [vendor: Honjo Metal Co., Ltd.]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
                 "purity": null
@@ -134,15 +141,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "high purity argon",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -151,25 +158,25 @@
             "description": "Electrodeposits were washed by dropping tetrahydrofuran (99.5%, FUJIFILM Wako Pure Chemical Corporation) and subsequently dried in argon atmosphere.",
             "materials": [
               {
-                "vendor": "FUJIFILM Wako Pure Chemical Corporation",
-                "name": "tetrahydrofuran (THF)",
+                "name": "tetrahydrofuran (THF) [vendor: FUJIFILM Wako Pure Chemical Corporation] [purity: 99.5%]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
-                "purity": "99.5%"
+                "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "argon",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -220,109 +227,125 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Single-cation Li only, missing CaTFSA2 entirely. ",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "Missing CaTFSA2",
+              "process_steps_score": 4.0,
+              "process_steps_reasoning": "Extracted single-cation control experiment instead of dual-cation Li-Ca system. Paper's innovation is the Ca additive.",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 4.0,
+              "semantic_accuracy_reasoning": "Extracted single-cation control experiment instead of dual-cation Li-Ca system. Paper's innovation is the Ca additive.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.0,
+              "overall_reasoning": "Good extraction of a single-cation Li system but human recipe is dual-cation Li-Ca. Missing CaTFSA2 is the main gap."
             },
-            "confidence_level": null,
-            "missing_information": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "CaTFSA2 as starting material and in electrolyte prep step"
+            ],
+            "extraction_errors": [
+              "Extracted single-cation Li system instead of dual-cation Li-Ca"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Dual-cation Li-Ca correctly includes CaTFSA2. 3  Missing Cu foil and Li metal from starting materials.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Cu foil only in step 2 materials. ",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.5,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5.0,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.5,
+              "overall_reasoning": " missing electrode materials from starting materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Cu foil and Li metal in starting materials"
+            ],
             "extraction_errors": [],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Single-cation Li only, CaTFSA2 only mentioned in notes. 5 steps with separate dry step (good granularity). All electrode materials (Cu foil, Li metal) captured with vendors. ",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 4.0,
+              "material_extraction_reasoning": "CaTFSA2 missing from starting materials. 'unit: solvent' for G3 is non-standard.",
+              "process_steps_score": 5.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "Single-cation Li extraction. CaTFSA2 only in notes. Paper's focus is dual-cation.",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Minor: G3 unit='solvent', Cu foil unit='20 μm thickness'.",
+              "overall_score": 4.0,
+              "overall_reasoning": "Good structure with 5 steps and all electrode materials. But missing CaTFSA2 from structured data, only in notes"
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "CaTFSA2 as starting material"
+            ],
+            "extraction_errors": [
+              "Extracted single-cation Li system; CaTFSA2 only in notes"
+            ],
             "improvement_suggestions": []
           }
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Dual-cation Li-Ca, CaTFSA2 correctly included. Only 2 steps, missing wash/dry. Cu foil and Li metal in step 2 but not in starting materials. -0.5V in notes only. Clean but sparse.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "LiTFSA, CaTFSA2, G3 correct. Cu foil and Li metal in step but not starting materials. Missing THF.",
+              "process_steps_score": 3.5,
+              "process_steps_reasoning": "mi->electrodeposit. Missing wash/dry step (explicitly described in paper). Too simplified.",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "-0.5V in notes only, not in conditions.",
+              "semantic_accuracy_score": 4.5,
+              "semantic_accuracy_reasoning": "Correctly captures dual-cation system. CIP mechanism noted. Good context.",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 4.0,
+              "overall_reasoning": "Correct dual-cation focus with CaTFSA2. Too sparse, only 2 steps, missing wash/dry and electrode materials in starting materials."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "Wash/dry step",
+              "Cu foil and Li metal in starting materials",
+              "THF"
+            ],
+            "extraction_errors": [
+              "Missing wash/dry step described in paper"
+            ],
             "improvement_suggestions": []
           }
         }
@@ -336,22 +359,22 @@
         "synthesis_method": "electrochemical deposition",
         "starting_materials": [
           {
-            "vendor": null,
             "name": "NaTFSA",
-            "amount": 0.5,
-            "unit": "mol",
-            "purity": null
-          },
-          {
             "vendor": null,
-            "name": "CaTFSA2",
             "amount": 0.5,
             "unit": "mol",
             "purity": null
           },
           {
-            "vendor": "Tokyo Chemical Industry Co., Ltd.",
+            "name": "CaTFSA2",
+            "vendor": null,
+            "amount": 0.5,
+            "unit": "mol",
+            "purity": null
+          },
+          {
             "name": "G3",
+            "vendor": "Tokyo Chemical Industry Co., Ltd.",
             "amount": 1.0,
             "unit": "L",
             "purity": ">99.0%"
@@ -364,39 +387,39 @@
             "description": "Prepare the Na-Ca electrolyte by mixing NaTFSA and CaTFSA2 salts in G3 solvent.",
             "materials": [
               {
-                "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-                "name": "NaTFSA",
-                "amount": 0.5,
-                "unit": "mol",
-                "purity": "99.5%"
+                "name": "NaTFSA (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "SOLVIONIC Company and Kishida Chemical Co., Ltd.",
-                "name": "CaTFSA2",
-                "amount": 0.5,
-                "unit": "mol",
-                "purity": "99.5%"
+                "name": "CaTFSA2 (0.5 mol) [vendor: SOLVIONIC Company and Kishida Chemical Co., Ltd.] [purity: 99.5%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               },
               {
-                "vendor": "Tokyo Chemical Industry Co., Ltd.",
-                "name": "G3",
-                "amount": 1.0,
-                "unit": "L",
-                "purity": ">99.0%"
+                "name": "G3 (1.0 L) [vendor: Tokyo Chemical Industry Co., Ltd.] [purity: >99.0%]",
+                "vendor": null,
+                "amount": null,
+                "unit": null,
+                "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -418,15 +441,15 @@
             ],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "argon",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -437,15 +460,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -456,15 +479,15 @@
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": null,
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           },
           {
@@ -473,25 +496,25 @@
             "description": "Wash the electrodeposits by dropping tetrahydrofuran and subsequently dry in argon atmosphere.",
             "materials": [
               {
-                "vendor": "FUJIFILM Wako Pure Chemical Corporation",
-                "name": "tetrahydrofuran",
+                "name": "tetrahydrofuran [vendor: FUJIFILM Wako Pure Chemical Corporation] [purity: 99.5%]",
+                "vendor": null,
                 "amount": null,
                 "unit": null,
-                "purity": "99.5%"
+                "purity": null
               }
             ],
             "equipment": [],
             "conditions": {
               "temperature": null,
-              "temp_unit": null,
               "duration": null,
-              "time_unit": null,
               "pressure": null,
+              "ph": null,
+              "temp_unit": null,
+              "time_unit": null,
               "pressure_unit": null,
               "atmosphere": "argon",
               "stirring": null,
-              "stirring_speed": null,
-              "ph": null
+              "stirring_speed": null
             }
           }
         ],
@@ -527,26 +550,88 @@
       "evaluations": [
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Single-cation Na only, missing CaTFSA2 entirely. Human recipe is dual-cation Na-Ca. 4 steps. Good equipment and vendors but fundamentally wrong electrolyte system.",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
+              "material_extraction_score": 3.5,
+              "material_extraction_reasoning": "CaTFSA2 missing entirely",
+              "process_steps_score": 4.0,
               "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "Potentiostat, beaker cell, glovebox, FE-SEM all correct with vendors and models.",
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "Extracted single-cation control experiment. Human recipe is dual-cation Na-Ca. ",
+              "format_compliance_score": 5.0,
               "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "overall_score": 3.5,
+              "overall_reasoning": "Clean single-cation Na extraction but synthesis in paper is dual-cation Na-Ca. Missing CaTFSA2 is critical."
             },
-            "confidence_level": null,
+            "confidence_level": 5,
+            "missing_information": [
+              "CaTFSA2 as starting material and in electrolyte prep"
+            ],
+            "extraction_errors": [
+              "Extracted single-cation Na instead of dual-cation Na-Ca"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Dual-cation Na-Ca, CaTFSA2 correctly included. 4 steps. Voltage -0.5V placed in pressure field (schema error).",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Cu foil/Na metal in steps only, not starting materials.",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 4.0,
+              "conditions_extraction_reasoning": "-0.5V placed in pressure field.",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "Voltage in pressure field.",
+              "overall_score": 4.5,
+              "overall_reasoning": "Good dual-cation extraction. Main issue: voltage in pressure field."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Cu foil/Na metal in starting materials"
+            ],
+            "extraction_errors": [
+              "Voltage (-0.5V) placed in pressure field"
+            ],
+            "improvement_suggestions": []
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Most complete extraction. 6 starting materials, 5 steps, CaTFSA2 included. All vendors and purities captured.",
+            "scores": {
+              "structural_completeness_score": 5.0,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 5.0,
+              "material_extraction_reasoning": "",
+              "process_steps_score": 5.0,
+              "process_steps_reasoning": "",
+              "equipment_extraction_score": 5.0,
+              "equipment_extraction_reasoning": "",
+              "conditions_extraction_score": 5.0,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5.0,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 4.5,
+              "format_compliance_reasoning": "Minor: Cu foil thickness in unit field, G3 unit='solvent'.",
+              "overall_score": 5.0,
+              "overall_reasoning": "Best extraction. Dual-cation, all materials, 5 steps. Minor schema quirks."
+            },
+            "confidence_level": 5,
             "missing_information": [],
             "extraction_errors": [],
             "improvement_suggestions": []
@@ -554,82 +639,34 @@
         },
         {
           "evaluation": {
-            "reasoning": "",
+            "reasoning": "Dual-cation Na-Ca, CaTFSA2 included. Only 2 steps, missing wash/dry. Wrong target_compound_type ('energy & sustainability').",
             "scores": {
-              "structural_completeness_score": null,
+              "structural_completeness_score": 5.0,
               "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
+              "material_extraction_score": 4.5,
+              "material_extraction_reasoning": "Missing THF.",
+              "process_steps_score": 3.0,
+              "process_steps_reasoning": "Missing wash/dry step.",
+              "equipment_extraction_score": 5.0,
               "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
+              "conditions_extraction_score": 5.0,
               "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
+              "semantic_accuracy_score": 3.5,
+              "semantic_accuracy_reasoning": "Wrong compound type ('energy & sustainability' instead of 'metals & alloys').",
+              "format_compliance_score": 4.0,
+              "format_compliance_reasoning": "Wrong target_compound_type.",
+              "overall_score": 3.5,
+              "overall_reasoning": "Dual-cation but too sparse (2 steps), wrong compound type, missing wash/dry."
             },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": ""
-            },
-            "confidence_level": null,
-            "missing_information": [],
-            "extraction_errors": [],
+            "confidence_level": 5,
+            "missing_information": [
+              "Wash/dry step",
+              "THF"
+            ],
+            "extraction_errors": [
+              "Wrong target_compound_type",
+              "Missing wash/dry step"
+            ],
             "improvement_suggestions": []
           }
         }
