@@ -195,29 +195,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -228,29 +228,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -261,29 +261,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -292,34 +292,34 @@
         },
         {
           "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
-              "Synthesis, steps, equipment, conditions"
+              "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "material"
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
             ],
             "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
         }
@@ -511,29 +511,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -544,29 +544,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -577,29 +577,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -608,34 +608,34 @@
         },
         {
           "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
-              "Synthesis, steps, equipment, conditions"
+              "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "material"
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
             ],
             "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
         }
@@ -873,32 +873,34 @@
     ],
       "evaluations": [
         {
+          "evaluations": [
+        {
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -909,29 +911,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -942,29 +944,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -973,34 +975,34 @@
         },
         {
           "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
-              "Synthesis, steps, equipment, conditions"
+              "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "material"
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
             ],
             "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
         },
@@ -1127,29 +1129,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -1160,29 +1162,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -1193,29 +1195,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -1224,40 +1226,44 @@
         },
         {
           "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
-              "Synthesis, steps, equipment, conditions"
+              "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "material"
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
             ],
             "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
         }
       ]
     }
   ]
+        }
+      ]
+    }
+  }
+]
 }
-  ]
-}
+
