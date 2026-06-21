@@ -40,14 +40,16 @@ RANKING_CSV="$RESULTS_DIR/vlm_ranking.csv"
 # VLMs to benchmark — any key from LLM_REGISTRY in src/llm_synthesis/utils/llms.py
 # Comment out models whose API keys you don't have.
 VLMS=(
-    "claude-sonnet-4.6"
-    "gemini-3-flash"
-    "gpt-4o"
-    # "qwen3.5-397b-a17b"    # needs OPENROUTER_QWEN_API_KEY
-    # "deepseek-v3.2"        # needs OPENROUTER_DEEPSEEK_API_KEY
+    "gemini-3-flash"       # needs GEMINI_API_KEY
+    "claude-sonnet-4.6"    # needs ANTHROPIC_API_KEY
+    "qwen3.5-397b-a17b"    # needs OPENROUTER_QWEN_API_KEY
+    "deepseek-v3.2"        # needs OPENROUTER_DEEPSEEK_API_KEY
+    # "kimi-k2.5"          # needs OPENROUTER_KIMI_API_KEY
+    # "gpt-4o"             # needs OPENAI_API_KEY
     # "gemini-2.5-flash"
     # "mistral-medium"
 )
+
 
 # ---------------------------------------------------------------------------
 # Preflight checks
@@ -125,10 +127,11 @@ for VLM in "${VLMS[@]}"; do
             fi ;;
     esac
 done
-# Synthesis always needs Gemini + Mistral OCR
+# Synthesis extraction always uses Gemini; OCR always uses Mistral
 if ! grep -q "^GEMINI_API_KEY=." "$ENV_FILE" && [[ -z "${GEMINI_API_KEY:-}" ]]; then
     MISSING_KEYS+=("GEMINI_API_KEY (needed for synthesis extraction)")
 fi
+# OCR always uses Mistral
 if ! grep -q "^MISTRAL_API_KEY=." "$ENV_FILE" && [[ -z "${MISTRAL_API_KEY:-}" ]]; then
     MISSING_KEYS+=("MISTRAL_API_KEY (needed for OCR / PDF extraction)")
 fi
@@ -165,13 +168,13 @@ echo "Output: $CACHE_DIR/_cache/"
 echo "============================================================"
 
 uv run run.py \
-    --pdf-dir   "$PDF_DIR" \
-    --output    "$CACHE_DIR" \
-    --gt        "$GT_DIR" \
+    --pdf-dir       "$PDF_DIR" \
+    --output        "$CACHE_DIR" \
+    --gt            "$GT_DIR" \
     --match-gt-only \
-    --phase     synthesis \
+    --phase         synthesis \
     --no-eval \
-    --skip-existing   # skip papers already cached
+    --skip-existing
 
 # What was saved:
 #   $CACHE_DIR/_cache/Teng_2024_Ru/synthesis.json   ← materials + synthesis + paper text
