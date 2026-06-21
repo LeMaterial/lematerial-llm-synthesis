@@ -2113,7 +2113,6 @@ if __name__ == "__main__":
     if not DATA_DIR.is_dir():
         parser.error(f"Data directory not found: {DATA_DIR}")
 
-    global OUT_DIR, DATA_DIR
     OUT_DIR = args.out_dir.resolve() if args.out_dir else DATA_DIR / "figures"
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
