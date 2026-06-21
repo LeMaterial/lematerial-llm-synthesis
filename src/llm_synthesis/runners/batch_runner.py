@@ -25,7 +25,6 @@ Usage::
 
 import logging
 import time
-import traceback
 from pathlib import Path
 
 from llm_synthesis.config.domain_config import DomainConfig
@@ -53,11 +52,15 @@ from llm_synthesis.transformers.performance_linking.series_material_linker impor
 from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (  # noqa: E501
     ClaudeLinePlotDataExtractor,
 )
+from llm_synthesis.transformers.plot_extraction.litellm_plot_data_extraction import (  # noqa: E501
+    LiteLLMPlotDataExtractor,
+)
 from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (  # noqa: E501
     DspySynthesisExtractor,
     make_dspy_synthesis_extractor_signature,
 )
 from llm_synthesis.utils.dspy_utils import get_llm_from_name
+from llm_synthesis.utils.llms import LLM_REGISTRY
 from llm_synthesis.utils.si_utils import (
     find_si_file,
     is_si_file,
@@ -92,6 +95,7 @@ class BatchRunner:
         material_model: str | None = None,
         synthesis_max_tokens: int = 80_000,
         linker_max_tokens: int = 32_000,
+        plot_vlm: str | None = None,
     ) -> None:
         self.domain_config = domain_config
         self.gemini_model = gemini_model
@@ -100,6 +104,10 @@ class BatchRunner:
         self.material_model = material_model or gemini_model
         self.synthesis_max_tokens = synthesis_max_tokens
         self.linker_max_tokens = linker_max_tokens
+        # plot_vlm: LLM_REGISTRY key (e.g. "gemini-3-flash") or raw litellm
+        # model string. When set, overrides claude_model for plot extraction
+        # using LiteLLMPlotDataExtractor instead of ClaudeLinePlotDataExtractor.
+        self.plot_vlm = plot_vlm
 
         self._pdf_extractor: MistralPDFExtractor | None = None
         self._pipeline: SynthesisPerformancePipeline | None = None
@@ -115,6 +123,8 @@ class BatchRunner:
         max_papers: int | None = None,
         skip_existing: bool = False,
         skip_figures: bool = False,
+        phase: str = "all",
+        cache_dir: str | Path | None = None,
     ) -> None:
         """Process every PDF in pdf_dir and write results to output_dir.
 
@@ -125,6 +135,15 @@ class BatchRunner:
                 testing).
             skip_existing: If True, skip papers whose output already exists.
             skip_figures: If True, skip figure/plot extraction entirely.
+            phase: One of:
+                "all"       — full pipeline (default, original behaviour)
+                "synthesis" — OCR + materials + synthesis + figure detection
+                              only; saves cache to cache_dir/_cache/<paper_id>/
+                "vlm"       — loads cached synthesis+figures, runs VLM plot
+                              extraction + linking + writes output_dir
+            cache_dir: Root dir for synthesis/figure cache.  Defaults to
+                output_dir when phase="synthesis", and must be provided when
+                phase="vlm".
         """
         import warnings
 
@@ -135,9 +154,59 @@ class BatchRunner:
         logging.getLogger("litellm").setLevel(logging.ERROR)
         logging.getLogger("pydantic").setLevel(logging.ERROR)
 
+        if phase not in ("all", "synthesis", "vlm"):
+            raise ValueError(
+                f"phase must be 'all', 'synthesis', or 'vlm', got {phase!r}"
+            )
+
         pdf_dir = Path(pdf_dir)
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Resolve cache_dir
+        _cache_dir: Path
+        if cache_dir is not None:
+            _cache_dir = Path(cache_dir)
+        elif phase == "vlm":
+            raise ValueError("cache_dir is required when phase='vlm'")
+        else:
+            _cache_dir = output_dir
+
+        if phase == "vlm":
+            # VLM-only: no PDFs needed, iterate over cached paper dirs
+            self._init_components()
+            cache_root = _cache_dir / "_cache"
+            if not cache_root.exists():
+                raise FileNotFoundError(f"Cache not found: {cache_root}")
+            paper_dirs = sorted(d for d in cache_root.iterdir() if d.is_dir())
+            if max_papers:
+                paper_dirs = paper_dirs[:max_papers]
+            all_summaries: list[dict] = []
+            total_start = time.time()
+            for i, paper_cache_dir in enumerate(paper_dirs, 1):
+                logger.info(
+                    "\n%s\n# VLM PHASE %d/%d: %s\n%s",
+                    "#" * 70,
+                    i,
+                    len(paper_dirs),
+                    paper_cache_dir.name,
+                    "#" * 70,
+                )
+                try:
+                    summary = self._phase2_vlm(paper_cache_dir, output_dir)
+                    all_summaries.append(summary)
+                except Exception as e:
+                    logger.error("FAILED %s: %s", paper_cache_dir.name, e)
+                    import traceback
+
+                    traceback.print_exc()
+                    all_summaries.append(
+                        {"paper_id": paper_cache_dir.name, "error": str(e)}
+                    )
+            total_elapsed = round(time.time() - total_start, 1)
+            self.domain_config.output_writer.finalize(output_dir, all_summaries)
+            self._print_batch_summary(all_summaries, total_elapsed, output_dir)
+            return
 
         if not pdf_dir.is_dir():
             raise ValueError(f"Not a directory: {pdf_dir}")
@@ -177,9 +246,12 @@ class BatchRunner:
                 "#" * 70,
             )
             try:
-                summary = self._process_one(
-                    paper_path, output_dir, skip_figures=skip_figures
-                )
+                if phase == "synthesis":
+                    summary = self._phase1_synthesis(paper_path, _cache_dir)
+                else:
+                    summary = self._process_one(
+                        paper_path, output_dir, skip_figures=skip_figures
+                    )
                 all_summaries.append(summary)
             except Exception as e:
                 error_str = str(e).lower()
@@ -273,10 +345,22 @@ class BatchRunner:
             signature=make_general_synthesis_judge_signature(), lm=judge_lm
         )
 
-        # Plot extractor (Claude VLM)
-        plot_extractor = ClaudeLinePlotDataExtractor(
-            model_name=self.claude_model
-        )
+        # Plot extractor — LiteLLM (any registry VLM) or Claude direct
+        if self.plot_vlm is not None:
+            if self.plot_vlm in LLM_REGISTRY.configs:
+                cfg_vlm = LLM_REGISTRY.configs[self.plot_vlm]
+                plot_extractor = LiteLLMPlotDataExtractor(
+                    model=cfg_vlm.model,
+                    api_key=cfg_vlm.api_key,
+                    api_base=cfg_vlm.api_base,
+                    extra_kwargs=cfg_vlm.extra_kwargs or {},
+                )
+            else:
+                plot_extractor = LiteLLMPlotDataExtractor(model=self.plot_vlm)
+        else:
+            plot_extractor = ClaudeLinePlotDataExtractor(
+                model_name=self.claude_model
+            )
 
         # Series linker
         linker_lm = get_llm_from_name(
@@ -427,6 +511,247 @@ class BatchRunner:
             "  Done: %d materials, %d plots, %.1fs",
             len(result.materials),
             result.num_plots,
+            processing_time,
+        )
+        return summary
+
+    # ------------------------------------------------------------------
+    # Two-phase helpers
+    # ------------------------------------------------------------------
+
+    def _phase1_synthesis(self, pdf_path: Path, cache_root: Path) -> dict:
+        """Phase 1: OCR + materials + synthesis + figure detection.
+
+        Saves results to cache_root/_cache/<paper_id>/synthesis.json and
+        figures.json so that _phase2_vlm can run cheaply for any VLM later.
+        """
+        import json as _json
+
+        paper_start = time.time()
+        paper_id = pdf_path.stem
+        cache_dir = cache_root / "_cache" / paper_id
+        cache_dir.mkdir(parents=True, exist_ok=True)
+
+        logger.info("Phase 1: Loading text for %s...", paper_id)
+        paper_text = load_file_text(pdf_path, self._pdf_extractor)
+
+        si_text = ""
+        si_path = find_si_file(pdf_path)
+        if si_path:
+            try:
+                si_text = load_file_text(si_path, self._pdf_extractor)
+            except Exception as e:
+                logger.warning("  SI load failed: %s", e)
+
+        # paper = _Paper(
+        #     name=paper_id,
+        #     id=paper_id,
+        #     publication_text=paper_text,
+        #     si_text=si_text,
+        # )
+
+        assert self._pipeline is not None
+
+        # Steps 1-2: materials + synthesis (skip_figures=True)
+        materials = self._pipeline.extract_materials(paper_text)
+        if not materials:
+            raise ValueError("No materials found")
+
+        from llm_synthesis.models.paper import (
+            SynthesisEntry as _SE,  # noqa: N814
+        )
+
+        all_syntheses = []
+        for mat in materials:
+            synthesis, evaluation = self._pipeline.extract_synthesis(
+                paper_text, mat
+            )
+            all_syntheses.append(
+                _SE(material=mat, synthesis=synthesis, evaluation=evaluation)
+            )
+
+        # Step 3: figure detection only (no VLM)
+        figures = self._pipeline.extract_figures(paper_text)
+
+        # Persist synthesis
+        synthesis_cache = {
+            "paper_id": paper_id,
+            "si_text": si_text,
+            "paper_text": paper_text,
+            "materials": materials,
+            "syntheses": [
+                {
+                    "material": e.material,
+                    "synthesis": e.synthesis.model_dump()
+                    if e.synthesis
+                    else None,
+                    "evaluation": e.evaluation.model_dump()
+                    if e.evaluation and hasattr(e.evaluation, "model_dump")
+                    else None,
+                }
+                for e in all_syntheses
+            ],
+        }
+        (cache_dir / "synthesis.json").write_text(
+            _json.dumps(synthesis_cache, indent=2)
+        )
+
+        # Persist figures (base64 is a plain string — serializes as-is)
+        figures_cache = [f.model_dump() for f in figures]
+        (cache_dir / "figures.json").write_text(
+            _json.dumps(figures_cache, indent=2)
+        )
+
+        processing_time = round(time.time() - paper_start, 1)
+        logger.info(
+            "  Phase 1 done: %d materials, %d figures cached, %.1fs",
+            len(materials),
+            len(figures),
+            processing_time,
+        )
+        return {
+            "paper_id": paper_id,
+            "total_materials": len(materials),
+            "figures_cached": len(figures),
+            "processing_time_seconds": processing_time,
+            "cache_dir": str(cache_dir),
+        }
+
+    def _phase2_vlm(self, paper_cache_dir: Path, output_dir: Path) -> dict:
+        """Phase 2: Load cached synthesis+figures, run VLM + linking.
+
+        Reads cache_dir/synthesis.json and figures.json written by
+        _phase1_synthesis, runs steps 4-6, and writes normal output.
+        """
+        import json as _json
+
+        paper_start = time.time()
+        paper_id = paper_cache_dir.name
+
+        syn_path = paper_cache_dir / "synthesis.json"
+        fig_path = paper_cache_dir / "figures.json"
+        if not syn_path.exists() or not fig_path.exists():
+            raise FileNotFoundError(
+                f"Cache incl for {paper_id}: need synthesis.json + figures.json"
+            )
+
+        syn_cache = _json.loads(syn_path.read_text())
+        fig_cache = _json.loads(fig_path.read_text())
+
+        from llm_synthesis.models.figure import FigureInfo as _FigureInfo
+        from llm_synthesis.models.ontologies.general import (
+            GeneralSynthesisOntology as _GSO,  # noqa: N814
+        )
+        from llm_synthesis.models.paper import (
+            SynthesisEntry as _SE,  # noqa: N814
+        )
+
+        materials = syn_cache["materials"]
+        paper_text = syn_cache["paper_text"]
+        si_text = syn_cache.get("si_text", "")
+        figures = [_FigureInfo(**f) for f in fig_cache]
+
+        # Reconstruct syntheses
+        all_syntheses = []
+        for s in syn_cache["syntheses"]:
+            syn_obj = _GSO(**s["synthesis"]) if s["synthesis"] else None
+            all_syntheses.append(
+                _SE(material=s["material"], synthesis=syn_obj, evaluation=None)
+            )
+
+        assert self._pipeline is not None
+
+        # Step 4: VLM plot extraction
+        plots, plot_figures = self._pipeline.extract_plot_data(
+            figures, paper_text, si_text
+        )
+
+        # Step 5: linking
+        plot_mappings: list = []
+        linking_stats = None
+        performance_data: dict = {}
+        linking_evaluation = None
+        if plots:
+            from llm_synthesis.utils.performance_utils import (
+                aggregate_all_materials_performance,
+            )
+
+            try:
+                plot_mappings, linking_stats = self._pipeline.link_performance(
+                    materials, plots, plot_figures
+                )
+                performance_data = aggregate_all_materials_performance(
+                    materials, plot_mappings, plots
+                )
+                if self._pipeline.linking_judge and plot_mappings:
+                    linking_evaluation = self._pipeline._evaluate_linking(
+                        paper_text=paper_text,
+                        all_syntheses=all_syntheses,
+                        plots=plots,
+                        plot_mappings=plot_mappings,
+                        performance_data=performance_data,
+                    )
+            except Exception as e:
+                logger.warning("Performance linking failed: %s", e)
+
+        # Build PipelineResult and write output
+        from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (  # noqa: E501
+            PipelineResult as _PR,  # noqa: N814
+        )
+        from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (  # noqa: E501
+            SynthesisWithPerformanceEntry as _SWP,  # noqa: N814
+        )
+
+        results = [
+            _SWP(
+                material=e.material,
+                synthesis=e.synthesis,
+                evaluation=e.evaluation,
+                performance=performance_data.get(e.material),
+                linking_evaluation=linking_evaluation,
+            )
+            for e in all_syntheses
+        ]
+        materials_with_perf = [m for m in materials if m in performance_data]
+        materials_without_perf = [
+            m for m in materials if m not in performance_data
+        ]
+
+        kept_relevant_plots: list = []
+        if plots:
+            kept_relevant_plots, _ = self._pipeline.plot_filter.filter_plots(
+                plots, log_skipped=False
+            )
+
+        pipeline_result = _PR(
+            paper_id=paper_id,
+            paper_name=paper_id,
+            materials=materials,
+            results=results,
+            plot_mappings=plot_mappings,
+            num_plots=len(plots),
+            linking_stats=linking_stats,
+            materials_with_performance=materials_with_perf,
+            materials_without_performance=materials_without_perf,
+            relevant_plots=kept_relevant_plots,
+            plot_figures=plot_figures,
+        )
+
+        cfg = self._domain_config_with_extractor
+        processing_time = round(time.time() - paper_start, 1)
+
+        summary = cfg.output_writer.write_paper(
+            paper_id=paper_id,
+            output_dir=output_dir,
+            pipeline_result=pipeline_result,
+            text_metrics={},
+            vlm_metrics={},
+            processing_time=processing_time,
+        )
+        logger.info(
+            "  Phase 2 done: %d materials, %d plots, %.1fs",
+            len(materials),
+            len(plots),
             processing_time,
         )
         return summary

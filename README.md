@@ -134,37 +134,174 @@ uv run examples/scripts/extract_synthesis_procedure_from_text.py \
 
 ### Thermocatalysis Case Study
 
-Extracts synthesis procedures and catalytic performance data (conversion/selectivity vs temperature curves) from a local corpus of heterogeneous catalysis papers (PDFs not part of the open-source LeMat-Synth-Papers corpus).
+End-to-end workflow: extract synthesis + performance data from NH₃ decomposition papers, evaluate VLM extraction accuracy against human-annotated ground truth.
 
-**Scripts** — [`examples/scripts/case_study_thermocatalysis/`](examples/scripts/case_study_thermocatalysis/)
+**Files** — [`examples/scripts/case_study_thermocatalysis/`](examples/scripts/case_study_thermocatalysis/)
 
-| Script / Notebook | What it does |
+| File | Purpose |
 |---|---|
-| `run_all_papers.py` | Full synthesis + performance extraction on a local folder of PDFs → per-paper JSON results |
-| `catalysis_synthesis_with_performance.ipynb` | Step-by-step interactive extraction for a single paper |
-| `catalysis_map_notebook.ipynb` | Visualizations: conversion landscape, per-metal subplots |
-| `keyword_search.py` | *(Experimental)* Keyword filtering of LeMat-Synth-Papers — not used in the main pipeline |
-| `downsample_with_llm.py` | *(Experimental)* LLM screening for performance-vs-temperature plots — not used in the main pipeline |
+| [`run.py`](examples/scripts/case_study_thermocatalysis/run.py) | **Single entry point** — extraction + multi-VLM eval |
+| [`eval_vlm.py`](examples/scripts/case_study_thermocatalysis/eval_vlm.py) | RMSE/MAE vs. human GT (imported by `run.py`) |
+| [`catalysis_map.py`](examples/scripts/case_study_thermocatalysis/catalysis_map.py) | Generates 7 publication figures from batch results |
+| [`run_case_study.sh`](examples/scripts/case_study_thermocatalysis/run_case_study.sh) | **Full walkthrough script** — runs all phases end-to-end |
+| [`catalysis_synthesis_with_performance.ipynb`](examples/notebooks/catalysis_synthesis_with_performance.ipynb) | Interactive single-paper pipeline |
 
-**Run extraction** on your local PDF corpus:
+**Ground truth** — [`data/results_catalysis_human/`](data/results_catalysis_human/) (26 papers, 170 materials — **read-only**).
+
+#### Prerequisites
+
 ```bash
-uv run examples/scripts/case_study_thermocatalysis/run_all_papers.py \
-  /path/to/catalysis_corpus \
-  /path/to/results_catalysis/ \
-  --skip-existing
+# API keys in .env at repo root
+ANTHROPIC_API_KEY=...
+GEMINI_API_KEY=...
+MISTRAL_API_KEY=...
+OPENROUTER_QWEN_API_KEY=...       # for Qwen VLMs
+OPENROUTER_DEEPSEEK_API_KEY=...   # for DeepSeek VLMs
 ```
-For each paper the script saves:
-- `<output_dir>/<paper_id>/<material>.json` — synthesis procedure + evaluation score per material
-- `<output_dir>/<paper_id>/performance_mappings.json` — plot series linked to materials
-- `<output_dir>/<paper_id>/linking_summary_llm.json` — LLM quality evaluation
-- `<output_dir>/<paper_id>/linking_summary_human.json` — blank template for human annotation
-- `<output_dir>/batch_summary.json` — overall batch statistics
 
-Additional flags: `--max N` to limit to the first N papers, `--skip-existing` to resume an interrupted run.
+PDFs in `data/ammonia_cracking_pdf/`. Only 2 PDFs have matching ground truth (`Teng_2024_Ru` → `Teng2024Ru`, `Zhou_2021_...` → `zhou2021`); use `--match-gt-only` to restrict to those.
 
-**Explore results interactively:**
-- Open `catalysis_synthesis_with_performance.ipynb` to walk through every extraction step on a single paper (PDF → materials → synthesis → figures → plot data → linking).
-- Open `catalysis_map_notebook.ipynb` to produce publication-quality conversion landscape and per-metal subplot figures from the batch results.
+#### Quickstart — full run (one script)
+
+```bash
+bash examples/scripts/case_study_thermocatalysis/run_case_study.sh
+```
+
+Edit the `VLMS=()` array at the top to select which models to benchmark. Runs all three phases automatically.
+
+#### Two-phase workflow (recommended for multi-VLM benchmarking)
+
+Synthesis extraction (OCR + materials + synthesis + figure detection) is slow (~30 min/paper) and VLM-independent. Cache it once, then the VLM step (~5 min/paper) is the only thing that runs per model:
+
+```bash
+cd examples/scripts/case_study_thermocatalysis
+
+# Phase 1 (once) — saves to data/results_cache/_cache/<paper_id>/
+python run.py \
+    --pdf-dir   ../../../data/ammonia_cracking_pdf \
+    --output    ../../../data/results_cache \
+    --match-gt-only \
+    --phase     synthesis \
+    --no-eval \
+    --skip-existing
+
+# Phase 2 (per VLM) — reads cache, runs VLM extraction + linking
+python run.py \
+    --output    ../../../data/results_catalysis/claude-sonnet-4.6 \
+    --phase     vlm \
+    --cache     ../../../data/results_cache \
+    --vlms      claude-sonnet-4.6 \
+    --single-dir
+
+# Repeat for each additional VLM — no re-extraction needed
+python run.py \
+    --output    ../../../data/results_catalysis/gemini-3-flash \
+    --phase     vlm \
+    --cache     ../../../data/results_cache \
+    --vlms      gemini-3-flash \
+    --single-dir
+```
+
+Cache layout:
+```
+data/results_cache/_cache/
+    Teng_2024_Ru/
+        synthesis.json   ← materials + synthesis + paper text
+        figures.json     ← detected figures with base64 image data
+    Zhou_2021_.../
+        synthesis.json
+        figures.json
+```
+
+#### Eval — compare all VLMs to ground truth
+
+```bash
+python run.py \
+    --output  ../../../data/results_catalysis \
+    --gt      ../../../data/results_catalysis_human \
+    --vlms    claude-sonnet-4.6 gemini-3-flash gpt-4o \
+    --eval-only \
+    --metric  rmse \
+    --csv     ../../../data/results_catalysis/ranking.csv
+```
+
+Prints a ranked RMSE table, saves `vlm_ranking_rmse.json` + CSV. RMSE=0 perfect; 0.02–0.15 good; >0.3 poor.
+
+#### Visualize results
+
+After extraction, generate 7 publication-quality figures:
+
+```bash
+python examples/scripts/case_study_thermocatalysis/catalysis_map.py \
+    data/results_catalysis/claude-sonnet-4.6 \
+    --out-dir data/results_catalysis/claude-sonnet-4.6/figures
+```
+
+Outputs PNG + PDF for: conversion landscape, metal/support heatmap, synthesis network, radar charts, promoter analysis, conversion-by-synthesis, 3D waterfall + `landscape_data.csv`.
+
+Optional flags: `--use-llm` (LLM-assisted material name parsing), `--ref-temp 500` (reference temperature), `--debug` (data inventory).
+
+#### Output layout
+
+```
+data/results_catalysis/
+    <vlm_name>/
+        <paper_id>/
+            <material>.json            ← synthesis procedure + plot_data coordinates
+            performance_mappings.json  ← which plot series → which material
+            linking_summary_llm.json   ← linking stats + quality scores
+            batch_summary.json         ← run timing + material counts
+        figures/                       ← catalysis_map.py output (PNG/PDF)
+    manifest.json                      ← which PDFs ran + GT mapping
+    vlm_ranking_rmse.json              ← VLM ranking by mean RMSE
+    ranking.csv                        ← per-material scores for all VLMs
+```
+
+Each `<material>.json`:
+```json
+{
+  "material": "Ru/MgO(110)",
+  "synthesis": { "...synthesis procedure..." },
+  "performance": {
+    "material_name": "Ru/MgO(110)",
+    "plot_data": [{
+      "series_name": "Ru/MgO(110)",
+      "coordinates": [[T, conversion], ...],
+      "x_axis_label": "Temperature", "x_axis_unit": "°C",
+      "y_axis_label": "NH3 conversion", "y_axis_unit": "%"
+    }]
+  }
+}
+```
+
+#### All flags
+
+| Flag | Purpose |
+|---|---|
+| `--phase synthesis\|vlm\|all` | Two-phase mode (default: `all`) |
+| `--cache PATH` | Cache dir for phase 1 (required for `--phase vlm`) |
+| `--match-gt-only` | Only process PDFs with a matching GT folder |
+| `--skip-existing` | Skip papers already processed |
+| `--max N` | Process only first N papers (testing) |
+| `--eval-only` | Skip extraction, only run eval |
+| `--single-dir` | Treat `--output` as flat results dir (no VLM subdir) |
+| `--no-eval` | Skip GT comparison |
+| `--metric rmse\|mae` | Error metric (default: `rmse`) |
+| `--csv PATH` | Export per-material scores to CSV |
+
+#### Available VLMs
+
+Any key from `LLM_REGISTRY` in [`src/llm_synthesis/utils/llms.py`](src/llm_synthesis/utils/llms.py):
+
+| Key | Model |
+|---|---|
+| `claude-sonnet-4.6` | Anthropic Claude Sonnet 4.6 |
+| `gemini-3-flash` | Google Gemini 3 Flash |
+| `gpt-4o` | OpenAI GPT-4o |
+| `qwen3.5-397b-a17b` | Qwen via OpenRouter |
+| `deepseek-v3.2` | DeepSeek via OpenRouter |
+| `gemini-2.5-flash` | Google Gemini 2.5 Flash |
+| `mistral-medium` | Mistral Medium |
 
 ---
 
