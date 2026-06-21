@@ -31,7 +31,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 SCRIPT_DIR="$REPO_ROOT/examples/scripts/case_study_thermocatalysis"
 
-PDF_DIR="$REPO_ROOT/data/ammonia_cracking_pdf"      # input PDFs
+PDF_DIR="$REPO_ROOT/data/papers_catalysis"      # input PDFs
 GT_DIR="$REPO_ROOT/data/results_catalysis_human"    # human ground truth (READ-ONLY)
 CACHE_DIR="$REPO_ROOT/data/results_catalysis_cache" # phase 1 cache
 RESULTS_DIR="$REPO_ROOT/data/results_catalysis"     # final VLM outputs
@@ -86,8 +86,8 @@ fi
 N_GT=$(find "$GT_DIR" -name "*_human.json" | wc -l | tr -d ' ')
 echo "  GT annotations:    $N_GT  ($GT_DIR)"
 
-# Check Python + package importable
-if ! python -c "from llm_synthesis.runners.batch_runner import BatchRunner" 2>/dev/null; then
+# Check uv run + package importable
+if ! uv run python -c "from llm_synthesis.runners.batch_runner import BatchRunner" 2>/dev/null; then
     echo "ERROR: llm_synthesis not importable."
     echo "       Run:  pip install -e '.[dev]'  from $REPO_ROOT"
     exit 1
@@ -164,7 +164,7 @@ echo "PHASE 1: Synthesis extraction (OCR + materials + synthesis + figures)"
 echo "Output: $CACHE_DIR/_cache/"
 echo "============================================================"
 
-python run.py \
+uv run run.py \
     --pdf-dir   "$PDF_DIR" \
     --output    "$CACHE_DIR" \
     --gt        "$GT_DIR" \
@@ -203,7 +203,7 @@ for VLM in "${VLMS[@]}"; do
     echo "--- Running VLM: $VLM ---"
     echo "    Output: $VLM_OUT"
 
-    python run.py \
+    uv run run.py \
         --output    "$VLM_OUT" \
         --phase     vlm \
         --cache     "$CACHE_DIR" \
@@ -239,7 +239,7 @@ for VLM in "${VLMS[@]}"; do
     VLM_ARGS+=("$VLM")
 done
 
-python run.py \
+uv run run.py \
     --output    "$RESULTS_DIR" \
     --gt        "$GT_DIR" \
     --vlms      "${VLM_ARGS[@]}" \
@@ -267,7 +267,7 @@ for VLM in "${VLMS[@]}"; do
     fi
     echo ""
     echo "--- Figures for $VLM → $FIG_OUT ---"
-    python catalysis_map.py "$VLM_OUT" --out-dir "$FIG_OUT" || \
+    uv run catalysis_map.py "$VLM_OUT" --out-dir "$FIG_OUT" || \
         echo "  WARNING: catalysis_map.py failed for $VLM (missing matplotlib/pandas?)"
 done
 
@@ -285,7 +285,7 @@ echo "CSV:       $RANKING_CSV"
 echo "Figures:   $RESULTS_DIR/<vlm_name>/figures/"
 echo ""
 echo "--- VLM Ranking ---"
-python -c "
+uv run python -c "
 import json, sys
 path = '$RESULTS_DIR/vlm_ranking_rmse.json'
 try:
@@ -301,7 +301,7 @@ except FileNotFoundError:
 
 echo ""
 echo "--- Re-run eval only (no extraction) ---"
-echo "  python run.py \\"
+echo "  uv run run.py \\"
 echo "      --output $RESULTS_DIR \\"
 echo "      --gt     $GT_DIR \\"
 echo "      --vlms   ${VLMS[*]} \\"

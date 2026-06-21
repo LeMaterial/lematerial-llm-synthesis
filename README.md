@@ -159,7 +159,7 @@ OPENROUTER_QWEN_API_KEY=...       # for Qwen VLMs
 OPENROUTER_DEEPSEEK_API_KEY=...   # for DeepSeek VLMs
 ```
 
-PDFs in `data/ammonia_cracking_pdf/`. Only 2 PDFs have matching ground truth (`Teng_2024_Ru` → `Teng2024Ru`, `Zhou_2021_...` → `zhou2021`); use `--match-gt-only` to restrict to those.
+PDFs in `data/papers_catalysis/`. Only 2 PDFs have matching ground truth (`Teng_2024_Ru` → `Teng2024Ru`, `Zhou_2021_...` → `zhou2021`); use `--match-gt-only` to restrict to those.
 
 #### Quickstart — full run (one script)
 
@@ -178,7 +178,7 @@ cd examples/scripts/case_study_thermocatalysis
 
 # Phase 1 (once) — saves to data/results_cache/_cache/<paper_id>/
 python run.py \
-    --pdf-dir   ../../../data/ammonia_cracking_pdf \
+    --pdf-dir   ../../../data/papers_catalysis \
     --output    ../../../data/results_cache \
     --match-gt-only \
     --phase     synthesis \
