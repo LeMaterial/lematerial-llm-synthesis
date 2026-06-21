@@ -49,6 +49,105 @@ VLMS=(
     # "mistral-medium"
 )
 
+# ---------------------------------------------------------------------------
+# Preflight checks
+# ---------------------------------------------------------------------------
+echo ""
+echo "============================================================"
+echo "PREFLIGHT CHECKS"
+echo "============================================================"
+
+# Check .env exists and has at least one key
+ENV_FILE="$REPO_ROOT/.env"
+if [[ ! -f "$ENV_FILE" ]]; then
+    echo "ERROR: .env not found at $ENV_FILE"
+    echo "       Create it with your API keys (see README for required keys)."
+    exit 1
+fi
+
+# Check PDF dir exists and has PDFs
+if [[ ! -d "$PDF_DIR" ]]; then
+    echo "ERROR: PDF directory not found: $PDF_DIR"
+    echo "       Put your catalysis PDFs there or edit PDF_DIR at the top of this script."
+    exit 1
+fi
+N_PDFS=$(find "$PDF_DIR" -maxdepth 1 -name "*.pdf" | wc -l | tr -d ' ')
+if [[ "$N_PDFS" -eq 0 ]]; then
+    echo "ERROR: No PDFs found in $PDF_DIR"
+    exit 1
+fi
+echo "  PDFs found:        $N_PDFS  ($PDF_DIR)"
+
+# Check ground truth exists
+if [[ ! -d "$GT_DIR" ]]; then
+    echo "ERROR: Ground truth dir not found: $GT_DIR"
+    exit 1
+fi
+N_GT=$(find "$GT_DIR" -name "*_human.json" | wc -l | tr -d ' ')
+echo "  GT annotations:    $N_GT  ($GT_DIR)"
+
+# Check Python + package importable
+if ! python -c "from llm_synthesis.runners.batch_runner import BatchRunner" 2>/dev/null; then
+    echo "ERROR: llm_synthesis not importable."
+    echo "       Run:  pip install -e '.[dev]'  from $REPO_ROOT"
+    exit 1
+fi
+echo "  llm_synthesis:     OK"
+
+# Check API keys for each active VLM
+MISSING_KEYS=()
+for VLM in "${VLMS[@]}"; do
+    case "$VLM" in
+        claude*)
+            [[ -z "${ANTHROPIC_API_KEY:-}" ]] && grep -q "ANTHROPIC_API_KEY" "$ENV_FILE" || true
+            if ! grep -q "^ANTHROPIC_API_KEY=." "$ENV_FILE" && [[ -z "${ANTHROPIC_API_KEY:-}" ]]; then
+                MISSING_KEYS+=("ANTHROPIC_API_KEY (needed for $VLM)")
+            fi ;;
+        gemini*)
+            if ! grep -q "^GEMINI_API_KEY=." "$ENV_FILE" && [[ -z "${GEMINI_API_KEY:-}" ]]; then
+                MISSING_KEYS+=("GEMINI_API_KEY (needed for $VLM)")
+            fi ;;
+        gpt*)
+            if ! grep -q "^OPENAI_API_KEY=." "$ENV_FILE" && [[ -z "${OPENAI_API_KEY:-}" ]]; then
+                MISSING_KEYS+=("OPENAI_API_KEY (needed for $VLM)")
+            fi ;;
+        qwen*)
+            if ! grep -q "^OPENROUTER_QWEN_API_KEY=." "$ENV_FILE" && [[ -z "${OPENROUTER_QWEN_API_KEY:-}" ]]; then
+                MISSING_KEYS+=("OPENROUTER_QWEN_API_KEY (needed for $VLM)")
+            fi ;;
+        deepseek*)
+            if ! grep -q "^OPENROUTER_DEEPSEEK_API_KEY=." "$ENV_FILE" && [[ -z "${OPENROUTER_DEEPSEEK_API_KEY:-}" ]]; then
+                MISSING_KEYS+=("OPENROUTER_DEEPSEEK_API_KEY (needed for $VLM)")
+            fi ;;
+        mistral*)
+            if ! grep -q "^MISTRAL_API_KEY=." "$ENV_FILE" && [[ -z "${MISTRAL_API_KEY:-}" ]]; then
+                MISSING_KEYS+=("MISTRAL_API_KEY (needed for $VLM)")
+            fi ;;
+    esac
+done
+# Synthesis always needs Gemini + Mistral OCR
+if ! grep -q "^GEMINI_API_KEY=." "$ENV_FILE" && [[ -z "${GEMINI_API_KEY:-}" ]]; then
+    MISSING_KEYS+=("GEMINI_API_KEY (needed for synthesis extraction)")
+fi
+if ! grep -q "^MISTRAL_API_KEY=." "$ENV_FILE" && [[ -z "${MISTRAL_API_KEY:-}" ]]; then
+    MISSING_KEYS+=("MISTRAL_API_KEY (needed for OCR / PDF extraction)")
+fi
+
+if [[ ${#MISSING_KEYS[@]} -gt 0 ]]; then
+    echo ""
+    echo "ERROR: Missing API keys in $ENV_FILE:"
+    for KEY in "${MISSING_KEYS[@]}"; do
+        echo "         $KEY"
+    done
+    echo ""
+    echo "  Add them to $ENV_FILE, then re-run."
+    exit 1
+fi
+echo "  API keys:          OK"
+echo "  VLMs to run:       ${VLMS[*]}"
+echo ""
+echo "All checks passed. Starting pipeline..."
+
 cd "$SCRIPT_DIR"
 
 # ---------------------------------------------------------------------------
@@ -151,17 +250,41 @@ python run.py \
 # Output:
 #   $RESULTS_DIR/vlm_ranking_rmse.json   ← VLM ranking by mean RMSE
 #   $RANKING_CSV                         ← per-material scores for all VLMs
-
 # ---------------------------------------------------------------------------
-# READ RESULTS
+# VISUALIZE: Generate publication figures for each VLM
 # ---------------------------------------------------------------------------
 echo ""
 echo "============================================================"
-echo "RESULTS SUMMARY"
+echo "VISUALIZE: Generating figures"
 echo "============================================================"
 
+for VLM in "${VLMS[@]}"; do
+    VLM_OUT="$RESULTS_DIR/$VLM"
+    FIG_OUT="$VLM_OUT/figures"
+    if [[ ! -d "$VLM_OUT" ]]; then
+        echo "  Skipping $VLM (no results dir)"
+        continue
+    fi
+    echo ""
+    echo "--- Figures for $VLM → $FIG_OUT ---"
+    python catalysis_map.py "$VLM_OUT" --out-dir "$FIG_OUT" || \
+        echo "  WARNING: catalysis_map.py failed for $VLM (missing matplotlib/pandas?)"
+done
+
+# ---------------------------------------------------------------------------
+# DONE — print final summary
+# ---------------------------------------------------------------------------
 echo ""
-echo "--- VLM Ranking (vlm_ranking_rmse.json) ---"
+echo "============================================================"
+echo "ALL DONE"
+echo "============================================================"
+echo ""
+echo "Results:   $RESULTS_DIR"
+echo "Ranking:   $RESULTS_DIR/vlm_ranking_rmse.json"
+echo "CSV:       $RANKING_CSV"
+echo "Figures:   $RESULTS_DIR/<vlm_name>/figures/"
+echo ""
+echo "--- VLM Ranking ---"
 python -c "
 import json, sys
 path = '$RESULTS_DIR/vlm_ranking_rmse.json'
@@ -173,52 +296,15 @@ try:
         mean = f\"{row[\"mean\"]:.4f}\" if row[\"mean\"] is not None else \"   N/A\"
         print(f'  {i:<5} {row[\"vlm\"]:<32} {mean:>10}  {row[\"n_scored\"]:>6}  {row[\"n_missing\"]:>7}')
 except FileNotFoundError:
-    print('  (ranking file not found — eval may not have run yet)')
+    print('  (ranking file not found)')
 "
 
 echo ""
-echo "--- Per-material scores (vlm_ranking.csv) ---"
-echo "  Path: $RANKING_CSV"
-echo "  Columns: vlm, paper_id, material_gt, material_llm, rmse,"
-echo "           n_gt_series, n_llm_series, n_matched_series"
-
-echo ""
-echo "--- Output file structure ---"
-echo "  $RESULTS_DIR/"
-echo "    <vlm_name>/"
-echo "      <paper_id>/"
-echo "        <material>.json            ← synthesis procedure + plot_data coordinates"
-echo "        performance_mappings.json  ← which plot series mapped to which material"
-echo "        linking_summary_llm.json   ← linking stats (n linked, unmatched series)"
-echo "        batch_summary.json         ← run timing + material counts"
-echo "    vlm_ranking_rmse.json          ← final VLM ranking"
-echo "    vlm_ranking.csv                ← per-material RMSE table"
-
-echo ""
-echo "--- How to read a single material result ---"
-echo "  Each <material>.json has this structure:"
-echo "  {"
-echo "    \"material\": \"Ru/MgO(110)\","
-echo "    \"synthesis\": { ...synthesis procedure... },"
-echo "    \"performance\": {"
-echo "      \"material_name\": \"Ru/MgO(110)\","
-echo "      \"plot_data\": [{"
-echo "        \"series_name\": \"Ru/MgO(110)\","
-echo "        \"coordinates\": [[T, conversion], ...],"
-echo "        \"x_axis_label\": \"Temperature\","
-echo "        \"x_axis_unit\": \"°C\","
-echo "        \"y_axis_label\": \"NH3 conversion\","
-echo "        \"y_axis_unit\": \"%\""
-echo "      }]"
-echo "    }"
-echo "  }"
-
-echo ""
-echo "--- Re-run eval only (after extracting more VLMs) ---"
+echo "--- Re-run eval only (no extraction) ---"
 echo "  python run.py \\"
 echo "      --output $RESULTS_DIR \\"
 echo "      --gt     $GT_DIR \\"
-echo "      --vlms   claude-sonnet-4.6 gemini-3-flash gpt-4o \\"
+echo "      --vlms   ${VLMS[*]} \\"
 echo "      --eval-only --metric rmse --csv $RANKING_CSV"
 
 echo ""
