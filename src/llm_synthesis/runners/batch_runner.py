@@ -411,6 +411,7 @@ class BatchRunner:
             plot_extractor=plot_extractor,
             series_linker=series_linker,
             plot_filter_config=cfg.plot_filter_config,
+            figure_segmenter="florence",
         )
 
         # Wire up text metric extractor for superconductors domain:
