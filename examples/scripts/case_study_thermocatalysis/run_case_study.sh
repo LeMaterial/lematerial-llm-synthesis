@@ -200,10 +200,11 @@ echo "PHASE 2: VLM plot extraction (one run per VLM)"
 echo "Output: $RESULTS_DIR/<vlm_name>/<paper_id>/<material>.json"
 echo "============================================================"
 
+VLM_PIDS=()
 for VLM in "${VLMS[@]}"; do
     VLM_OUT="$RESULTS_DIR/$VLM"
     echo ""
-    echo "--- Running VLM: $VLM ---"
+    echo "--- Launching VLM (background): $VLM ---"
     echo "    Output: $VLM_OUT"
 
     uv run run.py \
@@ -212,14 +213,19 @@ for VLM in "${VLMS[@]}"; do
         --cache     "$CACHE_DIR" \
         --vlms      "$VLM" \
         --no-eval \
-        --single-dir
-
-    # What was saved per paper:
-    #   $VLM_OUT/<paper_id>/<material>.json            ← synthesis + performance data
-    #   $VLM_OUT/<paper_id>/performance_mappings.json  ← plot→material linking
-    #   $VLM_OUT/<paper_id>/linking_summary_llm.json   ← linking stats
-    #   $VLM_OUT/<paper_id>/batch_summary.json         ← run summary
+        --single-dir \
+        > "$VLM_OUT.log" 2>&1 &
+    VLM_PIDS+=($!)
 done
+
+echo ""
+echo "Waiting for all VLMs to finish (pids: ${VLM_PIDS[*]})..."
+FAILED=0
+for PID in "${VLM_PIDS[@]}"; do
+    wait "$PID" || { echo "  WARNING: VLM process $PID exited with error"; FAILED=1; }
+done
+[[ "$FAILED" -eq 1 ]] && echo "  Check per-VLM logs at $RESULTS_DIR/<vlm>.log"
+echo "All VLMs done."
 
 # ---------------------------------------------------------------------------
 # EVAL: Compare all VLMs to human ground truth

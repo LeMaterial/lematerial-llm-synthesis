@@ -24,7 +24,10 @@ Usage::
 """
 
 import logging
+import threading
 import time
+import traceback
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from llm_synthesis.config.domain_config import DomainConfig
@@ -96,6 +99,7 @@ class BatchRunner:
         synthesis_max_tokens: int = 80_000,
         linker_max_tokens: int = 32_000,
         plot_vlm: str | None = None,
+        max_workers: int = 4,
     ) -> None:
         self.domain_config = domain_config
         self.gemini_model = gemini_model
@@ -108,6 +112,7 @@ class BatchRunner:
         # model string. When set, overrides claude_model for plot extraction
         # using LiteLLMPlotDataExtractor instead of ClaudeLinePlotDataExtractor.
         self.plot_vlm = plot_vlm
+        self.max_workers = max_workers
 
         self._pdf_extractor: MistralPDFExtractor | None = None
         self._pipeline: SynthesisPerformancePipeline | None = None
@@ -183,26 +188,31 @@ class BatchRunner:
                 paper_dirs = paper_dirs[:max_papers]
             all_summaries: list[dict] = []
             total_start = time.time()
-            for i, paper_cache_dir in enumerate(paper_dirs, 1):
+
+            def _vlm_worker(paper_cache_dir: Path) -> dict:
                 logger.info(
-                    "\n%s\n# VLM PHASE %d/%d: %s\n%s",
+                    "\n%s\n# VLM PHASE: %s\n%s",
                     "#" * 70,
-                    i,
-                    len(paper_dirs),
                     paper_cache_dir.name,
                     "#" * 70,
                 )
-                try:
-                    summary = self._phase2_vlm(paper_cache_dir, output_dir)
-                    all_summaries.append(summary)
-                except Exception as e:
-                    logger.error("FAILED %s: %s", paper_cache_dir.name, e)
-                    import traceback
+                return self._phase2_vlm(paper_cache_dir, output_dir)
 
-                    traceback.print_exc()
-                    all_summaries.append(
-                        {"paper_id": paper_cache_dir.name, "error": str(e)}
-                    )
+            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                future_to_dir = {
+                    executor.submit(_vlm_worker, d): d for d in paper_dirs
+                }
+                for future in as_completed(future_to_dir):
+                    d = future_to_dir[future]
+                    try:
+                        all_summaries.append(future.result())
+                    except Exception as e:
+                        logger.error("FAILED %s: %s", d.name, e)
+                        traceback.print_exc()
+                        all_summaries.append(
+                            {"paper_id": d.name, "error": str(e)}
+                        )
+
             total_elapsed = round(time.time() - total_start, 1)
             self.domain_config.output_writer.finalize(output_dir, all_summaries)
             self._print_batch_summary(all_summaries, total_elapsed, output_dir)
@@ -235,45 +245,57 @@ class BatchRunner:
 
         all_summaries: list[dict] = []
         total_start = time.time()
+        rate_limit_hit = threading.Event()
 
-        for i, paper_path in enumerate(papers, 1):
+        def _paper_worker(paper_path: Path) -> dict:
             logger.info(
-                "\n%s\n# PAPER %d/%d: %s\n%s",
+                "\n%s\n# PAPER: %s\n%s",
                 "#" * 70,
-                i,
-                len(papers),
                 paper_path.name,
                 "#" * 70,
             )
-            try:
-                if phase == "synthesis":
-                    summary = self._phase1_synthesis(paper_path, _cache_dir)
-                else:
-                    summary = self._process_one(
-                        paper_path, output_dir, skip_figures=skip_figures
-                    )
-                all_summaries.append(summary)
-            except Exception as e:
-                error_str = str(e).lower()
-                if (
-                    ("rate" in error_str and "limit" in error_str)
-                    or "429" in error_str
-                    or "quota" in error_str
-                    or "resource_exhausted" in error_str
-                ):
-                    logger.error("RATE LIMIT — stopping batch: %s", e)
-                    all_summaries.append(
-                        {
-                            "paper_id": paper_path.stem,
-                            "error": f"RATE_LIMIT: {e}",
-                        }
-                    )
-                    break
-                logger.error("FAILED %s: %s", paper_path.name, e)
-                traceback.print_exc()
-                all_summaries.append(
-                    {"paper_id": paper_path.stem, "error": str(e)}
+            if phase == "synthesis":
+                return self._phase1_synthesis(paper_path, _cache_dir)
+            else:
+                return self._process_one(
+                    paper_path, output_dir, skip_figures=skip_figures
                 )
+
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            future_to_path: dict = {}
+            for paper_path in papers:
+                if rate_limit_hit.is_set():
+                    break
+                future_to_path[executor.submit(_paper_worker, paper_path)] = (
+                    paper_path
+                )
+
+            for future in as_completed(future_to_path):
+                paper_path = future_to_path[future]
+                try:
+                    all_summaries.append(future.result())
+                except Exception as e:
+                    error_str = str(e).lower()
+                    if (
+                        ("rate" in error_str and "limit" in error_str)
+                        or "429" in error_str
+                        or "quota" in error_str
+                        or "resource_exhausted" in error_str
+                    ):
+                        logger.error("RATE LIMIT — stopping batch: %s", e)
+                        rate_limit_hit.set()
+                        all_summaries.append(
+                            {
+                                "paper_id": paper_path.stem,
+                                "error": f"RATE_LIMIT: {e}",
+                            }
+                        )
+                    else:
+                        logger.error("FAILED %s: %s", paper_path.name, e)
+                        traceback.print_exc()
+                        all_summaries.append(
+                            {"paper_id": paper_path.stem, "error": str(e)}
+                        )
 
         total_elapsed = round(time.time() - total_start, 1)
 
