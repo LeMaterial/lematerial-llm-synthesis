@@ -44,7 +44,7 @@ VLMS=(
     "gemini-3-flash"       # needs GEMINI_API_KEY
     "claude-sonnet-4.6"    # needs ANTHROPIC_API_KEY
     "qwen3.5-397b-a17b"    # needs OPENROUTER_QWEN_API_KEY
-    "deepseek-v3.2"        # needs OPENROUTER_DEEPSEEK_API_KEY
+    # "deepseek-v3.2"        # text-only, no image input support on OpenRouter
     # "kimi-k2.5"          # needs OPENROUTER_KIMI_API_KEY
     # "gpt-4o"             # needs OPENAI_API_KEY
     # "gemini-2.5-flash"
