@@ -168,15 +168,29 @@ echo "PHASE 1: Synthesis extraction (OCR + materials + synthesis + figures)"
 echo "Output: $CACHE_DIR/_cache/"
 echo "============================================================"
 
-uv run run.py \
-    --pdf-dir       "$PDF_DIR" \
-    --output        "$CACHE_ROOT" \
-    --gt            "$GT_DIR" \
-    --match-gt-only \
-    --phase         synthesis \
-    --no-eval \
-    --skip-existing \
-    --max           3
+# Check if all PDFs are already cached; skip phase 1 only if nothing is missing
+PHASE1_NEEDED=0
+for PDF in "$PDF_DIR"/*.pdf; do
+    PAPER_ID="$(basename "$PDF" .pdf)"
+    # Skip SI files — they're loaded automatically alongside the main PDF
+    [[ "$PAPER_ID" == *_SI || "$PAPER_ID" == *-SI || "$PAPER_ID" == *_si ]] && continue
+    if [[ ! -f "$CACHE_DIR/_cache/$PAPER_ID/synthesis.json" ]] || \
+       [[ ! -f "$CACHE_DIR/_cache/$PAPER_ID/figures.json" ]]; then
+        PHASE1_NEEDED=1
+        echo "  Cache missing for $PAPER_ID"
+    fi
+done
+
+if [[ "$PHASE1_NEEDED" -eq 0 ]]; then
+    echo "  All papers already cached — skipping phase 1."
+else
+    uv run run.py \
+        --pdf-dir       "$PDF_DIR" \
+        --output        "$CACHE_ROOT" \
+        --phase         synthesis \
+        --no-eval \
+        --skip-existing
+fi
 
 # What was saved:
 #   $CACHE_DIR/_cache/Teng_2024_Ru/synthesis.json   ← materials + synthesis + paper text
@@ -216,8 +230,8 @@ for VLM in "${VLMS[@]}"; do
         --cache     "$CACHE_DIR" \
         --vlms      "$VLM" \
         --no-eval \
-        --single-dir \
-        --max       3 \
+        --single-dir
+        # --max       3 \
         > "$RESULTS_DIR/${VLM}.log" 2>&1 &
     VLM_PIDS+=($!)
 done

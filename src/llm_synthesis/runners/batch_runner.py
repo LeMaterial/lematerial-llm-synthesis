@@ -224,7 +224,12 @@ class BatchRunner:
         papers = self._discover_papers(pdf_dir)
 
         if skip_existing:
-            papers = self._filter_existing(papers, output_dir)
+            papers = self._filter_existing(
+                papers,
+                output_dir,
+                phase=phase,
+                cache_dir=_cache_dir,
+            )
 
         if max_papers and len(papers) > max_papers:
             logger.info("Limiting to first %d papers (--max flag)", max_papers)
@@ -801,13 +806,24 @@ class BatchRunner:
         return sorted(all_papers, key=lambda p: p.name)
 
     @staticmethod
-    def _filter_existing(papers: list[Path], output_dir: Path) -> list[Path]:
+    def _filter_existing(
+        papers: list[Path],
+        output_dir: Path,
+        phase: str = "all",
+        cache_dir: Path | None = None,
+    ) -> list[Path]:
         remaining = []
         for p in papers:
-            paper_dir = output_dir / p.stem
-            done = (paper_dir / "linking_summary_llm.json").exists() or (
-                paper_dir / "summary.json"
-            ).exists()
+            if phase == "synthesis" and cache_dir is not None:
+                cache_paper = cache_dir / "_cache" / p.stem
+                done = (cache_paper / "synthesis.json").exists() and (
+                    cache_paper / "figures.json"
+                ).exists()
+            else:
+                paper_dir = output_dir / p.stem
+                done = (paper_dir / "linking_summary_llm.json").exists() or (
+                    paper_dir / "summary.json"
+                ).exists()
             if done:
                 logger.info("Skipping %s (already processed)", p.stem)
             else:
