@@ -33,7 +33,8 @@ SCRIPT_DIR="$REPO_ROOT/examples/scripts/case_study_thermocatalysis"
 
 PDF_DIR="$REPO_ROOT/data/papers_catalysis"      # input PDFs
 GT_DIR="$REPO_ROOT/data/results_catalysis_human"    # human ground truth (READ-ONLY)
-CACHE_DIR="$REPO_ROOT/data/results_catalysis_cache" # phase 1 cache
+CACHE_ROOT="$REPO_ROOT/data/results_catalysis_cache"                  # phase 1 output root (batch_runner writes <root>/<model>/_cache)
+CACHE_DIR="$CACHE_ROOT/claude-sonnet-4.6"                             # resolved cache dir (where _cache/ actually lives)
 RESULTS_DIR="$REPO_ROOT/data/results_catalysis"     # final VLM outputs
 RANKING_CSV="$RESULTS_DIR/vlm_ranking.csv"
 
@@ -169,12 +170,13 @@ echo "============================================================"
 
 uv run run.py \
     --pdf-dir       "$PDF_DIR" \
-    --output        "$CACHE_DIR" \
+    --output        "$CACHE_ROOT" \
     --gt            "$GT_DIR" \
     --match-gt-only \
     --phase         synthesis \
     --no-eval \
-    --skip-existing
+    --skip-existing \
+    --max           3
 
 # What was saved:
 #   $CACHE_DIR/_cache/Teng_2024_Ru/synthesis.json   ← materials + synthesis + paper text
@@ -201,6 +203,7 @@ echo "Output: $RESULTS_DIR/<vlm_name>/<paper_id>/<material>.json"
 echo "============================================================"
 
 VLM_PIDS=()
+mkdir -p "$RESULTS_DIR"
 for VLM in "${VLMS[@]}"; do
     VLM_OUT="$RESULTS_DIR/$VLM"
     echo ""
@@ -214,7 +217,8 @@ for VLM in "${VLMS[@]}"; do
         --vlms      "$VLM" \
         --no-eval \
         --single-dir \
-        > "$VLM_OUT.log" 2>&1 &
+        --max       3 \
+        > "$RESULTS_DIR/${VLM}.log" 2>&1 &
     VLM_PIDS+=($!)
 done
 
@@ -224,7 +228,15 @@ FAILED=0
 for PID in "${VLM_PIDS[@]}"; do
     wait "$PID" || { echo "  WARNING: VLM process $PID exited with error"; FAILED=1; }
 done
-[[ "$FAILED" -eq 1 ]] && echo "  Check per-VLM logs at $RESULTS_DIR/<vlm>.log"
+if [[ "$FAILED" -eq 1 ]]; then
+    echo "  ERROR: One or more VLM processes failed. Logs:"
+    for VLM in "${VLMS[@]}"; do
+        echo "    tail -20 $RESULTS_DIR/${VLM}.log"
+        tail -5 "$RESULTS_DIR/${VLM}.log" 2>/dev/null | sed 's/^/      /'
+    done
+    echo "  Aborting before eval — fix errors above and re-run."
+    exit 1
+fi
 echo "All VLMs done."
 
 # ---------------------------------------------------------------------------
@@ -302,7 +314,7 @@ try:
     print(f'  {\"Rank\":<5} {\"VLM\":<32} {\"Mean RMSE\":>10}  {\"Scored\":>6}  {\"Missing\":>7}')
     print('  ' + '-' * 60)
     for i, row in enumerate(data, 1):
-        mean = f\"{row[\"mean\"]:.4f}\" if row[\"mean\"] is not None else \"   N/A\"
+        mean = f\"{row['mean']:.4f}\" if row['mean'] is not None else \"   N/A\"
         print(f'  {i:<5} {row[\"vlm\"]:<32} {mean:>10}  {row[\"n_scored\"]:>6}  {row[\"n_missing\"]:>7}')
 except FileNotFoundError:
     print('  (ranking file not found)')

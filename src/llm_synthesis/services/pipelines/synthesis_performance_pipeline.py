@@ -240,7 +240,11 @@ class SynthesisPerformancePipeline:
             return quantitative_figures
 
         except Exception as e:
-            logger.warning(f"  Figure extraction failed: {e}")
+            import traceback
+
+            logger.warning(
+                f"  Figure extraction failed: {e}\n{traceback.format_exc()}"
+            )
             return []
 
     def _extract_one_plot(

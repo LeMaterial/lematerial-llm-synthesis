@@ -69,8 +69,32 @@ class FlorenceSegmenter:
 
         self._load_model()
 
+    @staticmethod
+    def _patch_florence_config():
+        """Patch Florence2LanguageConfig to add missing forced_bos_token_id.
+
+        Newer transformers removed this attribute; the dynamic config class
+        checks for it during __init__, so it must be added before any
+        from_pretrained call loads the model.
+        """
+        try:
+            from transformers.dynamic_module_utils import (
+                get_class_from_dynamic_module,
+            )
+
+            cfg_cls = get_class_from_dynamic_module(
+                "configuration_florence2.Florence2LanguageConfig",
+                "microsoft/Florence-2-base-ft",
+            )
+            if not hasattr(cfg_cls, "forced_bos_token_id"):
+                cfg_cls.forced_bos_token_id = None
+        except Exception:
+            pass
+
     def _load_model(self):
         """Load the Florence-2 base model with LoRA adapters."""
+        self._patch_florence_config()
+
         logger.info("Loading Florence-2 base model: %s", self.base_model)
         self.processor = AutoProcessor.from_pretrained(
             self.base_model, trust_remote_code=True
@@ -91,16 +115,6 @@ class FlorenceSegmenter:
         model = model.merge_and_unload()
 
         self.model = model.to(self.device)
-
-        # Newer transformers removed forced_bos_token_id from
-        # Florence2LanguageConfig; add it so generate() does not fail.
-        lang_cfg = getattr(
-            getattr(self.model, "language_model", None), "config", None
-        )
-        if lang_cfg is not None and not hasattr(
-            lang_cfg, "forced_bos_token_id"
-        ):
-            lang_cfg.forced_bos_token_id = None
 
         logger.info("Florence-2 model loaded on %s", self.device)
 

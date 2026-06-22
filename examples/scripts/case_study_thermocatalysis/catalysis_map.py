@@ -1087,7 +1087,12 @@ def detect_promoter_pairs(df_curves):
     """
     # Build lookup: (paper_dir, material_name) -> best non-plasma conv_at_500
     conv_lookup = {}
-    for _, row in df_curves[~df_curves["is_plasma"]].iterrows():
+    plasma_mask = (
+        df_curves["is_plasma"]
+        if "is_plasma" in df_curves.columns
+        else pd.Series(False, index=df_curves.index)
+    )
+    for _, row in df_curves[~plasma_mask].iterrows():
         key = (row["paper_dir"], row["material_name"])
         val = row["conv_at_500"]
         if pd.notna(val):
@@ -1211,6 +1216,9 @@ def _sorted_support_legend(supports_present):
 
 def make_fig1(df_curves):
     """Figure 1: Cross-paper performance landscape."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 1")
+        return
     df = df_curves[
         (~df_curves["is_plasma"])
         & (df_curves["metal"].notna())
@@ -1310,6 +1318,9 @@ def make_fig1(df_curves):
 
 def make_fig2(df_curves):
     """Figure 2: Metal x Support heatmap — best conversion at 500°C."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 2")
+        return
     df = df_curves[
         (~df_curves["is_plasma"])
         & (df_curves["metal"].notna())
@@ -1511,6 +1522,9 @@ def make_fig3(df_synthesis):
 
 def make_fig4(df_curves, df_synthesis):
     """Figure 4: Radar charts for top 6 catalysts (by conv at 500°C)."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 4")
+        return
     df_merged = df_curves.merge(
         df_synthesis[
             [
@@ -1633,6 +1647,9 @@ def make_fig4(df_curves, df_synthesis):
 def make_fig5(df_curves, df_synthesis):
     """Figure 5: Two panels — (a) promoter effect (auto-detected),
     (b) conditions scatter."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 5")
+        return
     fig, (ax1, ax2) = plt.subplots(
         1, 2, figsize=(12, 5), gridspec_kw={"width_ratios": [1, 1.2]}
     )
@@ -1794,6 +1811,9 @@ def make_fig5(df_curves, df_synthesis):
 
 def make_fig6(df_curves):
     """Figure 6: Conversion landscape colored by synthesis strategy."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 6")
+        return
     df = df_curves[
         (~df_curves["is_plasma"])
         & (df_curves["metal"].notna())
@@ -1854,6 +1874,9 @@ def make_fig6(df_curves):
 def make_fig7(df_curves):
     """Figure 7: 3D waterfall — conversion curves layered by support,
     colored by metal."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 7")
+        return
     from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
     df = df_curves[
@@ -2005,7 +2028,9 @@ def print_debug(df_curves, df_synthesis):
         "\nCurves with conv_at_500:     "
         f"{df_curves['conv_at_500'].notna().sum()}"
     )
-    print(f"Plasma curves:               {df_curves['is_plasma'].sum()}")
+    print(
+        f"Plasma curves:               {df_curves['is_plasma'].sum() if 'is_plasma' in df_curves.columns else 'N/A'}"  # noqa: E501
+    )
 
     print("\n── Curves per paper ──")
     for paper, count in df_curves["paper_dir"].value_counts().items():
@@ -2143,6 +2168,7 @@ if __name__ == "__main__":
     df_curves, df_synthesis = load_all_data(
         skip_dirs=skip_dirs,
         material_cache=mat_cache,
+        DATA_DIR=DATA_DIR,
     )
     print(f"  {len(df_curves)} performance curves loaded")
     print(f"  {len(df_synthesis)} synthesis records loaded")
