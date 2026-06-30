@@ -649,75 +649,75 @@
         "synthesis_method": "solution-based",
         "starting_materials": [
           {
-          "vendor": null,
-          "name": "n-methylimidazole",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "1-chlorooctadecane",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "diethyl ether",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "tetrahydrofuran",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "Li[NTf2]",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "ethanol",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        },
-        {
-          "vendor": null,
-          "name": "water",
-          "amount": null,
-          "unit": null,
-          "purity": null
-        }
-      ],
+            "vendor": null,
+            "name": "n-methylimidazole",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "1-chlorooctadecane",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "diethyl ether",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "tetrahydrofuran",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Li[NTf2]",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "ethanol",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
         "steps": [
           {
             "step_number": 1,
             "action": "mix",
             "description": "React n-methylimidazole with 1-chlorooctadecane at 90°C for 48 h under argon atmosphere via electrophilic addition to yield [C18C1im][Cl].",
             "materials": [
-             {
-              "vendor": null,
-              "name": "n-methylimidazole",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "1-chlorooctadecane",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            }
+              {
+                "vendor": null,
+                "name": "n-methylimidazole",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "1-chlorooctadecane",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
             ],
             "equipment": [
               {
@@ -778,34 +778,34 @@
             "action": "filtrate",
             "description": "Recrystallize [C18C1im][Cl] from tetrahydrofuran.",
             "materials": [
-            {
-              "vendor": null,
-              "name": "tetrahydrofuran",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "[C18C1im][Cl]",
-              "amount": 2.0,
-              "unit": "g",
-              "purity": null
+              {
+                "vendor": null,
+                "name": "tetrahydrofuran",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "[C18C1im][Cl]",
+                "amount": 2.0,
+                "unit": "g",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
             }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
           },
           {
             "step_number": 4,
@@ -813,67 +813,80 @@
             "description": "React [C18C1im][Cl] with Li[NTf2] in aqueous solution via metathesis reaction to yield [C18C1im][NTf2].",
             "materials": [
               {
-              "vendor": null,
-              "name": "[C18C1im][Cl]",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "Li[NTf2]",
-              "amount": null,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "water",
-              "amount": null,
-              "unit": null,
-              "purity": null
+                "vendor": null,
+                "name": "[C18C1im][Cl]",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "Li[NTf2]",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
             }
-          ],
-          "equipment": [],
-          "conditions": {
-            "temperature": null,
-            "temp_unit": null,
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": null,
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
-          }
           },
           {
-          "step_number": 5,
-          "action": "filtrate",
-          "description": "Recrystallize [C18C1im][NTf2] from a mixture of ethanol/water (75:25).",
-          "materials": [
-            {
-              "vendor": null,
-              "name": "ethanol",
-              "amount": 75,
-              "unit": null,
-              "purity": null
-            },
-            {
-              "vendor": null,
-              "name": "water",
-              "amount": 25,
-              "unit": null,
-              "purity": null
+            "step_number": 5,
+            "action": "filtrate",
+            "description": "Recrystallize [C18C1im][NTf2] from a mixture of ethanol/water (75:25).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "ethanol",
+                "amount": 75,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": 25,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
             }
+          }
         ],
-        "notes": "The ionic liquid consists entirely of [C(18)C1im][NTf(2)] to achieve an average carbon number of 18."
-      }
-    ],
+        "equipment": [],
+        "notes": "The ionic liquid consists entirely of [C18C1im][NTf2] to achieve an average carbon number of 18."
+      },
       "evaluations": [
-        {
-          "evaluations": [
         {
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
@@ -1005,35 +1018,16 @@
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
-        },
-{
-  "material_name": "[C18C1im][Cl]",
-  "human_recipe": {
-    "target_compound": "[C18C1im][Cl]",
-    "target_compound_type": "other",
-    "synthesis_method": "solution-based",
-    "starting_materials": [
-      {
-        "vendor": null,
-        "name": "n-methylimidazole",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      },
-      {
-        "vendor": null,
-        "name": "1-chlorooctadecane",
-        "amount": null,
-        "unit": null,
-        "purity": null
-      }
-    ],
-    "steps": [
-      {
-        "step_number": 1,
-        "action": "mix",
-        "description": "React n-methylimidazole with 1-chlorooctadecane at 90°C for 48 h under argon atmosphere via electrophilic addition to yield [C18C1im][Cl] as a solid precipitate.",
-        "materials": [
+        }
+      ]
+    },
+    {
+      "material_name": "[C18C1im][Cl]",
+      "human_recipe": {
+        "target_compound": "[C18C1im][Cl]",
+        "target_compound_type": "other",
+        "synthesis_method": "solution-based",
+        "starting_materials": [
           {
             "vendor": null,
             "name": "n-methylimidazole",
@@ -1049,82 +1043,100 @@
             "purity": null
           }
         ],
-        "equipment": [],
-        "conditions": {
-          "temperature": 90,
-          "temp_unit": "°C",
-          "duration": 48,
-          "time_unit": "h",
-          "pressure": null,
-          "pressure_unit": null,
-          "atmosphere": "argon",
-          "stirring": null,
-          "stirring_speed": null,
-          "ph": null
-        }
-      },
-      {
-        "step_number": 2,
-        "action": "wash",
-        "description": "Wash the solid precipitate with diethyl ether.",
-        "materials": [
+        "steps": [
           {
-            "vendor": null,
-            "name": "diethyl ether",
-            "amount": null,
-            "unit": null,
-            "purity": null
+            "step_number": 1,
+            "action": "mix",
+            "description": "React n-methylimidazole with 1-chlorooctadecane at 90°C for 48 h under argon atmosphere via electrophilic addition to yield [C18C1im][Cl] as a solid precipitate.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "n-methylimidazole",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "1-chlorooctadecane",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 90,
+              "temp_unit": "°C",
+              "duration": 48,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "wash",
+            "description": "Wash the solid precipitate with diethyl ether.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "diethyl ether",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "filter",
+            "description": "Recrystallize the washed solid from tetrahydrofuran.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "tetrahydrofuran",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
           }
         ],
         "equipment": [],
-        "conditions": {
-          "temperature": null,
-          "temp_unit": null,
-          "duration": null,
-          "time_unit": null,
-          "pressure": null,
-          "pressure_unit": null,
-          "atmosphere": null,
-          "stirring": null,
-          "stirring_speed": null,
-          "ph": null
-        }
+        "notes": ""
       },
-      {
-        "step_number": 3,
-        "action": "filter",
-        "description": "Recrystallize the washed solid from tetrahydrofuran.",
-        "materials": [
-          {
-            "vendor": null,
-            "name": "tetrahydrofuran",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          }
-        ],
-        "equipment": [],
-        "conditions": {
-          "temperature": null,
-          "temp_unit": null,
-          "duration": null,
-          "time_unit": null,
-          "pressure": null,
-          "pressure_unit": null,
-          "atmosphere": null,
-          "stirring": null,
-          "stirring_speed": null,
-          "ph": null
-        }
-      }
-    ],
-    
-    "notes": []
-  }
-},
-      
-{
-  "evaluations": [
+      "evaluations": [
         {
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
@@ -1260,10 +1272,4 @@
       ]
     }
   ]
-        }
-      ]
-    }
-  }
-]
 }
-
