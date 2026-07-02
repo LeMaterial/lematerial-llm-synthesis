@@ -513,20 +513,13 @@ def _save_ranking_png(ranked, rank_by):
         fontweight="bold",
         pad=20,
     )
-    out_png = os.path.join(OUTPUT_DIR, "multi_llm_judge_ranking.png")
+    out_png = os.path.join(OUTPUT_DIR, f"multi_llm_judge_ranking_{rank_by}.png")
     plt.savefig(out_png, dpi=300, bbox_inches="tight", facecolor="white")
     plt.close()
     return out_png
 
 
 def main():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    logging.basicConfig(
-        filename=os.path.join(OUTPUT_DIR, "multi_llm_complete.log"),
-        level=logging.INFO,
-        force=True,
-        filemode="w",
-    )
     parser = argparse.ArgumentParser(
         description="Compare multi-LLM results with human annotations",
     )
@@ -538,6 +531,16 @@ def main():
         help="Metric to rank judges by (default: abs_diff)",
     )
     args = parser.parse_args()
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    logging.basicConfig(
+        filename=os.path.join(
+            OUTPUT_DIR, f"multi_llm_complete_{args.rank_by}.log"
+        ),
+        level=logging.INFO,
+        force=True,
+        filemode="w",
+    )
 
     # same as compare_human_judge_scores_complete.py
     skip_folders = [
@@ -575,7 +578,9 @@ def main():
     synth_judge_heatmap(human_df, llm_df)
 
     # Save JSON
-    out_json = os.path.join(OUTPUT_DIR, "multi_llm_judge_ranking.json")
+    out_json = os.path.join(
+        OUTPUT_DIR, f"multi_llm_judge_ranking_{args.rank_by}.json"
+    )
     with open(out_json, "w", encoding="utf-8") as fh:
         json.dump(
             [
@@ -591,10 +596,12 @@ def main():
     out_png = _save_ranking_png(ranked, args.rank_by)
 
     logging.info(
-        "\nSaved judge ranking to %s and %s | Log at %s/multi_llm_complete.log",
+        "\nSaved judge ranking to %s and %s | "
+        "Log at %s/multi_llm_complete_%s.log",
         out_json,
         out_png,
         OUTPUT_DIR,
+        args.rank_by,
     )
 
 
