@@ -1,7 +1,7 @@
 """Validate annotation result_human.json files against the schema.
 
-For every new ``annotations/<id>/result_human.json`` (the ``multi_llm_v1``
-files, excluding ``old/``) this checks that each material's ``human_recipe``:
+For every ``annotations/<id>/result_human.json`` (the ``multi_llm_v1``
+files) this checks that each material's ``human_recipe``:
 
 1. passes ``GeneralSynthesisOntology.model_validate`` (types, enum values,
    required fields), and
@@ -14,8 +14,7 @@ Exits non-zero if any file has issues (usable in CI / pre-commit).
 
 Usage:
     uv run examples/scripts/data_curation/validate_result_human_schema.py
-    uv run .../validate_result_human_schema.py --annotations-dir annotations \
-        --include-old
+    uv run .../validate_result_human_schema.py --annotations-dir annotations
 """
 
 from __future__ import annotations
@@ -120,17 +119,10 @@ def main() -> int:
         description="Validate result_human.json files against the schema."
     )
     parser.add_argument("--annotations-dir", default="annotations")
-    parser.add_argument(
-        "--include-old",
-        action="store_true",
-        help="Also validate the old/ reference files.",
-    )
     args = parser.parse_args()
 
     root = Path(args.annotations_dir)
     files = sorted(root.glob("*/result_human.json"))
-    if args.include_old:
-        files += sorted(root.glob("*/old/result_human.json"))
 
     bad_files = 0
     total_issues = 0
