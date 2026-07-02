@@ -1,7 +1,6 @@
 """Shared utility functions for evaluation scripts.
 
-Common functions used across compare_human_judge_scores_*.py and
-compare_multi_llm_results_*.py:
+Common functions used across the compare_multi_llm_results_*.py scripts:
 
 - Constants: SCORE_COLUMNS
 - Score categorization: categorize_score
