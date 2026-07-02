@@ -13,13 +13,13 @@
       "material_name": "IG-C6",
       "human_recipe": {
         "target_compound": "IG-C6",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
+        "target_compound_type": "polymers & soft matter",
+        "synthesis_method": "solution-based",
         "starting_materials": [
           {
             "vendor": "Sigma-Aldrich",
             "name": "PVDF-HFP",
-            "amount": "0.5",
+            "amount": 0.5,
             "unit": "g",
             "purity": null
           },
@@ -33,7 +33,7 @@
           {
             "vendor": "Merck",
             "name": "[C6C1im][NTf2]",
-            "amount": "2.0",
+            "amount": 2.0,
             "unit": "g",
             "purity": null
           }
@@ -67,14 +67,14 @@
               }
             ],
             "conditions": {
-              "temperature": "40",
+              "temperature": 40.0,
               "temp_unit": "°C",
-              "duration": "4",
+              "duration": 4.0,
               "time_unit": "h",
               "pressure": null,
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": "yes",
+              "stirring": true,
               "stirring_speed": null,
               "ph": null
             }
@@ -107,7 +107,7 @@
               "pressure": null,
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": "yes",
+              "stirring": true,
               "stirring_speed": null,
               "ph": null
             }
@@ -116,8 +116,7 @@
             "step_number": 3,
             "action": "cast",
             "description": "Cast the solution into a petri dish.",
-            "materials": [
-            ],
+            "materials": [],
             "equipment": [
               {
                 "name": "petri dish",
@@ -142,14 +141,12 @@
             "step_number": 4,
             "action": "evaporate",
             "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
+            "materials": [],
+            "equipment": [],
             "conditions": {
-              "temperature": "room temperature",
+              "temperature": null,
               "temp_unit": null,
-              "duration": "24",
+              "duration": 24.0,
               "time_unit": "h",
               "pressure": null,
               "pressure_unit": null,
@@ -163,18 +160,16 @@
             "step_number": 5,
             "action": "dry",
             "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
+            "materials": [],
+            "equipment": [],
             "conditions": {
-              "temperature": "60",
+              "temperature": 60.0,
               "temp_unit": "°C",
-              "duration": "12",
+              "duration": 12.0,
               "time_unit": "h",
-              "pressure": "vacuum",
+              "pressure": null,
               "pressure_unit": null,
-              "atmosphere": null,
+              "atmosphere": "vacuum",
               "stirring": null,
               "stirring_speed": null,
               "ph": null
@@ -184,13 +179,13 @@
         "equipment": [
           {
             "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
+            "settings": null,
+            "instrument_vendor": null
           },
           {
             "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
+            "settings": null,
+            "instrument_vendor": null
           }
         ],
         "notes": "The ionic liquid consists entirely of [C6C1im][NTf2] to achieve an average carbon number of 6."
@@ -200,29 +195,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -233,29 +228,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -266,293 +261,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Synthesis, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "material"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "IG-C8*",
-      "human_recipe": {
-        "target_compound": "IG-C8*",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
-        "starting_materials": [
-          {
-            "vendor": "Sigma-Aldrich",
-            "name": "PVDF-HFP",
-            "amount": "0.5",
-            "unit": "g",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "acetone",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
-            "vendor": "Merck",
-            "name": "[C6C1im][NTf2]",
-            "amount": "5",
-            "unit": "mol",
-            "purity": null
-          }
-        ],
-        "steps": [
-          {
-            "step_number": 1,
-            "action": "dissolve",
-            "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
-            "materials": [
-              {
-                "vendor": "Sigma-Aldrich",
-                "name": "PVDF-HFP",
-                "amount": 0.5,
-                "unit": "g",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "acetone",
-                "amount": null,
-                "unit": null,
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": "40",
-              "temp_unit": "°C",
-              "duration": "4",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 2,
-            "action": "add",
-            "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
-            "materials": [
-              {
-                "vendor": "Merck",
-                "name": "[C6C1im][NTf2]",
-                "amount": 5,
-                "unit": "mol",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "[C18C1im][NTf2]",
-                "amount": 1,
-                "unit": "mol",
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": "s",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 3,
-            "action": "cast",
-            "description": "Cast the solution into a petri dish.",
-            "materials": [
-              "solution"
-            ],
-            "equipment": [
-              {
-                "name": "petri dish",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 4,
-            "action": "evaporate",
-            "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-              "solvent"
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "room temperature",
-              "temp_unit": null,
-              "duration": "24",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 5,
-            "action": "dry",
-            "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "60",
-              "temp_unit": "°C",
-              "duration": "12",
-              "time_unit": "h",
-              "pressure": "vacuum",
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          }
-        ],
-        "equipment": [
-          {
-            "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
-          },
-          {
-            "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
-          }
-        ],
-        "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 1:5."
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -563,1446 +294,32 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Synthesis, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "material"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "IG-C10",
-      "human_recipe": {
-        "target_compound": "IG-C10",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
-        "starting_materials": [
-          {
-            "vendor": "Sigma-Aldrich",
-            "name": "PVDF-HFP",
-            "amount": "0.5",
-            "unit": "g",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "acetone",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
-            "vendor": "Merck",
-            "name": "[C6C1im][NTf2]",
-            "amount": "2",
-            "unit": "mol",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "[C18C1im][NTf2]",
-            "amount": 1,
-            "unit": "mol",
-            "purity": null
-          }
-        ],
-        "steps": [
-          {
-            "step_number": 1,
-            "action": "dissolve",
-            "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
-            "materials": [
-              {
-                "vendor": "Sigma-Aldrich",
-                "name": "PVDF-HFP",
-                "amount": 0.5,
-                "unit": "g",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "acetone",
-                "amount": null,
-                "unit": null,
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": "40",
-              "temp_unit": "°C",
-              "duration": "4",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 2,
-            "action": "add",
-            "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
-            "materials": [
-              {
-                "vendor": "Merck",
-                "name": "[C6C1im][NTf2]",
-                "amount": 2,
-                "unit": "mol",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "[C18C1im][NTf2]",
-                "amount": 1,
-                "unit": "mol",
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": "s",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 3,
-            "action": "cast",
-            "description": "Cast the solution into a petri dish.",
-            "materials": [
-              "solution"
-            ],
-            "equipment": [
-              {
-                "name": "petri dish",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 4,
-            "action": "evaporate",
-            "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-              "solvent"
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "room temperature",
-              "temp_unit": null,
-              "duration": "24",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 5,
-            "action": "dry",
-            "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "60",
-              "temp_unit": "°C",
-              "duration": "12",
-              "time_unit": "h",
-              "pressure": "vacuum",
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          }
-        ],
-        "equipment": [
-          {
-            "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
-          },
-          {
-            "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
-          }
-        ],
-        "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 1:2."
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Synthesis, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "material"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "IG-C12*",
-      "human_recipe": {
-        "target_compound": "IG-C12*",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
-        "starting_materials": [
-          {
-            "vendor": "Sigma-Aldrich",
-            "name": "PVDF-HFP",
-            "amount": "0.5",
-            "unit": "g",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "acetone",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
-            "vendor": "Merck",
-            "name": "[C6C1im][NTf2]",
-            "amount": "1",
-            "unit": "mol",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "[C18C1im][NTf2]",
-            "amount": 1,
-            "unit": "mol",
-            "purity": null
-          }
-        ],
-        "steps": [
-          {
-            "step_number": 1,
-            "action": "dissolve",
-            "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
-            "materials": [
-              {
-                "vendor": "Sigma-Aldrich",
-                "name": "PVDF-HFP",
-                "amount": 0.5,
-                "unit": "g",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "acetone",
-                "amount": null,
-                "unit": null,
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": "40",
-              "temp_unit": "°C",
-              "duration": "4",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 2,
-            "action": "add",
-            "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
-            "materials": [
-              {
-                "vendor": "Merck",
-                "name": "[C6C1im][NTf2]",
-                "amount": 1,
-                "unit": "mol",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "[C18C1im][NTf2]",
-                "amount": 1,
-                "unit": "mol",
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": "s",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 3,
-            "action": "cast",
-            "description": "Cast the solution into a petri dish.",
-            "materials": [
-              "solution"
-            ],
-            "equipment": [
-              {
-                "name": "petri dish",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 4,
-            "action": "evaporate",
-            "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-              "solvent"
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "room temperature",
-              "temp_unit": null,
-              "duration": "24",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 5,
-            "action": "dry",
-            "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "60",
-              "temp_unit": "°C",
-              "duration": "12",
-              "time_unit": "h",
-              "pressure": "vacuum",
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          }
-        ],
-        "equipment": [
-          {
-            "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
-          },
-          {
-            "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
-          }
-        ],
-        "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 1:1."
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions" 
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
             ],
             "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Synthesis, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "material"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "IG-C14*",
-      "human_recipe": {
-        "target_compound": "IG-C14*",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
-        "starting_materials": [
-          {
-            "vendor": "Sigma-Aldrich",
-            "name": "PVDF-HFP",
-            "amount": "0.5",
-            "unit": "g",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "acetone",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
-            "vendor": "Merck",
-            "name": "[C6C1im][NTf2]",
-            "amount": "1",
-            "unit": "mol",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "[C18C1im][NTf2]",
-            "amount": 2,
-            "unit": "mol",
-            "purity": null
-          }
-        ],
-        "steps": [
-          {
-            "step_number": 1,
-            "action": "dissolve",
-            "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
-            "materials": [
-              {
-                "vendor": "Sigma-Aldrich",
-                "name": "PVDF-HFP",
-                "amount": 0.5,
-                "unit": "g",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "acetone",
-                "amount": null,
-                "unit": null,
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": "40",
-              "temp_unit": "°C",
-              "duration": "4",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 2,
-            "action": "add",
-            "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
-            "materials": [
-              {
-                "vendor": "Merck",
-                "name": "[C6C1im][NTf2]",
-                "amount": 1,
-                "unit": "mol",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "[C18C1im][NTf2]",
-                "amount": 2,
-                "unit": "mol",
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": "s",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 3,
-            "action": "cast",
-            "description": "Cast the solution into a petri dish.",
-            "materials": [
-              "solution"
-            ],
-            "equipment": [
-              {
-                "name": "petri dish",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 4,
-            "action": "evaporate",
-            "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-              "solvent"
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "room temperature",
-              "temp_unit": null,
-              "duration": "24",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 5,
-            "action": "dry",
-            "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "60",
-              "temp_unit": "°C",
-              "duration": "12",
-              "time_unit": "h",
-              "pressure": "vacuum",
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          }
-        ],
-        "equipment": [
-          {
-            "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
-          },
-          {
-            "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
-          }
-        ],
-        "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 2:1."
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Synthesis, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "material"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "IG-C16*",
-      "human_recipe": {
-        "target_compound": "IG-C16*",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
-        "starting_materials": [
-          {
-            "vendor": "Sigma-Aldrich",
-            "name": "PVDF-HFP",
-            "amount": "0.5",
-            "unit": "g",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "acetone",
-            "amount": null,
-            "unit": null,
-            "purity": null
-          },
-          {
-            "vendor": "Merck",
-            "name": "[C6C1im][NTf2]",
-            "amount": "1",
-            "unit": "mol",
-            "purity": null
-          },
-          {
-            "vendor": null,
-            "name": "[C18C1im][NTf2]",
-            "amount": 5,
-            "unit": "mol",
-            "purity": null
-          }
-        ],
-        "steps": [
-          {
-            "step_number": 1,
-            "action": "dissolve",
-            "description": "Dissolve 0.5 g of PVDF-HFP in acetone to make a 10 wt% solution at 40°C with magnetic stirring for 4 h.",
-            "materials": [
-              {
-                "vendor": "Sigma-Aldrich",
-                "name": "PVDF-HFP",
-                "amount": 0.5,
-                "unit": "g",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "acetone",
-                "amount": null,
-                "unit": null,
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": "40",
-              "temp_unit": "°C",
-              "duration": "4",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 2,
-            "action": "add",
-            "description": "Add 2.0 g of IL mixture to the polymer solution with stirring.",
-            "materials": [
-              {
-                "vendor": "Merck",
-                "name": "[C6C1im][NTf2]",
-                "amount": 1,
-                "unit": "mol",
-                "purity": null
-              },
-              {
-                "vendor": null,
-                "name": "[C18C1im][NTf2]",
-                "amount": 5,
-                "unit": "mol",
-                "purity": null
-              }
-            ],
-            "equipment": [
-              {
-                "name": "magnetic stirrer",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": "s",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": "yes",
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 3,
-            "action": "cast",
-            "description": "Cast the solution into a petri dish.",
-            "materials": [
-              "solution"
-            ],
-            "equipment": [
-              {
-                "name": "petri dish",
-                "instrument_vendor": null,
-                "settings": null
-              }
-            ],
-            "conditions": {
-              "temperature": null,
-              "temp_unit": null,
-              "duration": null,
-              "time_unit": null,
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 4,
-            "action": "evaporate",
-            "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-              "solvent"
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "room temperature",
-              "temp_unit": null,
-              "duration": "24",
-              "time_unit": "h",
-              "pressure": null,
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          },
-          {
-            "step_number": 5,
-            "action": "dry",
-            "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
-            "conditions": {
-              "temperature": "60",
-              "temp_unit": "°C",
-              "duration": "12",
-              "time_unit": "h",
-              "pressure": "vacuum",
-              "pressure_unit": null,
-              "atmosphere": null,
-              "stirring": null,
-              "stirring_speed": null,
-              "ph": null
-            }
-          }
-        ],
-        "equipment": [
-          {
-            "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
-          },
-          {
-            "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
-          }
-        ],
-        "notes": "The IL mixture consists of a mixture of two ionic liquids [C(18)C1im][NTf(2)] and [C(6)C1im] [NTf2] in a molar ratio of 5:1."
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
-            "scores": {
-              "structural_completeness_score": 1.0,
-              "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
-              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
-              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Starting_materials, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "No materials found"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
-            ]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
-            "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
-              "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
-              "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
-              "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
-            },
-            "confidence_level": "high",
-            "missing_information": [
-              "Synthesis, steps, equipment, conditions"
-            ],
-            "extraction_errors": [
-              "material"
-            ],
-            "improvement_suggestions": [
-              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
         }
@@ -2012,13 +329,13 @@
       "material_name": "IG-C18",
       "human_recipe": {
         "target_compound": "IG-C18",
-        "target_compound_type": "ionogel",
-        "synthesis_method": "polymer solution casting",
+        "target_compound_type": "polymers & soft matter",
+        "synthesis_method": "solution-based",
         "starting_materials": [
           {
             "vendor": "Sigma-Aldrich",
             "name": "PVDF-HFP",
-            "amount": "0.5",
+            "amount": 0.5,
             "unit": "g",
             "purity": null
           },
@@ -2030,9 +347,9 @@
             "purity": null
           },
           {
-            "vendor": null,
+            "vendor": "Merck",
             "name": "[C18C1im][NTf2]",
-            "amount": "2.0",
+            "amount": 2.0,
             "unit": "g",
             "purity": null
           }
@@ -2066,14 +383,14 @@
               }
             ],
             "conditions": {
-              "temperature": "40",
+              "temperature": 40.0,
               "temp_unit": "°C",
-              "duration": "4",
+              "duration": 4.0,
               "time_unit": "h",
               "pressure": null,
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": "yes",
+              "stirring": true,
               "stirring_speed": null,
               "ph": null
             }
@@ -2084,7 +401,7 @@
             "description": "Add 2.0 g of [C18C1im][NTf2] to the polymer solution with stirring.",
             "materials": [
               {
-                "vendor": null,
+                "vendor": "Merck",
                 "name": "[C18C1im][NTf2]",
                 "amount": 2.0,
                 "unit": "g",
@@ -2106,7 +423,7 @@
               "pressure": null,
               "pressure_unit": null,
               "atmosphere": null,
-              "stirring": "yes",
+              "stirring": true,
               "stirring_speed": null,
               "ph": null
             }
@@ -2115,9 +432,7 @@
             "step_number": 3,
             "action": "cast",
             "description": "Cast the solution into a petri dish.",
-            "materials": [
-              "solution"
-            ],
+            "materials": [],
             "equipment": [
               {
                 "name": "petri dish",
@@ -2142,15 +457,12 @@
             "step_number": 4,
             "action": "evaporate",
             "description": "Evaporate solvent at room temperature for 24 h.",
-            "materials": [
-              "solvent"
-            ],
-            "equipment": [
-            ],
+            "materials": [],
+            "equipment": [],
             "conditions": {
-              "temperature": "room temperature",
+              "temperature": null,
               "temp_unit": null,
-              "duration": "24",
+              "duration": 24.0,
               "time_unit": "h",
               "pressure": null,
               "pressure_unit": null,
@@ -2164,18 +476,16 @@
             "step_number": 5,
             "action": "dry",
             "description": "Dry the sample at 60°C under vacuum for 12 h.",
-            "materials": [
-            ],
-            "equipment": [
-            ],
+            "materials": [],
+            "equipment": [],
             "conditions": {
-              "temperature": "60",
+              "temperature": 60.0,
               "temp_unit": "°C",
-              "duration": "12",
+              "duration": 12.0,
               "time_unit": "h",
-              "pressure": "vacuum",
+              "pressure": null,
               "pressure_unit": null,
-              "atmosphere": null,
+              "atmosphere": "vacuum",
               "stirring": null,
               "stirring_speed": null,
               "ph": null
@@ -2185,45 +495,45 @@
         "equipment": [
           {
             "name": "magnetic stirrer",
-            "Instrument_vendor": null,
-            "settings": null
+            "settings": null,
+            "instrument_vendor": null
           },
           {
             "name": "petri dish",
-            "Instrument_vendor": null,
-            "settings": null
+            "settings": null,
+            "instrument_vendor": null
           }
         ],
-        "notes": "The ionic liquid consists entirely of [C(18)C1im][NTf(2)] to achieve an average carbon number of 18."
+        "notes": "The ionic liquid consists entirely of [C18C1im][NTf2] to achieve an average carbon number of 18."
       },
       "evaluations": [
         {
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -2234,29 +544,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -2267,29 +577,29 @@
           "evaluation": {
             "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 1.0,
+              "structural_completeness_score": null,
               "structural_completeness_reasoning": "All the materials and steps missed",
-              "material_extraction_score": 1.0,
+              "material_extraction_score": null,
               "material_extraction_reasoning": "No materials were extracted",
-              "process_steps_score": 1.0,
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
+              "semantic_accuracy_score": null,
               "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
-              "format_compliance_score": 1.0,
+              "format_compliance_score": 5,
               "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
-              "overall_score": 1.0,
+              "overall_score": 0.7,
               "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
               "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "No materials found"
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
@@ -2298,34 +608,664 @@
         },
         {
           "evaluation": {
-            "reasoning": "The extraction is incorrect because it did not extract the correct materials",
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
             "scores": {
-              "structural_completeness_score": 5.0,
-              "structural_completeness_reasoning": "The structural completeness is respected",
-              "material_extraction_score": 1.0,
-              "material_extraction_reasoning": "The material extracted is incorrect",
-              "process_steps_score": 1.0,
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
               "process_steps_reasoning": "No synthesis is extracted",
-              "equipment_extraction_score": 1.0,
+              "equipment_extraction_score": null,
               "equipment_extraction_reasoning": "No equipment is extracted",
-              "conditions_extraction_score": 1.0,
+              "conditions_extraction_score": null,
               "conditions_extraction_reasoning": "No conditions were extracted",
-              "semantic_accuracy_score": 1.0,
-              "semantic_accuracy_reasoning": "The semantic accuracy is incorrect because of hallucinated data (the extracted materials are not the correct ones)",
-              "format_compliance_score": 5.0,
-              "format_compliance_reasoning": "The format compliance is respected",
-              "overall_score": 2.1,
-              "overall_reasoning": "The materials extracted are not the correct ones."
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
             },
-            "confidence_level": "high",
+            "confidence_level": 5,
             "missing_information": [
-              "Synthesis, steps, equipment, conditions"
+              "Starting_materials, steps, equipment, conditions"
             ],
             "extraction_errors": [
-              "material"
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "[C18C1im][NTf2]",
+      "human_recipe": {
+        "target_compound": "[C18C1im][NTf2]",
+        "target_compound_type": "other",
+        "synthesis_method": "solution-based",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "n-methylimidazole",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "1-chlorooctadecane",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "diethyl ether",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "tetrahydrofuran",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "Li[NTf2]",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "ethanol",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "React n-methylimidazole with 1-chlorooctadecane at 90°C for 48 h under argon atmosphere via electrophilic addition to yield [C18C1im][Cl].",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "n-methylimidazole",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "1-chlorooctadecane",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "magnetic stirrer",
+                "instrument_vendor": null,
+                "settings": null
+              }
+            ],
+            "conditions": {
+              "temperature": 90.0,
+              "temp_unit": "°C",
+              "duration": 4.0,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": true,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "wash",
+            "description": "Wash the solid precipitate of [C18C1im][Cl] with diethyl ether.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "[C18C1im][Cl]",
+                "amount": 2.0,
+                "unit": "g",
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "diethyl ether",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": "s",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "filtrate",
+            "description": "Recrystallize [C18C1im][Cl] from tetrahydrofuran.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "tetrahydrofuran",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "[C18C1im][Cl]",
+                "amount": 2.0,
+                "unit": "g",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "mix",
+            "description": "React [C18C1im][Cl] with Li[NTf2] in aqueous solution via metathesis reaction to yield [C18C1im][NTf2].",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "[C18C1im][Cl]",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "Li[NTf2]",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "filtrate",
+            "description": "Recrystallize [C18C1im][NTf2] from a mixture of ethanol/water (75:25).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "ethanol",
+                "amount": 75,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": 25,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [],
+        "notes": "The ionic liquid consists entirely of [C18C1im][NTf2] to achieve an average carbon number of 18."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No materials found, where there are many mentioned in the paper"
             ],
             "improvement_suggestions": [
               "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No materials found, where there are many mentioned in the paper"
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No materials found, where there are many mentioned in the paper"
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "[C18C1im][Cl]",
+      "human_recipe": {
+        "target_compound": "[C18C1im][Cl]",
+        "target_compound_type": "other",
+        "synthesis_method": "solution-based",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "n-methylimidazole",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "1-chlorooctadecane",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "React n-methylimidazole with 1-chlorooctadecane at 90°C for 48 h under argon atmosphere via electrophilic addition to yield [C18C1im][Cl] as a solid precipitate.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "n-methylimidazole",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "1-chlorooctadecane",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 90,
+              "temp_unit": "°C",
+              "duration": 48,
+              "time_unit": "h",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "argon",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "wash",
+            "description": "Wash the solid precipitate with diethyl ether.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "diethyl ether",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "filter",
+            "description": "Recrystallize the washed solid from tetrahydrofuran.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "tetrahydrofuran",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [],
+        "notes": ""
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No materials found, where there are many mentioned in the paper"
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No materials found, where there are many mentioned in the paper"
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No materials found, where there are many mentioned in the paper"
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "The extraction is incorrect because it fails to detect the synthesis of new material.",
+            "scores": {
+              "structural_completeness_score": null,
+              "structural_completeness_reasoning": "All the materials and steps missed",
+              "material_extraction_score": null,
+              "material_extraction_reasoning": "No materials were extracted",
+              "process_steps_score": null,
+              "process_steps_reasoning": "No synthesis is extracted",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "No equipment is extracted",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "No conditions were extracted",
+              "semantic_accuracy_score": null,
+              "semantic_accuracy_reasoning": "Due to the lack of any extracted information, the semantic accuracy cannot be assessed.",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "The format compliance can not be judged because there is any extracted information",
+              "overall_score": 0.7,
+              "overall_reasoning": "Nothing was extracted because it does not detect the synthesis of new materials."
+            },
+            "confidence_level": 5,
+            "missing_information": [
+              "Starting_materials, steps, equipment, conditions"
+            ],
+            "extraction_errors": [
+              "No target materials found, where there are many mentioned in the paper; the model also extracted some materials that are not even in the paper, and seems a hallucination."
+            ],
+            "improvement_suggestions": [
+              "Expand the list of valid synthesis methods and ensure that the extraction process can handle variations in terminology and phrasing used in synthesis descriptions; don't hallucinate. make sure the extarcted material is indeed in the paper."
             ]
           }
         }
