@@ -99,8 +99,15 @@ def load_annotations(annotations_dir, skip_folders=None):
 
         # --- Collect human scores per synth LLM (first pass) ---
         human_scores_by_synth = {}  # synth_llm -> {material_name: scores_dict}
+        # material_name -> category fields from the human ground-truth recipe
+        human_category_by_mat = {}
         for human_mat in human_data.get("materials", []):
             mat_name = human_mat.get("material_name", "")
+            recipe = human_mat.get("human_recipe") or {}
+            human_category_by_mat[mat_name] = {
+                "target_compound_type": recipe.get("target_compound_type"),
+                "synthesis_method": recipe.get("synthesis_method"),
+            }
             evals = human_mat.get("evaluations", [])
             for idx, synth_llm in enumerate(extractor_order):
                 if idx >= len(evals):
@@ -141,11 +148,16 @@ def load_annotations(annotations_dir, skip_folders=None):
 
             for mat_name, scores in h_scores.items():
                 material_id = f"{paper_id}__{synth_llm}__{mat_name}"
+                category = human_category_by_mat.get(mat_name, {})
                 base = {
                     "paper_id": paper_id,
                     "material_id": material_id,
                     "material": mat_name,
                     "synth_llm": synth_llm,
+                    "target_compound_type": category.get(
+                        "target_compound_type"
+                    ),
+                    "synthesis_method": category.get("synthesis_method"),
                 }
                 lookup_key = match_map.get(synth_llm, {}).get(mat_name)
 
