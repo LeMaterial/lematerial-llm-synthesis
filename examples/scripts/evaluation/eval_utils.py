@@ -83,7 +83,8 @@ def calculate_icc_absolute_agreement(scores1, scores2):
         tbl = pg.intraclass_corr(
             data=long, targets="subject", raters="rater", ratings="rating"
         )
-        row = tbl[tbl["Type"] == "ICC2"]
+        # pingouin >=0.4 labels rows "ICC(A,1)"; older versions use "ICC2".
+        row = tbl[tbl["Type"].isin(["ICC2", "ICC(A,1)"])]
         return float(row["ICC"].iloc[0]) if not row.empty else float("nan")
     except (ValueError, AssertionError, KeyError, IndexError):
         return float("nan")
@@ -98,7 +99,8 @@ def calculate_icc_consistency(scores1, scores2):
         tbl = pg.intraclass_corr(
             data=long, targets="subject", raters="rater", ratings="rating"
         )
-        row = tbl[tbl["Type"] == "ICC3"]
+        # pingouin >=0.4 labels rows "ICC(C,1)"; older versions use "ICC3".
+        row = tbl[tbl["Type"].isin(["ICC3", "ICC(C,1)"])]
         return float(row["ICC"].iloc[0]) if not row.empty else float("nan")
     except (ValueError, AssertionError, KeyError, IndexError):
         return float("nan")
