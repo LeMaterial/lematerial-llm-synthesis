@@ -237,6 +237,13 @@ def iter_rows(config, split, done_ids, limit):
 
 async def run(args):
     _load_dotenv()
+    # Size the thread pool to the requested concurrency so it is not silently
+    # capped by cpu_count (the default asyncio executor is min(32, cpu+4)).
+    from concurrent.futures import ThreadPoolExecutor
+
+    asyncio.get_running_loop().set_default_executor(
+        ThreadPoolExecutor(max_workers=args.concurrency + 4)
+    )
     if not os.getenv("ANTHROPIC_API_KEY"):
         sys.exit("ANTHROPIC_API_KEY not set (needed for the Claude extractor).")
     keys = [
