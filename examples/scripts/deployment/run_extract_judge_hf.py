@@ -95,21 +95,24 @@ def _instantiate(path, llm_name):
     return instantiate(cfg.architecture)
 
 
-def make_pipeline(index, openrouter_keys):
+def make_pipeline(index, openrouter_keys, judge_only=False):
     """Build one isolated (material, synthesis, judge) pipeline.
 
     The judge's OpenRouter key is chosen round-robin from ``openrouter_keys``.
+    When ``judge_only`` (rejudge mode), the Claude extractor LMs are not built.
     """
-    material = _instantiate(CFG["material"], EXTRACTOR_MODEL)
-    synthesis = _instantiate(CFG["synthesis"], EXTRACTOR_MODEL)
     judge = _instantiate(CFG["judge"], JUDGE_MODEL)
     key = openrouter_keys[index % len(openrouter_keys)]
     # swap the deepseek key so we spread load across both OpenRouter keys
     judge.lm.kwargs["api_key"] = key
     judge.lm.kwargs["api_base"] = OPENROUTER_BASE
     return {
-        "material": material,
-        "synthesis": synthesis,
+        "material": None if judge_only else _instantiate(
+            CFG["material"], EXTRACTOR_MODEL
+        ),
+        "synthesis": None if judge_only else _instantiate(
+            CFG["synthesis"], EXTRACTOR_MODEL
+        ),
         "judge": judge,
         "key_index": index % len(openrouter_keys),
     }
@@ -179,22 +182,22 @@ def process_paper(row, pipe, si_char_cap, max_materials):
             onto = pipe["synthesis"].forward((ctx, m))
             onto_json = onto.model_dump_json()
             ev = pipe["judge"].forward((ctx, onto_json, m))
-            sc = ev.scores
-            scores = {c: getattr(sc, c, None) for c in SCORE_COLUMNS}
+            # Persist the FULL evaluation object (reasoning, scores +
+            # per-dimension reasonings, confidence_level, missing_information,
+            # extraction_errors, improvement_suggestions) so nothing the judge
+            # produced is dropped. Mirrors the annotation result.json format.
+            ev_full = ev.model_dump(mode="json")
             recipes.append(
                 {"material_name": m, "recipe": json.loads(onto_json)}
             )
             evals.append(
-                {
-                    "material_name": m,
-                    "scores": scores,
-                    "reasoning": getattr(ev, "reasoning", None),
-                    "confidence_level": getattr(ev, "confidence_level", None),
-                }
+                {"material_name": m, "evaluation": ev_full}
             )
+            sc = ev.scores
             for c in SCORE_COLUMNS:
-                if isinstance(scores[c], (int, float)):
-                    score_acc[c].append(scores[c])
+                v = getattr(sc, c, None)
+                if isinstance(v, (int, float)):
+                    score_acc[c].append(v)
 
         result["structured_synthesis"] = json.dumps(recipes, ensure_ascii=False)
         result["evaluations"] = json.dumps(evals, ensure_ascii=False)
@@ -205,6 +208,83 @@ def process_paper(row, pipe, si_char_cap, max_materials):
     except Exception as exc:
         result["error"] = f"{type(exc).__name__}: {exc}"[:500]
     return result
+
+
+def process_paper_rejudge(row, recipes_by_id, pipe, si_char_cap):
+    """Re-run ONLY the judge over already-extracted recipes.
+
+    Reuses the source context from ``row`` (original dataset split) and the
+    stored recipes from a prior run (``recipes_by_id``). No Claude extraction
+    happens, so this is the cheap way to backfill full judge evaluations.
+    """
+    pid = row.get("id")
+    result = {
+        "id": pid,
+        "title": row.get("title"),
+        "source": row.get("source"),
+        "pdf_extractor": row.get("pdf_extractor"),
+        "extractor_model": EXTRACTOR_MODEL,
+        "judge_model": JUDGE_MODEL,
+        "judge_key_index": pipe["key_index"],
+        "structured_synthesis": None,
+        "evaluations": None,
+        "n_materials": 0,
+        "error": None,
+    }
+    for c in SCORE_COLUMNS:
+        result[c] = None
+    try:
+        prior = recipes_by_id.get(pid)
+        if not prior:
+            result["error"] = "no prior recipe to rejudge"
+            return result
+        # carry the recipes through unchanged
+        result["structured_synthesis"] = json.dumps(prior, ensure_ascii=False)
+        result["n_materials"] = len(prior)
+        ctx = build_context(row, si_char_cap)
+        if not ctx.strip():
+            result["error"] = "empty context"
+            return result
+
+        evals, score_acc = [], {c: [] for c in SCORE_COLUMNS}
+        for item in prior:
+            m = item.get("material_name")
+            recipe = item.get("recipe") or {}
+            onto_json = json.dumps(recipe, ensure_ascii=False)
+            ev = pipe["judge"].forward((ctx, onto_json, m))
+            evals.append(
+                {"material_name": m, "evaluation": ev.model_dump(mode="json")}
+            )
+            sc = ev.scores
+            for c in SCORE_COLUMNS:
+                v = getattr(sc, c, None)
+                if isinstance(v, (int, float)):
+                    score_acc[c].append(v)
+
+        result["evaluations"] = json.dumps(evals, ensure_ascii=False)
+        for c in SCORE_COLUMNS:
+            vals = score_acc[c]
+            result[c] = round(sum(vals) / len(vals), 4) if vals else None
+    except Exception as exc:
+        result["error"] = f"{type(exc).__name__}: {exc}"[:500]
+    return result
+
+
+def load_recipes_from_hub(repo, config, split):
+    """Return {id: structured_synthesis list} from a prior results repo."""
+    from datasets import load_dataset
+
+    ds = load_dataset(repo, config, split=split)
+    out = {}
+    for r in ds:
+        ss = r.get("structured_synthesis")
+        if not ss:
+            continue
+        try:
+            out[r["id"]] = json.loads(ss) if isinstance(ss, str) else ss
+        except (json.JSONDecodeError, TypeError):
+            continue
+    return out
 
 
 def load_done_ids(out_path):
@@ -244,7 +324,8 @@ async def run(args):
     asyncio.get_running_loop().set_default_executor(
         ThreadPoolExecutor(max_workers=args.concurrency + 4)
     )
-    if not os.getenv("ANTHROPIC_API_KEY"):
+    rejudge = bool(args.rejudge_from)
+    if not rejudge and not os.getenv("ANTHROPIC_API_KEY"):
         sys.exit("ANTHROPIC_API_KEY not set (needed for the Claude extractor).")
     keys = [
         k
@@ -263,10 +344,20 @@ async def run(args):
     done = load_done_ids(out_path)
     print(f"Already done (successful) ids: {len(done)}")
 
+    recipes_by_id = {}
+    if rejudge:
+        print(f"Rejudge mode: loading recipes from {args.rejudge_from} "
+              f"(config={args.config}, split={args.split}) ...")
+        recipes_by_id = load_recipes_from_hub(
+            args.rejudge_from, args.config, args.split
+        )
+        print(f"Loaded prior recipes for {len(recipes_by_id)} papers.")
+
     n_pool = args.concurrency
-    print(f"Building {n_pool} pipeline instances ...")
+    print(f"Building {n_pool} pipeline instances "
+          f"({'judge-only' if rejudge else 'extract+judge'}) ...")
     pool = asyncio.Queue()
-    pipes = [make_pipeline(i, keys) for i in range(n_pool)]
+    pipes = [make_pipeline(i, keys, judge_only=rejudge) for i in range(n_pool)]
     for p in pipes:
         pool.put_nowait(p)
 
@@ -277,9 +368,16 @@ async def run(args):
     async def worker(row):
         pipe = await pool.get()
         try:
-            res = await asyncio.to_thread(
-                process_paper, row, pipe, args.si_char_cap, args.max_materials
-            )
+            if rejudge:
+                res = await asyncio.to_thread(
+                    process_paper_rejudge, row, recipes_by_id, pipe,
+                    args.si_char_cap,
+                )
+            else:
+                res = await asyncio.to_thread(
+                    process_paper, row, pipe, args.si_char_cap,
+                    args.max_materials,
+                )
         finally:
             pool.put_nowait(pipe)
         async with write_lock:
@@ -310,7 +408,8 @@ async def run(args):
     cost = 0.0
     for p in pipes:
         for comp in ("material", "synthesis", "judge"):
-            lm = getattr(p[comp], "lm", None)
+            component = p.get(comp)
+            lm = getattr(component, "lm", None) if component else None
             if lm is not None and hasattr(lm, "get_cost"):
                 cost += lm.get_cost()
     dt = time.time() - t0
@@ -361,6 +460,11 @@ def main():
                     help="push accumulated JSONL to a NEW hub dataset repo")
     ap.add_argument("--hub-repo", default=None,
                     help="target repo for --push, e.g. user/LeMat-recipes")
+    ap.add_argument("--rejudge-from", default=None,
+                    help="hub repo of a prior run to re-judge: reuses its "
+                         "structured_synthesis and re-runs ONLY the deepseek "
+                         "judge (no Claude extraction). config/split must "
+                         "match both that repo and the source dataset.")
     args = ap.parse_args()
     if args.out is None:
         args.out = f"results/{args.config}_{args.split}.jsonl"
