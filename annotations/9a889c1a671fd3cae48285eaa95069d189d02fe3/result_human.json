@@ -12,38 +12,163 @@
     {
       "material_name": "Pt-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Pt–OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500°C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Pt-OLC was obtained by a hydrothermal treatment at 200°C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "OLC acted as both reductant and surfactant in the synthesis."
       },
       "evaluations": [
         {
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "msot important steps and conditions are extracted",
               "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "material_extraction_reasoning": "material name extracted well, especially as in the text a list of them is given and OLC is defined there",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, which is identified as calcination, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 4 steps identified in total",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 4,
+              "conditions_extraction_reasoning": "too many conditions extracted",
               "semantic_accuracy_score": 5,
               "semantic_accuracy_reasoning": "little semantics to assess, but named well",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
+              "format_compliance_reasoning": "",
+              "overall_score": 3.9,
+              "overall_reasoning": "extracted material name ok, but added too many additional steps; chloroplatinic acid isn't mentioned explicitely as one of the reagents"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": ["reassess the method from the Results and discussion section; you need to stick with what is given in the synthesis procedure in the text; don't make up conditions that aren't given"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "main parts of the ontology mentioned",
+              "material_extraction_score": 2,
+              "material_extraction_reasoning": "wrong material extracted; the right metal mentioned",
+              "process_steps_score": null,
+              "process_steps_reasoning": "no steps extracted",
+              "equipment_extraction_score": 5,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure",
+              "conditions_extraction_score": null,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "right format",
+              "overall_score": 3.1,
+              "overall_reasoning": "format extracted is ok, and the metal is indeed present in the material; everything else was missed out"
+            },
+            "confidence_level": 5,
+            "missing_information": ["all of the reaction procedure, i.e. 2 steps, and the right name for the material"],
             "extraction_errors": ["incomplete extraction"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
@@ -52,26 +177,26 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "main parts of the ontology mentioned",
+              "material_extraction_score": 2,
+              "material_extraction_reasoning": "wrong material extracted; the right metal mentioned",
               "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "process_steps_reasoning": "no steps extracted",
               "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure",
               "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "conditions_extraction_reasoning": "",
               "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
+              "semantic_accuracy_reasoning": "",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
+              "format_compliance_reasoning": "right format",
+              "overall_score": 3.1,
+              "overall_reasoning": "format extracted is ok, and the metal is indeed present in the material; everything else was missed out"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": ["all of the reaction procedure, i.e. 2 steps, and the right name for the material"],
+            "extraction_errors": ["incomplete extraction, wrong material name"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         },
@@ -79,53 +204,26 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "structural_completeness_score": 4,
+              "structural_completeness_reasoning": "oxidize is not an action form the ontology",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "only the key metal of the material is extracted right",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 3 steps identified in total",
               "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
               "semantic_accuracy_score": 5,
               "semantic_accuracy_reasoning": "little semantics to assess, but named well",
               "format_compliance_score": 5,
               "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
+              "overall_score": 4.4,
               "overall_reasoning": "extracted material name ok, but everything else is null"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
-            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
-            },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": ["right name of the material"],
+            "extraction_errors": ["added too much information that is not in the text, misidentified an action as oxidize"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         }
@@ -134,37 +232,169 @@
     {
       "material_name": "Pd-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Pd-OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "palladium precursor",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500 °C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Pd-OLC was obtained by a hydrothermal treatment at 200 °C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "palladium precursor",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "Pd, Au, Ag nanoparticles decorated OLC samples were also synthesized by the same method."
       },
       "evaluations": [
         {
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
+              "structural_completeness_score": 3,
+              "structural_completeness_reasoning": "main parts of the ontology mentioned; one of the precursors is wrongly identified as containing Pt, which is physically impossible",
+              "material_extraction_score": 2,
+              "material_extraction_reasoning": "wrong material extracted; the right metal mentioned",
               "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "process_steps_reasoning": "no steps extracted",
               "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure",
               "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "right format",
+              "overall_score": 2.9,
+              "overall_reasoning": "format extracted is ok, and the metal is indeed present in the material; everything else was missed out"
+            },
+            "confidence_level": 5,
+            "missing_information": ["all of the reaction procedure, i.e. 2 steps, and the right name for the material"],
+            "extraction_errors": ["incomplete extraction"],
+            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "All Pt, Pd, Ag and Au-OLC are described in the paper and captured in the extraction",
+              "material_extraction_score": 5,
+              "material_extraction_reasoning": "material name extracted well, especially as in the text a list of them is given and OLC is defined there",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, which is identified as calcination, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 3 steps identified in total",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
               "semantic_accuracy_score": 5,
               "semantic_accuracy_reasoning": "little semantics to assess, but named well",
               "format_compliance_score": 5,
               "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
+              "overall_score": 4,
               "overall_reasoning": "extracted material name ok, but everything else is null"
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": ["all of the reaction procedure/ human_recipe"],
             "extraction_errors": ["incomplete extraction"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
@@ -174,26 +404,26 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "main parts of the ontology mentioned",
+              "material_extraction_score": 2,
+              "material_extraction_reasoning": "wrong material extracted; the right metal mentioned",
               "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "process_steps_reasoning": "no steps extracted",
               "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure",
               "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "conditions_extraction_reasoning": "",
               "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
+              "semantic_accuracy_reasoning": "",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
+              "format_compliance_reasoning": "right format",
+              "overall_score": 3.1,
+              "overall_reasoning": "format extracted is ok, and the metal is indeed present in the material; everything else was missed out"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": ["all of the reaction procedure, i.e. 2 steps, and the right name for the material"],
+            "extraction_errors": ["incomplete extraction, wrong material name"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         },
@@ -201,53 +431,26 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "only the key metal of the material is extracted right",
+              "process_steps_score": 4,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., 2 steps are identified here but the actions order is reversed",
+              "equipment_extraction_score": 4,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 4,
+              "conditions_extraction_reasoning": "conditions switched",
               "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
+              "semantic_accuracy_reasoning": "",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
+              "format_compliance_reasoning": "right format",
+              "overall_score": 4.4,
               "overall_reasoning": "extracted material name ok, but everything else is null"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
-            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
-            },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": ["right name of the material"],
+            "extraction_errors": ["added too much information that is not in the text"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         }
@@ -256,37 +459,169 @@
     {
       "material_name": "Au-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Au-OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "gold precursor",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500 C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Au–OLC was obtained by a hydrothermal treatment at 200°C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "gold precursor",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "OLC acted as both reductant and surfactant in the synthesis."
       },
       "evaluations": [
         {
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
+              "structural_completeness_score": 4,
+              "structural_completeness_reasoning": "olc is not one of the precursors",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "material is Au/OLC",
+              "process_steps_score": 4,
+              "process_steps_reasoning": "2 steps identified right; the heat should be mix though",
+              "equipment_extraction_score": 4,
+              "equipment_extraction_reasoning": "there is no equipment mentioned in the text",
+              "conditions_extraction_score": 3,
+              "conditions_extraction_reasoning": "cpnditions for step 1 not extracted",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.1,
+              "overall_reasoning": "extracted material name ok, but added too many additional steps"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": ["missing temperature for step 1, mentioned in the text"],
+            "improvement_suggestions": ["reassess the method from the Results and discussion section; you need to stick with what is given in the synthesis procedure in the text; don't make up conditions that aren't given"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "All Pt, Pd, Ag and Au-OLC are described in the paper and captured in the extraction",
               "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "material_extraction_reasoning": "material name extracted well, especially as in the text a list of them is given and OLC is defined there",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, which is identified as calcination, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 3 steps identified in total",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
               "semantic_accuracy_score": 5,
               "semantic_accuracy_reasoning": "little semantics to assess, but named well",
               "format_compliance_score": 5,
               "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
+              "overall_score": 4,
               "overall_reasoning": "extracted material name ok, but everything else is null"
             },
-            "confidence_level": null,
+            "confidence_level": 5,
             "missing_information": ["all of the reaction procedure/ human_recipe"],
             "extraction_errors": ["incomplete extraction"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
@@ -296,26 +631,26 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "structural_completeness_score": 4,
+              "structural_completeness_reasoning": "oxidize is not an action",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "only the right metal present in the material name",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 3 steps identified in total",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
               "semantic_accuracy_score": 5,
               "semantic_accuracy_reasoning": "little semantics to assess, but named well",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
+              "format_compliance_reasoning": "right format",
+              "overall_score": 3.7,
+              "overall_reasoning": "extracted material only correct for the main metal; too many steps"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": ["too much information extracted that isn't explicitely mentioned in the text"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         },
@@ -323,53 +658,26 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "only the key metal of the material is extracted right",
+              "process_steps_score": 4,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., 2 steps are identified here but the actions order is reversed",
+              "equipment_extraction_score": 4,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 4,
+              "conditions_extraction_reasoning": "conditions switched",
               "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
+              "semantic_accuracy_reasoning": "",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
+              "format_compliance_reasoning": "right format",
+              "overall_score": 4.4,
               "overall_reasoning": "extracted material name ok, but everything else is null"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
-            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
-            },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": ["right name of the material"],
+            "extraction_errors": ["added too much information that is not in the text"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         }
@@ -378,39 +686,198 @@
     {
       "material_name": "Ag-OLC",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
+        "target_compound": "Ag-OLC",
+        "target_compound_type": "nanomaterials",
+        "synthesis_method": "hydrothermal",
+        "starting_materials": [
+          {
+            "vendor": null,
+            "name": "nanodiamond (ND) powder",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "silver precursor",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "mixed acid",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": null,
+            "name": "water",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "anneal",
+            "description": "Nanodiamond (ND) powder was annealed at 1500°C and oxidized by mixed acid to get OLC.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "nanodiamond (ND) powder",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "mixed acid",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 1500.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Ag-OLC was obtained by a hydrothermal treatment at 200°C without any additional reductant and surfactant.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "OLC",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "silver precursor",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              },
+              {
+                "vendor": null,
+                "name": "water",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 200.0,
+              "temp_unit": "°C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
         "equipment": [],
-        "notes": null
+        "notes": "OLC acted as both reductant and surfactant in the synthesis."
       },
       "evaluations": [
         {
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "most important steps and conditions are extracted",
               "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "material_extraction_reasoning": "material name extracted well, especially as in the text a list of them is given and OLC is defined there",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, which is identified as calcination, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 3 steps identified in total",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 4,
+              "conditions_extraction_reasoning": "too many conditions extracted",
               "semantic_accuracy_score": 5,
               "semantic_accuracy_reasoning": "little semantics to assess, but named well",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
+              "format_compliance_reasoning": "",
+              "overall_score": 3.9,
+              "overall_reasoning": "extracted material name ok, but added too many additional steps"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": [],
+            "improvement_suggestions": ["reassess the method from the Results and discussion section; you need to stick with what is given in the synthesis procedure in the text; don't make up conditions that aren't given"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 4,
+              "structural_completeness_reasoning": "olc is not one of the precursors",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "material is Ag/OLC",
+              "process_steps_score": 4,
+              "process_steps_reasoning": "3 steps identified instead of 2",
+              "equipment_extraction_score": 3,
+              "equipment_extraction_reasoning": "there is no equipment mentioned in the text",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "the main temperatures extracted correctly",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "",
+              "overall_score": 4.3,
+              "overall_reasoning": "extracted material name wrong, but added too many additional steps"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": ["name of the material, wrong precursor"],
+            "improvement_suggestions": ["reassess the method from the Results and discussion section; you need to stick with what is given in the synthesis procedure in the text; don't make up conditions that aren't given"]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "",
+            "scores": {
+              "structural_completeness_score": 4,
+              "structural_completeness_reasoning": "oxidize is not an action",
+              "material_extraction_score": 4,
+              "material_extraction_reasoning": "only the right metal present in the material name",
+              "process_steps_score": 3,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., but here are 3 steps identified in total",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 5,
+              "conditions_extraction_reasoning": "",
+              "semantic_accuracy_score": 5,
+              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
+              "format_compliance_score": 5,
+              "format_compliance_reasoning": "right format",
+              "overall_score": 3.7,
+              "overall_reasoning": "extracted material only correct for the main metal; too many steps"
+            },
+            "confidence_level": 5,
+            "missing_information": [],
+            "extraction_errors": ["added too much infromation"],
             "improvement_suggestions": ["reassess the method from the Results and discussion section"]
           }
         },
@@ -418,83 +885,29 @@
           "evaluation": {
             "reasoning": "",
             "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
+              "structural_completeness_score": 5,
+              "structural_completeness_reasoning": "",
+              "material_extraction_score": 3,
+              "material_extraction_reasoning": "only the key metal of the material is extracted right; chloroplatinic acid is cited as a precursor, which is impossible",
+              "process_steps_score": 4,
+              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500°C, followed by oxidation by acid. then 2. hydrothermal treatment at 200°C., 3 steps are identified here",
+              "equipment_extraction_score": null,
+              "equipment_extraction_reasoning": "there is no equipment in the real procedure, furnace and autoclave are implied but not mentioned",
+              "conditions_extraction_score": 4,
+              "conditions_extraction_reasoning": "conditions switched",
               "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
+              "semantic_accuracy_reasoning": "",
               "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
+              "format_compliance_reasoning": "right format",
+              "overall_score": 3.7,
               "overall_reasoning": "extracted material name ok, but everything else is null"
             },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
-            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
+            "confidence_level": 5,
+            "missing_information": ["right name of the material, right name of all precursors"],
+            "extraction_errors": ["added too much information that is not in the text"],
+            "improvement_suggestions": ["reassess the method from the Results and discussion section; if you are unsure of a chemical, don't include it"]
           }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
-            },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
-            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "only material present",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material name extrcated well, especially as in the text a list of them is given and OLC is defined there",
-              "process_steps_score": null,
-              "process_steps_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "there is no equipment in the procedure",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "there is the 1. annealing of nanodiamond powder at 1500 C, followed by oxidation by acid. then hydrothermal treatment at 200 C.",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "little semantics to assess, but named well",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "right format, although again minimal output",
-              "overall_score": 2.9,
-              "overall_reasoning": "extracted material name ok, but everything else is null"
-            },
-            "confidence_level": null,
-            "missing_information": ["all of the reaction procedure/ human_recipe"],
-            "extraction_errors": ["incomplete extraction"],
-            "improvement_suggestions": ["reassess the method from the Results and discussion section"]
-          }
-        },
+        }
       ]
     }
   ]

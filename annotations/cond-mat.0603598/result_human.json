@@ -16,7 +16,7 @@
         "target_compound_type": "two-dimensional materials",
         "synthesis_method": "pulsed laser deposition",
         "starting_materials": [
-            {
+          {
             "vendor": null,
             "name": "LaAlO3 target",
             "amount": null,
@@ -35,7 +35,7 @@
           {
             "step_number": 1,
             "action": "etching",
-            "description": "HF chemical treatment to form TiO2 terminated SrTiO3 substrates.",
+            "description": "HF chemical treatment to form TiO2 terminated SrTiO3 substrates; the procedure is described elsewhere (ref [8]).",
             "materials": [
               {
                 "vendor": null,
@@ -46,8 +46,7 @@
               }
             ],
             "equipment": [],
-            "conditions": null,
-            "notes": "The HF chemical treatment needed to form TiO2 terminated SrTiO3 substrates is described elsewhere."
+            "conditions": null
           },
           {
             "step_number": 2,
@@ -115,7 +114,7 @@
               "temp_unit": "C",
               "duration": null,
               "time_unit": null,
-              "pressures": [1e-06, 1e-05],
+              "pressure": 1e-06,
               "pressure_unit": "torr",
               "atmosphere": "O2",
               "stirring": null,
@@ -173,16 +172,16 @@
               }
             ],
             "conditions": {
-            "temperature": 150.0,
-            "temp_unit": "C",
-            "duration": null,
-            "time_unit": null,
-            "pressure": null,
-            "pressure_unit": null,
-            "atmosphere": "O2",
-            "stirring": null,
-            "stirring_speed": null,
-            "ph": null
+              "temperature": 150.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": "O2",
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
             }
           }
         ],

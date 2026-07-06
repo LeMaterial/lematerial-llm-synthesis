@@ -10,605 +10,859 @@
   ],
   "materials": [
     {
+      "material_name": "Au-Sn nanoparticles",
+      "human_recipe": {
+        "target_compound": "Au-Sn plasmonic alloy nanoparticles (AuxSn1-x, x = 8-41 mol% Sn)",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "solution-based",
+        "starting_materials": [
+          {
+            "vendor": "Alfa Aesar",
+            "name": "HAuCl4\u00b73H2O",
+            "amount": 10.0,
+            "unit": "mM",
+            "purity": "99.99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "trisodium citrate dihydrate",
+            "amount": 100.0,
+            "unit": "mM",
+            "purity": "99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "SnCl4\u00b75H2O",
+            "amount": 5.0,
+            "unit": "mM",
+            "purity": "99.99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "PVP (MW 40000)",
+            "amount": 0.025,
+            "unit": "mg",
+            "purity": null
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "NaBH4",
+            "amount": 260.0,
+            "unit": "mM",
+            "purity": "97+%"
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "dissolve",
+            "description": "Add 58.56 mL water and 1.2 mL of 10 mM HAuCl4 to 100 mL round-bottom flask in oil bath at 125\u00b0C, stirred at 640 rpm, and bring to reflux.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "HAuCl4\u00b73H2O",
+                "amount": 1.2,
+                "unit": "mL",
+                "purity": "99.99%"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "round-bottom flask",
+                "instrument_vendor": null,
+                "settings": "100 mL, oil bath 125\u00b0C, 640 rpm"
+              }
+            ],
+            "conditions": {
+              "temperature": 125.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": 640.0,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "reflux",
+            "description": "At reflux, add 480 \u03bcL of 100 mM sodium citrate solution. Solution turns purple then reddish pink within 3-5 min. Heat for 8 min, then cool to room temperature. Use seeds at ~0.7 O.D. (Au seed synthesis).",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "trisodium citrate dihydrate",
+                "amount": 480.0,
+                "unit": "\u03bcL",
+                "purity": "99%"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "round-bottom flask",
+                "instrument_vendor": null,
+                "settings": "100 mL, oil bath 125\u00b0C"
+              }
+            ],
+            "conditions": {
+              "temperature": 125.0,
+              "temp_unit": "C",
+              "duration": 8.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": 640.0,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "mix",
+            "description": "Add 40-200 \u03bcL of 5 mM SnCl4\u00b75H2O to 3 mL Au seeds under vigorous stirring at room temperature. Add water to bring total volume to 4 mL. Add ~0.025 mg PVP-40000.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Au seeds (citrate-capped)",
+                "amount": 3.0,
+                "unit": "mL",
+                "purity": null
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "SnCl4\u00b75H2O (5 mM stock)",
+                "amount": 120.0,
+                "unit": "\u03bcL",
+                "purity": "99.99%"
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "PVP (MW 40000)",
+                "amount": 0.025,
+                "unit": "mg",
+                "purity": null
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 25.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "heat",
+            "description": "Transfer reaction vials to water bath at 60\u00b0C for 10 min.",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "water bath",
+                "instrument_vendor": null,
+                "settings": "60\u00b0C"
+              }
+            ],
+            "conditions": {
+              "temperature": 60.0,
+              "temp_unit": "C",
+              "duration": 10.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "reduce",
+            "description": "Remove vials and add 120-200 \u03bcL of 260 mM NaBH4 under stirring. Return to water bath at 60\u00b0C for 20 min. PVP:metal and NaBH4:metal ratios fixed at 0.05:1 and 30:1 respectively.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "NaBH4 (260 mM stock)",
+                "amount": 160.0,
+                "unit": "\u03bcL",
+                "purity": "97+%"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "water bath",
+                "instrument_vendor": null,
+                "settings": "60\u00b0C"
+              }
+            ],
+            "conditions": {
+              "temperature": 60.0,
+              "temp_unit": "C",
+              "duration": 20.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 6,
+            "action": "centrifuge",
+            "description": "Centrifuge 8 min at 8500 rpm. Remove supernatant and resuspend in water.",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "centrifuge",
+                "instrument_vendor": null,
+                "settings": "8500 rpm, 8 min"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 8.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "round-bottom flask",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "water bath",
+            "instrument_vendor": null,
+            "settings": "60\u00b0C"
+          },
+          {
+            "name": "centrifuge",
+            "instrument_vendor": null,
+            "settings": "8500 rpm"
+          }
+        ],
+        "notes": "Sn composition controlled by varying volume of 5 mM SnCl4\u00b75H2O (40-200 \u03bcL). 60\u00b0C gives most blue-shifted LSPR and highest Au5Sn phase fraction; lower temps give more AuSn, 80\u00b0C gives minimal shift. Mixed phase system: substitutional AuxSn1-x alloy coexists with Au5Sn and AuSn intermetallics. All water 18.2 M\u03a9 resistivity."
+      },
+      "evaluations": [
+        {
+          "evaluation": {
+            "reasoning": "Claude extracted 2 starting materials (citrate-capped Au nanoparticles, SnCl4) and 2 steps vs GT's 5 starting materials and 6 steps. Missed entire Au seed synthesis (HAuCl4 + citrate reflux at 125\u00b0C), PVP, NaBH4, and all quantitative amounts. Synthesis_method labeled 'precipitation' instead of 'solution-based'. Target_compound 'AuSn' is one intermetallic phase, not the broader alloy system. Equipment list contains only characterization instruments (ICP-MS, TEM, XRD, EDS, HAADF-STEM), not synthesis equipment (round-bottom flask, water bath, centrifuge). No amounts, purities, or vendors for any material. Conditions: only 60\u00b0C captured; missing 125\u00b0C reflux, 8min/20min durations, 640rpm, 8500rpm centrifuge.",
+            "scores": {
+              "structural_completeness_score": 1.5,
+              "structural_completeness_reasoning": "2/6 steps, 2/5 starting materials, 0/3 synthesis equipment items. Entire seed synthesis procedure (steps 1-2) absent. NaBH4 and PVP completely missing.",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "Correct reagents identified (Au seeds, SnCl4) but missing HAuCl4\u00b73H2O, citrate, PVP, NaBH4. No amounts, units, purities, or vendors for any material. Seed size (15nm) encoded as amount=15, unit=nm \u2014 schema misuse.",
+              "process_steps_score": 1.5,
+              "process_steps_reasoning": "2 steps vs 6 in GT. Step 1 (dissolve HAuCl4) and step 2 (reflux with citrate) entirely absent. Step 5 (NaBH4 reduction) absent. Step 6 (centrifuge) absent. Only mix+reduce captured, no durations anywhere.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "All 5 listed equipment items are characterization instruments, not synthesis equipment. GT synthesis equipment (round-bottom flask, water bath, centrifuge) all missing.",
+              "conditions_extraction_score": 1.5,
+              "conditions_extraction_reasoning": "Only 60\u00b0C captured (step 2). Missing: 125\u00b0C reflux, 8min Au seed reflux duration, 640rpm stirring, 60\u00b0C/10min incubation, 60\u00b0C/20min reduction, 8500rpm/8min centrifuge.",
+              "semantic_accuracy_score": 2.5,
+              "semantic_accuracy_reasoning": "'precipitation' wrong \u2014 method is seeded chemical reduction (solution-based). 'AuSn' is one intermetallic phase; GT is AuxSn1-x alloy system with x=8-41%. Notes preserve temperature-dependent phase behavior correctly.",
+              "format_compliance_score": 3.5,
+              "format_compliance_reasoning": "Schema structure followed. 15nm as amount/unit is a misuse. All null values appropriate for missing data. No vendor/purity/amount data provided.",
+              "overall_score": 2.0,
+              "overall_reasoning": "Captures rough concept (Au seeds + SnCl4 reduction at 60\u00b0C) but misses 4/6 steps, 3/5 reagents, all quantitative amounts, all synthesis equipment, and all reaction durations. Synthesis method wrong. GT was derived from SI not available to LLM."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "HAuCl4\u00b73H2O (10 mM, Alfa Aesar 99.99%) \u2014 Au precursor for seed synthesis",
+              "trisodium citrate dihydrate (100 mM, Alfa Aesar 99%) \u2014 reductant/capping agent for seeds",
+              "PVP MW 40000 (0.025 mg, Alfa Aesar) \u2014 steric stabilizer",
+              "NaBH4 (260 mM, Alfa Aesar 97+%) \u2014 reducing agent for Sn4+",
+              "Step 1: dissolve \u2014 HAuCl4 in water, 125\u00b0C oil bath, 640 rpm",
+              "Step 2: reflux \u2014 add citrate at reflux, 8 min, solution turns reddish pink",
+              "Step 3: mix \u2014 Au seeds + SnCl4 + PVP, vigorous stirring, RT",
+              "Step 4: heat \u2014 water bath 60\u00b0C, 10 min",
+              "Step 5: reduce \u2014 NaBH4 addition, 60\u00b0C, 20 min",
+              "Step 6: centrifuge \u2014 8500 rpm, 8 min, resuspend in water",
+              "Synthesis equipment: round-bottom flask (100 mL), water bath (60\u00b0C), centrifuge (8500 rpm)",
+              "All reagent amounts, concentrations, purities, vendors",
+              "All reaction durations and stirring speeds"
+            ],
+            "extraction_errors": [
+              "synthesis_method='precipitation' \u2014 correct value is 'solution-based'",
+              "target_compound='AuSn' \u2014 refers to one intermetallic phase; GT is AuxSn1-x (x=8-41%)",
+              "Equipment list contains only characterization tools, no synthesis equipment",
+              "Au seed particle size (15 nm) encoded as amount=15.0, unit='nm' \u2014 schema misuse"
+            ],
+            "improvement_suggestions": [
+              "Include SI in LLM context \u2014 all quantitative synthesis details are in SI S2",
+              "Add full Au seed synthesis as steps 1-2 (HAuCl4 + citrate reflux at 125\u00b0C)",
+              "Add NaBH4 as starting material with amount and concentration",
+              "Add PVP as starting material",
+              "Replace characterization equipment with synthesis equipment (flask, water bath, centrifuge)",
+              "Correct synthesis_method to 'solution-based'",
+              "Broaden target_compound to reflect full composition range"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Gemini extracted 2 starting materials and 3 steps vs GT's 5 and 6. Synthesis_method correctly 'solution-based'. Target_compound_type wrong ('nanomaterials' vs 'metals & alloys'). Missing entire Au seed synthesis, PVP, NaBH4, all amounts/purities/vendors. Equipment is characterization only. Au seed size (15nm) encoded as amount=15, unit=nm, purity='citrate-capped' \u2014 triple schema misuse. Step 3 'age' is not a valid ontology action (valid: add/mix/heat/cool/reflux/age/filter/wash/dry/reduce/calcine/dissolve/precipitate/centrifuge/sonicate/anneal/ion exchange/impregnate) \u2014 actually 'age' is valid but the described action is incubation/heat.",
+            "scores": {
+              "structural_completeness_score": 2.0,
+              "structural_completeness_reasoning": "3/6 steps, 2/5 starting materials, 0/3 synthesis equipment. Seed synthesis (steps 1-2) and centrifuge (step 6) absent. NaBH4 and PVP missing.",
+              "material_extraction_score": 2.0,
+              "material_extraction_reasoning": "Au seeds and SnCl4 identified. HAuCl4\u00b73H2O, citrate, PVP, NaBH4 missing. No amounts/purities/vendors. 15nm encoded as amount+purity \u2014 schema misuse.",
+              "process_steps_score": 2.0,
+              "process_steps_reasoning": "3 steps, better than claude but still missing seed reflux, NaBH4 reduction step, and centrifuge. No durations captured. Steps are conceptually correct but not quantitative.",
+              "equipment_extraction_score": 1.5,
+              "equipment_extraction_reasoning": "TEM, XRD, ICP-MS listed \u2014 characterization only. Synthesis equipment (flask, water bath, centrifuge) all absent.",
+              "conditions_extraction_score": 2.0,
+              "conditions_extraction_reasoning": "60\u00b0C captured in steps 2+3. Missing: 125\u00b0C reflux, all durations (8min seed reflux, 10min incubation, 20min reduction, 8min centrifuge), 640rpm stirring.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "Synthesis concept (seeded reduction at 60\u00b0C, Sn composition control) correctly captured in notes. target_compound_type='nanomaterials' wrong \u2014 should be 'metals & alloys'. Notes capture temperature-phase relationship well.",
+              "format_compliance_score": 3.0,
+              "format_compliance_reasoning": "Schema structure followed. 15nm as amount=15, unit=nm, purity='citrate-capped' is triple misuse of material fields. Otherwise compliant.",
+              "overall_score": 2.2,
+              "overall_reasoning": "Correct synthesis_method, decent notes, but missing 4/6 steps, 3/5 reagents, all quantities, all synthesis equipment. GT derived from SI not in LLM context."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "HAuCl4\u00b73H2O (10 mM, Alfa Aesar 99.99%)",
+              "trisodium citrate dihydrate (100 mM, Alfa Aesar 99%)",
+              "PVP MW 40000 (0.025 mg, Alfa Aesar)",
+              "NaBH4 (260 mM, Alfa Aesar 97+%)",
+              "Step 1: dissolve HAuCl4 in water, 125\u00b0C oil bath, 640 rpm",
+              "Step 2: reflux with citrate, 8 min, 125\u00b0C",
+              "Step 4: heat water bath 60\u00b0C, 10 min",
+              "Step 5: reduce \u2014 NaBH4 addition, 60\u00b0C, 20 min",
+              "Step 6: centrifuge \u2014 8500 rpm, 8 min",
+              "Synthesis equipment: round-bottom flask, water bath, centrifuge",
+              "All reaction durations, stirring speeds, concentrations, vendors, purities"
+            ],
+            "extraction_errors": [
+              "target_compound_type='nanomaterials' \u2014 correct value is 'metals & alloys'",
+              "Au seed size (15 nm) encoded as amount=15, unit='nm', purity='citrate-capped' \u2014 all three fields misused",
+              "No NaBH4 (reducing agent) extracted despite being essential to the synthesis"
+            ],
+            "improvement_suggestions": [
+              "Include SI in LLM context for all quantitative details",
+              "Correct target_compound_type to 'metals & alloys'",
+              "Add NaBH4 and PVP as starting materials",
+              "Add Au seed synthesis steps (HAuCl4 + citrate reflux at 125\u00b0C)",
+              "Add centrifuge step with rpm and duration",
+              "Encode particle size as descriptor in notes, not as material amount/unit/purity"
+            ]
+          }
+        },
+        {
+          "evaluation": {
+            "reasoning": "Qwen extracted 2 starting materials and 4 steps vs GT's 5 and 6. Synthesis_method correctly 'solution-based'. Target_compound_type wrong ('nanomaterials'). Missing Au seed synthesis precursors (HAuCl4, citrate), PVP, NaBH4, all amounts/purities/vendors. Step ordering off: 'reduce' is step 4 but has no materials listed and no conditions \u2014 the reduction (NaBH4 addition) is the key chemical step. Equipment 'Heating source' is too vague. Notes are good quality capturing temperature-phase relationship.",
+            "scores": {
+              "structural_completeness_score": 2.0,
+              "structural_completeness_reasoning": "4/6 steps but seed synthesis steps (dissolve+reflux) absent and centrifuge absent. 2/5 starting materials. NaBH4, HAuCl4, citrate, PVP all missing.",
+              "material_extraction_score": 1.5,
+              "material_extraction_reasoning": "Au nanoparticles and SnCl4 identified but no amounts/concentrations/purities/vendors for any material. HAuCl4\u00b73H2O, citrate, PVP, NaBH4 absent.",
+              "process_steps_score": 2.5,
+              "process_steps_reasoning": "4 steps, best step count of the 3 LLMs. Mix\u2192add\u2192heat\u2192reduce sequence is logically consistent with SI procedure. However: seed synthesis (reflux step) absent, centrifuge absent, NaBH4 reduction step has no materials listed, no durations anywhere.",
+              "equipment_extraction_score": 1.0,
+              "equipment_extraction_reasoning": "'Heating source' is too vague \u2014 GT specifies round-bottom flask (100 mL, oil bath 125\u00b0C), water bath (60\u00b0C), centrifuge (8500 rpm). Characterization equipment not listed.",
+              "conditions_extraction_score": 2.0,
+              "conditions_extraction_reasoning": "60\u00b0C captured for heat step. Missing: 125\u00b0C reflux, 640 rpm stirring, all durations (8min/10min/20min/8min), NaBH4 reduction conditions.",
+              "semantic_accuracy_score": 3.0,
+              "semantic_accuracy_reasoning": "Notes excellent \u2014 correctly describe temperature-phase relationship, composition control via Sn amount, AuSn/Au5Sn/AuxSn1-x phase coexistence. target_compound_type='nanomaterials' wrong. Synthesis concept correctly grasped.",
+              "format_compliance_score": 3.5,
+              "format_compliance_reasoning": "Schema structure followed. Reduce step (step 4) has empty materials list \u2014 should list NaBH4. Otherwise format compliant.",
+              "overall_score": 2.2,
+              "overall_reasoning": "Best step coverage of 3 LLMs. Good semantic notes. Still missing 3/5 reagents, all quantitative data, both seed synthesis steps, centrifuge, and correct compound type. GT from SI not in LLM context."
+            },
+            "confidence_level": "high",
+            "missing_information": [
+              "HAuCl4\u00b73H2O (10 mM, Alfa Aesar 99.99%)",
+              "trisodium citrate dihydrate (100 mM, Alfa Aesar 99%)",
+              "PVP MW 40000 (0.025 mg, Alfa Aesar)",
+              "NaBH4 (260 mM, Alfa Aesar 97+%) \u2014 listed as step action but not as starting material",
+              "Step 1: dissolve \u2014 HAuCl4 in water, oil bath 125\u00b0C, 640 rpm",
+              "Step 2: reflux \u2014 citrate addition, 8 min, 125\u00b0C, solution turns reddish pink",
+              "Step 6: centrifuge \u2014 8500 rpm, 8 min, resuspend in water",
+              "All reaction durations (8/10/20/8 min), stirring speeds (640 rpm), concentrations, vendors, purities",
+              "Synthesis equipment specifics: round-bottom flask (100 mL), water bath (60\u00b0C), centrifuge (8500 rpm)"
+            ],
+            "extraction_errors": [
+              "target_compound_type='nanomaterials' \u2014 correct value is 'metals & alloys'",
+              "NaBH4 used as step action (reduce) but not listed as starting material",
+              "Equipment 'Heating source' too vague \u2014 should be round-bottom flask + water bath with specific settings"
+            ],
+            "improvement_suggestions": [
+              "Include SI in LLM context \u2014 all quantitative details in SI S2",
+              "Correct target_compound_type to 'metals & alloys'",
+              "Add NaBH4 and citrate as starting materials with amounts and vendors",
+              "Add seed synthesis steps (HAuCl4 reflux at 125\u00b0C)",
+              "Add centrifuge step",
+              "Specify equipment with settings (flask size, bath temperature, centrifuge rpm)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "material_name": "Au-Bi/Ga/In nanoparticles",
+      "human_recipe": {
+        "target_compound": "Au-PTM plasmonic alloy nanoparticles (AuxBi1-x ~6%, AuxGa1-x trace, AuxIn1-x ~10%)",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "solution-based",
+        "starting_materials": [
+          {
+            "vendor": "Alfa Aesar",
+            "name": "HAuCl4\u00b73H2O",
+            "amount": 10.0,
+            "unit": "mM",
+            "purity": "99.99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "trisodium citrate dihydrate",
+            "amount": 100.0,
+            "unit": "mM",
+            "purity": "99%"
+          },
+          {
+            "vendor": null,
+            "name": "PTM precursor (BiX3, GaX3, or InX3)",
+            "amount": 10.0,
+            "unit": "mol%",
+            "purity": null
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "PVP (MW 40000)",
+            "amount": null,
+            "unit": null,
+            "purity": null
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "NaBH4",
+            "amount": null,
+            "unit": null,
+            "purity": "97+%"
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "reduce",
+            "description": "Synthesize Au seeds via citrate reduction identical to Au-Sn procedure (HAuCl4 + sodium citrate, reflux 125\u00b0C, 640 rpm, 8 min).",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "HAuCl4\u00b73H2O",
+                "amount": 1.2,
+                "unit": "mL",
+                "purity": "99.99%"
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "trisodium citrate dihydrate",
+                "amount": 480.0,
+                "unit": "\u03bcL",
+                "purity": "99%"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "round-bottom flask",
+                "instrument_vendor": null,
+                "settings": "100 mL, oil bath 125\u00b0C, 640 rpm"
+              }
+            ],
+            "conditions": {
+              "temperature": 125.0,
+              "temp_unit": "C",
+              "duration": 8.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": 640.0,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "mix",
+            "description": "Add PTM precursor solution (10 mol% equivalent) and PVP to Au seeds. For Ga and Bi: incubate in ice bath 10 min. For In: incubate at 60\u00b0C for 10 min.",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Au seeds (citrate-capped)",
+                "amount": 3.0,
+                "unit": "mL",
+                "purity": null
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "PVP (MW 40000)",
+                "amount": null,
+                "unit": null,
+                "purity": null
+              }
+            ],
+            "equipment": [
+              {
+                "name": "ice bath",
+                "instrument_vendor": null,
+                "settings": "0\u00b0C (Ga, Bi) or 60\u00b0C water bath (In)"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 10.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "reduce",
+            "description": "Add NaBH4. For Ga and Bi: incubate in ice bath 10 additional min. For In: allow to stand at room temperature 10 min.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "NaBH4",
+                "amount": null,
+                "unit": null,
+                "purity": "97+%"
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 10.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "round-bottom flask",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "ice bath",
+            "instrument_vendor": null,
+            "settings": "0\u00b0C"
+          }
+        ],
+        "notes": "Conditions modified from Au-Sn: Ga/Bi use ice bath (not 60\u00b0C) for both incubation steps; In uses 60\u00b0C then room temperature. Incorporated compositions (ICP-MS): Bi ~6.1%, Ga trace only (colloidal instability), In ~9.9%. Nanoparticles stable \u22651 h. XRD shows Au-like fcc pattern, no intermetallic phases at 10 mol% PTM loading."
+      },
+      "evaluations": []
+    },
+    {
       "material_name": "Ag-Sn nanoparticles",
       "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
+        "target_compound": "Ag-Sn plasmonic alloy nanoparticles (AgxSn1-x, 9-23 mol% Sn incorporated)",
+        "target_compound_type": "metals & alloys",
+        "synthesis_method": "solution-based",
+        "starting_materials": [
+          {
+            "vendor": "Thermo Fisher Scientific",
+            "name": "AgNO3",
+            "amount": 59.0,
+            "unit": "mM",
+            "purity": "99.9995%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "trisodium citrate dihydrate",
+            "amount": 35.0,
+            "unit": "mM",
+            "purity": "99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "NaBr",
+            "amount": 80.0,
+            "unit": "mM",
+            "purity": "99.99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "L-(+)-ascorbic acid",
+            "amount": 100.0,
+            "unit": "mM",
+            "purity": "99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "SnCl4\u00b75H2O",
+            "amount": 5.0,
+            "unit": "mM",
+            "purity": "99.99%"
+          },
+          {
+            "vendor": "Alfa Aesar",
+            "name": "NaBH4",
+            "amount": 120.0,
+            "unit": "mM",
+            "purity": "97+%"
+          }
+        ],
+        "steps": [
+          {
+            "step_number": 1,
+            "action": "mix",
+            "description": "Mix 1 mL sodium citrate (35 mM), 250 \u03bcL AgNO3 (59 mM), 50 \u03bcL NaBr (80 mM) in 1.25 mL water, stir at room temperature 5 min.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "trisodium citrate dihydrate",
+                "amount": 1.0,
+                "unit": "mL",
+                "purity": "99%"
+              },
+              {
+                "vendor": "Thermo Fisher Scientific",
+                "name": "AgNO3",
+                "amount": 250.0,
+                "unit": "\u03bcL",
+                "purity": "99.9995%"
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "NaBr",
+                "amount": 50.0,
+                "unit": "\u03bcL",
+                "purity": "99.99%"
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 25.0,
+              "temp_unit": "C",
+              "duration": 5.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 2,
+            "action": "reflux",
+            "description": "Add 500 \u03bcL ascorbic acid (100 mM) to 47.4 mL boiling water in 100 mL flask (oil bath 125\u00b0C, 600 rpm). After 1 min, add citrate/AgNO3/NaBr solution. Hold at reflux 1 h with stirring. Solution turns colorless to yellow.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "L-(+)-ascorbic acid",
+                "amount": 500.0,
+                "unit": "\u03bcL",
+                "purity": "99%"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "round-bottom flask",
+                "instrument_vendor": null,
+                "settings": "100 mL, oil bath 125\u00b0C, 600 rpm"
+              }
+            ],
+            "conditions": {
+              "temperature": 125.0,
+              "temp_unit": "C",
+              "duration": 60.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": 600.0,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 3,
+            "action": "centrifuge",
+            "description": "Centrifuge at 4100 rpm for 15 min to remove larger nanoparticles; save supernatant. Centrifuge supernatant at 11400 rpm for 30 min; resuspend in 2 mM aqueous sodium citrate. Use seeds at O.D. ~3. (Ag seed purification)",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "centrifuge",
+                "instrument_vendor": null,
+                "settings": "4100 rpm 15 min, then 11400 rpm 30 min"
+              }
+            ],
+            "conditions": {
+              "temperature": null,
+              "temp_unit": null,
+              "duration": 45.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 4,
+            "action": "mix",
+            "description": "Add 1.30 mL Ag seeds to 6.02 mL water. Add 100 \u03bcL AgNO3 (10 mM) under stirring. Add 160-460 \u03bcL SnCl4\u00b75H2O (5 mM) depending on target composition. Add 190-300 \u03bcL sodium citrate (30 mM).",
+            "materials": [
+              {
+                "vendor": null,
+                "name": "Ag seeds",
+                "amount": 1.3,
+                "unit": "mL",
+                "purity": null
+              },
+              {
+                "vendor": "Thermo Fisher Scientific",
+                "name": "AgNO3 (10 mM stock)",
+                "amount": 100.0,
+                "unit": "\u03bcL",
+                "purity": "99.9995%"
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "SnCl4\u00b75H2O (5 mM stock)",
+                "amount": 310.0,
+                "unit": "\u03bcL",
+                "purity": "99.99%"
+              },
+              {
+                "vendor": "Alfa Aesar",
+                "name": "trisodium citrate dihydrate (30 mM stock)",
+                "amount": 245.0,
+                "unit": "\u03bcL",
+                "purity": "99%"
+              }
+            ],
+            "equipment": [],
+            "conditions": {
+              "temperature": 25.0,
+              "temp_unit": "C",
+              "duration": null,
+              "time_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": true,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 5,
+            "action": "heat",
+            "description": "Transfer to water bath at 60\u00b0C for 10 min.",
+            "materials": [],
+            "equipment": [
+              {
+                "name": "water bath",
+                "instrument_vendor": null,
+                "settings": "60\u00b0C"
+              }
+            ],
+            "conditions": {
+              "temperature": 60.0,
+              "temp_unit": "C",
+              "duration": 10.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          },
+          {
+            "step_number": 6,
+            "action": "reduce",
+            "description": "Add 150-215 \u03bcL NaBH4 (120 mM). Return to water bath at 60\u00b0C for 20 min.",
+            "materials": [
+              {
+                "vendor": "Alfa Aesar",
+                "name": "NaBH4 (120 mM stock)",
+                "amount": 182.5,
+                "unit": "\u03bcL",
+                "purity": "97+%"
+              }
+            ],
+            "equipment": [
+              {
+                "name": "water bath",
+                "instrument_vendor": null,
+                "settings": "60\u00b0C"
+              }
+            ],
+            "conditions": {
+              "temperature": 60.0,
+              "temp_unit": "C",
+              "duration": 20.0,
+              "time_unit": "min",
+              "pressure": null,
+              "pressure_unit": null,
+              "atmosphere": null,
+              "stirring": null,
+              "stirring_speed": null,
+              "ph": null
+            }
+          }
+        ],
+        "equipment": [
+          {
+            "name": "round-bottom flask",
+            "instrument_vendor": null,
+            "settings": "100 mL"
+          },
+          {
+            "name": "water bath",
+            "instrument_vendor": null,
+            "settings": "60\u00b0C"
+          },
+          {
+            "name": "centrifuge",
+            "instrument_vendor": null,
+            "settings": "4100 rpm / 11400 rpm"
+          }
+        ],
+        "notes": "Seeded co-reduction method. Sn composition controlled by volume of SnCl4 solution (160-460 \u03bcL for 40-66 mol% Sn added; incorporated 9-23 mol% by ICP-MS). LSPR shifts from ~400 nm (Ag seeds) to 365 nm at 23% Sn. Mixed phase: substitutional Ag-Sn alloy + Ag3Sn intermetallic at higher Sn. NaBr used as shape-directing agent in seed synthesis. All water 18.2 M\u03a9 resistivity."
       },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material is correctly identified",
-              "process_steps_score": null,
-              "process_steps_reasoning": "not extracted",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "not in main paper",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "not in main paper",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "good",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "good",
-              "overall_score": 3.6,
-              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
-            },
-            "confidence_level": 5,
-            "missing_information": ["type of process"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["extract clues from the text"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material is correctly identified",
-              "process_steps_score": null,
-              "process_steps_reasoning": "not extracted",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "not in main paper",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "not in main paper",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "good",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "good",
-              "overall_score": 3.6,
-              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
-            },
-            "confidence_level": 5,
-            "missing_information": ["type of process"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["extract clues from the text"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material is correctly identified",
-              "process_steps_score": null,
-              "process_steps_reasoning": "not extracted",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "not in main paper",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "not in main paper",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "good",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "good",
-              "overall_score": 3.6,
-              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
-            },
-            "confidence_level": 5,
-            "missing_information": ["type of process"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["extract clues from the text"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. ",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "material is correctly identified",
-              "process_steps_score": null,
-              "process_steps_reasoning": "not extracted",
-              "equipment_extraction_score": 5,
-              "equipment_extraction_reasoning": "not in main paper",
-              "conditions_extraction_score": 5,
-              "conditions_extraction_reasoning": "not in main paper",
-              "semantic_accuracy_score": 5,
-              "semantic_accuracy_reasoning": "good",
-              "format_compliance_score": 5,
-              "format_compliance_reasoning": "good",
-              "overall_score": 3.6,
-              "overall_reasoning": "The method is quoted as 'Method', which after further reading turns out to be included in the SI, but there is nothing else concrete in the main text, however clues such as 'seeded chemical reduction of Sn4+' is mentioned and should have been extrcated. "
-            },
-            "confidence_level": 5,
-            "missing_information": ["type of process"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["extract clues from the text"]
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "Au-Bi nanoparticles",
-      "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "Au-In nanoparticles",
-            "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "Au-Ga nanoparticles",
-        "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "they are not specifically mentioned in the text as being synthesised",
-            "scores": {
-              "structural_completeness_score": null,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": null,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": null,
-              "overall_reasoning": "not applicable"
-            },
-            "confidence_level": 5,
-            "missing_information": [],
-            "extraction_errors": [],
-            "improvement_suggestions": []
-          }
-        }
-      ]
-    },
-    {
-      "material_name": "Au-Sn nanoparticles",
-        "human_recipe": {
-        "target_compound": null,
-        "target_compound_type": null,
-        "synthesis_method": null,
-        "starting_materials": [],
-        "steps": [],
-        "equipment": [],
-        "notes": null
-      },
-      "evaluations": [
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": 1.43,
-              "overall_reasoning": "the main method is missing, although mentioned in the text explicitely"
-            },
-            "confidence_level": 5,
-            "missing_information": ["target_compound: Au-Sn alloys and intermetallics",
-        "target_compound_type: alloys",
-        "synthesis_method: seeded chemical reduction",
-        "starting_materials: [PTM-NM, SnCl4, 15 nm citrate-capped Au nanoparticles]",
-        "steps: [mixing chemical reduction]",
-        "equipment: []",
-        "notes: the mixing is inferred from text]"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["add the above from page 5"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": 1.43,
-              "overall_reasoning": "the main method is missing, although mentioned in the text explicitely"
-            },
-            "confidence_level": 5,
-            "missing_information": ["target_compound: Au-Sn alloys and intermetallics",
-        "target_compound_type: alloys",
-        "synthesis_method: seeded chemical reduction",
-        "starting_materials: [PTM-NM, SnCl4, 15 nm citrate-capped Au nanoparticles]",
-        "steps: [mixing chemical reduction]",
-        "equipment: []",
-        "notes: the mixing is inferred from text]"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["add the above from page 5"]
-          }
-        },
-        {
-          "evaluation": {
-            "reasoning": "",
-            "scores": {
-              "structural_completeness_score": 5,
-              "structural_completeness_reasoning": "",
-              "material_extraction_score": 5,
-              "material_extraction_reasoning": "",
-              "process_steps_score": null,
-              "process_steps_reasoning": "",
-              "equipment_extraction_score": null,
-              "equipment_extraction_reasoning": "",
-              "conditions_extraction_score": null,
-              "conditions_extraction_reasoning": "",
-              "semantic_accuracy_score": null,
-              "semantic_accuracy_reasoning": "",
-              "format_compliance_score": null,
-              "format_compliance_reasoning": "",
-              "overall_score": 1.43,
-              "overall_reasoning": "the main method is missing, although mentioned in the text explicitely"
-            },
-            "confidence_level": 5,
-            "missing_information": ["target_compound: Au-Sn alloys and intermetallics",
-        "target_compound_type: alloys",
-        "synthesis_method: seeded chemical reduction",
-        "starting_materials: [PTM-NM, SnCl4, 15 nm citrate-capped Au nanoparticles]",
-        "steps: [mixing chemical reduction]",
-        "equipment: []",
-        "notes: the mixing is inferred from text]"],
-            "extraction_errors": ["missing information"],
-            "improvement_suggestions": ["add the above from page 5"]
-          }
-        }
-      ]
+      "evaluations": []
     }
   ]
 }
