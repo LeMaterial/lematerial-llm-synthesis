@@ -2,7 +2,7 @@
 #SBATCH --job-name=synth-omg24
 #SBATCH --partition=regularcpu
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=16G
+#SBATCH --mem=32G
 #SBATCH --time=300:00:00
 #SBATCH --output=results/omg24_%j.log
 #SBATCH --open-mode=append
@@ -28,7 +28,7 @@ echo "host=$(hostname) start=$(date -u +%FT%TZ)"
 # Resumable: rerun to continue (completed ids are skipped).
 uv run --with datasets python examples/scripts/deployment/run_extract_judge_hf.py \
   --config full --split omg24 \
-  --concurrency 64 \
+  --concurrency 96 \
   --out results/full_omg24.jsonl \
   --push --hub-repo LeMaterial/LeMat-Synth-recipes-dummy
 
