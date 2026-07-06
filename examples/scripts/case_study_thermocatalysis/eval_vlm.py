@@ -66,6 +66,42 @@ def _normalize(name: str) -> str:
     )
 
 
+def _normalize_series(name: str) -> str:
+    """Normalize a series name for fuzzy matching across VLM output formats.
+
+    Handles:
+    - Gemini LaTeX: $5\\% \\mathrm{La}/\\mathrm{Ni}/\\mathrm{Al}_2\\mathrm{O}_3$
+    - Claude prefix: Series_Name (5%La/Ni/Al₂O₃)
+    - Unicode subscripts: Al₂O₃ → Al2O3
+    """
+    import re
+
+    # Strip "Series_Name:", "Series_Name (...)", "Series_Name ..." prefixes
+    m = re.match(r"^Series_Name\s*[:(]?\s*(.*?)\)?$", name, re.IGNORECASE)
+    if m:
+        name = m.group(1).strip().rstrip(")")
+    # Strip LaTeX math delimiters and commands
+    name = re.sub(r"\$", "", name)
+    name = re.sub(r"\\mathrm\{([^}]+)\}", r"\1", name)
+    name = re.sub(r"\\text\{([^}]+)\}", r"\1", name)
+    name = re.sub(r"\\[a-zA-Z]+", "", name)
+    name = re.sub(r"\{|\}", "", name)
+    # Normalize unicode subscript digits to ASCII
+    _sub = str.maketrans("₀₁₂₃₄₅₆₇₈₉", "0123456789")
+    name = name.translate(_sub)
+    # Lowercase, strip punctuation noise
+    return (
+        name.lower()
+        .replace("%", "pct")
+        .replace(" ", "")
+        .replace("_", "")
+        .replace("-", "")
+        .replace("/", "")
+        .replace("\\", "")
+        .replace(".", "")
+    )
+
+
 def _load_performance(path: Path) -> dict[str, list[list[float]]] | None:
     """Return {series_name: [[x,y], ...]} from a result JSON, or None."""
     try:
@@ -84,7 +120,7 @@ def _load_performance(path: Path) -> dict[str, list[list[float]]] | None:
         name = entry.get("series_name", "")
         c = entry.get("coordinates", [])
         if name and c:
-            coords[name] = c
+            coords[_normalize_series(name)] = c
     return coords or None
 
 
