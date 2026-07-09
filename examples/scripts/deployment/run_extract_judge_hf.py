@@ -48,6 +48,11 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from hydra.utils import instantiate  # noqa: E402
 from omegaconf import OmegaConf  # noqa: E402
 
+from llm_synthesis.utils.figure_utils import (  # noqa: E402
+    clean_text_from_images,
+    looks_like_html_dump,
+)
+
 EXTRACTOR_MODEL = "claude-sonnet-4.6"
 JUDGE_MODEL = "deepseek-v3.2"
 DATASET_URI = "LeMaterial/LeMat-Synth-Papers"
@@ -107,12 +112,12 @@ def make_pipeline(index, openrouter_keys, judge_only=False):
     judge.lm.kwargs["api_key"] = key
     judge.lm.kwargs["api_base"] = OPENROUTER_BASE
     return {
-        "material": None if judge_only else _instantiate(
-            CFG["material"], EXTRACTOR_MODEL
-        ),
-        "synthesis": None if judge_only else _instantiate(
-            CFG["synthesis"], EXTRACTOR_MODEL
-        ),
+        "material": None
+        if judge_only
+        else _instantiate(CFG["material"], EXTRACTOR_MODEL),
+        "synthesis": None
+        if judge_only
+        else _instantiate(CFG["synthesis"], EXTRACTOR_MODEL),
         "judge": judge,
         "key_index": index % len(openrouter_keys),
     }
@@ -124,13 +129,20 @@ def build_context(row, si_char_cap):
         parts.append(f"# {row['title'].strip()}")
     if (row.get("abstract") or "").strip():
         parts.append(f"## Abstract\n{row['abstract'].strip()}")
-    if (row.get("text_paper") or "").strip():
-        parts.append(f"## Paper\n{row['text_paper'].strip()}")
-    si = (row.get("text_si") or "").strip()
-    if si:
+    # Strip embedded base64 images/binary (huge in omg24/chemrxiv) and drop
+    # raw HTML-dump extractions (failed rows that captured a landing page).
+    paper = row.get("text_paper") or ""
+    if paper.strip() and not looks_like_html_dump(paper):
+        paper = clean_text_from_images(paper).strip()
+        if paper:
+            parts.append(f"## Paper\n{paper}")
+    si = row.get("text_si") or ""
+    if si.strip() and not looks_like_html_dump(si):
+        si = clean_text_from_images(si).strip()
         if si_char_cap and len(si) > si_char_cap:
             si = si[:si_char_cap] + "\n[... SI truncated ...]"
-        parts.append(f"## Supporting Information\n{si}")
+        if si:
+            parts.append(f"## Supporting Information\n{si}")
     return "\n\n".join(parts)
 
 
@@ -190,9 +202,7 @@ def process_paper(row, pipe, si_char_cap, max_materials):
             recipes.append(
                 {"material_name": m, "recipe": json.loads(onto_json)}
             )
-            evals.append(
-                {"material_name": m, "evaluation": ev_full}
-            )
+            evals.append({"material_name": m, "evaluation": ev_full})
             sc = ev.scores
             for c in SCORE_COLUMNS:
                 v = getattr(sc, c, None)
@@ -346,16 +356,20 @@ async def run(args):
 
     recipes_by_id = {}
     if rejudge:
-        print(f"Rejudge mode: loading recipes from {args.rejudge_from} "
-              f"(config={args.config}, split={args.split}) ...")
+        print(
+            f"Rejudge mode: loading recipes from {args.rejudge_from} "
+            f"(config={args.config}, split={args.split}) ..."
+        )
         recipes_by_id = load_recipes_from_hub(
             args.rejudge_from, args.config, args.split
         )
         print(f"Loaded prior recipes for {len(recipes_by_id)} papers.")
 
     n_pool = args.concurrency
-    print(f"Building {n_pool} pipeline instances "
-          f"({'judge-only' if rejudge else 'extract+judge'}) ...")
+    print(
+        f"Building {n_pool} pipeline instances "
+        f"({'judge-only' if rejudge else 'extract+judge'}) ..."
+    )
     pool = asyncio.Queue()
     pipes = [make_pipeline(i, keys, judge_only=rejudge) for i in range(n_pool)]
     for p in pipes:
@@ -370,12 +384,18 @@ async def run(args):
         try:
             if rejudge:
                 res = await asyncio.to_thread(
-                    process_paper_rejudge, row, recipes_by_id, pipe,
+                    process_paper_rejudge,
+                    row,
+                    recipes_by_id,
+                    pipe,
                     args.si_char_cap,
                 )
             else:
                 res = await asyncio.to_thread(
-                    process_paper, row, pipe, args.si_char_cap,
+                    process_paper,
+                    row,
+                    pipe,
+                    args.si_char_cap,
                     args.max_materials,
                 )
         finally:
@@ -435,8 +455,10 @@ def push_to_hub(out_path, hub_repo, config, split):
         if line.strip()
     ]
     ds = Dataset.from_list(rows)
-    print(f"Pushing {len(rows)} rows to {hub_repo} (config={config}, "
-          f"split={split}) ...")
+    print(
+        f"Pushing {len(rows)} rows to {hub_repo} (config={config}, "
+        f"split={split}) ..."
+    )
     ds.push_to_hub(hub_repo, config_name=config, split=split, private=True)
     print("Pushed. (Private repo; a NEW dataset, source is untouched.)")
 
@@ -445,26 +467,52 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", default="superconductor_keywords_and_LLM")
     ap.add_argument("--split", default="full")
-    ap.add_argument("--limit", type=int, default=None,
-                    help="max papers this run (for smoke tests)")
-    ap.add_argument("--concurrency", type=int, default=16,
-                    help="pool size == max papers in flight")
-    ap.add_argument("--si-char-cap", type=int, default=None,
-                    help="optional: truncate text_si to this many chars. "
-                         "Default None = use the full SI (no truncation)")
-    ap.add_argument("--max-materials", type=int, default=20,
-                    help="cap materials per paper to bound cost")
-    ap.add_argument("--out", default=None,
-                    help="JSONL output path (default under results/)")
-    ap.add_argument("--push", action="store_true",
-                    help="push accumulated JSONL to a NEW hub dataset repo")
-    ap.add_argument("--hub-repo", default=None,
-                    help="target repo for --push, e.g. user/LeMat-recipes")
-    ap.add_argument("--rejudge-from", default=None,
-                    help="hub repo of a prior run to re-judge: reuses its "
-                         "structured_synthesis and re-runs ONLY the deepseek "
-                         "judge (no Claude extraction). config/split must "
-                         "match both that repo and the source dataset.")
+    ap.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="max papers this run (for smoke tests)",
+    )
+    ap.add_argument(
+        "--concurrency",
+        type=int,
+        default=16,
+        help="pool size == max papers in flight",
+    )
+    ap.add_argument(
+        "--si-char-cap",
+        type=int,
+        default=None,
+        help="optional: truncate text_si to this many chars. "
+        "Default None = use the full SI (no truncation)",
+    )
+    ap.add_argument(
+        "--max-materials",
+        type=int,
+        default=20,
+        help="cap materials per paper to bound cost",
+    )
+    ap.add_argument(
+        "--out", default=None, help="JSONL output path (default under results/)"
+    )
+    ap.add_argument(
+        "--push",
+        action="store_true",
+        help="push accumulated JSONL to a NEW hub dataset repo",
+    )
+    ap.add_argument(
+        "--hub-repo",
+        default=None,
+        help="target repo for --push, e.g. user/LeMat-recipes",
+    )
+    ap.add_argument(
+        "--rejudge-from",
+        default=None,
+        help="hub repo of a prior run to re-judge: reuses its "
+        "structured_synthesis and re-runs ONLY the deepseek "
+        "judge (no Claude extraction). config/split must "
+        "match both that repo and the source dataset.",
+    )
     args = ap.parse_args()
     if args.out is None:
         args.out = f"results/{args.config}_{args.split}.jsonl"

@@ -221,27 +221,130 @@ def validate_base64_image(base64_data: str) -> bool:
         return False
 
 
+def _strip_bare_base64_blobs(text: str, min_len: int = 500) -> str:
+    """Replace long bare base64 runs (not wrapped in a data URI) with a marker.
+
+    Catches base64 that lives outside markdown/HTML image tags, e.g. binary
+    payloads stuffed into HTML ``value="..."`` attributes on failed
+    landing-page extractions. A character-class guard requires the run to mix
+    lower case, upper case and a digit/symbol so genuine long tokens such as
+    DNA/protein sequences (single case, no digits) or repeated digits in a
+    formula are left untouched.
+
+    Parameters
+    ----------
+    text : str
+        Text possibly containing bare base64 runs.
+    min_len : int, optional
+        Minimum run length to consider a blob, by default 500.
+
+    Returns
+    -------
+    str
+        Text with qualifying base64 runs replaced by ``[stripped-base64]``.
+    """
+
+    def _replace(match: re.Match) -> str:
+        blob = match.group(0)
+        # Real base64 of binary spans all character classes; degenerate runs
+        # (all-zeros, DNA, protein) do not, so we keep those.
+        has_lower = any(c.islower() for c in blob)
+        has_upper = any(c.isupper() for c in blob)
+        has_digit_or_sym = any(c.isdigit() or c in "+/" for c in blob)
+        if has_lower and has_upper and has_digit_or_sym:
+            return "[stripped-base64]"
+        return blob
+
+    return re.sub(rf"[A-Za-z0-9+/]{{{min_len},}}={{0,2}}", _replace, text)
+
+
 def clean_text_from_images(text: str) -> str:
+    """Remove embedded base64 image/binary data to cut token count.
+
+    Handles the three forms of embedded base64 seen across the corpus while
+    preserving surrounding structure:
+
+    1. Markdown data-URI images ``![alt](data:image/...)`` keep the figure
+       reference; only the payload becomes ``placeholder_image``.
+    2. Inline/HTML data URIs (e.g. an ``<img src="data:image/...;base64,...">``
+       tag) have their payload replaced with ``data:<stripped>``.
+    3. Bare high-entropy base64 runs (e.g. base64 inside HTML attributes on a
+       landing-page dump) become ``[stripped-base64]``.
+
+    Parameters
+    ----------
+    text : str
+        Markdown or HTML text that may contain embedded base64.
+
+    Returns
+    -------
+    str
+        Cleaned text with embedded binary replaced by short placeholders.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        from llm_synthesis.utils.figure_utils import clean_text_from_images
+
+        cleaned = clean_text_from_images(
+            "See ![fig](data:image/png;base64,iVBORw0KGgo...) below."
+        )
     """
-    Remove base64 image data from text to reduce token count while
-    preserving structure.
+    if not text:
+        return text
 
-    Args:
-        text: Markdown text containing embedded base64 images
+    # 1. Markdown images: keep the caption/reference, drop the payload.
+    text = re.sub(
+        r"!\[([^\]]*)\]\(data:image/[^)]+\)",
+        lambda m: f"![{m.group(1)}](placeholder_image)",
+        text,
+    )
 
-    Returns:
-        Cleaned text with images replaced by simple placeholders
+    # 2. Any remaining data URIs (HTML <img src=...>, inline CSS, SVG icons).
+    text = re.sub(
+        r"data:[\w.+-]+/[\w.+-]+;base64,[A-Za-z0-9+/=]+",
+        "data:<stripped>",
+        text,
+    )
+
+    # 3. Bare base64 blobs with no data-URI wrapper (HTML attribute dumps).
+    text = _strip_bare_base64_blobs(text)
+
+    return text
+
+
+def looks_like_html_dump(text: str, head_chars: int = 2000) -> bool:
+    """Detect text that is a raw HTML page rather than paper markdown.
+
+    Some PDF extractions fail and capture a publisher landing page (starting
+    with ``<!DOCTYPE html>`` or ``<html>``) instead of the paper body. Such
+    rows carry no usable synthesis content and should be skipped upstream.
+
+    Parameters
+    ----------
+    text : str
+        Candidate paper text.
+    head_chars : int, optional
+        How many leading characters to inspect, by default 2000.
+
+    Returns
+    -------
+    bool
+        True if the text opens like an HTML document.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        from llm_synthesis.utils.figure_utils import looks_like_html_dump
+
+        skip = looks_like_html_dump(row["text_paper"])
     """
-    # Pattern to match markdown images with data URIs
-    pattern = r"!\[([^\]]*)\]\(data:image/[^)]+\)"
-
-    # Replace with simple placeholder that preserves the figure reference
-    def replacement(match):
-        alt_text = match.group(1)
-        return f"![{alt_text}](placeholder_image)"
-
-    cleaned_text = re.sub(pattern, replacement, text)
-    return cleaned_text
+    if not text:
+        return False
+    head = text[:head_chars].lstrip()
+    return bool(re.match(r"<!doctype\s+html|<html[\s>]", head, re.IGNORECASE))
 
 
 def base64_to_image(base64_data: str) -> Image.Image:

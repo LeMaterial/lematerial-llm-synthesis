@@ -10,6 +10,7 @@ from llm_synthesis.utils.figure_utils import (
     clean_text_from_images,
     find_figures_in_markdown,
     insert_figure_description,
+    looks_like_html_dump,
     validate_base64_image,
 )
 from llm_synthesis.utils.formula_utils import (

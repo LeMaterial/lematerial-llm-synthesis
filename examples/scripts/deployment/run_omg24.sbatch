@@ -30,6 +30,6 @@ uv run --with datasets python examples/scripts/deployment/run_extract_judge_hf.p
   --config full --split omg24 \
   --concurrency 96 \
   --out results/full_omg24.jsonl \
-  --push --hub-repo LeMaterial/LeMat-Synth-recipes-dummy
+  --push --hub-repo sid-betalol/LeMat-Synth-recipes-dummy
 
 echo "end=$(date -u +%FT%TZ)"
