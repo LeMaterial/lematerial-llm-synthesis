@@ -25,6 +25,7 @@ stripping _human suffix and normalizing (/ → -, % → pct, spaces → _).
 """
 
 import argparse
+import asyncio
 import json
 import logging
 import sys
@@ -40,12 +41,35 @@ if str(_repo_root / "src") not in sys.path:
 from llm_synthesis.metrics.figure_extraction.figure_extraction_metric import (  # noqa: E402
     FigureExtractionMetric,
 )
+from llm_synthesis.metrics.judge.name_matcher_judge import (  # noqa: E402
+    DspyNameMatcherJudge,
+    build_name_match_inputs,
+)
 from llm_synthesis.models.plot import ExtractedLinePlotData  # noqa: E402
+from llm_synthesis.utils.concurrency import (  # noqa: E402
+    get_max_concurrent_llm_calls,
+    run_with_semaphore,
+)
+from llm_synthesis.utils.llms import LLM_REGISTRY  # noqa: E402
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
 _METRIC = FigureExtractionMetric()
+
+
+def _build_name_matcher_judge(model_name: str) -> DspyNameMatcherJudge:
+    """Build a DspyNameMatcherJudge from an LLM_REGISTRY entry name."""
+    import dspy
+
+    cfg = LLM_REGISTRY.configs[model_name]
+    kwargs = dict(cfg.extra_kwargs or {})
+    if cfg.api_key:
+        kwargs["api_key"] = cfg.api_key
+    if cfg.api_base:
+        kwargs["api_base"] = cfg.api_base
+    lm = dspy.LM(cfg.model, temperature=0.1, **kwargs)
+    return DspyNameMatcherJudge(lm=lm)
 
 
 # ---------------------------------------------------------------------------
@@ -182,13 +206,77 @@ def _index_results(results_dir: Path) -> dict[str, dict[str, Path]]:
 # ---------------------------------------------------------------------------
 
 
-def evaluate(
+def _llm_match_material(
+    judge: DspyNameMatcherJudge,
+    pid: str,
+    gt_stem: str,
+    res_mats: dict[str, Path],
+) -> Path | None:
+    """Use the LLM judge to align one GT material stem to a result path."""
+    candidates = list(res_mats.keys())
+    if not candidates:
+        return None
+    result = judge.forward(
+        build_name_match_inputs(
+            [gt_stem], candidates, context=f"paper_id={pid}"
+        )
+    )
+    if not result.matches:
+        return None
+    match = result.matches[0]
+    if match.llm_name is None or match.llm_name not in res_mats:
+        return None
+    logger.info(
+        "LLM match: GT=%s -> LLM=%s (confidence=%s)",
+        gt_stem,
+        match.llm_name,
+        match.confidence,
+    )
+    return res_mats[match.llm_name]
+
+
+def _llm_match_series(
+    judge: DspyNameMatcherJudge,
+    pid: str,
+    mat_name: str,
+    gt_coords: dict[str, list],
+    llm_coords: dict[str, list],
+) -> set[str]:
+    """Use the LLM judge to align GT series names to LLM series names.
+
+    Returns the set of GT series names considered matched.
+    """
+    unmatched_gt = [k for k in gt_coords if k not in llm_coords]
+    if not unmatched_gt or not llm_coords:
+        return set()
+    result = judge.forward(
+        build_name_match_inputs(
+            unmatched_gt,
+            list(llm_coords.keys()),
+            context=f"paper_id={pid}, material={mat_name}",
+        )
+    )
+    matched = set()
+    for pair in result.matches:
+        if pair.llm_name is not None and pair.llm_name in llm_coords:
+            matched.add(pair.gt_name)
+    return matched
+
+
+async def evaluate_async(
     results_dir: Path,
     gt_dir: Path,
     metric: str = "rmse",
+    judge: DspyNameMatcherJudge | None = None,
+    max_concurrent: int | None = None,
 ) -> list[dict]:
     """
     Match LLM results to GT and compute per-material error.
+
+    If `judge` is provided, it is used as a fallback (for materials with no
+    exact/substring match, and for series names that don't match exactly)
+    to align paraphrased names via an LLM instead of leaving them unmatched.
+    LLM judge calls run concurrently, capped by `max_concurrent`.
 
     Returns list of dicts:
       paper_id, material_gt, material_llm, score, n_gt_series,
@@ -197,7 +285,6 @@ def evaluate(
     gt_index = _index_gt(gt_dir)
     res_index = _index_results(results_dir)
 
-    rows = []
     matched_papers = set(gt_index) & set(res_index)
     unmatched_papers = set(gt_index) - set(res_index)
 
@@ -207,85 +294,141 @@ def evaluate(
             sorted(unmatched_papers),
         )
 
-    for pid in sorted(matched_papers):
-        gt_mats = gt_index[pid]
-        res_mats = res_index[pid]
+    semaphore = asyncio.Semaphore(
+        max_concurrent or get_max_concurrent_llm_calls()
+    )
 
-        for norm_mat, gt_path in sorted(gt_mats.items()):
-            # Find matching LLM result — exact norm match first
-            if norm_mat in res_mats:
-                res_path = res_mats[norm_mat]
-            else:
-                # Partial match fallback
-                candidates = [
-                    k for k in res_mats if norm_mat in k or k in norm_mat
-                ]
-                if not candidates:
+    async def _process_material(pid: str, norm_mat: str, gt_path: Path) -> dict:
+        res_mats = res_index[pid]
+        gt_stem = gt_path.stem.removesuffix("_human")
+
+        # Find matching LLM result — exact norm match first
+        if norm_mat in res_mats:
+            res_path = res_mats[norm_mat]
+        else:
+            # Partial match fallback
+            candidates = [k for k in res_mats if norm_mat in k or k in norm_mat]
+            if candidates:
+                res_path = res_mats[candidates[0]]
+                logger.info(
+                    "Fuzzy match: GT=%s → LLM=%s", norm_mat, res_path.stem
+                )
+            elif judge is not None:
+                res_path = await run_with_semaphore(
+                    semaphore,
+                    _llm_match_material,
+                    judge,
+                    pid,
+                    gt_stem,
+                    res_mats,
+                )
+                if res_path is None:
                     logger.info(
                         "No LLM match for %s / %s (norm=%s)",
                         pid,
                         gt_path.stem,
                         norm_mat,
                     )
-                    rows.append(
-                        {
-                            "paper_id": pid,
-                            "material_gt": gt_path.stem.removesuffix("_human"),
-                            "material_llm": None,
-                            "score": None,
-                            "n_gt_series": None,
-                            "n_llm_series": None,
-                            "n_matched_series": None,
-                        }
-                    )
-                    continue
-                res_path = res_mats[candidates[0]]
-                logger.info(
-                    "Fuzzy match: GT=%s → LLM=%s", norm_mat, res_path.stem
-                )
-
-            gt_coords = _load_performance(gt_path)
-            llm_coords = _load_performance(res_path)
-
-            mat_name_gt = gt_path.stem.removesuffix("_human")
-
-            if not gt_coords:
-                logger.info("No GT coords for %s / %s", pid, mat_name_gt)
-                continue
-            if not llm_coords:
-                logger.info("No LLM coords for %s / %s", pid, res_path.stem)
-                rows.append(
-                    {
+                    return {
                         "paper_id": pid,
-                        "material_gt": mat_name_gt,
-                        "material_llm": res_path.stem,
+                        "material_gt": gt_stem,
+                        "material_llm": None,
                         "score": None,
-                        "n_gt_series": len(gt_coords),
-                        "n_llm_series": 0,
-                        "n_matched_series": 0,
+                        "n_gt_series": None,
+                        "n_llm_series": None,
+                        "n_matched_series": None,
                     }
+            else:
+                logger.info(
+                    "No LLM match for %s / %s (norm=%s)",
+                    pid,
+                    gt_path.stem,
+                    norm_mat,
                 )
-                continue
-
-            preds = _to_extracted(llm_coords)
-            refs = _to_extracted(gt_coords)
-
-            score = _METRIC(preds=preds, refs=refs, error_metric=metric)
-
-            n_matched = len(set(llm_coords) & set(gt_coords))
-            rows.append(
-                {
+                return {
                     "paper_id": pid,
-                    "material_gt": mat_name_gt,
-                    "material_llm": res_path.stem,
-                    "score": score,
-                    "n_gt_series": len(gt_coords),
-                    "n_llm_series": len(llm_coords),
-                    "n_matched_series": n_matched,
+                    "material_gt": gt_stem,
+                    "material_llm": None,
+                    "score": None,
+                    "n_gt_series": None,
+                    "n_llm_series": None,
+                    "n_matched_series": None,
                 }
-            )
 
-    return rows
+        gt_coords = _load_performance(gt_path)
+        llm_coords = _load_performance(res_path)
+
+        mat_name_gt = gt_stem
+
+        if not gt_coords:
+            logger.info("No GT coords for %s / %s", pid, mat_name_gt)
+            return None
+        if not llm_coords:
+            logger.info("No LLM coords for %s / %s", pid, res_path.stem)
+            return {
+                "paper_id": pid,
+                "material_gt": mat_name_gt,
+                "material_llm": res_path.stem,
+                "score": None,
+                "n_gt_series": len(gt_coords),
+                "n_llm_series": 0,
+                "n_matched_series": 0,
+            }
+
+        preds = _to_extracted(llm_coords)
+        refs = _to_extracted(gt_coords)
+
+        score = _METRIC(preds=preds, refs=refs, error_metric=metric)
+
+        exact_matched = set(llm_coords) & set(gt_coords)
+        n_matched = len(exact_matched)
+        if judge is not None:
+            llm_matched = await run_with_semaphore(
+                semaphore,
+                _llm_match_series,
+                judge,
+                pid,
+                mat_name_gt,
+                gt_coords,
+                llm_coords,
+            )
+            n_matched += len(llm_matched)
+        return {
+            "paper_id": pid,
+            "material_gt": mat_name_gt,
+            "material_llm": res_path.stem,
+            "score": score,
+            "n_gt_series": len(gt_coords),
+            "n_llm_series": len(llm_coords),
+            "n_matched_series": n_matched,
+        }
+
+    tasks = [
+        _process_material(pid, norm_mat, gt_path)
+        for pid in sorted(matched_papers)
+        for norm_mat, gt_path in sorted(gt_index[pid].items())
+    ]
+    results = await asyncio.gather(*tasks)
+    return [r for r in results if r is not None]
+
+
+def evaluate(
+    results_dir: Path,
+    gt_dir: Path,
+    metric: str = "rmse",
+    judge: DspyNameMatcherJudge | None = None,
+    max_concurrent: int | None = None,
+) -> list[dict]:
+    """Synchronous wrapper around evaluate_async."""
+    return asyncio.run(
+        evaluate_async(
+            results_dir,
+            gt_dir,
+            metric=metric,
+            judge=judge,
+            max_concurrent=max_concurrent,
+        )
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -394,6 +537,28 @@ def main() -> None:
         help="Error metric (default: rmse)",
     )
     parser.add_argument("--csv", default=None, help="Optional CSV output path")
+    parser.add_argument(
+        "--llm-match",
+        action="store_true",
+        help=(
+            "Use an LLM judge as a fallback to align materials/series "
+            "names that fail exact/substring matching (paraphrase-tolerant)."
+        ),
+    )
+    parser.add_argument(
+        "--llm-match-model",
+        default="deepseek-v3.2",
+        help="LLM_REGISTRY model name for --llm-match (default: deepseek-v3.2)",
+    )
+    parser.add_argument(
+        "--max-concurrent",
+        type=int,
+        default=None,
+        help=(
+            "Max concurrent LLM judge calls (default: "
+            "LLM_SYNTHESIS_MAX_CONCURRENT_LLM_CALLS env or 10)"
+        ),
+    )
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
 
@@ -414,7 +579,18 @@ def main() -> None:
     print(f"GT      : {gt_dir}")
     print(f"Metric  : {args.metric.upper()}")
 
-    rows = evaluate(results_dir, gt_dir, metric=args.metric)
+    judge = None
+    if args.llm_match:
+        print(f"LLM match: {args.llm_match_model}")
+        judge = _build_name_matcher_judge(args.llm_match_model)
+
+    rows = evaluate(
+        results_dir,
+        gt_dir,
+        metric=args.metric,
+        judge=judge,
+        max_concurrent=args.max_concurrent,
+    )
     _print_table(rows, args.metric)
 
     if args.csv:

@@ -2,7 +2,7 @@
 Map of Science — Publication-Quality Figures from Extracted Data
 ================================================================
 Loads LLM-extracted performance + synthesis data from a results folder
-and produces 7 figures (PNG + PDF) + companion CSV.
+and produces 8 figures (PNG + PDF) + companion CSV.
 
 Fully generic: works with any set of papers and any performance metric.
 
@@ -158,111 +158,75 @@ _PEROVSKITE_RE = re.compile(r"^[A-Z][a-z]?[A-Z][a-z]?O3$")
 
 # ── Preferred color / marker assignments ────────────────────────────────
 # These are used first; overflow metals/supports get auto-assigned.
-_PREFERRED_METAL_COLORS = {
-    "Ru": "#0C5DA5",  # blue
-    "Ni": "#FF9500",  # orange
-    "Co": "#00B945",  # green
-    "Fe": "#FF2C00",  # red
-    "Mo": "#845B97",  # purple
-    "NiCo": "#474747",  # dark grey
-    "FeCo": "#9A607F",  # mauve
-    "FeNi": "#9e9e9e",  # light grey
-    "CoNi": "#F2CC8F",  # sand
-    "RuNi": "#B27EDD",  # light purple
-    "RuFe": "#7B5AEF",  # purple
-    "CoMo": "#E0A2D3",  # pink
-    "NiRu": "#B27EDD",  # light purple
-    "Pd": "#17becf",  # teal
-    "Pt": "#bcbd22",  # olive
-    "W": "#8c564b",  # brown
-    "Ir": "#e377c2",  # pink
-    "Other": "#000000",  # black
-}
-
-_PREFERRED_SUPPORT_MARKERS = {
-    "CeO2": "s",
-    "MgO": "D",
-    "Al2O3": "^",
-    "SiO2": "o",
-    "CaO": "P",
-    "MCM-41": "v",
-    "CNTs": "*",
-    "MgAl2O4": "h",
-    "TiCSiC": "X",
-    "BN": "p",
-    "Mo2N": "d",
-    "perovskite": ">",
-    "Y2O3": "<",
-    "ZrO2": "8",
-    "TiO2": "1",
-    "La2O3": "2",
-    "Other": "o",
-}
-
-# Overflow palettes for auto-assignment of new metals/supports
-_OVERFLOW_COLORS = [
-    "#0C5DA5",
-    "#00B945",
-    "#FF9500",
-    "#FF2C00",
-    "#845B97",
-    "#474747",
-    "#9e9e9e",
-    "#9A607F",
-    "#E0A2D3",
-    "#7B5AEF",
-    "#448FF2",
-    "#A7C8F2",
-    "#F9CB9C",
-    "#B27EDD",
-    "#D3D3D3",
-    "#A9A9A9",
-    "#0C5DA5",
-    "#00B945",
-    "#FF9500",
-    "#FF2C00",
+# Preferred display order per category (colors are assigned from PAL by
+# position in this order, so legend order and hue assignment stay stable
+# across VLM runs even as new metals/supports/strategies show up).
+_PREFERRED_METAL_ORDER = [
+    "Ru",
+    "Ni",
+    "Co",
+    "Fe",
+    "Mo",
+    "Pt",
+    "Pd",
+    "W",
+    "Ir",
+    "NiCo",
+    "FeCo",
+    "FeNi",
+    "CoNi",
+    "RuFe",
+    "CoMo",
+    "NiRu",
+    "RuNi",
 ]
-_OVERFLOW_MARKERS = [
-    "o",
-    "s",
-    "^",
-    "D",
-    "v",
-    "P",
-    "*",
-    "h",
-    "X",
-    "p",
-    "d",
-    ">",
-    "<",
-    "8",
-    "1",
-    "2",
+_PREFERRED_SUPPORT_ORDER = [
+    "SiO2",
+    "CeO2",
+    "MgO",
+    "Al2O3",
+    "CaO",
+    "MCM-41",
+    "CNTs",
+    "MgAl2O4",
+    "TiCSiC",
+    "BN",
+    "Mo2N",
+    "perovskite",
+    "Y2O3",
+    "ZrO2",
+    "TiO2",
+    "La2O3",
 ]
 
 _auto_metal_colors: dict = {}
-_auto_support_markers: dict = {}
+_auto_support_colors: dict = {}
+
+
+def _palette_color(category: str, preferred_order: list, cache: dict) -> str:
+    """Assign a PAL color to `category` by its position in `preferred_order`,
+    falling back to append-and-cycle for anything not in that list."""
+    if category == "Other":
+        return "#000000"
+    if category in preferred_order:
+        idx = preferred_order.index(category)
+        return PAL[idx % len(PAL)]
+    if category not in cache:
+        idx = (len(preferred_order) + len(cache)) % len(PAL)
+        cache[category] = PAL[idx]
+    return cache[category]
 
 
 def get_metal_color(metal: str) -> str:
-    """Return a color for the given metal, auto-assigning if unknown."""
-    if metal in _PREFERRED_METAL_COLORS:
-        return _PREFERRED_METAL_COLORS[metal]
-    if metal not in _auto_metal_colors:
-        idx = len(_auto_metal_colors) % len(_OVERFLOW_COLORS)
-        _auto_metal_colors[metal] = _OVERFLOW_COLORS[idx]
-    return _auto_metal_colors[metal]
+    """Return a PAL color for the given metal, auto-assigning if unknown."""
+    return _palette_color(metal, _PREFERRED_METAL_ORDER, _auto_metal_colors)
 
 
-def get_support_marker(support: str) -> str:
-    """Return a marker for the given support, auto-assigning if unknown."""
-    if support in _PREFERRED_SUPPORT_MARKERS:
-        return _PREFERRED_SUPPORT_MARKERS[support]
-    if support not in _auto_support_markers:
-        idx = len(_auto_support_markers) % len(_OVERFLOW_MARKERS)
-        _auto_support_markers[support] = _OVERFLOW_MARKERS[idx]
-    return _auto_support_markers[support]
+def get_support_color(support: str) -> str:
+    """Return a PAL color for the given support, auto-assigning if unknown."""
+    return _palette_color(
+        support, _PREFERRED_SUPPORT_ORDER, _auto_support_colors
+    )
 
 
 # ── Regex patterns ──────────────────────────────────────────────────────
@@ -272,16 +236,6 @@ VOLTAGE_RE = re.compile(
 LOADING_RE = re.compile(r"(\d+\.?\d*)\s*(?:wt\.?%|wtpct|pct|%)")
 
 # ── Strategy classification ─────────────────────────────────────────────
-STRATEGY_COLORS = {
-    "Impregnation": "#0C5DA5",
-    "Co-precipitation": "#00B945",
-    "Sol-gel": "#FF9500",
-    "Hydrothermal": "#845B97",
-    "Solid-state": "#474747",
-    "Combustion": "#FF2C00",
-    "Oxide-only": "#9A607F",
-    "Other": "#9e9e9e",
-}
 STRATEGY_ORDER = [
     "Impregnation",
     "Co-precipitation",
@@ -292,6 +246,13 @@ STRATEGY_ORDER = [
     "Oxide-only",
     "Other",
 ]
+
+_auto_strategy_colors: dict = {}
+
+
+def get_strategy_color(strategy: str) -> str:
+    """Return a PAL color for the given synthesis strategy."""
+    return _palette_color(strategy, STRATEGY_ORDER, _auto_strategy_colors)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -649,7 +610,7 @@ def _classify_metal(metal_str):
         non_promoter_metals = [p for p in metals if p not in KNOWN_PROMOTERS]
 
         if len(non_promoter_metals) == 2:
-            return non_promoter_metals[0] + non_promoter_metals[1]
+            return "".join(sorted(non_promoter_metals))
         elif len(non_promoter_metals) == 1:
             return non_promoter_metals[0]
         elif len(metals) >= 1:
@@ -661,7 +622,7 @@ def _classify_metal(metal_str):
         m1, m2 = bimetal_match.group(1), bimetal_match.group(2)
         if m1 in KNOWN_METALS and m2 in KNOWN_METALS:
             if m1 not in KNOWN_PROMOTERS and m2 not in KNOWN_PROMOTERS:
-                return m1 + m2
+                return "".join(sorted((m1, m2)))
             elif m1 not in KNOWN_PROMOTERS:
                 return m1
             elif m2 not in KNOWN_PROMOTERS:
@@ -672,7 +633,7 @@ def _classify_metal(metal_str):
     if ru3fe:
         m1, m2 = ru3fe.group(1), ru3fe.group(2)
         if m1 in KNOWN_METALS and m2 in KNOWN_METALS:
-            return m1 + m2
+            return "".join(sorted((m1, m2)))
 
     # Single metal
     single = re.match(r"([A-Z][a-z]?)\d*$", ms)
@@ -1214,105 +1175,244 @@ def _sorted_support_legend(supports_present):
 # ══════════════════════════════════════════════════════════════════════════
 
 
-def make_fig1(df_curves):
-    """Figure 1: Cross-paper performance landscape."""
-    if df_curves.empty or "is_plasma" not in df_curves.columns:
-        print("  ⚠ No data for Figure 1")
-        return
+# ── Landscape figure sizes: "default" (rectangle) or "square" ──────────
+# These are PLOT-AREA sizes (the axes box itself), not overall figure size —
+# see _make_axes_fixed_plot_area, which pads the figure so labels/legend sit
+# outside this box instead of shrinking it.
+LANDSCAPE_FIGSIZE = {
+    "default": (10, 6),
+    "square": (3, 3),
+}
+
+# Fig2b heatmap plot-area sizes — smaller "square" default (3x3in) makes
+# per-cell/tick labels read larger for a journal figure.
+HEATMAP_FIGSIZE = {
+    "default": (10, 6),
+    "square": (3, 3),
+    "square-mod": (4, 4),
+}
+
+
+def _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=0.0):
+    """Create a figure where the axes (plot) area is exactly plot_w x plot_h
+    inches, regardless of tick labels / axis labels / legend.
+
+    Port of icicle.utils.visualization.style.make_fig's padding trick: size
+    the whole figure larger than the requested plot area, then position the
+    axes inside it via subplots_adjust so only the axes box — not labels or
+    an outside-right legend — ends up at the requested size. Pass legend_w
+    (inches) when a legend sits outside the axes via bbox_to_anchor=(>1, y).
+    """
+    pad_left = 0.65  # y-axis label + tick labels
+    pad_right = 0.15 + legend_w  # right margin (+ outside legend, if any)
+    pad_bottom = 0.55  # x-axis label + tick labels
+    pad_top = 0.15  # top margin (no title by default)
+
+    fig_w = plot_w + pad_left + pad_right
+    fig_h = plot_h + pad_bottom + pad_top
+
+    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
+    fig.subplots_adjust(
+        left=pad_left / fig_w,
+        right=1.0 - pad_right / fig_w,
+        bottom=pad_bottom / fig_h,
+        top=1.0 - pad_top / fig_h,
+    )
+    return fig, ax
+
+
+def _clean_landscape_df(df_curves, require_support=False):
+    """Shared row filter for the conversion-landscape figures (1/6/7)."""
     df = df_curves[
         (~df_curves["is_plasma"])
         & (df_curves["metal"].notna())
         & (df_curves["metal"] != "None")
         & (df_curves["metal"].astype(str) != "nan")
     ].copy()
+    if require_support:
+        df = df[
+            (df["support"].notna())
+            & (df["support"].astype(str) != "nan")
+            & (df["support"] != "Other")
+        ]
+    return df
 
-    if df.empty:
-        print("  ⚠ No data for Figure 1")
+
+def make_landscape_fig(df_curves, color_by="metal", size="default"):
+    """Conversion-landscape line chart, colored by one categorical field.
+
+    One shared 2D template for what used to be three different figures
+    (fig1's metal+marker overload, fig6's synthesis-strategy variant, fig7's
+    3D waterfall) — same axes/legend/line style, only the color-by field and
+    filename change, so the three read as variants of one figure rather than
+    three different chart types.
+
+    Args:
+        color_by: "metal", "support", or "synthesis".
+        size: "default" (10x6) or "square" (8x8) — this is the plot (axes)
+            area only; the figure is padded further for labels/legend, so
+            the plot area stays this size regardless of legend length.
+    """
+    color_by_config = {
+        "metal": {
+            "column": "metal",
+            "color_fn": get_metal_color,
+            "sort_fn": _sorted_metal_legend,
+            "legend_title": "Active Metal",
+            "filename": "fig1_conversion_landscape",
+        },
+        "support": {
+            "column": "support",
+            "color_fn": get_support_color,
+            "sort_fn": _sorted_support_legend,
+            "legend_title": "Support",
+            "filename": "fig7_conversion_by_support",
+        },
+        "synthesis": {
+            "column": "strategy",
+            "color_fn": get_strategy_color,
+            "sort_fn": lambda present: [
+                s for s in STRATEGY_ORDER if s in present
+            ],
+            "legend_title": "Synthesis Strategy",
+            "filename": "fig6_conversion_by_synthesis",
+        },
+    }
+    if color_by not in color_by_config:
+        raise ValueError(f"color_by must be one of {list(color_by_config)}")
+    cfg = color_by_config[color_by]
+
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print(f"  ⚠ No data for landscape figure (color_by={color_by})")
         return
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    df = _clean_landscape_df(df_curves, require_support=(color_by == "support"))
+    if df.empty or cfg["column"] not in df.columns:
+        print(f"  ⚠ No data for landscape figure (color_by={color_by})")
+        return
 
-    metals_present = set()
-    supports_present = set()
+    plot_w, plot_h = LANDSCAPE_FIGSIZE[size]
+    fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=1.6)
 
+    categories_present = set()
     for _, row in df.iterrows():
         coords = np.array(row["coordinates"], dtype=float)
         if len(coords) < 2:
             continue
         temps, convs = coords[:, 0], coords[:, 1]
 
-        metal = row["metal"]
-        support = row["support"] if pd.notna(row["support"]) else "Other"
-
-        color = get_metal_color(metal)
-        marker = get_support_marker(support)
+        cat = row[cfg["column"]]
+        if pd.isna(cat):
+            cat = "Other"
+        color = cfg["color_fn"](cat)
 
         ax.plot(temps, convs, color=color, alpha=0.55, linewidth=1.0)
+        categories_present.add(cat)
 
-        step = max(1, len(temps) // 5)
-        ax.scatter(
-            temps[::step],
-            convs[::step],
-            color=color,
-            marker=marker,
-            s=20,
-            zorder=3,
-            edgecolors="k",
-            linewidths=0.3,
-            alpha=0.8,
-        )
-
-        metals_present.add(metal)
-        supports_present.add(support)
-
-    # Metal legend (inside plot, lower-right)
-    metal_order = _sorted_metal_legend(metals_present)
-    metal_handles = [
-        Line2D([0], [0], color=get_metal_color(m), lw=2, label=m)
-        for m in metal_order
-    ]
-    leg1 = ax.legend(
-        handles=metal_handles,
-        title="Active Metal",
-        loc="lower right",
-        frameon=False,
-        fontsize=7,
-        title_fontsize=8,
-    )
-    ax.add_artist(leg1)
-
-    # Support legend (outside plot on the right)
-    sup_order = _sorted_support_legend(supports_present)
-    sup_handles = [
-        Line2D(
-            [0],
-            [0],
-            marker=get_support_marker(s),
-            color="grey",
-            lw=0,
-            markersize=5,
-            label=s,
-        )
-        for s in sup_order
+    order = cfg["sort_fn"](categories_present)
+    handles = [
+        Line2D([0], [0], color=cfg["color_fn"](c), lw=2, label=c) for c in order
     ]
     ax.legend(
-        handles=sup_handles,
-        title="Support",
+        handles=handles,
+        title=cfg["legend_title"],
         loc="center left",
         frameon=False,
         bbox_to_anchor=(1.02, 0.5),
-        fontsize=7,
-        title_fontsize=8,
+        fontsize=8,
+        title_fontsize=9,
     )
 
     ax.set_xlabel("Temperature (°C)")
     ax.set_ylabel(Y_LABEL)
     ax.set_ylim(-2, 105)
 
-    fig.subplots_adjust(right=0.82)
-    fig.savefig(OUT_DIR / "fig1_conversion_landscape.png")
-    fig.savefig(OUT_DIR / "fig1_conversion_landscape.pdf")
-    print(f"  ✓ Figure 1 saved ({len(df)} curves)")
+    fig.savefig(OUT_DIR / f"{cfg['filename']}.png")
+    fig.savefig(OUT_DIR / f"{cfg['filename']}.pdf")
+    print(
+        f"  ✓ Landscape (color_by={color_by}) saved"
+        f" ({len(df)} curves, {len(order)} {color_by} categories)"
+    )
+    return fig
+
+
+def make_fig1(df_curves, size="default"):
+    """Figure 1: Cross-paper performance landscape, colored by active metal."""
+    return make_landscape_fig(df_curves, color_by="metal", size=size)
+
+
+def make_metal_zoom_fig(df_curves, metal, size="default"):
+    """Zoom into one metal's conversion curves, colored by synthesis strategy.
+
+    Same landscape template as Figure 1/6/7, pre-filtered to a single metal
+    (e.g. "Ni") so promoter/support variation within that metal's curves is
+    readable — the same idea as filtering Figure 1 down to one row.
+    """
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print(f"  ⚠ No data for metal zoom ({metal})")
+        return
+    df = _clean_landscape_df(df_curves)
+    df = df[df["metal"] == metal]
+    if df.empty:
+        print(f"  ⚠ No curves for metal={metal}")
+        return
+
+    plot_w, plot_h = LANDSCAPE_FIGSIZE[size]
+    fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h)
+
+    strategies_present = set()
+    for _, row in df.iterrows():
+        coords = np.array(row["coordinates"], dtype=float)
+        if len(coords) < 2:
+            continue
+        temps, convs = coords[:, 0], coords[:, 1]
+        strat = row.get("strategy", "Other")
+        if pd.isna(strat):
+            strat = "Other"
+        color = get_strategy_color(strat)
+        ax.plot(
+            temps,
+            convs,
+            color=color,
+            alpha=0.7,
+            linewidth=1.2,
+            marker="o",
+            markersize=3,
+        )
+        strategies_present.add(strat)
+
+    order = [s for s in STRATEGY_ORDER if s in strategies_present]
+    handles = [
+        Line2D([0], [0], color=get_strategy_color(s), lw=2, label=s)
+        for s in order
+    ]
+    ax.legend(
+        handles=handles,
+        title="Synthesis strategy",
+        loc="lower right",
+        frameon=False,
+        fontsize=8,
+        title_fontsize=9,
+    )
+
+    ax.text(
+        0.05,
+        0.95,
+        f"{metal} (n={len(df)})",
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+        fontsize=14,
+        fontweight="bold",
+    )
+    ax.set_xlabel("Temperature (°C)")
+    ax.set_ylabel(Y_LABEL)
+    ax.set_ylim(-2, 105)
+
+    fname = f"fig_zoom_{metal}"
+    fig.savefig(OUT_DIR / f"{fname}.png")
+    fig.savefig(OUT_DIR / f"{fname}.pdf")
+    print(f"  ✓ Metal zoom saved (metal={metal}, {len(df)} curves)")
     return fig
 
 
@@ -1401,6 +1501,119 @@ def make_fig2(df_curves):
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf")
     print(
         f"  ✓ Figure 2 saved ({len(metals)} metals × {len(supports)} supports)"
+    )
+    return fig
+
+
+def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
+    """Figure 2b: Metal x Temperature heatmap — median conversion per bin.
+
+    Same "collapsed landscape" idea as Figure 2 (metal x support), but
+    collapsing Figure 1's landscape along temperature instead of support:
+    one row per metal, one column per temperature bin, cell = median
+    conversion of all curves for that metal interpolated at that temperature.
+    Rows ordered monometallic-then-bimetallic, alphabetical within each group
+    ("Other" last), for journal-article readability.
+
+    Args:
+        temp_bins: explicit list of temperatures to bin at, or None to
+            auto-derive from the data's range.
+        size: "square" (3x3 in plot area, larger relative labels) or
+            "default" (10x6) — this is the plot (axes) area only, same as
+            make_landscape_fig's size param.
+    """
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 2b")
+        return
+    df = df_curves[
+        (~df_curves["is_plasma"])
+        & (df_curves["metal"].notna())
+        & (df_curves["metal"].astype(str) != "nan")
+    ].copy()
+    if df.empty:
+        print("  ⚠ No data for Figure 2b")
+        return
+
+    if temp_bins is None:
+        all_temps = np.concatenate(
+            [np.array(c, dtype=float)[:, 0] for c in df["coordinates"]]
+        )
+        lo = 25 * round(all_temps.min() / 25)
+        hi = 25 * round(all_temps.max() / 25)
+        temp_bins = list(np.arange(lo, hi + 1, 50))
+
+    df["_interp"] = [
+        {t: interpolate_at_temp(coords, t) for t in temp_bins}
+        for coords in df["coordinates"]
+    ]
+
+    def _metal_sort_key(m):
+        # (Other last, bimetallic after monometallic, then alphabetical)
+        return (m == "Other", m not in KNOWN_METALS, m)
+
+    metals = sorted(df["metal"].unique(), key=_metal_sort_key)
+    data = np.full((len(metals), len(temp_bins)), np.nan)
+    for i, metal in enumerate(metals):
+        sub = df[df["metal"] == metal]
+        for j, t in enumerate(temp_bins):
+            vals = [d[t] for d in sub["_interp"] if not np.isnan(d[t])]
+            if vals:
+                data[i, j] = np.median(vals)
+
+    plot_w, plot_h = HEATMAP_FIGSIZE[size]
+    fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=0.9)
+
+    from matplotlib.colors import LinearSegmentedColormap
+
+    cmap_heat = LinearSegmentedColormap.from_list(
+        "pal_seq", [PAL[5], PAL[2], PAL[12]], N=256
+    )
+    cmap_heat.set_bad(color=PAL[8])
+
+    im = ax.imshow(data, cmap=cmap_heat, vmin=0, vmax=100, aspect="auto")
+
+    for i in range(len(metals)):
+        for j in range(len(temp_bins)):
+            val = data[i, j]
+            if np.isnan(val):
+                continue
+            txt_color = "white" if val > 70 else "black"
+            ax.text(
+                j,
+                i,
+                f"{val:.0f}",
+                ha="center",
+                va="center",
+                fontsize=8,
+                fontweight="bold",
+                color=txt_color,
+            )
+
+    tick_fs, label_fs = (
+        (10, 11) if size in ("square", "square-mod") else (8, 10)
+    )
+    ax.set_xticks(range(len(temp_bins)))
+    ax.set_xticklabels([f"{t:.0f}" for t in temp_bins], fontsize=tick_fs)
+    ax.set_yticks(range(len(metals)))
+    ax.set_yticklabels(metals, fontsize=tick_fs)
+    ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
+    ax.set_ylabel("Active Metal / Alloy", fontsize=label_fs)
+
+    # Colorbar as its own fixed-width axes (inside the legend_w padding
+    # reserved by _make_axes_fixed_plot_area) so it doesn't shrink `ax`.
+    fig_w, fig_h = fig.get_size_inches()
+    ax_pos = ax.get_position()
+    cax = fig.add_axes(
+        [ax_pos.x1 + 0.35 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+    )
+    cbar = fig.colorbar(im, cax=cax)
+    cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs)
+    cbar.ax.tick_params(labelsize=tick_fs)
+
+    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.png")
+    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.pdf")
+    print(
+        f"  ✓ Figure 2b saved ({len(metals)} metals {len(temp_bins)} temp bins)"
     )
     return fig
 
@@ -1644,21 +1857,15 @@ def make_fig4(df_curves, df_synthesis):
     return fig
 
 
-def make_fig5(df_curves, df_synthesis):
-    """Figure 5: Two panels — (a) promoter effect (auto-detected),
-    (b) conditions scatter."""
+def make_fig5a_promoter(df_curves, size="default"):
+    """Figure 5a: Promoter effect on performance (auto-detected pairs)."""
     if df_curves.empty or "is_plasma" not in df_curves.columns:
-        print("  ⚠ No data for Figure 5")
+        print("  ⚠ No data for Figure 5a")
         return
-    fig, (ax1, ax2) = plt.subplots(
-        1, 2, figsize=(12, 5), gridspec_kw={"width_ratios": [1, 1.2]}
-    )
+    fig, ax1 = plt.subplots(figsize=LANDSCAPE_FIGSIZE[size])
 
-    # ── Panel A: Auto-detected promoter effect ──
     pair_data = detect_promoter_pairs(df_curves)
-
-    # Limit to top 12 pairs for readability
-    pair_data = pair_data[:12]
+    pair_data = pair_data[:12]  # top 12 for readability
 
     if pair_data:
         pair_data.sort(key=lambda x: x[2] - x[1], reverse=True)
@@ -1668,11 +1875,7 @@ def make_fig5(df_curves, df_synthesis):
         deltas = [p - b for b, p in zip(bases, promoted)]
 
         y_pos = np.arange(len(labels))
-
-        prom_colors = [
-            _OVERFLOW_COLORS[i % len(_OVERFLOW_COLORS)]
-            for i in range(len(labels))
-        ]
+        prom_colors = [PAL[i % len(PAL)] for i in range(len(labels))]
 
         ax1.barh(
             y_pos,
@@ -1728,11 +1931,25 @@ def make_fig5(df_curves, df_synthesis):
             color="grey",
         )
 
-    ax1.set_title(
-        f"(a) Promoter Effect on {METRIC_NAME.capitalize()}", fontsize=10
-    )
+    ax1.set_title(f"Promoter Effect on {METRIC_NAME.capitalize()}", fontsize=10)
 
-    # ── Panel B: Synthesis conditions → performance scatter ──
+    fig.tight_layout()
+    fig.savefig(OUT_DIR / "fig5a_promoter_effect.png")
+    fig.savefig(OUT_DIR / "fig5a_promoter_effect.pdf")
+    print(
+        f"  ✓ Figure 5a saved ({len(pair_data)} promoter pairs auto-detected)"
+    )
+    return fig
+
+
+def make_fig5b_conditions(df_curves, df_synthesis, size="default"):
+    """Figure 5b: Synthesis conditions (calcination/reduction T) →
+    performance scatter."""
+    if df_curves.empty or "is_plasma" not in df_curves.columns:
+        print("  ⚠ No data for Figure 5b")
+        return
+    fig, ax2 = plt.subplots(figsize=LANDSCAPE_FIGSIZE[size])
+
     df_merged = df_curves.merge(
         df_synthesis[
             ["paper_dir", "material_name", "calcination_T", "reduction_T"]
@@ -1752,11 +1969,16 @@ def make_fig5(df_curves, df_synthesis):
     if not df_scatter.empty:
         sizes = df_scatter["metal_loading_pct"].fillna(5) * 8 + 20
 
+        from matplotlib.colors import LinearSegmentedColormap
+
+        cmap_seq = LinearSegmentedColormap.from_list(
+            "pal_seq", [PAL[5], PAL[2], PAL[12]], N=256
+        )
         scatter = ax2.scatter(
             df_scatter["calcination_T"],
             df_scatter["reduction_T"],
             c=df_scatter["conv_at_500"],
-            cmap="RdYlGn",
+            cmap=cmap_seq,
             s=sizes,
             edgecolors="k",
             linewidths=0.3,
@@ -1800,174 +2022,28 @@ def make_fig5(df_curves, df_synthesis):
 
     ax2.set_xlabel("Calcination Temperature (°C)")
     ax2.set_ylabel("Reduction Temperature (°C)")
-    ax2.set_title("(b) Synthesis Conditions → Performance", fontsize=10)
+    ax2.set_title("Synthesis Conditions → Performance", fontsize=10)
 
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig5_promoter_and_conditions.png")
-    fig.savefig(OUT_DIR / "fig5_promoter_and_conditions.pdf")
-    print(f"  ✓ Figure 5 saved ({len(pair_data)} promoter pairs auto-detected)")
+    fig.savefig(OUT_DIR / "fig5b_synthesis_conditions.png")
+    fig.savefig(OUT_DIR / "fig5b_synthesis_conditions.pdf")
+    print(f"  ✓ Figure 5b saved ({len(df_scatter)} materials)")
     return fig
 
 
-def make_fig6(df_curves):
-    """Figure 6: Conversion landscape colored by synthesis strategy."""
-    if df_curves.empty or "is_plasma" not in df_curves.columns:
-        print("  ⚠ No data for Figure 6")
-        return
-    df = df_curves[
-        (~df_curves["is_plasma"])
-        & (df_curves["metal"].notna())
-        & (df_curves["metal"] != "None")
-        & (df_curves["metal"].astype(str) != "nan")
-    ].copy()
-
-    if df.empty:
-        print("  ⚠ No data for Figure 6")
-        return
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-
-    strategies_present = set()
-
-    for _, row in df.iterrows():
-        coords = np.array(row["coordinates"], dtype=float)
-        if len(coords) < 2:
-            continue
-        temps, convs = coords[:, 0], coords[:, 1]
-
-        strat = row.get("strategy", "Other")
-        if pd.isna(strat):
-            strat = "Other"
-        color = STRATEGY_COLORS.get(strat, "#9e9e9e")
-
-        ax.plot(temps, convs, color=color, alpha=0.5, linewidth=1.2)
-        strategies_present.add(strat)
-
-    legend_order = [s for s in STRATEGY_ORDER if s in strategies_present]
-    handles = [
-        Line2D([0], [0], color=STRATEGY_COLORS[s], lw=2.5, label=s)
-        for s in legend_order
-    ]
-    ax.legend(
-        handles=handles,
-        title="Synthesis Strategy",
-        loc="lower right",
-        frameon=False,
-        fontsize=8,
-        title_fontsize=9,
-    )
-
-    ax.set_xlabel("Temperature (°C)")
-    ax.set_ylabel(Y_LABEL)
-    ax.set_ylim(-2, 105)
-
-    fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig6_conversion_by_synthesis.png")
-    fig.savefig(OUT_DIR / "fig6_conversion_by_synthesis.pdf")
-
-    strat_counts = df["strategy"].value_counts()
-    detail = ", ".join(f"{s}: {strat_counts.get(s, 0)}" for s in legend_order)
-    print(f"  ✓ Figure 6 saved ({len(df)} curves — {detail})")
-    return fig
+def make_fig6(df_curves, size="default"):
+    """Figure 6: Conversion landscape, colored by synthesis strategy."""
+    return make_landscape_fig(df_curves, color_by="synthesis", size=size)
 
 
-def make_fig7(df_curves):
-    """Figure 7: 3D waterfall — conversion curves layered by support,
-    colored by metal."""
-    if df_curves.empty or "is_plasma" not in df_curves.columns:
-        print("  ⚠ No data for Figure 7")
-        return
-    from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
+def make_fig7(df_curves, size="default"):
+    """Figure 7: Conversion landscape, colored by support.
 
-    df = df_curves[
-        (~df_curves["is_plasma"])
-        & (df_curves["metal"].notna())
-        & (df_curves["metal"] != "None")
-        & (df_curves["metal"].astype(str) != "nan")
-        & (df_curves["support"].notna())
-        & (df_curves["support"].astype(str) != "nan")
-        & (df_curves["support"] != "Other")
-    ].copy()
-
-    if df.empty:
-        print("  ⚠ No data for Figure 7")
-        return
-
-    median_conv = (
-        df[df["conv_at_500"].notna()]
-        .groupby("support")["conv_at_500"]
-        .median()
-        .sort_values(ascending=False)
-    )
-    support_order = list(median_conv.index)
-
-    support_counts = df["support"].value_counts()
-    support_order = [s for s in support_order if support_counts.get(s, 0) >= 2]
-
-    if not support_order:
-        print("  ⚠ Not enough support groups for Figure 7")
-        return
-
-    support_to_y = {s: i for i, s in enumerate(support_order)}
-
-    fig = plt.figure(figsize=(14, 9))
-    ax = fig.add_subplot(111, projection="3d")
-
-    metals_present = set()
-
-    for _, row in df.iterrows():
-        support = row["support"]
-        if support not in support_to_y:
-            continue
-
-        coords = np.array(row["coordinates"], dtype=float)
-        if len(coords) < 2:
-            continue
-        temps, convs = coords[:, 0], coords[:, 1]
-
-        metal = row["metal"]
-        color = get_metal_color(metal)
-        y_val = support_to_y[support]
-
-        ys = np.full_like(temps, y_val)
-        ax.plot(temps, ys, convs, color=color, alpha=0.6, linewidth=0.9)
-
-        metals_present.add(metal)
-
-    ax.set_xlabel("Temperature (°C)", labelpad=10)
-    ax.set_zlabel(Y_LABEL, labelpad=8)
-    ax.set_ylabel("")
-
-    ax.set_yticks(range(len(support_order)))
-    ax.set_yticklabels(support_order, fontsize=7, ha="left")
-    ax.set_zlim(-2, 105)
-
-    ax.view_init(elev=25, azim=-55)
-
-    metal_order = _sorted_metal_legend(metals_present)
-    handles = [
-        Line2D([0], [0], color=get_metal_color(m), lw=2.5, label=m)
-        for m in metal_order
-    ]
-    ax.legend(
-        handles=handles,
-        title="Active Metal",
-        loc="upper left",
-        frameon=False,
-        fontsize=7,
-        title_fontsize=8,
-    )
-
-    fig.subplots_adjust(left=0.02, right=0.95, bottom=0.05, top=0.98)
-    fig.savefig(OUT_DIR / "fig7_3d_waterfall.png", dpi=300)
-    fig.savefig(OUT_DIR / "fig7_3d_waterfall.pdf")
-
-    n_supports = len(support_order)
-    n_curves = sum(1 for _, r in df.iterrows() if r["support"] in support_to_y)
-    print(
-        f"  ✓ Figure 7 saved ({n_curves} curves across {n_supports} supports)"
-    )
-    return fig
+    Previously a 3D waterfall (layered by support, colored by metal); now the
+    third same-template variant of the landscape chart (metal/synthesis/
+    support), colored by support so all three read as one figure family.
+    """
+    return make_landscape_fig(df_curves, color_by="support", size=size)
 
 
 def export_landscape_csv(df_curves):
@@ -2179,13 +2255,15 @@ if __name__ == "__main__":
     if args.debug:
         print_debug(df_curves, df_synthesis)
 
-    print("\nGenerating 7 publication figures...\n")
+    print("\nGenerating 9 publication figures...\n")
     for fig in [
         make_fig1(df_curves),
         make_fig2(df_curves),
+        make_fig2b_metal_temp_heatmap(df_curves),
         make_fig3(df_synthesis),
         make_fig4(df_curves, df_synthesis),
-        make_fig5(df_curves, df_synthesis),
+        make_fig5a_promoter(df_curves),
+        make_fig5b_conditions(df_curves, df_synthesis),
         make_fig6(df_curves),
         make_fig7(df_curves),
     ]:
