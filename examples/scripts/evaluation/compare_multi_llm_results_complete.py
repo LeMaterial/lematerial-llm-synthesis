@@ -554,12 +554,13 @@ def main():
         filemode="w",
     )
 
-    # same as compare_human_judge_scores_complete.py
+    # Papers whose result.json carries null judge outputs (would crash the
+    # matched loader) or non-paper helper folders; matches analyze_judge_
+    # extractor_insights.py's SKIP_FOLDERS.
     skip_folders = [
         "annotation_guide_catalysis",
-        # "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
-        # "2883daff26f16a13134a26ca5d366549a14fcc9c",
-        # "90233593a9aa72b4bacfdeadc20050ae6d4b88e1",
+        "2883daff26f16a13134a26ca5d366549a14fcc9c",
+        "90233593a9aa72b4bacfdeadc20050ae6d4b88e1",
     ]
     human_df, llm_df = load_annotations(args.annotations_dir, skip_folders)
     if human_df.empty or llm_df.empty:
