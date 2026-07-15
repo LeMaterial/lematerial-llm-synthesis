@@ -658,6 +658,28 @@ gh pr create --fill
 
 </details>
 
+### Evaluate LLM-as-Judge Results
+
+<details>
+<summary><b>Agreement metrics: judge vs. human, judge ranking, extractor quality</b></summary>
+
+Once you have `annotations/<paper_id>/{result.json,result_human.json}` pairs (extraction + judge scores vs. human ground truth), run the evaluation scripts from `examples/scripts/evaluation/`:
+
+```bash
+# Judge ranking + synth-LLM x judge-LLM heatmap
+python examples/scripts/evaluation/compare_multi_llm_results_complete.py --rank-by abs_diff
+
+# Agreement broken down by material category
+python examples/scripts/evaluation/compare_multi_llm_results_by_category.py
+
+# Judge/extractor insight tables (self-preference, LOO ranking, dimension means, ...)
+python examples/scripts/evaluation/analyze_judge_extractor_insights.py
+```
+
+All outputs (CSVs, JSON, PNG heatmaps) are written to `results/agreement_analysis/`. See [examples/scripts/evaluation/README.md](examples/scripts/evaluation/README.md) for the full evaluation design, available metrics, and how to use the results to pick an extraction/judge LLM.
+
+</details>
+
 ### Customize LeMat-Synth
 *Work in Progress*
 {EXAMPLES HOW TO GENERALIZE/ABSTRACT EXTRACTION PIPELINE}
