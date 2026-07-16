@@ -306,13 +306,30 @@ def load_done_ids(out_path):
     return done
 
 
-def iter_rows(config, split, done_ids, limit):
+def has_full_paper_text(row):
+    """Whether the row has a usable article body.
+
+    True only if ``text_paper`` is non-empty, is not an HTML landing-page dump,
+    and still has content after stripping embedded images/base64. Papers that
+    fail this have nothing extractable (many omg24 rows are empty or are saved
+    web pages), so we skip them before any LLM call to avoid wasting tokens.
+    """
+    paper = row.get("text_paper") or ""
+    if not paper.strip() or looks_like_html_dump(paper):
+        return False
+    return bool(clean_text_from_images(paper).strip())
+
+
+def iter_rows(config, split, done_ids, limit, stats):
     from datasets import load_dataset
 
     ds = load_dataset(DATASET_URI, config, split=split, streaming=True)
     n = 0
     for row in ds:
         if row.get("id") in done_ids:
+            continue
+        if not has_full_paper_text(row):
+            stats["skipped_no_text"] += 1
             continue
         yield row
         n += 1
@@ -412,7 +429,14 @@ async def run(args):
                 )
         return res
 
-    rows = list(iter_rows(args.config, args.split, done, args.limit))
+    skip_stats = {"skipped_no_text": 0}
+    rows = list(
+        iter_rows(args.config, args.split, done, args.limit, skip_stats)
+    )
+    print(
+        f"Skipped (no usable full paper text): "
+        f"{skip_stats['skipped_no_text']}"
+    )
     print(f"Papers to process this run: {len(rows)}")
     if not rows:
         print("Nothing to do.")
