@@ -81,7 +81,16 @@ LLM_REGISTRY = LLMRegistry(
             model="openrouter/qwen/qwen3.5-397b-a17b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={"enable_thinking": False},
+            # Qwen is a reasoning model. Neither a top-level enable_thinking
+            # kwarg nor OpenRouter's `reasoning` field silenced it, so disable
+            # via Qwen's native chat-template control, forwarded to the vLLM
+            # backend through litellm's extra_body.
+            extra_kwargs={
+                "extra_body": {
+                    "chat_template_kwargs": {"enable_thinking": False},
+                    "reasoning": {"enabled": False},
+                }
+            },
         ),
         "deepseek-v3.2": LLMConfig(
             model="openrouter/deepseek/deepseek-v3.2",
