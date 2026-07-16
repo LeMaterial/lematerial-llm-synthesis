@@ -1,18 +1,20 @@
 """Extract synthesis recipes and judge them over a LeMat-Synth-Papers split.
 
-Fixed to the models used in the agreement analysis:
+Defaults to the models used in the agreement analysis (override with
+--extractor-model / --judge-model, both LLM_REGISTRY keys):
   - extractor: claude-sonnet-4.6   (Anthropic key, ANTHROPIC_API_KEY)
-  - judge:     deepseek-v3.2       (OpenRouter, both keys round-robined)
+  - judge:     deepseek-v3.2       (OpenRouter, OPENROUTER_DEEPSEEK_API_KEY)
 
 Per paper it builds the context from title + abstract + text_paper (+ text_si
 only when non-empty, truncated), runs material extraction then per-material
-synthesis extraction with Claude, and scores each extraction with deepseek on
-the 8 rubric dimensions. Results stream to a JSONL file (crash-safe, resumable
-by id) and can optionally be pushed to the Hub as a NEW dataset repo.
+synthesis extraction with the extractor model, and scores each extraction with
+the judge on the 8 rubric dimensions. Results stream to a JSONL file
+(crash-safe, resumable by id) and can optionally be pushed to the Hub as a NEW
+dataset repo.
 
 Concurrency: a pool of N isolated pipeline instances (each with its own LM
-objects, so no shared dspy history/state races); the two OpenRouter keys are
-alternated across the pool. Pool size == max in-flight papers.
+objects, so no shared dspy history/state races). Each LM takes its OpenRouter
+key from the registry per-model. Pool size == max in-flight papers.
 
 This reuses the exact Hydra components from examples/config (material_extraction
 / synthesis_extraction / judge defaults) with only the model names overridden,
@@ -56,7 +58,6 @@ from llm_synthesis.utils.figure_utils import (  # noqa: E402
 EXTRACTOR_MODEL = "claude-sonnet-4.6"
 JUDGE_MODEL = "deepseek-v3.2"
 DATASET_URI = "LeMaterial/LeMat-Synth-Papers"
-OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
 SCORE_COLUMNS = [
     "structural_completeness_score",
@@ -100,17 +101,14 @@ def _instantiate(path, llm_name):
     return instantiate(cfg.architecture)
 
 
-def make_pipeline(index, openrouter_keys, judge_only=False):
+def make_pipeline(judge_only=False):
     """Build one isolated (material, synthesis, judge) pipeline.
 
-    The judge's OpenRouter key is chosen round-robin from ``openrouter_keys``.
-    When ``judge_only`` (rejudge mode), the Claude extractor LMs are not built.
+    Each LM takes its OpenRouter key straight from the registry: the extractor
+    uses the qwen key, the judge uses the deepseek key. They are separate
+    providers doing separate jobs, so there is no key round-robin.
+    When ``judge_only`` (rejudge mode), the extractor LMs are not built.
     """
-    judge = _instantiate(CFG["judge"], JUDGE_MODEL)
-    key = openrouter_keys[index % len(openrouter_keys)]
-    # swap the deepseek key so we spread load across both OpenRouter keys
-    judge.lm.kwargs["api_key"] = key
-    judge.lm.kwargs["api_base"] = OPENROUTER_BASE
     return {
         "material": None
         if judge_only
@@ -118,8 +116,7 @@ def make_pipeline(index, openrouter_keys, judge_only=False):
         "synthesis": None
         if judge_only
         else _instantiate(CFG["synthesis"], EXTRACTOR_MODEL),
-        "judge": judge,
-        "key_index": index % len(openrouter_keys),
+        "judge": _instantiate(CFG["judge"], JUDGE_MODEL),
     }
 
 
@@ -168,7 +165,6 @@ def process_paper(row, pipe, si_char_cap, max_materials):
         "pdf_extractor": row.get("pdf_extractor"),
         "extractor_model": EXTRACTOR_MODEL,
         "judge_model": JUDGE_MODEL,
-        "judge_key_index": pipe["key_index"],
         "structured_synthesis": None,
         "evaluations": None,
         "n_materials": 0,
@@ -235,7 +231,6 @@ def process_paper_rejudge(row, recipes_by_id, pipe, si_char_cap):
         "pdf_extractor": row.get("pdf_extractor"),
         "extractor_model": EXTRACTOR_MODEL,
         "judge_model": JUDGE_MODEL,
-        "judge_key_index": pipe["key_index"],
         "structured_synthesis": None,
         "evaluations": None,
         "n_materials": 0,
@@ -335,19 +330,22 @@ async def run(args):
         ThreadPoolExecutor(max_workers=args.concurrency + 4)
     )
     rejudge = bool(args.rejudge_from)
-    if not rejudge and not os.getenv("ANTHROPIC_API_KEY"):
+    if (
+        not rejudge
+        and EXTRACTOR_MODEL.startswith("claude")
+        and not os.getenv("ANTHROPIC_API_KEY")
+    ):
         sys.exit("ANTHROPIC_API_KEY not set (needed for the Claude extractor).")
-    keys = [
-        k
-        for k in (
-            os.getenv("OPENROUTER_DEEPSEEK_API_KEY"),
-            os.getenv("OPENROUTER_QWEN_API_KEY"),
-        )
-        if k
-    ]
-    if not keys:
-        sys.exit("No OPENROUTER_* key set (needed for the deepseek judge).")
-    print(f"OpenRouter keys available for judge: {len(keys)}")
+    # The judge (deepseek) and, unless rejudging, the qwen extractor each need
+    # their own OpenRouter key; the registry wires them per-model.
+    if not os.getenv("OPENROUTER_DEEPSEEK_API_KEY"):
+        sys.exit("OPENROUTER_DEEPSEEK_API_KEY not set (needed for the judge).")
+    if (
+        not rejudge
+        and EXTRACTOR_MODEL.startswith("qwen")
+        and not os.getenv("OPENROUTER_QWEN_API_KEY")
+    ):
+        sys.exit("OPENROUTER_QWEN_API_KEY not set (needed for the extractor).")
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -371,7 +369,7 @@ async def run(args):
         f"({'judge-only' if rejudge else 'extract+judge'}) ..."
     )
     pool = asyncio.Queue()
-    pipes = [make_pipeline(i, keys, judge_only=rejudge) for i in range(n_pool)]
+    pipes = [make_pipeline(judge_only=rejudge) for _ in range(n_pool)]
     for p in pipes:
         pool.put_nowait(p)
 
@@ -464,9 +462,23 @@ def push_to_hub(out_path, hub_repo, config, split):
 
 
 def main():
+    # Declared global up front so the CLI can override the module-level model
+    # constants (read by make_pipeline and the per-paper result metadata).
+    global EXTRACTOR_MODEL, JUDGE_MODEL
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", default="superconductor_keywords_and_LLM")
     ap.add_argument("--split", default="full")
+    ap.add_argument(
+        "--extractor-model",
+        default=EXTRACTOR_MODEL,
+        help="LLM_REGISTRY key for material+synthesis extraction "
+        f"(default: {EXTRACTOR_MODEL})",
+    )
+    ap.add_argument(
+        "--judge-model",
+        default=JUDGE_MODEL,
+        help=f"LLM_REGISTRY key for the judge (default: {JUDGE_MODEL})",
+    )
     ap.add_argument(
         "--limit",
         type=int,
@@ -514,6 +526,10 @@ def main():
         "match both that repo and the source dataset.",
     )
     args = ap.parse_args()
+    # Apply the CLI overrides without threading the models through every
+    # function signature (declared global at the top of main()).
+    EXTRACTOR_MODEL = args.extractor_model
+    JUDGE_MODEL = args.judge_model
     if args.out is None:
         args.out = f"results/{args.config}_{args.split}.jsonl"
     asyncio.run(run(args))
