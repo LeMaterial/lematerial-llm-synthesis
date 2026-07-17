@@ -471,11 +471,17 @@ def push_to_hub(out_path, hub_repo, config, split):
         sys.exit("--push requires --hub-repo <namespace/name>")
     from datasets import Dataset
 
-    rows = [
-        json.loads(line)
-        for line in out_path.read_text().splitlines()
-        if line.strip()
-    ]
+    # Retries append fresh rows to the JSONL, so an id can occur more than once
+    # (a stale error row followed by its successful retry). Keep the last
+    # occurrence per id so the pushed dataset has exactly one, freshest, row per
+    # paper instead of duplicates.
+    by_id = {}
+    for line in out_path.read_text().splitlines():
+        if not line.strip():
+            continue
+        r = json.loads(line)
+        by_id[r.get("id")] = r
+    rows = list(by_id.values())
     ds = Dataset.from_list(rows)
     print(
         f"Pushing {len(rows)} rows to {hub_repo} (config={config}, "
