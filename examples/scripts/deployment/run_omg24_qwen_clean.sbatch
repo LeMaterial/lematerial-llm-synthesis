@@ -28,15 +28,17 @@ echo "host=$(hostname) start=$(date -u +%FT%TZ)"
 # would let load_done_ids() skip the 5183 possibly-truncated rows and defeat the
 # whole point. This processes every paper from scratch.
 #
-# --push overwrites sid-betalol/LeMat-Synth-recipes-qwen-omg24 with the clean
-# data, and only runs AFTER the job succeeds, so the existing dataset is safe
-# until then. Change --hub-repo to a *-v2 name if you'd rather keep both.
+# Pushes to a SEPARATE -v2 repo so the original dataset is left untouched; both
+# coexist and you can promote/replace after verifying the clean run. The push
+# only runs AFTER the job succeeds. To overwrite the original instead, change
+# --hub-repo back to sid-betalol/LeMat-Synth-recipes-qwen-omg24 (HF keeps commit
+# history, so the old version stays recoverable even then).
 uv run --with datasets python examples/scripts/deployment/run_extract_judge_hf.py \
   --config full --split omg24 \
   --extractor-model qwen3.5-397b-a17b \
   --judge-model deepseek-v3.2 \
   --concurrency 96 \
   --out results/full_omg24_qwen_clean.jsonl \
-  --push --hub-repo sid-betalol/LeMat-Synth-recipes-qwen-omg24
+  --push --hub-repo sid-betalol/LeMat-Synth-recipes-qwen-omg24-v2
 
 echo "end=$(date -u +%FT%TZ)"
