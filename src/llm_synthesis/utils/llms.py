@@ -69,7 +69,14 @@ LLM_REGISTRY = LLMRegistry(
             model="openrouter/qwen/qwen3.5-35b-a3b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={"enable_thinking": False},
+            # See qwen3.5-397b-a17b: top-level enable_thinking is ignored;
+            # reasoning.effort="none" is OpenRouter's real disable switch.
+            extra_kwargs={
+                "extra_body": {
+                    "reasoning": {"effort": "none"},
+                    "chat_template_kwargs": {"enable_thinking": False},
+                }
+            },
         ),
         "kimi-k2.5": LLMConfig(
             model="openrouter/moonshotai/kimi-k2.5",
@@ -81,14 +88,19 @@ LLM_REGISTRY = LLMRegistry(
             model="openrouter/qwen/qwen3.5-397b-a17b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            # Qwen is a reasoning model. Neither a top-level enable_thinking
-            # kwarg nor OpenRouter's `reasoning` field silenced it, so disable
-            # via Qwen's native chat-template control, forwarded to the vLLM
-            # backend through litellm's extra_body.
+            # Qwen3.5 is a reasoning model with no /nothink prompt switch. The
+            # only disable levers are:
+            #  * OpenRouter's unified control: reasoning.effort="none" (its
+            #    documented "disable entirely"). NB reasoning.enabled=false is
+            #    NOT a documented disable — OpenRouter ignored it, so reasoning
+            #    kept generating and long papers truncated at max_tokens.
+            #  * Qwen-native chat_template_kwargs.enable_thinking=False, honored
+            #    only by providers that pass extra_body to their vLLM backend.
+            # Send both; whichever the routed provider honors, thinking is off.
             extra_kwargs={
                 "extra_body": {
+                    "reasoning": {"effort": "none"},
                     "chat_template_kwargs": {"enable_thinking": False},
-                    "reasoning": {"enabled": False},
                 }
             },
         ),

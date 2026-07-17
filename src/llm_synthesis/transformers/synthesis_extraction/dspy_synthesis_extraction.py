@@ -68,9 +68,12 @@ class DspySynthesisExtractor(SynthesisExtractorInterface):
         self.signature = signature
         self.retry_temperatures = retry_temperatures or [0.0, 0.3, 0.5]
 
-        # Strip any pre-existing response_format / extra_body so retries
-        # have full control over LM kwargs.
-        _clean_keys = {"response_format", "extra_body"}
+        # Strip only a pre-existing response_format so retries control the
+        # output format via the adapter. Keep extra_body: it carries the
+        # registry's reasoning/thinking controls (e.g. qwen
+        # reasoning.effort="none"), which must reach the provider or the model
+        # keeps reasoning and truncates the answer.
+        _clean_keys = {"response_format"}
         if _clean_keys & set(lm.kwargs):
             self.lm = copy.copy(lm)
             self.lm.kwargs = {

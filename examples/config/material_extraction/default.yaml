@@ -11,6 +11,11 @@ architecture:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
     llm_name: "gemini-2.5-flash-lite"  # 使用Gemini 2.5 Flash Lite
     model_kwargs:
+      # Native reasoning is disabled at the registry (reasoning.effort="none"),
+      # so the completion is just the ChainOfThought reasoning field + the
+      # comma-separated formula list — a few hundred tokens even for a
+      # many-material paper. 4096 is ample; the 16000 workaround was only
+      # needed while reasoning tokens (a bug) were eating the budget.
       temperature: 0.0
       max_tokens: 4096
     system_prompt:
