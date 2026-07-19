@@ -66,6 +66,11 @@ class PipelineResult(BaseModel):
     linking_stats: LinkingStats | None = None
     materials_with_performance: list[str] = Field(default_factory=list)
     materials_without_performance: list[str] = Field(default_factory=list)
+    # Exposed so domain VLM processors can run additional passes on plots
+    relevant_plots: list[tuple[int, ExtractedLinePlotData]] = Field(
+        default_factory=list
+    )
+    plot_figures: list[FigureInfo] = Field(default_factory=list)
 
 
 class SynthesisPerformancePipeline:
@@ -235,7 +240,11 @@ class SynthesisPerformancePipeline:
             return quantitative_figures
 
         except Exception as e:
-            logger.warning(f"  Figure extraction failed: {e}")
+            import traceback
+
+            logger.warning(
+                f"  Figure extraction failed: {e}\n{traceback.format_exc()}"
+            )
             return []
 
     def _extract_one_plot(
@@ -560,6 +569,13 @@ class SynthesisPerformancePipeline:
                         )
                         # Keep empty defaults - synthesis still saved
 
+        # Collect relevant plots for domain metric processors
+        kept_relevant_plots: list[tuple[int, ExtractedLinePlotData]] = []
+        if extracted_plots:
+            kept_relevant_plots, _ = self.plot_filter.filter_plots(
+                extracted_plots, log_skipped=False
+            )
+
         # Build results
         results = []
         for entry in all_syntheses:
@@ -589,6 +605,8 @@ class SynthesisPerformancePipeline:
             linking_stats=linking_stats,
             materials_with_performance=materials_with_perf,
             materials_without_performance=materials_without_perf,
+            relevant_plots=kept_relevant_plots,
+            plot_figures=plot_figures,
         )
 
     # TODO: refactor — function is over 200 lines and inlines the whole

@@ -26,7 +26,7 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
         self,
         model: str,
         prompt: str = resources.LINE_CHART_PROMPT_WITH_CONTEXT,
-        max_tokens: int = 1024,
+        max_tokens: int = 8192,
         temperature: float = 0.0,
         api_key: str | None = None,
         api_base: str | None = None,
@@ -98,6 +98,8 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
                     pass
 
                 response_text = response.choices[0].message.content
+                if response_text is None:
+                    raise ValueError("VLM returned None content")
                 return self._parse_into_pydantic(response_text)
 
             except Exception as e:
@@ -106,7 +108,9 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
                     logging.warning(
                         "VLM extractor: failure at temp=%.1f: %r"
                         " — retrying at temp=%.1f",
-                        temp, e, self.retry_temperatures[t_idx + 1],
+                        temp,
+                        e,
+                        self.retry_temperatures[t_idx + 1],
                     )
                 else:
                     logging.warning(
@@ -138,23 +142,56 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
             "y_left_axis_unit": re.compile(r"^y_left_axis_unit:\s*(.*)$"),
         }
 
-        line_pattern = re.compile(r"^(.*?):\s*\[\[(.*?)\]\]$")
+        # Single-line: "Name: [[x,y], ...]"  (Claude style)
+        line_pattern = re.compile(r"^(.*?):\s*\[\[(.*)\]\]\s*$")
+        # Standalone coords line: "[[x,y], ...]"  (Gemini, follows name line)
+        coords_only_pattern = re.compile(r"^\[\[(.*)\]\]\s*$")
+        # "Series_Name: actual name"  (Gemini style label line)
+        series_label_pattern = re.compile(
+            r"^Series_Name:\s*(.+)$", re.IGNORECASE
+        )
 
+        pending_name: str | None = None
         for line in lines:
             line = line.strip()
+            if not line:
+                continue
 
-            if match := line_pattern.match(line):
-                name, coords_str = match.groups()
+            # Standalone coords: consume if we have a pending name
+            if m := coords_only_pattern.match(line):
+                if pending_name is not None:
+                    coords_str = m.group(1)
+                    coords = [
+                        list(map(float, c.split(",")))
+                        for c in coords_str.split("], [")
+                    ]
+                    data["name_to_coordinates"][pending_name] = coords
+                    pending_name = None
+                    continue
+                # no pending name — ignore orphan coords line
+                continue
+
+            pending_name = None
+
+            # Single-line format
+            if m := line_pattern.match(line):
+                name, coords_str = m.groups()
                 coords = [
-                    list(map(float, coord.split(",")))
-                    for coord in coords_str.split("], [")
+                    list(map(float, c.split(",")))
+                    for c in coords_str.split("], [")
                 ]
                 data["name_to_coordinates"][name] = coords
                 continue
 
+            # Gemini "Series_Name: <actual name>" label line
+            if m := series_label_pattern.match(line):
+                pending_name = m.group(1).strip()
+                continue
+
+            # Metadata
             for key, pattern in metadata_patterns.items():
-                if match := pattern.match(line):
-                    data[key] = match.group(1).strip()
+                if m := pattern.match(line):
+                    data[key] = m.group(1).strip()
                     break
 
         return ExtractedLinePlotData(**data)

@@ -1,7 +1,7 @@
 """Configuration for plot filtering in performance linking.
 
 This module provides configurable filtering criteria for determining which plots
-are relevant for performance data extraction, allowing domain-specific 
+are relevant for performance data extraction, allowing domain-specific
 customization.
 
 Example usage:
@@ -112,7 +112,7 @@ class PlotFilterConfig(BaseModel):
     def _normalize_axis_text(text: str) -> str:
         """Normalize axis label/unit text for matching.
 
-        Strips LaTeX formatting and converts LaTeX symbols to Unicode 
+        Strips LaTeX formatting and converts LaTeX symbols to Unicode
         equivalents so that e.g. '$\\rho_{xx}$' matches keyword 'ρ'.
         """
         # Strip LaTeX dollar signs
@@ -234,34 +234,144 @@ class PlotFilterConfig(BaseModel):
         """Factory method for superconductivity domain (R(T) plots)."""
         return cls(
             x_axis_labels=[
-                "temperature", "temp", "t (k)", "t(k)", "t [k]", "t[k]"
+                "temperature",
+                "temp",
+                "t (k)",
+                "t(k)",
+                "t [k]",
+                "t[k]",
             ],
             x_axis_units=["k", "°k", "kelvin"],
             y_axis_keywords=[
-                "resistance", "resistivity", "r(t)", "r/r",
-                "ρ", "rho", "normalized resistance", "r (ω",
-                "r (m", "r (μ", "r [ω", "r [m", "r [μ",
-                "ρ (", "ρ [", "ρ/ρ",
+                "resistance",
+                "resistivity",
+                "r(t)",
+                "r/r",
+                "ρ",
+                "rho",
+                "normalized resistance",
+                "r (ω",
+                "r (m",
+                "r (μ",
+                "r [ω",
+                "r [m",
+                "r [μ",
+                "ρ (",
+                "ρ [",
+                "ρ/ρ",
             ],
             y_axis_units=[
-                "ω", "ohm", "mω", "μω", "ω·cm", "μω·cm", "mω·cm",
-                "ω cm", "μω cm", "mω cm", "ωcm", "μωcm", "mωcm",
-                "ω⋅cm", "μω⋅cm", "mω⋅cm",
+                "ω",
+                "ohm",
+                "mω",
+                "μω",
+                "ω·cm",
+                "μω·cm",
+                "mω·cm",
+                "ω cm",
+                "μω cm",
+                "mω cm",
+                "ωcm",
+                "μωcm",
+                "mωcm",
+                "ω⋅cm",
+                "μω⋅cm",
+                "mω⋅cm",
                 "a.u.",
             ],
             y_axis_exclude_patterns=[
                 # Difference / subtracted quantities
-                "ρ-ρ", "r-r", "ρ−ρ", "r−r",  # minus sign variants
-                "ρ - ρ", "r - r",              # spaced minus
-                "δρ", "δr", "Δρ", "Δr",        # delta variants
+                "ρ-ρ",
+                "r-r",
+                "ρ−ρ",
+                "r−r",  # minus sign variants
+                "ρ - ρ",
+                "r - r",  # spaced minus
+                "δρ",
+                "δr",
+                "Δρ",
+                "Δr",  # delta variants
                 # Derivatives
-                "dρ/dt", "dr/dt", "dρ/d", "dr/d",
-                # Ratio to residual resistivity (but NOT normalized to room 
+                "dρ/dt",
+                "dr/dt",
+                "dρ/d",
+                "dr/d",
+                # Ratio to residual resistivity (but NOT normalized to room
                 # temp)
                 # "ρ/ρ₀", "r/r₀", "r/r0" are residual-ratio plots (not useful)
                 # "ρ/ρ₃₀₀" or "r/r(300)" are room-temp-normalized R(T) (useful!)
-                "ρ/ρ₀", "ρ/ρ0",
-                "r/r₀", "r/r0",
+                "ρ/ρ₀",
+                "ρ/ρ0",
+                "r/r₀",
+                "r/r0",
+            ],
+            require_y_keyword_with_percentage=False,
+        )
+
+    @classmethod
+    def for_coverage(cls) -> "PlotFilterConfig":
+        """Factory method for porous materials (adsorption isotherm plots)."""
+        return cls(
+            x_axis_labels=[
+                "pressure",
+                "p",
+                "p/p0",
+                "p/p₀",
+                "relative pressure",
+                "p (bar)",
+                "p (kpa)",
+                "p (mpa)",
+                "p (atm)",
+                "p (pa)",
+                "p/p0 (atm)",
+                "p [bar]",
+                "p [kpa]",
+                "p [atm]",
+            ],
+            x_axis_units=["bar", "kpa", "mpa", "atm", "pa", "p0", "p/p0"],
+            y_axis_keywords=[
+                "loading",
+                "uptake",
+                "adsorption",
+                "coverage",
+                "surface area",
+                "amount adsorbed",
+                "quantity adsorbed",
+                "n",
+                "q",
+                "w",
+                "v",
+                "cm³/g",
+                "cm3/g",
+                "mmol/g",
+                "mol/kg",
+                "mg/g",
+                "wt%",
+                "cc/g",
+            ],
+            y_axis_units=[
+                "mmol/g",
+                "mol/kg",
+                "cm³/g",
+                "cm3/g",
+                "cc/g",
+                "mg/g",
+                "wt%",
+                "ml/g",
+                "l/g",
+                "g/g",
+                "mmol g⁻¹",
+                "mol kg⁻¹",
+                "cm³ g⁻¹",
+            ],
+            y_axis_exclude_patterns=[
+                "temperature",
+                "time",
+                "heat",
+                "enthalpy",
+                "selectivity",
+                "permeability",
+                "diffusivity",
             ],
             require_y_keyword_with_percentage=False,
         )
