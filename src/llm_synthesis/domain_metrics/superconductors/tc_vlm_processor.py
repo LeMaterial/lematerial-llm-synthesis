@@ -6,6 +6,7 @@ directly from batch_run_tc.py to preserve extraction quality.
 """
 
 import re
+import threading
 from typing import Any
 
 from llm_synthesis.domain_metrics.base import BaseVLMMetricProcessor
@@ -143,6 +144,9 @@ For each superconducting series:
      more than 20%, the inset value is more reliable — use it instead and
      set source to "inset".
 
+STEP 4.5 — IDENTIFY THE MATERIAL FOR EACH SERIES:
+{material_instruction}
+
 STEP 5 — RELATIVE ORDERING OF TRANSITIONS:
 Even when transitions appear close together on the plot, they are almost
 never at EXACTLY the same temperature. Look carefully:
@@ -171,6 +175,7 @@ main_x_axis_ticks: <list>
 main_y_axis_ticks: <list>
 
 Series: <name>
+material: <matched material name from the provided list, or "unknown">
 R_at_lowest_T: <value and unit>
 R_at_highest_T: <value and unit>
 superconducting: <YES/NO>
@@ -190,9 +195,165 @@ second, etc. — and by approximately how many K do they differ?>
 Do not output any other text.
 """
 
+# Two-image variant: full figure + a zoomed bottom-left crop (low-T, low-R
+# region, ~4x resolution there). Ported from batch_run_tc_new_snippet.py's
+# PROMPT_TEMPLATE_SNIPPET -- gives the VLM a second, higher-resolution look
+# at the transition region, which the single-image prompt above misses on
+# figures where the SC transition is a small feature in a busy full plot.
+SNIPPET_TC_PROMPT_TEMPLATE = """
+You are analyzing a Resistance (or Resistivity) vs Temperature plot from a
+superconductivity paper. You have TWO views of the same figure:
+  - Image 1: The FULL plot (complete axes, legend, all series)
+  - Image 2: A ZOOMED crop of the BOTTOM-LEFT quadrant (low temperature,
+    low resistance region) — this has ~4x the pixel resolution in the
+    transition region where superconducting drops happen.
 
-def build_tc_prompt(known_series_names: list[str] | None = None) -> str:
-    """Build the VLM Tc extraction prompt, optionally anchoring series names."""
+Your task is to determine the critical temperature Tc for each series using
+the standard geometric construction.
+
+CRITICAL DISTINCTION — SUPERCONDUCTING TRANSITION vs NORMAL METALLIC BEHAVIOR:
+Many materials (especially heavy-fermion compounds like CeCoIn5, CeRhIn5, etc.)
+show a GRADUAL decrease in resistivity over a WIDE temperature range (e.g., from
+50 K down to 5 K). This is NORMAL metallic behavior (Kondo coherence, phonon
+scattering reduction, etc.) and is NOT a superconducting transition.
+
+The superconducting transition has these characteristics:
+  - It is a SHARP, near-vertical drop in resistance
+  - It occurs over a NARROW temperature range (typically 0.1 to 3 K wide)
+  - Resistance drops from a finite value all the way to ZERO
+    (or very close to zero)
+  - It looks like a cliff or step function, not a gradual slope
+
+STEP 0 — EXAMINE BOTH IMAGES:
+a) From Image 1 (full plot): Identify ALL panels, insets, legend entries,
+   axis labels, axis units, and axis ranges. Read ALL numbered tick marks.
+
+b) From Image 2 (bottom-left crop): Read the tick marks visible in this
+   zoomed view. These are CRITICAL for precise Tc determination.
+
+   CROP VALIDATION: Verify that Image 2 actually shows the bottom-left
+   region of Image 1. If the crop does NOT match (wrong axis labels, wrong
+   scale, or a different panel/inset), IGNORE Image 2 entirely and use
+   only Image 1 for all analysis.
+
+c) CATEGORIZE each inset/panel into:
+     (i)   ZOOMED R(T) -> Use PREFERENTIALLY for geometric Tc construction.
+     (ii)  Tc SUMMARY  -> Read Tc values DIRECTLY.
+     (iii) OTHER        -> Note but do not use.
+
+d) SCALE AWARENESS: Compare tick marks from Image 1 vs Image 2. If the full
+   plot spans a wide range but the crop shows clear tick marks, USE THE CROP
+   for reading transition temperatures. If the transition falls outside the
+   crop, use the full image.
+
+STEP 0.5 — EXTRACT Tc FROM SUMMARY INSETS (if any type-(ii) inset found):
+Read Tc values directly:
+  inset_tc_<series_name>: <value> K
+These serve as a REFERENCE for Step 4 cross-check.
+
+STEP 1 — IDENTIFY SERIES:
+{series_name_instruction}
+List every distinct curve visible in the plot.
+
+STEP 1.5 — IDENTIFY THE MATERIAL FOR EACH SERIES:
+{material_instruction}
+
+STEP 2 — READ RESISTANCE VALUES AT LOWEST AND HIGHEST TEMPERATURE:
+For EACH series, use Image 2 (crop) for low-T values if the series is
+visible there:
+  a) R_at_lowest_T: resistance at the LOWEST temperature
+  b) R_at_highest_T: resistance at the HIGHEST temperature
+
+STEP 3 — CONFIRM SUPERCONDUCTIVITY:
+Superconducting ONLY if R_at_lowest_T is approximately zero.
+
+STRICT ZERO CHECK (use Image 2 crop for better precision):
+In the cropped view, check whether the series data points at low T are
+truly sitting ON the y=0 line. If a series has R clearly above zero in the
+crop — even if it looked close to zero in the full image — it is NOT
+superconducting.
+
+STEP 4 — GEOMETRIC Tc CONSTRUCTION (only for confirmed superconductors):
+Use the best view — in order of preference:
+  1. A zoomed inset (if present in the figure)
+  2. Image 2 (bottom-left crop) — if the transition is visible there
+  3. Image 1 (full plot) — only if the transition is outside the crop
+
+SCAN FROM HIGH T TO LOW T (right to left on the plot):
+  a) R_normal: the resistance value on the plateau IMMEDIATELY BEFORE the
+     sharp superconducting drop — NOT the maximum resistance at 300 K.
+  b) T_onset: Scanning LEFT from R_normal, the temperature where resistance
+     FIRST begins to drop sharply below the normal-state plateau.
+  c) T_zero: Continuing LEFT, the temperature where resistance FIRST
+     reaches approximately zero. This is NOT the lowest temperature in the
+     dataset — it is where the transition ENDS.
+  d) SANITY CHECK: T_onset - T_zero should typically be 0.5-5 K. If > 10 K,
+     you are probably measuring metallic decline, NOT the SC transition.
+  e) Tc_mid = (T_onset + T_zero) / 2.
+  f) Delta_Tc = T_onset - T_zero
+  g) CROSS-CHECK: If inset Tc differs by >20%, use inset value.
+
+STEP 5 — RELATIVE ORDERING OF TRANSITIONS:
+Compare which series transitions at higher vs lower T.
+
+Output format:
+
+inset_detected: <yes/no>
+inset_type: <"zoomed_rt" | "tc_summary" | "other" | "none">
+inset_description: <brief description or "N/A">
+inset_axes: <tick marks if present, otherwise "N/A">
+inset_tc_values: <series: value K, ... or "N/A">
+crop_x_range: <temperature range visible in Image 2, e.g., "0 to 150 K">
+crop_y_range: <resistance range visible in Image 2>
+main_x_axis_ticks: <list>
+main_y_axis_ticks: <list>
+
+Series: <name>
+material: <matched material name from the provided list, or "unknown">
+R_at_lowest_T: <value and unit>
+R_at_highest_T: <value and unit>
+superconducting: <YES/NO>
+[If NO:]
+reason: <why not superconducting>
+[If YES:]
+R_normal: <value and unit>
+T_onset: <value> K
+T_zero: <value> K
+Tc_mid: <value> K
+Delta_Tc: <value> K
+source: <"inset" or "main plot" or "zoomed inset" or "bottom-left crop">
+
+relative_ordering: <which series transitions first, etc.>
+
+Do not output any other text.
+"""
+
+
+def crop_bottom_left_quadrant(figure_base64: str) -> str:
+    """Crop bottom-left quadrant of a base64 image -> base64 PNG.
+
+    ~4x resolution in the SC transition region (low T, low R).
+    """
+    import base64
+    import io
+
+    from PIL import Image as PILImage
+
+    img_bytes = base64.b64decode(figure_base64)
+    img = PILImage.open(io.BytesIO(img_bytes))
+    w, h = img.size
+    cropped = img.crop((0, h // 2, w // 2, h))
+    buf = io.BytesIO()
+    cropped.save(buf, format="PNG")
+    return base64.b64encode(buf.getvalue()).decode("utf-8")
+
+
+def build_tc_prompt(
+    known_series_names: list[str] | None = None,
+    materials: list[str] | None = None,
+) -> str:
+    """Build the VLM Tc extraction prompt, optionally anchoring series names
+    and the list of candidate materials to match each series against."""
     if known_series_names:
         names_list = "\n".join(
             f"  {i + 1}. {name}" for i, name in enumerate(known_series_names)
@@ -209,7 +370,77 @@ def build_tc_prompt(known_series_names: list[str] | None = None) -> str:
         instruction = (
             "List every distinct curve (by legend label, color, marker)."
         )
-    return DIRECT_TC_PROMPT_TEMPLATE.format(series_name_instruction=instruction)
+
+    if materials:
+        mat_list = "\n".join(f"  - {m}" for m in materials)
+        material_instruction = (
+            "This paper studies the following material compositions:\n"
+            f"{mat_list}\n\n"
+            "For each series/curve, use the legend label, color, and "
+            "surrounding figure caption/context to match it to EXACTLY ONE "
+            "of the materials above. Report the matched material's exact "
+            "name (as written above) in the 'material:' line. If you "
+            "cannot confidently match a series to any listed material, "
+            "write 'unknown'."
+        )
+    else:
+        material_instruction = (
+            "No candidate material list was provided — report your best "
+            "guess of the material composition from the legend/caption in "
+            "the 'material:' line, or 'unknown' if unclear."
+        )
+
+    return DIRECT_TC_PROMPT_TEMPLATE.format(
+        series_name_instruction=instruction,
+        material_instruction=material_instruction,
+    )
+
+
+def build_snippet_tc_prompt(
+    known_series_names: list[str] | None = None,
+    materials: list[str] | None = None,
+) -> str:
+    """Two-image (full + bottom-left crop) variant of build_tc_prompt."""
+    if known_series_names:
+        names_list = "\n".join(
+            f"  {i + 1}. {name}" for i, name in enumerate(known_series_names)
+        )
+        instruction = (
+            "The following series were previously identified in this plot. "
+            "You MUST use these EXACT names in your output "
+            "(in the 'Series:' lines):\n"
+            f"{names_list}\n\n"
+            "If you see additional curves not in this list, "
+            "add them with descriptive names."
+        )
+    else:
+        instruction = (
+            "List every distinct curve (by legend label, color, marker)."
+        )
+
+    if materials:
+        mat_list = "\n".join(f"  - {m}" for m in materials)
+        material_instruction = (
+            "This paper studies the following material compositions:\n"
+            f"{mat_list}\n\n"
+            "For each series/curve, use the legend label, color, and "
+            "surrounding figure caption/context to match it to EXACTLY ONE "
+            "of the materials above. Report the matched material's exact "
+            "name (as written above) in the 'material:' line. If you "
+            "cannot confidently match a series to any listed material, "
+            "write 'unknown'."
+        )
+    else:
+        material_instruction = (
+            "No candidate material list was provided — report your best "
+            "guess of the material composition from the legend/caption in "
+            "the 'material:' line, or 'unknown' if unclear."
+        )
+
+    return SNIPPET_TC_PROMPT_TEMPLATE.format(
+        series_name_instruction=instruction,
+        material_instruction=material_instruction,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -266,19 +497,21 @@ def parse_direct_tc_response(response_text: str) -> dict[str, dict]:
             val = val.strip()
             if key == "superconducting":
                 results[current][key] = val.upper().startswith("YES")
-            elif key in ("reason", "source"):
+            elif key in ("reason", "source", "material"):
                 results[current][key] = val
             else:
+                # These are all numeric fields downstream (t_onset, t_zero,
+                # tc_mid, delta_tc, inset_tc, ...) -- always coerce to
+                # float|None, never leave a raw string that would crash a
+                # later `> 0` / `> 10` comparison.
                 match = re.search(r"(\d+\.?\d*|\d*\.\d+)", val)
                 if match:
                     try:
                         results[current][key] = float(match.group(1))
                     except ValueError:
-                        results[current][key] = val
-                elif "no transition" in val.lower() or "n/a" in val.lower():
-                    results[current][key] = None
+                        results[current][key] = None
                 else:
-                    results[current][key] = val
+                    results[current][key] = None
 
     if inset_tc_raw and inset_tc_raw.lower() not in ("n/a", "none", ""):
         inset_pairs = _parse_inset_tc_values(inset_tc_raw, results)
@@ -399,10 +632,13 @@ def _vlm_data_has_tc(vlm_data: dict) -> bool:
 
 
 class TcVLMProcessor(BaseVLMMetricProcessor):
-    """Extract Tc from R(T) plots via geometric construction (Claude VLM).
+    """Extract Tc from R(T) plots via geometric construction (any LiteLLM VLM).
 
     Args:
-        claude_model: Claude model name to use for the VLM call.
+        claude_model: LLM_REGISTRY key or raw litellm model string
+            (e.g. "qwen3.5-397b-a17b", "claude-sonnet-4.6").
+            Kept the name ``claude_model`` for backwards compatibility with
+            existing DomainConfig callers.
         max_tokens: Max tokens for the VLM response.
     """
 
@@ -413,6 +649,71 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
     ) -> None:
         self._model = claude_model
         self._max_tokens = max_tokens
+        self._cumulative_cost_usd = 0.0
+        self._cost_lock = threading.Lock()
+
+    def get_cost(self) -> float:
+        return self._cumulative_cost_usd
+
+    def _vision_call(self, figure_base64: str, prompt: str) -> str:
+        """Single-image vision call via litellm."""
+        return self._vision_call_multi([figure_base64], prompt)
+
+    def _vision_call_multi(self, figure_base64s: list[str], prompt: str) -> str:
+        """Vision call via litellm with one or more images, resolving
+        LLM_REGISTRY if applicable."""
+        import litellm
+
+        from llm_synthesis.utils.llms import LLM_REGISTRY
+
+        model = self._model
+        kwargs: dict[str, Any] = {}
+        if model in LLM_REGISTRY.configs:
+            cfg = LLM_REGISTRY.configs[model]
+            model = cfg.model
+            if cfg.api_key:
+                kwargs["api_key"] = cfg.api_key
+            if cfg.api_base:
+                kwargs["api_base"] = cfg.api_base
+            for k, v in (cfg.extra_kwargs or {}).items():
+                if k not in ("thinking", "reasoning_effort", "enable_thinking"):
+                    kwargs[k] = v
+
+        content: list[dict[str, Any]] = []
+        for b64 in figure_base64s:
+            image_type = "jpeg" if b64.startswith("/9j/") else "png"
+            content.append(
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/{image_type};base64,{b64}"
+                    },
+                }
+            )
+        content.append({"type": "text", "text": prompt})
+
+        response = litellm.completion(
+            model=model,
+            max_tokens=self._max_tokens,
+            temperature=0.0,
+            messages=[{"role": "user", "content": content}],
+            **kwargs,
+        )
+        try:
+            cost = litellm.completion_cost(completion_response=response)
+            with self._cost_lock:
+                self._cumulative_cost_usd += cost
+        except Exception:
+            pass
+        result = response.choices[0].message.content
+        if result is None:
+            # e.g. reasoning tokens exhausted max_tokens before any visible
+            # output -- treat as a failed call, not a value to parse.
+            finish_reason = getattr(response.choices[0], "finish_reason", "?")
+            raise ValueError(
+                f"VLM returned empty content (finish_reason={finish_reason})"
+            )
+        return result
 
     def process(
         self,
@@ -427,9 +728,6 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
         Returns per-material dict with keys matching tc_from_vlm in
         the original batch_run_tc.py output format.
         """
-        from llm_synthesis.services.llm_api.claude import ClaudeAPIClient
-
-        client = ClaudeAPIClient(self._model)
         tc_from_vlm: dict[int, dict[str, dict]] = {}
 
         for idx, plot in relevant_plots:
@@ -437,11 +735,9 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
             known_series = list(plot.name_to_coordinates.keys())
             prompt = build_tc_prompt(known_series_names=known_series)
             try:
-                response = client.vision_model_api_call(
+                response = self._vision_call(
                     figure_base64=fig.base64_data,
                     prompt=prompt,
-                    max_tokens=self._max_tokens,
-                    temperature=0.0,
                 )
                 parsed = parse_direct_tc_response(response)
                 corrected = sanity_check_delta_tc(parsed)
@@ -474,6 +770,103 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
                         vlm_tc_per_material[sm.material_name] = vlm_data
 
         # Convert to the output format expected by the batch runner / writer
+        results: dict[str, Any] = {}
+        for material, vlm_entry in vlm_tc_per_material.items():
+            results[material] = {
+                "superconducting": vlm_entry.get("superconducting"),
+                "T_onset": vlm_entry.get("t_onset"),
+                "Tc_mid": vlm_entry.get("tc_mid"),
+                "T_zero": vlm_entry.get("t_zero"),
+                "Delta_Tc": vlm_entry.get("delta_tc"),
+                "source": vlm_entry.get("source", "main plot"),
+            }
+        return results
+
+    def _process_one_figure(
+        self, fig: FigureInfo, materials: list[str], use_snippet: bool = True
+    ) -> dict[str, dict] | None:
+        import logging
+
+        if use_snippet:
+            try:
+                crop_b64 = crop_bottom_left_quadrant(fig.base64_data)
+                prompt = build_snippet_tc_prompt(materials=materials)
+                response = self._vision_call_multi(
+                    [fig.base64_data, crop_b64], prompt
+                )
+                parsed = parse_direct_tc_response(response)
+                return sanity_check_delta_tc(parsed)
+            except Exception as e:
+                logging.getLogger(__name__).warning(
+                    "TcVLMProcessor: figure %s snippet call failed (%s) --"
+                    " falling back to single-image",
+                    fig.figure_reference,
+                    e,
+                )
+                # fall through to single-image path below
+
+        prompt = build_tc_prompt(materials=materials)
+        try:
+            response = self._vision_call(
+                figure_base64=fig.base64_data,
+                prompt=prompt,
+            )
+            parsed = parse_direct_tc_response(response)
+            return sanity_check_delta_tc(parsed)
+        except Exception as e:
+            logging.getLogger(__name__).warning(
+                "TcVLMProcessor: figure %s failed: %s",
+                fig.figure_reference,
+                e,
+            )
+            return None
+
+    def process_from_figures(
+        self,
+        figures: list[FigureInfo],
+        materials: list[str],
+        max_workers: int = 8,
+        use_snippet: bool = True,
+    ) -> dict[str, Any]:
+        """Read Tc directly from figures, no digitization/linking pass.
+
+        One VLM call per figure does both jobs at once: reads Tc via
+        geometric construction AND matches each curve to one of
+        ``materials`` using the legend/caption/context visible in the
+        image. Skips extract_plot_data + link_performance entirely.
+        Figures are processed concurrently (independent VLM calls).
+
+        use_snippet: send both the full figure AND a zoomed bottom-left
+            crop (low-T, low-R region) in the same call -- ported from the
+            original Claude pipeline's crop-retry step, which gave the VLM
+            a second, higher-resolution look at the transition region.
+            Falls back to single-image per figure if cropping/the two-image
+            call fails.
+        """
+        from concurrent.futures import ThreadPoolExecutor
+
+        vlm_tc_per_material: dict[str, dict] = {}
+
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            for corrected in executor.map(
+                lambda fig: self._process_one_figure(
+                    fig, materials, use_snippet=use_snippet
+                ),
+                figures,
+            ):
+                if not corrected:
+                    continue
+                for series_name, vlm_data in corrected.items():
+                    material = vlm_data.get("material")
+                    if not material or material.lower() == "unknown":
+                        continue
+                    existing = vlm_tc_per_material.get(material)
+                    if existing is None or (
+                        _vlm_data_has_tc(vlm_data)
+                        and not _vlm_data_has_tc(existing)
+                    ):
+                        vlm_tc_per_material[material] = vlm_data
+
         results: dict[str, Any] = {}
         for material, vlm_entry in vlm_tc_per_material.items():
             results[material] = {

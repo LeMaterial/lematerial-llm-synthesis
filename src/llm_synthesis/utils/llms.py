@@ -69,19 +69,19 @@ LLM_REGISTRY = LLMRegistry(
             model="openrouter/qwen/qwen3.5-35b-a3b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={"enable_thinking": False},
+            extra_kwargs={"reasoning": {"enabled": False}},
         ),
         "kimi-k2.5": LLMConfig(
             model="openrouter/moonshotai/kimi-k2.5",
             api_key=os.getenv("OPENROUTER_KIMI_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={"enable_thinking": False},
+            extra_kwargs={"reasoning": {"enabled": False}},
         ),
         "qwen3.5-397b-a17b": LLMConfig(
             model="openrouter/qwen/qwen3.5-397b-a17b",
             api_key=os.getenv("OPENROUTER_QWEN_API_KEY"),
             api_base="https://openrouter.ai/api/v1",
-            extra_kwargs={"enable_thinking": False},
+            extra_kwargs={"reasoning": {"enabled": False}},
         ),
         "deepseek-v3.2": LLMConfig(
             model="openrouter/deepseek/deepseek-v3.2",
@@ -172,7 +172,7 @@ class SystemPrefixedLM(dspy.LM):
         )
 
         try:
-            cost = extract_cost_from_dspy_response(response)
+            cost = extract_cost_from_dspy_response(response, lm=self)
             if cost is not None:
                 self._cumulative_cost_usd += cost
         except (AttributeError, TypeError, ValueError) as exc:
