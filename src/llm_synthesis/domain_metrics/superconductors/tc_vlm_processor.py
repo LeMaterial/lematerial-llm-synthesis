@@ -82,6 +82,22 @@ These values serve as a REFERENCE. In Step 4, if your geometric construction
 from the R(T) curve gives a Tc that differs from the inset value by more than
 20%, trust the inset value and report it instead — noting "source: inset".
 
+STEP 0.7 — DETECT CONDITION-VARYING PLOTS:
+Check if the different series in this plot represent the SAME material
+measured under different external conditions (magnetic field H, pressure P,
+etc.) rather than different compositions.
+
+Signs of a condition-varying plot:
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T", "5 T")
+- Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
+- All series are the same material formula with only field/pressure changing
+
+If this is a condition-varying plot:
+- Report: condition_variable: <magnetic_field|pressure|none>
+- Extract Tc ONLY for the zero-field / ambient-pressure series
+- Do NOT create separate entries for each field/pressure value
+- Do NOT append field/pressure values to material names
+
 STEP 1 — IDENTIFY SERIES:
 {series_name_instruction}
 List every distinct curve visible in the plot.
@@ -147,6 +163,10 @@ For each superconducting series:
 STEP 4.5 — IDENTIFY THE MATERIAL FOR EACH SERIES:
 {material_instruction}
 
+IMPORTANT: NEVER append magnetic field values (T, Tesla, Oe), pressure values
+(GPa, kbar), or other measurement conditions to the material name. The material
+name should contain ONLY the chemical formula/composition.
+
 STEP 5 — RELATIVE ORDERING OF TRANSITIONS:
 Even when transitions appear close together on the plot, they are almost
 never at EXACTLY the same temperature. Look carefully:
@@ -165,6 +185,7 @@ never at EXACTLY the same temperature. Look carefully:
 
 Output format:
 
+condition_variable: <magnetic_field|pressure|none>
 inset_detected: <yes/no>
 inset_type: <"zoomed_rt" | "tc_summary" | "other" | "none">
 inset_description: <brief description of what the inset shows, or "N/A">
@@ -251,12 +272,32 @@ Read Tc values directly:
   inset_tc_<series_name>: <value> K
 These serve as a REFERENCE for Step 4 cross-check.
 
+STEP 0.7 — DETECT CONDITION-VARYING PLOTS:
+Check if the different series in this plot represent the SAME material
+measured under different external conditions (magnetic field H, pressure P,
+etc.) rather than different compositions.
+
+Signs of a condition-varying plot:
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T", "5 T")
+- Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
+- All series are the same material formula with only field/pressure changing
+
+If this is a condition-varying plot:
+- Report: condition_variable: <magnetic_field|pressure|none>
+- Extract Tc ONLY for the zero-field / ambient-pressure series
+- Do NOT create separate entries for each field/pressure value
+- Do NOT append field/pressure values to material names
+
 STEP 1 — IDENTIFY SERIES:
 {series_name_instruction}
 List every distinct curve visible in the plot.
 
 STEP 1.5 — IDENTIFY THE MATERIAL FOR EACH SERIES:
 {material_instruction}
+
+IMPORTANT: NEVER append magnetic field values (T, Tesla, Oe), pressure values
+(GPa, kbar), or other measurement conditions to the material name. The material
+name should contain ONLY the chemical formula/composition.
 
 STEP 2 — READ RESISTANCE VALUES AT LOWEST AND HIGHEST TEMPERATURE:
 For EACH series, use Image 2 (crop) for low-T values if the series is
@@ -298,6 +339,7 @@ Compare which series transitions at higher vs lower T.
 
 Output format:
 
+condition_variable: <magnetic_field|pressure|none>
 inset_detected: <yes/no>
 inset_type: <"zoomed_rt" | "tc_summary" | "other" | "none">
 inset_description: <brief description or "N/A">
@@ -478,13 +520,23 @@ def _parse_inset_tc_values(raw: str, known_series: dict) -> dict[str, float]:
 
 
 def parse_direct_tc_response(response_text: str) -> dict[str, dict]:
-    """Parse the structured text output of the VLM Tc prompt."""
+    """Parse the structured text output of the VLM Tc prompt.
+
+    Returns a dict keyed by series name. A top-level metadata key
+    ``"__condition_variable__"`` is added with value ``"magnetic_field"``,
+    ``"pressure"``, or ``"none"`` when present in the response.
+    """
     results: dict[str, dict] = {}
     current: str | None = None
     inset_tc_raw: str | None = None
+    condition_variable: str = "none"
 
     for line in response_text.strip().split("\n"):
         line = line.strip()
+        # Parse condition_variable (appears before any Series: block)
+        if line.lower().startswith("condition_variable:") and current is None:
+            condition_variable = line.split(":", 1)[1].strip().lower()
+            continue
         if line.lower().startswith("inset_tc_values:") and current is None:
             inset_tc_raw = line.split(":", 1)[1].strip()
             continue
@@ -519,7 +571,49 @@ def parse_direct_tc_response(response_text: str) -> dict[str, dict]:
             if series_name in results:
                 results[series_name]["inset_tc"] = tc_val
 
+    # Store condition_variable as metadata (won't collide with series names)
+    results["__condition_variable__"] = {"value": condition_variable}
+
     return results
+
+
+def filter_condition_varying_series(vlm_results: dict[str, dict]) -> dict[str, dict]:
+    """Remove non-ambient series when the plot varies field or pressure.
+
+    If ``condition_variable`` is ``magnetic_field`` or ``pressure``, only
+    keep series whose name does NOT contain a field/pressure label
+    (e.g. "1 T", "5 GPa"). This eliminates duplicate entries where the
+    VLM created separate "materials" for each measurement condition.
+    """
+    meta = vlm_results.pop("__condition_variable__", None)
+    condition = (meta or {}).get("value", "none")
+
+    if condition == "none":
+        return vlm_results
+
+    # Patterns indicating a non-ambient condition in the series name
+    _FIELD_PATTERN = re.compile(
+        r"(?:\d+\.?\d*)\s*(?:T|Tesla|Oe|kOe)\b", re.IGNORECASE
+    )
+    _PRESSURE_PATTERN = re.compile(
+        r"(?:\d+\.?\d*)\s*(?:GPa|kbar|Mbar)\b", re.IGNORECASE
+    )
+
+    pattern = (
+        _FIELD_PATTERN if condition == "magnetic_field" else _PRESSURE_PATTERN
+    )
+
+    filtered: dict[str, dict] = {}
+    for series_name, vals in vlm_results.items():
+        if pattern.search(series_name):
+            continue  # skip non-ambient series
+        filtered[series_name] = vals
+
+    # If filtering removed everything, return original (safety fallback)
+    if not filtered:
+        return vlm_results
+
+    return filtered
 
 
 def sanity_check_delta_tc(vlm_results: dict[str, dict]) -> dict[str, dict]:
@@ -532,7 +626,12 @@ def sanity_check_delta_tc(vlm_results: dict[str, dict]) -> dict[str, dict]:
     - If Delta_Tc > 10 K and no inset → mark as not SC (likely metallic
       decline).
     - If geometric Tc differs from inset by >20% → use inset value.
+
+    Also applies condition-varying-plot filtering (field/pressure exclusion).
     """
+    # First filter out non-ambient series if condition_variable is set
+    vlm_results = filter_condition_varying_series(vlm_results)
+
     corrected: dict[str, dict] = {}
     for series_name, vals in vlm_results.items():
         corrected[series_name] = dict(vals)
