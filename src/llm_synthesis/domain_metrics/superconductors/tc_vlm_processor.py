@@ -88,7 +88,7 @@ measured under different external conditions (magnetic field H, pressure P,
 etc.) rather than different compositions.
 
 Signs of a condition-varying plot:
-- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T", "5 T")
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T")
 - Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
 - All series are the same material formula with only field/pressure changing
 
@@ -166,6 +166,23 @@ STEP 4.5 — IDENTIFY THE MATERIAL FOR EACH SERIES:
 IMPORTANT: NEVER append magnetic field values (T, Tesla, Oe), pressure values
 (GPa, kbar), or other measurement conditions to the material name. The material
 name should contain ONLY the chemical formula/composition.
+
+STEP 4.7 — HIGH-Tc SANITY CHECK:
+If your Tc_mid for ANY series is above 150 K, be extremely suspicious —
+this is almost never true. Only a small number of hydride superconductors
+under extreme pressure (e.g. H3S, LaH10) legitimately exceed 150 K, and
+essentially no ambient-pressure resistivity measurement does. If you get a
+value at or above 150 K, and especially at or above 200 K, go back and
+re-examine the plot before finalizing:
+  - Check you did not misread the y-axis scale or units.
+  - Check you are not reading a normal-state plateau or a different
+    quantity (e.g. magnetization, a Tc-vs-pressure phase diagram axis)
+    as if it were a temperature.
+  - Check the paper's text/caption for whether it explicitly describes a
+    high-pressure hydride measurement — if not, a Tc this high is more
+    likely a misread than a real result.
+Report your re-checked value; do not lower it artificially if it is
+genuinely correct, but do not report it without this re-check.
 
 STEP 5 — RELATIVE ORDERING OF TRANSITIONS:
 Even when transitions appear close together on the plot, they are almost
@@ -278,7 +295,7 @@ measured under different external conditions (magnetic field H, pressure P,
 etc.) rather than different compositions.
 
 Signs of a condition-varying plot:
-- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T", "5 T")
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T")
 - Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
 - All series are the same material formula with only field/pressure changing
 
@@ -333,6 +350,24 @@ SCAN FROM HIGH T TO LOW T (right to left on the plot):
   e) Tc_mid = (T_onset + T_zero) / 2.
   f) Delta_Tc = T_onset - T_zero
   g) CROSS-CHECK: If inset Tc differs by >20%, use inset value.
+
+STEP 4.7 — HIGH-Tc SANITY CHECK:
+If your Tc_mid for ANY series is above 150 K, be extremely suspicious —
+this is almost never true. Only a small number of hydride superconductors
+under extreme pressure (e.g. H3S, LaH10) legitimately exceed 150 K, and
+essentially no ambient-pressure resistivity measurement does. If you get a
+value at or above 150 K, and especially at or above 200 K, go back and
+re-examine the plot (using Image 2, the crop, for precision) before
+finalizing:
+  - Check you did not misread the y-axis scale or units.
+  - Check you are not reading a normal-state plateau or a different
+    quantity (e.g. magnetization, a Tc-vs-pressure phase diagram axis)
+    as if it were a temperature.
+  - Check the paper's text/caption for whether it explicitly describes a
+    high-pressure hydride measurement — if not, a Tc this high is more
+    likely a misread than a real result.
+Report your re-checked value; do not lower it artificially if it is
+genuinely correct, but do not report it without this re-check.
 
 STEP 5 — RELATIVE ORDERING OF TRANSITIONS:
 Compare which series transitions at higher vs lower T.
@@ -577,7 +612,9 @@ def parse_direct_tc_response(response_text: str) -> dict[str, dict]:
     return results
 
 
-def filter_condition_varying_series(vlm_results: dict[str, dict]) -> dict[str, dict]:
+def filter_condition_varying_series(
+    vlm_results: dict[str, dict],
+) -> dict[str, dict]:
     """Remove non-ambient series when the plot varies field or pressure.
 
     If ``condition_variable`` is ``magnetic_field`` or ``pressure``, only
@@ -592,15 +629,15 @@ def filter_condition_varying_series(vlm_results: dict[str, dict]) -> dict[str, d
         return vlm_results
 
     # Patterns indicating a non-ambient condition in the series name
-    _FIELD_PATTERN = re.compile(
+    field_pattern = re.compile(
         r"(?:\d+\.?\d*)\s*(?:T|Tesla|Oe|kOe)\b", re.IGNORECASE
     )
-    _PRESSURE_PATTERN = re.compile(
+    pressure_pattern = re.compile(
         r"(?:\d+\.?\d*)\s*(?:GPa|kbar|Mbar)\b", re.IGNORECASE
     )
 
     pattern = (
-        _FIELD_PATTERN if condition == "magnetic_field" else _PRESSURE_PATTERN
+        field_pattern if condition == "magnetic_field" else pressure_pattern
     )
 
     filtered: dict[str, dict] = {}
@@ -683,6 +720,20 @@ def sanity_check_delta_tc(vlm_results: dict[str, dict]) -> dict[str, dict]:
                     f"inset Tc={inset_tc:.1f} K by "
                     f"{relative_diff * 100:.0f}% (>20%). Using inset value."
                 )
+
+        # ponytail: flag, don't reject -- hydrides under pressure genuinely
+        # exceed 150 K, so this can't be a hard cutoff. Downstream review
+        # should spot-check any high_tc_flag=True row rather than trust it
+        # blindly, since almost every other Tc>150K reading we've seen is a
+        # misread (wrong axis/units, or a non-SC feature) rather than real.
+        final_tc = corrected[series_name].get("tc_mid")
+        if final_tc is not None and final_tc >= 150:
+            corrected[series_name]["high_tc_flag"] = True
+            corrected[series_name]["_high_tc_warning"] = (
+                f"Tc_mid={final_tc:.1f} K is >=150 K -- almost never "
+                "true outside high-pressure hydrides (H3S, LaH10, etc). "
+                "Flagged for manual review."
+            )
 
     return corrected
 
@@ -821,29 +872,59 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
         plot_mappings: list[PlotMaterialMapping],
         materials: list[str],
         paper_text: str,
+        use_snippet: bool = True,
     ) -> dict[str, Any]:
         """Run VLM Tc extraction on every relevant R(T) plot.
 
         Returns per-material dict with keys matching tc_from_vlm in
         the original batch_run_tc.py output format.
+
+        use_snippet: send both the full figure AND a zoomed bottom-left
+            crop (same as process_from_figures) -- material matching still
+            comes from plot_mappings (the dedicated linker), only the Tc
+            reading itself gets the higher-resolution crop.
         """
+        import logging
+
         tc_from_vlm: dict[int, dict[str, dict]] = {}
 
         for idx, plot in relevant_plots:
             fig = plot_figures[idx]
             known_series = list(plot.name_to_coordinates.keys())
-            prompt = build_tc_prompt(known_series_names=known_series)
             try:
-                response = self._vision_call(
-                    figure_base64=fig.base64_data,
-                    prompt=prompt,
-                )
+                if use_snippet:
+                    try:
+                        crop_b64 = crop_bottom_left_quadrant(fig.base64_data)
+                        prompt = build_snippet_tc_prompt(
+                            known_series_names=known_series
+                        )
+                        response = self._vision_call_multi(
+                            [fig.base64_data, crop_b64], prompt
+                        )
+                    except Exception as e:
+                        logging.getLogger(__name__).warning(
+                            "TcVLMProcessor: plot %d snippet call failed "
+                            "(%s) -- falling back to single-image",
+                            idx,
+                            e,
+                        )
+                        prompt = build_tc_prompt(
+                            known_series_names=known_series
+                        )
+                        response = self._vision_call(
+                            figure_base64=fig.base64_data,
+                            prompt=prompt,
+                        )
+                else:
+                    prompt = build_tc_prompt(known_series_names=known_series)
+                    response = self._vision_call(
+                        figure_base64=fig.base64_data,
+                        prompt=prompt,
+                    )
                 parsed = parse_direct_tc_response(response)
                 corrected = sanity_check_delta_tc(parsed)
                 tc_from_vlm[idx] = corrected
             except Exception as e:
-                import logging
-
                 logging.getLogger(__name__).warning(
                     "TcVLMProcessor: plot %d failed: %s", idx, e
                 )
@@ -878,6 +959,7 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
                 "T_zero": vlm_entry.get("t_zero"),
                 "Delta_Tc": vlm_entry.get("delta_tc"),
                 "source": vlm_entry.get("source", "main plot"),
+                "high_tc_flag": vlm_entry.get("high_tc_flag", False),
             }
         return results
 
@@ -975,5 +1057,6 @@ class TcVLMProcessor(BaseVLMMetricProcessor):
                 "T_zero": vlm_entry.get("t_zero"),
                 "Delta_Tc": vlm_entry.get("delta_tc"),
                 "source": vlm_entry.get("source", "main plot"),
+                "high_tc_flag": vlm_entry.get("high_tc_flag", False),
             }
         return results

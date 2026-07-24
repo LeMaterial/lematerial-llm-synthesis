@@ -11,6 +11,7 @@ from llm_synthesis.transformers.performance_linking.base import (
     LinkingInput,
     PerformanceLinkingInterface,
 )
+from llm_synthesis.utils.formula_utils import is_doping_instance
 
 logger = logging.getLogger(__name__)
 
@@ -169,7 +170,26 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
     ) -> list[SeriesMapping]:
         """Validate mappings against known series and materials.
 
-        Discards any mapping with hallucinated series_name or material_name.
+        Discards any mapping with a hallucinated series_name (not read off
+        the plot) or a material_name assignment that fails validation
+        below.
+
+        Normally material_name must be exactly one of valid_materials. The
+        one exception: when series_name (something actually read off the
+        plot, not an LLM invention) is a concrete doping level of the
+        SPECIFIC family the LLM proposed (e.g. series "CaFe0.9Co0.1AsF"
+        proposed against material "CaFe1-xCoxAsF"), accept series_name
+        itself as a new, more specific material entry -- this recovers
+        doping-series rows that structured_synthesis (extracted from
+        synthesis-procedure text, one entry per described family) never
+        itemized individually. Critically, the stoichiometry check runs
+        against the family the LLM actually proposed, not any family in
+        the list -- otherwise a wrong-dopant guess (series
+        "CaFe0.9Co0.1AsF" proposed against family "CaFe1-xNixAsF", a
+        different dopant) could pass just because *some* family in the
+        list happens to accept it. See is_doping_instance() docstring for
+        why the stoichiometry check itself is conservative about false
+        positives.
 
         Args:
             raw_mappings: Raw mapping dicts from LLM
@@ -190,9 +210,19 @@ class SeriesMaterialLinker(PerformanceLinkingInterface):
             if sn not in valid_series_set:
                 logger.debug(f"Discarding mapping: series '{sn}' not in plot")
                 continue
+
             if mn not in valid_materials_set:
                 logger.debug(f"Discarding mapping: material '{mn}' not in list")
                 continue
+
+            if sn != mn and is_doping_instance(mn, sn):
+                logger.info(
+                    "Upgrading series '%s' to its own doping-instance "
+                    "material (family proposed by linker: '%s')",
+                    sn,
+                    mn,
+                )
+                mn = sn
 
             validated.append(
                 SeriesMapping(
