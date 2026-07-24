@@ -9,7 +9,7 @@ architecture:
     output_description: "The final synthesized materials as a comma-separated list using ONLY chemical formulas (e.g., 'Sr3(P3O9)2·7H2O, LiH2PO3'). Never use common names."
   lm:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gemini-2.5-flash-lite"  # 使用Gemini 2.5 Flash Lite
+    llm_name: "qwen3.5-397b-a17b"
     model_kwargs:
       temperature: 0.0
       max_tokens: 4096

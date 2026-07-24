@@ -53,7 +53,7 @@ architecture:
 
   lm:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
-    llm_name: "gemini-2.0-flash"
+    llm_name: "deepseek-v3.2"
     model_kwargs:
       temperature: 0.1
       max_tokens: 4096
