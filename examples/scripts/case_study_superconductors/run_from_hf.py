@@ -69,11 +69,13 @@ DEFAULT_OUTPUT_DIR = "../../../data/results_superconductors_hf"
 
 
 def load_materials_by_paper_id() -> tuple[
-    dict[str, list[str]], dict[str, dict[str, str]]
+    dict[str, list[str]], dict[str, dict[str, str]], dict[str, str]
 ]:
-    """paper_id -> list of material names, and paper_id -> {material:
-    synthesis_method} -- both read straight from structured_synthesis
-    (HF dataset), no LLM call."""
+    """paper_id -> list of material names, paper_id -> {material:
+    synthesis_method}, and paper_id -> paper text -- all read straight from
+    the HF dataset (structured_synthesis, text_paper), no LLM call and no
+    Mistral OCR needed for text (text_paper is populated for all 1384
+    papers in this split)."""
     from datasets import load_dataset
 
     df = load_dataset(
@@ -81,6 +83,7 @@ def load_materials_by_paper_id() -> tuple[
     ).to_pandas()
     materials_out: dict[str, list[str]] = {}
     synthesis_method_out: dict[str, dict[str, str]] = {}
+    paper_text_out: dict[str, str] = {}
     for _, row in df.iterrows():
         raw = row.get("structured_synthesis")
         if not raw:
@@ -104,7 +107,8 @@ def load_materials_by_paper_id() -> tuple[
             if e.get("material_name")
             and (e.get("recipe") or {}).get("synthesis_method")
         }
-    return materials_out, synthesis_method_out
+        paper_text_out[paper_id] = row.get("text_paper") or ""
+    return materials_out, synthesis_method_out, paper_text_out
 
 
 def build_pipeline():
@@ -167,32 +171,28 @@ _FLORENCE_LOCK = threading.Lock()
 
 def load_or_extract_figures(
     pipeline, pdf_extractor, pdf_path: Path, cache_dir: Path
-) -> tuple[list, str]:
-    """Cache Florence-segmented figures + Mistral-OCR'd paper text per paper
-    so re-running VLM experiments (different model/prompt) skips the
-    ~9min CPU-bound OCR + Florence-2 segmentation step entirely.
+) -> list:
+    """Cache Florence-segmented figures per paper so re-running VLM
+    experiments (different model/prompt) skips the ~9min CPU-bound OCR +
+    Florence-2 segmentation step entirely.
 
-    Paper text (image data stripped) is cached alongside figures.json so
-    plot digitization (extract_plot_data) has real paper-text context to
-    disambiguate series -- not just the figure-caption snippet -- on cache
-    hits too, not just on the first run.
+    Paper text for digitization context comes from the HF dataset's own
+    text_paper column (load_materials_by_paper_id), not from OCR -- no
+    need to cache OCR'd text here.
 
     Florence-2 is a single shared CPU model instance -- not thread-safe for
     concurrent forward passes, so figure extraction is serialized via
     _FLORENCE_LOCK even when --workers > 1.
     """
     from llm_synthesis.models.figure import FigureInfo
-    from llm_synthesis.utils.figure_utils import clean_text_from_images
 
     paper_id = pdf_path.stem
     fig_cache_file = cache_dir / paper_id / "figures.json"
-    text_cache_file = cache_dir / paper_id / "paper_text.txt"
-    if fig_cache_file.exists() and text_cache_file.exists():
+    if fig_cache_file.exists():
         raw = json.loads(fig_cache_file.read_text())
-        return [FigureInfo(**f) for f in raw], text_cache_file.read_text()
+        return [FigureInfo(**f) for f in raw]
 
     markdown = pdf_extractor.forward(pdf_path.read_bytes())
-    paper_text = clean_text_from_images(markdown)
     with _FLORENCE_LOCK:
         figures = pipeline.extract_figures(markdown)
 
@@ -200,8 +200,44 @@ def load_or_extract_figures(
     fig_cache_file.write_text(
         json.dumps([f.model_dump() for f in figures], indent=2)
     )
-    text_cache_file.write_text(paper_text)
-    return figures, paper_text
+    return figures
+
+
+def load_or_digitize_plots(
+    pipeline, paper_id: str, figures: list, paper_text: str, cache_dir: Path
+) -> tuple[list, list]:
+    """Cache Claude digitization output (series names, axes) per paper so a
+    later rerun (e.g. after a linking/Tc-prompt change that doesn't touch
+    digitization) doesn't re-pay for the same Claude calls.
+
+    Returns (plots, plot_figures) matching
+    SynthesisPerformancePipeline.extract_plot_data's return shape.
+    """
+    from llm_synthesis.models.figure import FigureInfo
+    from llm_synthesis.models.plot import ExtractedLinePlotData
+
+    digitize_cache_file = cache_dir / paper_id / "digitized_plots.json"
+    if digitize_cache_file.exists():
+        raw = json.loads(digitize_cache_file.read_text())
+        plots = [ExtractedLinePlotData(**d["plot"]) for d in raw]
+        plot_figures = [FigureInfo(**d["figure"]) for d in raw]
+        return plots, plot_figures
+
+    plots, plot_figures = pipeline.extract_plot_data(
+        figures, paper_text=paper_text, si_text=""
+    )
+
+    digitize_cache_file.parent.mkdir(parents=True, exist_ok=True)
+    digitize_cache_file.write_text(
+        json.dumps(
+            [
+                {"plot": p.model_dump(), "figure": f.model_dump()}
+                for p, f in zip(plots, plot_figures)
+            ],
+            indent=2,
+        )
+    )
+    return plots, plot_figures
 
 
 class HFSynthesisMethodCsvWriter:
@@ -249,6 +285,7 @@ def process_one(
     pdf_path: Path,
     materials: list[str],
     cache_dir: Path,
+    paper_text: str = "",
 ):
     from llm_synthesis.domain_metrics.superconductors.tc_vlm_processor import (
         TcVLMProcessor,
@@ -263,16 +300,17 @@ def process_one(
         "Processing %s (%d materials from HF)", paper_id, len(materials)
     )
 
-    figures, paper_text = load_or_extract_figures(
+    figures = load_or_extract_figures(
         pipeline, pdf_extractor, pdf_path, cache_dir
     )
 
     # Digitize plots (series names, using full paper text for context) ->
     # filter to R(T)-relevant plots -> link each plot's series to a
     # material -> read Tc per plot, matching to materials via the linker's
-    # plot_mappings (not a VLM self-match).
-    plots, plot_figures = pipeline.extract_plot_data(
-        figures, paper_text=paper_text, si_text=""
+    # plot_mappings (not a VLM self-match). Digitization (Claude, the
+    # expensive step) is cached per paper -- see load_or_digitize_plots.
+    plots, plot_figures = load_or_digitize_plots(
+        pipeline, paper_id, figures, paper_text, cache_dir
     )
     relevant_plots, _ = pipeline.plot_filter.filter_plots(
         plots, log_skipped=False
@@ -324,7 +362,18 @@ def process_one(
             data["source"] = data.get("source", "main plot") + " (fallback)"
             vlm_metrics[material] = data
 
-    logger.info("  VLM cost: $%.4f", tc_processor.get_cost())
+    # qwen_cost is genuinely per-paper (tc_processor is instantiated fresh
+    # above, not shared across workers). digitizer/linker are single
+    # instances shared across ALL worker threads (built once in
+    # build_pipeline()) -- a per-paper before/after snapshot of their
+    # cumulative cost is not attributable to this paper alone under
+    # concurrent workers (one paper's "delta" picks up cost from whatever
+    # other papers happen to be mid-digitization at the same time), so we
+    # don't try to report a per-paper digitizer/linker split here. See
+    # main()'s running total (pipeline.plot_extractor.get_cost() +
+    # linker lm cost, read once at the end) for the real aggregate.
+    qwen_cost = tc_processor.get_cost()
+    logger.info("  Qwen (Tc-read) cost: $%.4f", qwen_cost)
 
     # DeepSeek tc_text extraction was tried and dropped based on the
     # 19-paper snippet run's Qwen-vs-human agreement -- that comparison
@@ -354,7 +403,7 @@ def process_one(
         ),
         text_metrics,
         vlm_metrics,
-        tc_processor.get_cost(),
+        qwen_cost,
     )
 
 
@@ -388,10 +437,23 @@ def main() -> None:
         type=int,
         default=600,
         help=(
-            "Max seconds per paper (default: 600). A paper that exceeds "
-            "this is marked failed rather than blocking a worker slot "
-            "indefinitely -- re-run with --skip-existing to retry just "
-            "the failed papers."
+            "Seconds per paper before logging a 'SLOW' warning (default: "
+            "600). Purely informational -- the paper's thread can't be "
+            "canceled, so processing continues and the real result is "
+            "still used once it finishes; this only flags unusually slow "
+            "papers in the log."
+        ),
+    )
+    parser.add_argument(
+        "--max-cost",
+        type=float,
+        default=None,
+        help=(
+            "Stop submitting new papers once real spend (digitizer + "
+            "linker + Tc-read, checked after each batch of --workers "
+            "papers finishes) reaches this many dollars. Papers already "
+            "in flight when the cap is hit still finish. Re-run with "
+            "--skip-existing to continue past the cap later."
         ),
     )
     args = parser.parse_args()
@@ -403,7 +465,9 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     logger.info("Loading materials from structured_synthesis (HF dataset)...")
-    materials_by_id, synthesis_method_by_id = load_materials_by_paper_id()
+    materials_by_id, synthesis_method_by_id, paper_text_by_id = (
+        load_materials_by_paper_id()
+    )
     logger.info(
         "  %d papers have materials in HF dataset", len(materials_by_id)
     )
@@ -438,12 +502,14 @@ def main() -> None:
         paper_start = time.time()
         try:
             materials = materials_by_id[pdf_path.stem]
+            paper_text = paper_text_by_id.get(pdf_path.stem, "")
             result, text_metrics, vlm_metrics, cost = process_one(
                 pipeline,
                 pdf_extractor,
                 pdf_path,
                 materials,
                 figure_cache_dir,
+                paper_text=paper_text,
             )
             summary = writer.write_paper(
                 paper_id=pdf_path.stem,
@@ -460,42 +526,89 @@ def main() -> None:
             logger.error("FAILED %s: %s", pdf_path.stem, e)
             return {"paper_id": pdf_path.stem, "error": str(e)}
 
+    def _running_cost(summaries: list[dict]) -> float:
+        """Real aggregate cost so far: digitizer + linker are shared
+        instances (read once, not per-paper -- see process_one for why a
+        per-paper split of these two isn't attributable under concurrent
+        workers), plus the sum of each paper's own Qwen cost."""
+        digitizer_total = (
+            pipeline.plot_extractor.get_cost()
+            if hasattr(pipeline.plot_extractor, "get_cost")
+            else 0.0
+        )
+        linker_total = sum(
+            (h.get("cost") or 0.0)
+            for h in getattr(pipeline.series_linker.lm, "history", [])
+        )
+        qwen_total = sum(s.get("vlm_cost_usd", 0) for s in summaries)
+        return digitizer_total + linker_total + qwen_total
+
     total_start = time.time()
     # Paper-level parallelism: Florence-2 runs single-threaded per call
     # (CPU-bound, shared model instance), so most of the concurrency win
     # comes from overlapping Mistral OCR + Qwen VLM calls across papers.
     #
-    # ponytail: per-paper wall-clock budget via future.result(timeout=...)
-    # instead of executor.map -- a stuck LLM call (seen once, on a
-    # many-series figure) can otherwise block a worker slot for the rest
-    # of a 1000+ paper run. A future that times out is marked failed (not
-    # killed -- Python threads can't be force-stopped) and its thread
-    # finishes in the background; --skip-existing lets a later pass pick
-    # the paper back up with a fresh, presumably-not-stuck attempt.
+    # ponytail: --paper-timeout only WARNS past the budget, it does not
+    # discard the future -- Python threads can't be force-stopped, so a
+    # "timed out" call keeps running and eventually returns a real result
+    # (measured: a call warned past 600s went on to finish at ~1167s with
+    # a valid, billed result). Synthesizing a fake "timeout" summary at
+    # the warning point would silently drop that real result AND its real
+    # cost from the batch total. We still log the overrun so slow papers
+    # are visible, but always wait for and use the actual return value.
+    #
+    # --max-cost is checked between batches of in-flight submissions (not
+    # continuously) -- submit args.workers papers at a time, check the
+    # real running total after each batch drains, stop submitting more
+    # once over budget. Already-submitted papers in the batch still
+    # finish and their real (paid-for) results are kept.
     summaries = []
+    budget_exceeded = False
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
-        futures = {
-            executor.submit(_one, pdf_path): pdf_path for pdf_path in pdf_paths
-        }
-        for future in futures:
-            pdf_path = futures[future]
-            try:
-                summaries.append(future.result(timeout=args.paper_timeout))
-            except TimeoutError:
-                logger.error(
-                    "TIMEOUT %s: exceeded %ds, marking failed "
-                    "(re-run with --skip-existing to retry)",
-                    pdf_path.stem,
-                    args.paper_timeout,
+        for batch_start in range(0, len(pdf_paths), args.workers):
+            if budget_exceeded:
+                logger.warning(
+                    "Stopping: $%.2f spent >= --max-cost $%.2f. "
+                    "%d/%d papers not submitted (re-run with "
+                    "--skip-existing to continue).",
+                    _running_cost(summaries),
+                    args.max_cost,
+                    len(pdf_paths) - batch_start,
+                    len(pdf_paths),
                 )
-                summaries.append(
-                    {"paper_id": pdf_path.stem, "error": "timeout"}
+                break
+
+            batch = pdf_paths[batch_start : batch_start + args.workers]
+            futures = {executor.submit(_one, p): p for p in batch}
+            for future in futures:
+                pdf_path = futures[future]
+                try:
+                    summaries.append(future.result(timeout=args.paper_timeout))
+                except TimeoutError:
+                    logger.warning(
+                        "SLOW %s: exceeded %ds, still waiting for the "
+                        "real result (thread can't be canceled)...",
+                        pdf_path.stem,
+                        args.paper_timeout,
+                    )
+                    summaries.append(future.result())
+
+            if args.max_cost is not None:
+                running = _running_cost(summaries)
+                logger.info(
+                    "  [budget] $%.2f spent so far (cap: $%.2f)",
+                    running,
+                    args.max_cost,
                 )
+                if running >= args.max_cost:
+                    budget_exceeded = True
 
     writer.finalize(output_dir, summaries)
-    total_cost = sum(s.get("vlm_cost_usd", 0) for s in summaries)
+    total_cost = _running_cost(summaries)
     logger.info(
-        "Batch done: %d papers in %.1fs ($%.2f total VLM cost). Results: %s",
+        "Batch done: %d/%d papers in %.1fs ($%.2f total cost: "
+        "digitizer+linker+Tc-read). Results: %s",
+        len(summaries),
         len(pdf_paths),
         time.time() - total_start,
         total_cost,

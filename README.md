@@ -78,6 +78,12 @@ No errors? You're all set!
 
 ---
 
+% Every table in this section that reports a numeric benchmark result (judge agreement, worked-example verdicts, VLM figure-extraction detection metrics) is generated directly from source data by \texttt{examples/scripts/evaluation/generate\_supp\_tables.py}, rather than transcribed by hand:
+% \begin{itemize}
+%   \item \texttt{uv run python examples/scripts/evaluation/generate\_supp\_tables.py} prints every table body to stdout for inspection.
+%   \item \texttt{uv run python examples/scripts/evaluation/generate\_supp\_tables.py \texttt{-{}-}write} writes each table as a standalone \texttt{.tex} fragment under \texttt{results/agreement\_analysis/tables/}, matching the tables pasted below.
+% \end{itemize}
+
 ## Dataset Access
 
 <details>
