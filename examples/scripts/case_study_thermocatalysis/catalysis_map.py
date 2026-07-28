@@ -21,6 +21,7 @@ import warnings
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from anthropic.types import direct_caller
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -1273,10 +1274,16 @@ def _clean_landscape_df(df_curves, require_support=False):
     return df
 
 
-def _darken(color, factor=0.6):
-    """Scale an RGB color's channels down for a darker mean-line variant."""
+def _darken(color, amount=0.25):
+    """Darken while preserving saturation."""
+    import colorsys
     r, g, b = to_rgb(color)
-    return (r * factor, g * factor, b * factor)
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+
+    # Reduce lightness only
+    l *= (1 - amount)
+
+    return colorsys.hls_to_rgb(h, l, s)
 
 
 def make_landscape_fig(
@@ -1480,11 +1487,11 @@ def make_metal_zoom_fig(
             alpha=0.5,
             linewidth=0.8,
             marker="o",
-            markersize=1.6,
+            markersize=1.2,
         )
+        
         categories_present.add(cat)
         curves_by_cat[cat].append((temps, convs))
-
     grid = np.linspace(
         df["coordinates"].apply(lambda c: np.array(c)[:, 0].min()).min(),
         df["coordinates"].apply(lambda c: np.array(c)[:, 0].max()).max(),
@@ -1499,19 +1506,36 @@ def make_metal_zoom_fig(
             warnings.simplefilter("ignore", category=RuntimeWarning)
             mean_curve = np.nanmean(np.vstack(interpolated), axis=0)
         valid = ~np.isnan(mean_curve)
+        mask = valid & (grid >= 250) & (grid <= 700)
         ax.plot(
-            grid[valid],
-            mean_curve[valid],
-            color=cfg["color_fn"](cat),
+            grid[mask],
+            mean_curve[mask],
+            color=_darken(cfg["color_fn"](cat)),
             alpha=1.0,
             linewidth=2,
-            linestyle="--"
+            linestyle="--",
         )
 
     order = cfg["sort_fn"](categories_present)
     handles = [
-        Line2D([0], [0], color=cfg["color_fn"](c), lw=2, label=c) for c in order
+        Line2D([0], [0], color=_darken(cfg["color_fn"](c)), lw=2, label=c) for c in order
     ]
+    handles.append(
+    Line2D(
+            [0], [0],
+            color="black",
+            linestyle="--",
+            linewidth=2,
+            label="Average",
+        )
+    )
+
+    handles = sorted(
+        handles,
+        key=lambda h: len(h.get_label()),
+        reverse=True,
+    )
+
     ax.legend(
         handles=handles,
         title=cfg["legend_title"],
@@ -1534,7 +1558,7 @@ def make_metal_zoom_fig(
     )
     ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
     ax.set_ylabel(Y_LABEL, fontsize=label_fs)
-    ax.tick_params(labelsize=tick_fs)
+    ax.tick_params(labelsize=tick_fs, direction="out")
     ax.set_ylim(-2, 105)
 
     fname = f"fig_zoom_{metal}_by_{color_by}"
@@ -1650,7 +1674,7 @@ def make_fig2(df_curves, size="square"):
     cbar.set_label(
         f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)", fontsize=label_fs, rotation=270
     )
-    cbar.ax.tick_params(labelsize=tick_fs)
+    cbar.ax.tick_params(labelsize=tick_fs, direction = "out")
 
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf")
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.svg")
