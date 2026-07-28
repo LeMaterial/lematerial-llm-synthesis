@@ -11,13 +11,13 @@ architecture:
     _target_: llm_synthesis.utils.dspy_utils.get_llm_from_name
     llm_name: "gemini-2.5-flash-lite"  # 使用Gemini 2.5 Flash Lite
     model_kwargs:
-      # Native reasoning is disabled at the registry (reasoning.effort="none"),
-      # so the completion is just the ChainOfThought reasoning field + the
-      # comma-separated formula list — a few hundred tokens even for a
-      # many-material paper. 4096 is ample; the 16000 workaround was only
-      # needed while reasoning tokens (a bug) were eating the budget.
+      # The completion is the ChainOfThought reasoning field + the
+      # comma-separated formula list. On complex organic papers some models
+      # (e.g. qwen) emit a very long reasoning trace that overran the old 4096
+      # cap and truncated the response before the materials field (parse
+      # failures). Matched to the synthesis/judge budget (12000) to fit those.
       temperature: 0.0
-      max_tokens: 4096
+      max_tokens: 12000
     system_prompt:
       _target_: llm_synthesis.utils.read_prompt_str_from_txt
       prompt_path: "examples/system_prompts/material_extraction/default.txt"
