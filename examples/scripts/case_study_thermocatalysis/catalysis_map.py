@@ -1668,7 +1668,7 @@ def make_fig2(df_curves, size="square"):
     fig_w = fig.get_size_inches()[0]
     ax_pos = ax.get_position()
     cax = fig.add_axes(
-        [ax_pos.x1 + 0.60 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+        [ax_pos.x1 + 0.50 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
     )
     cbar = fig.colorbar(im, cax=cax)
     cbar.set_label(
@@ -1798,7 +1798,7 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
     fig_w, fig_h = fig.get_size_inches()
     ax_pos = ax.get_position()
     cax = fig.add_axes(
-        [ax_pos.x1 + 0.60 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+        [ax_pos.x1 + 0.50 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
     )
     cbar = fig.colorbar(im, cax=cax)
     cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs, rotation=270)
