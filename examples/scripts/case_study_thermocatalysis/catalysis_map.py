@@ -21,6 +21,7 @@ import warnings
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from anthropic.types import direct_caller
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -1211,13 +1212,21 @@ def _add_row_n_column(fig, ax, counts, fontsize):
         n_ax.text(
             0,
             i,
-            f"n={total}",
+            f"{total}",
             ha="left",
             va="center",
-            fontsize=fontsize,
             color="black",
         )
-    n_ax.set_title("N", fontsize=fontsize, loc="left")
+    # Vertical label centered alongside the n-column
+    n_ax.text(
+        0.8,                  # adjust left/right position
+        0.5,                   # centered vertically
+        "Number of catalysts",
+        rotation=270,       
+        ha="center",
+        va="center",
+        transform=n_ax.transAxes,
+    )
 
 
 def _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=0.0):
@@ -1265,10 +1274,16 @@ def _clean_landscape_df(df_curves, require_support=False):
     return df
 
 
-def _darken(color, factor=0.6):
-    """Scale an RGB color's channels down for a darker mean-line variant."""
+def _darken(color, amount=0.25):
+    """Darken while preserving saturation."""
+    import colorsys
     r, g, b = to_rgb(color)
-    return (r * factor, g * factor, b * factor)
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+
+    # Reduce lightness only
+    l *= (1 - amount)
+
+    return colorsys.hls_to_rgb(h, l, s)
 
 
 def make_landscape_fig(
@@ -1442,6 +1457,7 @@ def make_metal_zoom_fig(
         print(f"  ⚠ No data for metal zoom ({metal})")
         return
     df = _clean_landscape_df(df_curves, require_support=(color_by == "support"))
+
     df = df[df["metal"] == metal]
     if df.empty:
         print(f"  ⚠ No curves for metal={metal} (color_by={color_by})")
@@ -1461,21 +1477,21 @@ def make_metal_zoom_fig(
             continue
         temps, convs = coords[:, 0], coords[:, 1]
         cat = row[cfg["column"]]
-        if pd.isna(cat):
-            cat = "Other"
+        if pd.isna(cat) or str(cat).strip().lower() == "other":
+            continue
         color = cfg["color_fn"](cat)
         ax.plot(
             temps,
             convs,
             color=color,
-            alpha=0.7,
-            linewidth=1.0,
+            alpha=0.5,
+            linewidth=0.8,
             marker="o",
-            markersize=2,
+            markersize=1.2,
         )
+        
         categories_present.add(cat)
         curves_by_cat[cat].append((temps, convs))
-
     grid = np.linspace(
         df["coordinates"].apply(lambda c: np.array(c)[:, 0].min()).min(),
         df["coordinates"].apply(lambda c: np.array(c)[:, 0].max()).max(),
@@ -1490,18 +1506,36 @@ def make_metal_zoom_fig(
             warnings.simplefilter("ignore", category=RuntimeWarning)
             mean_curve = np.nanmean(np.vstack(interpolated), axis=0)
         valid = ~np.isnan(mean_curve)
+        mask = valid & (grid >= 250) & (grid <= 700)
         ax.plot(
-            grid[valid],
-            mean_curve[valid],
+            grid[mask],
+            mean_curve[mask],
             color=_darken(cfg["color_fn"](cat)),
             alpha=1.0,
-            linewidth=2.5,
+            linewidth=2,
+            linestyle="--",
         )
 
     order = cfg["sort_fn"](categories_present)
     handles = [
-        Line2D([0], [0], color=cfg["color_fn"](c), lw=2, label=c) for c in order
+        Line2D([0], [0], color=_darken(cfg["color_fn"](c)), lw=2, label=c) for c in order
     ]
+    handles.append(
+    Line2D(
+            [0], [0],
+            color="black",
+            linestyle="--",
+            linewidth=2,
+            label="Average",
+        )
+    )
+
+    handles = sorted(
+        handles,
+        key=lambda h: len(h.get_label()),
+        reverse=True,
+    )
+
     ax.legend(
         handles=handles,
         title=cfg["legend_title"],
@@ -1524,7 +1558,7 @@ def make_metal_zoom_fig(
     )
     ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
     ax.set_ylabel(Y_LABEL, fontsize=label_fs)
-    ax.tick_params(labelsize=tick_fs)
+    ax.tick_params(labelsize=tick_fs, direction="out")
     ax.set_ylim(-2, 105)
 
     fname = f"fig_zoom_{metal}_by_{color_by}"
@@ -1612,9 +1646,19 @@ def make_fig2(df_curves, size="square"):
                 color=txt_color,
             )
 
+
     ax.set_xticks(range(len(supports)))
+    ax.tick_params(direction="out")
     ax.set_xticklabels(supports, rotation=45, ha="right", fontsize=tick_fs)
     ax.set_yticks(range(len(metals)))
+    ax.tick_params(
+        axis="y",
+        which="both",
+        left=True,
+        right=True,
+        direction="out",
+    )
+    ax.minorticks_off()
     ax.set_yticklabels(metals, fontsize=tick_fs)
     ax.set_xlabel("Support Material", fontsize=label_fs)
     ax.set_ylabel("Active Metal / Alloy", fontsize=label_fs)
@@ -1624,13 +1668,13 @@ def make_fig2(df_curves, size="square"):
     fig_w = fig.get_size_inches()[0]
     ax_pos = ax.get_position()
     cax = fig.add_axes(
-        [ax_pos.x1 + 0.75 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+        [ax_pos.x1 + 0.60 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
     )
     cbar = fig.colorbar(im, cax=cax)
     cbar.set_label(
-        f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)", fontsize=label_fs
+        f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)", fontsize=label_fs, rotation=270
     )
-    cbar.ax.tick_params(labelsize=tick_fs)
+    cbar.ax.tick_params(labelsize=tick_fs, direction = "out")
 
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf")
     fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.svg")
@@ -1730,8 +1774,17 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
                 color=txt_color,
             )
     ax.set_xticks(range(len(temp_bins)))
+    ax.tick_params(direction="out")
     ax.set_xticklabels([f"{t:.0f}" for t in temp_bins], fontsize=tick_fs)
     ax.set_yticks(range(len(metals)))
+    ax.tick_params(
+        axis="y",
+        which="both",
+        left=True,
+        right=True,
+        direction="out",
+    )
+    ax.minorticks_off()
     ax.set_yticklabels(metals, fontsize=tick_fs)
     ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
     ax.set_ylabel("Active Metal / Alloy", fontsize=label_fs)
@@ -1745,10 +1798,10 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
     fig_w, fig_h = fig.get_size_inches()
     ax_pos = ax.get_position()
     cax = fig.add_axes(
-        [ax_pos.x1 + 0.75 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+        [ax_pos.x1 + 0.60 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
     )
     cbar = fig.colorbar(im, cax=cax)
-    cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs)
+    cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs, rotation=270)
     cbar.ax.tick_params(labelsize=tick_fs)
 
     fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.pdf")
