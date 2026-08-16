@@ -2,21 +2,19 @@
 
 Each table in supp.tex should trace to a script, not a manual transcription.
 This script is that trace: it reads only from committed source files
-(annotations/, results/agreement_analysis/, data/results_catalysis_*) and
-prints ready-to-paste \\begin{tabular}...\\end{tabular} blocks, or writes them
-to results/agreement_analysis/tables/*.tex if --write is passed.
+(annotations/, results/agreement_analysis/, data/results_catalysis_*) and the
+published LeMaterial/LeMat-Synth "full" config, and prints ready-to-paste
+\\begin{tabular}...\\end{tabular} blocks, or writes them to
+results/agreement_analysis/tables/*.tex if --write is passed.
 
 Covers (see README table below for the supp.tex label each maps to):
-  1. table:human-llm-comparison       -- judge agreement, loo_no_self
+  1. table:human-llm-comparison               -- judge agreement, loo_no_self
   2. worked examples (Bi-Pb-Sr-Cu-O, WFe2Ni-red, ...) -- per-judge verdicts
-  3. tab:thermocat-vlm-extraction      -- VLM figure-extraction benchmark
-
-Does NOT cover (see plan discussed with the user):
-  - table:llm_syn_scores-synthesis-type / -material-type: the N=2483 scored
-    subset these were built from is stale and pending a full 81k-paper rerun.
-    generate_synthesis_method_table() below is a stub that raises
-    NotImplementedError with a pointer to what CSV it expects once that rerun
-    lands -- do not fill this in with old/guessed numbers.
+  3. tab:thermocat-vlm-extraction              -- VLM figure-extraction
+     benchmark
+  4. table:llm-syn-scores-synthesis-type / -material-type -- per-method/
+     per-category mean +/- std judge scores, computed over the full
+     LeMat-Synth "full" config (all procedures with a non-null evaluation).
 
 Usage:
     uv run python examples/scripts/evaluation/generate_supp_tables.py
@@ -288,21 +286,89 @@ def generate_thermocat_vlm_table(write: bool = False) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Stub: pending the full 81k-paper rerun (see user instruction: keep as
-# placeholder, do not fill in with old/guessed numbers).
+# 4. table:llm-syn-scores-synthesis-type / -material-type (supp.tex ~line 740)
 # ---------------------------------------------------------------------------
 
+SCORE_CRITERIA = [
+    "structural_completeness_score",
+    "material_extraction_score",
+    "process_steps_score",
+    "equipment_extraction_score",
+    "conditions_extraction_score",
+    "semantic_accuracy_score",
+    "format_compliance_score",
+    "overall_score",
+]
 
-def generate_synthesis_method_table(*_args, **_kwargs) -> None:
-    raise NotImplementedError(
-        "table:llm_syn_scores-synthesis-type / -material-type are pending the "
-        "full 81,000-paper inference rerun. Once that CSV exists (expected "
-        "columns: synthesis_method OR material_category, "
-        "{structural_completeness,material_extraction,process_steps,"
-        "equipment_extraction,conditions_extraction,semantic_accuracy,"
-        "format_compliance,overall}_score, per-procedure rows), point this "
-        "function at it and remove this stub."
+
+def _load_full_synth_df() -> pd.DataFrame:
+    """Loads LeMaterial/LeMat-Synth "full" (all 3 sources), one row per
+    procedure, with the 8 judge score columns flattened out of `evaluation`.
+    """
+    from datasets import load_dataset
+
+    ds = load_dataset("LeMaterial/LeMat-Synth", "full")
+    dfs = [d.to_pandas() for d in ds.values()]
+    df = pd.concat(dfs, ignore_index=True)
+    df = df[df["evaluation"].notna()].copy()
+    for crit in SCORE_CRITERIA:
+        df[crit] = df["evaluation"].apply(
+            lambda e, crit=crit: (e or {}).get("scores", {}).get(crit)
+        )
+    return df
+
+
+def _score_summary_table(
+    df: pd.DataFrame, group_col: str, row_label: str
+) -> str:
+    grouped = df.groupby(group_col)
+    counts = grouped.size().sort_values(ascending=False)
+
+    rows = []
+    for group_val, count in counts.items():
+        sub = grouped.get_group(group_val)
+        cells = []
+        for crit in SCORE_CRITERIA:
+            vals = sub[crit].dropna()
+            if len(vals) == 0:
+                cells.append("-")
+            elif len(vals) == 1:
+                cells.append(f"{vals.iloc[0]:.2f}$\\pm$nan")
+            else:
+                cells.append(f"{vals.mean():.2f}$\\pm${vals.std():.2f}")
+        label = str(group_val).replace("&", "\\&")
+        rows.append(f"{label} & " + " & ".join(cells) + f" & {count} \\\\")
+
+    header = (
+        f"\\textbf{{{row_label}}} & \\textbf{{Structural}} & "
+        "\\textbf{Material} & "
+        "\\textbf{Process} & \\textbf{Equipment} & \\textbf{Condition} & "
+        "\\textbf{Semantic} & \\textbf{Format} & \\textbf{Overall} & "
+        "\\textbf{Count} \\\\ \n"
+        "\\textbf{} & \\textbf{completeness} & \\textbf{completeness} & "
+        "\\textbf{steps} & \\textbf{extraction} & \\textbf{extraction} & "
+        "\\textbf{accuracy} & \\textbf{compliance} & \\textbf{score} & "
+        "\\textbf{} \\\\"
     )
+    return (
+        "\\begin{tabular}{lccccccccc}\n"
+        "\\toprule\n" + header + "\n"
+        "\\midrule\n" + "\n".join(rows) + "\n"
+        "\\bottomrule\n"
+        "\\end{tabular}\n"
+    )
+
+
+def generate_synthesis_method_table(write: bool = False) -> None:
+    df = _load_full_synth_df()
+    body = _score_summary_table(df, "synthesis_method", "Synthesis\\\\method")
+    _write_or_print("table_llm_syn_scores_synthesis_type", body, write)
+
+
+def generate_material_category_table(write: bool = False) -> None:
+    df = _load_full_synth_df()
+    body = _score_summary_table(df, "material_category", "Material\\\\category")
+    _write_or_print("table_llm_syn_scores_material_type", body, write)
 
 
 def main() -> None:
@@ -352,6 +418,8 @@ def main() -> None:
         write=args.write,
     )
     generate_thermocat_vlm_table(write=args.write)
+    generate_synthesis_method_table(write=args.write)
+    generate_material_category_table(write=args.write)
 
 
 if __name__ == "__main__":
