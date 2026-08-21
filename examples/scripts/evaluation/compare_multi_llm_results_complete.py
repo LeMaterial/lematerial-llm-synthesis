@@ -99,8 +99,15 @@ def load_annotations(annotations_dir, skip_folders=None):
 
         # --- Collect human scores per synth LLM (first pass) ---
         human_scores_by_synth = {}  # synth_llm -> {material_name: scores_dict}
+        # material_name -> category fields from the human ground-truth recipe
+        human_category_by_mat = {}
         for human_mat in human_data.get("materials", []):
             mat_name = human_mat.get("material_name", "")
+            recipe = human_mat.get("human_recipe") or {}
+            human_category_by_mat[mat_name] = {
+                "target_compound_type": recipe.get("target_compound_type"),
+                "synthesis_method": recipe.get("synthesis_method"),
+            }
             evals = human_mat.get("evaluations", [])
             for idx, synth_llm in enumerate(extractor_order):
                 if idx >= len(evals):
@@ -141,11 +148,16 @@ def load_annotations(annotations_dir, skip_folders=None):
 
             for mat_name, scores in h_scores.items():
                 material_id = f"{paper_id}__{synth_llm}__{mat_name}"
+                category = human_category_by_mat.get(mat_name, {})
                 base = {
                     "paper_id": paper_id,
                     "material_id": material_id,
                     "material": mat_name,
                     "synth_llm": synth_llm,
+                    "target_compound_type": category.get(
+                        "target_compound_type"
+                    ),
+                    "synthesis_method": category.get("synthesis_method"),
                 }
                 lookup_key = match_map.get(synth_llm, {}).get(mat_name)
 
@@ -513,20 +525,13 @@ def _save_ranking_png(ranked, rank_by):
         fontweight="bold",
         pad=20,
     )
-    out_png = os.path.join(OUTPUT_DIR, "multi_llm_judge_ranking.png")
+    out_png = os.path.join(OUTPUT_DIR, f"multi_llm_judge_ranking_{rank_by}.png")
     plt.savefig(out_png, dpi=300, bbox_inches="tight", facecolor="white")
     plt.close()
     return out_png
 
 
 def main():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    logging.basicConfig(
-        filename=os.path.join(OUTPUT_DIR, "multi_llm_complete.log"),
-        level=logging.INFO,
-        force=True,
-        filemode="w",
-    )
     parser = argparse.ArgumentParser(
         description="Compare multi-LLM results with human annotations",
     )
@@ -539,10 +544,21 @@ def main():
     )
     args = parser.parse_args()
 
-    # same as compare_human_judge_scores_complete.py
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    logging.basicConfig(
+        filename=os.path.join(
+            OUTPUT_DIR, f"multi_llm_complete_{args.rank_by}.log"
+        ),
+        level=logging.INFO,
+        force=True,
+        filemode="w",
+    )
+
+    # Papers whose result.json carries null judge outputs (would crash the
+    # matched loader) or non-paper helper folders; matches analyze_judge_
+    # extractor_insights.py's SKIP_FOLDERS.
     skip_folders = [
         "annotation_guide_catalysis",
-        "f2f0828a5de4a3262edc73876809a9fe03ed6ff5",
         "2883daff26f16a13134a26ca5d366549a14fcc9c",
         "90233593a9aa72b4bacfdeadc20050ae6d4b88e1",
     ]
@@ -575,7 +591,9 @@ def main():
     synth_judge_heatmap(human_df, llm_df)
 
     # Save JSON
-    out_json = os.path.join(OUTPUT_DIR, "multi_llm_judge_ranking.json")
+    out_json = os.path.join(
+        OUTPUT_DIR, f"multi_llm_judge_ranking_{args.rank_by}.json"
+    )
     with open(out_json, "w", encoding="utf-8") as fh:
         json.dump(
             [
@@ -591,10 +609,12 @@ def main():
     out_png = _save_ranking_png(ranked, args.rank_by)
 
     logging.info(
-        "\nSaved judge ranking to %s and %s | Log at %s/multi_llm_complete.log",
+        "\nSaved judge ranking to %s and %s | "
+        "Log at %s/multi_llm_complete_%s.log",
         out_json,
         out_png,
         OUTPUT_DIR,
+        args.rank_by,
     )
 
 

@@ -119,15 +119,18 @@ class FigureExtractorMarkdown(FigureExtractorInterface):
                 quantitative=False,
             )
 
-            # Classify using ResNet
-            try:
-                predicted_label = self.classifier.predict(detection.image)
-                figure_info.figure_class = predicted_label
-
-                if predicted_label in QUANT_FIGURE_CATEGORIES:
-                    figure_info.quantitative = True
-            except Exception as e:
-                print(f"Failed to classify subfigure: {e}")
+            # Florence label takes priority; ResNet as fallback
+            if self.segmenter.is_quantitative(detection.label):
+                figure_info.quantitative = True
+                figure_info.figure_class = detection.label
+            else:
+                try:
+                    predicted_label = self.classifier.predict(detection.image)
+                    figure_info.figure_class = predicted_label
+                    if predicted_label in QUANT_FIGURE_CATEGORIES:
+                        figure_info.quantitative = True
+                except Exception as e:
+                    print(f"Failed to classify subfigure: {e}")
 
             results.append(figure_info)
 
