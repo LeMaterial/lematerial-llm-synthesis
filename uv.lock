@@ -887,31 +887,6 @@ wheels = [
 ]
 
 [[package]]
-name = "datasets"
-version = "5.0.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "dill" },
-    { name = "filelock" },
-    { name = "fsspec", extra = ["http"] },
-    { name = "httpx" },
-    { name = "huggingface-hub" },
-    { name = "multiprocess" },
-    { name = "numpy" },
-    { name = "packaging" },
-    { name = "pandas" },
-    { name = "pyarrow" },
-    { name = "pyyaml" },
-    { name = "requests" },
-    { name = "tqdm" },
-    { name = "xxhash" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/0a/5b/836516269d4f618efe621661cfb6f9acc57e6f95265db3efaee48a5ffe04/datasets-5.0.1.tar.gz", hash = "sha256:ce22bb851efd7494f08aad33b940803784434f6e77763d00679a0dc45fcf686a", size = 641498, upload-time = "2026-07-28T11:09:12.016Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/44/0b/98fc6eb83333508ca5f44c52b3e287ea8137a0ad582714e2cbc67a02154b/datasets-5.0.1-py3-none-any.whl", hash = "sha256:9fbf73688f8c18f7529b4fe592abd04015f81d1e58001e4bac73ffb2b39d7cc4", size = 559079, upload-time = "2026-07-28T11:09:10.266Z" },
-]
-
-[[package]]
 name = "debugpy"
 version = "1.8.21"
 source = { registry = "https://pypi.org/simple" }
@@ -1495,11 +1470,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/10/a1/ae4e3e5003468d6391d2c77b6fa1cd73bd5d13511d81c642d7b28ac90ed4/fsspec-2026.6.0.tar.gz", hash = "sha256:f5bac145310fe30e16e1471bd6840b2d990d609e872251d7e674241822abf01a", size = 313646, upload-time = "2026-06-16T01:57:28.105Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e5/22/4222d7ddf3da30f363edaa98e329c2bce6c65497c9cb2810931c8b2c0fbc/fsspec-2026.6.0-py3-none-any.whl", hash = "sha256:02e0b71817df9b2169dc30a16832045764def1191b43dcff5bb85bdee212d2a1", size = 203949, upload-time = "2026-06-16T01:57:26.358Z" },
-]
-
-[package.optional-dependencies]
-http = [
-    { name = "aiohttp" },
 ]
 
 [[package]]
@@ -2711,7 +2681,6 @@ source = { editable = "." }
 dependencies = [
     { name = "anthropic" },
     { name = "cmcrameri" },
-    { name = "datasets" },
     { name = "docling" },
     { name = "dspy" },
     { name = "einops" },
@@ -2749,7 +2718,6 @@ dev = [
     { name = "ipykernel" },
     { name = "ipython" },
     { name = "ipywidgets" },
-    { name = "markdown-callouts" },
     { name = "mkdocs" },
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
@@ -2762,7 +2730,6 @@ dev = [
 requires-dist = [
     { name = "anthropic", specifier = ">=0.54.0" },
     { name = "cmcrameri", specifier = ">=1.9" },
-    { name = "datasets", specifier = ">=5.0.0" },
     { name = "docling", specifier = ">=2.31.2" },
     { name = "dspy", specifier = ">=2.6.24" },
     { name = "einops", specifier = ">=0.8.2" },
@@ -2800,7 +2767,6 @@ dev = [
     { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "ipython", specifier = ">=9.2.0" },
     { name = "ipywidgets", specifier = ">=8.1.7" },
-    { name = "markdown-callouts", specifier = ">=0.4" },
     { name = "mkdocs", specifier = ">=1.6" },
     { name = "mkdocs-material", specifier = ">=9.5" },
     { name = "mkdocstrings", extras = ["python"], specifier = ">=0.25" },
@@ -2927,18 +2893,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/2b/f4/69fa6ed85ae003c2378ffa8f6d2e3234662abd02c10d216c0ba96081a238/markdown-3.10.2.tar.gz", hash = "sha256:994d51325d25ad8aa7ce4ebaec003febcce822c3f8c911e3b17c52f7f589f950", size = 368805, upload-time = "2026-02-09T14:57:26.942Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/de/1f/77fa3081e4f66ca3576c896ae5d31c3002ac6607f9747d2e3aa49227e464/markdown-3.10.2-py3-none-any.whl", hash = "sha256:e91464b71ae3ee7afd3017d9f358ef0baf158fd9a298db92f1d4761133824c36", size = 108180, upload-time = "2026-02-09T14:57:25.787Z" },
-]
-
-[[package]]
-name = "markdown-callouts"
-version = "0.4.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "markdown" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/87/73/ae5aa379f6f7fea9d0bf4cba888f9a31d451d90f80033ae60ae3045770d5/markdown_callouts-0.4.0.tar.gz", hash = "sha256:7ed2c90486967058a73a547781121983839522d67041ae52c4979616f1b2b746", size = 9768, upload-time = "2024-01-22T23:18:18.513Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/b5/7b0a0a52c82bfccd830af2a8cc8add1c5bc932e0204922434954a631dd51/markdown_callouts-0.4.0-py3-none-any.whl", hash = "sha256:ed0da38f29158d93116a0d0c6ecaf9df90b37e0d989b5337d678ee6e6d6550b7", size = 7108, upload-time = "2024-01-22T23:18:17.465Z" },
 ]
 
 [[package]]
