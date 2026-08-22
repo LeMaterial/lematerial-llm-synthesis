@@ -1,7 +1,6 @@
 # Troubleshooting
 
-This page covers the most common problems encountered when running LeMat-Synth,
-with plain-English explanations and fixes.
+This page covers the most common problems encountered when running LeMat-Synth.
 
 ---
 
@@ -54,12 +53,20 @@ uv run playwright install
    ```
    GEMINI_API_KEY=your-key-here
    ```
-2. If running a script directly, make sure to `source .env` first (Linux/macOS):
+2. The `lemat-synth` CLI, the notebooks, and
+   `extract_synthesis_with_performance.py` / `run_performance_only.py` load `.env`
+   automatically. The other deployment scripts do **not** — for those, export the
+   keys into the environment first (Linux/macOS):
    ```bash
-   source .env
+   set -a && source .env && set +a
    uv run examples/scripts/deployment/extract_synthesis_procedure_from_text.py
    ```
-3. The `lemat-synth` CLI and the notebooks load `.env` automatically.
+
+   > [!WARNING]
+   > Plain `source .env` is **not** enough. It creates shell variables that child
+   > processes never see, so the script still starts without your keys. The `set -a`
+   > around it is what actually exports them. On Windows PowerShell, set the variable
+   > directly: `$env:GEMINI_API_KEY = "your-key-here"`.
 
 **Which key do I need?**
 
@@ -77,9 +84,10 @@ uv run playwright install
 
 **Cause:** The script checks explicitly for `GEMINI_API_KEY` and raises if it is missing.
 
-**Fix:** Add it to your `.env` file and `source .env`, or set it as an environment variable:
+**Fix:** Add it to your `.env` file and export it, or set it directly:
 ```bash
-export GEMINI_API_KEY=your-key-here
+set -a && source .env && set +a     # exports everything in .env
+export GEMINI_API_KEY=your-key-here # or just this one key
 ```
 
 ---
@@ -90,12 +98,18 @@ export GEMINI_API_KEY=your-key-here
 
 **Possible causes and fixes:**
 
-1. **Docling fails on a corrupted or image-only PDF** — try Mistral OCR instead:
+1. **Docling fails on a corrupted or image-only PDF** — try Mistral OCR instead
+   (requires `MISTRAL_API_KEY`):
    ```bash
+   # with the CLI
+   lemat-synth extract my_paper.pdf pdf_extractor=mistral
+
+   # or for a whole folder, with the conversion script
    uv run examples/scripts/deployment/extract_text_from_pdfs.py \
-     # edit the script and change PDFExtractorEnum to MISTRAL
+     --input-path data/pdf_papers \
+     --output-path data/txt_papers/mistral \
+     --process mistral
    ```
-   Or, if you have the Mistral key, convert with Mistral directly.
 
 2. **`playwright install` was not run** — see the installation fix above.
    Playwright is used when downloading PDFs from journal websites.
@@ -117,11 +131,19 @@ export GEMINI_API_KEY=your-key-here
 **Fixes:**
 - Verify the paper text is complete: open the `.txt`/`.md` file and check it has
   the full synthesis section
-- In the quickstart notebook, try printing `len(paper_text)` — it should be > 2,000 characters
+- Print `len(paper.publication_text)` — it should be well over 2,000 characters
 - If the text is fine but materials are missed, try a more capable model:
+  ```bash
+  lemat-synth extract my_paper.txt material_model=gemini/gemini-2.5-flash
+  ```
+  or, in Python, build the extractor with a stronger model
+  (`configure_dspy` only sets the DSPy default and returns nothing — pass the model
+  to the extractor itself):
   ```python
-  # In the notebook, change:
-  lm = configure_dspy("gemini-2.5-flash")  # instead of flash-lite
+  material_extractor = DspyTextExtractor(
+      signature=material_sig,
+      lm=get_llm_from_name("gemini-2.5-flash", model_kwargs={"temperature": 0.0}),
+  )
   ```
 
 ---
@@ -133,8 +155,9 @@ This can happen when the paper describes synthesis very briefly, or uses non-sta
 terminology.
 
 **Fixes:**
-- Check the quality score in `evaluation.overall_score` — if it is below 2.0 the
-  extraction likely failed
+- Check the quality score in `evaluation.scores.overall_score` (note the nesting) —
+  if it is below 2.0 the extraction likely failed. `evaluation.extraction_errors`
+  usually says what went wrong
 - Try a more capable model (`gemini-2.5-flash` or `claude-sonnet-4.6`)
 - Check that the material name exactly matches how it appears in the paper
 
@@ -167,11 +190,16 @@ enough detail to fill all schema fields — which is faithfully reflected.
 
 2. Use a faster / cheaper model for the first pass:
    ```bash
-   lemat-synth batch /papers/ results/ --model gemini-2.5-flash-lite
+   lemat-synth batch papers/ synthesis_model=gemini/gemini-2.5-flash-lite
    ```
 
-3. For the deployment scripts, reduce the `ThreadPoolExecutor` `max_workers` argument
-   directly in the script.
+3. Lower the number of papers processed at the same time:
+   ```bash
+   lemat-synth batch papers/ max_papers_parallel=2
+   ```
+
+4. For the Hydra deployment scripts, lower the paper-level worker count with the
+   `LLM_SYNTHESIS_MAX_PAPER_WORKERS` environment variable (default 4).
 
 ---
 
@@ -207,9 +235,11 @@ uv run examples/scripts/deployment/extract_synthesis_procedure_from_text.py \
 
 ### `HydraException: Could not load config` or `config not found`
 
-**Cause:** The Hydra scripts must be run from the repository root, **not** from within
-the `examples/` folder, because Hydra resolves config paths relative to the working
-directory.
+**Cause:** Hydra finds `examples/config/` relative to the *script file*, so that part
+works from anywhere — but the scripts resolve data folders and system-prompt paths
+against the directory you launched from, and `hydra.job.chdir: true` moves the process
+into a timestamped run directory. Launching from anywhere other than the repository
+root therefore breaks those relative paths.
 
 **Fix:** Always run from the repository root:
 ```bash
@@ -234,7 +264,8 @@ uv run ... data_loader.data_dir=/my/path               # wrong: key is inside 'a
 
 ## Getting more help
 
-- Check the [examples/README.md](../../examples/README.md) to confirm you are using
-  the right script for your use case.
+- Check the [CLI Reference](cli.md) and the
+  [Configuration guide](../developer-guide/configuration.md#which-script-uses-which-system)
+  to confirm you are using the right entry point for your use case.
 - If the paper text is good but extraction fails consistently, open an issue on GitHub
   with the paper ID, the error message, and the first 200 characters of the paper text.

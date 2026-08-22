@@ -57,8 +57,13 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - github-callouts
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.tabbed:
@@ -66,6 +71,8 @@ markdown_extensions:
   - tables
   - attr_list
   - md_in_html
+  - toc:
+      toc_depth: 2
 
 nav:
   - Home: index.md
@@ -74,13 +81,13 @@ nav:
       - Quickstart: getting-started/quickstart.md
   - User Guide:
       - CLI Reference: user-guide/cli.md
+      - Python API: user-guide/python-api.md
       - Output Format: user-guide/output-format.md
-      - Configuration & Models: user-guide/configuration.md
       - Troubleshooting: user-guide/troubleshooting.md
   - Developer Guide:
       - Architecture: developer-guide/architecture.md
       - Annotations: developer-guide/annotations.md
-      - Configuration Internals: developer-guide/configuration-internals.md
+      - Configuration & Models: developer-guide/configuration.md
   - API Reference:
       - Pipeline: api/pipeline.md
       - Data Models: api/models.md
