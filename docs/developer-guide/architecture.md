@@ -26,10 +26,11 @@ YAML file (or passing a CLI flag). No Python needs to change.
 
 ## Pipeline stages
 
-```
-data_loader → material_extraction → synthesis_extraction → judge → result_gather
-                                                       ↘
-                               figure_extraction → plot_extraction → performance_linking
+```mermaid
+flowchart LR
+    data_loader --> material_extraction --> synthesis_extraction --> judge --> result_gather
+    figure_extraction --> plot_extraction --> performance_linking
+    synthesis_extraction --> performance_linking
 ```
 
 Each arrow is a handoff between two independently-runnable stages. The full
@@ -43,9 +44,9 @@ end-to-end flow is orchestrated by
 | `synthesis_extraction` | Extracts a structured recipe per material | `DspySynthesisExtractor` |
 | `judge` | Scores extraction quality (1–5 per dimension) | `DspyGeneralSynthesisJudge` |
 | `figure_extraction` | Detects and crops figures from the paper | `HFFigureExtractor` |
-| `plot_extraction` | Reads x/y data from each figure | `LiteLLMPlotDataExtractor` |
+| `plot_extraction` | Reads x/y data from each figure | `ClaudeLinePlotDataExtractor` (CLI default), `LiteLLMPlotDataExtractor` |
 | `performance_linking` | Matches plot series to synthesized materials | `SeriesMaterialLinker` |
-| `result_gather` | Writes results to disk or cloud storage | `FsResultGather` |
+| `result_gather` | Writes results to disk or cloud storage | `SynthesisFSResultGather` |
 
 ---
 
@@ -175,7 +176,7 @@ you are debugging a data-flow issue, start here.
 
 YAML files only. No Python. This is where you decide which concrete class
 gets instantiated for each stage, which LLM it uses, and which dataset split
-it reads. See the [Configuration internals](configuration-internals.md) page
+it reads. See the [Configuration & Models](configuration.md) page
 for details.
 
 ---
@@ -219,8 +220,10 @@ automatically because DSPy serialises the Pydantic schema into the prompt.
 
 Open
 `src/llm_synthesis/services/pipelines/synthesis_performance_pipeline.py` and
-read top-to-bottom. Each method corresponds to one pipeline stage, and the
-`run()` method shows the order they execute in.
+read top-to-bottom. Each method corresponds to one pipeline stage, and
+`process_paper()` shows the order they execute in. `process_paper_async()` is the
+same sequence with the independent LLM calls run concurrently — the CLI uses that
+one, and the two must be kept in step when either is edited.
 
 ---
 
@@ -230,6 +233,6 @@ read top-to-bottom. Each method corresponds to one pipeline stage, and the
 |---------|------|--------------|
 | `get_llm_from_name(name)` | `utils/dspy_utils.py` | You need a DSPy LM object from a model name string |
 | `configure_dspy(lm)` | `utils/dspy_utils.py` | You are writing a standalone script and want a quick DSPy setup |
-| `run_with_semaphore(fn, sem, *args)` | `utils/concurrency.py` | You are adding concurrent LLM calls and need rate limiting |
+| `run_with_semaphore(sem, fn, *args)` | `utils/concurrency.py` | You are adding concurrent LLM calls and need rate limiting (semaphore comes first) |
 | `read_prompt_str_from_txt(path)` | `utils/prompt_utils.py` | You want to load a system prompt from a `.txt` file |
 | `folder_id_to_hf_id(pid)` | `utils/paper_id_utils.py` | Converting between local folder names and HF dataset IDs |

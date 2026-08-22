@@ -55,9 +55,11 @@ For the canonical repo this is already configured in `mkdocs.yml`:
 site_url: https://lematerial.github.io/lematerial-llm-synthesis/
 ```
 
-### Option B — GitHub Actions (auto-deploy on push)
+### Option B — GitHub Actions (auto-deploy on push) — **already set up**
 
-Add `.github/workflows/docs.yml`:
+This repository already deploys on every push to `main` that touches `docs/` or
+`mkdocs.yml`, via [`.github/workflows/docs.yml`](../.github/workflows/docs.yml).
+Nothing to do; the workflow looks like this:
 
 ```yaml
 name: Deploy docs

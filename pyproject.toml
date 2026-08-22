@@ -51,6 +51,7 @@ packages = ["src/llm_synthesis"]
 [dependency-groups]
 data = ["arxiv>=2.2.0", "chemrxiv>=0.1.2"]
 dev = [
+    "markdown-callouts>=0.4",
     "mkdocs>=1.6",
     "mkdocs-material>=9.5",
     "mkdocstrings[python]>=0.25",

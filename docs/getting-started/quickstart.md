@@ -4,22 +4,24 @@ This page gets you from zero to your first extracted synthesis in under 10 minut
 
 ## Option 1 — Interactive notebook (recommended for beginners)
 
-Open the quickstart notebook in Jupyter:
+Open the step-by-step notebook in Jupyter:
 
 ```bash
-uv run jupyter lab examples/notebooks/00_quickstart.ipynb
+uv run jupyter lab examples/notebooks/synthesis_with_performance.ipynb
 ```
 
-The notebook walks you through each step with explanations, lets you paste or load
-a paper, and saves the result as a JSON file.
+Edit the configuration cell at the top (`INPUT_PATH`, the models, `SKIP_FIGURES`),
+then run the cells in order. Each step — materials, synthesis procedures, plot data —
+prints its result before the next one starts, so you can see exactly what the models
+returned and stop wherever you like.
 
 ---
 
 ## Option 2 — Command line (one paper)
 
 ```bash
-# Make sure your .env file has GEMINI_API_KEY set
-source .env
+# The lemat-synth CLI reads .env itself — no need to source anything.
+# Just make sure .env at the repo root contains GEMINI_API_KEY=...
 
 # Extract synthesis from one text file
 lemat-synth extract my_paper.txt
@@ -35,14 +37,20 @@ lemat-synth extract my_paper.pdf
 ## Option 3 — Command line (batch)
 
 ```bash
-lemat-synth batch /path/to/my_papers/ results/
+lemat-synth batch /path/to/my_papers/ output_dir=results/
 ```
 
-Add `--max 5` to process only the first 5 papers as a test:
+Settings are given as `key=value` pairs after the folder — there are no `--flags`.
+Add `max_papers=5` to process only the first 5 papers as a test:
 
 ```bash
-lemat-synth batch /path/to/my_papers/ results/ --max 5
+lemat-synth batch /path/to/my_papers/ output_dir=results/ max_papers=5
 ```
+
+> [!TIP]
+> Always do a `max_papers=5` run first. Cost and runtime scale with the number of
+> *materials*, not papers, so a folder of catalysis papers can be several times more
+> expensive than the same number of single-material papers.
 
 ---
 
@@ -114,7 +122,15 @@ Each result file looks like this (simplified):
     ]
   },
   "evaluation": {
-    "overall_score": 4.2
+    "scores": {
+      "structural_completeness_score": 4.5,
+      "material_extraction_score": 4.0,
+      "overall_score": 4.2,
+      "overall_reasoning": "Faithful to the source; drying time not stated in the paper."
+    },
+    "confidence_level": "high",
+    "missing_information": [],
+    "extraction_errors": []
   }
 }
 ```
@@ -128,6 +144,8 @@ For a full explanation of every field, see [Output Format](../user-guide/output-
 | Goal | Resource |
 |---|---|
 | Process many papers | `lemat-synth batch` or deployment scripts |
-| Also extract performance plots | `lemat-synth batch ... --with-performance` |
-| Change the LLM | [Configuration guide](../user-guide/configuration.md) |
-| Understand all scripts and notebooks | [examples/README.md](../../examples/README.md) |
+| Also extract performance plots | `lemat-synth batch ... with_performance=true` |
+| Use the Python API for a custom workflow | [Python API guide](../user-guide/python-api.md) |
+| Change the LLM | [Configuration guide](../developer-guide/configuration.md) |
+| See every CLI setting | [CLI Reference](../user-guide/cli.md) |
+| Run dataset-scale or multi-LLM jobs | [Configuration guide](../developer-guide/configuration.md#which-script-uses-which-system) |

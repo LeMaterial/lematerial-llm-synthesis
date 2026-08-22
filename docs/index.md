@@ -36,7 +36,7 @@ Your paper (PDF or text)
  ┌─────────────────┐
  │ Judge           │  Quality score (1–5) per dimension
  └────────┬────────┘
-          │ (optional: --with-performance)
+          │ (optional: with_performance=true)
           ▼
  ┌─────────────────┐
  │ Figure          │  Finds plots in the paper
@@ -76,21 +76,25 @@ echo "GEMINI_API_KEY=your_key_here" >> .env
 lemat-synth extract my_paper.txt
 
 # Or process a whole folder of PDFs
-lemat-synth batch /path/to/pdfs/ results/ --domain catalysis
+lemat-synth batch /path/to/pdfs/ output_dir=results/ domain=catalysis
 ```
 
 ---
 
 ## Where to go next
 
-- **New to the tool?** Start with the [Quickstart guide](getting-started/quickstart.md)
-  or open `examples/notebooks/00_quickstart.ipynb` in Jupyter.
-- **Have PDFs?** See the [examples/README.md](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/README.md) decision table to
-  pick the right script.
+- **New to the tool?** Start with the [Quickstart guide](getting-started/quickstart.md),
+  or open `examples/notebooks/synthesis_with_performance.ipynb` in Jupyter to watch
+  each step run with its output visible.
+- **Have PDFs?** `lemat-synth batch` handles a whole folder — see the
+  [CLI Reference](user-guide/cli.md). For dataset-scale or multi-LLM runs, use the
+  scripts in [examples/scripts/deployment/](https://github.com/LeMaterial/lematerial-llm-synthesis/tree/main/examples/scripts/deployment)
+  and the [Configuration guide](developer-guide/configuration.md#which-script-uses-which-system).
 - **Don't understand the output?** Read [Output Format](user-guide/output-format.md).
-- **Want to change the LLM or use local files?** See [Configuration](user-guide/configuration.md).
+- **Want to change the LLM or use local files?** See [Configuration](developer-guide/configuration.md).
 - **Something broken?** See [Troubleshooting](user-guide/troubleshooting.md).
-- **Want to use the Python API?** See the [API Reference](api/pipeline.md).
+- **Want to use the Python API?** See the [Python API guide](user-guide/python-api.md)
+  and the [API Reference](api/pipeline.md).
 - **Want to contribute or extend the pipeline?** Start with the
   [Developer Guide](developer-guide/architecture.md).
 
