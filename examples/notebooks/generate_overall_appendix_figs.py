@@ -12,7 +12,15 @@ import seaborn as sns
 from datasets import load_dataset
 from matplotlib.colors import LinearSegmentedColormap
 
-from llm_synthesis.utils.style_utils import get_palette, set_style
+from llm_synthesis.utils.style_utils import (
+    BORDER_STYLE as _BORDER_STYLE,
+)
+from llm_synthesis.utils.style_utils import (
+    get_palette,
+    plot_category_bar,
+    save_fig,
+    set_style,
+)
 
 palette = get_palette()
 set_style()
@@ -21,77 +29,6 @@ FIG_DIR = Path(__file__).parent / "figures"
 FIG_DIR.mkdir(exist_ok=True)
 
 SOURCE_ORDER = ["arxiv", "chemrxiv", "omg24"]
-_BORDER_STYLE = {
-    "axes.spines.top": True,
-    "axes.spines.right": True,
-    "axes.linewidth": 1.4,
-    "xtick.major.width": 1.2,
-    "ytick.major.width": 1.2,
-    "xtick.major.size": 4,
-    "ytick.major.size": 4,
-}
-
-
-def save_fig(fig, name):
-    fig.savefig(FIG_DIR / f"{name}.svg", bbox_inches="tight")
-    fig.savefig(FIG_DIR / f"{name}.pdf", bbox_inches="tight")
-
-
-def plot_category_bar(
-    df, column, top_n=None, stack_by=None, drop=None, name=None
-):
-    if drop:
-        df = df[~df[column].isin(drop)]
-
-    order = df[column].value_counts().index.tolist()
-    if top_n is not None:
-        order = order[:top_n]
-
-    with plt.rc_context(_BORDER_STYLE):
-        fig, ax = plt.subplots(figsize=(6, 0.4 * len(order) + 1))
-
-        if stack_by:
-            stack_order = (
-                SOURCE_ORDER
-                if stack_by == "source"
-                else df[stack_by].value_counts().index.tolist()
-            )
-            pivot = (
-                df[df[column].isin(order)]
-                .groupby([column, stack_by])
-                .size()
-                .unstack(fill_value=0)
-                .reindex(order)
-            )
-            pivot = pivot[[c for c in stack_order if c in pivot.columns]]
-            pivot.plot(
-                kind="barh",
-                stacked=True,
-                ax=ax,
-                color=palette[: len(pivot.columns)],
-                width=0.6,
-            )
-            ax.legend(
-                title=stack_by.replace("_", " ").title(),
-                bbox_to_anchor=(1.02, 1),
-                loc="upper left",
-                frameon=False,
-            )
-        else:
-            counts = df[column].value_counts().reindex(order)
-            bar_colors = [palette[i % len(palette)] for i in range(len(order))]
-            bars = ax.barh(
-                counts.index, counts.values, color=bar_colors, height=0.6
-            )
-            ax.bar_label(bars, fmt="%d", padding=3, fontsize=8)
-
-        ax.set_xlabel("# Materials")
-        ax.set_ylabel(column.replace("_", " ").title())
-        ax.invert_yaxis()
-        fig.tight_layout()
-        if name:
-            save_fig(fig, name)
-    return fig, ax
 
 
 def build_appendix_table(df, column):
@@ -118,54 +55,54 @@ for split, d in ds_full.items():
 df_overall = pd.concat(_dfs, ignore_index=True)
 print(f"{len(df_overall)} materials (overall/full config)")
 
-# --- category & method bar charts ---
-plot_category_bar(
-    df_overall,
-    "material_category",
-    top_n=7,
-    name="fig2_material_category_pub_overall",
-)
-plt.close("all")
-plot_category_bar(
-    df_overall,
-    "material_category",
-    top_n=7,
-    stack_by="source",
-    name="fig2_material_category_pub_by_source_overall",
-)
-plt.close("all")
-plot_category_bar(
-    df_overall,
-    "material_category",
-    top_n=None,
-    name="fig2_material_category_appendix_overall",
-)
-plt.close("all")
+# --- category & method bar charts (linear + log-scale) ---
+_BAR_CONFIGS = [
+    dict(
+        column="material_category",
+        top_n=7,
+        name="overall_material-category_top7",
+    ),
+    dict(
+        column="material_category",
+        top_n=7,
+        stack_by="source",
+        name="overall_material-category_top7_bysource",
+    ),
+    dict(
+        column="material_category",
+        top_n=None,
+        name="overall_material-category_all",
+    ),
+    dict(
+        column="synthesis_method",
+        top_n=7,
+        drop=["other"],
+        name="overall_synthesis-method_top7",
+    ),
+    dict(
+        column="synthesis_method",
+        top_n=7,
+        stack_by="material_category",
+        drop=["other"],
+        name="overall_synthesis-method_top7_bycategory",
+    ),
+    dict(
+        column="synthesis_method",
+        top_n=None,
+        name="overall_synthesis-method_all",
+    ),
+]
 
-plot_category_bar(
-    df_overall,
-    "synthesis_method",
-    top_n=7,
-    drop=["other"],
-    name="fig2_synthesis_method_pub_overall",
-)
-plt.close("all")
-plot_category_bar(
-    df_overall,
-    "synthesis_method",
-    top_n=7,
-    stack_by="material_category",
-    drop=["other"],
-    name="fig2_synthesis_method_pub_by_category_overall",
-)
-plt.close("all")
-plot_category_bar(
-    df_overall,
-    "synthesis_method",
-    top_n=None,
-    name="fig2_synthesis_method_appendix_overall",
-)
-plt.close("all")
+for cfg in _BAR_CONFIGS:
+    plot_category_bar(df_overall, fig_dir=FIG_DIR, **cfg)
+    plt.close("all")
+    plot_category_bar(
+        df_overall,
+        fig_dir=FIG_DIR,
+        log_scale=True,
+        **{**cfg, "name": cfg["name"] + "_log"},
+    )
+    plt.close("all")
 
 # --- diversity: coverage grid + heatmaps ---
 heat_cmap = LinearSegmentedColormap.from_list(
@@ -224,7 +161,7 @@ with plt.rc_context(_BORDER_STYLE):
     ax.set_xlabel("Synthesis Method")
     ax.set_ylabel("Material Category")
     plt.tight_layout()
-    save_fig(fig, "fig2_diversity_coverage_grid_overall")
+    save_fig(fig, FIG_DIR, "overall_diversity-coverage-grid")
 plt.close("all")
 
 sub = df_clean[
@@ -252,7 +189,7 @@ with plt.rc_context(_BORDER_STYLE):
     ax.set_ylabel("Material Category")
     plt.setp(ax.get_xticklabels(), rotation=30, ha="right")
     plt.tight_layout()
-    save_fig(fig, "fig2_diversity_heatmap_counts_overall")
+    save_fig(fig, FIG_DIR, "overall_diversity-heatmap-counts_top7")
 plt.close("all")
 
 pivot_pct = pivot.div(pivot.sum(axis=1), axis=0) * 100
@@ -271,15 +208,36 @@ with plt.rc_context(_BORDER_STYLE):
     ax.set_ylabel("Material Category")
     plt.setp(ax.get_xticklabels(), rotation=30, ha="right")
     plt.tight_layout()
-    save_fig(fig, "fig2_diversity_heatmap_rowpct_overall")
+    save_fig(fig, FIG_DIR, "overall_diversity-heatmap-rowpct_top7")
+plt.close("all")
+
+from matplotlib.colors import LogNorm  # noqa: E402
+
+with plt.rc_context(_BORDER_STYLE):
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.heatmap(
+        full_pivot,
+        mask=full_pivot == 0,
+        norm=LogNorm(vmin=1, vmax=full_pivot.values.max()),
+        cmap=heat_cmap,
+        linewidths=0.2,
+        cbar_kws={"label": "# Materials (log scale)"},
+        ax=ax,
+    )
+    ax.set_xlabel("Synthesis Method")
+    ax.set_ylabel("Material Category")
+    plt.setp(ax.get_xticklabels(), rotation=60, ha="right", fontsize=7)
+    plt.setp(ax.get_yticklabels(), fontsize=8)
+    plt.tight_layout()
+    save_fig(fig, FIG_DIR, "overall_diversity-heatmap-counts_all")
 plt.close("all")
 
 # --- appendix tables ---
 build_appendix_table(df_overall, "material_category").to_csv(
-    FIG_DIR / "table_material_category_appendix_overall.csv"
+    FIG_DIR / "overall_material-category_table-all.csv"
 )
 build_appendix_table(df_overall, "synthesis_method").to_csv(
-    FIG_DIR / "table_synthesis_method_appendix_overall.csv"
+    FIG_DIR / "overall_synthesis-method_table-all.csv"
 )
 
 print("Done. Overall-config figures/tables saved under", FIG_DIR)

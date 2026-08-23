@@ -37,6 +37,11 @@ sys.path.insert(
 )
 
 AGREEMENT_DIR = REPO_ROOT / "results" / "agreement_analysis"
+# table:human-llm-comparison reports the LLM-matched, not string-matcher-only,
+# judge-agreement numbers (see suppinfo.tex
+# SI~\ref{app:sec:string-vs-llm-match}) - read that CSV specifically, even
+# though other tables below still use AGREEMENT_DIR.
+AGREEMENT_DIR_LLM_MATCH = REPO_ROOT / "results" / "agreement_analysis_llm_match"
 ANNOTATIONS_DIR = REPO_ROOT / "annotations"
 CATALYSIS_GT_DIR = REPO_ROOT / "data" / "results_catalysis_human"
 CATALYSIS_RESULTS_DIR = REPO_ROOT / "data" / "results_catalysis_string_match"
@@ -69,7 +74,9 @@ def _write_or_print(name: str, body: str, write: bool) -> None:
 
 
 def generate_judge_agreement_table(write: bool = False) -> None:
-    loo = pd.read_csv(AGREEMENT_DIR / "insights_judge_ranking_loo.csv")
+    loo = pd.read_csv(
+        AGREEMENT_DIR_LLM_MATCH / "insights_judge_ranking_loo.csv"
+    )
     loo_no_self = loo[loo["cell_set"] == "loo_no_self"].sort_values(
         "icc2", ascending=False
     )
