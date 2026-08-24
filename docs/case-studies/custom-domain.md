@@ -81,6 +81,45 @@ filter_cfg = PlotFilterConfig(
 > temperature* curve looks a lot like a *conversion vs. temperature* curve to a
 > keyword matcher.
 
+### Axis labels are symbols, not words
+
+This is the single most common reason a filter that looks right drops real
+plots. You write your keyword list from the figure *captions* — "shear stress",
+"resistivity" — but the filter matches the **axis label**, and axis labels are
+typeset symbols. A rheology paper's Herschel-Bulkley plot is captioned *"flow
+behaviour"* and its y-axis reads `$\sigma - \sigma_0$`. A keyword list
+containing `"shear stress"` misses it completely.
+
+`PlotFilterConfig` normalises LaTeX to Unicode before matching
+(`\sigma` → `σ`, `\rho` → `ρ`, `\mu` → `μ`, and so on), so the fix is to put
+the **Unicode symbol** in the keyword list next to the English name:
+
+```python
+y_axis_keywords=[
+    "shear stress", "viscosity", "storage modulus", "complex modulus",
+    "σ", "η", "τ",            # ← the symbols that actually appear on the axis
+]
+```
+
+The built-in superconductivity preset carries the same scar: its veto list
+contains `"ρ-ρ"`, a symbol pattern, not the word *resistivity*.
+
+### When to turn an axis off entirely
+
+`filter_x_axis=False` and `filter_y_axis=False` exist for domains where one axis
+carries no signal. Use them when your relevant plots have **no common axis
+family**:
+
+| Domain | x-axes across the relevant plots | Filter on x? |
+|---|---|---|
+| Catalysis | temperature, temperature, temperature | Yes — it discriminates |
+| Thermoelectrics | temperature everywhere (so does everything else) | Yes, but the y-axis does the real work |
+| Rheology | shear rate, shear stress, strain, drying time, angular frequency | **No** — `filter_x_axis=False` |
+
+A rheology filter that tries to enumerate that x-axis set will silently drop
+whichever one it forgot. Turning x off and letting a well-vetoed y-axis carry
+the whole decision is both simpler and more accurate.
+
 Full field reference: [Configuration API](../api/configuration.md).
 
 ---
@@ -155,6 +194,59 @@ optional; pass `None` to skip.
     Use this when the quantity you want is *geometric* rather than tabular — a
     transition temperature, an onset, an intercept — something you read off the
     shape of the curve rather than from a digitised point.
+
+### Pin the *definition*, not just the unit
+
+Asking for one unit is the obvious rule. The subtler one: when a quantity has
+more than one accepted determination method, say which you want, or the column
+silently mixes them.
+
+Real example. A rheology paper tabulates yield stress twice for the same
+material — once from a Herschel-Bulkley fit, once from the G′ crossover:
+
+| SIS (vol %) | σ_y from Herschel-Bulkley | σ_y from G′ |
+|---|---|---|
+| 3 | 18.31 Pa | 45.21 Pa |
+| 10 | 683.02 Pa | 721.73 Pa |
+
+A field described only as *"yield stress in Pa"* makes the model choose, and it
+will choose differently across papers. Name the method:
+
+```python
+yield_stress_HB_Pa: float | None = dspy.OutputField(
+    description=(
+        "Yield stress from a Herschel-Bulkley fit, in Pa. If the paper only "
+        "reports a G' crossover yield stress, leave this null and use "
+        "yield_stress_G_Pa instead — never mix the two determinations."
+    )
+)
+```
+
+Same trap: onset vs. midpoint vs. zero-resistance *T*<sub>c</sub>, BET vs.
+Langmuir surface area, peak vs. average conversion.
+
+### Don't hard-code *which* variable varies
+
+A tempting metric schema names the thing that differs between samples:
+
+```python
+additive_name: str | None       # e.g. "SIS"
+additive_concentration: str | None  # e.g. "6 vol%"
+```
+
+That works until the next paper in the same field varies something else. In one
+rheology corpus, two papers varied binder concentration at fixed solid loading
+and a third varied solid loading with a fixed vehicle — so the model put the
+vehicle's name in `additive_name` and the solid loading in
+`additive_concentration`, and the column stopped meaning one thing.
+
+Prefer a generic pair plus the specific quantities you actually want:
+
+```python
+series_variable: str | None   # "SIS concentration" | "solid loading" | ...
+series_value: str | None      # "6 vol%"
+solid_loading_vol_pct: float | None
+```
 
 ---
 
@@ -325,7 +417,7 @@ is a convenience wrapper around these four steps, nothing more.
 ```python
 BatchRunner(
     domain_config,                              # required
-    gemini_model="gemini-3.0-flash",            # synthesis extraction
+    gemini_model="gemini-3.0-flash",            # synthesis extraction + judge
     claude_model="claude-sonnet-4-20250514",    # plot reading
     linker_model="gemini-3.0-flash",            # series → material linking
     material_model=None,                        # defaults to gemini_model
@@ -347,8 +439,69 @@ runner.run(
 )
 ```
 
-Model names are `LLM_REGISTRY` keys — see
+> [!WARNING]
+> **`claude_model` is not a registry key.** The other three model arguments are
+> resolved through `LLM_REGISTRY` by `get_llm_from_name`, so they take *aliases*
+> like `gemini-3.0-flash` or `claude-sonnet-4.6`. `claude_model` is passed
+> straight to the Anthropic SDK by `ClaudeLinePlotDataExtractor`, so it needs a
+> **raw Anthropic model ID** — `claude-sonnet-4-6`, not the `claude-sonnet-4.6`
+> alias.
+>
+> Getting this wrong fails *softly*. Every figure logs a 404 warning, plot
+> extraction returns nothing, and the batch still finishes and reports
+> `[OK] paper: 4 materials, 0 plots` — indistinguishable from a paper that
+> genuinely had no plots. If a run reports zero plots on papers you know have
+> figures, grep the log for `not_found_error` before touching your filter.
+
+| Argument | Takes | Example |
+|---|---|---|
+| `gemini_model`, `material_model`, `linker_model` | `LLM_REGISTRY` alias | `gemini-3.0-flash`, `claude-sonnet-4.6` |
+| `claude_model` | **raw Anthropic model ID** | `claude-sonnet-4-6` |
+| `plot_vlm` | registry alias *or* raw LiteLLM string — overrides `claude_model` and switches to `LiteLLMPlotDataExtractor` | `gemini-3-flash` |
+
+The alias list is in
 [Available LLM models](../developer-guide/configuration.md#available-llm-models).
+Despite the names, `gemini_model` and `linker_model` accept any registry alias —
+passing `claude-sonnet-4.6` to `gemini_model` is fine and is how you run the
+whole text side on Claude.
+
+---
+
+## What a first real run looks like
+
+A worked example, so you know what to expect and what "wrong" looks like. Three
+real direct-ink-writing rheology papers (An 2020, Cipollone 2022, Hossain 2023),
+`skip_figures=True`, all text models on Claude Sonnet:
+
+```
+Papers processed: 3/3     Failed: 0     Total time: 222s (3.7 min)
+  [OK] an_2020:        4 formulations
+  [OK] hossain_2023:   6 formulations
+  [OK] cipollone_2022: 3 formulations
+→ 13 rows in rheology_master.csv
+```
+
+**What went right.** The material prompt enumerated every formulation in each
+series with its distinguishing concentration (`NiZn-ferrite suspension with
+6 vol% SIS`, `PZT ink with 52.5 vol% solids and 2 wt% dispersant`), and every
+yield stress matched the source table exactly — the numbers came out of tables,
+not prose, which the `evidence` field made obvious at a glance because it quoted
+rows like `P50D1 | 79.72 | 0.39 | 95.09`.
+
+**What went wrong, and what it taught.**
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| A real plot silently dropped | y-axis read `$\sigma - \sigma_0$`; keyword list said `"shear stress"` | Add the Unicode symbol — see [above](#axis-labels-are-symbols-not-words) |
+| `0 plots` on every paper, run still `[OK]` | `claude_model` given a registry alias instead of a raw Anthropic ID | See the [warning above](#batchrunner-reference) |
+| `synthesis_method` inconsistent for identical procedures | The closed enum has no value for "disperse a powder into a vehicle" — the same mixing step became `other` on one ink and `mechanical mixing` on its sibling *in the same paper* | Add an enum value: [Tutorial 6](../tutorials/index.md) |
+| `additive_concentration` held a solid loading | Schema assumed which variable varies | [Don't hard-code it](#dont-hard-code-which-variable-varies) |
+
+That third row is worth dwelling on. When your domain's process is not in
+`GeneralSynthesisOntology`'s `synthesis_method` enum, you do not get an error —
+you get *inconsistent* labels, which is worse, because the column looks
+populated. Check that field on your first run; if it is noisy, the fix is a
+schema change, not a prompt change.
 
 ---
 
@@ -365,6 +518,26 @@ Model names are `LLM_REGISTRY` keys — see
 | Skip figures entirely — faster and cheaper | `--skip-figures`, or `skip_figures=True` in `runner.run()` |
 | Change *what fields* get extracted at all | Edit the ontology — [Tutorial 6](../tutorials/index.md) |
 | Use a different LLM anywhere | [Configuration & Models](../developer-guide/configuration.md) |
+
+---
+
+## Checklist
+
+1. **List the figures you expect**, with a `True`/`False` verdict each, and keep
+   it as a regression test — free, instant, and it catches the expensive errors.
+2. **Write the veto list before the keyword list.**
+3. **Put the axis *symbols* in the keyword list**, not just the English names.
+4. **Turn off an axis** that carries no signal in your domain.
+5. **Check the material list on two or three papers** before any batch.
+6. **Make every metric optional**, say what absent means, pin the unit *and* the
+   determination method.
+7. **Add an `evidence` field** to anything a human may need to spot-check.
+8. **Test the writer against a hand-built `PipelineResult`**, including an entry
+   whose `synthesis` is `None`.
+9. **First run: `max_papers=2, skip_figures=True`.** Then turn figures on for one
+   paper and read the `Skipping plot …` lines before scaling up.
+10. **Verify `claude_model` is a raw Anthropic ID** if you turned figures on and
+    got zero plots.
 
 ---
 
