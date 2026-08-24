@@ -144,15 +144,29 @@ full field list.
 
 The scripts under `examples/scripts/evaluation/` load both files for each
 annotated paper, compare the LLM extraction in `result.json` against the
-`human_recipe` in `result_human.json`, and compute per-dimension scores:
+`human_recipe` in `result_human.json`, and compute agreement scores per
+dimension:
 
 ```bash
-# Compare LLM outputs against human annotations, grouped by score category
-uv run python examples/scripts/evaluation/compare_human_judge_scores_by_category.py
+# Judge ranking + synthesis-LLM x judge-LLM agreement heatmap (the main analysis)
+uv run python examples/scripts/evaluation/compare_multi_llm_results_complete.py \
+    --rank-by abs_diff
 
-# Full comparison with per-paper breakdown
-uv run python examples/scripts/evaluation/compare_human_judge_scores_complete.py
+# The same agreement, broken down by material category
+uv run python examples/scripts/evaluation/compare_multi_llm_results_by_category.py
+
+# Judge/extractor insight tables: self-preference, leave-one-out ranking,
+# per-dimension means
+uv run python examples/scripts/evaluation/analyze_judge_extractor_insights.py
 ```
+
+All outputs — CSVs, JSON and PNG heatmaps — are written to
+`results/agreement_analysis/`.
+[`examples/scripts/evaluation/README.md`](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/scripts/evaluation/README.md)
+documents the evaluation design, every available metric, and how to read the
+results when choosing an extraction or judge LLM.
+[Tutorial 5](../tutorials/index.md) walks through the same analysis
+interactively.
 
 ### 2. `AnnotationHFLoader` — running the pipeline on annotated papers
 
@@ -175,9 +189,37 @@ human annotations with the evaluation scripts.
 
 ---
 
+## The annotation app
+
+The fastest way to produce a `result_human.json` is the bundled Streamlit
+annotator, which walks the whole workflow and writes the file in the right
+schema for you. Run it **from the repository root** so it finds `annotations/`:
+
+```bash
+streamlit run examples/scripts/data_curation/annotator_app.py
+```
+
+1. **Pick a paper** from the `annotations/` folder list.
+2. **Read the PDF** in the app.
+3. **Fill in the human recipe** — target compound, method, starting materials,
+   steps, equipment.
+4. **Score each LLM extraction blind** — the app hides which model produced
+   which tab, on seven dimensions (structural completeness, material
+   extraction, process steps, equipment, conditions, and so on).
+5. **Save** → `annotations/<paper_id>/result_human.json`.
+
+Then submit it as a pull request (Step 6 below).
+
+> [!NOTE]
+> If `uv sync` cannot resolve Streamlit on your platform, install it on its own:
+> `pip install "streamlit==1.55.0"`.
+
+---
+
 ## Adding a new annotation
 
-Follow these steps to add a paper to the benchmark set:
+If you would rather write the JSON by hand — or you are adding a paper that is
+not yet in `annotations/` — follow these steps:
 
 **Step 1 — Choose the folder name.**
 Use the paper's arXiv ID if it has one (`2502.03121`). For legacy cond-mat
@@ -222,9 +264,22 @@ Run the pipeline on this paper with `data_loader=annotation` (after creating
 the folder) and copy the output file to `annotations/<paper-id>/result.json`.
 
 **Step 5 — Verify.**
-Run an evaluation script and confirm the new paper appears in the output:
+Check the file against the expected schema, then confirm the new paper appears
+in an evaluation run:
 ```bash
-uv run python examples/scripts/evaluation/compare_human_judge_scores_complete.py
+uv run python examples/scripts/data_curation/validate_result_human_schema.py
+uv run python examples/scripts/evaluation/compare_multi_llm_results_complete.py
+```
+
+**Step 6 — Submit it.** Annotations are contributed by pull request:
+
+```bash
+git fetch origin
+git checkout -b annotate/<paper-id> origin/main
+git add annotations/<paper-id>/result_human.json
+git commit -m "annotate/<paper-id>"
+git push -u origin annotate/<paper-id>
+gh pr create --fill
 ```
 
 ---

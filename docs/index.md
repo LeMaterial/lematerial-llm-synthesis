@@ -84,10 +84,12 @@ lemat-synth batch /path/to/pdfs/ output_dir=results/ domain=catalysis
 ## Where to go next
 
 - **New to the tool?** Start with the [Quickstart guide](getting-started/quickstart.md),
-  then work through the [Tutorials](tutorials/index.md) — six runnable notebooks
-  covering everything from reading the published dataset to extending the schema.
-- **Just want the data?** [Tutorial 1](tutorials/index.md) reads the published
-  LeMat-Synth dataset without running the pipeline or spending a cent.
+  then work through the [Tutorials](tutorials/index.md) — seven runnable
+  notebooks covering everything from reading the published dataset to pointing
+  the pipeline at a new scientific domain.
+- **Just want the data?** [Dataset Access](getting-started/dataset.md) gets you
+  onto the published corpus, and [Tutorial 1](tutorials/index.md) reads it
+  without running the pipeline or spending a cent.
 - **Have PDFs?** `lemat-synth batch` handles a whole folder — see the
   [CLI Reference](user-guide/cli.md). For dataset-scale or multi-LLM runs, use the
   scripts in [examples/scripts/deployment/](https://github.com/LeMaterial/lematerial-llm-synthesis/tree/main/examples/scripts/deployment)
@@ -97,6 +99,10 @@ lemat-synth batch /path/to/pdfs/ output_dir=results/ domain=catalysis
 - **Something broken?** See [Troubleshooting](user-guide/troubleshooting.md).
 - **Want to use the Python API?** See the [Python API guide](user-guide/python-api.md)
   and the [API Reference](api/pipeline.md).
+- **Working in one scientific domain?** The [Case Studies](case-studies/index.md)
+  cover thermocatalysis, superconductors and porous materials end to end — and
+  [Build Your Own](case-studies/custom-domain.md), with
+  [Tutorial 7](tutorials/index.md), shows how to add a fourth.
 - **Want to contribute or extend the pipeline?** Start with the
   [Developer Guide](developer-guide/architecture.md).
 

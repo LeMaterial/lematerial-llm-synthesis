@@ -1,6 +1,6 @@
 # Tutorials
 
-Six runnable notebooks that take you from *reading* LeMat-Synth data to
+Seven runnable notebooks that take you from *reading* LeMat-Synth data to
 *producing* it, and finally to *changing what gets produced*. Each one is
 self-contained, states its prerequisites and cost up front, and explains what
 every step is doing rather than just executing it.
@@ -22,6 +22,7 @@ Or open one on Colab and skip the install entirely:
 - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/04_extracting_synthesis_and_performance.ipynb) &nbsp; **4** — Synthesis + performance from a paper
 - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/05_evaluating_extraction_quality.ipynb) &nbsp; **5** — Evaluating extraction quality
 - [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/06_customizing_the_ontology.ipynb) &nbsp; **6** — Customising the ontology
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/07_building_a_custom_case_study.ipynb) &nbsp; **7** — Building a custom case study
 
 ---
 
@@ -35,10 +36,12 @@ Or open one on Colab and skip the install entirely:
 | 4 | [Synthesis + performance from a paper](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/04_extracting_synthesis_and_performance.ipynb) | Extract | The whole pipeline on one fixed example paper: PDF → recipes → digitised performance curves → linked results, checked against a human ground truth | Gemini + Anthropic, or one OpenRouter key | $0.10–0.40, cached after the first run |
 | 5 | [Evaluating extraction quality](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/05_evaluating_extraction_quality.ipynb) | Extract | Run the LLM judge, then measure how well four judges agree with human annotators on the 36-paper corpus | Gemini or OpenRouter (Part A only) | Near zero |
 | 6 | [Customising the ontology](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/06_customizing_the_ontology.ipynb) | Extend | Add fields, add enum values, keep the prompts in sync, or bring a schema of your own | None | Free |
+| 7 | [Building a custom case study](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/07_building_a_custom_case_study.ipynb) | Extend | Point the pipeline at a new domain: plot filter, material prompt, a domain metric extractor and a custom CSV schema, assembled into a `DomainConfig` | Gemini or OpenRouter | Under $0.01 |
 
 The **track** says what a tutorial is for, not how hard it is: *Use the data*
 reads what is already published, *Extract* produces new data from papers, and
-*Extend* changes what "extracted" means. Tutorial 3 comes before Tutorial 4
+*Extend* changes what "extracted" means — Tutorial 6 along the schema axis,
+Tutorial 7 along the domain axis. Tutorial 3 comes before Tutorial 4
 because one CLI command is how most people will run this — Tutorial 4 opens the
 same pipeline up when you need to change it rather than run it.
 
@@ -66,6 +69,14 @@ same pipeline up when you need to change it rather than run it.
     whether the change helped. The
     [Architecture guide](../developer-guide/architecture.md) covers the
     component interfaces in more depth.
+
+=== "I work in one scientific domain"
+
+    **7.** It builds a complete case study — thermoelectrics — from an empty
+    file: which figures to read, what counts as a material, the domain number to
+    pull out, and the output table. Most of it costs nothing to run. Pair it
+    with [Build your own case study](../case-studies/custom-domain.md) for the
+    full API surface.
 
 ---
 

@@ -27,11 +27,11 @@ syntax.
 | Argument | Type | Default | Description |
 |----------|------|---------|-------------|
 | **Models & API** |
-| `synthesis_model` | string | `gemini/gemini-2.0-flash` | Main extraction model (LiteLLM format) |
-| `material_model` | string | `gemini/gemini-2.5-flash-lite` | Fast model for material-list extraction |
+| `synthesis_model` | string | `gemini/gemini-3.5-flash-lite` | Main extraction model (LiteLLM format) |
+| `material_model` | string | `gemini/gemini-3.5-flash-lite` | Fast model for material-list extraction |
 | `judge_model` | string | *(mirrors `synthesis_model`)* | Quality evaluation model |
-| `linker_model` | string | `gemini/gemini-3-pro-preview` | Links plots to materials (requires `with_performance=true`) |
-| `plot_model` | string | `claude-sonnet-4-20250514` | Claude model for plot data extraction (requires `with_performance=true`) |
+| `linker_model` | string | `gemini/gemini-3.1-pro-preview` | Links plots to materials (requires `with_performance=true`) |
+| `plot_model` | string | `claude-sonnet-4.6` | Claude model for plot data extraction (requires `with_performance=true`) |
 | `api_base` | string | `null` | Custom API base URL, e.g. `https://openrouter.ai/api/v1` |
 | `synthesis_api_key_env` | string | `null` | Env var name holding synthesis model API key |
 | `material_api_key_env` | string | `null` | Env var name holding material model API key |
@@ -52,7 +52,7 @@ syntax.
 | `prompts.synthesis_system` | string | *(see below)* | System message for synthesis extraction |
 | `prompts.synthesis_instructions` | string | *(see below)* | Task instructions for synthesis extractor |
 | `prompts.material_instructions` | string | *(see below)* | Task instructions for material extractor |
-| Other prompt keys | string | *(see below)* | See [Customising prompts](#customising-prompts) |
+| Other prompt keys | string | *(see below)* | See [Customising prompts](#customizing-prompts) |
 
 ## Examples
 
@@ -178,7 +178,8 @@ Model strings follow the [LiteLLM](https://docs.litellm.ai/docs/providers)
 convention: `{provider}/{model-name}`.  Common providers and models:
 
 ```
-gemini/gemini-2.0-flash                           # Google Gemini
+gemini/gemini-3.5-flash-lite                      # Google Gemini
+gemini/gemini-3.1-pro-preview
 gemini/gemini-2.5-pro
 anthropic/claude-sonnet-4-6                      # Anthropic Claude
 anthropic/claude-opus-4-7
@@ -325,3 +326,14 @@ one JSON file per extracted material, plus optional performance files.
 
 See the [Output Format](output-format.md) page for a full description of
 the JSON schema.
+
+---
+
+## Related documentation
+
+- [Quickstart](../getting-started/quickstart.md) — the shortest path to a first result
+- [Output Format](output-format.md) — what the result files contain
+- [Configuration & Models](../developer-guide/configuration.md) — the Hydra
+  deployment scripts, for dataset-scale and multi-LLM runs the CLI does not cover
+- [Case Studies](../case-studies/index.md) — domain-specific batch runs
+- [Troubleshooting](troubleshooting.md) — when a run fails

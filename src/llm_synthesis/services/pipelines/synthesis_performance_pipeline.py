@@ -527,6 +527,7 @@ class SynthesisPerformancePipeline:
         performance_data = {}
         plot_mappings = []
         extracted_plots = []
+        plot_figures: list[FigureInfo] = []
         linking_stats = None
         linking_evaluation = None
 
@@ -706,6 +707,7 @@ class SynthesisPerformancePipeline:
         performance_data = {}
         plot_mappings = []
         extracted_plots = []
+        plot_figures: list[FigureInfo] = []
         linking_stats = None
         linking_evaluation = None
 
@@ -833,6 +835,13 @@ class SynthesisPerformancePipeline:
                             "Synthesis saved without performance."
                         )
 
+        # Collect relevant plots for domain metric processors
+        kept_relevant_plots: list[tuple[int, ExtractedLinePlotData]] = []
+        if extracted_plots:
+            kept_relevant_plots, _ = self.plot_filter.filter_plots(
+                extracted_plots, log_skipped=False
+            )
+
         # Build results
         results = [
             SynthesisWithPerformanceEntry(
@@ -859,6 +868,8 @@ class SynthesisPerformancePipeline:
             linking_stats=linking_stats,
             materials_with_performance=materials_with_perf,
             materials_without_performance=materials_without_perf,
+            relevant_plots=kept_relevant_plots,
+            plot_figures=plot_figures,
         )
 
     @staticmethod

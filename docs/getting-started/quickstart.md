@@ -19,8 +19,8 @@ paper through the pipeline a stage at a time when you want to see the internals.
 Each step prints its result before the next one starts, so you can see exactly
 what the models returned and stop wherever you like.
 
-The [Tutorials index](../tutorials/index.md) lists all six, with the API keys and
-rough cost each one needs.
+The [Tutorials index](../tutorials/index.md) lists all seven, with the API keys
+and rough cost each one needs.
 
 ---
 
