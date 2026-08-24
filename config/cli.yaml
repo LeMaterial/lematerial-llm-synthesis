@@ -17,7 +17,7 @@ synthesis_model: gemini/gemini-3-flash-lite
 material_model: gemini/gemini-3-flash-lite
 judge_model: ${synthesis_model}          # OmegaConf interpolation — mirrors synthesis_model
 linker_model: gemini/gemini-3-pro
-plot_model: claude-sonnet-4-6
+plot_model: claude-sonnet-4.6
 api_base: null                            # e.g. https://openrouter.ai/api/v1
 
 # ── API key selection (per component) ────────────────────────────────────────
