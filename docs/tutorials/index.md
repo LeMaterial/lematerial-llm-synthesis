@@ -7,11 +7,21 @@ every step is doing rather than just executing it.
 
 They live in
 [`examples/notebooks/tutorials/`](https://github.com/LeMaterial/lematerial-llm-synthesis/tree/main/examples/notebooks/tutorials)
-in the repository.
+in the repository, and each one runs **either locally or on Google Colab** — the
+same file, no edited cells.
 
 ```bash
 uv run jupyter lab examples/notebooks/tutorials/
 ```
+
+Or open one on Colab and skip the install entirely:
+
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/01_explore_the_lemat_synth_dataset.ipynb) &nbsp; **1** — Explore the LeMat-Synth dataset
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/02_finding_papers.ipynb) &nbsp; **2** — Finding papers
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/03_batch_extraction_with_the_cli.ipynb) &nbsp; **3** — Batch extraction with the CLI
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/04_extracting_synthesis_and_performance.ipynb) &nbsp; **4** — Synthesis + performance from a paper
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/05_evaluating_extraction_quality.ipynb) &nbsp; **5** — Evaluating extraction quality
+- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/06_customizing_the_ontology.ipynb) &nbsp; **6** — Customising the ontology
 
 ---
 
@@ -81,6 +91,15 @@ HF_TOKEN=hf_...
 ```
 
 `.env` is git-ignored, so it is never committed.
+
+!!! tip "On Colab there is no `.env`"
+
+    Colab reads keys from its own **secret manager** instead: open the 🔑 icon in
+    the left sidebar, add one secret per key using exactly the same names
+    (`GEMINI_API_KEY`, `HF_TOKEN`, …), and switch on *Notebook access* for each.
+    Each notebook's setup cell pulls them into `os.environ`, so every cell below
+    it behaves identically to a local run. Secrets live in your Google account,
+    not in the notebook, so they cannot end up in a shared copy.
 
 | Variable | What it unlocks | Where to get it |
 |----------|-----------------|-----------------|
@@ -178,6 +197,12 @@ itself, so you never have to export anything into your shell.
   [LeMat-Synth](https://huggingface.co/datasets/LeMaterial/LeMat-Synth) and
   [LeMat-Synth-Papers](https://huggingface.co/datasets/LeMaterial/LeMat-Synth-Papers)
   before running Tutorials 1 and 2, then `hf auth login` or set `HF_TOKEN`.
+- **On Colab, the first cell takes a few minutes.** It shallow-clones the
+  repository and installs it into the session; the clone is cached for the rest
+  of the session. If an import fails right afterwards, use **Runtime → Restart
+  session** and run the cell again. Anything a tutorial writes lands in the
+  session's copy of `data/` and disappears when the runtime recycles — download
+  what you want to keep.
 - **Rate limits.** If a provider starts refusing calls, lower
   `LLM_SYNTHESIS_MAX_CONCURRENT_LLM_CALLS` (default 10) in `.env`.
 

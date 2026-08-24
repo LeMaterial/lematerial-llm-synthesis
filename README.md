@@ -127,6 +127,11 @@ Every tutorial that calls a model has a `USE_OPENROUTER` flag: set it to `True`
 to route all its calls through OpenRouter with a single `OPENROUTER_API_KEY`
 instead of per-provider keys.
 
+Each notebook also runs on **Google Colab** without local setup — open it and
+click the *Open in Colab* badge at the top. The setup cell clones and installs
+the repository, and reads your API keys from Colab's secret manager instead of
+from `.env`.
+
 Full descriptions, prerequisites and the `.env` reference are in the
 [Tutorials documentation](https://lematerial.github.io/lematerial-llm-synthesis/tutorials/).
 

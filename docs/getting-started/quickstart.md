@@ -15,8 +15,9 @@ Start with
 you results in one command, or
 [Tutorial 1](../tutorials/index.md) if you would rather read the published dataset
 than run anything. [Tutorial 4](../tutorials/index.md) walks a fixed example
-paper through the pipeline a stage at a time when you want to see the internals. Each step prints its result before the next one starts, so you
-can see exactly what the models returned and stop wherever you like.
+paper through the pipeline a stage at a time when you want to see the internals.
+Each step prints its result before the next one starts, so you can see exactly
+what the models returned and stop wherever you like.
 
 The [Tutorials index](../tutorials/index.md) lists all six, with the API keys and
 rough cost each one needs.
