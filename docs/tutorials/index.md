@@ -126,7 +126,7 @@ OPENROUTER_MODELS = {
     "synthesis": "google/gemini-3-flash-preview",
     "judge": "google/gemini-3-flash-preview",
     "linker": "google/gemini-3-flash-preview",
-    "vlm": "anthropic/claude-sonnet-4-6",
+    "vlm": "anthropic/claude-sonnet-4.6",
 }
 ```
 
@@ -158,11 +158,13 @@ lemat-synth extract paper.md \
 
 ### How a key reaches a model
 
-```
-.env  →  load_dotenv()  →  os.environ  →  LiteLLM  →  provider
-                                ↑
-                    get_llm_from_name("gemini-3.0-flash")
-                    resolves the alias via LLM_REGISTRY
+```mermaid
+flowchart LR
+    ENV[".env"] --> DOTENV["load_dotenv()"]
+    DOTENV --> OSENVIRON["os.environ"]
+    OSENVIRON --> LITELLM["LiteLLM"]
+    LITELLM --> PROVIDER["provider"]
+    REGISTRY["get_llm_from_name(&quot;gemini-3.0-flash&quot;)<br/>resolves the alias via LLM_REGISTRY"] -.-> LITELLM
 ```
 
 1. `load_dotenv()` puts the values into `os.environ`.

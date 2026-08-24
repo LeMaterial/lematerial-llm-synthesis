@@ -164,7 +164,7 @@ lemat-synth batch papers/ \
 lemat-synth batch papers/ \
     synthesis_model=openrouter/google/gemini-3-flash-preview \
     material_model=openrouter/google/gemini-3.1-pro-preview \
-    judge_model=openrouter/anthropic/claude-sonnet-4-6 \
+    judge_model=openrouter/anthropic/claude-sonnet-4.6 \
     api_base=https://openrouter.ai/api/v1
 ```
 
