@@ -17,14 +17,20 @@ uv run jupyter lab examples/notebooks/tutorials/
 
 ## The tutorials
 
-| # | Tutorial | What you learn | API keys | Cost |
-|---|----------|----------------|----------|------|
-| 1 | [Explore the LeMat-Synth dataset](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/01_explore_the_lemat_synth_dataset.ipynb) | Load the published dataset, slice it by method, category and judge score, and turn a row back into a Pydantic object | HuggingFace access only | Free |
-| 2 | [Finding papers](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/02_finding_papers.ipynb) | Filter the 81k-paper corpus by category and keyword, with whole-word matching and an optional LLM relevance filter | HuggingFace access only | Free |
-| 3 | [Synthesis + performance from a paper](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/03_extracting_synthesis_and_performance.ipynb) | The whole pipeline on one fixed example paper: PDF → recipes → digitised performance curves → linked results, checked against a human ground truth | Gemini + Anthropic, or one OpenRouter key | $0.10–0.40, cached after the first run |
-| 4 | [Batch extraction with the CLI](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/04_batch_extraction_with_the_cli.ipynb) | `lemat-synth extract` / `batch`, Hydra overrides, per-component API keys, and reading the output back into pandas | Gemini, or OpenRouter | Fractions of a cent |
-| 5 | [Evaluating extraction quality](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/05_evaluating_extraction_quality.ipynb) | Run the LLM judge, then measure how well four judges agree with human annotators on the 36-paper corpus | Gemini or OpenRouter (Part A only) | Near zero |
-| 6 | [Customising the ontology](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/06_customizing_the_ontology.ipynb) | Add fields, add enum values, keep the prompts in sync, or bring a schema of your own | None | Free |
+| # | Tutorial | Track | What you learn | API keys | Cost |
+|---|----------|-------|----------------|----------|------|
+| 1 | [Explore the LeMat-Synth dataset](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/01_explore_the_lemat_synth_dataset.ipynb) | Use the data | Load the published dataset, slice it by method, category and judge score, and turn a row back into a Pydantic object | HuggingFace access only | Free |
+| 2 | [Finding papers](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/02_finding_papers.ipynb) | Use the data | Filter the 81k-paper corpus by category and keyword, with whole-word matching and an optional LLM relevance filter | HuggingFace access only | Free |
+| 3 | [Batch extraction with the CLI](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/03_batch_extraction_with_the_cli.ipynb) | Extract | `lemat-synth extract` / `batch`, Hydra overrides, per-component API keys, and reading the output back into pandas | Gemini, or OpenRouter | Fractions of a cent |
+| 4 | [Synthesis + performance from a paper](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/04_extracting_synthesis_and_performance.ipynb) | Extract | The whole pipeline on one fixed example paper: PDF → recipes → digitised performance curves → linked results, checked against a human ground truth | Gemini + Anthropic, or one OpenRouter key | $0.10–0.40, cached after the first run |
+| 5 | [Evaluating extraction quality](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/05_evaluating_extraction_quality.ipynb) | Extract | Run the LLM judge, then measure how well four judges agree with human annotators on the 36-paper corpus | Gemini or OpenRouter (Part A only) | Near zero |
+| 6 | [Customising the ontology](https://github.com/LeMaterial/lematerial-llm-synthesis/blob/main/examples/notebooks/tutorials/06_customizing_the_ontology.ipynb) | Extend | Add fields, add enum values, keep the prompts in sync, or bring a schema of your own | None | Free |
+
+The **track** says what a tutorial is for, not how hard it is: *Use the data*
+reads what is already published, *Extract* produces new data from papers, and
+*Extend* changes what "extracted" means. Tutorial 3 comes before Tutorial 4
+because one CLI command is how most people will run this — Tutorial 4 opens the
+same pipeline up when you need to change it rather than run it.
 
 ---
 
@@ -38,13 +44,15 @@ uv run jupyter lab examples/notebooks/tutorials/
 
 === "I have papers to extract from"
 
-    **3 → 4 → 5.** Tutorial 3 runs the whole pipeline on one paper so you can
-    see every stage and check it against a human ground truth; Tutorial 4 scales
-    it to a folder; Tutorial 5 tells you whether to trust the result.
+    **3 → 5, then 4 if you need it.** Tutorial 3 runs `lemat-synth batch` over a
+    folder and is all most people need; Tutorial 5 tells you whether to trust
+    the result. Tutorial 4 opens the same pipeline stage by stage — PDF parsing,
+    material extraction, plot digitisation, ground-truth check — for when the
+    defaults are not doing what you want.
 
 === "I want to extend the toolbox"
 
-    **3 → 6 → 5.** Understand the pipeline, change the schema, then measure
+    **4 → 6 → 5.** Understand the pipeline, change the schema, then measure
     whether the change helped. The
     [Architecture guide](../developer-guide/architecture.md) covers the
     component interfaces in more depth.
@@ -107,7 +115,7 @@ Under the hood this builds the same `SystemPrefixedLM` the CLI uses, with
 `api_base` and the key passed explicitly — so system prompts and per-call cost
 tracking work exactly as they do on the direct path.
 
-For the CLI (Tutorial 4) the equivalent is an `openrouter/`-prefixed model plus
+For the CLI (Tutorial 3) the equivalent is an `openrouter/`-prefixed model plus
 `api_base`:
 
 ```bash
@@ -162,9 +170,10 @@ itself, so you never have to export anything into your shell.
 
 - **Notebooks are outputs-free in git.** `nbstripout` runs as a pre-commit hook,
   so committed notebooks carry no outputs. Your local runs will fill them in.
-- **No sample papers ship with the repository.** `data/` is git-ignored.
-  Tutorials 3 and 4 need a PDF of your own; Tutorial 2 shows how to find one,
-  and Tutorials 5 and 6 generate a small synthetic paper so they run standalone.
+- **No sample papers ship with the repository.** `data/` is git-ignored, but
+  every tutorial still runs standalone: Tutorial 4 downloads its fixed example
+  paper from arXiv, and Tutorials 3 and 5 write a small synthetic paper of their
+  own. Tutorial 2 shows how to find papers of your own to point them at.
 - **The datasets are gated.** Request access to
   [LeMat-Synth](https://huggingface.co/datasets/LeMaterial/LeMat-Synth) and
   [LeMat-Synth-Papers](https://huggingface.co/datasets/LeMaterial/LeMat-Synth-Papers)

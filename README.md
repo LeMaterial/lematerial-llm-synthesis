@@ -104,6 +104,32 @@ The data is hosted as a LeMaterial Dataset on HuggingFace: [LeMat-Synth](https:/
 
 ## Usage
 
+### Tutorials
+
+Six runnable notebooks in [`examples/notebooks/tutorials/`](examples/notebooks/tutorials/)
+take you from reading the published dataset to extending the extraction schema.
+Each states its API keys and cost up front, and starts with the same `.env` setup.
+
+```bash
+uv run jupyter lab examples/notebooks/tutorials/
+```
+
+| # | Tutorial | Track | API keys |
+|---|----------|-------|----------|
+| 1 | [Explore the LeMat-Synth dataset](examples/notebooks/tutorials/01_explore_the_lemat_synth_dataset.ipynb) | Use the data | HuggingFace access only |
+| 2 | [Finding papers](examples/notebooks/tutorials/02_finding_papers.ipynb) | Use the data | HuggingFace access only |
+| 3 | [Batch extraction with the CLI](examples/notebooks/tutorials/03_batch_extraction_with_the_cli.ipynb) | Extract | `GEMINI_API_KEY` or `OPENROUTER_API_KEY` |
+| 4 | [Synthesis + performance from a paper](examples/notebooks/tutorials/04_extracting_synthesis_and_performance.ipynb) | Extract | `GEMINI_API_KEY` + `ANTHROPIC_API_KEY`, or one `OPENROUTER_API_KEY` |
+| 5 | [Evaluating extraction quality](examples/notebooks/tutorials/05_evaluating_extraction_quality.ipynb) | Extract | `GEMINI_API_KEY` or `OPENROUTER_API_KEY` (Part A only) |
+| 6 | [Customizing the ontology](examples/notebooks/tutorials/06_customizing_the_ontology.ipynb) | Extend | none |
+
+Every tutorial that calls a model has a `USE_OPENROUTER` flag: set it to `True`
+to route all its calls through OpenRouter with a single `OPENROUTER_API_KEY`
+instead of per-provider keys.
+
+Full descriptions, prerequisites and the `.env` reference are in the
+[Tutorials documentation](https://lematerial.github.io/lematerial-llm-synthesis/tutorials/).
+
 ### Extract from HuggingFace Dataset
 ```bash
 uv run examples/scripts/extract_synthesis_procedure_from_text.py \

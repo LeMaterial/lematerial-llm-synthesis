@@ -4,16 +4,22 @@ This page gets you from zero to your first extracted synthesis in under 10 minut
 
 ## Option 1 — Interactive notebook (recommended for beginners)
 
-Open the step-by-step notebook in Jupyter:
+Open the tutorial notebooks in Jupyter:
 
 ```bash
-uv run jupyter lab examples/notebooks/synthesis_with_performance.ipynb
+uv run jupyter lab examples/notebooks/tutorials/
 ```
 
-Edit the configuration cell at the top (`INPUT_PATH`, the models, `SKIP_FIGURES`),
-then run the cells in order. Each step — materials, synthesis procedures, plot data —
-prints its result before the next one starts, so you can see exactly what the models
-returned and stop wherever you like.
+Start with
+[Tutorial 3 — Batch extraction with the CLI](../tutorials/index.md), which gets
+you results in one command, or
+[Tutorial 1](../tutorials/index.md) if you would rather read the published dataset
+than run anything. [Tutorial 4](../tutorials/index.md) walks a fixed example
+paper through the pipeline a stage at a time when you want to see the internals. Each step prints its result before the next one starts, so you
+can see exactly what the models returned and stop wherever you like.
+
+The [Tutorials index](../tutorials/index.md) lists all six, with the API keys and
+rough cost each one needs.
 
 ---
 
