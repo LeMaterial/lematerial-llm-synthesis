@@ -29,3 +29,124 @@
   height: 2rem;
   width: auto;
 }
+
+/* ------------------------------------------------------------------ */
+/* Landing page                                                        */
+/* ------------------------------------------------------------------ */
+
+/* Hero */
+.ls-hero {
+  text-align: center;
+  margin: 1.5rem auto 3rem;
+  max-width: 46rem;
+}
+
+.ls-hero .ls-hero__logo {
+  max-width: 22rem;
+  width: 70%;
+  margin: 0 auto 0.6rem;
+}
+
+.md-typeset .ls-hero h1 {
+  font-size: 2.6rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--md-primary-fg-color);
+  margin: 0 0 0.6rem;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .ls-hero h1 {
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .ls-hero__tagline {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--md-default-fg-color--light);
+  margin: 0 auto 1.6rem;
+  max-width: 34rem;
+}
+
+.md-typeset .ls-hero .md-button {
+  margin: 0.2rem 0.25rem;
+}
+
+.md-typeset .ls-hero__badges {
+  margin-top: 1.8rem;
+  line-height: 2.2;
+}
+
+.md-typeset .ls-hero__badges img {
+  margin: 0 0.15rem;
+  vertical-align: middle;
+}
+
+/* Pipeline figure */
+.md-typeset .ls-figure {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  border-radius: 0.2rem;
+}
+
+/* Cards: lift on hover, tint the icons */
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > :is(ul, ol) > li {
+  transition:
+    border-color 125ms,
+    box-shadow 125ms,
+    transform 125ms;
+}
+
+.md-typeset .grid.cards > :is(ul, ol) > li:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.07);
+  transform: translateY(-0.1rem);
+}
+
+.md-typeset .grid.cards .twemoji.lg svg {
+  fill: var(--md-primary-fg-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards .twemoji.lg svg {
+  fill: var(--md-accent-fg-color);
+}
+
+/* Landing page has no sidebars — keep the content column readable */
+.md-typeset .ls-hero + hr {
+  margin-bottom: 2.5rem;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .ls-hero h1 {
+    font-size: 1.9rem;
+  }
+}
+
+/* Feature grid: four across on wide screens, never an orphaned card */
+.md-typeset .ls-features.grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 76.1875em) {
+  .md-typeset .ls-features.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .ls-features.grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Landing-page tables span the content column instead of hugging their text */
+.md-typeset .ls-wide-table .md-typeset__table {
+  display: block;
+}
+
+.md-typeset .ls-wide-table table:not([class]) {
+  display: table;
+  width: 100%;
+}
