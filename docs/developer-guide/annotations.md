@@ -1,7 +1,7 @@
 # The `annotations/` Directory
 
 `annotations/` is the hand-verified ground-truth evaluation dataset that ships
-with the repository — currently **38 papers, each with a human-written
+with the repository — currently **36 papers, each with a human-written
 `result_human.json`**. It is used to benchmark LLM extraction quality and to
 drive the evaluation scripts.
 
