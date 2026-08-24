@@ -23,7 +23,7 @@ import logging
 import os
 import warnings
 from pathlib import Path
-from typing import Annotated, Any
+from typing import TYPE_CHECKING, Annotated, Any
 
 import typer
 from dotenv import load_dotenv
@@ -31,58 +31,45 @@ from hydra import compose, initialize_config_dir
 from hydra.core.global_hydra import GlobalHydra
 from omegaconf import OmegaConf
 
-from llm_synthesis.config.plot_filter_config import PlotFilterConfig
-from llm_synthesis.metrics.judge.general_synthesis_judge import (
-    DspyGeneralSynthesisJudge,
-    make_general_synthesis_judge_signature,
-)
-from llm_synthesis.metrics.judge.linking_judge import (
-    DspyLinkingJudge,
-    make_linking_judge_signature,
-)
-from llm_synthesis.models.paper import Paper
-from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (
-    SynthesisPerformancePipeline,
-)
-from llm_synthesis.transformers.material_extraction.dspy_extraction import (
-    DspyTextExtractor,
-    make_dspy_text_extractor_signature,
-)
-from llm_synthesis.transformers.pdf_extraction import (
-    DoclingPDFExtractor,
-    MistralPDFExtractor,
-)
-from llm_synthesis.transformers.performance_linking import (
-    series_material_linker,
-)
-from llm_synthesis.transformers.plot_extraction.claude_extraction import (
-    plot_data_extraction as claude_plot_data,
-)
-from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (  # noqa: E501
-    DspySynthesisExtractor,
-    make_dspy_synthesis_extractor_signature,
-)
-from llm_synthesis.utils.concurrency import get_max_concurrent_llm_calls
-from llm_synthesis.utils.llms import SystemPrefixedLM
+# `llm_synthesis.*` imports below are deferred into the functions that use
+# them (rather than imported here at module level). Building the pipeline
+# transitively pulls in dspy/litellm/torch/transformers/docling, which take
+# ~10s to import — fine once you're actually extracting, but it made every
+# invocation (including `--help`) pay that cost before Typer got a chance to
+# parse argv. TYPE_CHECKING keeps static analysis / IDE support working;
+# forward-referenced (string) return annotations below avoid a NameError at
+# function-definition time since the real names aren't in scope at runtime.
+if TYPE_CHECKING:
+    from llm_synthesis.models.paper import Paper
+    from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (  # noqa: E501
+        SynthesisPerformancePipeline,
+    )
+    from llm_synthesis.utils.llms import SystemPrefixedLM
 
 # Valid environment variable names that hold LLM API keys. Users select one
 # of these by name (e.g. synthesis_api_key_env=OPENROUTER_QWEN_API_KEY) — the
 # actual key value is never passed on the command line.
-_ALLOWED_API_KEY_ENVS: frozenset[str] = frozenset({
-    "ANTHROPIC_API_KEY",
-    "GEMINI_API_KEY",
-    "OPENAI_API_KEY",
-    "MISTRAL_API_KEY",
-    "OPENROUTER_QWEN_API_KEY",
-    "OPENROUTER_KIMI_API_KEY",
-    "OPENROUTER_DEEPSEEK_API_KEY",
-})
+_ALLOWED_API_KEY_ENVS: frozenset[str] = frozenset(
+    {
+        "ANTHROPIC_API_KEY",
+        "GEMINI_API_KEY",
+        "OPENAI_API_KEY",
+        "MISTRAL_API_KEY",
+        "OPENROUTER_QWEN_API_KEY",
+        "OPENROUTER_KIMI_API_KEY",
+        "OPENROUTER_DEEPSEEK_API_KEY",
+    }
+)
 
 # Silence noisy third-party loggers
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 logging.getLogger("pydantic").setLevel(logging.ERROR)
 logging.getLogger("LiteLLM").setLevel(logging.ERROR)
 logging.getLogger("litellm").setLevel(logging.ERROR)
+# dspy warns whenever .forward(...) is called directly instead of module(...);
+# every extractor/judge in this pipeline is invoked via .forward() by design
+# (see transformers/base.py's ExtractorInterface), so this is expected noise.
+logging.getLogger("dspy.primitives.module").setLevel(logging.ERROR)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -152,8 +139,10 @@ def _build_lm(
     api_base: str | None = None,
     api_key_env: str | None = None,
     **kwargs,
-) -> SystemPrefixedLM:
+) -> "SystemPrefixedLM":
     """Build a SystemPrefixedLM for any LiteLLM-compatible model string."""
+    from llm_synthesis.utils.llms import SystemPrefixedLM
+
     if api_base is not None:
         kwargs["api_base"] = api_base
     api_key = _resolve_api_key(api_key_env)
@@ -165,8 +154,35 @@ def _build_lm(
 # ── Pipeline builder ──────────────────────────────────────────────────────────
 
 
-def _build_pipeline_from_cfg(cfg: Any) -> SynthesisPerformancePipeline:
+def _build_pipeline_from_cfg(cfg: Any) -> "SynthesisPerformancePipeline":
     """Build a SynthesisPerformancePipeline from a loaded Hydra DictConfig."""
+    from llm_synthesis.config.plot_filter_config import PlotFilterConfig
+    from llm_synthesis.metrics.judge.general_synthesis_judge import (
+        DspyGeneralSynthesisJudge,
+        make_general_synthesis_judge_signature,
+    )
+    from llm_synthesis.metrics.judge.linking_judge import (
+        DspyLinkingJudge,
+        make_linking_judge_signature,
+    )
+    from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (  # noqa: E501
+        SynthesisPerformancePipeline,
+    )
+    from llm_synthesis.transformers.material_extraction.dspy_extraction import (
+        DspyTextExtractor,
+        make_dspy_text_extractor_signature,
+    )
+    from llm_synthesis.transformers.performance_linking import (
+        series_material_linker,
+    )
+    from llm_synthesis.transformers.plot_extraction.claude_extraction import (
+        plot_data_extraction as claude_plot_data,
+    )
+    from llm_synthesis.transformers.synthesis_extraction.dspy_synthesis_extraction import (  # noqa: E501
+        DspySynthesisExtractor,
+        make_dspy_synthesis_extractor_signature,
+    )
+
     api_base = OmegaConf.select(cfg, "api_base", default=None)
     p = cfg.prompts
 
@@ -181,9 +197,7 @@ def _build_pipeline_from_cfg(cfg: Any) -> SynthesisPerformancePipeline:
     material_lm = _build_lm(
         cfg.material_model,
         api_base=api_base,
-        api_key_env=OmegaConf.select(
-            cfg, "material_api_key_env", default=None
-        ),
+        api_key_env=OmegaConf.select(cfg, "material_api_key_env", default=None),
         temperature=0.0,
     )
     material_extractor = DspyTextExtractor(
@@ -218,9 +232,7 @@ def _build_pipeline_from_cfg(cfg: Any) -> SynthesisPerformancePipeline:
     judge_lm = _build_lm(
         cfg.judge_model,
         api_base=api_base,
-        api_key_env=OmegaConf.select(
-            cfg, "judge_api_key_env", default=None
-        ),
+        api_key_env=OmegaConf.select(cfg, "judge_api_key_env", default=None),
         temperature=0.1,
         max_tokens=8000,
     )
@@ -289,8 +301,10 @@ def _build_pipeline_from_cfg(cfg: Any) -> SynthesisPerformancePipeline:
 # ── File helpers ──────────────────────────────────────────────────────────────
 
 
-def _load_paper_from_file(path: Path) -> Paper:
+def _load_paper_from_file(path: Path) -> "Paper":
     """Load a single paper from a .txt or .md file as a Paper object."""
+    from llm_synthesis.models.paper import Paper
+
     text = path.read_text(encoding="utf-8", errors="replace")
     si_path = path.parent / (path.stem + "_SI" + path.suffix)
     si_text = (
@@ -305,6 +319,10 @@ def _load_paper_from_file(path: Path) -> Paper:
 
 def _save_result(result: Any, output_dir: Path) -> None:
     """Save a PipelineResult to <output_dir>/<paper_id>/."""
+    from llm_synthesis.services.pipelines.synthesis_performance_pipeline import (  # noqa: E501
+        SynthesisPerformancePipeline,
+    )
+
     SynthesisPerformancePipeline.save_results(result, str(output_dir))
 
 
@@ -314,6 +332,11 @@ def _pdf_to_markdown(
     extractor: str = "docling",
 ) -> Path:
     """Extract markdown text from a PDF and return the path to the .md file."""
+    from llm_synthesis.transformers.pdf_extraction import (
+        DoclingPDFExtractor,
+        MistralPDFExtractor,
+    )
+
     if extractor == "mistral":
         pdf_extractor = MistralPDFExtractor(structured=False)
     else:
@@ -328,6 +351,8 @@ def _pdf_to_markdown(
 
 def _llm_semaphore() -> asyncio.Semaphore:
     """Return a semaphore sized from the project-wide env-driven default."""
+    from llm_synthesis.utils.concurrency import get_max_concurrent_llm_calls
+
     return asyncio.Semaphore(get_max_concurrent_llm_calls())
 
 
@@ -362,7 +387,7 @@ def extract(
       lemat-synth extract paper.txt domain=catalysis with_performance=true
       lemat-synth extract paper.pdf pdf_extractor=mistral
       lemat-synth extract paper.txt \\
-          synthesis_model=openrouter/google/gemini-3-flash-preview \\
+          synthesis_model=openrouter/google/gemini-3.5-flash-lite \\
           api_base=https://openrouter.ai/api/v1
     """
     _load_env()
@@ -445,7 +470,7 @@ def batch(
     Examples:
       lemat-synth batch papers/
       lemat-synth batch papers/ output_dir=results/ domain=catalysis
-      lemat-synth batch papers/ synthesis_model=gemini/gemini-2.5-pro \\
+      lemat-synth batch papers/ synthesis_model=gemini/gemini-3-pro \\
           max_papers=10
       lemat-synth batch papers/ skip_existing=false max_papers_parallel=2
       lemat-synth batch papers/ pdf_extractor=mistral
@@ -514,16 +539,13 @@ def batch(
                     _save_result(result, output_dir)
                     typer.echo(
                         f"  {paper_id}: {len(result.materials)} "
-                        "material(s) — "
-                        + ", ".join(result.materials)
+                        "material(s) — " + ", ".join(result.materials)
                     )
                 else:
                     typer.echo(f"  {paper_id}: no synthesis found")
             except Exception as exc:
                 logger.exception("Failed processing %s", paper_id)
-                typer.echo(
-                    f"  ERROR processing {paper_id}: {exc}", err=True
-                )
+                typer.echo(f"  ERROR processing {paper_id}: {exc}", err=True)
 
     async def _run_all() -> None:
         await asyncio.gather(*[_process_one(p) for p in paper_files])

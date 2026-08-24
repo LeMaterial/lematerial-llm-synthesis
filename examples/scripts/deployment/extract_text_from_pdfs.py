@@ -2,6 +2,9 @@
 and saves it to a directory called txt_papers."""
 
 import argparse
+from pathlib import Path
+
+from dotenv import load_dotenv
 
 from llm_synthesis.services.pipelines.process_pdf_folder_pipeline import (
     ProcessPDFFolderPipeline,
@@ -15,6 +18,9 @@ from llm_synthesis.transformers.pdf_extraction.pdf_extractor_factory import (
 )
 
 if __name__ == "__main__":
+    # MISTRAL_API_KEY is needed when --process mistral is used.
+    load_dotenv(Path(__file__).resolve().parents[3] / ".env", override=True)
+
     parser = argparse.ArgumentParser(description="Extract text from PDFs.")
     parser.add_argument(
         "--input-path",

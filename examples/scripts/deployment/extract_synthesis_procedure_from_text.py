@@ -4,9 +4,11 @@ import os
 import random
 import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
 
 import dspy
 import hydra
+from dotenv import load_dotenv
 from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
 
@@ -29,6 +31,11 @@ from llm_synthesis.transformers.synthesis_extraction.base import (
 from llm_synthesis.utils import clean_text
 from llm_synthesis.utils.dspy_utils import get_lm_cost
 
+# Load API keys from the repository-root .env before Hydra runs: with
+# `hydra.job.chdir: true` the working directory changes to the run folder, so
+# the path has to be resolved from this file rather than from the CWD.
+load_dotenv(Path(__file__).resolve().parents[3] / ".env", override=True)
+
 # Disable Pydantic warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 
@@ -39,7 +46,7 @@ logging.getLogger("litellm").setLevel(logging.ERROR)
 
 
 @hydra.main(
-    config_path="../config", config_name="config.yaml", version_base=None
+    config_path="../../config", config_name="config.yaml", version_base=None
 )
 def main(cfg: DictConfig) -> None:
     original_cwd = get_original_cwd()

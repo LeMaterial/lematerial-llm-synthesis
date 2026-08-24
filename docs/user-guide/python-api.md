@@ -473,4 +473,4 @@ More in [Troubleshooting](troubleshooting.md).
 | Judge scores and linking evaluation | [API Reference — Metrics & Judges](../api/metrics.md) |
 | `PlotFilterConfig`, the LLM registry, DSPy helpers | [API Reference — Configuration](../api/configuration.md) |
 | Running the same thing from YAML instead of Python | [Configuration guide](../developer-guide/configuration.md) |
-| Worked, runnable notebooks | `examples/notebooks/synthesis_with_performance.ipynb` |
+| Worked, runnable notebooks | [Tutorials](../tutorials/index.md) — `examples/notebooks/tutorials/` |

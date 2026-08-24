@@ -26,6 +26,7 @@ import os
 import random
 import sys
 import warnings
+from pathlib import Path
 from typing import ClassVar
 
 # Ensure the project root is on sys.path so sibling scripts are importable.
@@ -36,6 +37,7 @@ sys.path.insert(
 
 import hydra
 import numpy as np
+from dotenv import load_dotenv
 from hydra.utils import get_original_cwd, instantiate
 from omegaconf import DictConfig
 
@@ -57,6 +59,11 @@ from llm_synthesis.utils.concurrency import (
     run_with_semaphore,
 )
 from llm_synthesis.utils.llms import LLM_REGISTRY
+
+# Load API keys from the repository-root .env before Hydra runs: with
+# `hydra.job.chdir: true` the working directory changes to the run folder, so
+# the path has to be resolved from this file rather than from the CWD.
+load_dotenv(Path(__file__).resolve().parents[3] / ".env", override=True)
 
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 logging.basicConfig(
@@ -436,7 +443,7 @@ class MetricsEvaluator:
         rank_by: str = "mean_pearson_r",
     ) -> None:
         """
-        Full pipeline: compute per-figure metrics, aggregate, rank, 
+        Full pipeline: compute per-figure metrics, aggregate, rank,
         save JSONs, and log.
         """
         logging.info("Computing metrics against ground-truth CSVs …")
@@ -604,7 +611,7 @@ class ImageBenchmarkRunner(BaseVLMRunner):
 
     def _make_figure(self, png_path: str, name: str) -> FigureInfoWithPaper:
         """
-        Wrap a local PNG into a minimal ``FigureInfoWithPaper`` 
+        Wrap a local PNG into a minimal ``FigureInfoWithPaper``
         (no paper context).
         """
         return FigureInfoWithPaper(
@@ -700,7 +707,7 @@ class PaperExtractionRunner(BaseVLMRunner):
         """Initialise the runner.
 
         Args:
-            cfg: Full Hydra config (must include ``data_loader``, 
+            cfg: Full Hydra config (must include ``data_loader``,
             ``result_save``, and ``plot_extraction`` sections).
             original_cwd: Original working directory (before Hydra changes it).
         """
@@ -725,7 +732,7 @@ class PaperExtractionRunner(BaseVLMRunner):
 
     async def _get_text_and_figures(self, paper) -> tuple[str, list]:
         """
-        Get paper text (downloading/converting the PDF if needed) and extract 
+        Get paper text (downloading/converting the PDF if needed) and extract
         figures.
         """
         paper_text = paper.publication_text
@@ -783,7 +790,7 @@ class PaperExtractionRunner(BaseVLMRunner):
             """
             Process a single paper: get figures, run VLMs via _batch_extract,
             save.
-             """
+            """
             logging.info(f"Processing {paper.name}")
             try:
                 paper_text, figures = await self._get_text_and_figures(paper)
