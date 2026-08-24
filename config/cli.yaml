@@ -13,10 +13,10 @@
 # For standard providers the API key is auto-detected from the environment
 # (GEMINI_API_KEY / GOOGLE_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY …).
 # For OpenRouter models also set:  api_base=https://openrouter.ai/api/v1
-synthesis_model: gemini/gemini-3-flash-lite
-material_model: gemini/gemini-3-flash-lite
+synthesis_model: gemini/gemini-3.5-flash-lite
+material_model: gemini/gemini-3.5-flash-lite
 judge_model: ${synthesis_model}          # OmegaConf interpolation — mirrors synthesis_model
-linker_model: gemini/gemini-3-pro
+linker_model: gemini/gemini-3.1-pro-preview
 plot_model: claude-sonnet-4.6
 api_base: null                            # e.g. https://openrouter.ai/api/v1
 
