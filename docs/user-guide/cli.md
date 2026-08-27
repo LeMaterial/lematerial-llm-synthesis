@@ -4,25 +4,34 @@ The `lemat-synth` command-line tool lets you extract structured synthesis
 procedures from materials science papers without writing any Python code.
 
 ```bash
-lemat-synth extract <paper>   [key=value ...]
-lemat-synth batch   <folder>  [key=value ...]
+lemat-synth extract <paper>   [key=value ...] # Extract from a single paper
+lemat-synth batch   <folder>  [key=value ...] # Extract from a folder of papers
 ```
+
+Both commands accept the same `key=value` overrides, which can be used to change models, prompts, output paths, and other settings. See [Quick Reference: All Arguments](#quick-reference-all-arguments) below.
+
+By default, extraction runs a single LLM pass over the whole paper. Pass
+`domain=catalysis` (or `superconductors`, `electrochemistry`) to filter
+figures down to domain-relevant plots, add `with_performance=true` to also
+extract and link plot data to materials (requires `ANTHROPIC_API_KEY`), and
+override any `prompts.*` key, e.g., `prompts.synthesis_instructions="..."`, to
+customize the extraction instructions.
+
+## Quick Reference: All Arguments
 
 All settings — models, prompts, domain, output path — live in
 `config/cli.yaml` at the repository root.  You can override any of them
 directly on the command line using [Hydra](https://hydra.cc) `key=value`
 syntax.
 
-## Quick Reference: All Arguments
-
 | Argument | Type | Default | Description |
 |----------|------|---------|-------------|
 | **Models & API** |
-| `synthesis_model` | string | `gemini/gemini-2.0-flash` | Main extraction model (LiteLLM format) |
-| `material_model` | string | `gemini/gemini-2.5-flash-lite` | Fast model for material-list extraction |
+| `synthesis_model` | string | `gemini/gemini-3.5-flash-lite` | Main extraction model (LiteLLM format) |
+| `material_model` | string | `gemini/gemini-3.5-flash-lite` | Fast model for material-list extraction |
 | `judge_model` | string | *(mirrors `synthesis_model`)* | Quality evaluation model |
-| `linker_model` | string | `gemini/gemini-3-pro-preview` | Links plots to materials (requires `with_performance=true`) |
-| `plot_model` | string | `claude-sonnet-4-20250514` | Claude model for plot data extraction (requires `with_performance=true`) |
+| `linker_model` | string | `gemini/gemini-3.1-pro-preview` | Links plots to materials (requires `with_performance=true`) |
+| `plot_model` | string | `claude-sonnet-4.6` | Claude model for plot data extraction (requires `with_performance=true`) |
 | `api_base` | string | `null` | Custom API base URL, e.g. `https://openrouter.ai/api/v1` |
 | `synthesis_api_key_env` | string | `null` | Env var name holding synthesis model API key |
 | `material_api_key_env` | string | `null` | Env var name holding material model API key |
@@ -43,48 +52,11 @@ syntax.
 | `prompts.synthesis_system` | string | *(see below)* | System message for synthesis extraction |
 | `prompts.synthesis_instructions` | string | *(see below)* | Task instructions for synthesis extractor |
 | `prompts.material_instructions` | string | *(see below)* | Task instructions for material extractor |
-| Other prompt keys | string | *(see below)* | See [Customising prompts](#customising-prompts) |
+| Other prompt keys | string | *(see below)* | See [Customising prompts](#customizing-prompts) |
 
----
+## Examples
 
-## Installation & setup
-
-Install the package (one-time):
-
-```bash
-uv pip install -e .
-```
-
-Create a `.env` file in the repository root with the API keys you need:
-
-```dotenv
-GEMINI_API_KEY=...                  # Google Gemini models (synthesis default)
-ANTHROPIC_API_KEY=...               # Claude models and with_performance=true
-OPENAI_API_KEY=...                  # OpenAI GPT models
-MISTRAL_API_KEY=...                 # Mistral models or pdf_extractor=mistral
-# OpenRouter — one key slot per model family (use synthesis_api_key_env etc.)
-OPENROUTER_QWEN_API_KEY=...         # qwen3.5-35b-a3b
-OPENROUTER_KIMI_API_KEY=...         # moonshotai/kimi-k2.5
-OPENROUTER_DEEPSEEK_API_KEY=...     # deepseek/deepseek-v3.2
-```
-
-The CLI loads `.env` automatically on every run.
-
----
-
-## `lemat-synth extract` — single paper
-
-```
-lemat-synth extract INPUT_FILE [key=value ...]
-```
-
-`INPUT_FILE` can be a plain-text file (`.txt`), a Markdown file (`.md`
-produced by a PDF extractor), or a PDF (`.pdf` — Docling is used
-automatically).
-
-### Examples
-
-#### Basic usage
+### Basic usage
 
 ```bash
 # Uses all defaults from config/cli.yaml
@@ -94,7 +66,7 @@ lemat-synth extract paper.txt
 lemat-synth extract paper.txt output_dir=my_results/
 ```
 
-#### Common customizations
+### Common customizations
 
 ```bash
 # Use a different synthesis model
@@ -109,14 +81,13 @@ lemat-synth extract paper.txt with_performance=true
 # Use Mistral OCR for better PDF extraction (requires MISTRAL_API_KEY)
 lemat-synth extract paper.pdf pdf_extractor=mistral
 
-# Override the synthesis extraction prompt
+# Override the synthesis extraction prompt (inner 'single quotes' are required
+# here because the value contains a comma — see "Customizing Prompts" below)
 lemat-synth extract paper.txt \
-    "prompts.synthesis_instructions=Extract only the primary synthesis route, ignoring alternative procedures."
+    "prompts.synthesis_instructions='Extract only the primary synthesis route, ignoring alternative procedures.'"
 ```
 
-#### Advanced: OpenRouter with multiple API keys
-
-Route different models through different OpenRouter slots to manage rate limits or costs:
+### Advanced: OpenRouter with multiple API keys
 
 ```bash
 # All models through OpenRouter (Gemini Flash for synthesis, Claude for performance)
@@ -132,7 +103,10 @@ lemat-synth extract data/cipollone_2022.pdf \
     output_dir="results/"
 ```
 
-#### Advanced: Extract with performance linking (OpenRouter)
+> [!CAUTION]
+> The `_api_key_env` arguments **must not** contain the actual API key: they must be the name of an environment variable that holds the key.  For example, `material_api_key_env=GEMINI_API_KEY` means that the material model set to Gemini will use the API key stored in the environment variable `GEMINI_API_KEY`.  See [API key environment variables](#api-key-environment-variables) for more details.
+
+### Advanced: Extract with performance linking (OpenRouter)
 
 Extract synthesis procedures and link extracted plot data to synthesized materials:
 
@@ -151,32 +125,10 @@ lemat-synth extract data/cipollone_2022.pdf \
     with_performance=true
 ```
 
-#### Advanced: Batch processing with selective models
+> [!CAUTION]
+> The `_api_key_env` arguments **must not** contain the actual API key: they must be the name of an environment variable that holds the key.  For example, `material_api_key_env=GEMINI_API_KEY` means that the material model set to Gemini will use the API key stored in the environment variable `GEMINI_API_KEY`.  See [API key environment variables](#api-key-environment-variables) for more details.
 
-```bash
-# Process all papers in folder with custom models and domain filtering
-lemat-synth batch papers/ \
-    synthesis_model=anthropic/claude-sonnet-4-6 \
-    material_model=gemini/gemini-2.5-pro \
-    judge_model=anthropic/claude-opus-4-7 \
-    domain=catalysis \
-    skip_existing=true \
-    max_papers_parallel=2 \
-    output_dir="results/catalysis/"
-```
-
----
-
-## `lemat-synth batch` — folder of papers
-
-```
-lemat-synth batch INPUT_DIR [key=value ...]
-```
-
-Processes every `.txt`, `.md`, and `.pdf` file in `INPUT_DIR` and writes
-per-paper results to `output_dir/`.
-
-### Examples
+### Batch Processing
 
 ```bash
 # Basic — processes all papers in folder
@@ -205,17 +157,16 @@ lemat-synth batch papers/ \
     material_model=anthropic/claude-opus-4-7 \
     domain=catalysis \
     skip_existing=true \
-    max_papers_parallel=2
+    max_papers_parallel=2 \
+    output_dir="results/catalysis/"
 
 # Different models through OpenRouter
 lemat-synth batch papers/ \
     synthesis_model=openrouter/google/gemini-3-flash-preview \
     material_model=openrouter/google/gemini-3.1-pro-preview \
-    judge_model=openrouter/anthropic/claude-sonnet-4-6 \
+    judge_model=openrouter/anthropic/claude-sonnet-4.6 \
     api_base=https://openrouter.ai/api/v1
 ```
-
----
 
 ## Configuration Details
 
@@ -227,7 +178,8 @@ Model strings follow the [LiteLLM](https://docs.litellm.ai/docs/providers)
 convention: `{provider}/{model-name}`.  Common providers and models:
 
 ```
-gemini/gemini-2.0-flash                           # Google Gemini
+gemini/gemini-3.5-flash-lite                      # Google Gemini
+gemini/gemini-3.1-pro-preview
 gemini/gemini-2.5-pro
 anthropic/claude-sonnet-4-6                      # Anthropic Claude
 anthropic/claude-opus-4-7
@@ -247,16 +199,13 @@ When using OpenRouter models, **always** set `api_base=https://openrouter.ai/api
 ### API key environment variables
 
 By default LiteLLM auto-detects API keys from standard environment variables:
+
 - `gemini/*` → `GEMINI_API_KEY`
 - `anthropic/*` → `ANTHROPIC_API_KEY`
 - `openai/*` → `OPENAI_API_KEY`
 - etc.
 
 Use the `*_api_key_env` arguments to override this — useful for OpenRouter key slots or when multiple keys exist for the same provider.
-
-**Allowed env var names:**
-`ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `OPENAI_API_KEY`, `MISTRAL_API_KEY`,
-`OPENROUTER_QWEN_API_KEY`, `OPENROUTER_KIMI_API_KEY`, `OPENROUTER_DEEPSEEK_API_KEY`
 
 ```bash
 # Example: different OpenRouter keys for different models
@@ -268,14 +217,22 @@ lemat-synth batch papers/ \
     api_base=https://openrouter.ai/api/v1
 ```
 
-### Synthesis extraction modes
+> [!CAUTION]
+> The `_api_key_env` arguments **must not** contain the actual API key: they must be the name of an environment variable that holds the key.  For example, `material_api_key_env=OPENROUTER_QWEN_API_KEY` means that the material model set to QWEN will use the API key stored in the environment variable `OPENROUTER_QWEN_API_KEY`.
 
-| Mode | Description | Usage |
-|------|-------------|-------|
-| Default | Single LLM extraction (synthesis_model) | `lemat-synth extract paper.txt` |
-| Domain-specific | Filters plots to domain-relevant figures | `domain=catalysis` or `electrochemistry` |
-| With performance | Extracts and links plot data to materials | `with_performance=true` (requires Claude API) |
-| Custom prompts | Override extraction instructions | `prompts.synthesis_instructions="..."` |
+#### Allowed Environment Variables
+
+Add these to your `.env` file (automatically loaded at runtime):
+
+| Variable | When required | Example use |
+|----------|---------------|-|
+| `GEMINI_API_KEY` | Using `gemini/*` models | Default synthesis/material models |
+| `ANTHROPIC_API_KEY` | Using Claude models or `with_performance=true` | `synthesis_model=anthropic/claude-sonnet-4-6` |
+| `OPENAI_API_KEY` | Using `openai/gpt-*` models | `plot_model=openai/gpt-4o` |
+| `MISTRAL_API_KEY` | Using Mistral models or `pdf_extractor=mistral` | `pdf_extractor=mistral` for better OCR |
+| `OPENROUTER_QWEN_API_KEY` | Using Qwen via OpenRouter | `synthesis_model=openrouter/qwen/qwen3.5-35b-a3b` |
+| `OPENROUTER_KIMI_API_KEY` | Using Kimi via OpenRouter | `linker_model=openrouter/moonshotai/kimi-k2.5` |
+| `OPENROUTER_DEEPSEEK_API_KEY` | Using DeepSeek via OpenRouter | `synthesis_model=openrouter/deepseek/deepseek-v3.2` |
 
 ### PDF and figure processing
 
@@ -304,8 +261,6 @@ lemat-synth batch papers/ \
 | `skip_existing` | `true` | Resume from last run; set to `false` to reprocess all |
 | `max_papers_parallel` | `4` | Concurrent papers; lower if hitting rate limits |
 
----
-
 ## Customizing Prompts
 
 Every prompt used during extraction can be customized. The full set of
@@ -322,45 +277,28 @@ prompt keys is in `config/cli.yaml` under the `prompts:` block:
 | `prompts.material_input_description` | Description of material input |
 | `prompts.material_output_description` | Description of material output |
 
-### Override from command line
-
-Quote the value to preserve spaces and special characters:
+To override a prompt from the command line, wrap the whole `key=value` in
+double quotes so the shell preserves spaces. If the value itself contains a
+comma, add a second, inner layer of single quotes too — otherwise Hydra reads
+the comma as a list separator and refuses to guess which you meant:
 
 ```bash
-# Focus on specific synthesis methods
+# Focus on specific synthesis methods (no comma — plain quoting is enough)
 lemat-synth extract paper.txt \
     "prompts.synthesis_instructions=Extract only sol-gel synthesis procedures. \
     Ignore characterization and testing sections."
 
-# Customize material name handling
+# Customize material name handling — the value has a comma, so it needs the
+# inner 'single quotes' too, or Hydra rejects it as an ambiguous list
 lemat-synth extract paper.txt \
-    "prompts.material_name_description=The specific compound formula to extract, \
-    including all dopants and promoters."
+    "prompts.material_name_description='The specific compound formula to extract, \
+    including all dopants and promoters.'"
 ```
 
-### Permanent changes
-
-Edit `config/cli.yaml` directly to make changes that apply to all future runs.
-
----
-
-## Environment Variables
-
-Add these to your `.env` file (automatically loaded at runtime):
-
-| Variable | When required | Example use |
-|----------|---------------|-|
-| `GEMINI_API_KEY` | Using `gemini/*` models | Default synthesis/material models |
-| `ANTHROPIC_API_KEY` | Using Claude models or `with_performance=true` | `synthesis_model=anthropic/claude-sonnet-4-6` |
-| `OPENAI_API_KEY` | Using `openai/gpt-*` models | `plot_model=openai/gpt-4o` |
-| `MISTRAL_API_KEY` | Using Mistral models or `pdf_extractor=mistral` | `pdf_extractor=mistral` for better OCR |
-| `OPENROUTER_QWEN_API_KEY` | Using Qwen via OpenRouter | `synthesis_model=openrouter/qwen/qwen3.5-35b-a3b` |
-| `OPENROUTER_KIMI_API_KEY` | Using Kimi via OpenRouter | `linker_model=openrouter/moonshotai/kimi-k2.5` |
-| `OPENROUTER_DEEPSEEK_API_KEY` | Using DeepSeek via OpenRouter | `synthesis_model=openrouter/deepseek/deepseek-v3.2` |
-
-See [API key selection (per component)](#api-key-environment-variables) for examples of using multiple keys simultaneously.
-
----
+> [!TIP]
+> Any override value with a comma needs this inner-quote treatment —
+> `"key='value, with a comma'"` — not just prompt overrides. Without it, Hydra
+> fails fast with `ConfigCompositionException: Ambiguous value for argument '...'`.
 
 ## Managing Concurrency & Rate Limits
 
@@ -381,8 +319,6 @@ lemat-synth batch papers/ max_papers_parallel=2
 # Add to .env: LLM_SYNTHESIS_MAX_CONCURRENT_LLM_CALLS=4
 ```
 
----
-
 ## Output structure
 
 Results are written to `output_dir/<paper-name>/`.  Each folder contains
@@ -393,16 +329,11 @@ the JSON schema.
 
 ---
 
-## When to use the Hydra deployment scripts instead
+## Related documentation
 
-The `lemat-synth` CLI covers the most common case — extracting from your
-own papers.  For advanced workflows, use the scripts in
-`examples/scripts/deployment/` directly:
-
-- **Multi-LLM ensemble extraction** (`synthesis_extraction=multi_llm`)
-- **Processing the full HuggingFace LeMat-Synth-Papers dataset**
-- **Evaluation against human annotations** (`data_loader=annotation`)
-- **Full Hydra sweep / multi-run** mode
-
-Those scripts are configured with `examples/config/config.yaml` and
-support the same Hydra override syntax.
+- [Quickstart](../getting-started/quickstart.md) — the shortest path to a first result
+- [Output Format](output-format.md) — what the result files contain
+- [Configuration & Models](../developer-guide/configuration.md) — the Hydra
+  deployment scripts, for dataset-scale and multi-LLM runs the CLI does not cover
+- [Case Studies](../case-studies/index.md) — domain-specific batch runs
+- [Troubleshooting](troubleshooting.md) — when a run fails

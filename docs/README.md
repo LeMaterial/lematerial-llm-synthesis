@@ -55,28 +55,11 @@ For the canonical repo this is already configured in `mkdocs.yml`:
 site_url: https://lematerial.github.io/lematerial-llm-synthesis/
 ```
 
-### Option B — GitHub Actions (auto-deploy on push)
+### Option B — GitHub Actions (auto-deploy on push) — **already set up**
 
-Add `.github/workflows/docs.yml`:
-
-```yaml
-name: Deploy docs
-on:
-  push:
-    branches: [main]
-    paths: ["docs/**", "mkdocs.yml"]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-      - run: pip install uv && uv sync --group dev
-      - run: uv run mkdocs gh-deploy --force
-```
+This repository already deploys on every push to `main`, via
+[`.github/workflows/docs.yml`](../.github/workflows/docs.yml). It can also be
+triggered by hand from the Actions tab (`workflow_dispatch`). Nothing to do.
 
 ### Option C — Read the Docs
 

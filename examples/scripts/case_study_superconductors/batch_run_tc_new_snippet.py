@@ -5,9 +5,9 @@ Batch Tc Extraction Script — Snippet-Enhanced + Synthesis
 Runs the full superconductivity Tc extraction pipeline on every PDF in a folder.
 Features:
   - Synthesis extraction (method, steps, evaluation)
-  - Supports MULTI-CONDITION Tc from text (same material at different 
+  - Supports MULTI-CONDITION Tc from text (same material at different
     pressures, etc.)
-  - Runs DUAL VLM Tc extraction: original (single image) + snippet (full + 
+  - Runs DUAL VLM Tc extraction: original (single image) + snippet (full +
     bottom-left crop)
 
 Usage:
@@ -698,7 +698,8 @@ measured under different external conditions (magnetic field H, pressure P,
 etc.) rather than different compositions.
 
 Signs of a condition-varying plot:
-- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T", "5 T")
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T",
+  "5 T")
 - Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
 - All series are the same material formula with only field/pressure changing
 
@@ -851,7 +852,8 @@ measured under different external conditions (magnetic field H, pressure P,
 etc.) rather than different compositions.
 
 Signs of a condition-varying plot:
-- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T", "5 T")
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T",
+  "5 T")
 - Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
 - All series are the same material formula with only field/pressure changing
 
@@ -1219,18 +1221,16 @@ def filter_condition_varying_series(vlm_results: dict) -> dict:
     condition = (meta or {}).get("value", "none")
     if condition == "none":
         return vlm_results
-    _FIELD_PATTERN = re.compile(
+    field_pattern = re.compile(
         r"(?:\d+\.?\d*)\s*(?:T|Tesla|Oe|kOe)\b", re.IGNORECASE
     )
-    _PRESSURE_PATTERN = re.compile(
+    pressure_pattern = re.compile(
         r"(?:\d+\.?\d*)\s*(?:GPa|kbar|Mbar)\b", re.IGNORECASE
     )
     pattern = (
-        _FIELD_PATTERN if condition == "magnetic_field" else _PRESSURE_PATTERN
+        field_pattern if condition == "magnetic_field" else pressure_pattern
     )
-    filtered = {
-        k: v for k, v in vlm_results.items() if not pattern.search(k)
-    }
+    filtered = {k: v for k, v in vlm_results.items() if not pattern.search(k)}
     return filtered if filtered else vlm_results
 
 
@@ -1563,7 +1563,6 @@ def process_one_paper(
     pdf_path: Path, output_dir: Path, skip_figures: bool = False
 ):
     """Run the full Tc extraction pipeline (with synthesis) on a single PDF."""
-    import anthropic
 
     from llm_synthesis.models.paper import Paper
     from llm_synthesis.transformers.material_extraction.dspy_extraction import (
@@ -1648,6 +1647,7 @@ def process_one_paper(
     from llm_synthesis.transformers.synthesis_extraction import (
         dspy_synthesis_extraction as _dse_module,
     )
+
     dspy_synthesis_extractor_cls = _dse_module.DspySynthesisExtractor
     make_dspy_synthesis_extractor_signature = (
         _dse_module.make_dspy_synthesis_extractor_signature
@@ -1899,8 +1899,7 @@ def process_one_paper(
             # Step 4: Extract plot data
             print("[Step 5] Extracting plot data (Claude VLM)...")
             from llm_synthesis.models.figure import FigureInfoWithPaper
-            from llm_synthesis.transformers.plot_extraction \
-                .claude_extraction.plot_data_extraction import (
+            from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (  # noqa: E501
                 ClaudeLinePlotDataExtractor,
             )
             from llm_synthesis.utils.figure_utils import clean_text_from_images
@@ -2005,6 +2004,7 @@ def process_one_paper(
                     (OpenRouter/Qwen, Claude, etc.).
                     """
                     import litellm
+
                     from llm_synthesis.utils.llms import LLM_REGISTRY
 
                     model = VLM_MODEL
@@ -2018,7 +2018,8 @@ def process_one_paper(
                             kwargs["api_base"] = cfg.api_base
                         for k, v in (cfg.extra_kwargs or {}).items():
                             if k not in (
-                                "thinking", "reasoning_effort",
+                                "thinking",
+                                "reasoning_effort",
                                 "enable_thinking",
                             ):
                                 kwargs[k] = v
@@ -2162,12 +2163,10 @@ def process_one_paper(
                 from llm_synthesis.models.performance import (
                     PlotMaterialMapping,
                 )
-                from llm_synthesis.transformers.performance_linking \
-                    .base import (
+                from llm_synthesis.transformers.performance_linking.base import (  # noqa: E501
                     LinkingInput,
                 )
-                from llm_synthesis.transformers.performance_linking \
-                    .series_material_linker import (
+                from llm_synthesis.transformers.performance_linking.series_material_linker import (  # noqa: E501
                     SeriesMaterialLinker,
                 )
 

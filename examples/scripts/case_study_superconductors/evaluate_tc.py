@@ -29,21 +29,32 @@ def normalize_formula(s: str) -> str:
     transitive imports (peft, torch, etc.).
     """
     base = s.strip()
-    base = re.sub(r"\\(?:mathrm|text|textit|mathit|mathbf)\{([^}]*)\}", r"\1", base)
+    base = re.sub(
+        r"\\(?:mathrm|text|textit|mathit|mathbf)\{([^}]*)\}", r"\1", base
+    )
     base = re.sub(r"[_^]\{([^}]*)\}", r"\1", base)
     base = base.replace("$", "").replace("\\", "")
     base = re.sub(r"\s*\([^)]*\)\s*$", "", base).strip()
     base = re.sub(r"\s*\[[^\]]*\]\s*$", "", base).strip()
     base = base.replace("\u03b4", "delta").replace("\u0394", "delta")
     for char, digit in [
-        ("\u2080", "0"), ("\u2081", "1"), ("\u2082", "2"), ("\u2083", "3"),
-        ("\u2084", "4"), ("\u2085", "5"), ("\u2086", "6"), ("\u2087", "7"),
-        ("\u2088", "8"), ("\u2089", "9"), ("\u208b", "-"),
+        ("\u2080", "0"),
+        ("\u2081", "1"),
+        ("\u2082", "2"),
+        ("\u2083", "3"),
+        ("\u2084", "4"),
+        ("\u2085", "5"),
+        ("\u2086", "6"),
+        ("\u2087", "7"),
+        ("\u2088", "8"),
+        ("\u2089", "9"),
+        ("\u208b", "-"),
     ]:
         base = base.replace(char, digit)
     base = base.lower().replace(" ", "").replace("\u2212", "-")
     base = re.sub(r"(\.\d*?)0+(?=\D|$)", r"\1", base)
     return base
+
 
 # ---------------------------------------------------------------------------
 # Defaults
@@ -95,7 +106,8 @@ def match_gt_vlm(gt: pd.DataFrame, vlm: pd.DataFrame) -> pd.DataFrame:
     Returns DataFrame with columns:
       paper_id, gt_material, vlm_material, tc_human, tc_vlm, category, error
     """
-    # Deduplicate VLM results per (paper_id, material_norm) — keep first non-NaN tc_vlm
+    # Deduplicate VLM results per (paper_id, material_norm) — keep first
+    # non-NaN tc_vlm
     vlm_sorted = vlm.sort_values("tc_vlm", ascending=False, na_position="last")
     vlm_dedup = vlm_sorted.drop_duplicates(
         subset=["paper_id", "material_norm"], keep="first"
@@ -123,10 +135,15 @@ def match_gt_vlm(gt: pd.DataFrame, vlm: pd.DataFrame) -> pd.DataFrame:
     )
 
     # Compute error for matched rows with numeric values
-    matched_mask = (merged["category"] == "matched") & merged["tc_human"].notna() & merged["tc_vlm"].notna()
+    matched_mask = (
+        (merged["category"] == "matched")
+        & merged["tc_human"].notna()
+        & merged["tc_vlm"].notna()
+    )
     merged["error"] = np.nan
     merged.loc[matched_mask, "error"] = (
-        merged.loc[matched_mask, "tc_vlm"] - merged.loc[matched_mask, "tc_human"]
+        merged.loc[matched_mask, "tc_vlm"]
+        - merged.loc[matched_mask, "tc_human"]
     )
 
     return merged
@@ -144,8 +161,12 @@ def print_report(comparison: pd.DataFrame) -> None:
     print("=" * 80)
     if len(matched) > 0:
         display_cols = [
-            "paper_id", "gt_material", "vlm_material",
-            "tc_human", "tc_vlm", "error",
+            "paper_id",
+            "gt_material",
+            "vlm_material",
+            "tc_human",
+            "tc_vlm",
+            "error",
         ]
         print(matched[display_cols].to_string(index=False))
     else:
@@ -185,13 +206,17 @@ def print_report(comparison: pd.DataFrame) -> None:
     print(f"  Matched:            {n_matched}")
     print(f"  Missing (FN):       {n_missing}")
     print(f"  Extra (FP):         {n_extra}")
-    print(f"  Recall:             {n_matched / n_gt:.1%}" if n_gt > 0 else "  Recall: N/A")
+    print(
+        f"  Recall:             {n_matched / n_gt:.1%}"
+        if n_gt > 0
+        else "  Recall: N/A"
+    )
 
     # MAE / RMSE on matched rows with both numeric values
     errors = matched["error"].dropna()
     if len(errors) > 0:
         mae = errors.abs().mean()
-        rmse = np.sqrt((errors ** 2).mean())
+        rmse = np.sqrt((errors**2).mean())
         print(f"  MAE (matched):      {mae:.2f} K")
         print(f"  RMSE (matched):     {rmse:.2f} K")
         print(f"  N with numeric Tc:  {len(errors)}")

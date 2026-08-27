@@ -8,6 +8,7 @@ import logging
 import os
 import random
 import warnings
+from pathlib import Path
 
 import matplotlib
 
@@ -15,6 +16,7 @@ matplotlib.use("Agg")
 import dspy
 import hydra
 import numpy as np
+from dotenv import load_dotenv
 from hydra.utils import get_original_cwd, instantiate
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
@@ -37,6 +39,11 @@ from llm_synthesis.utils.concurrency import (
     run_with_semaphore,
 )
 from llm_synthesis.utils.dspy_utils import get_lm_cost
+
+# Load API keys from the repository-root .env before Hydra runs: with
+# `hydra.job.chdir: true` the working directory changes to the run folder, so
+# the path has to be resolved from this file rather than from the CWD.
+load_dotenv(Path(__file__).resolve().parents[3] / ".env", override=True)
 
 # Disable Pydantic warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
@@ -338,7 +345,11 @@ def main(cfg: DictConfig) -> None:
                     )
 
                 return (
-                    synth_llm, material, synthesis, judge_results, pair_cost_ops
+                    synth_llm,
+                    material,
+                    synthesis,
+                    judge_results,
+                    pair_cost_ops,
                 )
 
             # Handle synth_llms with no materials; log materials found
@@ -377,7 +388,11 @@ def main(cfg: DictConfig) -> None:
                         logging.error(f"Pair task failed: {item}")
                         continue
                     (
-                        synth_llm, material, synthesis, jresults, pair_cost_ops
+                        synth_llm,
+                        material,
+                        synthesis,
+                        jresults,
+                        pair_cost_ops,
                     ) = item
                     cost_operations.extend(pair_cost_ops)
 

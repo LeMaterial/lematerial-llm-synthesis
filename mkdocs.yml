@@ -57,8 +57,16 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - github-callouts
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.tabbed:
@@ -66,21 +74,31 @@ markdown_extensions:
   - tables
   - attr_list
   - md_in_html
+  - toc:
+      toc_depth: 2
 
 nav:
   - Home: index.md
   - Getting Started:
       - Installation: getting-started/installation.md
       - Quickstart: getting-started/quickstart.md
+      - Dataset Access: getting-started/dataset.md
+  - Tutorials: tutorials/index.md
+  - Case Studies:
+      - Overview: case-studies/index.md
+      - Thermocatalysis: case-studies/thermocatalysis.md
+      - Superconductors: case-studies/superconductors.md
+      - Porous Materials: case-studies/porosity.md
+      - Build Your Own: case-studies/custom-domain.md
   - User Guide:
       - CLI Reference: user-guide/cli.md
+      - Python API: user-guide/python-api.md
       - Output Format: user-guide/output-format.md
-      - Configuration & Models: user-guide/configuration.md
       - Troubleshooting: user-guide/troubleshooting.md
   - Developer Guide:
       - Architecture: developer-guide/architecture.md
       - Annotations: developer-guide/annotations.md
-      - Configuration Internals: developer-guide/configuration-internals.md
+      - Configuration & Models: developer-guide/configuration.md
   - API Reference:
       - Pipeline: api/pipeline.md
       - Data Models: api/models.md

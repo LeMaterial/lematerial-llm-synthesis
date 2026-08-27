@@ -1,7 +1,6 @@
 # Understanding the Output Format
 
 This page explains every field in the JSON files that LeMat-Synth produces.
-You do not need to read any code to use this guide.
 
 ---
 
@@ -16,12 +15,17 @@ results/
     ├── Fe2O3.json                    ← one file per synthesized material
     ├── Ni-Fe2O3.json
     ├── performance_mappings.json     ← plot-to-material links (full pipeline only)
-    ├── linking_summary_llm.json      ← LLM quality evaluation of the links
-    └── linking_summary_human.json    ← blank template for your own annotation
+    └── linking_summary.json          ← counts: plots found, linked, skipped
 ```
 
-Each `<material>.json` file is the main result. The other files are only present when
-you ran the pipeline with figure extraction enabled (`--with-performance`).
+Each `<material>.json` file is the main result. The other two are only written when you
+ran with figure extraction enabled (`with_performance=true`).
+
+> [!NOTE]
+> The thermocatalysis case-study script (`examples/scripts/case_study_thermocatalysis/`)
+> and `run_performance_only.py` write `linking_summary_llm.json` and
+> `linking_summary_human.json` instead — the same summary plus an LLM evaluation of the
+> links, and a blank copy for your own annotation.
 
 ---
 
@@ -121,21 +125,29 @@ you ran the pipeline with figure extraction enabled (`--with-performance`).
     "notes": "Catalyst was reduced in H2 prior to activity measurement (not part of synthesis)."
   },
   "evaluation": {
-    "structural_completeness_score": 4.5,
-    "structural_completeness_reasoning": "All major fields populated; minor detail on drying oven vendor missing.",
-    "material_extraction_score": 5.0,
-    "material_extraction_reasoning": "Correct amounts, units, and purity values extracted.",
-    "process_steps_score": 4.0,
-    "process_steps_reasoning": "Steps in correct order; drying and calcination captured.",
-    "equipment_extraction_score": 4.5,
-    "equipment_extraction_reasoning": "Furnace and stirrer captured; oven brand missing.",
-    "conditions_extraction_score": 5.0,
-    "conditions_extraction_reasoning": "Temperatures, durations, and atmospheres all correct.",
-    "semantic_accuracy_score": 5.0,
-    "semantic_accuracy_reasoning": "All extracted information is faithful to the source.",
-    "format_compliance_score": 5.0,
-    "format_compliance_reasoning": "Schema fully respected.",
-    "overall_score": 4.71
+    "reasoning": "The extraction captures the impregnation route completely and adds nothing not present in the source text.",
+    "scores": {
+      "structural_completeness_score": 4.5,
+      "structural_completeness_reasoning": "All major fields populated; minor detail on drying oven vendor missing.",
+      "material_extraction_score": 5.0,
+      "material_extraction_reasoning": "Correct amounts, units, and purity values extracted.",
+      "process_steps_score": 4.0,
+      "process_steps_reasoning": "Steps in correct order; drying and calcination captured.",
+      "equipment_extraction_score": 4.5,
+      "equipment_extraction_reasoning": "Furnace and stirrer captured; oven brand missing.",
+      "conditions_extraction_score": 5.0,
+      "conditions_extraction_reasoning": "Temperatures, durations, and atmospheres all correct.",
+      "semantic_accuracy_score": 5.0,
+      "semantic_accuracy_reasoning": "All extracted information is faithful to the source.",
+      "format_compliance_score": 5.0,
+      "format_compliance_reasoning": "Schema fully respected.",
+      "overall_score": 4.71,
+      "overall_reasoning": "A faithful, near-complete extraction; only vendor-level details are missing."
+    },
+    "confidence_level": "high",
+    "missing_information": ["Calcination ramp rate for the second batch"],
+    "extraction_errors": [],
+    "improvement_suggestions": ["Capture the H2 reduction step in notes rather than omitting it."]
   },
   "performance": null
 }
@@ -152,7 +164,7 @@ you ran the pipeline with figure extraction enabled (`--with-performance`).
 | `material` | string | The material name exactly as extracted from the paper |
 | `synthesis` | object | The structured synthesis procedure (see below) |
 | `evaluation` | object | Quality scores from the LLM judge (see below) |
-| `performance` | object or null | Plot-linked performance data; `null` unless `--with-performance` was used |
+| `performance` | object or null | Plot-linked performance data; `null` unless `with_performance=true` was used |
 
 ---
 
@@ -229,15 +241,22 @@ you ran the pipeline with figure extraction enabled (`--with-performance`).
 | Field | Type | Description |
 |-------|------|-------------|
 | `step_number` | integer | Position in the sequence (starting from 1) |
-| `action` | string | One of the controlled verbs (see below) |
+| `action` | string | Short verb for the step — usually one of the suggested verbs below |
 | `description` | string or null | Free-text description of the step from the paper |
 | `materials` | list of `Material` | Materials involved in this specific step |
 | `equipment` | list of `Equipment` | Equipment used in this step |
 | `conditions` | `Conditions` or null | Physical conditions for this step |
 
-**Allowed `action` values:** `add`, `mix`, `heat`, `cool`, `reflux`, `age`, `filter`,
+**Suggested `action` values:** `add`, `mix`, `heat`, `cool`, `reflux`, `age`, `filter`,
 `wash`, `dry`, `reduce`, `calcine`, `dissolve`, `precipitate`, `centrifuge`, `sonicate`,
 `anneal`, `ion exchange`, `impregnate`
+
+> [!WARNING]
+> Unlike `synthesis_method` and `target_compound_type`, `action` is **not** a closed
+> enum — the model is asked to pick from this list, but the schema accepts any string,
+> so occasional values such as `"other"` or `"grind"` do occur. If you filter or group
+> by `action`, check the distinct values you actually got first:
+> `df["action"].value_counts()`.
 
 ---
 
@@ -273,8 +292,23 @@ the condition was absent.
 
 ### `evaluation` object — quality scores
 
+The seven scores live **inside** `evaluation.scores`, not directly under `evaluation`
+— so the path to the headline number is `evaluation.scores.overall_score`.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `reasoning` | string | The judge's high-level assessment, written before the scores |
+| `scores` | object | The seven dimensions plus `overall_score` (see table below) |
+| `confidence_level` | string | The judge's own confidence: `"low"`, `"medium"`, `"high"` |
+| `missing_information` | list of strings | Information present in the paper but absent from the extraction |
+| `extraction_errors` | list of strings | Specific inaccuracies the judge found |
+| `improvement_suggestions` | list of strings | How the extraction could be improved |
+
+`evaluation` itself is `null` when the judge was disabled or its call failed.
+
+#### `evaluation.scores`
+
 Each dimension is scored from **1** (poor) to **5** (excellent) by the LLM judge.
-A score of `null` means the judge did not produce a score for that dimension.
 
 | Field | What is being evaluated |
 |-------|------------------------|
@@ -287,9 +321,11 @@ A score of `null` means the judge did not produce a score for that dimension.
 | `format_compliance_score` | Does the output conform to the schema? |
 | `overall_score` | Arithmetic mean of all above scores |
 
-Each score comes with a `*_reasoning` field explaining the rationale.
+Each score comes with a `*_reasoning` field explaining the rationale, and
+`overall_score` is accompanied by `overall_reasoning`.
 
-> **Note on low scores:** A low score means the extraction is incomplete or inaccurate
+> [!NOTE]
+> A low score means the extraction is incomplete or inaccurate
 > relative to the source paper. It does **not** mean the synthesis itself was poor.
 > The judge follows the rule "absence is not an error" — it will not penalise for
 > omitting information that was never in the paper.
@@ -298,7 +334,7 @@ Each score comes with a `*_reasoning` field explaining the rationale.
 
 ## Performance data (`performance` field)
 
-Only present when `--with-performance` is used. Contains plot-linked data for this material.
+Only present when `with_performance=true` is used. Contains plot-linked data for this material.
 
 ```json
 "performance": {
@@ -341,9 +377,10 @@ from pathlib import Path
 result_file = Path("results/my_paper/Fe2O3.json")
 data = json.loads(result_file.read_text())
 
-print(data["material"])                        # "Fe2O3"
-print(data["synthesis"]["synthesis_method"])   # "hydrothermal"
-print(data["evaluation"]["overall_score"])     # 4.3
+print(data["material"])                                  # "Fe2O3"
+print(data["synthesis"]["synthesis_method"])             # "hydrothermal"
+print(data["evaluation"]["scores"]["overall_score"])     # 4.3
+print(data["evaluation"]["missing_information"])         # what the judge says was missed
 
 for step in data["synthesis"]["steps"]:
     print(f"Step {step['step_number']}: {step['action']} — {step['description']}")

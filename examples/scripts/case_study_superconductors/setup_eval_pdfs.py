@@ -1,10 +1,12 @@
 """Create a folder with symlinks/copies of just the 18 ground-truth PDFs.
 
 Usage:
-    python setup_eval_pdfs.py <path_to_selected_papers_dir> [--output <output_dir>]
+    python setup_eval_pdfs.py <path_to_selected_papers_dir> \
+        [--output <output_dir>]
 
 Example:
-    python setup_eval_pdfs.py /path/to/selected_papers --output /tmp/tc_eval_pdfs
+    python setup_eval_pdfs.py /path/to/selected_papers \
+        --output /tmp/tc_eval_pdfs
 """
 
 import argparse
@@ -19,9 +21,15 @@ GT_PATH = SCRIPT_DIR / "ground_truth_tc.xlsx"
 
 def main():
     parser = argparse.ArgumentParser(description="Set up eval PDF folder")
-    parser.add_argument("pdf_dir", type=Path, help="Path to selected_papers dir with all PDFs")
-    parser.add_argument("--output", type=Path, default=SCRIPT_DIR / "eval_pdfs",
-                        help="Output folder for filtered PDFs (default: eval_pdfs/)")
+    parser.add_argument(
+        "pdf_dir", type=Path, help="Path to selected_papers dir with all PDFs"
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=SCRIPT_DIR / "eval_pdfs",
+        help="Output folder for filtered PDFs (default: eval_pdfs/)",
+    )
     args = parser.parse_args()
 
     gt = pd.read_excel(GT_PATH)
