@@ -91,6 +91,14 @@ class DspyTextExtractor(MaterialExtractorInterface):
                         "Material extractor: all temperatures exhausted: %r",
                         e,
                     )
+            finally:
+                # lm is a throwaway copy.copy(self.lm) (see
+                # _lm_with_overrides) -- cost accumulates on the copy, not
+                # self.lm, so propagate it back or callers reading
+                # self.lm.get_cost() always see 0.
+                copy_cost = getattr(lm, "_cumulative_cost_usd", None)
+                if copy_cost and hasattr(self.lm, "_cumulative_cost_usd"):
+                    self.lm._cumulative_cost_usd += copy_cost
 
         if last_exc is None:
             # Defensive: the loop body always sets last_exc on failure and

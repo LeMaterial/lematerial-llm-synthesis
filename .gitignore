@@ -15,6 +15,7 @@ htmlcov/
 .ipynb_checkpoints/
 .jupyter/
 .local/
+.claude/
 
 # Editor-specific files
 .cursorindexingignore
@@ -25,6 +26,8 @@ logs/
 results/
 data/
 examples/data/figure_labeling/catalysis/*
+examples/notebooks/figures/*
+examples/notebooks/*.csv
 tmp/
 *.log
 *.db
@@ -49,3 +52,10 @@ annotations/annotation_guide_catalysis/annotation_guide_recording.mov
 # Documentation
 docs/_build/
 site/
+
+# Generated figures/data (kept locally, not in git)
+results/figures/
+examples/scripts/**/*.svg
+examples/scripts/**/*.pdf
+examples/scripts/**/*.png
+examples/scripts/**/*.csv

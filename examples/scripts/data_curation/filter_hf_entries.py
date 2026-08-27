@@ -82,8 +82,8 @@ def filter_dataset_entry(example):
     return is_valid_material_name(synthesized_material)
 
 
-def main():
-    dataset = load_dataset("LeMaterial/LeMat-Synth", name="full")
+def main(config_name="full", push=True):
+    dataset = load_dataset("LeMaterial/LeMat-Synth", name=config_name)
     splits = dataset.keys()
 
     total_removed_by_category = {
@@ -152,7 +152,10 @@ def main():
     logging.info(f"Total filtered entries: {total_original - total_removed}")
 
     # Push the filtered dataset back to hub
-    dataset.push_to_hub("LeMaterial/LeMat-Synth", create_pr=True)
+    if push:
+        dataset.push_to_hub(
+            "LeMaterial/LeMat-Synth", config_name=config_name, create_pr=True
+        )
 
 
 def analyze_removed_entries(dataset_split):
@@ -208,4 +211,8 @@ def analyze_removed_entries(dataset_split):
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+
+    push = "--push" in sys.argv
+    for config_name in ("full", "high_score"):
+        main(config_name=config_name, push=push)

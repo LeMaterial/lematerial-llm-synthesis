@@ -17,6 +17,7 @@ import json
 import os
 import re
 import sys
+import warnings
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -25,7 +26,7 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 from matplotlib.cm import ScalarMappable
-from matplotlib.colors import Normalize
+from matplotlib.colors import Normalize, to_rgb
 from matplotlib.lines import Line2D
 
 # ── Project style system ─────────────────────────────────────────────────
@@ -1189,8 +1190,42 @@ LANDSCAPE_FIGSIZE = {
 HEATMAP_FIGSIZE = {
     "default": (10, 6),
     "square": (3, 3),
-    "square-mod": (4, 4),
+    "square-mod": (3.5, 3),
 }
+
+
+def _add_row_n_column(fig, ax, counts, fontsize):
+    """Add a thin text-only column right of the heatmap showing total N per row
+    (sum across columns) — replaces illegible per-cell "n=" sub-labels.
+    """
+    fig_w = fig.get_size_inches()[0]
+    ax_pos = ax.get_position()
+    n_ax = fig.add_axes(
+        [ax_pos.x1 + 0.06 / fig_w, ax_pos.y0, 0.35 / fig_w, ax_pos.height]
+    )
+    n_ax.set_ylim(ax.get_ylim())
+    n_ax.set_xlim(0, 1)
+    n_ax.axis("off")
+    row_totals = counts.sum(axis=1)
+    for i, total in enumerate(row_totals):
+        n_ax.text(
+            0,
+            i,
+            f"{total}",
+            ha="left",
+            va="center",
+            color="black",
+        )
+    # Vertical label centered alongside the n-column
+    n_ax.text(
+        0.8,  # adjust left/right position
+        0.5,  # centered vertically
+        "Number of catalysts",
+        rotation=270,
+        ha="center",
+        va="center",
+        transform=n_ax.transAxes,
+    )
 
 
 def _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=0.0):
@@ -1238,7 +1273,22 @@ def _clean_landscape_df(df_curves, require_support=False):
     return df
 
 
-def make_landscape_fig(df_curves, color_by="metal", size="default"):
+def _darken(color, amount=0.25):
+    """Darken while preserving saturation."""
+    import colorsys
+
+    r, g, b = to_rgb(color)
+    h, lightness, s = colorsys.rgb_to_hls(r, g, b)
+
+    # Reduce lightness only
+    lightness *= 1 - amount
+
+    return colorsys.hls_to_rgb(h, lightness, s)
+
+
+def make_landscape_fig(
+    df_curves, color_by="metal", size="default", show_mean=False
+):
     """Conversion-landscape line chart, colored by one categorical field.
 
     One shared 2D template for what used to be three different figures
@@ -1295,6 +1345,7 @@ def make_landscape_fig(df_curves, color_by="metal", size="default"):
     fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=1.6)
 
     categories_present = set()
+    curves_by_cat = defaultdict(list)
     for _, row in df.iterrows():
         coords = np.array(row["coordinates"], dtype=float)
         if len(coords) < 2:
@@ -1306,8 +1357,33 @@ def make_landscape_fig(df_curves, color_by="metal", size="default"):
             cat = "Other"
         color = cfg["color_fn"](cat)
 
-        ax.plot(temps, convs, color=color, alpha=0.55, linewidth=1.0)
+        alpha = 0.25 if show_mean else 0.55
+        ax.plot(temps, convs, color=color, alpha=alpha, linewidth=1.0)
         categories_present.add(cat)
+        curves_by_cat[cat].append((temps, convs))
+
+    if show_mean:
+        grid = np.linspace(
+            df["coordinates"].apply(lambda c: np.array(c)[:, 0].min()).min(),
+            df["coordinates"].apply(lambda c: np.array(c)[:, 0].max()).max(),
+            100,
+        )
+        for cat, curves in curves_by_cat.items():
+            interpolated = [
+                np.interp(grid, temps, convs, left=np.nan, right=np.nan)
+                for temps, convs in curves
+            ]
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", category=RuntimeWarning)
+                mean_curve = np.nanmean(np.vstack(interpolated), axis=0)
+            valid = ~np.isnan(mean_curve)
+            ax.plot(
+                grid[valid],
+                mean_curve[valid],
+                color=_darken(cfg["color_fn"](cat)),
+                alpha=1.0,
+                linewidth=2.5,
+            )
 
     order = cfg["sort_fn"](categories_present)
     handles = [
@@ -1327,7 +1403,6 @@ def make_landscape_fig(df_curves, color_by="metal", size="default"):
     ax.set_ylabel(Y_LABEL)
     ax.set_ylim(-2, 105)
 
-    fig.savefig(OUT_DIR / f"{cfg['filename']}.png")
     fig.savefig(OUT_DIR / f"{cfg['filename']}.pdf")
     print(
         f"  ✓ Landscape (color_by={color_by}) saved"
@@ -1341,58 +1416,136 @@ def make_fig1(df_curves, size="default"):
     return make_landscape_fig(df_curves, color_by="metal", size=size)
 
 
-def make_metal_zoom_fig(df_curves, metal, size="default"):
-    """Zoom into one metal's conversion curves, colored by synthesis strategy.
+ZOOM_COLOR_BY_CONFIG = {
+    "synthesis_strategy": {
+        "column": "strategy",
+        "color_fn": get_strategy_color,
+        "sort_fn": lambda present: [s for s in STRATEGY_ORDER if s in present],
+        "legend_title": "Synthesis strategy",
+    },
+    "support": {
+        "column": "support",
+        "color_fn": get_support_color,
+        "sort_fn": _sorted_support_legend,
+        "legend_title": "Support",
+    },
+}
+
+
+def make_metal_zoom_fig(
+    df_curves, metal, size="square", color_by="synthesis_strategy"
+):
+    """Zoom into one metal's conversion curves, colored by strategy or support.
 
     Same landscape template as Figure 1/6/7, pre-filtered to a single metal
     (e.g. "Ni") so promoter/support variation within that metal's curves is
     readable — the same idea as filtering Figure 1 down to one row.
+
+    Args:
+        color_by: "synthesis_strategy" (default) or "support".
+        size: plot-area size key into HEATMAP_FIGSIZE — defaults to
+            "square" (3x3in) so this figure stacks cleanly with the
+            metal x support / metal x temperature heatmaps.
     """
+    if color_by not in ZOOM_COLOR_BY_CONFIG:
+        raise ValueError(
+            f"color_by must be one of {list(ZOOM_COLOR_BY_CONFIG)}"
+        )
+    cfg = ZOOM_COLOR_BY_CONFIG[color_by]
+
     if df_curves.empty or "is_plasma" not in df_curves.columns:
         print(f"  ⚠ No data for metal zoom ({metal})")
         return
-    df = _clean_landscape_df(df_curves)
+    df = _clean_landscape_df(df_curves, require_support=(color_by == "support"))
+
     df = df[df["metal"] == metal]
     if df.empty:
-        print(f"  ⚠ No curves for metal={metal}")
+        print(f"  ⚠ No curves for metal={metal} (color_by={color_by})")
         return
 
-    plot_w, plot_h = LANDSCAPE_FIGSIZE[size]
+    plot_w, plot_h = HEATMAP_FIGSIZE[size]
     fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h)
+    tick_fs, label_fs = (
+        (10, 11) if size in ("square", "square-mod") else (8, 10)
+    )
 
-    strategies_present = set()
+    categories_present = set()
+    curves_by_cat = defaultdict(list)
     for _, row in df.iterrows():
         coords = np.array(row["coordinates"], dtype=float)
         if len(coords) < 2:
             continue
         temps, convs = coords[:, 0], coords[:, 1]
-        strat = row.get("strategy", "Other")
-        if pd.isna(strat):
-            strat = "Other"
-        color = get_strategy_color(strat)
+        cat = row[cfg["column"]]
+        if pd.isna(cat) or str(cat).strip().lower() == "other":
+            continue
+        color = cfg["color_fn"](cat)
         ax.plot(
             temps,
             convs,
             color=color,
-            alpha=0.7,
-            linewidth=1.2,
+            alpha=0.5,
+            linewidth=0.8,
             marker="o",
-            markersize=3,
+            markersize=1.2,
         )
-        strategies_present.add(strat)
 
-    order = [s for s in STRATEGY_ORDER if s in strategies_present]
+        categories_present.add(cat)
+        curves_by_cat[cat].append((temps, convs))
+    grid = np.linspace(
+        df["coordinates"].apply(lambda c: np.array(c)[:, 0].min()).min(),
+        df["coordinates"].apply(lambda c: np.array(c)[:, 0].max()).max(),
+        100,
+    )
+    for cat, curves in curves_by_cat.items():
+        interpolated = [
+            np.interp(grid, temps, convs, left=np.nan, right=np.nan)
+            for temps, convs in curves
+        ]
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=RuntimeWarning)
+            mean_curve = np.nanmean(np.vstack(interpolated), axis=0)
+        valid = ~np.isnan(mean_curve)
+        mask = valid & (grid >= 250) & (grid <= 700)
+        ax.plot(
+            grid[mask],
+            mean_curve[mask],
+            color=_darken(cfg["color_fn"](cat)),
+            alpha=1.0,
+            linewidth=2,
+            linestyle="--",
+        )
+
+    order = cfg["sort_fn"](categories_present)
     handles = [
-        Line2D([0], [0], color=get_strategy_color(s), lw=2, label=s)
-        for s in order
+        Line2D([0], [0], color=_darken(cfg["color_fn"](c)), lw=2, label=c)
+        for c in order
     ]
+    handles.append(
+        Line2D(
+            [0],
+            [0],
+            color="black",
+            linestyle="--",
+            linewidth=2,
+            label="Average",
+        )
+    )
+
+    handles = sorted(
+        handles,
+        key=lambda h: len(h.get_label()),
+        reverse=True,
+    )
+
     ax.legend(
         handles=handles,
-        title="Synthesis strategy",
-        loc="lower right",
+        title=cfg["legend_title"],
+        loc="upper left",
+        bbox_to_anchor=(0, 0.85),
         frameon=False,
-        fontsize=8,
-        title_fontsize=9,
+        fontsize=tick_fs,
+        title_fontsize=label_fs,
     )
 
     ax.text(
@@ -1402,22 +1555,31 @@ def make_metal_zoom_fig(df_curves, metal, size="default"):
         transform=ax.transAxes,
         ha="left",
         va="top",
-        fontsize=14,
+        fontsize=label_fs + 3,
         fontweight="bold",
     )
-    ax.set_xlabel("Temperature (°C)")
-    ax.set_ylabel(Y_LABEL)
+    ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
+    ax.set_ylabel(Y_LABEL, fontsize=label_fs)
+    ax.tick_params(labelsize=tick_fs, direction="out")
     ax.set_ylim(-2, 105)
 
-    fname = f"fig_zoom_{metal}"
-    fig.savefig(OUT_DIR / f"{fname}.png")
-    fig.savefig(OUT_DIR / f"{fname}.pdf")
-    print(f"  ✓ Metal zoom saved (metal={metal}, {len(df)} curves)")
+    fname = f"fig_zoom_{metal}_by_{color_by}"
+    fig.savefig(OUT_DIR / f"{fname}.pdf", dpi=300, bbox_inches="tight")
+    fig.savefig(OUT_DIR / f"{fname}.svg", bbox_inches="tight")
+    print(
+        f"  ✓ Metal zoom saved (metal={metal}, color_by={color_by},"
+        f" {len(df)} curves)"
+    )
     return fig
 
 
-def make_fig2(df_curves):
-    """Figure 2: Metal x Support heatmap — best conversion at 500°C."""
+def make_fig2(df_curves, size="square"):
+    """Figure 2: Metal x Support heatmap — best conversion at 500°C.
+
+    Uses the same fixed plot-area sizing as make_fig2b_metal_temp_heatmap
+    (HEATMAP_FIGSIZE) and matching tick/label font sizes, so the two
+    heatmaps stack cleanly at identical dimensions.
+    """
     if df_curves.empty or "is_plasma" not in df_curves.columns:
         print("  ⚠ No data for Figure 2")
         return
@@ -1434,7 +1596,11 @@ def make_fig2(df_curves):
         print("  ⚠ No data for Figure 2")
         return
 
-    best = df.groupby(["metal", "support"])["conv_at_500"].max().reset_index()
+    best = (
+        df.groupby(["metal", "support"])["conv_at_500"]
+        .agg(conv_at_500="max", n_curves="count")
+        .reset_index()
+    )
 
     metals = sorted(
         best["metal"].unique(), key=lambda x: (x not in KNOWN_METALS, x)
@@ -1442,63 +1608,79 @@ def make_fig2(df_curves):
     supports = sorted(best["support"].unique())
 
     data = np.full((len(metals), len(supports)), np.nan)
+    counts = np.zeros((len(metals), len(supports)), dtype=int)
     for _, row in best.iterrows():
         i = metals.index(row["metal"])
         j = supports.index(row["support"])
         data[i, j] = row["conv_at_500"]
+        counts[i, j] = row["n_curves"]
 
-    fig, ax = plt.subplots(
-        figsize=(max(8, len(supports) * 0.9), max(4, len(metals) * 0.55))
-    )
+    plot_w, plot_h = HEATMAP_FIGSIZE[size]
+    fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=1.3)
 
     from matplotlib.colors import LinearSegmentedColormap
 
     cmap_heat = LinearSegmentedColormap.from_list(
         "pal_seq", [PAL[5], PAL[2], PAL[12]], N=256
     )
-    cmap_heat.set_bad(color=PAL[8])
+    cmap_heat.set_bad(color="white")
 
     im = ax.imshow(data, cmap=cmap_heat, vmin=0, vmax=100, aspect="auto")
+
+    tick_fs, label_fs = (
+        (10, 11) if size in ("square", "square-mod") else (8, 10)
+    )
 
     for i in range(len(metals)):
         for j in range(len(supports)):
             val = data[i, j]
             if np.isnan(val):
-                ax.text(
-                    j,
-                    i,
-                    "—",
-                    ha="center",
-                    va="center",
-                    fontsize=8,
-                    color="#cccccc",
-                )
-            else:
-                txt_color = "white" if val > 70 else "black"
-                ax.text(
-                    j,
-                    i,
-                    f"{val:.0f}",
-                    ha="center",
-                    va="center",
-                    fontsize=8,
-                    fontweight="bold",
-                    color=txt_color,
-                )
+                continue
+            txt_color = "white" if val > 70 else "black"
+            ax.text(
+                j,
+                i,
+                f"{val:.0f}",
+                ha="center",
+                va="center",
+                fontsize=tick_fs,
+                fontweight="bold",
+                color=txt_color,
+            )
 
     ax.set_xticks(range(len(supports)))
-    ax.set_xticklabels(supports, rotation=45, ha="right", fontsize=8)
+    ax.tick_params(direction="out")
+    ax.set_xticklabels(supports, rotation=45, ha="right", fontsize=tick_fs)
     ax.set_yticks(range(len(metals)))
-    ax.set_yticklabels(metals, fontsize=9)
-    ax.set_xlabel("Support Material")
-    ax.set_ylabel("Active Metal / Alloy")
+    ax.tick_params(
+        axis="y",
+        which="both",
+        left=True,
+        right=True,
+        direction="out",
+    )
+    ax.minorticks_off()
+    ax.set_yticklabels(metals, fontsize=tick_fs)
+    ax.set_xlabel("Support Material", fontsize=label_fs)
+    ax.set_ylabel("Active Metal / Alloy", fontsize=label_fs)
 
-    cbar = fig.colorbar(im, ax=ax, shrink=0.8, pad=0.02)
-    cbar.set_label(f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)")
+    _add_row_n_column(fig, ax, counts, tick_fs - 1)
 
-    fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.png")
-    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf")
+    fig_w = fig.get_size_inches()[0]
+    ax_pos = ax.get_position()
+    cax = fig.add_axes(
+        [ax_pos.x1 + 0.50 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+    )
+    cbar = fig.colorbar(im, cax=cax)
+    cbar.set_label(
+        f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)",
+        fontsize=label_fs,
+        rotation=270,
+    )
+    cbar.ax.tick_params(labelsize=tick_fs, direction="out")
+
+    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf", bbox_inches="tight")
+    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.svg", bbox_inches="tight")
     print(
         f"  ✓ Figure 2 saved ({len(metals)} metals × {len(supports)} supports)"
     )
@@ -1553,24 +1735,30 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
 
     metals = sorted(df["metal"].unique(), key=_metal_sort_key)
     data = np.full((len(metals), len(temp_bins)), np.nan)
+    row_totals = np.zeros((len(metals), 1), dtype=int)
     for i, metal in enumerate(metals):
         sub = df[df["metal"] == metal]
+        row_totals[i, 0] = len(sub)
         for j, t in enumerate(temp_bins):
             vals = [d[t] for d in sub["_interp"] if not np.isnan(d[t])]
             if vals:
                 data[i, j] = np.median(vals)
 
     plot_w, plot_h = HEATMAP_FIGSIZE[size]
-    fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=0.9)
+    fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=1.3)
 
     from matplotlib.colors import LinearSegmentedColormap
 
     cmap_heat = LinearSegmentedColormap.from_list(
         "pal_seq", [PAL[5], PAL[2], PAL[12]], N=256
     )
-    cmap_heat.set_bad(color=PAL[8])
+    cmap_heat.set_bad(color="white")
 
     im = ax.imshow(data, cmap=cmap_heat, vmin=0, vmax=100, aspect="auto")
+
+    tick_fs, label_fs = (
+        (10, 11) if size in ("square", "square-mod") else (8, 10)
+    )
 
     for i in range(len(metals)):
         for j in range(len(temp_bins)):
@@ -1584,34 +1772,41 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
                 f"{val:.0f}",
                 ha="center",
                 va="center",
-                fontsize=8,
+                fontsize=tick_fs,
                 fontweight="bold",
                 color=txt_color,
             )
-
-    tick_fs, label_fs = (
-        (10, 11) if size in ("square", "square-mod") else (8, 10)
-    )
     ax.set_xticks(range(len(temp_bins)))
+    ax.tick_params(direction="out")
     ax.set_xticklabels([f"{t:.0f}" for t in temp_bins], fontsize=tick_fs)
     ax.set_yticks(range(len(metals)))
+    ax.tick_params(
+        axis="y",
+        which="both",
+        left=True,
+        right=True,
+        direction="out",
+    )
+    ax.minorticks_off()
     ax.set_yticklabels(metals, fontsize=tick_fs)
     ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
     ax.set_ylabel("Active Metal / Alloy", fontsize=label_fs)
+
+    _add_row_n_column(fig, ax, row_totals, tick_fs - 1)
 
     # Colorbar as its own fixed-width axes (inside the legend_w padding
     # reserved by _make_axes_fixed_plot_area) so it doesn't shrink `ax`.
     fig_w, fig_h = fig.get_size_inches()
     ax_pos = ax.get_position()
     cax = fig.add_axes(
-        [ax_pos.x1 + 0.35 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
+        [ax_pos.x1 + 0.50 / fig_w, ax_pos.y0, 0.15 / fig_w, ax_pos.height]
     )
     cbar = fig.colorbar(im, cax=cax)
-    cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs)
+    cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs, rotation=270)
     cbar.ax.tick_params(labelsize=tick_fs)
 
-    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.png")
-    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.pdf")
+    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.pdf", bbox_inches="tight")
+    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.svg", bbox_inches="tight")
     print(
         f"  ✓ Figure 2b saved ({len(metals)} metals {len(temp_bins)} temp bins)"
     )
@@ -1724,7 +1919,6 @@ def make_fig3(df_synthesis):
     ax.axis("off")
 
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig3_synthesis_network.png")
     fig.savefig(OUT_DIR / "fig3_synthesis_network.pdf")
     print(
         f"  ✓ Figure 3 saved"
@@ -1851,7 +2045,6 @@ def make_fig4(df_curves, df_synthesis):
         y=1.01,
     )
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig4_radar_charts.png")
     fig.savefig(OUT_DIR / "fig4_radar_charts.pdf")
     print(f"  ✓ Figure 4 saved (top {len(top)} catalysts)")
     return fig
@@ -1934,7 +2127,6 @@ def make_fig5a_promoter(df_curves, size="default"):
     ax1.set_title(f"Promoter Effect on {METRIC_NAME.capitalize()}", fontsize=10)
 
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig5a_promoter_effect.png")
     fig.savefig(OUT_DIR / "fig5a_promoter_effect.pdf")
     print(
         f"  ✓ Figure 5a saved ({len(pair_data)} promoter pairs auto-detected)"
@@ -2025,7 +2217,6 @@ def make_fig5b_conditions(df_curves, df_synthesis, size="default"):
     ax2.set_title("Synthesis Conditions → Performance", fontsize=10)
 
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "fig5b_synthesis_conditions.png")
     fig.savefig(OUT_DIR / "fig5b_synthesis_conditions.pdf")
     print(f"  ✓ Figure 5b saved ({len(df_scatter)} materials)")
     return fig

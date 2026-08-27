@@ -20,6 +20,13 @@ from transformers import AutoModelForCausalLM, AutoProcessor
 
 logger = logging.getLogger(__name__)
 
+# ponytail: process-wide cache keyed by (repo_id, base_model, device) --
+# _load_model() does a from_pretrained + LoRA merge (multi-second disk/CPU
+# work), and callers were constructing a fresh FlorenceSegmenter per paper.
+# Swap for an explicit shared-instance/DI pattern if this ever needs to be
+# evicted or run with multiple concurrent model variants.
+_MODEL_CACHE: dict[tuple[str, str, str], tuple] = {}
+
 
 @dataclass
 class Detection:
@@ -92,7 +99,14 @@ class FlorenceSegmenter:
             pass
 
     def _load_model(self):
-        """Load the Florence-2 base model with LoRA adapters."""
+        """Load the Florence-2 base model with LoRA adapters (cached)."""
+        cache_key = (self.repo_id, self.base_model, self.device)
+        cached = _MODEL_CACHE.get(cache_key)
+        if cached is not None:
+            self.processor, self.model = cached
+            logger.info("Reusing cached Florence-2 model on %s", self.device)
+            return
+
         self._patch_florence_config()
 
         logger.info("Loading Florence-2 base model: %s", self.base_model)
@@ -115,6 +129,7 @@ class FlorenceSegmenter:
         model = model.merge_and_unload()
 
         self.model = model.to(self.device)
+        _MODEL_CACHE[cache_key] = (self.processor, self.model)
 
         logger.info("Florence-2 model loaded on %s", self.device)
 
