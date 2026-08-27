@@ -21,7 +21,6 @@ import warnings
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from anthropic.types import direct_caller
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -1191,7 +1190,7 @@ LANDSCAPE_FIGSIZE = {
 HEATMAP_FIGSIZE = {
     "default": (10, 6),
     "square": (3, 3),
-    "square-mod": (4, 4),
+    "square-mod": (3.5, 3),
 }
 
 
@@ -1219,10 +1218,10 @@ def _add_row_n_column(fig, ax, counts, fontsize):
         )
     # Vertical label centered alongside the n-column
     n_ax.text(
-        0.8,                  # adjust left/right position
-        0.5,                   # centered vertically
+        0.8,  # adjust left/right position
+        0.5,  # centered vertically
         "Number of catalysts",
-        rotation=270,       
+        rotation=270,
         ha="center",
         va="center",
         transform=n_ax.transAxes,
@@ -1277,13 +1276,14 @@ def _clean_landscape_df(df_curves, require_support=False):
 def _darken(color, amount=0.25):
     """Darken while preserving saturation."""
     import colorsys
+
     r, g, b = to_rgb(color)
-    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    h, lightness, s = colorsys.rgb_to_hls(r, g, b)
 
     # Reduce lightness only
-    l *= (1 - amount)
+    lightness *= 1 - amount
 
-    return colorsys.hls_to_rgb(h, l, s)
+    return colorsys.hls_to_rgb(h, lightness, s)
 
 
 def make_landscape_fig(
@@ -1489,7 +1489,7 @@ def make_metal_zoom_fig(
             marker="o",
             markersize=1.2,
         )
-        
+
         categories_present.add(cat)
         curves_by_cat[cat].append((temps, convs))
     grid = np.linspace(
@@ -1518,11 +1518,13 @@ def make_metal_zoom_fig(
 
     order = cfg["sort_fn"](categories_present)
     handles = [
-        Line2D([0], [0], color=_darken(cfg["color_fn"](c)), lw=2, label=c) for c in order
+        Line2D([0], [0], color=_darken(cfg["color_fn"](c)), lw=2, label=c)
+        for c in order
     ]
     handles.append(
-    Line2D(
-            [0], [0],
+        Line2D(
+            [0],
+            [0],
             color="black",
             linestyle="--",
             linewidth=2,
@@ -1646,7 +1648,6 @@ def make_fig2(df_curves, size="square"):
                 color=txt_color,
             )
 
-
     ax.set_xticks(range(len(supports)))
     ax.tick_params(direction="out")
     ax.set_xticklabels(supports, rotation=45, ha="right", fontsize=tick_fs)
@@ -1672,12 +1673,14 @@ def make_fig2(df_curves, size="square"):
     )
     cbar = fig.colorbar(im, cax=cax)
     cbar.set_label(
-        f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)", fontsize=label_fs, rotation=270
+        f"Best {METRIC_NAME} at {REF_TEMP:.0f} °C (%)",
+        fontsize=label_fs,
+        rotation=270,
     )
-    cbar.ax.tick_params(labelsize=tick_fs, direction = "out")
+    cbar.ax.tick_params(labelsize=tick_fs, direction="out")
 
-    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf")
-    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.svg")
+    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.pdf", bbox_inches="tight")
+    fig.savefig(OUT_DIR / "fig2_metal_support_heatmap.svg", bbox_inches="tight")
     print(
         f"  ✓ Figure 2 saved ({len(metals)} metals × {len(supports)} supports)"
     )
@@ -1732,14 +1735,14 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
 
     metals = sorted(df["metal"].unique(), key=_metal_sort_key)
     data = np.full((len(metals), len(temp_bins)), np.nan)
-    counts = np.zeros((len(metals), len(temp_bins)), dtype=int)
+    row_totals = np.zeros((len(metals), 1), dtype=int)
     for i, metal in enumerate(metals):
         sub = df[df["metal"] == metal]
+        row_totals[i, 0] = len(sub)
         for j, t in enumerate(temp_bins):
             vals = [d[t] for d in sub["_interp"] if not np.isnan(d[t])]
             if vals:
                 data[i, j] = np.median(vals)
-                counts[i, j] = len(vals)
 
     plot_w, plot_h = HEATMAP_FIGSIZE[size]
     fig, ax = _make_axes_fixed_plot_area(plot_w, plot_h, legend_w=1.3)
@@ -1789,9 +1792,7 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
     ax.set_xlabel("Temperature (°C)", fontsize=label_fs)
     ax.set_ylabel("Active Metal / Alloy", fontsize=label_fs)
 
-    # row N = max curves seen in any single temp bin (not sum -- a curve spans
-    # multiple bins, so summing across columns double-counts it)
-    _add_row_n_column(fig, ax, counts.max(axis=1, keepdims=True), tick_fs - 1)
+    _add_row_n_column(fig, ax, row_totals, tick_fs - 1)
 
     # Colorbar as its own fixed-width axes (inside the legend_w padding
     # reserved by _make_axes_fixed_plot_area) so it doesn't shrink `ax`.
@@ -1804,8 +1805,8 @@ def make_fig2b_metal_temp_heatmap(df_curves, temp_bins=None, size="square"):
     cbar.set_label(f"Median {METRIC_NAME} (%)", fontsize=label_fs, rotation=270)
     cbar.ax.tick_params(labelsize=tick_fs)
 
-    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.pdf")
-    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.svg")
+    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.pdf", bbox_inches="tight")
+    fig.savefig(OUT_DIR / "fig2b_metal_temp_heatmap.svg", bbox_inches="tight")
     print(
         f"  ✓ Figure 2b saved ({len(metals)} metals {len(temp_bins)} temp bins)"
     )
