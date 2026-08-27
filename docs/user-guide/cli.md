@@ -20,7 +20,7 @@ customize the extraction instructions.
 ## Quick Reference: All Arguments
 
 All settings — models, prompts, domain, output path — live in
-`config/cli.yaml` at the repository root.  You can override any of them
+`examples/config/cli.yaml`.  You can override any of them
 directly on the command line using [Hydra](https://hydra.cc) `key=value`
 syntax.
 
@@ -59,7 +59,7 @@ syntax.
 ### Basic usage
 
 ```bash
-# Uses all defaults from config/cli.yaml
+# Uses all defaults from examples/config/cli.yaml
 lemat-synth extract paper.txt
 
 # Custom output folder
@@ -170,7 +170,7 @@ lemat-synth batch papers/ \
 
 ## Configuration Details
 
-All arguments in the [Quick Reference table](#quick-reference-all-arguments) above can be overridden from the command line. Defaults are read from `config/cli.yaml`.
+All arguments in the [Quick Reference table](#quick-reference-all-arguments) above can be overridden from the command line. Defaults are read from `examples/config/cli.yaml`.
 
 ### Model strings
 
@@ -264,7 +264,7 @@ Add these to your `.env` file (automatically loaded at runtime):
 ## Customizing Prompts
 
 Every prompt used during extraction can be customized. The full set of
-prompt keys is in `config/cli.yaml` under the `prompts:` block:
+prompt keys is in `examples/config/cli.yaml` under the `prompts:` block:
 
 | Prompt | Purpose |
 |--------|---------|

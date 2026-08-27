@@ -5,7 +5,7 @@ Provides two commands:
     lemat-synth extract <input>    [key=value ...]   # one paper (PDF or text)
     lemat-synth batch   <input-dir> [key=value ...]  # folder of papers
 
-Configuration is driven by ``config/cli.yaml`` at the repository root.
+Configuration is driven by ``examples/config/cli.yaml``.
 Every setting can be overridden on the command line using Hydra key=value
 syntax.  Examples::
 
@@ -14,7 +14,7 @@ syntax.  Examples::
     lemat-synth extract paper.txt \\
         "prompts.synthesis_instructions=Extract only the main route."
 
-For a full list of configurable keys see ``config/cli.yaml`` or the CLI
+For a full list of configurable keys see ``examples/config/cli.yaml`` or the CLI
 reference in the documentation.
 """
 
@@ -79,8 +79,8 @@ app = typer.Typer(
     help=(
         "LeMat-Synth: extract structured synthesis procedures from "
         "materials science papers.\n\n"
-        "Configuration is read from config/cli.yaml at the repository "
-        "root and can be overridden with Hydra key=value arguments.\n\n"
+        "Configuration is read from examples/config/cli.yaml and can be "
+        "overridden with Hydra key=value arguments.\n\n"
         "Run 'lemat-synth extract --help' or 'lemat-synth batch --help' "
         "for per-command usage."
     ),
@@ -123,9 +123,10 @@ def _resolve_api_key(env_var_name: str | None) -> str | None:
 
 
 def _load_cli_cfg(overrides: list[str]) -> Any:
-    """Load config/cli.yaml and apply Hydra key=value overrides."""
+    """Load examples/config/cli.yaml and apply Hydra key=value overrides."""
     GlobalHydra.instance().clear()
-    config_dir = str(Path(__file__).resolve().parents[2] / "config")
+    repo_root = Path(__file__).resolve().parents[2]
+    config_dir = str(repo_root / "examples" / "config")
     with initialize_config_dir(config_dir=config_dir, version_base=None):
         return compose(config_name="cli", overrides=overrides)
 
@@ -376,7 +377,7 @@ def extract(
 ) -> None:
     """Extract synthesis procedures from a single paper.
 
-    Settings are read from config/cli.yaml and can be overridden with
+    Settings are read from examples/config/cli.yaml and can be overridden with
     Hydra key=value arguments passed after the file path.
 
     \b
@@ -463,7 +464,7 @@ def batch(
 ) -> None:
     """Extract synthesis procedures from a folder of papers.
 
-    Settings are read from config/cli.yaml and can be overridden with
+    Settings are read from examples/config/cli.yaml and can be overridden with
     Hydra key=value arguments passed after the directory path.
 
     \b

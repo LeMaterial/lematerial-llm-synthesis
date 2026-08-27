@@ -14,7 +14,7 @@ There are two independent entry points, and **they do not share configuration**.
 
 | | `lemat-synth` CLI | Hydra deployment scripts |
 |---|---|---|
-| Config file | `config/cli.yaml` (one flat file) | `examples/config/` (config groups) |
+| Config file | `examples/config/cli.yaml` (one flat file) | `examples/config/` (config groups) |
 | Run it with | `lemat-synth extract paper.pdf` | `uv run examples/scripts/deployment/<script>.py` |
 | Model names | LiteLLM strings (`gemini/gemini-2.0-flash`) | registry keys (`gemini-2.0-flash`) |
 | Overrides | `key=value` | `key=value` **and** `group=variant` |
