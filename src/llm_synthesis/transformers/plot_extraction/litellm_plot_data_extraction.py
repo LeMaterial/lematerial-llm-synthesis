@@ -2,6 +2,7 @@
 
 import logging
 import re
+import threading
 
 import litellm
 
@@ -43,6 +44,14 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
         self.extra_kwargs = extra_kwargs or {}
         self.retry_temperatures = retry_temperatures or [temperature, 0.3, 0.5]
         self._cumulative_cost_usd = 0.0
+        # This extractor instance is shared across all worker threads in
+        # run_from_hf.py's ThreadPoolExecutor (built once in
+        # build_pipeline()) -- without a lock, concurrent += on a shared
+        # float silently drops updates and per-paper before/after cost
+        # snapshots pick up other papers' concurrent cost, both of which
+        # were observed inflating per-paper cost readings ~10x under
+        # --workers 12.
+        self._cost_lock = threading.Lock()
 
     def forward(self, input: FigureInfoWithPaper) -> ExtractedLinePlotData:
         figure_base64 = input.base64_data
@@ -93,7 +102,8 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
                 # Track cost
                 try:
                     cost = litellm.completion_cost(completion_response=response)
-                    self._cumulative_cost_usd += cost
+                    with self._cost_lock:
+                        self._cumulative_cost_usd += cost
                 except Exception:
                     pass
 
@@ -197,9 +207,11 @@ class LiteLLMPlotDataExtractor(LinePlotDataExtractorInterface):
         return ExtractedLinePlotData(**data)
 
     def get_cost(self) -> float:
-        return self._cumulative_cost_usd
+        with self._cost_lock:
+            return self._cumulative_cost_usd
 
     def reset_cost(self) -> float:
-        old = self._cumulative_cost_usd
-        self._cumulative_cost_usd = 0.0
+        with self._cost_lock:
+            old = self._cumulative_cost_usd
+            self._cumulative_cost_usd = 0.0
         return old

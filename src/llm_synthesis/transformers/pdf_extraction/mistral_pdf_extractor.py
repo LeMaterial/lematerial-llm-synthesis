@@ -5,7 +5,10 @@ import mimetypes
 import os
 import time
 
-from mistralai.client import Mistral
+try:
+    from mistralai.client import Mistral
+except ImportError:
+    from mistralai import Mistral
 
 from llm_synthesis.transformers.pdf_extraction.base import (
     PdfExtractorInterface,
@@ -116,11 +119,14 @@ class MistralPDFExtractor(PdfExtractorInterface):
             except Exception as e:
                 if attempt == self.max_retries - 1:
                     raise
-                delay = self.retry_base_delay * (2 ** attempt)
+                delay = self.retry_base_delay * (2**attempt)
                 LOGGER.warning(
                     "Mistral OCR call failed (attempt %d/%d): %s. "
                     "Retrying in %.1fs...",
-                    attempt + 1, self.max_retries, e, delay,
+                    attempt + 1,
+                    self.max_retries,
+                    e,
+                    delay,
                 )
                 time.sleep(delay)
 
@@ -133,11 +139,14 @@ class MistralPDFExtractor(PdfExtractorInterface):
             except Exception as e:
                 if attempt == self.max_retries - 1:
                     raise
-                delay = self.retry_base_delay * (2 ** attempt)
+                delay = self.retry_base_delay * (2**attempt)
                 LOGGER.warning(
                     "Mistral OCR async call failed (attempt %d/%d): %s. "
                     "Retrying in %.1fs...",
-                    attempt + 1, self.max_retries, e, delay,
+                    attempt + 1,
+                    self.max_retries,
+                    e,
+                    delay,
                 )
                 await asyncio.sleep(delay)
 

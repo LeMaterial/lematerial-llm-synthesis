@@ -43,6 +43,7 @@ SUPERCONDUCTOR_CSV_COLUMNS = [
     "tc_vlm_zero",
     "tc_vlm_source",
     "tc_vlm_source_plot",
+    "tc_vlm_high_flag",
     "tc_best",
     "tc_best_source",
     "has_text_tc",
@@ -263,6 +264,7 @@ class CsvMasterWriter(BaseOutputWriter):
             vlm_source = (
                 vlm_entry.get("source", "main plot") if vlm_entry else None
             )
+            vlm_high_flag = vlm_entry.get("high_tc_flag", False)
 
             vlm_source_plot = None
             for mapping in result.plot_mappings:
@@ -306,6 +308,7 @@ class CsvMasterWriter(BaseOutputWriter):
                     "tc_vlm_zero": vlm_zero,
                     "tc_vlm_source": vlm_source,
                     "tc_vlm_source_plot": vlm_source_plot,
+                    "tc_vlm_high_flag": vlm_high_flag,
                     "tc_best": tc_best,
                     "tc_best_source": tc_best_source,
                     "has_text_tc": text_tc is not None,

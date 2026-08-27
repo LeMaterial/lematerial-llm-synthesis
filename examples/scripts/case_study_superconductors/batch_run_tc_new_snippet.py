@@ -5,9 +5,9 @@ Batch Tc Extraction Script — Snippet-Enhanced + Synthesis
 Runs the full superconductivity Tc extraction pipeline on every PDF in a folder.
 Features:
   - Synthesis extraction (method, steps, evaluation)
-  - Supports MULTI-CONDITION Tc from text (same material at different 
+  - Supports MULTI-CONDITION Tc from text (same material at different
     pressures, etc.)
-  - Runs DUAL VLM Tc extraction: original (single image) + snippet (full + 
+  - Runs DUAL VLM Tc extraction: original (single image) + snippet (full +
     bottom-left crop)
 
 Usage:
@@ -42,14 +42,15 @@ if _ssl_cert and os.path.exists(_ssl_cert):
     os.environ.setdefault("SSL_CERT_DIR", os.path.dirname(_ssl_cert))
 
 # ── Add src to path ──
-SRC_PATH = Path(__file__).resolve().parent.parent.parent / "src"
+# Script lives at examples/scripts/case_study_superconductors/ → 4 parents up
+SRC_PATH = Path(__file__).resolve().parent.parent.parent.parent / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv(
-    Path(__file__).resolve().parent.parent.parent / ".env", override=True
+    Path(__file__).resolve().parent.parent.parent.parent / ".env", override=True
 )
 
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
@@ -60,9 +61,11 @@ logging.getLogger("LiteLLM").setLevel(logging.ERROR)
 logging.getLogger("litellm").setLevel(logging.ERROR)
 
 # ── Model config ──
-GEMINI_MODEL = "gemini-3.0-flash"
+GEMINI_MODEL = "deepseek-v3.2"
 CLAUDE_MODEL = "claude-sonnet-4-6"
-LINKER_MODEL = "gemini-3.0-flash"
+# VLM model for Tc extraction — override to use Qwen via OpenRouter
+VLM_MODEL = "qwen3.5-397b-a17b"
+LINKER_MODEL = "deepseek-v3.2"
 
 
 # =============================================================================
@@ -689,6 +692,23 @@ Read Tc values directly from it:
   inset_tc_<series_name>: <value> K
 These serve as a REFERENCE for Step 4 cross-check.
 
+STEP 0.7 — DETECT CONDITION-VARYING PLOTS:
+Check if the different series in this plot represent the SAME material
+measured under different external conditions (magnetic field H, pressure P,
+etc.) rather than different compositions.
+
+Signs of a condition-varying plot:
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T",
+  "5 T")
+- Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
+- All series are the same material formula with only field/pressure changing
+
+If this is a condition-varying plot:
+- Report: condition_variable: <magnetic_field|pressure|none>
+- Extract Tc ONLY for the zero-field / ambient-pressure series
+- Do NOT create separate entries for each field/pressure value
+- Do NOT append field/pressure values to material names
+
 {materials_context_block}
 
 STEP 1 — IDENTIFY SERIES:
@@ -738,6 +758,7 @@ Compare which series transitions at higher vs lower T.
 
 Output format:
 
+condition_variable: <magnetic_field|pressure|none>
 inset_detected: <yes/no>
 inset_type: <"zoomed_rt" | "tc_summary" | "other" | "none">
 inset_description: <brief description or "N/A">
@@ -825,6 +846,23 @@ Read Tc values directly:
   inset_tc_<series_name>: <value> K
 These serve as a REFERENCE for Step 4 cross-check.
 
+STEP 0.7 — DETECT CONDITION-VARYING PLOTS:
+Check if the different series in this plot represent the SAME material
+measured under different external conditions (magnetic field H, pressure P,
+etc.) rather than different compositions.
+
+Signs of a condition-varying plot:
+- Legend entries differ only by a field/pressure value (e.g., "0 T", "1 T",
+  "5 T")
+- Legend uses "H = ...", "B = ...", "P = ...", "GPa" labels
+- All series are the same material formula with only field/pressure changing
+
+If this is a condition-varying plot:
+- Report: condition_variable: <magnetic_field|pressure|none>
+- Extract Tc ONLY for the zero-field / ambient-pressure series
+- Do NOT create separate entries for each field/pressure value
+- Do NOT append field/pressure values to material names
+
 {materials_context_block}
 
 STEP 1 — IDENTIFY SERIES:
@@ -896,6 +934,7 @@ Compare which series transitions at higher vs lower T.
 
 Output format:
 
+condition_variable: <magnetic_field|pressure|none>
 inset_detected: <yes/no>
 inset_type: <"zoomed_rt" | "tc_summary" | "other" | "none">
 inset_description: <brief description or "N/A">
@@ -1106,8 +1145,13 @@ def parse_direct_tc_response(response_text: str) -> dict:
     results = {}
     current = None
     inset_tc_raw = None
+    condition_variable = "none"
     for line in response_text.strip().split("\n"):
         line = line.strip()
+        # Parse condition_variable (appears before any Series: block)
+        if line.lower().startswith("condition_variable:") and current is None:
+            condition_variable = line.split(":", 1)[1].strip().lower()
+            continue
         if line.lower().startswith("inset_tc_values:") and current is None:
             inset_tc_raw = line.split(":", 1)[1].strip()
             continue
@@ -1138,6 +1182,8 @@ def parse_direct_tc_response(response_text: str) -> dict:
         for series_name, tc_val in inset_pairs.items():
             if series_name in results:
                 results[series_name]["inset_tc"] = tc_val
+    # Store condition_variable as metadata
+    results["__condition_variable__"] = {"value": condition_variable}
     return results
 
 
@@ -1169,7 +1215,28 @@ def _parse_inset_tc_values(raw: str, known_series: dict) -> dict:
     return result
 
 
+def filter_condition_varying_series(vlm_results: dict) -> dict:
+    """Remove non-ambient series when the plot varies field or pressure."""
+    meta = vlm_results.pop("__condition_variable__", None)
+    condition = (meta or {}).get("value", "none")
+    if condition == "none":
+        return vlm_results
+    field_pattern = re.compile(
+        r"(?:\d+\.?\d*)\s*(?:T|Tesla|Oe|kOe)\b", re.IGNORECASE
+    )
+    pressure_pattern = re.compile(
+        r"(?:\d+\.?\d*)\s*(?:GPa|kbar|Mbar)\b", re.IGNORECASE
+    )
+    pattern = (
+        field_pattern if condition == "magnetic_field" else pressure_pattern
+    )
+    filtered = {k: v for k, v in vlm_results.items() if not pattern.search(k)}
+    return filtered if filtered else vlm_results
+
+
 def sanity_check_delta_tc(vlm_results: dict) -> dict:
+    # First filter out non-ambient series if condition_variable is set
+    vlm_results = filter_condition_varying_series(vlm_results)
     corrected = {}
     for series_name, vals in vlm_results.items():
         corrected[series_name] = dict(vals)
@@ -1496,7 +1563,6 @@ def process_one_paper(
     pdf_path: Path, output_dir: Path, skip_figures: bool = False
 ):
     """Run the full Tc extraction pipeline (with synthesis) on a single PDF."""
-    import anthropic
 
     from llm_synthesis.models.paper import Paper
     from llm_synthesis.transformers.material_extraction.dspy_extraction import (
@@ -1558,7 +1624,7 @@ def process_one_paper(
         ),
     )
     material_lm = get_llm_from_name(
-        "gemini-3.0-pro", model_kwargs={"temperature": 0.0, "max_tokens": 16000}
+        GEMINI_MODEL, model_kwargs={"temperature": 0.0, "max_tokens": 16000}
     )
     material_extractor = DspyTextExtractor(
         signature=material_sig, lm=material_lm
@@ -1581,6 +1647,7 @@ def process_one_paper(
     from llm_synthesis.transformers.synthesis_extraction import (
         dspy_synthesis_extraction as _dse_module,
     )
+
     dspy_synthesis_extractor_cls = _dse_module.DspySynthesisExtractor
     make_dspy_synthesis_extractor_signature = (
         _dse_module.make_dspy_synthesis_extractor_signature
@@ -1832,8 +1899,7 @@ def process_one_paper(
             # Step 4: Extract plot data
             print("[Step 5] Extracting plot data (Claude VLM)...")
             from llm_synthesis.models.figure import FigureInfoWithPaper
-            from llm_synthesis.transformers.plot_extraction \
-                .claude_extraction.plot_data_extraction import (
+            from llm_synthesis.transformers.plot_extraction.claude_extraction.plot_data_extraction import (  # noqa: E501
                 ClaudeLinePlotDataExtractor,
             )
             from llm_synthesis.utils.figure_utils import clean_text_from_images
@@ -1922,7 +1988,6 @@ def process_one_paper(
                     "[Step 7] Extracting Tc from R(T) plots — "
                     "DUAL (original + snippet)..."
                 )
-                _anthropic_client = anthropic.Anthropic()
                 _cost_original = 0.0
                 _cost_snippet = 0.0
 
@@ -1934,9 +1999,31 @@ def process_one_paper(
                 def _call_vlm(
                     fig_b64: str, prompt: str, crop_b64: str | None = None
                 ) -> tuple[str, float]:
-                    """Claude VLM call — single image or two images
-                    (full + crop).
+                    """VLM call via litellm — single image or two images
+                    (full + crop). Supports any model in LLM_REGISTRY
+                    (OpenRouter/Qwen, Claude, etc.).
                     """
+                    import litellm
+
+                    from llm_synthesis.utils.llms import LLM_REGISTRY
+
+                    model = VLM_MODEL
+                    kwargs = {}
+                    if model in LLM_REGISTRY.configs:
+                        cfg = LLM_REGISTRY.configs[model]
+                        model = cfg.model
+                        if cfg.api_key:
+                            kwargs["api_key"] = cfg.api_key
+                        if cfg.api_base:
+                            kwargs["api_base"] = cfg.api_base
+                        for k, v in (cfg.extra_kwargs or {}).items():
+                            if k not in (
+                                "thinking",
+                                "reasoning_effort",
+                                "enable_thinking",
+                            ):
+                                kwargs[k] = v
+
                     content = []
                     if crop_b64:
                         content.append(
@@ -1945,13 +2032,12 @@ def process_one_paper(
                                 "text": "Image 1 — FULL R(T) plot:",
                             }
                         )
+                    img_mime = _img_type(fig_b64)
                     content.append(
                         {
-                            "type": "image",
-                            "source": {
-                                "type": "base64",
-                                "media_type": _img_type(fig_b64),
-                                "data": fig_b64,
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:{img_mime};base64,{fig_b64}"
                             },
                         }
                     )
@@ -1965,28 +2051,40 @@ def process_one_paper(
                                 ),
                             }
                         )
+                        crop_mime = _img_type(crop_b64)
                         content.append(
                             {
-                                "type": "image",
-                                "source": {
-                                    "type": "base64",
-                                    "media_type": _img_type(crop_b64),
-                                    "data": crop_b64,
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": (
+                                        f"data:{crop_mime};base64,{crop_b64}"
+                                    )
                                 },
                             }
                         )
                     content.append({"type": "text", "text": prompt})
 
-                    msg = _anthropic_client.messages.create(
-                        model=CLAUDE_MODEL,
+                    response = litellm.completion(
+                        model=model,
                         max_tokens=4096,
                         temperature=0.0,
                         messages=[{"role": "user", "content": content}],
+                        **kwargs,
                     )
-                    cost = (msg.usage.input_tokens / 1e6) * 3.0 + (
-                        msg.usage.output_tokens / 1e6
-                    ) * 15.0
-                    return msg.content[0].text, cost
+                    try:
+                        cost = litellm.completion_cost(
+                            completion_response=response
+                        )
+                    except Exception:
+                        cost = 0.0
+                    text = response.choices[0].message.content
+                    if text is None:
+                        raise ValueError(
+                            "VLM returned empty content "
+                            f"(finish_reason="
+                            f"{response.choices[0].finish_reason})"
+                        )
+                    return text, cost
 
                 for idx, plot in relevant_plots:
                     fig = plot_figures[idx]
@@ -2065,12 +2163,10 @@ def process_one_paper(
                 from llm_synthesis.models.performance import (
                     PlotMaterialMapping,
                 )
-                from llm_synthesis.transformers.performance_linking \
-                    .base import (
+                from llm_synthesis.transformers.performance_linking.base import (  # noqa: E501
                     LinkingInput,
                 )
-                from llm_synthesis.transformers.performance_linking \
-                    .series_material_linker import (
+                from llm_synthesis.transformers.performance_linking.series_material_linker import (  # noqa: E501
                     SeriesMaterialLinker,
                 )
 
