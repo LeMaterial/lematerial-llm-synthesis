@@ -243,18 +243,14 @@ for the full workflow.
 If you use LeMat-Synth in your research, please cite:
 
 ```bibtex
-@article{lederbauer2025lemat,
-  title={LeMat-Synth: a multi-modal toolbox to curate broad synthesis procedure
-         databases from scientific literature},
-  author={Lederbauer, Magdalena and Betala, Siddharth and Li, Xiyao and
-          Jain, Ayush and Sehaba, Amine and Channing, Georgia and
-          Germain, Gr{\'e}goire and Leonescu, Anamaria and Flaifil, Faris and
-          Amayuelas, Alfonso and Nozadze, Alexandre and Schmid, Stefan P. and
-          Zaki, Mohd and Ethirajan, Sudheesh Kumar and Pan, Elton and
-          Franckel, Mathilde and Duval, Alexandre and Krishnan, N. M. Anoop and
-          Gleason, Samuel P.},
-  journal={arXiv preprint arXiv:2510.26824},
-  year={2025}
+@misc{lederbauer2026lematsynthmultimodaltoolboxcurate,
+      title={LeMat-Synth: a multi-modal toolbox to curate broad synthesis procedure databases from scientific literature}, 
+      author={Magdalena Lederbauer and Siddharth Betala and Valerie Gentzke and Anamaria Leonescu and Amine Sehaba and Faris Flaifil and Ayush Jain and Alfonso Amayuelas and Nikhil Yelamarthy and Xiyao Li and Grégoire Germain and Stefano Ribes and Stefan P. Schmid and Alexandre Nozadze and Anna Kelmanson and Sudheesh Kumar Ethirajan and Mohd Zaki and Elton Pan and Georgia Channing and Connor W. Coley and Philippe Schwaller and Rocío Mercado and Alexandre Duval and Mathilde L. D. Franckel and Samuel P. Gleason},
+      year={2026},
+      eprint={2510.26824},
+      archivePrefix={arXiv},
+      primaryClass={cs.DL},
+      url={https://arxiv.org/abs/2510.26824}, 
 }
 ```
 
